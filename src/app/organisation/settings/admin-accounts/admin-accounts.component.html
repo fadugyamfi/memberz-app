@@ -1,0 +1,182 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+
+      </div>
+
+      <div class="col-md-6 text-right">
+        <!-- <button class="btn btn-primary btn-sm m-r-10" (click)="showSearchModal()">
+          <i class="fa fa-search"></i> Find Users
+        </button> -->
+
+        <button class="btn btn-info btn-sm m-r-10" (click)="showEditor()">
+          <i class="fa fa-user-plus"></i> Add Account
+        </button>
+
+        <!-- <button class="btn btn-sm btn-outline-info m-r-10">
+            <i class="fa fa-file-excel-o"></i> Export
+          </button>
+  
+          <button class="btn btn-sm btn-outline-dark">
+            <i class="fa fa-print"></i> Print
+          </button> -->
+      </div>
+    </div>
+
+  </div>
+
+  <div class="m-t-50 text-center" *ngIf="!recordsPresent()">
+    <h3>No Search Results Found</h3>
+    <p>Please search for members to display results here</p>
+  </div>
+
+  <div class="loader-box m-auto" *ngIf="accountService.requesting">
+    <span class="rotate dashed colored"></span>
+  </div>
+
+  <table class="table table-bordered table-hover table-striped">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Role</th>
+        <th class="text-center">Activation</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+
+
+    <tbody>
+      <tr *ngFor="let account of accountData; let row = index">
+        <td>{{ accountService.pagingMeta?.from + row }}</td>
+
+        <td>
+          <img src="{{ account.member_account?.member?.thumbnail() }}" default='assets/images/user/user.png'
+               class="img-thumbnail rounded-circle img-40 m-r-15" />
+          {{ account.member_account?.member?.lastThenFirstName() }}
+        </td>
+
+        <td>{{ account.organisation_role?.name }}</td>
+
+        <td class="text-center">
+          <div class="text-danger" *ngIf="!account.active">Pending</div>
+          <div class="text-success" *ngIf="account.active">Active</div>
+        </td>
+
+        <td class="text-center">
+          <!-- <button class="btn btn-xs btn-primary m-r-5" (click)="viewAccount(account)">
+            <i class="fa fa-file"></i> View
+          </button> -->
+
+          <button class="btn btn-xs btn-info m-r-5" (click)="showEditor(account)">
+            <i class="fa fa-pencil"></i> Edit
+          </button>
+
+          <button class="btn btn-xs btn-danger" (click)="deleteAccount(account)">
+            <i class="fa fa-trash-o"></i> Remove
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- <div class="card-footer">
+    <app-pagination [service]="accountService" (paginate)="onPaginate($event)"></app-pagination>
+  </div> -->
+</div>
+
+
+<ng-template #editorModal let-modal>
+  <form (submit)="onSubmit($event)" class="form theme-form" [formGroup]="editorForm">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ modalTitle }}</h4>
+
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-group row" *ngIf="editingAccount">
+        <label class="col-4 col-form-label">Member Name</label>
+        <div class="col-8">
+          <div class="media">
+            <div class="media-left m-r-10">
+              <img [src]="editingAccount?.member_account?.member?.thumbnail()" default='assets/images/user/user.png'
+                   class="img-thumbnail rounded-circle img-40 middle" />
+            </div>
+            <div class="media-body">
+              <div class="form-control form-control-sm bg-light text-dark">
+                {{ editingAccount?.member_account?.member?.lastThenFirstName() }}
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="editingAccount">
+        <label class="col-4 col-form-label">Member Email</label>
+        <div class="col-8">
+          <div class="form-control form-control-sm bg-light text-dark">
+            {{ editingAccount?.member_account?.username || editingAccount?.member_account?.member?.email }}
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row" *ngIf="!editingAccount">
+        <label class="col-4 col-form-label">Member Name</label>
+        <div class="col-8">
+          <div class="media">
+            <div class="media-left m-r-10">
+              <img [src]="selectedMember?.member?.thumbnail()" default='assets/images/user/user.png' class="img-thumbnail rounded-circle img-40" />
+            </div>
+            <div class="media-body">
+              <input type="text" class="form-control" [ngbTypeahead]="searchMember" [resultTemplate]="rt"
+                     [inputFormatter]="formatter" placeholder="Enter Member Name" (selectItem)="setSelectedMember($event)" />
+
+              <ng-template #rt let-r="result" let-t="term">
+                <img [src]="r.member?.thumbnail()" default='assets/images/user/user.png'
+                     class="img-thumbnail rounded-circle img-40 m-r-10">
+                <ngb-highlight [result]="r.member?.firstThenLastName()" [term]="t"></ngb-highlight>
+              </ng-template>
+            </div>
+          </div>
+
+          <div class="messages text-danger" *ngIf="editorForm.controls.member_account_id?.errors?.required">
+            <p>Existing Member Required</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-4 col-form-label">Role</label>
+        <div class="col-8">
+          <select class="form-control" formControlName="organisation_role_id">
+            <option value="">Select Role</option>
+            <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
+          </select>
+
+          <div class="messages text-danger" *ngIf="editorForm.controls.organisation_role_id?.errors?.required">
+            <p>Role required</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="form-group row">
+        <label class="col-4 col-form-label">Activated</label>
+        <div class="col-8">
+          <ui-switch formControlName="active" [disabled]="true"></ui-switch>
+        </div>
+      </div> -->
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+  </form>
+</ng-template>

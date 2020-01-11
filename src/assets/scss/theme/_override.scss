@@ -1,0 +1,24 @@
+international-phone-number {
+  .input-group {
+    margin-bottom: 2px;
+
+    .dropbtn.btn {
+      border-radius: 0px;
+      background-color: $light-color;
+      padding: 7px 15px;
+    }
+
+    .dropbtn.btn:hover {
+      background-color: $secondary-color;
+    }
+  }
+
+}
+
+
+div.messages.text-danger {
+  p {
+    margin-bottom: 0px;
+    font-size: 12px;
+  }
+}

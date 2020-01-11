@@ -1,0 +1,142 @@
+<div class="row">
+  <div class="col-sm-10 offset-sm-1">
+
+    <div class="card">
+      <div class="card-body pricing-card-design-1">
+        <div class="row pricing-content">
+          <div class="col-md-4">
+            <div class="pricing-block card text-center">
+              <svg x="0" y="0" viewBox="0 0 360 220">
+                <g>
+                  <path fill="#4466f2"
+                        d="M0.732,193.75c0,0,29.706,28.572,43.736-4.512c12.976-30.599,37.005-27.589,44.983-7.061                                          c8.09,20.815,22.83,41.034,48.324,27.781c21.875-11.372,46.499,4.066,49.155,5.591c6.242,3.586,28.729,7.626,38.246-14.243                                          s27.202-37.185,46.917-8.488c19.715,28.693,38.687,13.116,46.502,4.832c7.817-8.282,27.386-15.906,41.405,6.294V0H0.48                                          L0.732,193.75z">
+                  </path>
+                </g>
+                <text transform="matrix(1 0 0 1 140 110)" fill="#fff" font-size="90">0</text>
+                <text transform="matrix(0.9566 0 0 1 200 60)" fill="#fff" font-size="15">GHS</text>
+                <text transform="matrix(1 0 0 1 200 96)" fill="#fff" font-size="15.4128">/Month</text>
+
+              </svg>
+              <div class="pricing-inner">
+                <h3 class="font-primary">FREE</h3>
+                <ul class="pricing-inner">
+                  <li>
+                    <h6><b>250</b> Member Contacts</h6>
+                  </li>
+                  <li>
+                    <h6><b>25</b> FREE SMS (one time)</h6>
+                  </li>
+                  <li>
+                    <h6><b>5</b> Admin Accounts</h6>
+                  </li>
+                  <li>
+                    <h6>Membership Management</h6>
+                  </li>
+                  <li>
+                    <h6>Membership Reports</h6>
+                  </li>
+                  <li>
+                    <h6>SMS Messaging Portal</h6>
+                  </li>
+                </ul>
+                <button class="btn btn-primary btn-lg" type="button" data-original-title="btn btn-primary btn-lg"
+                        title="" [awGoToStep]="{ stepIndex: 3 }" (click)="saveSubscriptionType('free2')">
+                  Choose Plan
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="pricing-block card text-center pricing-active">
+              <svg x="0" y="0" viewBox="0 0 360 220">
+                <g>
+                  <path fill="#4466f2"
+                        d="M0.732,193.75c0,0,29.706,28.572,43.736-4.512c12.976-30.599,37.005-27.589,44.983-7.061                                          c8.09,20.815,22.83,41.034,48.324,27.781c21.875-11.372,46.499,4.066,49.155,5.591c6.242,3.586,28.729,7.626,38.246-14.243                                          s27.202-37.185,46.917-8.488c19.715,28.693,38.687,13.116,46.502,4.832c7.817-8.282,27.386-15.906,41.405,6.294V0H0.48                                          L0.732,193.75z">
+                  </path>
+                </g>
+                <text transform="matrix(1 0 0 1 100 100)" fill="#fff" font-size="75">49</text>
+                <text transform="matrix(0.9566 0 0 1 190 60)" fill="#fff" font-size="15">GHS</text>
+                <text transform="matrix(1 0 0 1 190 96)" fill="#fff" font-size="15.4128">/Month</text>
+
+                <text transform="matrix(1 0 0 1 110 130)" fill="#fff" font-size="18">GHC 490</text>
+                <!-- <text transform="matrix(0.9566 0 0 1 197.3096 83.9121)" fill="#fff" font-size="29.0829">.99</text> -->
+                <text transform="matrix(1 0 0 1 195 130)" fill="#fff" font-size="12">/year</text>
+              </svg>
+              <div class="pricing-inner">
+                <h3>BASIC</h3>
+                <ul class="pricing-inner">
+                  <li>
+                    <h6><b>Unlimited</b> Member Contacts</h6>
+                  </li>
+                  <li>
+                    <h6><b>100</b> FREE SMS /month</h6>
+                  </li>
+                  <li>
+                    <h6><b>Unlimited</b> Admin Accounts</h6>
+                  </li>
+                  <li>
+                    <h6>FREE PLAN Features</h6>
+                  </li>
+                  <li>
+                    <h6>Income Tracking</h6>
+                  </li>
+                  <li>
+                    <h6>Online Payments</h6>
+                  </li>
+                </ul>
+                <button class="btn btn-primary btn-lg" type="button" data-original-title="btn btn-primary btn-lg"
+                        title="" awNextStep (click)="saveSubscriptionType('sms_pro')">Choose Plan</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="pricing-block card text-center">
+              <svg x="0" y="0" viewBox="0 0 360 220">
+                <g>
+                  <path fill="#3a55c5"
+                        d="M0.732,193.75c0,0,29.706,28.572,43.736-4.512c12.976-30.599,37.005-27.589,44.983-7.061                                          c8.09,20.815,22.83,41.034,48.324,27.781c21.875-11.372,46.499,4.066,49.155,5.591c6.242,3.586,28.729,7.626,38.246-14.243                                          s27.202-37.185,46.917-8.488c19.715,28.693,38.687,13.116,46.502,4.832c7.817-8.282,27.386-15.906,41.405,6.294V0H0.48                                          L0.732,193.75z">
+                  </path>
+                </g>
+                <text transform="matrix(1 0 0 1 80 100)" fill="#fff" font-size="75">149</text>
+                <text transform="matrix(0.9566 0 0 1 210 60)" fill="#fff" font-size="15">GHS</text>
+                <text transform="matrix(1 0 0 1 210 96)" fill="#fff" font-size="15.4128">/Month</text>
+
+                <text transform="matrix(1 0 0 1 110 130)" fill="#fff" font-size="18">GHC 1,490</text>
+                <!-- <text transform="matrix(0.9566 0 0 1 197.3096 83.9121)" fill="#fff" font-size="29.0829">.99</text> -->
+                <text transform="matrix(1 0 0 1 210 130)" fill="#fff" font-size="12">/year</text>
+              </svg>
+              <div class="pricing-inner">
+                <h3 class="font-primary">PRO</h3>
+                <ul class="pricing-inner">
+                  <li>
+                    <h6><b>Unlimited</b> Member Contacts</h6>
+                  </li>
+                  <li>
+                    <h6><b>250</b> FREE SMS /month</h6>
+                  </li>
+                  <li>
+                    <h6><b>Unlimited</b> Admin Accounts</h6>
+                  </li>
+                  <li>
+                    <h6>BASIC PLAN Features</h6>
+                  </li>
+                  <li>
+                    <h6>Expenditure Tracking</h6>
+                  </li>
+                  <li>
+                    <h6>Membership Cards</h6>
+                  </li>
+                </ul>
+                <button class="btn btn-primary btn-lg" type="button" data-original-title="btn btn-primary btn-lg"
+                        title="" awNextStep (click)="saveSubscriptionType('pro2')">Choose Plan</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

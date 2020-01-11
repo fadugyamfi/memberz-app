@@ -1,0 +1,181 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn btn-primary btn-sm m-r-10" (click)="showEditorModal()">
+          <i class="fa fa-plus"></i> Add Category
+        </button>
+      </div>
+
+      <div class="col-md-6 text-right">
+        <button class="btn btn-outline-info btn-sm m-r-10" (click)="showSearchModal()">
+          <i class="fa fa-search"></i> Find Categories
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="m-t-50 text-center" *ngIf="categories && categories.length == 0">
+    <h3>No Search Results Found</h3>
+    <p>Please search for categories to display results here</p>
+  </div>
+
+  <div class="loader-box m-auto" *ngIf="!categories">
+    <span class="rotate dashed colored"></span>
+  </div>
+
+  <table class="table table-bordered table-hover" *ngIf="categories && categories.length > 0">
+    <thead>
+      <tr>
+        <th colspan="2">Name</th>
+        <th class="text-center">Status</th>
+        <th class="text-center">Total Members</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
+
+
+    <tbody>
+      <tr *ngFor="let category of categories; let row = index">
+        <td class="text-right">{{ row + categoryService?.pagingMeta?.from }}.</td>
+        <td>
+          <div>{{ category.name }}</div>
+          <small class="text-muted">{{ category.description }}</small>
+        </td>
+        <td class="text-center">
+          <span class="badge badge-success" *ngIf="category.default">Default</span>
+        </td>
+        <td class="text-center">{{ category.organisation_member_count }}</td>
+
+        <td class="text-center">
+          <!-- <button class="btn btn-xs btn-info m-r-10" (click)="viewCategory(category)">
+            <i class="fa fa-file"></i> View
+          </button> -->
+
+          <button class="btn btn-xs btn-primary m-r-10" (click)="showEditorModal(category)">
+            <i class="fa fa-pencil"></i> Edit
+          </button>
+
+          <button class="btn btn-xs btn-danger" (click)="deleteCategory(category)">
+            <i class="fa fa-trash-o"></i> Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-footer">
+    <app-pagination [service]="categoryService" (paginate)="onPaginate($event)"></app-pagination>
+  </div>
+</div>
+
+
+<ng-template #searchModal let-modal>
+  <form (submit)="onSearch($event)" class="form form-horizontal theme-form" [formGroup]="searchForm">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Find Categories</h4>
+      <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Name</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" placeholder="e.g. Default" formControlName="name_like" />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary">Search</button>
+      <button type="reset" class="btn btn-outline-info">Clear</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #editorModal let-modal>
+  <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="editorForm">
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-basic-title">Membership Category Editor</h5>
+      <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Name</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="e.g. Default" formControlName="name" />
+          <div class="messages text-danger" *ngIf="editorForm.controls.name?.errors?.required">
+            <p class="m-b-0 m-t-5">Name Required</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Description</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="e.g. Main Category Members Get Added To"
+                 formControlName="description" />
+          <div class="messages text-danger" *ngIf="editorForm.controls.description?.errors?.required">
+            <p class="m-b-0 m-t-5">Description Required</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Auto Generate IDs</label>
+        <div class="col-sm-9">
+          <ui-switch formControlName="auto_gen_ids" class="align-middle m-r-10"></ui-switch>
+          <span class='text-muted small align-middle'>New Membership Records Will Have Auto Generated Membership
+            Numbers</span>
+        </div>
+      </div>
+
+      <div class="form-group row" [@showFormGroup]="autoGeneratingIDs">
+        <label class="col-sm-3 col-form-label">Membership ID Format</label>
+        <div class="col-sm-2">
+          <input type="text" class="form-control" placeholder="Prefix" formControlName="id_prefix" />
+        </div>
+
+        <div class="col-sm-2">
+          <input type="number" class="form-control" placeholder="Increment" formControlName="id_next_increment" />
+        </div>
+
+        <div class="col-sm-2">
+          <input type="text" class="form-control" placeholder="Suffix" formControlName="id_suffix" />
+        </div>
+
+        <label class="col-form-label col-sm-3 f-12"> 
+            <i>Example: <span>{{ exampleID }}</span></i>
+        </label>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">Default Category</label>
+        <div class="col-sm-9">
+          <ui-switch formControlName="default" class="align-middle m-r-10"></ui-switch>
+          <span class='text-muted small align-middle'>This will be the default category for adding and searching for
+            members</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <span *ngIf="categoryService?.requesting" class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i> Saving
+        ...</span>
+
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+  </form>
+</ng-template>

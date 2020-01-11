@@ -1,0 +1,132 @@
+<ng-template #editorModal let-modal>
+  <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="profileForm">
+    <div class="modal-header bg-dark d-block">
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+      <h4 class="modal-title d-block f-none" id="modal-basic-title">{{ modalTitle | titlecase }}</h4>
+      <p class="mb-0 d-block">
+        New organisations are created with a Free Tier Plan, and you can upgrade for additional functionality
+      </p>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">* Type of Organisation</div>
+        <div class="col-sm-9">
+          <select class="form-control" formControlName="organisation_type_id">
+            <option value="">Select Type</option>
+            <option *ngFor="let type of orgTypes" [value]="type.id">{{ type.name }}</option>
+          </select>
+
+          <div class="text-danger" *ngIf="profileForm.controls.organisation_type_id?.errors?.required">
+            Organisation Type Required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">* Name</div>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="Enter Name Here" formControlName="name" />
+
+          <div class="text-danger" *ngIf="profileForm.controls.name?.errors?.required">
+            Name Of Organisation Required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">* Email</div>
+        <div class="col-sm-9">
+          <input type="email" class="form-control" placeholder="e.g. info@example.com" formControlName="email" />
+
+          <div class="text-danger" *ngIf="profileForm.controls.email?.errors?.required">
+            Email Required
+          </div>
+
+          <div class="text-danger" *ngIf="profileForm.controls.email?.errors?.email">
+            Email Invalid
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">* Phone</div>
+        <div class="col-sm-9">
+          <international-phone-number formControlName="phone" [defaultCountry]="'gh'" placeholder="Enter phone number">
+          </international-phone-number>
+
+          <div class="text-danger" *ngIf="profileForm.controls.phone?.errors?.required">
+            Phone Number Required
+          </div>
+
+          <div class="messages text-danger" *ngIf="profileForm.controls.phone?.errors?.phoneEmptyError">
+            <p>Phone number invalid</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">* Country</div>
+        <div class="col-sm-9">
+          <select class="form-control" formControlName="country_id">
+            <option value="">Select Country</option>
+            <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+          </select>
+
+          <div class="text-danger" *ngIf="profileForm.controls.country_id?.errors?.required">
+            Country Required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">Street Address</div>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="" formControlName="address" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">City</div>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="" formControlName="city"  />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">State / Region</div>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="" formControlName="state"  />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">Post / Zip Code</div>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="e.g. 00000" formControlName="post_code"  />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">Website Address</div>
+        <div class="col-sm-9">
+          <input type="url" class="form-control" placeholder="e.g. http://www.example.com" formControlName="website"  />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <span *ngIf="organisationService.requesting" class="m-r-25">
+        <i class="fa fa-spin fa-circle-o-notch"></i> Saving ...
+      </span>
+
+      <button type="submit" class="btn btn-primary"> Save Changes</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+    </div>
+  </form>
+</ng-template>

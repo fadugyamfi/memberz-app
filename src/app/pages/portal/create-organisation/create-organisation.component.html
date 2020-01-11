@@ -1,0 +1,26 @@
+<aw-wizard [navBarLayout]="'large-filled-symbols'" #wizard>
+  <!-- [defaultStepIndex]="2" -->
+
+  <app-profile-step #profileStep awWizardStep stepTitle="Organisation Profile" [navigationSymbol]="{ symbol: '1' }"
+                    class="w-100" [canExit]="profileStep.canExit()" (saveProfile)="onSaveProfile($event)">
+  </app-profile-step>
+
+  <app-subscription-step awWizardStep stepTitle="Choose Plan" [navigationSymbol]="{ symbol: '2' }" class="w-100"
+                         (selectSubscription)="onSelectSubscriptionType($event)">
+  </app-subscription-step>
+
+  <app-payment-step awWizardStep stepTitle="Payment" awOptionalStep [navigationSymbol]="{ symbol: '3' }" class="w-100"
+                    (savePayment)="onSavePayment($event)">
+  </app-payment-step>
+
+
+  <app-review-step #reviewStep awWizardStep stepTitle="Review" [navigationSymbol]="{ symbol: '4' }" class="w-100"
+                   [canEnter]="reviewStep.canEnter()" (stepEnter)="reviewStep.loadData()" 
+                   [organisation]="organisation" (reviewCompleted)="createOrganisation()">
+  </app-review-step>
+
+
+  <aw-wizard-completion-step stepTitle="Setup Complete">
+    <h5>Setup Complete</h5>
+  </aw-wizard-completion-step>
+</aw-wizard>

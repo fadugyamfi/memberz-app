@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-sm-12">
+
+    <div class="card">
+      <div class="card-header">
+        <h5>Please review the information below</h5>
+      </div>
+
+      <div class="card-body">
+        <div class="form-group row">
+          <div class="col-sm-3 col-form-label">
+            New Organisation Name:
+          </div>
+          <div class="col-sm-7">
+            <div class="form-control-plaintext font-weight-bold">{{ organisation?.name | titlecase }}</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-3 col-form-label">
+            Subscription Type:
+          </div>
+          <div class="col-sm-7">
+            <div class="form-control-plaintext font-weight-bold">{{ subscriptionType?.description | titlecase }}</div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-3 col-form-label">
+            Subscription Type:
+          </div>
+          <div class="col-sm-7">
+            <div class="form-control-plaintext font-weight-bold">{{ subscriptionType?.description | titlecase }}</div>
+          </div>
+        </div>
+
+
+        <div class='form-group row'>
+          <div class='col-sm-3 col-form-label'>
+            Policy Agreement
+          </div>
+
+          <div class='col-sm-9'>
+            <label>
+              <input type="checkbox" [(ngModel)]="policyAccepted" />
+              I agree to the Terms & Conditions for using this service.
+            </label>
+
+
+            <a href="//www.iubenda.com/privacy-policy/846189" class="iubenda-white iubenda-embed"
+               title="Privacy Policy">
+              Privacy Policy
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="col-sm-12">
+  <div class="card">
+    <div class="card-footer text-center">
+      <button type="button" class="btn btn-danger m-r-15" awPreviousStep>
+        <i class="fa fa-long-arrow-left"></i> Previous Step
+      </button>
+
+      <button type="button" class="btn btn-primary m-r-15" [disabled]="!policyAccepted" (click)="completeReview()">
+        <i class="fa fa-save"></i> Create Organisation
+      </button>
+    </div>
+  </div>
+</div>

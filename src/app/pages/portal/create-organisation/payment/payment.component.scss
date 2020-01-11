@@ -1,0 +1,20 @@
+.col-form-label {
+    font-weight: bold;
+    text-align: right;
+}
+
+.btn-group {
+    .btn {
+        &.active {
+            .text-active {
+                display: inline-block;
+            }
+        }
+
+        &:not(.active) {
+            .text-active {
+                display: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,323 @@
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { OrganisationMemberService } from '../../../shared/services/cakeapi/organisation-member.service';
+import { OrganisationMember } from '../../../shared/model/cakeapi/organisation-member';
+import { Router } from '@angular/router';
+import { NgbModal, NgbActiveModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { OrganisationMemberCategoryService } from '../../../shared/services/cakeapi/organisation-member-category.service';
+import { OrganisationMemberCategory } from '../../../shared/model/cakeapi/organisation-member-category';
+import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { EventsService } from '../../../shared/services/events.service';
+import Swal from 'sweetalert2';
+import { StorageService } from '../../../shared/services/storage.service';
+
+@Component({
+  selector: 'app-profiles',
+  templateUrl: './profiles.component.html',
+  styleUrls: ['./profiles.component.scss'],
+  providers: [NgbDropdownConfig]
+})
+export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  @ViewChild('searchModal', { static: true }) searchModal: any;
+  @ViewChild('changeCategoryModal', { static: true }) changeCategoryModal: any;
+
+  public members: OrganisationMember[] = [];
+  public categories: OrganisationMemberCategory[];
+  public searchForm: FormGroup;
+  public changeCategoryForm: FormGroup;
+  public allSelected = false;
+
+  public cacheDataKey = 'searched_members';
+  public cachePagingKey = 'searched_members_paging';
+  public cacheOptionsKey = 'searched_members_options';
+
+  constructor(
+    public organisationMemberService: OrganisationMemberService,
+    public categoryService: OrganisationMemberCategoryService,
+    public router: Router,
+    public modalService: NgbModal,
+    public dropdownConfig: NgbDropdownConfig,
+    public events: EventsService,
+    public storage: StorageService
+  ) {
+    dropdownConfig.placement = 'bottom';
+    dropdownConfig.autoClose = true;
+  }
+
+  ngOnInit() {
+    this.fetchMemberCategories();
+    this.setupSearchForm();
+    this.setupChangeCategoryForm();
+    this.setupEvents();
+  }
+
+  ngAfterViewInit() {
+    if( this.storage.isValid( this.cacheDataKey ) ) {
+      this.loadDataFromCache();
+    } else {
+      this.showSearchModal();
+    }
+  }
+
+  ngOnDestroy() {
+    this.removeEvents();
+  }
+
+  /**
+   * Loads the list of member categories to display on the form
+   */
+  fetchMemberCategories() {
+    this.categoryService.getAll({ active: 1, limit: '100', sort: 'default:desc,name:asc' }).subscribe((categories: OrganisationMemberCategory[]) => {
+      this.categories = categories;
+    });
+  }
+
+  loadDataFromCache() {
+    this.members = this.storage.get(this.cacheDataKey).map(data => new OrganisationMember(data));
+    this.events.trigger('OrganisationMember:paging', this.storage.get(this.cachePagingKey));
+    this.searchForm.patchValue( this.storage.get(this.cacheOptionsKey) );
+  }
+
+  clearCacheData() {
+    this.storage.remove(this.cacheDataKey);
+    this.storage.remove(this.cachePagingKey);
+    this.storage.remove(this.cacheOptionsKey);
+  }
+
+  storeCacheData() {
+    const duration = 5;
+    const unit = 'minutes';
+    this.storage.set(this.cacheDataKey, this.members, duration, unit);
+    this.storage.set(this.cacheOptionsKey, this.searchForm.value, duration, unit);
+    this.storage.set(this.cachePagingKey, this.organisationMemberService.pagingMeta, duration, unit);
+  }
+
+  /**
+   * Loads the list of members from the backend
+   * 
+   * @param options 
+   * @param page 
+   * @param limit 
+   */
+  loadMemberships(options: object, page = 1, limit = 15) {
+    this.members = null;
+    this.clearCacheData();
+
+    this.organisationMemberService.findMembers(options, page, limit).subscribe((members: OrganisationMember[]) => {
+      this.members = members;
+      this.storeCacheData();
+      this.allSelected = false;
+    });
+  }
+
+  /**
+   * Returns true if data has been loaded from the search
+   */
+  dataAvailable() {
+    return this.members && this.members.length > 0;
+  }
+
+  /**
+   * Returns true if no data is available
+   */
+  emptyDataset() {
+    return this.members && this.members.length == 0;
+  }
+
+  /**
+   * Sets the member profile to view and navigates to the details page
+   * 
+   * @param profile OrganisationMember
+   */
+  viewProfile(profile: OrganisationMember) {
+    this.organisationMemberService.setSelectedModel(profile);
+    this.router.navigate(['/organisation/memberships/view', profile.id]);
+  }
+
+  /**
+   * Sets the member profile to edit and navigates to the editor page
+   */
+  editProfile(profile: OrganisationMember) {
+    this.organisationMemberService.setSelectedModel(profile);
+    this.router.navigate(['/organisation/memberships/edit', profile.id])
+  }
+
+  /**
+   * Sets up the search form group and validations
+   */
+  setupSearchForm() {
+    this.searchForm = new FormGroup({
+      organisation_member_category_id: new FormControl(''),
+      organisation_no: new FormControl(''),
+      first_name_like: new FormControl(),
+      last_name_like: new FormControl(),
+      email_like: new FormControl(),
+      mobile_number_like: new FormControl()
+    });
+  }
+
+  /**
+   * Setup listeners for model changes
+   */
+  setupEvents() {
+    this.events.on('OrganisationMember:updated', (profile) => {
+      this.members.forEach((g, index) => {
+        if (g.id === profile.id) {
+          this.members[index] = profile;
+          return false;
+        }
+      });
+    });
+
+    this.events.on('OrganisationMember:deleted', (profile) => {
+      Swal.close();
+      this.members.forEach((g, index) => {
+        if (g.id === profile.id) {
+          this.members.splice(index, 1);
+          return false;
+        }
+      });
+    });
+  }
+
+  /**
+   * Remove listeners waiting on model changes
+   */
+  removeEvents() {
+    this.events.off('OrganisationMember:updated');
+    this.events.off('OrganisationMember:deleted');
+  }
+
+  /**
+   * Shows the search modal
+   */
+  showSearchModal() {
+    this.modalService.open(this.searchModal, {});
+  }
+
+  /**
+   * Handles the searching functionality
+   * 
+   * @param e Event
+   */
+  onSearch(e: Event) {
+    e.preventDefault();
+
+    let data = this.searchForm.value;
+
+    this.loadMemberships(data);
+    this.modalService.dismissAll();
+  }
+
+  /**
+   * Handles the pagination events
+   * 
+   * @param event PageEvent
+   */
+  onPaginate(event: PageEvent) {
+    this.loadMemberships(this.searchForm.value, event.page, event.limit);
+  }
+
+  /**
+   * Toggles the selected state of members on the list
+   */
+  toggleAllSelected() {
+    this.allSelected = !this.allSelected;
+    this.members.forEach(profile => profile.selected = this.allSelected);
+  }
+
+  toggleSelected(profile: OrganisationMember) {
+    profile.selected = !profile.selected;
+  }
+
+  /**
+   * Returns are list of members selected from the list
+   */
+  getSelectedMembers(): OrganisationMember[] {
+    return this.members.filter(profile => profile.selected);
+  }
+
+  /**
+   * Returns true f any item in the HTML list is selected
+   */
+  itemSelected(): boolean {
+    return this.members && this.members.some(profile => profile.selected);
+  }
+
+  /**
+   * Batch delete a select list of member records
+   */
+  deleteSelected() {
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: 'This action will delete the selected members from the database and currently cannot be reverted',
+      type: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#d33'
+    }).then((action) => {
+      if (action.value) {
+        Swal.fire('Deleting Selected Profiles', 'Please wait ...', 'warning');
+        Swal.showLoading();
+
+        const selected = this.getSelectedMembers();
+
+        this.organisationMemberService.batchDelete(selected);
+      }
+    });
+  }
+
+  /**
+   * Batch delete a select list of member records
+   */
+  deleteProfile(profile: OrganisationMember) {
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: 'This action will delete this member from the database. This action currently cannot be reverted',
+      type: 'warning',
+      showCancelButton: true,
+    }).then((action) => {
+      if (action.value) {
+        Swal.fire('Deleting Profile', 'Please wait ...', 'error');
+        Swal.showLoading();
+        this.organisationMemberService.remove(profile);
+      }
+    });
+  }
+
+  setupChangeCategoryForm() {
+    this.changeCategoryForm = new FormGroup({
+      organisation_member_category_id: new FormControl('', [Validators.required])
+    });
+  }
+
+  onChangeCategory(e: Event) {
+    e.preventDefault();
+
+    Swal.fire({
+      title: 'Confirm Category Change',
+      text: 'This action will change the membership category of the selected members. Are you sure you want to continue?',
+      type: 'warning',
+      confirmButtonText: 'Yes',
+      showCancelButton: true,
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'No'
+    }).then((action) => {
+      if (action.value) {
+        let data = this.changeCategoryForm.value;
+        let selected = this.getSelectedMembers().map(profile => Object.assign(profile, data));
+
+        this.organisationMemberService.batchUpdate(selected, { contain: ['member', 'organisation_member_category'].join()});
+        this.changeCategoryForm.reset();
+        this.modalService.dismissAll();
+      }
+    });
+  }
+
+  /**
+  * Shows the change category modal
+  */
+  showChangeCategoryModal() {
+    this.modalService.open(this.changeCategoryModal, {});
+  }
+}
