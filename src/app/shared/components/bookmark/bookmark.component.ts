@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService, Menu } from '../../services/nav.service';
+import { EventsService } from '../../services/events.service';
+import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { OrganisationService } from '../../services/cakeapi/organisation.service';
 
 @Component({
   selector: 'app-bookmark',
@@ -15,12 +18,25 @@ export class BookmarkComponent implements OnInit {
   public searchResult  : boolean = false;
   public searchResultEmpty  : boolean = false;
   public bookmarkItems : any[] = [];
+  public subscriptions: Subscription[] = [];
 
-  constructor(public navServices: NavService) {  }
+  constructor(
+    public navServices: NavService,
+    public organisationService: OrganisationService
+  ) {  }
 
   ngOnInit() {
-  	this.navServices.items.subscribe(menuItems => {
+    if( this.organisationService.getActiveOrganisation() ) {
+      this.loadItems(this.navServices.organisationMenuItems);
+    } else {
+      this.loadItems(this.navServices.portalMenuItems);
+    }
+  }
+
+  loadItems(itemArray: BehaviorSubject<Menu[]>) {
+    itemArray.subscribe(menuItems => {
       this.items = menuItems 
+      this.bookmarkItems = [];
       this.items.filter(items => {
         if(items.bookmark){
           this.bookmarkItems.push(items)

@@ -26,7 +26,7 @@ export class SidebarComponent {
     //   this.setActiveNavElement(menuItems);
     // });
 
-    this.navServices.portal_items.subscribe(menuItems => {
+    this.navServices.portalMenuItems.subscribe(menuItems => {
       this.menuItems = menuItems
       this.setActiveNavElement(menuItems);
     });

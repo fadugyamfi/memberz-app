@@ -31,7 +31,7 @@ export class OrganisationSidebarComponent {
   }
 
   enableOrganisationMenuItems() {
-    this.navServices.organisation_items.subscribe(menuItems => {
+    this.navServices.organisationMenuItems.subscribe(menuItems => {
       this.menuItems = menuItems
       this.setActiveNavElement(menuItems);
     });

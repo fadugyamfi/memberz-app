@@ -98,7 +98,7 @@ export class HeaderComponent implements OnInit {
     this.text = "";
   }
   ngOnInit() {
-    this.navServices.organisation_items.subscribe(menuItems => {
+    this.navServices.organisationMenuItems.subscribe(menuItems => {
       this.items = menuItems
     });
   }

@@ -318,7 +318,7 @@ export class NavService {
 	// Member Portal Items
 	PORTAL_MENUITEMS: Menu[] = [
 		{
-			path: '/portal/home', title: 'Home', icon: 'home', type: 'link'
+			path: '/portal/home', title: 'Home', icon: 'home', type: 'link', bookmark: true
 		},
 		{
 			path: '/portal/events', title: 'Upcoming Events', icon: 'calendar', type: 'link'
@@ -328,18 +328,18 @@ export class NavService {
 		},
 	];
 
-	portal_items = new BehaviorSubject<Menu[]>(this.PORTAL_MENUITEMS);
+	portalMenuItems = new BehaviorSubject<Menu[]>(this.PORTAL_MENUITEMS);
 
 	// Member Portal Items
 	ORGANISATION_MENUITEMS: Menu[] = [
 		{
-			path: '/organisation/dashboard', title: 'Dashboard', icon: 'home', type: 'link'
+			path: '/organisation/dashboard', title: 'Dashboard', icon: 'home', type: 'link', bookmark: true
 		},
 		{
-			title: 'Memberships', icon: 'user', type: 'sub', active: false, children: [
+			title: 'Memberships', icon: 'user', type: 'sub', active: false, bookmark: true, path: '/organisation/memberships/profiles', children: [
 				{ path: '/organisation/memberships/categories', title: 'Categories', type: 'link' },
 				{ path: '/organisation/memberships/add', title: 'Add Member', type: 'link' },
-				{ path: '/organisation/memberships/profiles', title: 'Find Members', type: 'link' },
+				{ path: '/organisation/memberships/profiles', title: 'Find Members', type: 'link', icon: 'users' },
 				{ path: '/organisation/memberships/pending-approvals', title: 'Pending Approvals', type: 'link' },
 				{ path: '/organisation/memberships/upload', title: 'Bulk Upload', type: 'link' },
 				{ path: '/organisation/memberships/reports', title: 'Reports', type: 'link' },
@@ -353,8 +353,8 @@ export class NavService {
 			]
 		},
 		{
-			title: 'Finance', icon: 'credit-card', type: 'sub', active: false, children: [
-				{ path: '/organisation/finance/dashboard', title: 'Dashboard', type: 'link' },
+			title: 'Finance', icon: 'credit-card', type: 'sub', active: false, bookmark: true, path: '/organisation/finance/dashboard', children: [
+				{ path: '/organisation/finance/dashboard', title: 'Dashboard', type: 'link', icon: 'dashboard' },
 				{ path: '/organisation/finance/settings', title: 'Settings', type: 'link' },
 				{ path: '/organisation/finance/income', title: 'Income', type: 'link' },
 				{ path: '/organisation/finance/expenditure', title: 'Expenditure', type: 'link' },
@@ -368,8 +368,8 @@ export class NavService {
 			]
 		},
 		{
-			title: 'Settings', icon: 'settings', type: 'sub', active: false, children: [
-				{ path: '/organisation/settings/profile', title: 'Profile', type: 'link' },
+			title: 'Settings', icon: 'settings', type: 'sub', bookmark: true, active: false, path: '/organisation/settings/profile', children: [
+				{ path: '/organisation/settings/profile', title: 'Profile', type: 'link', icon: 'settings' },
 				{ path: '/organisation/settings/subscription', title: 'Subscription', type: 'link' },
 				{ path: '/organisation/settings/billing', title: 'Billing', type: 'link' },
 				{ path: '/organisation/settings/roles', title: 'Roles & Permissions', type: 'link' },
@@ -379,5 +379,5 @@ export class NavService {
 		},
 	];
 
-	organisation_items = new BehaviorSubject<Menu[]>(this.ORGANISATION_MENUITEMS);
+	organisationMenuItems = new BehaviorSubject<Menu[]>(this.ORGANISATION_MENUITEMS);
 }
