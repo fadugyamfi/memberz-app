@@ -13,7 +13,10 @@ import { SubscriptionStatusComponent } from './dashboard/subscription-status/sub
 
 
 @NgModule({
-  declarations: [DashboardComponent, SubscriptionStatusComponent],
+  declarations: [
+    DashboardComponent, 
+    SubscriptionStatusComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,

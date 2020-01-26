@@ -1,0 +1,17 @@
+.table-responsive {
+  max-height: 500px;
+}
+
+.main-content {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.table.table-xs td, .table.table-xs th {
+  padding: 0.4rem 0.6rem;
+  white-space: normal;
+}
+
+.table tbody + tbody {
+  border-top: none;
+}
