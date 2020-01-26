@@ -18,7 +18,7 @@ export class RolesComponent implements OnInit, OnDestroy {
   @ViewChild('permissions', { static: true }) permissions: PermissionsComponent;
   @ViewChild('editorModal', { static: true }) editorModal: ElementRef;
 
-  public roles: OrganisationRole[];
+  public roles: OrganisationRole[] = [];
   public selectedRole: OrganisationRole;
   public subscriptions: Subscription[] = [];
 
@@ -112,6 +112,10 @@ export class RolesComponent implements OnInit, OnDestroy {
       });
 
     });
+  }
+
+  recordsPresent() {
+    return this.roles && this.roles.length > 0;
   }
 
   onSubmit(e) {

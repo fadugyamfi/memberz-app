@@ -45,6 +45,14 @@
     </tbody>
   </table>
 
+  <div class="m-t-50 text-center" *ngIf="!roleService.requesting && !recordsPresent()">
+    <h3>No Roles Found</h3>
+    <p>Click the "Add New Role" button to begin</p>
+  </div>
+
+  <div class="loader-box m-auto" *ngIf="roleService.requesting">
+    <span class="rotate dashed colored"></span>
+  </div>
 </div>
 
 

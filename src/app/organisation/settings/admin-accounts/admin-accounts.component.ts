@@ -93,7 +93,7 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
   }
 
   recordsPresent() {
-    return !this.accountService.requesting && this.accountData && this.accountData.length > 0;
+    return this.accountData && this.accountData.length > 0;
   }
 
   setupEvents() {
