@@ -14,6 +14,8 @@ export class OrganisationRole extends AppModel {
   public birthday_updates: number;
 
   private _permissions: Permission[];
+  public permissions_count: number;
+  public organisation_account_count: number;
 
   constructor(data) {
     super(data);

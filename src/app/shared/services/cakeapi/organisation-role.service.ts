@@ -36,7 +36,7 @@ export class OrganisationRoleService extends APIService {
       count: ['user', 'permission'].join()
     };
 
-    return this.post(`/roles/${options.role_id}/permissions`, options, params).pipe(map(res => {
+    return this.post(`${this.url}/${options.role_id}/permissions`, options, params).pipe(map(res => {
       const returnData = res['data'];
       this.events.trigger('OrganisationRole:permissionSynced', returnData);
       return returnData;
