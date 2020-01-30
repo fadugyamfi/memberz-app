@@ -6,13 +6,17 @@ import { AdminAccountsComponent } from './admin-accounts/admin-accounts.componen
 import { SharedModule } from '../../shared/shared.module';
 import { RolesComponent } from './roles/roles.component';
 import { PermissionsComponent } from './permissions/permissions.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
+import { PaymentPlatformsComponent } from './payment-platforms/payment-platforms.component';
 
 
 @NgModule({
   declarations: [
     AdminAccountsComponent,
     RolesComponent,
-    PermissionsComponent
+    PermissionsComponent,
+    SubscriptionComponent,
+    PaymentPlatformsComponent
   ],
   imports: [
     CommonModule,

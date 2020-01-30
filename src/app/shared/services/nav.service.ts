@@ -369,9 +369,9 @@ export class NavService {
 		},
 		{
 			title: 'Settings', icon: 'settings', type: 'sub', bookmark: true, active: false, path: '/organisation/settings/profile', children: [
-				{ path: '/organisation/settings/profile', title: 'Profile', type: 'link', icon: 'settings' },
+				// { path: '/organisation/settings/profile', title: 'Profile', type: 'link', icon: 'settings' },
 				{ path: '/organisation/settings/subscription', title: 'Subscription', type: 'link' },
-				{ path: '/organisation/settings/billing', title: 'Billing', type: 'link' },
+				// { path: '/organisation/settings/billing', title: 'Billing', type: 'link' },
 				{ path: '/organisation/settings/roles', title: 'Roles & Permissions', type: 'link' },
 				{ path: '/organisation/settings/accounts', title: 'Admin Accounts', type: 'link' },
 				{ path: '/organisation/settings/payment-platforms', title: 'Payment Platforms', type: 'link' },
