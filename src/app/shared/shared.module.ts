@@ -37,6 +37,7 @@ import { OrganisationSidebarComponent } from './components/organisation-sidebar/
 import { OrganisationInterceptor } from './services/interceptors/organisation-interceptor.service';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ImagePreloadDirective } from './directives/image-preload.directive';
+import { SubscriptionStatusComponent } from './components/subscription-status/subscription-status.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { ImagePreloadDirective } from './directives/image-preload.directive';
     PortalLayoutComponent,
     OrganisationLayoutComponent,
     OrganisationSidebarComponent,
-    PaginationComponent
+    PaginationComponent,
+    SubscriptionStatusComponent
   ],
   imports: [
     CommonModule,
@@ -80,6 +82,7 @@ import { ImagePreloadDirective } from './directives/image-preload.directive';
     UiSwitchModule,
     ImagePreloadDirective,
     InternationalPhoneNumberModule,
+    SubscriptionStatusComponent,
     NgbModule
   ],
   providers: [

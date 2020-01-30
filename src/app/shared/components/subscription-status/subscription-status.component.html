@@ -1,0 +1,26 @@
+<div class="card text-center">
+  <div class="card-header bg-secondary">
+    <h5>Current Plan</h5>
+  </div>
+  <div class="card-body profile-details">
+    <h4 class="mb-0">{{ organisation?.active_subscription?.subscription_type?.description }}</h4>
+    <h6 class="mb-0 text-danger" *ngIf="organisation?.active_subscription?.isExpired()">Expired</h6>
+
+    <h6 class="text-muted f-14" *ngIf="!organisation?.active_subscription?.isExpired()">
+      Expires {{ organisation?.active_subscription?.expiresIn() }}
+    </h6>
+  </div>
+
+  <div class="card-footer">
+    <div class="btn-group">
+      <button class="btn btn-danger btn-sm m-r-5" *ngIf="organisation?.active_subscription?.isExpired()">
+        <i class="fa fa-recycle"></i> Renew
+      </button>
+
+      <button class="btn btn-secondary btn-sm ">
+        <i class="fa fa-upload"></i> Upgrade
+      </button>
+    </div>
+
+  </div>
+</div>
