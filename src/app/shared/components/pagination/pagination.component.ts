@@ -23,6 +23,9 @@ export class PaginationComponent implements OnInit, OnDestroy {
   public currentPage = 1;
   public pagination_limits: Array<any>;
 
+  @Input() startColWidth = 'col-sm-3';
+  @Input() midColWidth = 'col-sm-6';
+
   constructor(private events: EventsService) { }
 
   ngOnInit() {
