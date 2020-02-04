@@ -1,0 +1,114 @@
+<form [formGroup]="subscriptionForm" (submit)="renewSubscription()">
+  <div class="row">
+    <div class="col-sm-8 offset-sm-2">
+
+      <div class="card">
+        <div class="card-header">
+          <h5>Subscription Renewal</h5>
+        </div>
+
+        <div class="card-body">
+
+          <div class='form-group row'>
+            <label class='col-sm-3 control-label'>Plan:</label>
+            <div class='col-sm-9'>
+              <input type="text" class="form-control input-sm input-s" disabled=""
+                     formControlName="subscription_type_name" />
+              <input type="hidden" />
+
+              <input type="hidden" id="base_price" />
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label class='col-sm-3 control-label'>Subscription Period:</label>
+            <div class='col-sm-9'>
+
+              <div class="btn-group btn-group-toggle m-b-5" ngbRadioGroup name="radioBasic" formControlName="length">
+                <!-- formControlName="model" -->
+                <label ngbButtonLabel class="btn-outline-info">
+                  <input ngbButton type="radio" [value]="1"> 1 Month
+                </label>
+                <label ngbButtonLabel class="btn-outline-info">
+                  <input ngbButton type="radio" [value]="3"> 3 Months
+                </label>
+                <label ngbButtonLabel class="btn-outline-info">
+                  <input ngbButton type="radio" [value]="6"> 6 Months
+                </label>
+                <label ngbButtonLabel class="btn-outline-info">
+                  <input ngbButton type="radio" [value]="12"> 12 Months
+                </label>
+              </div>
+
+              <div>
+                <small class='text-muted'>
+                  Save <b>16%</b> when you choose the 6 or 12 month subscription.
+                </small>
+              </div>
+
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label class='col-sm-3 control-label'>Subscription Cost:</label>
+            <div class='col-sm-4'>
+              <div class='input-group'>
+                <div class="input-group-prepend">
+                  <span class="input-group-text f-12">GHS</span>
+                </div>
+                <input type='hidden' id='base_price' />
+                <input type='text' id='amount_due' readonly="" class='form-control'
+                       formControlName="subscription_cost" />
+              </div>
+            </div>
+          </div>
+
+          <div class='form-group row m-b-30'>
+            <label class='col-sm-3 col-form-label'>Next Renewal:</label>
+            <div class='col-sm-4'>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div>
+
+                <input type='text' id='end_dt_display' readonly="" class='form-control'
+                       formControlName="next_renewal_date" />
+              </div>
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label class='col-sm-3 col-form-label'>
+              Payment Method:
+            
+            </label>
+            <div class='col-sm-9'>
+              <label class="d-block m-b-15" for="slydepay">
+                <input class="radio_animated" id="slydepay" type="radio" name="payment_method" checked="">
+                <i class="fa fa-credit-card"></i>
+                Slydepay (Visa, MasterCard, Mobile Money)
+
+                <p class="small text-muted p-l-30">You will be redirected to the Slydepay Payment portal to complete your payment</p>
+              </label>
+
+              <label class="d-block" for="cash">
+                <input class="radio_animated" id="cash" type="radio" name="payment_method"> 
+                <i class="fa fa-money"></i>
+                Cash Payment (Generates Invoice Only)
+
+                <p class="small text-muted p-l-30">You will be emailed an invoice with bank details to complete payment</p>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="card-footer text-right">
+          <button type="submit" class="btn btn-info m-r-15">Renew Subscription</button>
+          <button type="button" class="btn btn-danger" (click)="cancelRenewal()">Cancel</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>

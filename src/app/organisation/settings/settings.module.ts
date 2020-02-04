@@ -8,6 +8,8 @@ import { RolesComponent } from './roles/roles.component';
 import { PermissionsComponent } from './permissions/permissions.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { PaymentPlatformsComponent } from './payment-platforms/payment-platforms.component';
+import { SubscriptionRenewalComponent } from './subscription-renewal/subscription-renewal.component';
+import { SubscriptionUpgradeComponent } from './subscription-upgrade/subscription-upgrade.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { PaymentPlatformsComponent } from './payment-platforms/payment-platforms
     RolesComponent,
     PermissionsComponent,
     SubscriptionComponent,
-    PaymentPlatformsComponent
+    PaymentPlatformsComponent,
+    SubscriptionRenewalComponent,
+    SubscriptionUpgradeComponent
   ],
   imports: [
     CommonModule,
