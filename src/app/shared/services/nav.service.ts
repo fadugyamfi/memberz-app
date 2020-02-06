@@ -343,6 +343,7 @@ export class NavService {
 				{ path: '/organisation/memberships/pending-approvals', title: 'Pending Approvals', type: 'link' },
 				{ path: '/organisation/memberships/upload', title: 'Bulk Upload', type: 'link' },
 				{ path: '/organisation/memberships/reports', title: 'Reports', type: 'link' },
+				{ path: '/organisation/memberships/groups', title: 'Group Management', type: 'link'}
 			]
 		},
 		{

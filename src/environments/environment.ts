@@ -17,7 +17,7 @@ export const environment = {
     url: 'http://localhost/memberz/api'
   },
   api: {
-    url: 'http://localhost:8000/api'
+    url: 'http://memberz-new.test/api'
   }
 };
 /*
