@@ -34,13 +34,13 @@ export class OrganisationSidebarComponent extends SidebarComponent {
 
   enableOrganisationMenuItems() {
     this.navServices.organisationMenuItems.subscribe(menuItems => {
-      this.menuItems = menuItems
+      this.menuItems = menuItems;
       this.setActiveNavElement(menuItems);
     });
   }
 
   setupEvents() {
-    //this.events.on('active:organisation:set', () => this.enableOrganisationMenuItems());
+    // this.events.on('active:organisation:set', () => this.enableOrganisationMenuItems());
   }
 
   switchOrganisation() {

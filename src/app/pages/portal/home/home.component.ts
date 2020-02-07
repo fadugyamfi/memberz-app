@@ -30,8 +30,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setupEvents();
-    const activeOrganisation = this.organisationService.getActiveOrganisation(); 
-    if( activeOrganisation ) {
+    const activeOrganisation = this.organisationService.getActiveOrganisation();
+    if ( activeOrganisation ) {
       this.loadOrganisation(activeOrganisation);
     } else {
       this.fetchUserOrganisations();
@@ -52,20 +52,20 @@ export class HomeComponent implements OnInit, OnDestroy {
       Swal.close();
 
       this.organisations.forEach((org, index) => {
-        if( org.id == organisation.id ) {
+        if ( org.id == organisation.id ) {
           this.organisations[index] = organisation;
         }
-      })
+      });
     });
 
     this.events.on('Organisation:deleted', (organisation) => {
       Swal.close();
 
       this.organisations.forEach((org, index) => {
-        if( org.id == organisation.id ) {
+        if ( org.id == organisation.id ) {
           this.organisations.splice(index, 1);
         }
-      })
+      });
     });
   }
 
@@ -88,7 +88,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadOrganisation(org: Organisation) {
-    Swal.fire(`Switching To ${org.name}`, '', "info");
+    Swal.fire(`Switching To ${org.name}`, '', 'info');
     Swal.showLoading();
 
     this.organisationService.setActiveOrganisation(org);
@@ -101,14 +101,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     Swal.fire({
       title: 'Delete Organisation',
       text: `This action will delete '${organisation.name}' and all related data.`,
-      type: 'warning',
-      confirmButtonText: "Delete",
+      icon: 'warning',
+      confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
       showCancelButton: true,
       cancelButtonColor: '#933'
     }).then((action) => {
-      if( action.value ) {
-        Swal.fire('Deleting Organisation', "Please wait ...", "info");
+      if ( action.value ) {
+        Swal.fire('Deleting Organisation', 'Please wait ...', 'info');
         Swal.showLoading();
 
         this.organisationService.remove(organisation);
@@ -118,7 +118,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   /**
    * Handles the pagination events
-   * 
+   *
    * @param event PageEvent
    */
   onPaginate(event: PageEvent) {

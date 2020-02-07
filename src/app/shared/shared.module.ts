@@ -24,11 +24,11 @@ import 'hammerjs';
 import 'mousetrap';
 
 // services
-import { NavService } from "./services/nav.service";
-import { ChatService } from "./services/chat.service";
-import { CustomizerService } from "./services/customizer.service";
+import { NavService } from './services/nav.service';
+import { ChatService } from './services/chat.service';
+import { CustomizerService } from './services/customizer.service';
 // Directives
-import { ToggleFullscreenDirective } from "./directives/fullscreen.directive";
+import { ToggleFullscreenDirective } from './directives/fullscreen.directive';
 import { PortalLayoutComponent } from './components/layout/portal-layout/portal-layout.component';
 import { OrganisationLayoutComponent } from './components/layout/organisation-layout/organisation-layout.component';
 import { RequestErrorHandler } from './services/interceptors/request-error-handler.service';

@@ -63,7 +63,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   findCategories(options = {}, page = 1, limit = 15) {
     this.categories = null;
-    
+
     const sub = this.categoryService.findCategories(options, page, limit).subscribe(categories => {
       this.categories = categories;
     });
@@ -89,7 +89,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   /**
    * Handles the searching functionality
-   * 
+   *
    * @param e Event
    */
   onSearch(e: Event) {
@@ -103,7 +103,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   /**
    * Handles the pagination events
-   * 
+   *
    * @param event PageEvent
    */
   onPaginate(event: PageEvent) {
@@ -111,7 +111,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 
+   *
    */
   setupEditorForm() {
     this.editorForm = new FormGroup({
@@ -136,7 +136,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 
+   *
    */
   showEditorModal(category: OrganisationMemberCategory = null) {
     this.setupEditorForm();
@@ -149,7 +149,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 
+   *
    */
   onSubmit(e: Event) {
     e.preventDefault();
@@ -228,7 +228,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     Swal.fire({
       title: 'Confirm Deletion',
       text: `This action will delete "${category.name}" from the database. This action currently cannot be reverted`,
-      type: 'warning',
+      icon: 'warning',
       showCancelButton: true,
     }).then((action) => {
       if (action.value) {

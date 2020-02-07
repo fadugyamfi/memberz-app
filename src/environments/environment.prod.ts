@@ -16,7 +16,7 @@ export const environment = {
     url: 'http://beta.memberz.org/api'
   },
   slydepay: {
-    emailOrMobileNumber: '0277593003',
-    merchantKey: ''
+    emailOrMobileNumber: 'info@matrixdesignsgh.com',
+    merchantKey: '1429300048036'
   }
 };

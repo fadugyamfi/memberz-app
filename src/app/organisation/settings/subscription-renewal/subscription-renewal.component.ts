@@ -82,7 +82,7 @@ export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
     }
 
     Swal.fire({
-      type: 'warning',
+      icon: 'warning',
       title: 'Renewing Subscription',
       text: message,
       showCancelButton: true,

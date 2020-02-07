@@ -171,7 +171,7 @@ export class RolesComponent implements OnInit, OnDestroy {
     Swal.fire({
       title: 'Are you sure you want delete this role record?',
       text: 'This will delete the record in the database and cannot be undone',
-      type: 'warning',
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',

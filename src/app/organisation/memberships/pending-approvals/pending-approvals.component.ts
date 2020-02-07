@@ -63,16 +63,16 @@ export class PendingApprovalsComponent implements OnInit {
 
   /**
    * Loads the list of members from the backend
-   * 
-   * @param options 
-   * @param page 
-   * @param limit 
+   *
+   * @param options
+   * @param page
+   * @param limit
    */
   loadMemberships(page = 1, limit = 15) {
     this.members = null;
 
     const options = {
-      approved: 0, 
+      approved: 0,
       active: 1,
       page,
       limit,
@@ -102,7 +102,7 @@ export class PendingApprovalsComponent implements OnInit {
 
   /**
    * Sets the member profile to view and navigates to the details page
-   * 
+   *
    * @param profile OrganisationMember
    */
   viewProfile(profile: OrganisationMember) {
@@ -167,7 +167,7 @@ export class PendingApprovalsComponent implements OnInit {
 
   /**
    * Handles the pagination events
-   * 
+   *
    * @param event PageEvent
    */
   onPaginate(event: PageEvent) {
@@ -207,7 +207,7 @@ export class PendingApprovalsComponent implements OnInit {
     Swal.fire({
       title: 'Confirm Approval',
       text: 'This action will approve the selected members assign them membership numbers as necessary',
-      type: 'warning',
+      icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#d33'
     }).then((action) => {
@@ -233,7 +233,7 @@ export class PendingApprovalsComponent implements OnInit {
     Swal.fire({
       title: 'Confirm Rejection',
       text: 'This action will reject the registration of the selected members',
-      type: 'warning',
+      icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#d33'
     }).then((action) => {

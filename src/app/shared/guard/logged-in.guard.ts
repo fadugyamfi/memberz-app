@@ -11,11 +11,11 @@ import Swal from 'sweetalert2';
 export class LoggedInGuard implements CanActivate {
 
     constructor(private authService: AuthService, private router: Router) { }
-   
+
     canActivate(
         next: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean 
-    {
+        state: RouterStateSnapshot
+    ): Observable<boolean> | Promise<boolean> | boolean {
 
         if (this.authService.isLoggedIn) {
             this.router.navigate(['/']);
