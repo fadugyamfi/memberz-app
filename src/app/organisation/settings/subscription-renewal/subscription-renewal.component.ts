@@ -7,6 +7,8 @@ import { OrganisationSubscription } from '../../../shared/model/cakeapi/organisa
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { SlydepayService } from 'slydepay-angular';
+import { OrganisationInvoiceItem } from '../../../shared/model/cakeapi/organisation-invoice-item';
 
 @Component({
   selector: 'app-subscription-renewal',
@@ -22,7 +24,8 @@ export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
     public events: EventsService,
     public organisationService: OrganisationService,
     public subscriptionService: OrganisationSubscriptionService,
-    public router: Router
+    public router: Router,
+    public slydepayService: SlydepayService
   ) {}
 
   ngOnInit() {
@@ -45,9 +48,11 @@ export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
         this.activeSubscription.subscription_type_id,
         [Validators.required]
       ),
+      organisation_subscription_id: new FormControl(this.activeSubscription.id),
       length: new FormControl('', [Validators.required]),
       next_renewal_date: new FormControl(),
-      subscription_cost: new FormControl()
+      subscription_cost: new FormControl(),
+      payment_method: new FormControl('slydepay', [Validators.required])
     });
 
     this.subscriptionForm.controls.length.valueChanges.subscribe(value => {
@@ -63,38 +68,88 @@ export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
 
     this.subscriptionForm.patchValue({
       next_renewal_date: nextRenewalDate.format('MMM DD, YYYY'),
-      subscription_cost: renewalCost
+      subscription_cost: renewalCost.toFixed(2)
     });
   }
 
   renewSubscription() {
     const params = this.subscriptionForm.value;
+    let message = `This action will renew your subscription and generate an invoice for payment`;
+
+    if ( params.payment_method !== 'invoice' ) {
+      message = `This action will renew your subscription, generate an invoice for payment and
+                 redirect you to the chosen payment gateway to complete the payment process`;
+    }
 
     Swal.fire({
       type: 'warning',
       title: 'Renewing Subscription',
-      text: `This action will renew your subscription and generate an invoice for payment`,
+      text: message,
       showCancelButton: true,
       cancelButtonColor: '#933'
     }).then(action => {
       if (action.value) {
-        Swal.fire(
-          'Renewing Subscription',
-          'Please wait as subscription is renewed',
-          'info'
-        );
+        Swal.fire('Renewing Subscription', 'Please wait as subscription is renewed', 'info');
         Swal.showLoading();
 
         const sub = this.subscriptionService
-          .renew(params.subscription_type_id, params.length)
+          .renew(params.organisation_subscription_id, params.length)
           .subscribe(result => {
-            Swal.hideLoading();
-            Swal.close();
+            this.updateOrganisationSubscription(result);
+            if ( params.payment_method === 'slydepay' ) {
+              this.createSlydepayInvoice(result);
+            } else {
+              this.notifyAndRedirect();
+            }
           });
 
         this.subs.push(sub);
       }
     });
+  }
+
+  updateOrganisationSubscription(subscription: OrganisationSubscription) {
+    const organisation = this.organisationService.getActiveOrganisation();
+    organisation.active_subscription = subscription;
+    this.organisationService.setActiveOrganisation(organisation);
+  }
+
+  createSlydepayInvoice(subscription: OrganisationSubscription) {
+    Swal.fire('Creating Payment Invoice', 'Please wait as invoice for payment is generated', 'info');
+    Swal.showLoading();
+
+    const invoice = subscription.organisation_invoice;
+    const orderItems = invoice.organisation_invoice_item.map((item: OrganisationInvoiceItem) => {
+      return {
+          itemCode: `${item.product_id}`,
+          itemName: item.description,
+          quantity: item.qty,
+          subTotal: item.total,
+          unitPrice: item.unit_price
+      };
+    });
+
+    this.slydepayService.createInvoice({
+      amount: invoice.total_due,
+      orderCode: invoice.invoice_no,
+      descritpion: invoice.transaction_type.name,
+      orderItems: orderItems
+    }).subscribe(response => this.redirectToPayLive(response.result));
+  }
+
+  redirectToPayLive(result) {
+    Swal.fire('Redirecting to Gateway', 'Redirecting to Slydepay Payment Gateway to complete transaction. Please wait...', 'info');
+    Swal.showLoading();
+
+    this.slydepayService.redirectToPayLive( result.payToken, window.location.href);
+  }
+
+  notifyAndRedirect() {
+    Swal.fire(
+      'Subscription Renewal Initiated',
+      'An invoice for the payment has been generated and sent to your email',
+      'info'
+    ).then(() => this.router.navigate(['/organisation/settings/subscription']) );
   }
 
   cancelRenewal() {

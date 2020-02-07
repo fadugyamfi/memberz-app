@@ -15,25 +15,38 @@ export class OrganisationSubscriptionService extends APIService {
     super(http, events, storage);
 
     this.url = '/organisation_subscriptions';
-    this.model =  OrganisationSubscription;
+    this.model = OrganisationSubscription;
     this.model_name = 'OrganisationSubscription';
   }
 
-  renew(subscription_type_id: number, length: number) {
+  renew(organisationSubscriptionId: number, length: number) {
     const params = { length };
+    const qparams = {
+      contain: [
+        'organisation_invoice.transaction_type',
+        'organisation_invoice.organisation_invoice_item'
+      ].join()
+    };
 
-    return this.post(`${this.url}/${subscription_type_id}/renew`, params).pipe(map(res => {
+    return this.post(`${this.url}/${organisationSubscriptionId}/renew`, params, qparams).pipe(map(res => {
       return new OrganisationSubscription(res['data']);
     }));
   }
 
-  upgrade(subscription: OrganisationSubscription, newSubscriptionId: number, length: number) {
+  upgrade(organisationSubscriptionId: number, newSubscriptionTypeId: number, length: number) {
     const params = {
-      subscription_type_id: newSubscriptionId,
+      subscription_type_id: newSubscriptionTypeId,
       length: length
     };
 
-    return this.post(`${this.url}/${subscription.id}/upgrade`, params).pipe(map(res => {
+    const qparams = {
+      contain: [
+        'organisation_invoice.transaction_type',
+        'organisation_invoice.organisation_invoice_item'
+      ].join()
+    };
+
+    return this.post(`${this.url}/${organisationSubscriptionId}/upgrade`, params, qparams).pipe(map(res => {
       return new OrganisationSubscription(res['data']);
     }));
   }

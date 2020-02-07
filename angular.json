@@ -142,6 +142,41 @@
           }
         }
       }
+    },
+    "slydepay-angular": {
+      "projectType": "library",
+      "root": "projects/slydepay-angular",
+      "sourceRoot": "projects/slydepay-angular/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/slydepay-angular/tsconfig.lib.json",
+            "project": "projects/slydepay-angular/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/slydepay-angular/src/test.ts",
+            "tsConfig": "projects/slydepay-angular/tsconfig.spec.json",
+            "karmaConfig": "projects/slydepay-angular/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/slydepay-angular/tsconfig.lib.json",
+              "projects/slydepay-angular/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "endless",

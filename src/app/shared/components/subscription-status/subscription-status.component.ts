@@ -37,6 +37,10 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
     return this.organisation.active_subscription.isExpired();
   }
 
+  subscriptionPaid() {
+    return this.organisation.active_subscription.organisation_invoice.paid;
+  }
+
   renewSubscription() {
     this.router.navigate(['/organisation/settings/subscription-renewal']);
   }
