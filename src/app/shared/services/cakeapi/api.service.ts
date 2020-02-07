@@ -22,7 +22,7 @@ export class APIService {
 
   private _requesting = false;
   public uploadedPercentage = 0;
-  public pagingMeta:any = {
+  public pagingMeta: any = {
     from: 1,
     total: 1
   };
@@ -38,7 +38,7 @@ export class APIService {
   public authService: AuthService;
 
   constructor(
-    protected http: HttpClient, 
+    protected http: HttpClient,
     protected events: EventsService,
     protected storage: StorageService
   ) {
@@ -96,7 +96,7 @@ export class APIService {
   }
 
   set url(str: string) {
-    this._url = str.charAt(0) != '/' ? `/${str}` : str;
+    this._url = str.charAt(0) !== '/' ? `/${str}` : str;
   }
 
   get url() {
@@ -120,7 +120,7 @@ export class APIService {
   setHttpHeaders(param_headers) {
     let hd = Object.assign({ 'Content-Type': 'application/json' }, this.getUserAuthorization());
 
-    if( this.storage.has('auth') ) {
+    if (this.storage.has('auth')) {
       const auth = this.storage.get('auth');
       hd = Object.assign(hd, {
         'Authorization': `Bearer ${auth.access_token}`
@@ -143,7 +143,7 @@ export class APIService {
    * @param params Query Parameters
    */
   public get(url: string, params: object = null, param_headers: object = null): Observable<Object> {
-    let full_url = this.BASE_URL + url;
+    const full_url = this.BASE_URL + url;
     this.setHttpHeaders(param_headers);
     this.httpOptions['params'] = this.removeEmpty(params);
 
@@ -173,7 +173,7 @@ export class APIService {
    * @param qparams Query Parameters
    */
   public post(url: string, params: object | string, qparams: object = null, param_headers: object = null): Observable<Object> {
-    var full_url = this.BASE_URL + url;
+    const full_url = this.BASE_URL + url;
     this.setHttpHeaders(param_headers);
     this.httpOptions['params'] = qparams;
 
@@ -195,7 +195,7 @@ export class APIService {
    * @param qparams Query Parameters
    */
   public put(url: string, params: object, qparams: object = null, param_headers: object = null): Observable<Object> {
-    var full_url = this.BASE_URL + url;
+    const full_url = this.BASE_URL + url;
     this.setHttpHeaders(param_headers);
     this.httpOptions['params'] = qparams;
 
@@ -212,11 +212,11 @@ export class APIService {
    * Performs an HTTP DELETE request and returns the Observable object
    * for subscription
    *
-   * @param url
+   * @param url URL to query
    * @param params Query Parameters
    */
   public delete(url, params: object = null, param_headers: object = null): Observable<Object> {
-    var full_url = this.BASE_URL + url;
+    const full_url = this.BASE_URL + url;
     this.setHttpHeaders(param_headers);
     this.httpOptions['params'] = params;
 
@@ -287,6 +287,7 @@ export class APIService {
     return this.post(`${this.url}`, model, qparams).pipe(
       map((response) => new this.model(response['data'])))
       .subscribe(
+        // tslint:disable-next-line: no-shadowed-variable
         (model) => {
           this.setSelectedModel(model);
           this.clearCache();
@@ -310,6 +311,7 @@ export class APIService {
     return this.put(`${this.url}/${model.id}`, model, qparams).pipe(
       map((response) => new this.model(response['data'])))
       .subscribe(
+        // tslint:disable-next-line: no-shadowed-variable
         (model) => {
           this.setSelectedModel(model);
           this.clearCache();
@@ -330,7 +332,7 @@ export class APIService {
    */
   remove(model: AppModel, qparams: object = null) {
 
-    if( !model.id ) {
+    if (!model.id) {
       return;
     }
 
@@ -364,19 +366,19 @@ export class APIService {
   /**
    * Adds a new student photo record and uploads the id image if available
    *
-   * @param model
-   * @param qparams
+   * @param model AppModel
+   * @param qparams Query parameters
    */
   createWithUpload(model: AppModel, qparams: any = null) {
-    let hd = Object.assign({ 'Accept': "multipart/form-data" });
+    const hd = Object.assign({ 'Accept': 'multipart/form-data' });
 
     const headers = new HttpHeaders(hd);
     const reportProgress = true;
     const params = new HttpParams({ fromObject: qparams });
     const formData: FormData = new FormData();
 
-    for (let key in model) {
-      if (typeof model[key] != 'function' && model[key] != null) {
+    for (const key in model) {
+      if (typeof model[key] !== 'function' && model[key] != null) {
         formData.append(key, model[key]);
       }
     }
@@ -398,19 +400,19 @@ export class APIService {
   /**
    * Updates a student photo record and uploads the id image if available
    *
-   * @param model
-   * @param qparams
+   * @param model Model to work on
+   * @param qparams Query params
    */
   updateWithUpload(model: AppModel, qparams: any = null) {
-    let hd = Object.assign({ 'Accept': "multipart/form-data" });
+    const hd = Object.assign({ 'Accept': 'multipart/form-data' });
 
     const headers = new HttpHeaders(hd);
     const params = new HttpParams({ fromObject: qparams });
     const formData: FormData = new FormData();
     const reportProgress = true;
 
-    for (let key in model) {
-      if (typeof model[key] != 'function' && model[key] != null) {
+    for (const key in model) {
+      if (typeof model[key] !== 'function' && model[key] != null) {
         formData.append(key, model[key]);
       }
     }
@@ -467,12 +469,13 @@ export class APIService {
         const o = JSON.parse(JSON.stringify(obj)); // Clone source oect.
 
         Object.keys(o).forEach(key => {
-          if (o[key] && typeof o[key] === 'object')
-            o[key] = this.removeEmpty(o[key]);  // Recurse.
-          else if (o[key] === undefined || o[key] === null || o[key] === '')
-            delete o[key]; // Delete undefined and null.
-          else
-            o[key] = o[key];  // Copy value.
+          if (o[key] && typeof o[key] === 'object') { // Recurse.
+            o[key] = this.removeEmpty(o[key]);
+          } else if (o[key] === undefined || o[key] === null || o[key] === '') { // Delete undefined and null.
+            delete o[key];
+          } else { // Copy value.
+            o[key] = o[key];
+          }
         });
 
         return o; // Return new object.
@@ -484,7 +487,7 @@ export class APIService {
     }
 
     return null;
-  };
+  }
 
   /**
    * Trigger an error event
@@ -496,10 +499,8 @@ export class APIService {
 
     if (message && Array.isArray(message)) {
       message = message.join('<br />');
-    }
-
-    else if (!message) {
-      message = "An unexpected error occurred";
+    } else if (!message) {
+      message = 'An unexpected error occurred';
     }
 
     this.events.trigger('toast', this.getError(message));
@@ -507,8 +508,8 @@ export class APIService {
 
   /**
    *
-   * @param requests
-   * @param qparams
+   * @param requests Array of requests
+   * @param qparams Query parameters
    */
   batch(requests, qparams: object = null) {
     return this.post('/batch', requests, qparams).pipe(map(res => {
@@ -541,17 +542,17 @@ export class APIService {
     const id = (Math.random() * 10000).toFixed(0);
 
     return {
-      "request_id": `${this.model_name}:${method}:${id}`,
-      "url": '/api' + url,
-      "method": method,
-      "params": params
+      'request_id': `${this.model_name}:${method}:${id}`,
+      'url': '/api' + url,
+      'method': method,
+      'params': params
     };
   }
 
   /**
    * Create multiple records on the server at once
    *
-   * @param models
+   * @param models Array of models
    */
   batchCreate(models: AppModel[], qparams: object = {}) {
     const requests = models.map(model => {
@@ -570,7 +571,7 @@ export class APIService {
   /**
    * Update multiple records on the server at once
    *
-   * @param models
+   * @param models Array of Models
    */
   batchUpdate(models: AppModel[], qparams: object = {}) {
     const requests = models.map(model => {
@@ -592,7 +593,7 @@ export class APIService {
   /**
    * Delete multiple records from the server at once
    *
-   * @param models
+   * @param models Array of Models
    */
   batchDelete(models: AppModel[], qparams: object = {}) {
     const requests = models.map(model => {
@@ -611,21 +612,17 @@ export class APIService {
   /**
    * Process and trigger events for the responses from the batch request
    *
-   * @param data
-   * @param action
+   * @param data Data to process
+   * @param action Method calling processing
    */
   processBatchResponses(data, action) {
 
     data.forEach(response => {
       if (Array.isArray(response)) {
         response.forEach(model => this.events.trigger(`${this.model_name}:${action}`, model));
-      } 
-
-      else if (response instanceof AppModel) {
+      } else if (response instanceof AppModel) {
         this.events.trigger(`${this.model_name}:${action}`, response);
-      } 
-      
-      else if( response.status && response.status == 'success' ) {
+      } else if (response.status && response.status === 'success') {
         this.events.trigger('toast', {
           title: 'Record Save Success',
           msg: response.message,
@@ -646,7 +643,7 @@ export class APIService {
 
     if (params.id) {
       for (const id in this.cache) {
-        if (id == params.id) {
+        if (id === params.id) {
           results.push(new this.model(this.cache[id]));
         }
       }
@@ -681,7 +678,9 @@ export class APIService {
       if (asArray) {
         const results = [];
         for (const id in data) {
-          results.push(new this.model(data[id]));
+          if ( data.hasOwnProperty(id) ) {
+             results.push(new this.model(data[id]));
+          }
         }
 
         return results;

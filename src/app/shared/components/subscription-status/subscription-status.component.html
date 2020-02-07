@@ -4,20 +4,30 @@
   </div>
   <div class="card-body profile-details">
     <h4 class="mb-0">{{ organisation?.active_subscription?.subscription_type?.description }}</h4>
-    <h6 class="mb-0 text-danger" *ngIf="organisation?.active_subscription?.isExpired()">Expired</h6>
+    <h6 class="mb-0 text-danger" *ngIf="subscriptionExpired()">Expired</h6>
 
-    <h6 class="text-muted f-14" *ngIf="!organisation?.active_subscription?.isExpired()">
+    <h6 class="text-muted f-14" *ngIf="!subscriptionExpired()">
       Expires {{ organisation?.active_subscription?.expiresIn() }}
     </h6>
+
+    <h6 class="text-danger f-14 m-t-30" *ngIf="!subscriptionPaid()">
+      <b>Invoice Unpaid</b><br />
+      Pay Now To Avoid Service Disruption
+    </h6>
+
   </div>
 
   <div class="card-footer">
     <div class="btn-group">
-      <button class="btn btn-danger btn-sm m-r-5" *ngIf="organisation?.active_subscription?.isExpired()">
+      <button class="btn btn-air-success btn-success m-r-5" *ngIf="!subscriptionPaid()">
+        <i class="fa fa-credit-card"></i> Pay Now
+      </button>
+
+      <button class="btn btn-danger m-r-5" *ngIf="subscriptionExpired()" (click)="renewSubscription()">
         <i class="fa fa-recycle"></i> Renew
       </button>
 
-      <button class="btn btn-secondary btn-sm ">
+      <button class="btn btn-secondary" *ngIf="subscriptionPaid()" (click)="upgradeSubscription()">
         <i class="fa fa-upload"></i> Upgrade
       </button>
     </div>

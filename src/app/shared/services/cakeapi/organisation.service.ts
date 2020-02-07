@@ -18,7 +18,7 @@ export class OrganisationService extends APIService {
     super(http, events, storage);
 
     this.url = '/organisations';
-    this.model =  Organisation;
+    this.model = Organisation;
     this.model_name = 'Organisation';
   }
 
@@ -26,8 +26,8 @@ export class OrganisationService extends APIService {
    * Returns the active organisation being managed
    */
   public getActiveOrganisation(): Organisation {
-    if( !this.activeOrganisation && this.storage.has(this.ACTIVE_ORG_CACHE_KEY) ) {
-      this.activeOrganisation = new Organisation( this.storage.get(this.ACTIVE_ORG_CACHE_KEY) );
+    if (!this.activeOrganisation && this.storage.has(this.ACTIVE_ORG_CACHE_KEY)) {
+      this.activeOrganisation = new Organisation(this.storage.get(this.ACTIVE_ORG_CACHE_KEY));
     }
 
     return this.activeOrganisation;
@@ -35,7 +35,7 @@ export class OrganisationService extends APIService {
 
   /**
    * Sets the active organisation being managed
-   * 
+   *
    * @param org Organisation to manage
    */
   public setActiveOrganisation(org: Organisation) {
