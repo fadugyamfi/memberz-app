@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       Swal.close();
 
       this.organisations.forEach((org, index) => {
-        if ( org.id == organisation.id ) {
+        if ( org.id === organisation.id ) {
           this.organisations[index] = organisation;
         }
       });
@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       Swal.close();
 
       this.organisations.forEach((org, index) => {
-        if ( org.id == organisation.id ) {
+        if ( org.id === organisation.id ) {
           this.organisations.splice(index, 1);
         }
       });
@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   emptyDataset() {
-    return this.organisations && this.organisations.length == 0;
+    return this.organisations && this.organisations.length === 0;
   }
 
   dataAvailable() {

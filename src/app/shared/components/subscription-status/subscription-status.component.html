@@ -10,7 +10,7 @@
       Expires {{ organisation?.active_subscription?.expiresIn() }}
     </h6>
 
-    <h6 class="text-danger f-14 m-t-30" *ngIf="!subscriptionPaid()">
+    <h6 class="text-danger f-14 m-t-30" *ngIf="hasValidInvoice() && !subscriptionPaid()">
       <b>Invoice Unpaid</b><br />
       Pay Now To Avoid Service Disruption
     </h6>
@@ -19,7 +19,7 @@
 
   <div class="card-footer">
     <div class="btn-group">
-      <button class="btn btn-air-success btn-success m-r-5" *ngIf="!subscriptionPaid()">
+      <button class="btn btn-air-success btn-success m-r-5" *ngIf="hasValidInvoice() && !subscriptionPaid()">
         <i class="fa fa-credit-card"></i> Pay Now
       </button>
 

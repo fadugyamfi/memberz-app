@@ -38,8 +38,12 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
   }
 
   subscriptionPaid() {
-    return this.organisation.active_subscription.organisation_invoice &&
+    return this.organisation.active_subscription.organisation_invoice != null &&
            this.organisation.active_subscription.organisation_invoice.paid;
+  }
+
+  hasValidInvoice() {
+    return this.organisation.active_subscription.organisation_invoice != null;
   }
 
   renewSubscription() {
