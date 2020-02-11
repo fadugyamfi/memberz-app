@@ -16,7 +16,7 @@ import { SlydePayConfigInterceptor } from './slydepay.interceptor';
   ]
 })
 export class SlydepayModule {
-  static forRoot(config: SlydepayConfig): ModuleWithProviders {
+  static forRoot(config: SlydepayConfig): ModuleWithProviders<SlydepayModule> {
     return {
       ngModule: SlydepayModule,
       providers: [

@@ -74,7 +74,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     const sub = this.route.params.subscribe(params => {
       const membership_id = params['id']; // (+) converts string 'id' to a number
 
-      // check if a memberhsip id was passed, if not clear any existing membership information 
+      // check if a memberhsip id was passed, if not clear any existing membership information
       // so we can create a new member
       if (!membership_id) {
         this.membershipService.clearSelectedModel();
@@ -189,8 +189,9 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     const action = this.membership ? 'Update' : 'Creation';
     Swal.fire({
       title: `Cancel Membership ${action}?`,
-      text: 'This action will cancel the membership creation / update and any changes made will be lost. Are you sure you want to continue?',
-      type: 'warning',
+      text: `This action will cancel the membership creation / update and any changes made will be lost.
+             Are you sure you want to continue?`,
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes',
       cancelButtonText: 'No',

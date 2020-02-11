@@ -1,8 +1,11 @@
 import { HttpInterceptor, HttpHandler, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Inject } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { SlydepayConfig } from './slydepay.models';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class SlydePayConfigInterceptor implements HttpInterceptor {
   constructor(@Inject('config') private config: SlydepayConfig) {}
 

@@ -12,7 +12,7 @@ import * as feather from 'feather-icons';
   animations: [
     trigger('animateRoute', [transition('* => *', useAnimation(fadeIn, {
       // Set the duration to 5seconds and delay to 2 seconds
-      //params: { timing: 3}
+      // params: { timing: 3}
     }))])
   ]
 })
@@ -35,18 +35,18 @@ export class PortalLayoutComponent implements OnInit, AfterViewInit {
   clickedOutside(event) {
     // click outside Area perform following action
     document.getElementById('outer-container').onclick = function (e) {
-      e.stopPropagation()
+      e.stopPropagation();
       if (e.target != document.getElementById('search-outer')) {
-        document.getElementsByTagName("body")[0].classList.remove("offcanvas");
+        document.getElementsByTagName('body')[0].classList.remove('offcanvas');
       }
       if (e.target != document.getElementById('outer-container')) {
-        document.getElementById("canvas-bookmark").classList.remove("offcanvas-bookmark");
+        document.getElementById('canvas-bookmark').classList.remove('offcanvas-bookmark');
       }
       if (e.target != document.getElementById('inner-customizer')) {
-        document.getElementsByClassName("customizer-links")[0].classList.remove("open")
-        document.getElementsByClassName("customizer-contain")[0].classList.remove("open")
+        document.getElementsByClassName('customizer-links')[0].classList.remove('open');
+        document.getElementsByClassName('customizer-contain')[0].classList.remove('open');
       }
-    }
+    };
   }
 
   public getRouterOutletState(outlet) {
@@ -54,9 +54,9 @@ export class PortalLayoutComponent implements OnInit, AfterViewInit {
   }
 
   public rightSidebar($event) {
-    this.right_side_bar = $event
+    this.right_side_bar = $event;
   }
-  
+
   ngOnInit() { }
 
 }

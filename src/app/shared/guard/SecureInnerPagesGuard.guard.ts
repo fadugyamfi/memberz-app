@@ -12,11 +12,10 @@ export class SecureInnerPagesGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router) { }
     canActivate(
         next: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean 
-    {
+        state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
 
         if (!this.authService.isLoggedIn) {
-            Swal.fire("Permission Required", "You are not allowed to access this URL!", "warning").then(() => {
+            Swal.fire('Permission Required', 'You are not allowed to access this URL!', 'warning').then(() => {
                 this.router.navigate(['/']);
             });
         }

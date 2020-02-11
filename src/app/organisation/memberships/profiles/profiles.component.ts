@@ -95,10 +95,10 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Loads the list of members from the backend
-   * 
-   * @param options 
-   * @param page 
-   * @param limit 
+   *
+   * @param options
+   * @param page
+   * @param limit
    */
   loadMemberships(options: object, page = 1, limit = 15) {
     this.members = null;
@@ -127,7 +127,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Sets the member profile to view and navigates to the details page
-   * 
+   *
    * @param profile OrganisationMember
    */
   viewProfile(profile: OrganisationMember) {
@@ -198,7 +198,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Handles the searching functionality
-   * 
+   *
    * @param e Event
    */
   onSearch(e: Event) {
@@ -212,7 +212,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Handles the pagination events
-   * 
+   *
    * @param event PageEvent
    */
   onPaginate(event: PageEvent) {
@@ -252,7 +252,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     Swal.fire({
       title: 'Confirm Deletion',
       text: 'This action will delete the selected members from the database and currently cannot be reverted',
-      type: 'warning',
+      icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#d33'
     }).then((action) => {
@@ -274,7 +274,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     Swal.fire({
       title: 'Confirm Deletion',
       text: 'This action will delete this member from the database. This action currently cannot be reverted',
-      type: 'warning',
+      icon: 'warning',
       showCancelButton: true,
     }).then((action) => {
       if (action.value) {
@@ -297,7 +297,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     Swal.fire({
       title: 'Confirm Category Change',
       text: 'This action will change the membership category of the selected members. Are you sure you want to continue?',
-      type: 'warning',
+      icon: 'warning',
       confirmButtonText: 'Yes',
       showCancelButton: true,
       cancelButtonColor: '#d33',

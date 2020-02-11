@@ -22,11 +22,11 @@ export class MemberAccountService extends APIService {
 
   login(username: string, password: string) {
 
-    let body = new URLSearchParams();
+    const body = new URLSearchParams();
     body.append('username', username);
     body.append('password', password);
 
-    let headers = {
+    const headers = {
       'Content-Type': 'application/x-www-form-urlencoded'
     };
 
@@ -37,14 +37,13 @@ export class MemberAccountService extends APIService {
 
   /**
    * Fetch all organisations for a member
-   * 
-   * @param memberAccountId 
+   *
+   * @param memberAccountId Id of user account
    */
   organisations(memberAccountId: number, page = 1, limit = 10) {
     const params = {
       page,
-      limit,
-      contain: ['organisation_subscription'].join()
+      limit
     };
 
     return this.get(`${this.url}/${memberAccountId}/organisations`, params).pipe(map(res => {

@@ -17,4 +17,4 @@ export const full: Routes = [
     path: 'maintenance',
     loadChildren: () => import('../../pages/maintenance/maintenance.module').then(m => m.MaintenanceModule)
   }
-]
+];
