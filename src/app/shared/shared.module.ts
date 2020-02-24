@@ -24,11 +24,11 @@ import 'hammerjs';
 import 'mousetrap';
 
 // services
-import { NavService } from "./services/nav.service";
-import { ChatService } from "./services/chat.service";
-import { CustomizerService } from "./services/customizer.service";
+import { NavService } from './services/nav.service';
+import { ChatService } from './services/chat.service';
+import { CustomizerService } from './services/customizer.service';
 // Directives
-import { ToggleFullscreenDirective } from "./directives/fullscreen.directive";
+import { ToggleFullscreenDirective } from './directives/fullscreen.directive';
 import { PortalLayoutComponent } from './components/layout/portal-layout/portal-layout.component';
 import { OrganisationLayoutComponent } from './components/layout/organisation-layout/organisation-layout.component';
 import { RequestErrorHandler } from './services/interceptors/request-error-handler.service';
@@ -37,6 +37,7 @@ import { OrganisationSidebarComponent } from './components/organisation-sidebar/
 import { OrganisationInterceptor } from './services/interceptors/organisation-interceptor.service';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ImagePreloadDirective } from './directives/image-preload.directive';
+import { SubscriptionStatusComponent } from './components/subscription-status/subscription-status.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { ImagePreloadDirective } from './directives/image-preload.directive';
     PortalLayoutComponent,
     OrganisationLayoutComponent,
     OrganisationSidebarComponent,
-    PaginationComponent
+    PaginationComponent,
+    SubscriptionStatusComponent
   ],
   imports: [
     CommonModule,
@@ -80,6 +82,7 @@ import { ImagePreloadDirective } from './directives/image-preload.directive';
     UiSwitchModule,
     ImagePreloadDirective,
     InternationalPhoneNumberModule,
+    SubscriptionStatusComponent,
     NgbModule
   ],
   providers: [

@@ -5,11 +5,10 @@ import * as moment from 'moment';
   providedIn: 'root'
 })
 export class StorageService {
-
-  public keys:string[] = [];
+  public keys: string[] = [];
   public engine = localStorage;
 
-  constructor() { }
+  constructor() {}
 
   /**
    * Changes the storage engine to localStorage
@@ -30,7 +29,7 @@ export class StorageService {
   /**
    * Stores an item in the local or session storage and returns itself
    * for chaining
-   * 
+   *
    * @param key Key of Item to Store
    * @param value Item to store. Can be of any type
    * @param duration Duration of storage
@@ -39,7 +38,7 @@ export class StorageService {
   public set(key: string, value: any, duration: any = 1, unit = 'days') {
     const data = {
       created: moment().valueOf(),
-      data: typeof value == 'object' ? JSON.stringify(value) : value.toString(),
+      data: typeof value === 'object' ? JSON.stringify(value) : value.toString(),
       expires: moment().add(duration, unit).valueOf()
     };
 
@@ -51,7 +50,7 @@ export class StorageService {
 
   /**
    * Returns an item from the current storage engine or null if not found
-   * 
+   *
    * @param key Key of item to return
    */
   public get(key) {
@@ -60,20 +59,19 @@ export class StorageService {
     this.storeKey(key);
 
     try {
-      result = JSON.parse( this.engine.getItem(key) );
+      result = JSON.parse(this.engine.getItem(key));
 
-      if( result && this.isResultExpired(result) ) {
+      if (result && this.isResultExpired(result)) {
         this.engine.removeItem(key);
         return null;
       }
-    } catch(e) {
+    } catch (e) {
       return null;
     }
 
-
     try {
       return JSON.parse(result.data);
-    } catch(e) {
+    } catch (e) {
       this.engine.removeItem(key);
       return result;
     }
@@ -81,39 +79,39 @@ export class StorageService {
 
   /**
    * Removes an item from the current storage engine
-   * 
+   *
    * @param key Key of item to remove
    */
-  public remove(key) {
-    if( this.has(key) ) {
+  public remove(key: string) {
+    if (this.has(key)) {
       this.engine.removeItem(key);
     }
   }
 
   /**
    * Returns true if item is present in the current storage engine
-   * 
+   *
    * @param key Key of item to check
    */
-  public has(key) {
+  public has(key: string) {
     return this.get(key) != null;
   }
 
-  public isValid(key) {
-    if( this.has(key) ) {
+  public isValid(key: string) {
+    if (this.has(key)) {
       try {
-        const result = JSON.parse( this.engine.getItem(key) );
-        return this.isResultExpired(result) == false
-      } catch(e) {}      
-    };
+        const result = JSON.parse(this.engine.getItem(key));
+        return this.isResultExpired(result) === false;
+      } catch (e) {}
+    }
 
     return false;
   }
 
   /**
    * Returns true if result object is expired
-   * 
-   * @param result 
+   *
+   * @param result
    */
   private isResultExpired(result) {
     return result && moment(result.expires).isBefore(moment(), 'minute');
@@ -124,17 +122,19 @@ export class StorageService {
    * @param key Identifier of item stored
    */
   private storeKey(key: string) {
-    if( this.keys.indexOf(key) == -1 ) {
+    if (this.keys.indexOf(key) === -1) {
       this.keys.push(key);
     }
   }
 
   /**
    * Removes all data from storage except the items specified
-   * 
+   *
    * @param exceptions Array of keys to exclude
    */
   public clearAll(exceptions: string[]) {
-    this.keys.filter(key => exceptions.indexOf(key) == -1).forEach(key => this.remove(key));
+    this.keys
+      .filter(key => exceptions.indexOf(key) === -1)
+      .forEach(key => this.remove(key));
   }
 }

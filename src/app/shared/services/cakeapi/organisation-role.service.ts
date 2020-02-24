@@ -4,6 +4,8 @@ import { EventsService } from '../events.service';
 import { HttpClient } from '@angular/common/http';
 import { OrganisationRole } from '../../model/cakeapi/organisation-role';
 import { StorageService } from '../storage.service';
+import { map } from 'rxjs/operators';
+import { Permission } from '../../model/cakeapi/permission.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,4 +20,26 @@ export class OrganisationRoleService extends APIService {
     this.model_name = 'OrganisationRole';
   }
 
+  permissions(role_id) {
+    const params = {
+      limit: 300
+    }
+
+    return this.get(`${this.url}/${role_id}/permissions`, params).pipe(map(res => {
+      return res['data'].map(data => new Permission(data));
+    }));
+  }
+
+  syncPermissions(options) {
+    const params = {
+      limit: 300,
+      count: ['user', 'permission'].join()
+    };
+
+    return this.post(`${this.url}/${options.role_id}/permissions`, options, params).pipe(map(res => {
+      const returnData = res['data'];
+      this.events.trigger('OrganisationRole:permissionSynced', returnData);
+      return returnData;
+    }));
+  }
 }

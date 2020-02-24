@@ -1,14 +1,14 @@
-import { APIService } from "./api.service";
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { EventsService } from "../events.service";
-import { StorageService } from "../storage.service";
-import { map, switchMap, catchError } from "rxjs/operators";
-import { MemberAccount } from "../../model/cakeapi/member-account";
-import { Router } from "@angular/router";
-import Swal from "sweetalert2";
-import { OrganisationService } from "./organisation.service";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { APIService } from './api.service';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { EventsService } from '../events.service';
+import { StorageService } from '../storage.service';
+import { map, switchMap, catchError } from 'rxjs/operators';
+import { MemberAccount } from '../../model/cakeapi/member-account';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { OrganisationService } from './organisation.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
     providedIn: 'root'
@@ -48,12 +48,11 @@ export class AuthService extends APIService {
                 this.storage.set('auth', response, DURATION, 'day');
                 return response;
             }),
-            //catchError((error) => Swal.fire("Login failed", error.error.message, 'error')),
-            switchMap(() => this.me())
+            switchMap(() => this.me(remember_user))
         ).subscribe(
             () => this.router.navigate(['/portal/home']),
             () => {
-                Swal.fire("Login Failed", "Username or Password may be incorrect. Please try again", "error");
+                Swal.fire('Login Failed', 'Username or Password may be incorrect. Please try again', 'error');
                 this.requesting = false;
             },
             () => this.requesting = false
@@ -93,7 +92,7 @@ export class AuthService extends APIService {
         Swal.close();
         this.modalService.dismissAll();
         this.clearSession();
-        this.router.navigate(['/auth/login'])
+        this.router.navigate(['/auth/login']);
     }
 
     public clearSession() {

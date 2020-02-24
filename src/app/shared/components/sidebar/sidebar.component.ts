@@ -16,7 +16,7 @@ export class SidebarComponent {
   public fileurl: any;
 
   constructor(
-    private router: Router, 
+    public router: Router, 
     public navServices: NavService,
     public authService: AuthService
   ) {

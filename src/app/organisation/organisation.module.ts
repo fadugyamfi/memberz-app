@@ -9,11 +9,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartistModule } from 'ng-chartist';
 import { ChartsModule } from 'ng2-charts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { SubscriptionStatusComponent } from './dashboard/subscription-status/subscription-status.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, SubscriptionStatusComponent],
+  declarations: [
+    DashboardComponent, 
+  ],
   imports: [
     CommonModule,
     SharedModule,

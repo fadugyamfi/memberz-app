@@ -5,7 +5,6 @@ import { Subject, from, Subscription } from 'rxjs';
   providedIn: 'root'
 })
 export class EventsService {
-
   private listeners = {};
   private eventsSubject = new Subject();
   private events = from(this.eventsSubject);
@@ -26,7 +25,7 @@ export class EventsService {
   }
 
   on(name: string, listener: Function) {
-    if( !this.sub ) {
+    if (!this.sub) {
       this.setupSubscription();
     }
 
@@ -38,7 +37,7 @@ export class EventsService {
   }
 
   off(name: string) {
-    if( this.listeners[name] ) {
+    if (this.listeners[name]) {
       this.listeners[name].pop();
     }
   }
