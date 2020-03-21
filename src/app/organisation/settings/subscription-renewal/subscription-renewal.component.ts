@@ -7,8 +7,7 @@ import { OrganisationSubscription } from '../../../shared/model/cakeapi/organisa
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { SlydepayService } from 'slydepay-angular';
-import { OrganisationInvoiceItem } from '../../../shared/model/cakeapi/organisation-invoice-item';
+import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
 
 @Component({
   selector: 'app-subscription-renewal',
@@ -25,7 +24,7 @@ export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
     public organisationService: OrganisationService,
     public subscriptionService: OrganisationSubscriptionService,
     public router: Router,
-    public slydepayService: SlydepayService
+    public slydepayWrapper: SlydepayWrapperService
   ) {}
 
   ngOnInit() {
@@ -115,33 +114,7 @@ export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
   }
 
   createSlydepayInvoice(subscription: OrganisationSubscription) {
-    Swal.fire('Creating Payment Invoice', 'Please wait as invoice for payment is generated', 'info');
-    Swal.showLoading();
-
-    const invoice = subscription.organisation_invoice;
-    const orderItems = invoice.organisation_invoice_item.map((item: OrganisationInvoiceItem) => {
-      return {
-          itemCode: `${item.product_id}`,
-          itemName: item.description,
-          quantity: item.qty,
-          subTotal: item.total,
-          unitPrice: item.unit_price
-      };
-    });
-
-    this.slydepayService.createInvoice({
-      amount: invoice.total_due,
-      orderCode: invoice.invoice_no,
-      descritpion: invoice.transaction_type.name,
-      orderItems: orderItems
-    }).subscribe(response => this.redirectToPayLive(response.result));
-  }
-
-  redirectToPayLive(result) {
-    Swal.fire('Redirecting to Gateway', 'Redirecting to Slydepay Payment Gateway to complete transaction. Please wait...', 'info');
-    Swal.showLoading();
-
-    this.slydepayService.redirectToPayLive( result.payToken, window.location.href);
+    this.slydepayWrapper.payInvoice(subscription.organisation_invoice);
   }
 
   notifyAndRedirect() {

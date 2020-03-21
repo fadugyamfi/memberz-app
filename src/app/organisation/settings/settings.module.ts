@@ -10,6 +10,8 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { PaymentPlatformsComponent } from './payment-platforms/payment-platforms.component';
 import { SubscriptionRenewalComponent } from './subscription-renewal/subscription-renewal.component';
 import { SubscriptionUpgradeComponent } from './subscription-upgrade/subscription-upgrade.component';
+import { InvoicePaymentComponent } from './invoice-payment/invoice-payment.component';
+import { PaymentProcessorComponent } from './payment-processor/payment-processor.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { SubscriptionUpgradeComponent } from './subscription-upgrade/subscriptio
     SubscriptionComponent,
     PaymentPlatformsComponent,
     SubscriptionRenewalComponent,
-    SubscriptionUpgradeComponent
+    SubscriptionUpgradeComponent,
+    InvoicePaymentComponent,
+    PaymentProcessorComponent
   ],
   imports: [
     CommonModule,

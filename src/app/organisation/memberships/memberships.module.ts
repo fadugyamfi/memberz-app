@@ -20,11 +20,18 @@ import { GroupLeadersComponent } from './group-leaders/group-leaders.component';
 
 @NgModule({
   declarations: [
-    CategoriesComponent, 
-    ProfilesComponent, 
-    BulkUploadComponent, 
-    ReportsComponent, 
-    ProfileViewComponent, ProfileEditorComponent, PendingApprovalsComponent, MakeAdminComponent, GroupsComponent, GroupManagerComponent, GroupTypesComponent, GroupLeadersComponent
+    CategoriesComponent,
+    ProfilesComponent,
+    BulkUploadComponent,
+    ReportsComponent,
+    ProfileViewComponent, 
+    ProfileEditorComponent, 
+    PendingApprovalsComponent, 
+    MakeAdminComponent, 
+    GroupsComponent, 
+    GroupManagerComponent, 
+    GroupTypesComponent, 
+    GroupLeadersComponent
   ],
   imports: [
     CommonModule,

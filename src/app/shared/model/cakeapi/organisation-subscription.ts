@@ -26,6 +26,10 @@ export class OrganisationSubscription extends AppModel {
     return this.subscription_type.validity !== 'forever' && moment(this.end_dt).isBefore(moment());
   }
 
+  invoicePaid(): boolean {
+    return this.organisation_invoice != null && this.organisation_invoice.paid;
+  }
+
   set subscription_type(value) {
     this._subscription_type = value ? new SubscriptionType(value) : null;
   }

@@ -14,9 +14,9 @@ import { OrganisationService } from './organisation.service';
 export class OrganisationMemberService extends APIService {
 
   constructor(
-    protected http: HttpClient, 
-    protected events: EventsService, 
-    protected storage: StorageService, 
+    protected http: HttpClient,
+    protected events: EventsService,
+    protected storage: StorageService,
     protected organisationService: OrganisationService
   ) {
     super(http, events, storage);
@@ -61,7 +61,7 @@ export class OrganisationMemberService extends APIService {
 
     return this.get(`/organisations/${organisation.id}/memberships/statistics`).pipe(map(response => {
       return response['data'].map(result => {
-        return { value: result.total, name: result.category_name }
+        return { value: result.total, name: result.category_name };
       });
     }));
   }

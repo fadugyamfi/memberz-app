@@ -19,11 +19,11 @@
 
   <div class="card-footer">
     <div class="btn-group">
-      <button class="btn btn-air-success btn-success m-r-5" *ngIf="hasValidInvoice() && !subscriptionPaid()">
+      <button class="btn btn-air-success btn-success m-r-5" *ngIf="hasValidInvoice() && !subscriptionPaid()" (click)="paySubscription()">
         <i class="fa fa-credit-card"></i> Pay Now
       </button>
 
-      <button class="btn btn-danger m-r-5" *ngIf="subscriptionExpired()" (click)="renewSubscription()">
+      <button class="btn btn-danger m-r-5" *ngIf="subscriptionPaid() && subscriptionExpired()" (click)="renewSubscription()">
         <i class="fa fa-recycle"></i> Renew
       </button>
 

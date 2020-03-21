@@ -6,6 +6,8 @@ import { PaymentPlatformsComponent } from './payment-platforms/payment-platforms
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { SubscriptionRenewalComponent } from './subscription-renewal/subscription-renewal.component';
 import { SubscriptionUpgradeComponent } from './subscription-upgrade/subscription-upgrade.component';
+import { InvoicePaymentComponent } from './invoice-payment/invoice-payment.component';
+import { PaymentProcessorComponent } from './payment-processor/payment-processor.component';
 
 
 const routes: Routes = [
@@ -51,6 +53,20 @@ const routes: Routes = [
       breadcrumb: 'Subscription Upgrade'
     }
   },
+  {
+    path: 'invoice-payment/:id',
+    component: InvoicePaymentComponent,
+    data: {
+      breadcrumb: 'Invoice Payment'
+    }
+  },
+  {
+    path: 'process-payment',
+    component: PaymentProcessorComponent,
+    data: {
+      breadcrumb: 'Processing Payment'
+    }
+  }
 ];
 
 @NgModule({
