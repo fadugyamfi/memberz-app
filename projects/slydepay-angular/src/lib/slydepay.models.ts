@@ -1,6 +1,7 @@
 export interface SlydepayConfig {
   emailOrMobileNumber: string;
   merchantKey: string;
+  integrationMode ?: 0 | 1;
 }
 
 export interface SlydepayResponse<T> {
@@ -61,4 +62,5 @@ export interface Transaction {
   orderCode?: string;
   payToken?: string;
   transaction?: boolean;
+  transactionId?: string;
 }

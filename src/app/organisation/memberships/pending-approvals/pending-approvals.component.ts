@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { OrganisationMember } from '../../../shared/model/cakeapi/organisation-member';
 import { OrganisationMemberCategory } from '../../../shared/model/cakeapi/organisation-member-category';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -16,7 +16,7 @@ import { PageEvent } from '../../../shared/components/pagination/pagination.comp
   templateUrl: './pending-approvals.component.html',
   styleUrls: ['./pending-approvals.component.scss']
 })
-export class PendingApprovalsComponent implements OnInit {
+export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('searchModal', { static: true }) searchModal: any;
 
@@ -56,7 +56,11 @@ export class PendingApprovalsComponent implements OnInit {
    * Loads the list of member categories to display on the form
    */
   fetchMemberCategories() {
-    this.categoryService.getAll({ active: 1, limit: '100', sort: 'default:desc,name:asc' }).subscribe((categories: OrganisationMemberCategory[]) => {
+    this.categoryService.getAll({
+      active: 1,
+      limit: '100',
+      sort: 'default:desc,name:asc'
+    }).subscribe((categories: OrganisationMemberCategory[]) => {
       this.categories = categories;
     });
   }
@@ -64,9 +68,8 @@ export class PendingApprovalsComponent implements OnInit {
   /**
    * Loads the list of members from the backend
    *
-   * @param options
-   * @param page
-   * @param limit
+   * @param page Page number
+   * @param limit Total records to load
    */
   loadMemberships(page = 1, limit = 15) {
     this.members = null;
@@ -78,7 +81,7 @@ export class PendingApprovalsComponent implements OnInit {
       limit,
       contain: ['member', 'organisation_member_category'].join(),
       sort: 'created:asc'
-    }
+    };
 
     this.membershipService.getAll(options).subscribe((members: OrganisationMember[]) => {
       this.members = members;
@@ -97,7 +100,7 @@ export class PendingApprovalsComponent implements OnInit {
    * Returns true if no data is available
    */
   emptyDataset() {
-    return this.members && this.members.length == 0;
+    return this.members && this.members.length === 0;
   }
 
   /**
@@ -115,7 +118,7 @@ export class PendingApprovalsComponent implements OnInit {
    */
   editProfile(profile: OrganisationMember) {
     this.membershipService.setSelectedModel(profile);
-    this.router.navigate(['/organisation/memberships/edit', profile.id])
+    this.router.navigate(['/organisation/memberships/edit', profile.id]);
   }
 
   /**

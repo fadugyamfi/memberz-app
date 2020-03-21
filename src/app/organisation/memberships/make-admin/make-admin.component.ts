@@ -52,7 +52,7 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
   set membership(value) {
     this._membership = value;
 
-    if( value ) {
+    if ( value ) {
       this.loadAccount();
     }
   }
@@ -62,12 +62,12 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
   }
 
   hasAdminAccount() {
-    const organisation = this.organisationService.getActiveOrganisation(); 
+    const organisation = this.organisationService.getActiveOrganisation();
     return this.account && this.account.isOrganisationAdmin(organisation.id);
   }
 
   getOrganisationAccount() {
-    const organisation = this.organisationService.getActiveOrganisation(); 
+    const organisation = this.organisationService.getActiveOrganisation();
     return this.account ? this.account.getOrganisationAccount(organisation.id) : null;
   }
 
@@ -86,8 +86,8 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
   loadAccount() {
     const sub = this.accountService.getAccountByMemberId(this.membership.member_id).subscribe(account => {
       this.account = account;
-      
-      if( this.account ) {
+
+      if ( this.account ) {
         this.makeAdminForm.patchValue({ member_account_id: this.account.id });
       }
     });
@@ -115,14 +115,14 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
   onSubmit(e: Event) {
     e.preventDefault();
 
-    if( !this.makeAdminForm.valid ) {
+    if ( !this.makeAdminForm.valid ) {
       return;
     }
 
-    Swal.fire('Creating Admin Account', "Please wait as account is created...", "info");
+    Swal.fire('Creating Admin Account', 'Please wait as account is created...', 'info');
     Swal.showLoading();
 
-    let orgAccount = new OrganisationAccount(this.makeAdminForm.value);
+    const orgAccount = new OrganisationAccount(this.makeAdminForm.value);
 
     return this.organisationAccountService.create(orgAccount);
   }

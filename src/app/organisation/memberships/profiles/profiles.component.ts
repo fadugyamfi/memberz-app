@@ -53,7 +53,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    if( this.storage.isValid( this.cacheDataKey ) ) {
+    if ( this.storage.isValid( this.cacheDataKey ) ) {
       this.loadDataFromCache();
     } else {
       this.showSearchModal();
@@ -68,7 +68,9 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    * Loads the list of member categories to display on the form
    */
   fetchMemberCategories() {
-    this.categoryService.getAll({ active: 1, limit: '100', sort: 'default:desc,name:asc' }).subscribe((categories: OrganisationMemberCategory[]) => {
+    this.categoryService.getAll({
+      active: 1, limit: '100', sort: 'default:desc,name:asc'
+    }).subscribe((categories: OrganisationMemberCategory[]) => {
       this.categories = categories;
     });
   }
@@ -96,9 +98,9 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   /**
    * Loads the list of members from the backend
    *
-   * @param options
-   * @param page
-   * @param limit
+   * @param options Configuration options
+   * @param page Page number
+   * @param limit Total records to load
    */
   loadMemberships(options: object, page = 1, limit = 15) {
     this.members = null;
@@ -122,7 +124,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    * Returns true if no data is available
    */
   emptyDataset() {
-    return this.members && this.members.length == 0;
+    return this.members && this.members.length === 0;
   }
 
   /**
@@ -140,7 +142,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   editProfile(profile: OrganisationMember) {
     this.organisationMemberService.setSelectedModel(profile);
-    this.router.navigate(['/organisation/memberships/edit', profile.id])
+    this.router.navigate(['/organisation/memberships/edit', profile.id]);
   }
 
   /**
@@ -204,7 +206,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   onSearch(e: Event) {
     e.preventDefault();
 
-    let data = this.searchForm.value;
+    const data = this.searchForm.value;
 
     this.loadMemberships(data);
     this.modalService.dismissAll();
@@ -304,8 +306,8 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
       cancelButtonText: 'No'
     }).then((action) => {
       if (action.value) {
-        let data = this.changeCategoryForm.value;
-        let selected = this.getSelectedMembers().map(profile => Object.assign(profile, data));
+        const data = this.changeCategoryForm.value;
+        const selected = this.getSelectedMembers().map(profile => Object.assign(profile, data));
 
         this.organisationMemberService.batchUpdate(selected, { contain: ['member', 'organisation_member_category'].join()});
         this.changeCategoryForm.reset();

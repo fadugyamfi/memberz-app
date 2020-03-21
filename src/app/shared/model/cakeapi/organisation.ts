@@ -7,6 +7,7 @@ export class Organisation extends AppModel {
 
   public id: any;
   public name: any;
+  public logo: string;
   private _activeSubscription: OrganisationSubscription;
   private _organisationType: OrganisationType;
 

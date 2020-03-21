@@ -38,8 +38,7 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
   }
 
   subscriptionPaid() {
-    return this.organisation.active_subscription.organisation_invoice != null &&
-           this.organisation.active_subscription.organisation_invoice.paid;
+    return this.organisation.active_subscription.invoicePaid();
   }
 
   hasValidInvoice() {
@@ -52,5 +51,9 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
 
   upgradeSubscription() {
     this.router.navigate(['/organisation/settings/subscription-upgrade']);
+  }
+
+  paySubscription() {
+    this.router.navigate(['/organisation/settings/invoice-payment', this.organisation.active_subscription.organisation_invoice.id]);
   }
 }

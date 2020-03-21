@@ -50,15 +50,8 @@ export class OrganisationService extends APIService {
     this.events.trigger('active:organisation:cleared');
   }
 
-  // findMembers(options: object, page = 1, limit = 30) {
-  //   const params = Object.assign(options, {
-  //     contain: ['member'].join(),
-  //     page,
-  //     limit
-  //   });
-
-  //   return this.get(`${this.url}`, params).pipe(map(res => {
-  //     return res['data'].map(data => new Organisation(data));
-  //   }));
-  // }
+  refreshActiveOrganisation() {
+    const id = this.getActiveOrganisation().id;
+    this.getById(id).subscribe((org: Organisation) => this.setActiveOrganisation(org));
+  }
 }

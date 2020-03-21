@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      remember_me: ['']
+      remember_me: [true]
     });
   }
 
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
 
   // Simple Login
   login() {
-    //this.authService.SignIn(this.loginForm.value['email'], this.loginForm.value['password']);
+    // this.authService.SignIn(this.loginForm.value['email'], this.loginForm.value['password']);
     const login = this.loginForm.value;
     this.authService.login(login.email, login.password, login.remember_me);
   }

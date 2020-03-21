@@ -39,7 +39,7 @@
                         {{ item?.organisation_invoice?.total_due | currency : item?.organisation_invoice?.currency?.currency_code }}
                     </td>
                     <td class="">
-                        
+
 
                         <button class="btn btn-xs btn-info m-r-5" title="View Invoice">
                             <i class="fa fa-file-text"></i>
@@ -50,7 +50,7 @@
                         </button>
 
                         <span *ngIf="!item?.organisation_invoice?.paid" >
-                            <button class="btn btn-xs btn-success">
+                            <button class="btn btn-xs btn-success" [routerLink]="['/organisation/settings/invoice-payment', item.organisation_invoice.id]">
                                 <i class="fa fa-credit-card"></i> Pay Now
                             </button>
                         </span>

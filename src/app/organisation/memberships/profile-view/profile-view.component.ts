@@ -43,7 +43,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
   loadProfile() {
     this.membership = this.membershipService.getSelectedModel();
 
-    if( !this.membership ) {
+    if ( !this.membership ) {
       const sub = this.route.params.subscribe(params => {
         const membership_id = params['id']; // (+) converts string 'id' to a number
 
@@ -58,11 +58,11 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  
+
 
   editProfile() {
     this.membershipService.setSelectedModel(this.membership);
-    this.router.navigate(['/organisation/memberships/edit', this.membership.id])
+    this.router.navigate(['/organisation/memberships/edit', this.membership.id]);
   }
 
   setupEvents() {
@@ -73,18 +73,16 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     this.events.on('OrganisationMember:updated', (profile) => {
       this.membership = profile;
-      
-      if( profile.approved && profile.active ) {
+
+      if ( profile.approved && profile.active ) {
         this.alertType = 'success';
         this._messages.next(`Registration Approved. New Membership Number: ${profile.organisation_no}`);
-      } 
-
-      else if( !profile.approved && !profile.active ) {
+      } else if ( !profile.approved && !profile.active ) {
         this.alertType = 'danger';
-        this._messages.next("Registration Rejected");
+        this._messages.next('Registration Rejected');
       }
     });
   }
 
-  
+
 }

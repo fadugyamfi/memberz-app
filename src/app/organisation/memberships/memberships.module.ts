@@ -16,10 +16,10 @@ import { MakeAdminComponent } from './make-admin/make-admin.component';
 
 @NgModule({
   declarations: [
-    CategoriesComponent, 
-    ProfilesComponent, 
-    BulkUploadComponent, 
-    ReportsComponent, 
+    CategoriesComponent,
+    ProfilesComponent,
+    BulkUploadComponent,
+    ReportsComponent,
     ProfileViewComponent, ProfileEditorComponent, PendingApprovalsComponent, MakeAdminComponent
   ],
   imports: [

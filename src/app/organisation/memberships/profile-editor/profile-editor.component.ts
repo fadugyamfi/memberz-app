@@ -25,8 +25,8 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
 
   public _membership: OrganisationMember;
   public subscriptions: Subscription[] = [];
-  public editorTitle = "Add New Member Profile";
-  public editorIcon = "fa-user-plus";
+  public editorTitle = 'Add New Member Profile';
+  public editorIcon = 'fa-user-plus';
 
   constructor(
     public categoryService: OrganisationMemberCategoryService,
@@ -43,9 +43,9 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     this.setupEvents();
     this.fetchMemberCategories();
 
-    if( this.route.snapshot.data['editMode'] ) {
-      this.editorTitle = "Edit Member Profile";
-      this.editorIcon = "fa-pencil";
+    if ( this.route.snapshot.data['editMode'] ) {
+      this.editorTitle = 'Edit Member Profile';
+      this.editorIcon = 'fa-pencil';
       this.loadProfile();
     }
   }
@@ -100,7 +100,11 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
    * Loads the list of member categories to display on the form
    */
   fetchMemberCategories() {
-    this.categoryService.getAll({ active: 1, limit: '100', sort: 'default:desc,name:asc' }).subscribe((categories: OrganisationMemberCategory[]) => {
+    this.categoryService.getAll({
+      active: 1,
+      limit: '100',
+      sort: 'default:desc,name:asc'
+    }).subscribe((categories: OrganisationMemberCategory[]) => {
       this.categories = categories;
     });
   }
@@ -146,7 +150,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     const params = { contain: ['member.profile_photo', 'organisation_member_category'].join() };
 
     if (membership.id) {
-      Swal.fire('Saving Changes', "Saving Membership Changes. Please wait ...", "info");
+      Swal.fire('Saving Changes', 'Saving Membership Changes. Please wait ...', 'info');
       Swal.showLoading();
 
       this.profileService.update(profile);
@@ -154,7 +158,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       return;
     }
 
-    Swal.fire('Creating New Membership', "Creating Membership. Please wait ...", "info");
+    Swal.fire('Creating New Membership', 'Creating Membership. Please wait ...', 'info');
     Swal.showLoading();
 
     this.profileService.create(profile);
@@ -196,8 +200,8 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       confirmButtonText: 'Yes',
       cancelButtonText: 'No',
       cancelButtonColor: '#933'
-    }).then((action) => {
-      if (action.value) {
+    }).then((confirmAction) => {
+      if (confirmAction.value) {
         if (this.membership) {
           this.router.navigate(['/organisation/memberships/view', this.membership.id]);
         } else {
