@@ -11,6 +11,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
 import { PendingApprovalsComponent } from './pending-approvals/pending-approvals.component';
 import { MakeAdminComponent } from './make-admin/make-admin.component';
+import { GroupsComponent } from './groups/groups.component';
+import { GroupManagerComponent } from './group-manager/group-manager.component';
+import { GroupTypesComponent } from './group-types/group-types.component';
+import { GroupLeadersComponent } from './group-leaders/group-leaders.component';
 
 
 
@@ -20,7 +24,14 @@ import { MakeAdminComponent } from './make-admin/make-admin.component';
     ProfilesComponent,
     BulkUploadComponent,
     ReportsComponent,
-    ProfileViewComponent, ProfileEditorComponent, PendingApprovalsComponent, MakeAdminComponent
+    ProfileViewComponent, 
+    ProfileEditorComponent, 
+    PendingApprovalsComponent, 
+    MakeAdminComponent, 
+    GroupsComponent, 
+    GroupManagerComponent, 
+    GroupTypesComponent, 
+    GroupLeadersComponent
   ],
   imports: [
     CommonModule,
