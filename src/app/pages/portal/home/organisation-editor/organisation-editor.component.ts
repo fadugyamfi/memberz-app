@@ -24,9 +24,9 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   private organisation: Organisation;
   private modalRef: NgbModalRef;
   private freePlan: SubscriptionType;
-  public modalTitle = "Create New Organisation - Free Plan";
+  public modalTitle = 'Create New Organisation - Free Plan';
 
-  @ViewChild('editorModal', { static: true }) editorModal: ElementRef; 
+  @ViewChild('editorModal', { static: true }) editorModal: ElementRef;
   @Output() saveProfile = new EventEmitter<Organisation>();
 
   constructor(
@@ -78,7 +78,8 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
 
   loadSubscriptionTypes() {
     this.subTypeService.getAll({ active: 1 }).subscribe((subTypes: SubscriptionType[]) => {
-      this.freePlan = subTypes.find((value) => value.name == 'free2');
+      this.freePlan = subTypes.find((value) => value.name === 'free2');
+      this.profileForm.patchValue({ subscription_type_id: this.freePlan.id });
     });
   }
 
@@ -95,14 +96,14 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   onSubmit(e: Event) {
     e.preventDefault();
 
-    if( !this.profileForm.valid ) {
+    if (!this.profileForm.valid) {
       return;
     }
 
     this.organisation = new Organisation(this.profileForm.value);
     const params = { contain: ['active_subscription.subscription_type', 'organisation_type'].join() };
 
-    if( this.organisation.id ) {
+    if (this.organisation.id) {
       return this.organisationService.update(this.organisation, params);
     }
 
@@ -113,8 +114,8 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
     this.setupProfileForm();
     this.modalRef = this.modalService.open(this.editorModal, { size: 'lg' });
 
-    if( organisation ) {
-      this.modalTitle = "Update Organisation Info";
+    if (organisation) {
+      this.modalTitle = 'Update Organisation Info';
       this.profileForm.patchValue(organisation);
     }
   }

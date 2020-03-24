@@ -19,7 +19,7 @@ export class OrganisationSubscription extends AppModel {
   }
 
   expiresIn(): string {
-    return this.subscription_type.validity !== 'forever' ? moment(this.end_dt).fromNow() : '';
+    return this.subscription_type.validity !== 'forever' ? 'Expires ' + moment(this.end_dt).fromNow() : 'Never Expires';
   }
 
   isExpired(): boolean {

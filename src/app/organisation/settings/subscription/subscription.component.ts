@@ -30,7 +30,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
 
   loadSubscriptionHistory(page = 1, limit = 6) {
     this.history = [];
-    
+
     const sub = this.subscriptionService.getAll<OrganisationSubscription[]>({
       contain: ['organisation_invoice.transaction_type', 'organisation_invoice.currency'].join(),
       sort: 'id:desc',

@@ -733,55 +733,7 @@ export class NavService {
     this.ORGANISATION_MENUITEMS
   );
 
-	// Member Portal Items
-	ORGANISATION_MENUITEMS: Menu[] = [
-		{
-			path: '/organisation/dashboard', title: 'Dashboard', icon: 'home', type: 'link', bookmark: true
-		},
-		{
-			title: 'Memberships', icon: 'user', type: 'sub', active: false, bookmark: true, path: '/organisation/memberships/profiles', children: [
-				{ path: '/organisation/memberships/categories', title: 'Categories', type: 'link' },
-				{ path: '/organisation/memberships/add', title: 'Add Member', type: 'link' },
-				{ path: '/organisation/memberships/profiles', title: 'Find Members', type: 'link', icon: 'users' },
-				{ path: '/organisation/memberships/pending-approvals', title: 'Pending Approvals', type: 'link' },
-				{ path: '/organisation/memberships/upload', title: 'Bulk Upload', type: 'link' },
-				{ path: '/organisation/memberships/reports', title: 'Reports', type: 'link' },
-				{ path: '/organisation/memberships/groups', title: 'Group Management', type: 'link'}
-			]
-		},
-		{
-			title: 'Messaging', icon: 'message-square', type: 'sub', active: false, children: [
-				{ path: '/organisation/sms/settings', title: 'Settings', type: 'link' },
-				{ path: '/organisation/sms/history', title: 'History', type: 'link' },
-				{ path: '/organisation/sms/broadcast', title: 'Broadcast', type: 'link' },
-			]
-		},
-		{
-			title: 'Finance', icon: 'credit-card', type: 'sub', active: false, bookmark: true, path: '/organisation/finance/dashboard', children: [
-				{ path: '/organisation/finance/dashboard', title: 'Dashboard', type: 'link', icon: 'dashboard' },
-				{ path: '/organisation/finance/settings', title: 'Settings', type: 'link' },
-				{ path: '/organisation/finance/income', title: 'Income', type: 'link' },
-				{ path: '/organisation/finance/expenditure', title: 'Expenditure', type: 'link' },
-				{
-					title: 'Reports', type: 'sub', active: false, children: [
-						{ path: '/organisation/finance/reports/income-summary', title: 'Income Summary', type: 'link' },
-						{ path: '/organisation/finance/reports/expenditure-summary', title: 'Expenditure Summary', type: 'link' },
-						{ path: '/organisation/finance/reports/top-contributors', title: 'Top Contributors', type: 'link' },
-					]
-				},
-			]
-		},
-		{
-			title: 'Settings', icon: 'settings', type: 'sub', bookmark: true, active: false, path: '/organisation/settings/profile', children: [
-				{ path: '/organisation/settings/profile', title: 'Profile', type: 'link', icon: 'settings' },
-				{ path: '/organisation/settings/subscription', title: 'Subscription', type: 'link' },
-				{ path: '/organisation/settings/billing', title: 'Billing', type: 'link' },
-				{ path: '/organisation/settings/roles', title: 'Roles & Permissions', type: 'link' },
-				{ path: '/organisation/settings/accounts', title: 'Admin Accounts', type: 'link' },
-				{ path: '/organisation/settings/payment-platforms', title: 'Payment Platforms', type: 'link' },
-			]
-		},
-	];
+
   constructor() {
     this.onResize();
     if (this.screenWidth < 991) {

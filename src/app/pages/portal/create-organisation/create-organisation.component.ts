@@ -31,13 +31,13 @@ export class CreateOrganisationComponent implements OnInit {
   }
 
   setupEvents() {
-    this.events.on('Organisation:created',(organisation) => {
+    this.events.on('Organisation:created', () => {
       Swal.close();
       this.router.navigate(['/portal/home']);
     });
 
-    this.events.on('OrganisationSubscription:created', (orgSubscription) => {
-      
+    this.events.on('OrganisationSubscription:created', () => {
+
     });
   }
 
@@ -58,7 +58,7 @@ export class CreateOrganisationComponent implements OnInit {
   }
 
   createOrganisation() {
-    Swal.fire('Creating Organisation', "Please wait as your new organisation is setup", "info");
+    Swal.fire('Creating Organisation', 'Please wait as your new organisation is setup', 'info');
     Swal.showLoading();
 
     this.organisationService.create(this.organisation);
