@@ -59,7 +59,6 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
 
   canUpgrade() {
     const subscription_type = this.organisation.active_subscription.subscription_type;
-    console.log(subscription_type.name);
     return this.subscriptionPaid() && ['free', 'free2', 'sms_pro'].indexOf(subscription_type.name) > -1;
   }
 }
