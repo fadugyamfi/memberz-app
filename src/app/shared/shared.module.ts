@@ -20,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GalleryModule } from '@ks89/angular-modal-gallery';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
+import { NgxPrintModule } from 'ngx-print';
 import 'hammerjs';
 import 'mousetrap';
 
@@ -70,7 +71,8 @@ import { SubscriptionStatusComponent } from './components/subscription-status/su
     NgbModule,
     GalleryModule.forRoot(),
     UiSwitchModule,
-    InternationalPhoneNumberModule
+    InternationalPhoneNumberModule,
+    NgxPrintModule
   ],
   exports: [
     LoaderComponent,
@@ -83,7 +85,8 @@ import { SubscriptionStatusComponent } from './components/subscription-status/su
     ImagePreloadDirective,
     InternationalPhoneNumberModule,
     SubscriptionStatusComponent,
-    NgbModule
+    NgbModule,
+    NgxPrintModule
   ],
   providers: [
     NavService,
@@ -99,4 +102,3 @@ import { SubscriptionStatusComponent } from './components/subscription-status/su
   ]
 })
 export class SharedModule { }
-

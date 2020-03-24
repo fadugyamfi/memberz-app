@@ -18,4 +18,11 @@ export class SubscriptionTypeService extends APIService {
     this.model_name = 'SubscriptionType';
   }
 
+  getTypesUpradeableFrom(subscription_type_id: number) {
+    return this.getAll<SubscriptionType[]>({
+      active: 1,
+      promotional: 0,
+      id_notIn: subscription_type_id
+    });
+  }
 }

@@ -10,7 +10,11 @@
             <h5>Subscription History</h5>
         </div>
 
-        <table class="table table-striped table-hover">
+        <div class="loader-box m-auto" *ngIf="subscriptionService?.requesting">
+          <span class="rotate dashed colored"></span>
+        </div>
+
+        <table *ngIf="history" class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th colspan="2">Date</th>
@@ -41,7 +45,7 @@
                     <td class="">
 
 
-                        <button class="btn btn-xs btn-info m-r-5" title="View Invoice">
+                        <button class="btn btn-xs btn-info m-r-5" title="View Invoice" [routerLink]="['/organisation/settings/invoice', item.organisation_invoice.id]">
                             <i class="fa fa-file-text"></i>
                         </button>
 

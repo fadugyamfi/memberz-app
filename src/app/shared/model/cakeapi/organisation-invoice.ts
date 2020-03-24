@@ -15,6 +15,7 @@ export class OrganisationInvoice extends AppModel {
   public due_date: string;
   public paid: boolean;
   public organisation_id: number;
+  public notes: string;
   public _currency: Currency;
   public _transaction_type: TransactionType;
   public _organisation_invoice_item: OrganisationInvoiceItem[];

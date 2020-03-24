@@ -7,7 +7,7 @@
     <h6 class="mb-0 text-danger" *ngIf="subscriptionExpired()">Expired</h6>
 
     <h6 class="text-muted f-14" *ngIf="!subscriptionExpired()">
-      Expires {{ organisation?.active_subscription?.expiresIn() }}
+      {{ organisation?.active_subscription?.expiresIn() }}
     </h6>
 
     <h6 class="text-danger f-14 m-t-30" *ngIf="hasValidInvoice() && !subscriptionPaid()">
@@ -27,7 +27,7 @@
         <i class="fa fa-recycle"></i> Renew
       </button>
 
-      <button class="btn btn-secondary" *ngIf="subscriptionPaid()" (click)="upgradeSubscription()">
+      <button class="btn btn-secondary" *ngIf="canUpgrade()" (click)="upgradeSubscription()">
         <i class="fa fa-upload"></i> Upgrade
       </button>
     </div>
