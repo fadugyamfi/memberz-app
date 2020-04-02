@@ -9,7 +9,6 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        //loadChildren: '../components/dashboard/dashboard.module#DashboardModule',
         component: DashboardComponent,
         data: {
           breadcrumb: 'Dashboard'
@@ -27,6 +26,13 @@ const routes: Routes = [
         loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
         data: {
           breadcrumb: 'Settings'
+        }
+      },
+      {
+        path: 'messaging',
+        loadChildren: () => import('./messaging/messaging.module').then(m => m.MessagingModule),
+        data: {
+          breadcrumb: 'Messaging'
         }
       }
     ]

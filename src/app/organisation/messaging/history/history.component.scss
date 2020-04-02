@@ -1,0 +1,16 @@
+.list-group {
+  img {
+    height: 80px;
+  }
+
+  .message {
+    background-color: white;
+    padding: 15px 0px;
+    font-family: inherit;
+    white-space: pre-wrap;
+
+    .highlight {
+     background-color: yellow;
+    }
+  }
+}

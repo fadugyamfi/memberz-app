@@ -61,7 +61,9 @@
 
         <p>
           <i class="fa fa-fw fa-phone m-r-5"></i>
-          {{ membership?.member?.mobile_number || 'N/A' }}
+          <a href="tel:{{ membership?.member?.mobile_number }}">
+            {{ membership?.member?.mobile_number || 'N/A' }}
+          </a>
         </p>
       </div>
     </div>
@@ -85,7 +87,7 @@
                 <div class="row m-b-20">
                   <div class="col-sm-6">
                     <small class='text-muted text-uppercase'>Date of Birth</small>
-                    <p>{{ (membership?.member?.dob | date: short) || 'N/A' }}</p>
+                    <p>{{ (membership?.member?.dob | date: 'short') || 'N/A' }}</p>
                   </div>
 
                   <div class="col-sm-6">

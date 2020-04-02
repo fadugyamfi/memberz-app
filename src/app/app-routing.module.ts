@@ -9,6 +9,7 @@ import { AdminGuard } from './shared/guard/admin.guard';
 import { PortalLayoutComponent } from './shared/components/layout/portal-layout/portal-layout.component';
 import { OrganisationLayoutComponent } from './shared/components/layout/organisation-layout/organisation-layout.component';
 import { LoggedInGuard } from './shared/guard/logged-in.guard';
+import { OrganisationAdminGuard } from './shared/guard/organisation-admin.guard';
 
 const routes: Routes = [
   {
@@ -48,7 +49,7 @@ const routes: Routes = [
   {
     path: 'organisation',
     component: OrganisationLayoutComponent,
-    canActivate: [AdminGuard],
+    canActivate: [OrganisationAdminGuard],
     children: [{
       path: '',
       loadChildren: () => import('./organisation/organisation.module').then(m => m.OrganisationModule),
