@@ -41,12 +41,12 @@ export class MemberAccount extends AppModel {
 
   isOrganisationAdmin(organisation_id: number) {
     return this.organisation_account &&
-           this.organisation_account.some(account => account.organisation_id == organisation_id);
+           this.organisation_account.some(account => account.organisation_id === organisation_id);
   }
 
   getOrganisationAccount(organisation_id: number) {
     return this.isOrganisationAdmin(organisation_id) ?
-           this.organisation_account.find(account => account.organisation_id == organisation_id) :
+           this.organisation_account.find(account => account.organisation_id === organisation_id) :
            null;
   }
 }

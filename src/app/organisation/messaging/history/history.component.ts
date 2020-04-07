@@ -22,12 +22,11 @@ import { Router } from '@angular/router';
 export class HistoryComponent implements OnInit {
 
   @ViewChild('searchModal', { static: true }) searchModal: any;
-  @ViewChild('messageModal', { static: true }) messageModal: any;
+
 
   public messages: SmsAccountMessage[] = [];
   public filtered = 'all';
   public searchForm: FormGroup;
-  public messageForm: FormGroup;
   public orgSmsAccount: SmsAccount;
 
   constructor(
@@ -40,30 +39,29 @@ export class HistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.fetchSmsAccount();
     this.setupSearchForm();
-    this.setupMessageForm();
     this.loadMessageHistory();
+    this.setupEventListeners();
+    this.fetchSmsAccount();
   }
 
   fetchSmsAccount() {
-    const organisation = this.organisationService.getActiveOrganisation();
-    this.smsAccountService.fetchAccount(organisation.id).subscribe((accounts) => {
-      this.orgSmsAccount = accounts[0];
+    this.orgSmsAccount = this.smsAccountService.getOrganisationAccount();
 
-      if (!this.orgSmsAccount) {
-        Swal.fire(
-          'SMS Account Setup Required',
-          'Your SMS Messaging account must be setup before messaging can be done.',
-          'warning'
-        ).then(action => {
-          if (action.value) {
-            this.router.navigate(['/organisation/messaging/settings']);
-          }
-        });
-      } else {
-        this.setupMessageForm();
-      }
+    if ( !this.orgSmsAccount ) {
+      Swal.fire(
+        'SMS Account Not Configured',
+        'Please configure your SMS Sender ID before you can send messages',
+        'warning'
+      ).then(
+        () => this.router.navigate(['/organisation/messaging/settings'])
+      );
+    }
+  }
+
+  setupEventListeners() {
+    this.events.on('SmsAccountMessage:created', (message) => {
+      this.messages.unshift(message);
     });
   }
 
@@ -80,19 +78,6 @@ export class HistoryComponent implements OnInit {
     });
   }
 
-  /**
-   * Sets up the message form group and validations
-   */
-  setupMessageForm() {
-    this.messageForm = new FormGroup({
-      to: new FormControl('', Validators.required),
-      module_sms_account_id: new FormControl( this.orgSmsAccount ? this.orgSmsAccount.id : null, Validators.required ),
-      member_id: new FormControl('', Validators.required),
-      message: new FormControl('', Validators.required),
-      sent_at: new FormControl(moment())
-    });
-  }
-
   loadMessageHistory(page = 1, limit = 30) {
     this.messages = null;
 
@@ -102,7 +87,6 @@ export class HistoryComponent implements OnInit {
       switch (this.filtered) {
         case 'pending':
           params['sent'] = 0;
-          params['sent_status_isNull'] = true;
           break;
 
         case 'success':
@@ -110,8 +94,7 @@ export class HistoryComponent implements OnInit {
           break;
 
         case 'failed':
-          params['sent'] = 0;
-          params['sent_status_isNotNull'] = true;
+          params['sent'] = -1;
           break;
       }
     }
@@ -137,8 +120,8 @@ export class HistoryComponent implements OnInit {
   sentStatusClasses(message: SmsAccountMessage) {
     return {
       'text-warning': message.isPending(),
-      'text-danger': !message.sent,
-      'text-success': message.sent
+      'text-danger': message.sent === -1,
+      'text-success': message.sent === 1
     };
   }
 
@@ -158,26 +141,9 @@ export class HistoryComponent implements OnInit {
     this.modalService.open(this.searchModal, { size: 'lg' });
   }
 
-  /**
-   * Shows the search modal
-   */
-  showMessageModal() {
-    this.modalService.open(this.messageModal, { size: 'lg', backdrop: 'static' });
-  }
-
-
   onSearch(e) {
     this.modalService.dismissAll();
     this.loadMessageHistory();
-  }
-
-  onMessage(e: Event) {
-    e.preventDefault();
-
-    this.modalService.dismissAll();
-    const message = new SmsAccountMessage(this.messageForm.value);
-
-    this.messageService.create(message);
   }
 
   highlightWordsInText() {
@@ -190,14 +156,4 @@ export class HistoryComponent implements OnInit {
     }
   }
 
-  /**
-   * Shows the mobile number of the selected member
-   *
-   * @param orgMember Selected Member
-   */
-  showMobileNumber(orgMember: OrganisationMember) {
-    this.messageForm.patchValue({
-      to: orgMember.member.mobile_number
-    });
-  }
 }

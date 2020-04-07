@@ -12,7 +12,6 @@ import { SubscriptionRenewalComponent } from './subscription-renewal/subscriptio
 import { SubscriptionUpgradeComponent } from './subscription-upgrade/subscription-upgrade.component';
 import { InvoicePaymentComponent } from './invoice-payment/invoice-payment.component';
 import { PaymentProcessorComponent } from './payment-processor/payment-processor.component';
-import { InvoiceComponent } from './invoice/invoice.component';
 
 
 @NgModule({
@@ -25,8 +24,7 @@ import { InvoiceComponent } from './invoice/invoice.component';
     SubscriptionRenewalComponent,
     SubscriptionUpgradeComponent,
     InvoicePaymentComponent,
-    PaymentProcessorComponent,
-    InvoiceComponent
+    PaymentProcessorComponent
   ],
   imports: [
     CommonModule,

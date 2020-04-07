@@ -21,6 +21,10 @@ export class Member extends AppModel {
     super(data);
   }
 
+  name() {
+    return this.firstThenLastName();
+  }
+
   firstThenLastName() {
     return `${this.first_name} ${this.last_name}`;
   }

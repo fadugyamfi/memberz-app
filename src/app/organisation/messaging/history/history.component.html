@@ -16,7 +16,7 @@
 
       <div class="col-md-6 text-right">
 
-        <button class="btn btn-secondary btn-sm m-r-10" (click)="showMessageModal()">
+        <button class="btn btn-secondary btn-sm m-r-10" (click)="smsMessenger.show()">
           <i class="fa fa-envelope"></i> Send Message
         </button>
 
@@ -41,16 +41,22 @@
     <ul class="list-group list-group-flush">
       <li class="list-group-item" *ngFor="let message of messages">
         <div class="row">
-          <div class="col-sm-1">
-            <img [src]="message.member?.profile_photo?.thumb_url" alt="profile pic" class="img-80 rounded-circle" default="/assets/images/avtar/3.jpg" />
-          </div>
-          <div class="col-sm-8">
-            <div>
-              <b>{{ message.member?.last_name }} {{ message.member?.first_name }}</b>
-              ({{ message.to }})
+          <div class="col-sm-9">
+            <div class="media">
+              <div class="media-left">
+                <img [src]="message.member?.profile_photo?.thumb_url" alt="profile pic" class="img-80 rounded-circle pull-left" default="/assets/images/avtar/3.jpg" />
+              </div>
+
+              <div class="media-body">
+                <div>
+                  <b class="m-r-10">{{ message.member?.last_name }} {{ message.member?.first_name }}</b>
+                  <span>({{ message.to }})</span>
+                </div>
+                <div class="message" [innerHTML]="message.message"></div>
+              </div>
             </div>
-            <div class="message" [innerHTML]="message.message"></div>
           </div>
+
           <div class="col-sm-3">
             <label>{{ message.sent_at | date : 'medium' }}</label>
             <p class="f-12 font-weight-bold" [ngClass]="sentStatusClasses(message)">{{ message.sent_status }}</p>
@@ -114,44 +120,4 @@
   </form>
 </ng-template>
 
-<ng-template #messageModal let-modal>
-  <form (submit)="onMessage($event)" class="form form-horizontal theme-form" [formGroup]="messageForm">
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">
-        <i class="fa fa-envelope"></i> Send Message
-      </h4>
-      <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Send To</label>
-        <div class="col-sm-9">
-          <app-member-control formControlName="member_id" (selected)="showMobileNumber($event)"></app-member-control>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Mobile Number</label>
-        <div class="col-sm-9">
-          <input type="text" class="form-control disabled" formControlName="to" placeholder="e.g. +233277000000" readonly />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">Message</label>
-        <div class="col-sm-9">
-          <textarea rows="3" class="form-control" placeholder="Enter message here" formControlName="message"></textarea>
-        </div>
-      </div>
-
-    </div>
-    <div class="modal-footer">
-      <button type="submit" class="btn btn-primary">Send</button>
-      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
-    </div>
-  </form>
-</ng-template>
+<app-sms-messenger #smsMessenger></app-sms-messenger>

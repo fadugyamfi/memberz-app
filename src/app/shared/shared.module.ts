@@ -40,6 +40,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { ImagePreloadDirective } from './directives/image-preload.directive';
 import { SubscriptionStatusComponent } from './components/subscription-status/subscription-status.component';
 import { MemberControlComponent } from './components/forms/member-control/member-control.component';
+import { SmsMessengerComponent } from './components/messaging/sms-messenger/sms-messenger.component';
+import { InvoiceComponent } from './components/invoice/invoice.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { MemberControlComponent } from './components/forms/member-control/member
     OrganisationSidebarComponent,
     PaginationComponent,
     SubscriptionStatusComponent,
-    MemberControlComponent
+    MemberControlComponent,
+    SmsMessengerComponent,
+    InvoiceComponent
   ],
   imports: [
     CommonModule,
@@ -89,7 +93,9 @@ import { MemberControlComponent } from './components/forms/member-control/member
     SubscriptionStatusComponent,
     NgbModule,
     NgxPrintModule,
-    MemberControlComponent
+    MemberControlComponent,
+    SmsMessengerComponent,
+    InvoiceComponent
   ],
   providers: [
     NavService,

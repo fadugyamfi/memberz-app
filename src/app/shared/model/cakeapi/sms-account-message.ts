@@ -8,7 +8,7 @@ export class SmsAccountMessage extends AppModel {
   public _member: Member;
   public message: string;
   public to: string;
-  public sent: boolean;
+  public sent: number;
   public sent_at: string;
   public _sent_status: string;
 
@@ -37,6 +37,6 @@ export class SmsAccountMessage extends AppModel {
   }
 
   isPending() {
-    return !this.sent && (this._sent_status == null || this._sent_status.length === 0);
+    return !this.sent;
   }
 }

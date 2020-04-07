@@ -4,8 +4,8 @@
          class="img-thumbnail rounded-circle img-40" />
   </div>
   <div class="media-body">
-    <input type="text" class="form-control" [ngbTypeahead]="searchMember" [resultTemplate]="rt"
-           [inputFormatter]="formatter" placeholder="Enter Member Name" (selectItem)="setSelectedMember($event)" />
+    <input type="text" class="form-control" [ngbTypeahead]="searchMember" [resultTemplate]="rt" [(ngModel)]="model"
+           [inputFormatter]="formatter" placeholder="Enter Member Name" #input (selectItem)="setSelectedMember($event, input)" />
 
     <ng-template #rt let-r="result" let-t="term">
       <img [src]="r.member?.thumbnail()" default='assets/images/user/user.png'

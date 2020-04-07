@@ -22,13 +22,17 @@ export const MEMBER_CONTROL_ACCESSOR: any = {
 export class MemberControlComponent implements OnInit {
 
   @Input() member: Member;
+  @Input() withMobileNumber = false;
   @Output() selected = new EventEmitter();
 
   public searching = false;
   public searchFailed = false;
   public selectedMember: OrganisationMember;
 
-  public value = '';
+  private value = '';
+  private inputEl = null;
+
+  public model = null;
   public disabled = false;
   public onChange = (_: any) => { };
   public onTouched = () => { };
@@ -71,8 +75,14 @@ export class MemberControlComponent implements OnInit {
       tap(() => this.searching = true),
       switchMap(term => {
         const params = {
-          first_name_like: term
+          first_name_like: term,
+          sort: ['last_name:asc', 'first_name:asc'].join(',')
         };
+
+        if (this.withMobileNumber) {
+          params['mobile_number_isNotNull'] = true;
+        }
+
         return this.orgMemberService.search<OrganisationMember[]>(params).pipe(
           tap(() => this.searchFailed = false),
           catchError(() => {
@@ -84,9 +94,20 @@ export class MemberControlComponent implements OnInit {
       tap(() => this.searching = false)
     )
 
-  setSelectedMember(data) {
+  setSelectedMember(data, input) {
+    this.inputEl = input;
     this.selectedMember = data.item;
     this.setValue(this.selectedMember.member_id);
     this.selected.emit(this.selectedMember);
+  }
+
+  reset() {
+    if (this.inputEl) {
+      setTimeout(() => this.inputEl.value = '', 100);
+    }
+
+    this.model = null;
+    this.selectedMember = null;
+    this.setValue(null);
   }
 }
