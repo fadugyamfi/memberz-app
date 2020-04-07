@@ -6,6 +6,7 @@ export class MemberAccount extends AppModel {
 
   public id: any;
   public _member: Member;
+  public username: string;
 
   public member_id: number;
   public organisation_account: any[];
@@ -39,13 +40,13 @@ export class MemberAccount extends AppModel {
   }
 
   isOrganisationAdmin(organisation_id: number) {
-    return this.organisation_account && 
-           this.organisation_account.some(account => account.organisation_id == organisation_id);
+    return this.organisation_account &&
+           this.organisation_account.some(account => account.organisation_id === organisation_id);
   }
 
   getOrganisationAccount(organisation_id: number) {
-    return this.isOrganisationAdmin(organisation_id) ? 
-           this.organisation_account.find(account => account.organisation_id == organisation_id) :
+    return this.isOrganisationAdmin(organisation_id) ?
+           this.organisation_account.find(account => account.organisation_id === organisation_id) :
            null;
   }
 }

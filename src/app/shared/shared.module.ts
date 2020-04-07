@@ -39,6 +39,9 @@ import { OrganisationInterceptor } from './services/interceptors/organisation-in
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ImagePreloadDirective } from './directives/image-preload.directive';
 import { SubscriptionStatusComponent } from './components/subscription-status/subscription-status.component';
+import { MemberControlComponent } from './components/forms/member-control/member-control.component';
+import { SmsMessengerComponent } from './components/messaging/sms-messenger/sms-messenger.component';
+import { InvoiceComponent } from './components/invoice/invoice.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,10 @@ import { SubscriptionStatusComponent } from './components/subscription-status/su
     OrganisationLayoutComponent,
     OrganisationSidebarComponent,
     PaginationComponent,
-    SubscriptionStatusComponent
+    SubscriptionStatusComponent,
+    MemberControlComponent,
+    SmsMessengerComponent,
+    InvoiceComponent
   ],
   imports: [
     CommonModule,
@@ -86,7 +92,10 @@ import { SubscriptionStatusComponent } from './components/subscription-status/su
     InternationalPhoneNumberModule,
     SubscriptionStatusComponent,
     NgbModule,
-    NgxPrintModule
+    NgxPrintModule,
+    MemberControlComponent,
+    SmsMessengerComponent,
+    InvoiceComponent
   ],
   providers: [
     NavService,

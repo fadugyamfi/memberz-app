@@ -45,7 +45,7 @@
                     <td class="">
 
 
-                        <button class="btn btn-xs btn-info m-r-5" title="View Invoice" [routerLink]="['/organisation/settings/invoice', item.organisation_invoice.id]">
+                        <button class="btn btn-xs btn-info m-r-5" title="View Invoice" (click)="invoiceModal.showInvoice(item.organisation_invoice.id)">
                             <i class="fa fa-file-text"></i>
                         </button>
 
@@ -70,3 +70,6 @@
 
   </div>
 </div>
+
+
+<app-invoice #invoiceModal></app-invoice>

@@ -12,9 +12,17 @@ export class Member extends AppModel {
   public mobile_number: string;
   public occupation: string;
   public business_name: string;
+  public dob: string;
+  public nationality: string;
+  public place_of_birth: string;
+  public gender: string;
 
   constructor(data) {
     super(data);
+  }
+
+  name() {
+    return this.firstThenLastName();
   }
 
   firstThenLastName() {

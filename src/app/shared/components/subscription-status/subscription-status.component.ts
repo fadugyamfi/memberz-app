@@ -34,15 +34,15 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
   }
 
   subscriptionExpired() {
-    return this.organisation.active_subscription.isExpired();
+    return this.organisation && this.organisation.active_subscription.isExpired();
   }
 
   subscriptionPaid() {
-    return this.organisation.active_subscription.invoicePaid();
+    return this.organisation && this.organisation.active_subscription.invoicePaid();
   }
 
   hasValidInvoice() {
-    return this.organisation.active_subscription.organisation_invoice != null;
+    return this.organisation && this.organisation.active_subscription.organisation_invoice != null;
   }
 
   renewSubscription() {
@@ -58,6 +58,10 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
   }
 
   canUpgrade() {
+    if (!this.organisation) {
+      return false;
+    }
+
     const subscription_type = this.organisation.active_subscription.subscription_type;
     return this.subscriptionPaid() && ['free', 'free2', 'sms_pro'].indexOf(subscription_type.name) > -1;
   }

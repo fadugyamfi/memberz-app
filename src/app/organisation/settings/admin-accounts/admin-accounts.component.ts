@@ -25,35 +25,11 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
   public roles: OrganisationRole[];
 
   public editorModalRef: NgbModalRef;
-  public modalTitle: string = "Add New Account";
+  public modalTitle = 'Add New Account';
   public editorForm: FormGroup;
   public editingAccount: OrganisationAccount;
 
   public subscriptions: Subscription[] = [];
-
-  public searching = false;
-  public searchFailed = false;
-  public formatter = (profile: OrganisationMember) => profile.member && profile.member.firstThenLastName();
-  public selectedMember: OrganisationMember;
-  public searchMember = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      tap(() => this.searching = true),
-      switchMap(term => {
-        const params = {
-          first_name_like: term
-        };
-        return this.orgMemberService.search<OrganisationMember[]>(params).pipe(
-          tap(() => this.searchFailed = false),
-          catchError(() => {
-            this.searchFailed = true;
-            return of([]);
-          })
-        )}
-      ),
-      tap(() => this.searching = false)
-    )
 
   constructor(
     public accountService: OrganisationAccountService,
@@ -77,16 +53,16 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
   }
 
   loadAccounts() {
-    const sub = this.accountService.getAll<OrganisationAccount[]>({ 
+    const sub = this.accountService.getAll<OrganisationAccount[]>({
       contain: ['member_account.member.profile_photo', 'organisation_role'].join(),
       deleted: 0,
       limit: 100
     }).pipe(map(result => {
-      return result.sort((a,b) => {
+      return result.sort((a, b) => {
         const nameA = a.member_account.member.last_name;
         const nameB = b.member_account.member.last_name;
-        return nameA > nameB ? 1 : (nameB > nameA ? -1 : 0); 
-      })
+        return nameA > nameB ? 1 : (nameB > nameA ? -1 : 0);
+      });
     })).subscribe((result) => this.accountData = result);
 
     this.subscriptions.push(sub);
@@ -100,7 +76,7 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
     this.events.on('OrganisationAccount:created', (account: OrganisationAccount) => {
       this.editorModalRef.close();
 
-      if( account.id ) {
+      if (account.id) {
         this.accountData.push(account);
       }
     });
@@ -108,18 +84,18 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
     this.events.on('OrganisationAccount:updated', (account: OrganisationAccount) => {
       this.editorModalRef.close();
       this.accountData.forEach((acc, index) => {
-        if( acc.id == account.id ) {
+        if (acc.id === account.id) {
           this.accountData[index] = account;
         }
-      })
+      });
     });
 
     this.events.on('OrganisationAccount:deleted', (account) => {
       this.accountData.forEach((acc, index) => {
-        if( acc.id == account.id ) {
+        if (acc.id === account.id) {
           this.accountData.splice(index, 1);
         }
-      })
+      });
     });
   }
 
@@ -133,22 +109,21 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
     const organisation = this.organisationService.getActiveOrganisation();
     this.editorForm = new FormGroup({
       id: new FormControl(),
-      member_id: new FormControl(),
-      member_account_id: new FormControl(),
+      member_id: new FormControl('', Validators.required),
+      member_account_id: new FormControl('', Validators.required),
       organisation_id: new FormControl(organisation.id),
       organisation_role_id: new FormControl('', Validators.required),
       active: new FormControl(0)
-    })
+    });
   }
 
   showEditor(account: OrganisationAccount = null) {
-    this.modalTitle = "Add New Account";
+    this.modalTitle = 'Add New Account';
     this.editingAccount = null;
-    this.selectedMember = null;
     this.editorForm.reset();
 
-    if( account ) {
-      this.modalTitle = "Edit Account Info";
+    if (account) {
+      this.modalTitle = 'Edit Account Info';
       this.editingAccount = account;
       this.editorForm.patchValue(account);
     }
@@ -159,20 +134,17 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
   onSubmit(e: Event) {
     e.preventDefault();
 
-    let account = new OrganisationAccount( this.accountService.removeEmpty(this.editorForm.value) );
+    const account = new OrganisationAccount(this.accountService.removeEmpty(this.editorForm.value));
     const params = { contain: ['member_account.member.profile_photo', 'organisation_role'].join() };
 
-    if( account.id ) {
+    if (account.id) {
       return this.accountService.update(account, params);
     }
 
     return this.accountService.create(account, params);
   }
 
-  setSelectedMember(data) {
-    this.selectedMember = data.item;
-    this.editorForm.patchValue({
-      member_id: this.selectedMember.member_id
-    });
+  deleteAccount(user) {
+
   }
 }

@@ -636,14 +636,12 @@ export class NavService {
       icon: 'message-square',
       type: 'sub',
       active: false,
+      bookmark: true,
+      path: '/organisation/messaging/history',
       children: [
-        { path: '/organisation/sms/settings', title: 'Settings', type: 'link' },
-        { path: '/organisation/sms/history', title: 'History', type: 'link' },
-        {
-          path: '/organisation/sms/broadcast',
-          title: 'Broadcast',
-          type: 'link'
-        }
+        { path: '/organisation/messaging/settings', title: 'Settings', type: 'link' },
+        { path: '/organisation/messaging/history', title: 'History', type: 'link' },
+        { path: '/organisation/messaging/broadcast', title: 'Broadcast', type: 'link' }
       ]
     },
     {
@@ -654,43 +652,18 @@ export class NavService {
       bookmark: true,
       path: '/organisation/finance/dashboard',
       children: [
-        {
-          path: '/organisation/finance/dashboard',
-          title: 'Dashboard',
-          type: 'link',
-          icon: 'dashboard'
-        },
-        {
-          path: '/organisation/finance/settings',
-          title: 'Settings',
-          type: 'link'
-        },
+        { path: '/organisation/finance/dashboard', title: 'Dashboard', type: 'link', icon: 'dashboard' },
+        { path: '/organisation/finance/settings', title: 'Settings', type: 'link' },
         { path: '/organisation/finance/income', title: 'Income', type: 'link' },
-        {
-          path: '/organisation/finance/expenditure',
-          title: 'Expenditure',
-          type: 'link'
-        },
+        { path: '/organisation/finance/expenditure', title: 'Expenditure', type: 'link' },
         {
           title: 'Reports',
           type: 'sub',
           active: false,
           children: [
-            {
-              path: '/organisation/finance/reports/income-summary',
-              title: 'Income Summary',
-              type: 'link'
-            },
-            {
-              path: '/organisation/finance/reports/expenditure-summary',
-              title: 'Expenditure Summary',
-              type: 'link'
-            },
-            {
-              path: '/organisation/finance/reports/top-contributors',
-              title: 'Top Contributors',
-              type: 'link'
-            }
+            { path: '/organisation/finance/reports/income-summary', title: 'Income Summary', type: 'link' },
+            { path: '/organisation/finance/reports/expenditure-summary', title: 'Expenditure Summary', type: 'link' },
+            { path: '/organisation/finance/reports/top-contributors', title: 'Top Contributors', type: 'link' }
           ]
         }
       ]
@@ -701,7 +674,7 @@ export class NavService {
       type: 'sub',
       bookmark: true,
       active: false,
-      path: '/organisation/settings/profile',
+      path: '/organisation/settings/subscription',
       children: [
         // { path: '/organisation/settings/profile', title: 'Profile', type: 'link', icon: 'settings' },
         {

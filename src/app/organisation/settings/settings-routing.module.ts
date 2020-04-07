@@ -8,7 +8,6 @@ import { SubscriptionRenewalComponent } from './subscription-renewal/subscriptio
 import { SubscriptionUpgradeComponent } from './subscription-upgrade/subscription-upgrade.component';
 import { InvoicePaymentComponent } from './invoice-payment/invoice-payment.component';
 import { PaymentProcessorComponent } from './payment-processor/payment-processor.component';
-import { InvoiceComponent } from './invoice/invoice.component';
 
 
 const routes: Routes = [
@@ -66,13 +65,6 @@ const routes: Routes = [
     component: PaymentProcessorComponent,
     data: {
       breadcrumb: 'Processing Payment'
-    }
-  },
-  {
-    path: 'invoice/:id',
-    component: InvoiceComponent,
-    data: {
-      breadcrumb: 'Payment Invoice'
     }
   }
 ];

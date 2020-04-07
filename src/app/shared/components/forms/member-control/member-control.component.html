@@ -1,0 +1,16 @@
+<div class="media">
+  <div class="media-left m-r-10">
+    <img [src]="selectedMember?.member?.thumbnail()" default='assets/images/user/user.png'
+         class="img-thumbnail rounded-circle img-40" />
+  </div>
+  <div class="media-body">
+    <input type="text" class="form-control" [ngbTypeahead]="searchMember" [resultTemplate]="rt" [(ngModel)]="model"
+           [inputFormatter]="formatter" placeholder="Enter Member Name" #input (selectItem)="setSelectedMember($event, input)" />
+
+    <ng-template #rt let-r="result" let-t="term">
+      <img [src]="r.member?.thumbnail()" default='assets/images/user/user.png'
+           class="img-thumbnail rounded-circle img-40 m-r-10">
+      <ngb-highlight [result]="r.member?.firstThenLastName()" [term]="t"></ngb-highlight>
+    </ng-template>
+  </div>
+</div>

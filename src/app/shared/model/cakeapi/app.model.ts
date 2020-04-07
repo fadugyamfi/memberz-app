@@ -3,10 +3,10 @@ import * as moment from 'moment';
 export class AppModel {
 
   public id: any;
-  public created;
-  public modified;
+  public created: string;
+  public modified: string;
 
-  constructor(data) {
+  constructor(data: object) {
     this.update(data);
   }
 
@@ -24,12 +24,12 @@ export class AppModel {
 
   toJSON() {
 
-    // start with an empty object (see other alternatives below) 
+    // start with an empty object (see other alternatives below)
     const jsonObj = Object.assign({}, this);
 
     // add all properties
     const proto = Object.getPrototypeOf(this);
-    for (const key of Object.getOwnPropertyNames(proto)) {      
+    for (const key of Object.getOwnPropertyNames(proto)) {
       const desc = Object.getOwnPropertyDescriptor(proto, key);
       const hasGetter = desc && typeof desc.get === 'function';
       if (hasGetter) {
