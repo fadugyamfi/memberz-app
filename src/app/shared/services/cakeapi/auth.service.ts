@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EventsService } from '../events.service';
 import { StorageService } from '../storage.service';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { MemberAccount } from '../../model/cakeapi/member-account';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { APIService } from './api.service';
 import { EventsService } from '../events.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { MemberAccount } from '../../model/cakeapi/member-account';
 import { map } from 'rxjs/operators';
 import { StorageService } from '../storage.service';

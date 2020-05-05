@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { APIService } from './api.service';
 import { EventsService } from '../events.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import { OrganisationMemberCategory } from '../../model/cakeapi/organisation-member-category';
 import { StorageService } from '../storage.service';
-import { Organisation } from '../../model/cakeapi/organisation';
 
 @Injectable({
   providedIn: 'root'

@@ -4,7 +4,6 @@ import { EventsService } from '../events.service';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../storage.service';
 import { SmsAccount } from '../../model/cakeapi/sms-account';
-import { map } from 'rxjs/operators';
 import { OrganisationService } from './organisation.service';
 
 @Injectable({

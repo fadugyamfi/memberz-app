@@ -21,7 +21,7 @@ export class PermissionService extends APIService {
   }
 
   findPermissions(options, page = 1, limit = 30) {
-    let params = Object.assign(options, {
+    const params = Object.assign(options, {
       page: page,
       limit: limit,
       sort: 'type:asc,name:asc'
@@ -33,17 +33,17 @@ export class PermissionService extends APIService {
   }
 
   permissionsForRole(role_id) {
-    let params = {
+    const params = {
       limit: 200
-    }
+    };
 
     return this.get(`/roles/${role_id}/permissions`, params).pipe(map(res => {
       return res['data'].map(data => new Permission(data));
-    }))
+    }));
   }
 
   syncRolePermissions(options) {
-    let params = Object.assign(options, {
+    const params = Object.assign(options, {
       limit: 200
     });
 
