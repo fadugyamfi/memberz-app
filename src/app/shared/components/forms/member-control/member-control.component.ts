@@ -70,12 +70,12 @@ export class MemberControlComponent implements OnInit {
 
   public searchMember = (text$: Observable<string>) =>
     text$.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
       tap(() => this.searching = true),
+      debounceTime(500),
+      distinctUntilChanged(),
       switchMap(term => {
         const params = {
-          first_name_like: term,
+          term: term,
           sort: ['last_name:asc', 'first_name:asc'].join(',')
         };
 

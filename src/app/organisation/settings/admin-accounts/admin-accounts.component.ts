@@ -11,6 +11,7 @@ import { OrganisationService } from '../../../shared/services/cakeapi/organisati
 import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationMemberService } from '../../../shared/services/cakeapi/organisation-member.service';
 import { OrganisationMember } from '../../../shared/model/cakeapi/organisation-member';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-admin-accounts',
@@ -96,6 +97,8 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
           this.accountData.splice(index, 1);
         }
       });
+
+      Swal.close();
     });
   }
 
@@ -144,7 +147,20 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
     return this.accountService.create(account, params);
   }
 
-  deleteAccount(user) {
-
+  deleteAccount(user: OrganisationAccount) {
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: `
+        This action will delete "${user.member_account.member.firstThenLastName()}"
+        from the database. This action currently cannot be reverted`,
+      icon: 'warning',
+      showCancelButton: true,
+    }).then((action) => {
+      if (action.value) {
+        Swal.fire('Deleting Admin Account', 'Please wait ...', 'error');
+        Swal.showLoading();
+        this.accountService.remove(user);
+      }
+    });
   }
 }

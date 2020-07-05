@@ -64,4 +64,10 @@ export class OrganisationMemberService extends APIService {
       });
     }));
   }
+
+  unapproved() {
+    return this.get(`${this.url}/unapproved`).pipe(map(response => {
+      return response['data'].map(result => new OrganisationMember(result));
+    }));
+  }
 }

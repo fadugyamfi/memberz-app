@@ -153,6 +153,9 @@
     </div>
 
     <div class="modal-footer">
+      <span *ngIf="accountService.requesting" class="m-r-15">
+        <i class="fa fa-spin fa-fw fa-circle-o-notch"></i> Saving...
+      </span>
       <button type="submit" class="btn btn-primary">Save Changes</button>
       <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
     </div>

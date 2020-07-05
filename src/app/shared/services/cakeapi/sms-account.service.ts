@@ -40,9 +40,7 @@ export class SmsAccountService extends APIService {
   private getAccountParams(organisation_id = null) {
     if (!organisation_id) {
       const organisation = this.orgService.getActiveOrganisation();
-      if (organisation) {
-        organisation_id = organisation.id;
-      }
+      organisation_id = organisation ? organisation.id : null;
     }
 
     return { organisation_id, limit: 1 };
@@ -56,7 +54,7 @@ export class SmsAccountService extends APIService {
     this.orgSmsAccount = accounts[0];
 
     if (this.orgSmsAccount) {
-      this.storage.set('org_sms_account', this.orgSmsAccount, 1, 'hours');
+      this.storage.set('org_sms_account', this.orgSmsAccount, 2, 'hours');
     }
   }
 }

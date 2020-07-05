@@ -511,7 +511,7 @@ export class APIService {
    * @param requests Array of requests
    * @param qparams Query parameters
    */
-  batch(requests, qparams: object = null) {
+  batch(requests: Array<object>, qparams: object = null) {
     return this.post('/batch', requests, qparams).pipe(map(res => {
       const responses = [];
 

@@ -41,7 +41,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     AppRoutingModule,
     HttpClientModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      preventDuplicates: true
+    }),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

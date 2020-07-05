@@ -83,7 +83,7 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
       sort: 'created:asc'
     };
 
-    this.membershipService.getAll(options).subscribe((members: OrganisationMember[]) => {
+    this.membershipService.unapproved().subscribe((members: OrganisationMember[]) => {
       this.members = members;
       this.allSelected = false;
     });

@@ -4,6 +4,8 @@ import { bounce, zoomOut, zoomIn, fadeIn, bounceIn } from 'ng-animate';
 import { NavService } from '../../../services/nav.service';
 import { CustomizerService } from '../../../services/customizer.service';
 import * as feather from 'feather-icons';
+import { ToastrService } from 'ngx-toastr';
+import { EventsService } from '../../../services/events.service';
 
 @Component({
   selector: 'app-organisation-layout',
@@ -21,8 +23,12 @@ export class OrganisationLayoutComponent implements OnInit, AfterViewInit {
 
   public right_side_bar: boolean;
 
-  constructor(public navServices: NavService,
-    public customizer: CustomizerService) { }
+  constructor(
+    public navServices: NavService,
+    public customizer: CustomizerService,
+    public toastrService: ToastrService,
+    public events: EventsService
+  ) { }
 
 
   ngAfterViewInit() {
@@ -36,13 +42,13 @@ export class OrganisationLayoutComponent implements OnInit, AfterViewInit {
     // click outside Area perform following action
     document.getElementById('outer-container').onclick = function (e) {
       e.stopPropagation();
-      if (e.target != document.getElementById('search-outer')) {
+      if (e.target !== document.getElementById('search-outer')) {
         document.getElementsByTagName('body')[0].classList.remove('offcanvas');
       }
-      if (e.target != document.getElementById('outer-container')) {
+      if (e.target !== document.getElementById('outer-container')) {
         document.getElementById('canvas-bookmark').classList.remove('offcanvas-bookmark');
       }
-      if (e.target != document.getElementById('inner-customizer')) {
+      if (e.target !== document.getElementById('inner-customizer')) {
         document.getElementsByClassName('customizer-links')[0].classList.remove('open');
         document.getElementsByClassName('customizer-contain')[0].classList.remove('open');
       }
@@ -57,6 +63,18 @@ export class OrganisationLayoutComponent implements OnInit, AfterViewInit {
     this.right_side_bar = $event;
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.events.on('toast', (toast) => {
+      switch (toast.type) {
+        case 'error':
+          this.toastrService.error(toast.msg, toast.title);
+          break;
+
+        default:
+          this.toastrService.info(toast.msg, toast.title);
+      }
+
+    });
+  }
 
 }
