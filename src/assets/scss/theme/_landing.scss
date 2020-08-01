@@ -203,7 +203,7 @@ $landing-color : #2c91fb;
   }
 }
 .advance-bg {
-  background-image: url(../images/landing/background.jpg);
+  background-image: url(../../images/landing/background.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
@@ -288,7 +288,7 @@ $landing-color : #2c91fb;
 .advance-widget {
   background-color: #fafafa;
   .widgets-section {
-    background-image: url(../images/landing/widgets-bck.png);
+    background-image: url(../../images/landing/widgets-bck.png);
     background-size: cover;
     height: 600px;
     animation: widget-animation 110s linear infinite reverse;
@@ -357,7 +357,7 @@ $landing-color : #2c91fb;
       }
     }
   }
-  background-image: url("../images/landing/home/pattern.jpg");
+  background-image: url("../../images/landing/home/pattern.jpg");
   background-blend-mode: overlay;
   background-color: rgba(255, 255, 255, 0.95);
   background-position:0;
@@ -1405,7 +1405,7 @@ $landing-color : #2c91fb;
   position: relative;
   height: calc(95vh);
   overflow: hidden;
-  //background: url(../images/veg_slider.jpg) top center;
+  //background: url(../../images/veg_slider.jpg) top center;
   background-size: cover;
   background-repeat: no-repeat;
 }

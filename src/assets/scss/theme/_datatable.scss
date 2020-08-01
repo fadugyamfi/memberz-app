@@ -1,6 +1,13 @@
 /**=====================
     30. Data-table CSS Start
 ==========================**/
+.noscroll{
+  .datatable-footer{
+    .datatable-footer-inner{
+      height: auto !important;
+    }
+  }
+}
 .selection-datatable {
   .table-responsive {
     ng2-smart-table-pager {
@@ -21,14 +28,28 @@
   }
   .datatable-icon-right {
     &:before {
-      content: "\f101";
+      content: "\f054";
       font-family: $font-awesome;
-      font-size: 14px;
+      font-size: 10px;
     }
   }
   .datatable-icon-left {
     &:before {
+      content: "\f053";
+      font-family: $font-awesome;
+      font-size: 10px;
+    }
+  }
+  .datatable-icon-prev {
+    &:before {
       content: "\f100";
+      font-family: $font-awesome;
+      font-size: 14px;
+    }
+  }
+  .datatable-icon-skip {
+    &:before {
+      content: "\f101";
       font-family: $font-awesome;
       font-size: 14px;
     }
@@ -355,11 +376,11 @@ td.highlight {
   background-color: $light-color !important;
 }
 td.details-control {
-  background: url('../images/details_open.png') no-repeat center center;
+  background: url('../../images/details_open.png') no-repeat center center;
   cursor: pointer;
 }
 tr.shown td.details-control {
-  background: url('../images/details_close.png') no-repeat center center;
+  background: url('../../images/details_close.png') no-repeat center center;
 }
 .dataTables_scroll{
   &~.dataTables_paginate{
