@@ -15,7 +15,7 @@
   },
   "private": true,
   "dependencies": {
-    "@agm/core": "^1.1.0",
+    "@agm/core": "^3.0.0-beta.0",
     "@angular-devkit/architect": "^0.800.6",
     "@angular-devkit/core": "^9.1.9",
     "@angular-devkit/schematics": "^9.1.9",
@@ -39,7 +39,6 @@
     "@schematics/angular": "^8.3.27",
     "@schematics/update": "^0.800.6",
     "@swimlane/ngx-charts": "^14.0.0",
-    "@swimlane/ngx-datatable": "^15.0.2",
     "angular-archwizard": "^5.0.1",
     "angular2-multiselect-dropdown": "^4.6.3",
     "angularx-flatpickr": "^6.3.1",
