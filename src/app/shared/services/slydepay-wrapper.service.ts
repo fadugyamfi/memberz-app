@@ -20,7 +20,7 @@ export class SlydepayWrapperService {
     Swal.fire('Preparing Payment', 'Please wait as invoice for payment is generated', 'info');
     Swal.showLoading();
 
-    const orderItems = invoice.organisation_invoice_item.map((item: OrganisationInvoiceItem) => {
+    const orderItems = invoice.organisation_invoice_items.map((item: OrganisationInvoiceItem) => {
       return {
           itemCode: `${item.product_id}`,
           itemName: item.description,

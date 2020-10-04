@@ -54,7 +54,7 @@ export class MemberAccountService extends APIService {
   getAccountByMemberId(member_id: number) {
     const params = {
       member_id: member_id,
-      contain: ['organisation_account.organisation_role'].join()
+      contain: ['organisation_accounts.organisation_role'].join()
     };
 
     return this.get(`${this.url}`, params).pipe(map(res => {

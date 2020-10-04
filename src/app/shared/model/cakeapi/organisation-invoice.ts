@@ -18,18 +18,18 @@ export class OrganisationInvoice extends AppModel {
   public notes: string;
   public _currency: Currency;
   public _transaction_type: TransactionType;
-  public _organisation_invoice_item: OrganisationInvoiceItem[];
+  public _organisation_invoice_items: OrganisationInvoiceItem[];
 
   constructor(data) {
     super(data);
   }
 
-  set organisation_invoice_item(value) {
-    this._organisation_invoice_item = value ? value.map(item => new OrganisationInvoiceItem(item)) : null;
+  set organisation_invoice_items(value) {
+    this._organisation_invoice_items = value ? value.map(item => new OrganisationInvoiceItem(item)) : null;
   }
 
-  get organisation_invoice_item(): OrganisationInvoiceItem[] {
-    return this._organisation_invoice_item;
+  get organisation_invoice_items(): OrganisationInvoiceItem[] {
+    return this._organisation_invoice_items;
   }
 
   set transaction_type(value) {

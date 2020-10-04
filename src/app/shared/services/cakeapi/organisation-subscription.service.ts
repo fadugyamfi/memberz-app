@@ -24,7 +24,7 @@ export class OrganisationSubscriptionService extends APIService {
     const qparams = {
       contain: [
         'organisation_invoice.transaction_type',
-        'organisation_invoice.organisation_invoice_item'
+        'organisation_invoice.organisation_invoice_items'
       ].join()
     };
 
@@ -42,7 +42,7 @@ export class OrganisationSubscriptionService extends APIService {
     const qparams = {
       contain: [
         'organisation_invoice.transaction_type',
-        'organisation_invoice.organisation_invoice_item'
+        'organisation_invoice.organisation_invoice_items'
       ].join()
     };
 
