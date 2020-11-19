@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { MemberAccountService } from '../../shared/services/cakeapi/member-account.service';
-import { StorageService } from '../../shared/services/storage.service';
 import { AuthService } from '../../shared/services/cakeapi/auth.service';
 
 type UserFields = 'email' | 'password';
@@ -27,11 +23,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private afauth: AngularFireAuth,
-    private fb: FormBuilder,
-    private router: Router,
-    private memberAccountService: MemberAccountService,
-    private storage: StorageService
+    private fb: FormBuilder
   ) {
     this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
