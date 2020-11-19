@@ -17,7 +17,7 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^3.0.0-beta.0",
-    "@angular-devkit/architect": "^0.800.6",
+    "@angular-devkit/architect": "^0.1100.2",
     "@angular-devkit/core": "^11.0.2",
     "@angular-devkit/schematics": "^11.0.2",
     "@angular/animations": "^11.0.1",
