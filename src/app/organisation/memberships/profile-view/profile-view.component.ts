@@ -21,6 +21,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
   public alertMessage = '';
   public alertType = 'success';
   public membership: OrganisationMember;
+  public active = '';
 
   public subscriptions: Subscription[] = [];
 

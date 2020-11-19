@@ -34,7 +34,7 @@
     "@asymmetrik/ngx-leaflet": "^5.0.2",
     "@kolkov/angular-editor": "^1.1.4",
     "@ks89/angular-modal-gallery": "^7.2.6",
-    "@ng-bootstrap/ng-bootstrap": "^6.2.0",
+    "@ng-bootstrap/ng-bootstrap": "^8.0.0",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "@schematics/angular": "^10.2.0",
