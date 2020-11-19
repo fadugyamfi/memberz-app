@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "memberzorg"
+  },
+  "targets": {
+    "memberzorg": {
+      "hosting": {
+        "endless": [
+          "memberzorg"
+        ]
+      }
+    }
   }
 }
