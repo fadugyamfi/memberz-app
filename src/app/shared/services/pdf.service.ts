@@ -19,9 +19,6 @@ export class PdfService {
 
   /**
    *
-   * @param data
-   * @param name
-   * @param position
    */
   generatePdf(data, name: string = 'generate.pdf', position: number = 0) {
     Swal.fire('Exporting PDF', 'Please wait as content is loaded and prepared...', 'info');
@@ -38,7 +35,7 @@ export class PdfService {
       pdf.addImage(contentDataURL, 'PNG', 0, position, this.imgWidth, imgHeight);
       pdf.save(this.formatName(name));
       Swal.fire({
-        type: 'success',
+        icon: 'success',
         title: 'PDF Exported',
         showConfirmButton: false,
         timer: 1500
