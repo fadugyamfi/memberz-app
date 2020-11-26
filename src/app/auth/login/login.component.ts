@@ -13,7 +13,7 @@ type FormErrors = { [u in UserFields]: string };
 export class LoginComponent implements OnInit {
 
   public newUser = false;
-  public user: firebase.User;
+  // public user: firebase.User;
   public loginForm: FormGroup;
   public formErrors: FormErrors = {
     'email': '',

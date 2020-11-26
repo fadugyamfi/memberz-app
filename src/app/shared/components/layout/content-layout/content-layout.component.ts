@@ -12,7 +12,7 @@ import * as feather from 'feather-icons';
   animations: [
     trigger('animateRoute', [transition('* => *', useAnimation(fadeIn, {
       // Set the duration to 5seconds and delay to 2 seconds
-      //params: { timing: 3}
+      // params: { timing: 3}
     }))])
   ]
 })
@@ -56,7 +56,7 @@ export class ContentLayoutComponent implements OnInit, AfterViewInit {
   public rightSidebar($event) {
     this.right_side_bar = $event
   }
-  
+
   ngOnInit() { }
 
 }

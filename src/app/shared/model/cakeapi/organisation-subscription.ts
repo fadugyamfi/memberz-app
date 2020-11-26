@@ -7,6 +7,7 @@ import { OrganisationInvoice } from './organisation-invoice';
 export class OrganisationSubscription extends AppModel {
 
   public id: any;
+  // tslint:disable: variable-name
   public organisation_id: number;
   public start_dt: string;
   public end_dt: string;
@@ -19,11 +20,11 @@ export class OrganisationSubscription extends AppModel {
   }
 
   expiresIn(): string {
-    return this.subscription_type.validity !== 'forever' ? 'Expires ' + moment(this.end_dt).fromNow() : 'Never Expires';
+    return this.subscription_type && this.subscription_type.validity !== 'forever' ? 'Expires ' + moment(this.end_dt).fromNow() : 'Never Expires';
   }
 
   isExpired(): boolean {
-    return this.subscription_type.validity !== 'forever' && moment(this.end_dt).isBefore(moment());
+    return this.subscription_type && this.subscription_type.validity !== 'forever' && moment(this.end_dt).isBefore(moment());
   }
 
   invoicePaid(): boolean {

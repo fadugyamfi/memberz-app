@@ -5,3 +5,4 @@
 export * from './lib/slydepay.service';
 export * from './lib/slydepay.component';
 export * from './lib/slydepay.module';
+export * from './lib/slydepay.models';

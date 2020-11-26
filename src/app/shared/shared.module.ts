@@ -15,14 +15,14 @@ import { RightSidebarComponent } from './components/right-sidebar/right-sidebar.
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { CustomizerComponent } from './components/customizer/customizer.component';
-// import { DragulaModule } from 'ng2-dragula';
+import { DragulaModule } from 'ng2-dragula';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-// import { GalleryModule } from '@ks89/angular-modal-gallery';
+import { GalleryModule } from '@ks89/angular-modal-gallery';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 import { NgxPrintModule } from 'ngx-print';
-// import 'hammerjs';
-// import 'mousetrap';
+import 'hammerjs';
+import 'mousetrap';
 
 // services
 import { NavService } from './services/nav.service';
@@ -73,9 +73,9 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
-    // DragulaModule.forRoot(),
+    DragulaModule.forRoot(),
     NgbModule,
-    // GalleryModule.forRoot(),
+    GalleryModule.forRoot(),
     UiSwitchModule,
     InternationalPhoneNumberModule,
     NgxPrintModule

@@ -3,7 +3,7 @@ import { SlydepayService } from 'slydepay-angular';
 import { OrganisationInvoice } from '../model/cakeapi/organisation-invoice';
 import Swal from 'sweetalert2';
 import { OrganisationInvoiceItem } from '../model/cakeapi/organisation-invoice-item';
-import { CreateInvoiceResult, Transaction } from 'slydepay-angular/lib/slydepay.models';
+import { CreateInvoiceResult, Transaction } from 'slydepay-angular';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -34,7 +34,7 @@ export class SlydepayWrapperService {
       amount: invoice.total_due,
       orderCode: invoice.invoice_no + '-' + Math.floor((Math.random() * 1000)),
       descritpion: invoice.transaction_type.name,
-      orderItems: orderItems
+      orderItems
     }).subscribe(response => this.redirectToPayLive(response.result, callback));
   }
 

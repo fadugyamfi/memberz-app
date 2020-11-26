@@ -63,6 +63,10 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
     }
 
     const subscription_type = this.organisation.active_subscription.subscription_type;
+    if ( !subscription_type ) {
+      return false;
+    }
+
     return this.subscriptionPaid() && ['free', 'free2', 'sms_pro'].indexOf(subscription_type.name) > -1;
   }
 }

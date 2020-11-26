@@ -6700,7 +6700,7 @@ i.fa.fa-star-o.f-18.mt-1.starred {
 /**=====================
     18. Switch  CSS Start
 ==========================**/
-.switch {
+/* .switch {
   position: relative;
   display: inline-block;
   width: 60px;
@@ -6878,7 +6878,7 @@ i.fa.fa-star-o.f-18.mt-1.starred {
 .switch-showcase {
   margin-bottom: -8px; }
   .switch-showcase .media {
-    line-height: 1; }
+    line-height: 1; } */
 
 /**=====================
      18. Switch  CSS Ends
