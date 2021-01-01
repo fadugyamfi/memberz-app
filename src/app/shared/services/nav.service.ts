@@ -641,7 +641,8 @@ export class NavService {
       children: [
         { path: '/organisation/messaging/settings', title: 'Settings', type: 'link' },
         { path: '/organisation/messaging/history', title: 'History', type: 'link' },
-        { path: '/organisation/messaging/broadcast', title: 'Broadcast', type: 'link' }
+        { path: '/organisation/messaging/broadcast', title: 'Broadcast', type: 'link' },
+        { path: '/organisation/messaging/broadcast-lists', title: 'Broadcast Lists', type: 'link' }
       ]
     },
     {
@@ -693,11 +694,11 @@ export class NavService {
           title: 'Admin Accounts',
           type: 'link'
         },
-        {
-          path: '/organisation/settings/payment-platforms',
-          title: 'Payment Platforms',
-          type: 'link'
-        }
+        // {
+        //   path: '/organisation/settings/payment-platforms',
+        //   title: 'Payment Platforms',
+        //   type: 'link'
+        // }
       ]
     }
   ];

@@ -7,6 +7,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { SettingsComponent } from './settings/settings.component';
 import { BroadcastComponent } from './broadcast/broadcast.component';
 import { SmsTransactionHistoryComponent } from './sms-transaction-history/sms-transaction-history.component';
+import { MessageComposerComponent } from './broadcast/message-composer/message-composer.component';
+import { BroadcastHistoryViewComponent } from './broadcast/broadcast-history-view/broadcast-history-view.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { SmsTransactionHistoryComponent } from './sms-transaction-history/sms-tr
     HistoryComponent,
     SettingsComponent,
     BroadcastComponent,
-    SmsTransactionHistoryComponent
+    SmsTransactionHistoryComponent,
+    MessageComposerComponent,
+    BroadcastHistoryViewComponent
   ],
   imports: [
     CommonModule,
