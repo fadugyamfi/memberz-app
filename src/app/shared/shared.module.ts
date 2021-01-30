@@ -21,6 +21,7 @@ import { GalleryModule } from '@ks89/angular-modal-gallery';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 import { NgxPrintModule } from 'ngx-print';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import 'hammerjs';
 import 'mousetrap';
 
@@ -78,7 +79,8 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
     GalleryModule.forRoot(),
     UiSwitchModule,
     InternationalPhoneNumberModule,
-    NgxPrintModule
+    NgxPrintModule,
+    NgxChartsModule,
   ],
   exports: [
     LoaderComponent,
@@ -95,7 +97,8 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
     NgxPrintModule,
     MemberControlComponent,
     SmsMessengerComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    NgxChartsModule,
   ],
   providers: [
     NavService,
