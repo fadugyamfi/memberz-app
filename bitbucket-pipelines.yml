@@ -3,6 +3,9 @@ pipelines:
  branches:
    dev:
      - step:
+         caches:
+           - node
+           - docker
          services:
            - docker
          script:
