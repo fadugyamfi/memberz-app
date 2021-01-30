@@ -13,7 +13,7 @@ export const environment = {
     url: 'https://memberz.org/api'
   },
   api: {
-    url: 'http://api-beta.memberz.org'
+    url: 'http://api-beta.memberz.org/api'
   },
   slydepay: {
     emailOrMobileNumber: 'info@matrixdesignsgh.com',
