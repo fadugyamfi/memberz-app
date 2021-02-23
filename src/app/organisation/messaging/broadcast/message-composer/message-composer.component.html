@@ -9,6 +9,7 @@
       <div class="col-xl-9">
         <select class="form-control form-control-sm">
           <option value="">Select Broadcast List</option>
+          <option *ngFor="let list of broadcastLists" [value]="list.id">{{ list.name }}</option>
         </select>
       </div>
     </div>

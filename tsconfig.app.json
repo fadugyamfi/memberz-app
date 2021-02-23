@@ -9,7 +9,8 @@
         "dist/slydepay-angular"
       ]
     },
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "files": [
     "src/main.ts",
