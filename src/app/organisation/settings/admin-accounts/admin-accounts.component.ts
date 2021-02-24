@@ -44,13 +44,17 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setupEditorForm();
     this.setupEvents();
-    this.roleService.getAll<OrganisationRole[]>({ limit: 30, sort: 'name:asc' }).subscribe(roles => this.roles = roles);
+    this.loadRoles();
     this.loadAccounts();
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
     this.removeEvents();
+  }
+
+  loadRoles() {
+    this.roleService.getAll<OrganisationRole[]>({ limit: 30, sort: 'name:asc' }).subscribe(roles => this.roles = roles);
   }
 
   loadAccounts() {
