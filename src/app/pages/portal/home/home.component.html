@@ -60,17 +60,23 @@
 
           </td>
           <td class="text-center">
-            <button class="btn btn-primary btn-xs m-r-5" (click)="loadOrganisation(organisation)">
+            <button class="btn btn-primary btn-sm m-r-5" (click)="loadOrganisation(organisation)">
               <i class="fa fa-sign-in"></i> Manage
             </button>
 
-            <button class="btn btn-info btn-xs m-r-5" (click)="editorModal.show(organisation)">
-              <i class="fa fa-pencil"></i> Edit
-            </button>
-
-            <button class="btn btn-danger btn-xs" (click)="deleteOrganisation(organisation)">
-              <i class="fa fa-trash-o"></i> Delete
-            </button>
+            <div ngbDropdown class="d-inline-block" placement="bottom-right">
+              <button class="btn btn-outline-primary btn-round" id="editMenu" ngbDropdownToggle >
+                <!--  -->
+              </button>
+              <div ngbDropdownMenu aria-labelledby="editMenu">
+                <button class="dropdown-item" (click)="editorModal.show(organisation)">
+                  <i class="fa fa-fw fa-pencil"></i> Edit
+                </button>
+                <button class="dropdown-item" (click)="deleteOrganisation(organisation)">
+                  <i class="fa fa-fw fa-trash-o"></i> Delete
+                </button>
+              </div>
+            </div>
           </td>
         </tr>
       </tbody>
