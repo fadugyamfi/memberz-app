@@ -5,8 +5,6 @@ import { SmsAccountMessage } from '../../../shared/model/cakeapi/sms-account-mes
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { OrganisationMember } from '../../../shared/model/cakeapi/organisation-member';
-import * as moment from 'moment';
 import { SmsAccountService } from '../../../shared/services/cakeapi/sms-account.service';
 import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
 import { SmsAccount } from '../../../shared/model/cakeapi/sms-account';
@@ -86,15 +84,15 @@ export class HistoryComponent implements OnInit {
     if (this.filtered !== 'all') {
       switch (this.filtered) {
         case 'pending':
-          params['sent'] = 0;
+          params.sent = 0;
           break;
 
         case 'success':
-          params['sent'] = 1;
+          params.sent = 1;
           break;
 
         case 'failed':
-          params['sent'] = -1;
+          params.sent = -1;
           break;
       }
     }
