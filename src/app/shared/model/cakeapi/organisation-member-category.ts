@@ -8,6 +8,7 @@ export class OrganisationMemberCategory extends AppModel {
   public description: string;
   public rank: number;
   public default: number;
+  public organisation_member_count: number;
 
   constructor(data) {
     super(data);

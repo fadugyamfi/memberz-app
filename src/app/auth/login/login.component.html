@@ -36,7 +36,7 @@
 						<div class="form-group form-row mt-3 mb-0">
 							<button class="btn btn-primary btn-block btn-lg"
 								[class.loader--text]="authService.showLoader"
-								[disabled]="!loginForm.valid || authService.showLoader" (click)="login(loginForm.value)"
+								[disabled]="!loginForm.valid || authService.showLoader" (click)="login()"
 								type="submit"><span>{{ authService.showLoader ? '' : 'Login' }}</span>
 							</button>
 						</div>

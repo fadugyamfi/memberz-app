@@ -112,7 +112,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
 
   show(organisation: Organisation = null) {
     this.setupProfileForm();
-    this.modalRef = this.modalService.open(this.editorModal, { size: 'lg' });
+    this.modalRef = this.modalService.open(this.editorModal, { size: 'lg', animation: true });
 
     if (organisation) {
       this.modalTitle = 'Update Organisation Info';
