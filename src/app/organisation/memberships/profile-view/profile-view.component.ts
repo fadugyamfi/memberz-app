@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { OrganisationMemberService } from '../../../shared/services/cakeapi/organisation-member.service';
+import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OrganisationMember } from '../../../shared/model/cakeapi/organisation-member';
+import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { Subscription, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { EventsService } from '../../../shared/services/events.service';
 import { debounceTime } from 'rxjs/operators';
-import { MemberAccountService } from '../../../shared/services/cakeapi/member-account.service';
-import { MemberAccount } from '../../../shared/model/cakeapi/member-account';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
+import { MemberAccountService } from '../../../shared/services/api/member-account.service';
+import { MemberAccount } from '../../../shared/model/api/member-account';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
 
 @Component({
   selector: 'app-profile-view',

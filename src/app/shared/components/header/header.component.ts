@@ -2,7 +2,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NavService, Menu } from '../../services/nav.service';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from '../../services/cakeapi/auth.service';
+import { AuthService } from '../../services/api/auth.service';
 
 var body = document.getElementsByTagName("body")[0];
 

@@ -620,7 +620,7 @@ export class NavService {
           type: 'link'
         },
         {
-          path: '/organisation/memberships/upload',
+          path: '/organisation/memberships/bulk-upload',
           title: 'Bulk Upload',
           type: 'link'
         },

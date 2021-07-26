@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { OrganisationInvoiceService } from '../../../shared/services/cakeapi/organisation-invoice.service';
-import { OrganisationInvoice } from '../../../shared/model/cakeapi/organisation-invoice';
+import { OrganisationInvoiceService } from '../../../shared/services/api/organisation-invoice.service';
+import { OrganisationInvoice } from '../../../shared/model/api/organisation-invoice';
 import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
 import { EventsService } from '../../../shared/services/events.service';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
 
 @Component({
   selector: 'app-payment-processor',

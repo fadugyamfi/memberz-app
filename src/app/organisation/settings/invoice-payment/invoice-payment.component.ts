@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { EventsService } from '../../../shared/services/events.service';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
-import { OrganisationSubscriptionService } from '../../../shared/services/cakeapi/organisation-subscription.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
+import { OrganisationSubscriptionService } from '../../../shared/services/api/organisation-subscription.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationSubscription } from '../../../shared/model/cakeapi/organisation-subscription';
+import { OrganisationSubscription } from '../../../shared/model/api/organisation-subscription';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { OrganisationInvoiceService } from '../../../shared/services/cakeapi/organisation-invoice.service';
-import { OrganisationInvoice } from '../../../shared/model/cakeapi/organisation-invoice';
+import { OrganisationInvoiceService } from '../../../shared/services/api/organisation-invoice.service';
+import { OrganisationInvoice } from '../../../shared/model/api/organisation-invoice';
 import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
 
 @Component({

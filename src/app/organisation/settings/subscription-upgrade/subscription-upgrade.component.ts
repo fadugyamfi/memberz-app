@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationSubscription } from '../../../shared/model/cakeapi/organisation-subscription';
+import { OrganisationSubscription } from '../../../shared/model/api/organisation-subscription';
 import { Subscription, Observable } from 'rxjs';
 import { EventsService } from '../../../shared/services/events.service';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
-import { OrganisationSubscriptionService } from '../../../shared/services/cakeapi/organisation-subscription.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
+import { OrganisationSubscriptionService } from '../../../shared/services/api/organisation-subscription.service';
 import { Router } from '@angular/router';
 import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
 import Swal from 'sweetalert2';
-import { SubscriptionTypeService } from '../../../shared/services/cakeapi/subscription-type.service';
-import { SubscriptionType } from '../../../shared/model/cakeapi/subscription-type';
+import { SubscriptionTypeService } from '../../../shared/services/api/subscription-type.service';
+import { SubscriptionType } from '../../../shared/model/api/subscription-type';
 
 @Component({
   selector: 'app-subscription-upgrade',

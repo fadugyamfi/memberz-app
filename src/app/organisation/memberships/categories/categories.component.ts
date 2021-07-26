@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { OrganisationMemberCategoryService } from '../../../shared/services/cakeapi/organisation-member-category.service';
+import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { Subscription } from 'rxjs';
-import { OrganisationMemberCategory } from '../../../shared/model/cakeapi/organisation-member-category';
+import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';

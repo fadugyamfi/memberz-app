@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { EventsService } from '../../../shared/services/events.service';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
-import { OrganisationSubscriptionService } from '../../../shared/services/cakeapi/organisation-subscription.service';
-import { OrganisationSubscription } from '../../../shared/model/cakeapi/organisation-subscription';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
+import { OrganisationSubscriptionService } from '../../../shared/services/api/organisation-subscription.service';
+import { OrganisationSubscription } from '../../../shared/model/api/organisation-subscription';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';

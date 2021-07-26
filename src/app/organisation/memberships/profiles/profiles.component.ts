@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { OrganisationMemberService } from '../../../shared/services/cakeapi/organisation-member.service';
-import { OrganisationMember } from '../../../shared/model/cakeapi/organisation-member';
+import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
+import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { Router } from '@angular/router';
 import { NgbModal, NgbActiveModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationMemberCategoryService } from '../../../shared/services/cakeapi/organisation-member-category.service';
-import { OrganisationMemberCategory } from '../../../shared/model/cakeapi/organisation-member-category';
+import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
+import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 import { EventsService } from '../../../shared/services/events.service';
 import Swal from 'sweetalert2';

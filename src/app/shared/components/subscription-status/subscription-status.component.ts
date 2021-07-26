@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EventsService } from '../../../shared/services/events.service';
 import { StorageService } from '../../../shared/services/storage.service';
-import { Organisation } from '../../../shared/model/cakeapi/organisation';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
-import { OrganisationSubscriptionService } from '../../services/cakeapi/organisation-subscription.service';
+import { Organisation } from '../../model/api/organisation';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
+import { OrganisationSubscriptionService } from '../../services/api/organisation-subscription.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 

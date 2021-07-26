@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../services/cakeapi/auth.service';
-import { OrganisationService } from '../services/cakeapi/organisation.service';
+import { AuthService } from '../services/api/auth.service';
+import { OrganisationService } from '../services/api/organisation.service';
 
 @Injectable({
   providedIn: 'root'

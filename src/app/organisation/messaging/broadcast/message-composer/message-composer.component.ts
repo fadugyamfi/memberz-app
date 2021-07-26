@@ -1,12 +1,12 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { SmsBroadcast } from '../../../../shared/model/cakeapi/sms-broadcast';
-import { SmsBroadcastList } from '../../../../shared/model/cakeapi/sms-broadcast-list';
-import { OrganisationService } from '../../../../shared/services/cakeapi/organisation.service';
-import { SmsAccountService } from '../../../../shared/services/cakeapi/sms-account.service';
-import { SmsBroadcastListService } from '../../../../shared/services/cakeapi/sms-broadcast-list.service';
-import { SmsBroadcastService } from '../../../../shared/services/cakeapi/sms-broadcast.service';
+import { SmsBroadcast } from '../../../../shared/model/api/sms-broadcast';
+import { SmsBroadcastList } from '../../../../shared/model/api/sms-broadcast-list';
+import { OrganisationService } from '../../../../shared/services/api/organisation.service';
+import { SmsAccountService } from '../../../../shared/services/api/sms-account.service';
+import { SmsBroadcastListService } from '../../../../shared/services/api/sms-broadcast-list.service';
+import { SmsBroadcastService } from '../../../../shared/services/api/sms-broadcast.service';
 import { EventsService } from '../../../../shared/services/events.service';
 
 @Component({

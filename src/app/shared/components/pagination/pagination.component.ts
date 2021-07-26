@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { EventsService } from '../../services/events.service';
-import { APIService } from '../../services/cakeapi/api.service';
+import { APIService } from '../../services/api/api.service';
 
 export interface PageEvent {
   page: number;

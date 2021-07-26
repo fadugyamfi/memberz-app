@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { OrganisationMemberService } from '../../../shared/services/cakeapi/organisation-member.service';
-import { Organisation } from '../../../shared/model/cakeapi/organisation';
-import { AuthService } from '../../../shared/services/cakeapi/auth.service';
-import { MemberAccountService } from '../../../shared/services/cakeapi/member-account.service';
+import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
+import { Organisation } from '../../../shared/model/api/organisation';
+import { AuthService } from '../../../shared/services/api/auth.service';
+import { MemberAccountService } from '../../../shared/services/api/member-account.service';
 import { Router } from '@angular/router';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import Swal from 'sweetalert2';
 import { StorageService } from '../../../shared/services/storage.service';
 import { EventsService } from '../../../shared/services/events.service';

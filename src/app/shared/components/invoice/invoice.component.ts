@@ -1,8 +1,8 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { OrganisationInvoiceService } from '../../services/cakeapi/organisation-invoice.service';
-import { OrganisationInvoice } from '../../model/cakeapi/organisation-invoice';
-import { Organisation } from '../../model/cakeapi/organisation';
-import { OrganisationService } from '../../services/cakeapi/organisation.service';
+import { OrganisationInvoiceService } from '../../services/api/organisation-invoice.service';
+import { OrganisationInvoice } from '../../model/api/organisation-invoice';
+import { Organisation } from '../../model/api/organisation';
+import { OrganisationService } from '../../services/api/organisation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

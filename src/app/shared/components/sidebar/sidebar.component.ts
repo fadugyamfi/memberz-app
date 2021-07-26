@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NavService, Menu } from '../../services/nav.service';
-import { AuthService } from '../../services/cakeapi/auth.service';
+import { AuthService } from '../../services/api/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -59,7 +59,7 @@ export class SidebarComponent {
   // Active Nave state
   setNavActive(item) {
     this.menuItems.filter(menuItem => {
-      // tslint:disable-next-line: triple-equals
+      // eslint-disable-next-line eqeqeq
       if (menuItem != item) {
         menuItem.active = false;
       }

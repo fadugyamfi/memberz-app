@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SlydepayService } from 'slydepay-angular';
-import { OrganisationInvoice } from '../model/cakeapi/organisation-invoice';
+import { OrganisationInvoice } from '../model/api/organisation-invoice';
 import Swal from 'sweetalert2';
-import { OrganisationInvoiceItem } from '../model/cakeapi/organisation-invoice-item';
+import { OrganisationInvoiceItem } from '../model/api/organisation-invoice-item';
 import { CreateInvoiceResult, Transaction } from 'slydepay-angular';
 import { Router } from '@angular/router';
 

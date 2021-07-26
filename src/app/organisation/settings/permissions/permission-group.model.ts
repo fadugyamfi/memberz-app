@@ -1,4 +1,4 @@
-import { Permission } from "../../../shared/model/cakeapi/permission.model";
+import { Permission } from "../../../shared/model/api/permission.model";
 
 
 export class PermissionGroup {

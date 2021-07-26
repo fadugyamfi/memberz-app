@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { SmsAccount } from '../../../model/cakeapi/sms-account';
+import { SmsAccount } from '../../../model/api/sms-account';
 import { EventsService } from '../../../services/events.service';
-import { SmsAccountService } from '../../../services/cakeapi/sms-account.service';
-import { SmsAccountMessageService } from '../../../services/cakeapi/sms-account-message.service';
-import { OrganisationService } from '../../../services/cakeapi/organisation.service';
+import { SmsAccountService } from '../../../services/api/sms-account.service';
+import { SmsAccountMessageService } from '../../../services/api/sms-account-message.service';
+import { OrganisationService } from '../../../services/api/organisation.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import { OrganisationMember } from '../../../model/cakeapi/organisation-member';
+import { OrganisationMember } from '../../../model/api/organisation-member';
 import * as moment from 'moment';
-import { SmsAccountMessage } from '../../../model/cakeapi/sms-account-message';
+import { SmsAccountMessage } from '../../../model/api/sms-account-message';
 
 @Component({
   selector: 'app-sms-messenger',

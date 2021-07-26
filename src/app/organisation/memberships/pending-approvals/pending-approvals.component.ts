@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { OrganisationMember } from '../../../shared/model/cakeapi/organisation-member';
-import { OrganisationMemberCategory } from '../../../shared/model/cakeapi/organisation-member-category';
+import { OrganisationMember } from '../../../shared/model/api/organisation-member';
+import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationMemberService } from '../../../shared/services/cakeapi/organisation-member.service';
-import { OrganisationMemberCategoryService } from '../../../shared/services/cakeapi/organisation-member-category.service';
+import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
+import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { Router } from '@angular/router';
 import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService } from '../../../shared/services/events.service';
