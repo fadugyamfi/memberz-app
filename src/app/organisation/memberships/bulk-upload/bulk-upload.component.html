@@ -1,1 +1,147 @@
-<p>bulk-upload works!</p>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">&nbsp;</div>
+      <div class="col-md-6 text-right">
+        <a href="assets/templates/membership_import_template.xlsx" download="" class="btn btn-outline-primary mr-3">
+          <i class="fa fa-download"></i> {{ 'Download Template' | translate }}
+        </a>
+
+        <button class="btn btn-primary" (click)="showUploadModal()">
+          <i class="fa fa-cloud-upload" aria-hidden="true"></i> {{ 'Import Members' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-t-50 text-center" *ngIf="bulkUploads.length == 0">
+    <h3>{{ 'No bulk uploads file available' | translate }}</h3>
+    <p>Please click on <strong>Import Data</strong> button to upload content</p>
+  </div>
+
+  <table class="table table-bordered table-hover" *ngIf="bulkUploads && bulkUploads.length > 0">
+    <thead>
+      <tr>
+        <th colspan="2">{{ 'Name' | translate }}</th>
+        <th class="text-center">{{ 'Type' | translate }}</th>
+        <th class="text-center">{{ 'Uploaded' | translate }}</th>
+        <th class="text-center">{{ 'Actions' | translate }}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let upload of bulkUploads; let row = index">
+        <td>
+          <div>{{ upload.name }}</div>
+          <small class="text-muted">{{ upload.type }}</small>
+        </td>
+        <td class="text-center">{{ upload.created }}</td>
+
+        <td class="text-center">
+          <!-- <button
+            class="btn btn-xs btn-info m-r-10"
+            (click)="previewContent(upload)"
+          >
+            <i class="fa fa-file"></i> Preview
+          </button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #uploadModal let-modal>
+  <form (submit)="onSubmit($event)" class="form form-horizontal" [formGroup]="uploadForm">
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-basic-title">{{ 'Import Membership Data' | translate }}</h5>
+      <button type="button" class="close" aria-label="Close" (click)="resetModal(); modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body border-bottom">
+
+      <div class="row form-group">
+        <label class="col-sm-3 col-form-label font-weight-bold">
+          {{ 'Select File To Import' | translate }}
+        </label>
+
+        <div class="col-sm-9">
+          <input type="file" accept=".xlsx" placeholder="Upload excel file" class="form-control"
+                 formControlName="import_file" />
+
+          <div class="text-danger" *ngIf="uploadForm.controls.import_file?.errors?.required">
+            <p class="mb-0">{{ 'Template File Required' | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <label class="col-sm-3 col-form-label font-weight-bold">
+          {{ 'Member Category' | translate }}
+        </label>
+
+        <div class="col-sm-9">
+          <select class="form-control" formControlName="import_to_id">
+            <option value=''>{{ 'Select Category' | translate }}</option>
+            <option *ngFor="let category of categories" value="category.id">{{ category.name }}</option>
+          </select>
+
+          <div class="text-danger" *ngIf="uploadForm.controls.import_to_id?.errors?.required">
+            <p class="mb-0">{{ 'Membership Category Required' | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div *ngIf="bulkuploadService?.isValid" class="card" style="height: 500px; overflow: auto">
+      <div class="card-body p-0">
+
+        <div class="loader-box m-auto" *ngIf="!bulkuploadService.excelData">
+          <span class="rotate dashed colored"></span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover table-striped preview-table"
+                 *ngIf="bulkuploadService.excelData">
+            <thead>
+              <tr>
+                <th *ngFor="let header of bulkuploadService?.excelData?.headers">{{ header }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of bulkuploadService?.excelData; last as isLast">
+                <ng-container *ngIf="!isArray(row)">
+                  <td *ngFor="let header of bulkuploadService?.excelData?.headers">
+                    {{ row[header] }}
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <span class="pull-left m-r-10">
+        {{infoMessage}}
+      </span>
+
+      <span *ngIf="bulkuploadService.excelData && !bulkuploadService?.isValid"
+            class="pull-left text-danger m-r-10"
+      >
+        {{ 'Import File Validation Failed: Please ensure selected file matches template' | translate }}
+      </span>
+
+      <button type="submit" class="btn btn-primary">
+        {{ 'Import' | translate }}
+      </button>
+
+      <button type="button" class="btn btn-outline-danger" (click)="resetModal(); modal.close('Save click')">
+        {{ 'Cancel' | translate }}
+      </button>
+    </div>
+  </form>
+</ng-template>

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SmsAccountService } from '../../../shared/services/cakeapi/sms-account.service';
-import { SmsAccount } from '../../../shared/model/cakeapi/sms-account';
+import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
+import { SmsAccount } from '../../../shared/model/api/sms-account';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
 
 @Component({

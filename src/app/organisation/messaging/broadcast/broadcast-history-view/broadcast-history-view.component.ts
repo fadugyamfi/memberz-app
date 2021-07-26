@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SmsBroadcast } from '../../../../shared/model/cakeapi/sms-broadcast';
-import { SmsBroadcastService } from '../../../../shared/services/cakeapi/sms-broadcast.service';
+import { SmsBroadcast } from '../../../../shared/model/api/sms-broadcast';
+import { SmsBroadcastService } from '../../../../shared/services/api/sms-broadcast.service';
 
 @Component({
   selector: 'app-broadcast-history-view',

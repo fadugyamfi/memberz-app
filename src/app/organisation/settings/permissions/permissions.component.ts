@@ -5,10 +5,10 @@ import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { EventsService } from '../../../shared/services/events.service';
 import { StorageService } from '../../../shared/services/storage.service';
-import { Permission } from '../../../shared/model/cakeapi/permission.model';
-import { PermissionService } from '../../../shared/services/cakeapi/permission.service';
-import { OrganisationRoleService } from '../../../shared/services/cakeapi/organisation-role.service';
-import { OrganisationRole } from '../../../shared/model/cakeapi/organisation-role';
+import { Permission } from '../../../shared/model/api/permission.model';
+import { PermissionService } from '../../../shared/services/api/permission.service';
+import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
+import { OrganisationRole } from '../../../shared/model/api/organisation-role';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

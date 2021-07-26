@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { EventsService } from '../../../shared/services/events.service';
-import { OrganisationRoleService } from '../../../shared/services/cakeapi/organisation-role.service';
-import { OrganisationRole } from '../../../shared/model/cakeapi/organisation-role';
+import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
+import { OrganisationRole } from '../../../shared/model/api/organisation-role';
 import { Subscription } from 'rxjs';
 import { PermissionsComponent } from '../permissions/permissions.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';

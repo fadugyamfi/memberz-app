@@ -1,15 +1,15 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
-import { OrganisationMember } from '../../../shared/model/cakeapi/organisation-member';
-import { MemberAccount } from '../../../shared/model/cakeapi/member-account';
-import { MemberAccountService } from '../../../shared/services/cakeapi/member-account.service';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
+import { OrganisationMember } from '../../../shared/model/api/organisation-member';
+import { MemberAccount } from '../../../shared/model/api/member-account';
+import { MemberAccountService } from '../../../shared/services/api/member-account.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { Subscription, Observable } from 'rxjs';
-import { OrganisationRoleService } from '../../../shared/services/cakeapi/organisation-role.service';
-import { OrganisationRole } from '../../../shared/model/cakeapi/organisation-role';
+import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
+import { OrganisationRole } from '../../../shared/model/api/organisation-role';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationAccount } from '../../../shared/model/cakeapi/organisation-account';
-import { OrganisationAccountService } from '../../../shared/services/cakeapi/organisation-account.service';
+import { OrganisationAccount } from '../../../shared/model/api/organisation-account';
+import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
 import { EventsService } from '../../../shared/services/events.service';
 import Swal from 'sweetalert2';
 

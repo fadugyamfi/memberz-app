@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { EventsService } from '../events.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
-import { AuthService } from '../cakeapi/auth.service';
+import { AuthService } from '../api/auth.service';
 import { StorageService } from '../storage.service';
 
 @Injectable()

@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as chartData from '../../shared/data/widgets-chart/chart-widget';
 import { monthlydoughnutData, dailydoughnutData } from '../../shared/data/widgets-chart/chart-widget';
-import { OrganisationMemberService } from '../../shared/services/cakeapi/organisation-member.service';
+import { OrganisationMemberService } from '../../shared/services/api/organisation-member.service';
 import Swal from 'sweetalert2';
-import { OrganisationService } from '../../shared/services/cakeapi/organisation.service';
+import { OrganisationService } from '../../shared/services/api/organisation.service';
 
 @Component({
   selector: 'app-dashboard',

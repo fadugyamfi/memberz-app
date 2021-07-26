@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { EventsService } from '../../../shared/services/events.service';
-import { SmsAccountMessageService } from '../../../shared/services/cakeapi/sms-account-message.service';
-import { SmsAccountMessage } from '../../../shared/model/cakeapi/sms-account-message';
+import { SmsAccountMessageService } from '../../../shared/services/api/sms-account-message.service';
+import { SmsAccountMessage } from '../../../shared/model/api/sms-account-message';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SmsAccountService } from '../../../shared/services/cakeapi/sms-account.service';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
-import { SmsAccount } from '../../../shared/model/cakeapi/sms-account';
+import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
+import { SmsAccount } from '../../../shared/model/api/sms-account';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 

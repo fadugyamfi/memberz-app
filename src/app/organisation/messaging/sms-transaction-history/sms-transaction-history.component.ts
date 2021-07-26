@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SmsAccountTopupService } from '../../../shared/services/cakeapi/sms-account-topup.service';
-import { SmsAccountTopup } from '../../../shared/model/cakeapi/sms-account-topup';
+import { SmsAccountTopupService } from '../../../shared/services/api/sms-account-topup.service';
+import { SmsAccountTopup } from '../../../shared/model/api/sms-account-topup';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 
 @Component({

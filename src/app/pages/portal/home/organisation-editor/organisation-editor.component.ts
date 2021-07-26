@@ -1,15 +1,15 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationTypeService } from '../../../../shared/services/cakeapi/organisation-type.service';
-import { OrganisationType } from '../../../../shared/model/cakeapi/organisation-type';
-import { OrganisationService } from '../../../../shared/services/cakeapi/organisation.service';
-import { Country } from '../../../../shared/model/cakeapi/country';
-import { CountryService } from '../../../../shared/services/cakeapi/country.service';
-import { Organisation } from '../../../../shared/model/cakeapi/organisation';
+import { OrganisationTypeService } from '../../../../shared/services/api/organisation-type.service';
+import { OrganisationType } from '../../../../shared/model/api/organisation-type';
+import { OrganisationService } from '../../../../shared/services/api/organisation.service';
+import { Country } from '../../../../shared/model/api/country';
+import { CountryService } from '../../../../shared/services/api/country.service';
+import { Organisation } from '../../../../shared/model/api/organisation';
 import { NgbModal, NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService } from '../../../../shared/services/events.service';
-import { SubscriptionTypeService } from '../../../../shared/services/cakeapi/subscription-type.service';
-import { SubscriptionType } from '../../../../shared/model/cakeapi/subscription-type';
+import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
+import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
 
 @Component({
   selector: 'app-organisation-editor-modal',
@@ -112,7 +112,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
 
   show(organisation: Organisation = null) {
     this.setupProfileForm();
-    this.modalRef = this.modalService.open(this.editorModal, { size: 'lg' });
+    this.modalRef = this.modalService.open(this.editorModal, { size: 'lg', animation: true });
 
     if (organisation) {
       this.modalTitle = 'Update Organisation Info';

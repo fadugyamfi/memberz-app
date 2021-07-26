@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EventsService } from '../../../shared/services/events.service';
-import { OrganisationSubscriptionService } from '../../../shared/services/cakeapi/organisation-subscription.service';
-import { OrganisationSubscription } from '../../../shared/model/cakeapi/organisation-subscription';
+import { OrganisationSubscriptionService } from '../../../shared/services/api/organisation-subscription.service';
+import { OrganisationSubscription } from '../../../shared/model/api/organisation-subscription';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 

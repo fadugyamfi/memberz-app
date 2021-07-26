@@ -29,6 +29,8 @@ import 'mousetrap';
 import { NavService } from './services/nav.service';
 import { ChatService } from './services/chat.service';
 import { CustomizerService } from './services/customizer.service';
+import { ExcelService } from './services/excel.service';
+
 // Directives
 import { ToggleFullscreenDirective } from './directives/fullscreen.directive';
 import { PortalLayoutComponent } from './components/layout/portal-layout/portal-layout.component';
@@ -104,6 +106,7 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
     NavService,
     ChatService,
     CustomizerService,
+    ExcelService,
 
     // error handling
     RequestErrorHandler,

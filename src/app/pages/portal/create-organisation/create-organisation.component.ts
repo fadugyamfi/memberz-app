@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { WizardComponent } from 'angular-archwizard';
-import { Organisation } from '../../../shared/model/cakeapi/organisation';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
-import { SubscriptionType } from '../../../shared/model/cakeapi/subscription-type';
+import { Organisation } from '../../../shared/model/api/organisation';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
+import { SubscriptionType } from '../../../shared/model/api/subscription-type';
 import Swal from 'sweetalert2';
 import { EventsService } from '../../../shared/services/events.service';
 import { Router } from '@angular/router';

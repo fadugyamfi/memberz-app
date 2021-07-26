@@ -1,11 +1,11 @@
 import { Component, OnInit, AfterViewInit, Input, EventEmitter, Output } from '@angular/core';
 import { EventsService } from '../../../../shared/services/events.service';
-import { SubscriptionTypeService } from '../../../../shared/services/cakeapi/subscription-type.service';
-import { SubscriptionType } from '../../../../shared/model/cakeapi/subscription-type';
+import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
+import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
-import { OrganisationService } from '../../../../shared/services/cakeapi/organisation.service';
-import { Organisation } from '../../../../shared/model/cakeapi/organisation';
+import { OrganisationService } from '../../../../shared/services/api/organisation.service';
+import { Organisation } from '../../../../shared/model/api/organisation';
 
 @Component({
   selector: 'app-payment-step',

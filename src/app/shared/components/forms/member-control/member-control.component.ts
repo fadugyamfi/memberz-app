@@ -1,14 +1,14 @@
 import { Component, OnInit, Input, forwardRef, Output, EventEmitter } from '@angular/core';
-import { Member } from '../../../model/cakeapi/member';
-import { OrganisationMember } from '../../../model/cakeapi/organisation-member';
+import { Member } from '../../../model/api/member';
+import { OrganisationMember } from '../../../model/api/organisation-member';
 import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
-import { OrganisationMemberService } from '../../../services/cakeapi/organisation-member.service';
+import { OrganisationMemberService } from '../../../services/api/organisation-member.service';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const MEMBER_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line: no-use-before-declare
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   useExisting: forwardRef(() => MemberControlComponent),
   multi: true
 };
@@ -19,7 +19,7 @@ export const MEMBER_CONTROL_ACCESSOR: any = {
   styleUrls: ['./member-control.component.scss'],
   providers: [MEMBER_CONTROL_ACCESSOR]
 })
-export class MemberControlComponent implements OnInit {
+export class MemberControlComponent {
 
   @Input() member: Member;
   @Input() withMobileNumber = false;
@@ -40,9 +40,6 @@ export class MemberControlComponent implements OnInit {
   constructor(
     public orgMemberService: OrganisationMemberService
   ) { }
-
-  ngOnInit() {
-  }
 
   setValue(value) {
     this.value = value;

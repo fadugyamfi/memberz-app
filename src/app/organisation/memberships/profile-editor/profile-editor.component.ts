@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationMemberService } from '../../../shared/services/cakeapi/organisation-member.service';
-import { Member } from '../../../shared/model/cakeapi/member';
-import { OrganisationMember } from '../../../shared/model/cakeapi/organisation-member';
-import { MemberService } from '../../../shared/services/cakeapi/member.service';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
+import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
+import { Member } from '../../../shared/model/api/member';
+import { OrganisationMember } from '../../../shared/model/api/organisation-member';
+import { MemberService } from '../../../shared/services/api/member.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
-import { OrganisationMemberCategory } from '../../../shared/model/cakeapi/organisation-member-category';
-import { OrganisationMemberCategoryService } from '../../../shared/services/cakeapi/organisation-member-category.service';
+import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
+import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { Subscription } from 'rxjs';
 
 @Component({

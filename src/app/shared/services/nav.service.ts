@@ -565,18 +565,18 @@ export class NavService {
       type: 'link',
       bookmark: true
     },
-    {
-      path: '/portal/events',
-      title: 'Upcoming Events',
-      icon: 'calendar',
-      type: 'link'
-    },
-    {
-      path: '/portal/payments',
-      title: 'Payments',
-      icon: 'dollar-sign',
-      type: 'link'
-    }
+    // {
+    //   path: '/portal/events',
+    //   title: 'Upcoming Events',
+    //   icon: 'calendar',
+    //   type: 'link'
+    // },
+    // {
+    //   path: '/portal/payments',
+    //   title: 'Payments',
+    //   icon: 'dollar-sign',
+    //   type: 'link'
+    // }
   ];
 
   portalMenuItems = new BehaviorSubject<Menu[]>(this.PORTAL_MENUITEMS);
@@ -620,7 +620,7 @@ export class NavService {
           type: 'link'
         },
         {
-          path: '/organisation/memberships/upload',
+          path: '/organisation/memberships/bulk-upload',
           title: 'Bulk Upload',
           type: 'link'
         },
@@ -645,30 +645,30 @@ export class NavService {
         { path: '/organisation/messaging/broadcast-lists', title: 'Broadcast Lists', type: 'link' }
       ]
     },
-    {
-      title: 'Finance',
-      icon: 'credit-card',
-      type: 'sub',
-      active: false,
-      bookmark: true,
-      path: '/organisation/finance/dashboard',
-      children: [
-        { path: '/organisation/finance/dashboard', title: 'Dashboard', type: 'link', icon: 'dashboard' },
-        { path: '/organisation/finance/settings', title: 'Settings', type: 'link' },
-        { path: '/organisation/finance/income', title: 'Income', type: 'link' },
-        { path: '/organisation/finance/expenditure', title: 'Expenditure', type: 'link' },
-        {
-          title: 'Reports',
-          type: 'sub',
-          active: false,
-          children: [
-            { path: '/organisation/finance/reports/income-summary', title: 'Income Summary', type: 'link' },
-            { path: '/organisation/finance/reports/expenditure-summary', title: 'Expenditure Summary', type: 'link' },
-            { path: '/organisation/finance/reports/top-contributors', title: 'Top Contributors', type: 'link' }
-          ]
-        }
-      ]
-    },
+    // {
+    //   title: 'Finance',
+    //   icon: 'credit-card',
+    //   type: 'sub',
+    //   active: false,
+    //   bookmark: true,
+    //   path: '/organisation/finance/dashboard',
+    //   children: [
+    //     { path: '/organisation/finance/dashboard', title: 'Dashboard', type: 'link', icon: 'dashboard' },
+    //     { path: '/organisation/finance/settings', title: 'Settings', type: 'link' },
+    //     { path: '/organisation/finance/income', title: 'Income', type: 'link' },
+    //     { path: '/organisation/finance/expenditure', title: 'Expenditure', type: 'link' },
+    //     {
+    //       title: 'Reports',
+    //       type: 'sub',
+    //       active: false,
+    //       children: [
+    //         { path: '/organisation/finance/reports/income-summary', title: 'Income Summary', type: 'link' },
+    //         { path: '/organisation/finance/reports/expenditure-summary', title: 'Expenditure Summary', type: 'link' },
+    //         { path: '/organisation/finance/reports/top-contributors', title: 'Top Contributors', type: 'link' }
+    //       ]
+    //     }
+    //   ]
+    // },
     {
       title: 'Settings',
       icon: 'settings',

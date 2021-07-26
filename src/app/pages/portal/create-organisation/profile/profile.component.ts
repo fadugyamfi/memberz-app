@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationTypeService } from '../../../../shared/services/cakeapi/organisation-type.service';
-import { OrganisationType } from '../../../../shared/model/cakeapi/organisation-type';
-import { OrganisationService } from '../../../../shared/services/cakeapi/organisation.service';
-import { Country } from '../../../../shared/model/cakeapi/country';
-import { CountryService } from '../../../../shared/services/cakeapi/country.service';
-import { Organisation } from '../../../../shared/model/cakeapi/organisation';
+import { OrganisationTypeService } from '../../../../shared/services/api/organisation-type.service';
+import { OrganisationType } from '../../../../shared/model/api/organisation-type';
+import { OrganisationService } from '../../../../shared/services/api/organisation.service';
+import { Country } from '../../../../shared/model/api/country';
+import { CountryService } from '../../../../shared/services/api/country.service';
+import { Organisation } from '../../../../shared/model/api/organisation';
 
 @Component({
   selector: 'app-profile-step',

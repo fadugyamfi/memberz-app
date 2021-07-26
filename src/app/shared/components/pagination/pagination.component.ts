@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { EventsService } from "../../services/events.service";
-import { APIService } from '../../services/cakeapi/api.service';
+import { EventsService } from '../../services/events.service';
+import { APIService } from '../../services/api/api.service';
 
 export interface PageEvent {
-  page: number,
-  limit: number
+  page: number;
+  limit: number;
 }
 
 @Component({
@@ -32,11 +32,11 @@ export class PaginationComponent implements OnInit, OnDestroy {
     if (this.service == null) {
       throw new Error('[service] input is required');
     }
-    
+
     this.events.on(this.service.model_name + ':paging', (data) => {
-      this.collectionSize = data['total'];
-      this.pageLimit = data['per_page'];
-      this.currentPage = data['current_page'];
+      this.collectionSize = data.total;
+      this.pageLimit = data.per_page;
+      this.currentPage = data.current_page;
     });
 
     this.pagination_limits = [5, 10, 15, 20, 25, 30, 50, 100];
@@ -49,6 +49,10 @@ export class PaginationComponent implements OnInit, OnDestroy {
   onPageChange(page) {
     this.currentPage = page;
     this.paginate.emit(this.formatParams());
+  }
+
+  onLimitChangeEvent($event) {
+    this.onLimitChange($event.target.value);
   }
 
   onLimitChange(limit) {
@@ -64,7 +68,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
     return {
       page: this.currentPage,
       limit: this.pageLimit
-    }
+    };
   }
 
 }

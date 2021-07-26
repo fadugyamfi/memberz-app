@@ -1,8 +1,8 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NavService, Menu } from '../../services/nav.service';
-import { AuthService } from '../../services/cakeapi/auth.service';
-import { OrganisationService } from '../../services/cakeapi/organisation.service';
+import { AuthService } from '../../services/api/auth.service';
+import { OrganisationService } from '../../services/api/organisation.service';
 import { EventsService } from '../../services/events.service';
 import { StorageService } from '../../services/storage.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
