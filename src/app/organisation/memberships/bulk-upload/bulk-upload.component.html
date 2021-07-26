@@ -67,9 +67,9 @@
 
         <div class="col-sm-9">
           <input type="file" accept=".xlsx" placeholder="Upload excel file" class="form-control"
-                 formControlName="import_file" />
+                 formControlName="file" (change)="onFileChange($event)" />
 
-          <div class="text-danger" *ngIf="uploadForm.controls.import_file?.errors?.required">
+          <div class="text-danger" *ngIf="uploadForm.controls.file?.errors?.required">
             <p class="mb-0">{{ 'Template File Required' | translate }}</p>
           </div>
         </div>
@@ -83,7 +83,7 @@
         <div class="col-sm-9">
           <select class="form-control" formControlName="import_to_id">
             <option value=''>{{ 'Select Category' | translate }}</option>
-            <option *ngFor="let category of categories" value="category.id">{{ category.name }}</option>
+            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
           </select>
 
           <div class="text-danger" *ngIf="uploadForm.controls.import_to_id?.errors?.required">

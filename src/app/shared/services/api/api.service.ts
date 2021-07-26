@@ -370,22 +370,20 @@ export class APIService {
    * @param qparams Query parameters
    */
   createWithUpload(model: AppModel, qparams: any = null) {
-    const hd = Object.assign({ 'Accept': 'multipart/form-data' });
+    let hd = Object.assign({}, this.getUserAuthorization());
 
-    // const headers = new HttpHeaders(hd);
-    const reportProgress = true;
+    const headers = new HttpHeaders(hd);
     const params = new HttpParams({ fromObject: qparams });
     const formData: FormData = new FormData();
-    this.setHttpHeaders(hd);
 
     for (const key in model) {
       if (typeof model[key] !== 'function' && model[key] != null) {
         formData.append(key, model[key]);
       }
     }
-console.log(formData);
+
     return this.http.post(this.BASE_URL + this.url, formData, {
-      reportProgress, params, headers: this.httpOptions.headers, observe: 'events'
+      reportProgress: true, params, headers: headers, observe: 'events'
     })
       .subscribe(
         (event) => {
@@ -407,13 +405,11 @@ console.log(formData);
    * @param qparams Query params
    */
   updateWithUpload(model: AppModel, qparams: any = null) {
-    const hd = Object.assign({ 'Accept': 'multipart/form-data' });
+    let hd = Object.assign({}, this.getUserAuthorization());
 
-    // const headers = new HttpHeaders(hd);
+    const headers = new HttpHeaders(hd);
     const params = new HttpParams({ fromObject: qparams });
     const formData: FormData = new FormData();
-    const reportProgress = true;
-    this.setHttpHeaders(hd);
 
     for (const key in model) {
       if (typeof model[key] !== 'function' && model[key] != null) {
@@ -422,7 +418,7 @@ console.log(formData);
     }
 
     return this.http.post(this.BASE_URL + this.url + `/${model.id}`, formData, {
-      reportProgress, params, headers: this.httpOptions.headers, observe: 'events'
+      reportProgress: true, params, headers: headers, observe: 'events'
     })
       .subscribe(
         (event) => {

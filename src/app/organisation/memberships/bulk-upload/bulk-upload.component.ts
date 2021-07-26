@@ -112,8 +112,19 @@ export class BulkUploadComponent implements OnInit, OnDestroy {
   private setupUploadForm() {
     this.uploadForm = new FormGroup({
       import_to_id: new FormControl('', Validators.required),
+      file: new FormControl('', Validators.required),
       import_file: new FormControl('', Validators.required),
       import_type: new FormControl('members'),
     });
+  }
+
+  onFileChange(event) {
+
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.uploadForm.patchValue({
+        import_file: file
+      });
+    }
   }
 }

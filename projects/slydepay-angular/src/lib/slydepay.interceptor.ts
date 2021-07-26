@@ -13,6 +13,11 @@ export class SlydePayConfigInterceptor implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+
+    if( req.url.indexOf('slydepay.com.gh') == -1 ) {
+      return next.handle(req);
+    }
+
     const clonedRequest = req.clone({
       headers: req.headers.set('Content-Type', 'application/json'),
       body: {
@@ -23,5 +28,6 @@ export class SlydePayConfigInterceptor implements HttpInterceptor {
     });
     // Pass the cloned request instead of the original request to the next handle
     return next.handle(clonedRequest);
+
   }
 }
