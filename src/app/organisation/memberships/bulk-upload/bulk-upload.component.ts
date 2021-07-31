@@ -9,6 +9,7 @@ import { OrganisationMemberCategoryService } from '../../../shared/services/api/
 import { OrganisationFileImportService } from '../../../shared/services/api/organisation-file-import.service';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
 import { OrganisationFileImport } from '../../../shared/model/api/organisation-file-import';
+import { EventsService } from '../../../shared/services/events.service';
 
 @Component({
   selector: 'app-bulk-upload',
@@ -32,21 +33,52 @@ export class BulkUploadComponent implements OnInit, OnDestroy {
     public bulkuploadService: BulkUploadService,
     private modalService: NgbModal,
     private categoryService: OrganisationMemberCategoryService,
-    private fileImportService: OrganisationFileImportService
+    public fileImportService: OrganisationFileImportService,
+    private events: EventsService
   ) {}
 
   ngOnInit() {
+    this.setupEvents();
     this.setupUploadForm();
     this.fetchCategories();
+    this.fetchImports();
+  }
+
+  setupEvents() {
+    this.events.on('OrganisationFileImport:created', (fileImport: OrganisationFileImport) => {
+      this.modalService.dismissAll();
+      Swal.fire("Data Imported!", "Your file has been imported.", "success");
+      Swal.hideLoading();
+    });
+
+    this.events.on('OrganisationFileImport:deleted', (fileImport: OrganisationFileImport) => {
+      Swal.close();
+    });
+  }
+
+  removeEvents() {
+    this.events.off('OrganisationFileImport:created');
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
+    this.removeEvents();
   }
 
   fetchCategories() {
     const sub = this.categoryService.findCategories({}, 1, 100).subscribe((categories) => {
       this.categories = categories;
+    });
+
+    this.subscriptions.push(sub);
+  }
+
+  fetchImports() {
+    const sub = this.fileImportService.getAll<OrganisationFileImport[]>({
+      limit: 20,
+      sort: 'latest'
+    }).subscribe((imports: OrganisationFileImport[]) => {
+      // this.imports = imports;
     });
 
     this.subscriptions.push(sub);
@@ -87,10 +119,6 @@ export class BulkUploadComponent implements OnInit, OnDestroy {
   onSubmit(e: Event) {
     e.preventDefault();
 
-    // if (!this.uploadForm.valid) {
-    //   return;
-    // }
-
     Swal.fire({
       title: "Are you sure you want to import this data?",
       text: "You won't be able to revert this!",
@@ -101,10 +129,10 @@ export class BulkUploadComponent implements OnInit, OnDestroy {
       cancelButtonColor: '#dd3333',
     }).then((result) => {
       if (result.isConfirmed) {
-        // this.bulkuploadService.uploadImportedMemberships();
+        Swal.fire("Uploading File", "Please wait as the file is uploaded", "info");
+        Swal.showLoading();
         const importFile = new OrganisationFileImport(this.uploadForm.value);
         this.fileImportService.createWithUpload(importFile);
-        // Swal.fire("Data Imported!", "Your file has been imported.", "success");
       }
     });
   }
@@ -126,5 +154,31 @@ export class BulkUploadComponent implements OnInit, OnDestroy {
         import_file: file
       });
     }
+  }
+
+  badgeClasses(fileImport: OrganisationFileImport) {
+    return {
+      'bg-success': fileImport.import_status == 'completed',
+      'bg-warning': fileImport.import_status == 'pending',
+      'bg-danger': fileImport.import_status == 'failed'
+    };
+  }
+
+  /**
+   * Batch delete a select list of member records
+   */
+   deleteFileImport(fileImport: OrganisationFileImport) {
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: `This action will delete this file import from the database. This action currently cannot be reverted`,
+      icon: 'warning',
+      showCancelButton: true,
+    }).then((action) => {
+      if (action.value) {
+        Swal.fire('Deleting File Import', 'Please wait ...', 'error');
+        Swal.showLoading();
+        this.fileImportService.remove(fileImport);
+      }
+    });
   }
 }

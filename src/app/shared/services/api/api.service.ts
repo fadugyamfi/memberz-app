@@ -245,6 +245,50 @@ export class APIService {
     this.setSelectedModel = null;
   }
 
+  public hasZeroItems() {
+    return this.results && this.results.length == 0;
+  }
+
+  public hasItems() {
+    return this.results && this.results.length > 0;
+  }
+
+  public getItems() {
+    return this.results;
+  }
+
+  public addItem(model) {
+    this.results.push(model);
+    return this;
+  }
+
+  public updateItem(model) {
+    this.results.forEach((g, index) => {
+      if (g.id === model.id) {
+        this.results[index] = model;
+        return false;
+      }
+    });
+
+    return this;
+  }
+
+  public removeItem(model) {
+    this.results.forEach((g, index) => {
+      if (g.id === model.id) {
+        this.results.splice(index, 1);
+        return false;
+      }
+    });
+
+    return this;
+  }
+
+  public prependItem(model) {
+    this.results.unshift(model);
+    return this;
+  }
+
   /**
    * Returns an observable array of AppModel objects
    */
@@ -290,6 +334,7 @@ export class APIService {
         // eslint-disable-next-line @typescript-eslint/no-shadow
         (model) => {
           this.setSelectedModel(model);
+          this.addItem(model);
           this.clearCache();
           this.events.trigger(`${this.model_name}:created`, model);
         },
@@ -314,6 +359,7 @@ export class APIService {
         // eslint-disable-next-line @typescript-eslint/no-shadow
         (model) => {
           this.setSelectedModel(model);
+          this.updateItem(model);
           this.clearCache();
           this.events.trigger(`${this.model_name}:updated`, model);
         },
@@ -339,6 +385,7 @@ export class APIService {
     return this.delete(`${this.url}/${model.id}`, qparams).subscribe(
       (data) => {
         this.setSelectedModel(null); // clear any cached data
+        this.removeItem(model);
         this.clearCache();
         this.events.trigger(`${this.model_name}:deleted`, model, data);
       },
@@ -677,18 +724,18 @@ export class APIService {
     try {
       const data = JSON.parse(this.getCachedData());
 
-      if (asArray) {
-        const results = [];
-        for (const id in data) {
-          if ( data.hasOwnProperty(id) ) {
-             results.push(new this.model(data[id]));
-          }
-        }
-
-        return results;
+      if( !asArray ) {
+        return data;
       }
 
-      return data;
+      const results = [];
+      for (const id in data) {
+        if ( data.hasOwnProperty(id) ) {
+            results.push(new this.model(data[id]));
+        }
+      }
+
+      return results;
 
     } catch (e) {
       return {};

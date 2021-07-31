@@ -14,36 +14,58 @@
     </div>
   </div>
 
-  <div class="m-t-50 text-center" *ngIf="bulkUploads.length == 0">
+  <div class="m-t-50 text-center" *ngIf="fileImportService.hasZeroItems()">
     <h3>{{ 'No bulk uploads file available' | translate }}</h3>
     <p>Please click on <strong>Import Data</strong> button to upload content</p>
   </div>
 
-  <table class="table table-bordered table-hover" *ngIf="bulkUploads && bulkUploads.length > 0">
+  <div class="loader-box m-auto" *ngIf="!fileImportService.getItems()">
+    <span class="rotate dashed colored"></span>
+  </div>
+
+  <table class="table table-bordered table-hover" *ngIf="fileImportService.hasItems()">
     <thead>
       <tr>
-        <th colspan="2">{{ 'Name' | translate }}</th>
+        <th colspan="4"></th>
+        <th colspan="3" class="text-center">{{ 'Import Stats' | translate }}</th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>{{ 'Name' | translate }}</th>
         <th class="text-center">{{ 'Type' | translate }}</th>
         <th class="text-center">{{ 'Uploaded' | translate }}</th>
+        <th class="text-center">{{ 'Status' | translate }}</th>
+        <th class="text-center">{{ 'Imported' | translate }}</th>
+        <th class="text-center">{{ 'Linked' | translate }}</th>
+        <th class="text-center">{{ 'Existing' | translate }}</th>
         <th class="text-center">{{ 'Actions' | translate }}</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let upload of bulkUploads; let row = index">
+      <tr *ngFor="let fileImport of fileImportService.getItems(); let row = index">
         <td>
-          <div>{{ upload.name }}</div>
-          <small class="text-muted">{{ upload.type }}</small>
+          <div>{{ fileImport.file_path }}</div>
         </td>
-        <td class="text-center">{{ upload.created }}</td>
+        <td>{{ fileImport.import_type }}</td>
+        <td class="text-center">{{ fileImport.whenCreated() }}</td>
 
         <td class="text-center">
-          <!-- <button
-            class="btn btn-xs btn-info m-r-10"
-            (click)="previewContent(upload)"
-          >
+          <span class="badge" [class]="badgeClasses(fileImport)">{{ fileImport.import_status }}</span>
+        </td>
+
+        <td class="text-center">{{ fileImport.records_imported || 0 }}</td>
+        <td class="text-center">{{ fileImport.records_linked || 0 }}</td>
+        <td class="text-center">{{ fileImport.records_existing || 0 }}</td>
+
+        <td class="text-center">
+          <button class="btn btn-xs btn-info m-r-10">
             <i class="fa fa-file"></i> Preview
-          </button> -->
+          </button>
+
+          <button class="btn btn-xs btn-danger m-r-10" (click)="deleteFileImport(fileImport)">
+            <i class="fa fa-trash-o"></i>
+          </button>
         </td>
       </tr>
     </tbody>
