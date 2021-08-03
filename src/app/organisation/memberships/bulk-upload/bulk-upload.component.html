@@ -31,9 +31,9 @@
         <th></th>
       </tr>
       <tr>
-        <th>{{ 'Name' | translate }}</th>
-        <th class="text-center">{{ 'Type' | translate }}</th>
-        <th class="text-center">{{ 'Uploaded' | translate }}</th>
+        <th>{{ 'Date' | translate }}</th>
+        <th>{{ 'Uploaded By' | translate }}</th>
+        <th>{{ 'File Name' | translate }}</th>
         <th class="text-center">{{ 'Status' | translate }}</th>
         <th class="text-center">{{ 'Imported' | translate }}</th>
         <th class="text-center">{{ 'Linked' | translate }}</th>
@@ -44,11 +44,10 @@
 
     <tbody>
       <tr *ngFor="let fileImport of fileImportService.getItems(); let row = index">
-        <td>
-          <div>{{ fileImport.file_path }}</div>
-        </td>
-        <td>{{ fileImport.import_type }}</td>
-        <td class="text-center">{{ fileImport.whenCreated() }}</td>
+
+        <td>{{ fileImport.whenCreated() }}</td>
+        <td>{{ fileImport.member_account.member.name() }}</td>
+        <td>{{ fileImport.file_name }}</td>
 
         <td class="text-center">
           <span class="badge" [class]="badgeClasses(fileImport)">{{ fileImport.import_status }}</span>
@@ -60,7 +59,7 @@
 
         <td class="text-center">
           <button class="btn btn-xs btn-info m-r-10">
-            <i class="fa fa-file"></i> Preview
+            <i class="fa fa-file"></i> {{ 'Preview' | translate }}
           </button>
 
           <button class="btn btn-xs btn-danger m-r-10" (click)="deleteFileImport(fileImport)">

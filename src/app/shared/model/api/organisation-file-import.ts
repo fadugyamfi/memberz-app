@@ -1,5 +1,6 @@
 
 import { AppModel } from './app.model';
+import { MemberAccount } from './member-account';
 
 export class OrganisationFileImport extends AppModel {
 
@@ -13,8 +14,17 @@ export class OrganisationFileImport extends AppModel {
   public records_imported: number;
   public records_linked: number;
   public records_existing: number;
+  public _member_account: MemberAccount;
 
   constructor(data) {
     super(data);
+  }
+
+  set member_account(value) {
+    this._member_account = value ? new MemberAccount(value) : null;
+  }
+
+  get member_account(): MemberAccount {
+    return this._member_account;
   }
 }

@@ -77,9 +77,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy {
     const sub = this.fileImportService.getAll<OrganisationFileImport[]>({
       limit: 20,
       sort: 'latest'
-    }).subscribe((imports: OrganisationFileImport[]) => {
-      // this.imports = imports;
-    });
+    }).subscribe();
 
     this.subscriptions.push(sub);
   }
