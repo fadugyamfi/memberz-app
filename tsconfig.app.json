@@ -12,7 +12,7 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "skipLibCheck": true,
-    "target": "es2015",
+    "target": "ES2018",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -27,9 +27,6 @@
         "dist/slydepay-angular"
       ]
     },
-  },
-  "angularCompilerOptions": {
-    "strictTemplates": true
   },
   "angularCompilerOptions": {
     "strictTemplates": true
