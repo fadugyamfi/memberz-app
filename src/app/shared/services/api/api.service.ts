@@ -1,4 +1,3 @@
-
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams, HttpEventType } from '@angular/common/http';
@@ -89,10 +88,6 @@ export class APIService {
   setApiUrl() {
     // set Base URL from cache
     this.BASE_URL = environment.api.url;
-    // let auth_data = this.authData.getUserAuthData();
-    // if (auth_data) {
-    //   this.BASE_URL = auth_data['data']['institution']['api_url']
-    // }
   }
 
   set url(str: string) {
@@ -435,7 +430,10 @@ export class APIService {
       .subscribe(
         (event) => {
           this.handleUploadProgress(event, (res) => {
-            this.events.trigger(`${this.model_name}:created`, new this.model(res['data']));
+            const createdModel = new this.model(res['data']);
+            this.addItem(createdModel);
+            this.clearCache();
+            this.events.trigger(`${this.model_name}:created`, createdModel);
           });
         },
         (error) => {
@@ -470,7 +468,10 @@ export class APIService {
       .subscribe(
         (event) => {
           this.handleUploadProgress(event, (res) => {
-            this.events.trigger(`${this.model_name}:updated`, new this.model(res['data']));
+            const updatedModel = new this.model(res['data']);
+            this.updateItem(updatedModel);
+            this.clearCache();
+            this.events.trigger(`${this.model_name}:updated`, updatedModel);
           });
         },
         (error) => {

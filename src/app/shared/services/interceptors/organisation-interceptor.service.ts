@@ -12,8 +12,11 @@ export class OrganisationInterceptor implements HttpInterceptor {
         const organisation = this.organisationService.getActiveOrganisation();
         if (organisation) {
             const cloneReq = req.clone({
-                setParams: {
-                    organisation_id: organisation.id
+                // setParams: {
+                //     organisation_id: organisation.id
+                // },
+                setHeaders: {
+                  "X-Tenant-Id": organisation.uuid
                 }
              });
             return next.handle(cloneReq);

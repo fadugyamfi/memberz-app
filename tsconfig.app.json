@@ -1,35 +1,8 @@
 {
-  "compileOnSave": false,
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "skipLibCheck": true,
-    "target": "ES2018",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
-    "types": [],
-    "paths": {
-      "slydepay-angular": [
-        "dist/slydepay-angular/slydepay-angular",
-        "dist/slydepay-angular"
-      ]
-    },
-  },
-  "angularCompilerOptions": {
-    "strictTemplates": true
+    "outDir": "./out-tsc/app",
+    "types": []
   },
   "files": [
     "src/main.ts",

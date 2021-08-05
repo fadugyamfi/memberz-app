@@ -6,6 +6,7 @@ import { OrganisationType } from './organisation-type';
 export class Organisation extends AppModel {
 
   public id: any;
+  public uuid: string;
   public name: string;
   public email: string;
   public phone: string;
