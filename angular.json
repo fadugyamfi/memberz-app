@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "endless-starterkit": {
+    "endless": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -51,7 +51,7 @@
               "photoswipe/dist/photoswipe-ui-default",
               "angular-calendar/date-adapters/date-fns"
             ],
-            "outputPath": "dist/endless-starterkit",
+            "outputPath": "dist/endless",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -109,18 +109,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "endless-starterkit:build"
+            "browserTarget": "endless:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "endless-starterkit:build:production"
+              "browserTarget": "endless:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "endless-starterkit:build"
+            "browserTarget": "endless:build"
           }
         },
         "test": {
@@ -153,11 +153,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "endless-starterkit:serve"
+            "devServerTarget": "endless:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "endless-starterkit:serve:production"
+              "devServerTarget": "endless:serve:production"
             }
           }
         }
@@ -201,7 +201,7 @@
       }
     }
   },
-  "defaultProject": "endless-starterkit",
+  "defaultProject": "endless",
   "cli": {
     "analytics": false,
     "defaultCollection": "@angular-eslint/schematics"
