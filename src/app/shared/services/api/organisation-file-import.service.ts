@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class OrganisationFileImportService extends APIService {
+export class OrganisationFileImportService extends APIService<OrganisationFileImport> {
 
   constructor(http: HttpClient, protected events: EventsService, protected storage: StorageService) {
     super(http, events, storage);

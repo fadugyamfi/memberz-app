@@ -8,7 +8,7 @@ import { StorageService } from '../storage.service';
 @Injectable({
   providedIn: 'root'
 })
-export class OrganisationService extends APIService {
+export class OrganisationService extends APIService<Organisation> {
 
   public activeOrganisation: Organisation;
   private ACTIVE_ORG_CACHE_KEY = 'active_organsation';

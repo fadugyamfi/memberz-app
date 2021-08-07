@@ -11,7 +11,7 @@ import { AuthService } from './auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class APIService {
+export class APIService<T extends AppModel> {
 
   protected BASE_URL = '';
   public _url: string;
@@ -26,8 +26,9 @@ export class APIService {
     total: 1
   };
 
-  public selectedModel: AppModel;
-  public results = null;
+  public selectedModel: T;
+  public results: T[] = null;
+  public fetching = false;
 
   public batchRequests = [];
 
@@ -155,7 +156,7 @@ export class APIService {
   public processMeta(response) {
     if (response['meta']) {
       this.pagingMeta = response['meta'];
-      setTimeout(() => this.events.trigger(`${this.model_name}:paging`, this.pagingMeta), 500);
+      setTimeout(() => this.events.trigger(`${this.model_name}:paging`, this.pagingMeta), 100);
     }
   }
 
@@ -240,24 +241,24 @@ export class APIService {
     this.setSelectedModel = null;
   }
 
-  public hasZeroItems() {
+  public hasZeroItems(): boolean {
     return this.results && this.results.length == 0;
   }
 
-  public hasItems() {
+  public hasItems(): boolean {
     return this.results && this.results.length > 0;
   }
 
-  public getItems() {
+  public getItems(): T[] {
     return this.results;
   }
 
-  public addItem(model) {
+  public addItem(model: T) {
     this.results.push(model);
     return this;
   }
 
-  public updateItem(model) {
+  public updateItem(model: T) {
     this.results.forEach((g, index) => {
       if (g.id === model.id) {
         this.results[index] = model;
@@ -268,7 +269,7 @@ export class APIService {
     return this;
   }
 
-  public removeItem(model) {
+  public removeItem(model: T) {
     this.results.forEach((g, index) => {
       if (g.id === model.id) {
         this.results.splice(index, 1);
@@ -279,7 +280,7 @@ export class APIService {
     return this;
   }
 
-  public prependItem(model) {
+  public prependItem(model: T) {
     this.results.unshift(model);
     return this;
   }
@@ -287,7 +288,7 @@ export class APIService {
   /**
    * Returns an observable array of AppModel objects
    */
-  getAll<T>(params: object = {}, headers = {}): Observable<T> {
+  getAll(params: object = {}, headers = {}): Observable<T[]> {
     if (params['cacheResults']) {
       const results = this.fetchCachedData(true);
 
@@ -312,7 +313,7 @@ export class APIService {
    * @param id ID of record
    * @param params Query parameters to pass in for additional filtering
    */
-  getById(id, params: object = null): Observable<AppModel> {
+  getById(id, params: object = null): Observable<T> {
     return this.get(`${this.url}/${id}`, params).pipe(map(res => new this.model(res['data'])));
   }
 
@@ -321,7 +322,7 @@ export class APIService {
    *
    * @param model Model data to pass
    */
-  create(model: AppModel, qparams: object = null) {
+  create(model: T, qparams: object = null) {
 
     return this.post(`${this.url}`, model, qparams).pipe(
       map((response) => new this.model(response['data'])))
@@ -346,7 +347,7 @@ export class APIService {
    *
    * @param model Model data to pass
    */
-  update(model: AppModel, qparams: object = null) {
+  update(model: T, qparams: object = null) {
 
     return this.put(`${this.url}/${model.id}`, model, qparams).pipe(
       map((response) => new this.model(response['data'])))
@@ -371,7 +372,7 @@ export class APIService {
    *
    * @param model Model data to work with
    */
-  remove(model: AppModel, qparams: object = null) {
+  remove(model: T, qparams: object = null) {
 
     if (!model.id) {
       return;
@@ -604,7 +605,7 @@ export class APIService {
    *
    * @param models Array of models
    */
-  batchCreate(models: AppModel[], qparams: object = {}) {
+  batchCreate(models: T[], qparams: object = {}) {
     const requests = models.map(model => {
       return this.buildBatchRequest(`${this.url}`, 'POST', model);
     });
@@ -623,7 +624,7 @@ export class APIService {
    *
    * @param models Array of Models
    */
-  batchUpdate(models: AppModel[], qparams: object = {}) {
+  batchUpdate(models: T[], qparams: object = {}) {
     const requests = models.map(model => {
       if (model.id) {
         return this.buildBatchRequest(`${this.url}/${model.id}`, 'PUT', model);
@@ -645,7 +646,7 @@ export class APIService {
    *
    * @param models Array of Models
    */
-  batchDelete(models: AppModel[], qparams: object = {}) {
+  batchDelete(models: T[], qparams: object = {}) {
     const requests = models.map(model => {
       return this.buildBatchRequest(`${this.url}/${model.id}`, 'DELETE');
     });

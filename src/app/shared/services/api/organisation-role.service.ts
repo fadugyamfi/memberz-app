@@ -10,7 +10,7 @@ import { Permission } from '../../model/api/permission.model';
 @Injectable({
   providedIn: 'root'
 })
-export class OrganisationRoleService extends APIService {
+export class OrganisationRoleService extends APIService<OrganisationRole> {
 
   constructor(http: HttpClient, protected events: EventsService, protected storage: StorageService) {
     super(http, events, storage);

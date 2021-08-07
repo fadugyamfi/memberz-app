@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class OrganisationSubscriptionService extends APIService {
+export class OrganisationSubscriptionService extends APIService<OrganisationSubscription> {
 
   constructor(http: HttpClient, protected events: EventsService, protected storage: StorageService) {
     super(http, events, storage);

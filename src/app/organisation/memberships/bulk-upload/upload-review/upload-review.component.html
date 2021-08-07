@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+
+      <!-- left column -->
+      <div class="col-lg-6">
+        <button class="btn btn-primary m-r-25" (click)="exitReview()">
+          <i class="fa fa-chevron-left"></i> {{ 'Back' | translate }}
+        </button>
+
+        <span class="h5 font-weight-bold">{{ 'Membership Import Review' | translate }}</span>
+      </div>
+
+      <!-- right column -->
+      <div class="col-lg-6 text-right">
+        <span class="badge" [class]="badgeClasses()">{{ organisationFileImport.import_status | translate }}</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="card-body p-0">
+    <div class="loader-box m-auto" *ngIf="memberImportService.requesting">
+      <span class="rotate dashed colored"></span>
+    </div>
+
+    <table class="table table-bordered table-hover" *ngIf="memberImportService.hasItems() && !memberImportService.requesting">
+      <thead>
+        <tr>
+          <th colspan="2">{{ 'Member' | translate }}</th>
+          <th>{{ 'Phone Number' | translate }}</th>
+          <th>{{ 'Category' | translate }}</th>
+          <th>{{ 'Import Type' | translate }}</th>
+          <th class="text-center">{{ 'Actions' | translate }}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let importRecord of memberImportService.getItems(); let row = index">
+          <td class="text-right" width="50">{{ row + memberImportService.pagingMeta.from }}</td>
+          <td>
+            <a [routerLink]="['/organisation/memberships/view', importRecord.organisation_member.id]" target="profiles">
+              {{ importRecord.organisation_member?.member.name() }}
+            </a>
+          </td>
+          <td>{{ importRecord.organisation_member?.member.mobile_number }}</td>
+          <td>{{ importRecord.organisation_member?.organisation_member_category?.name }}</td>
+          <td>{{ importRecord.import_type }}</td>
+          <td class="text-center">
+            <a [routerLink]="['/organisation/memberships/view', importRecord.organisation_member.id]" target="profiles" class="btn btn-xs btn-primary m-r-15">
+              <i class="fa fa-user"></i> {{ 'View Profile' | translate }}
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-footer">
+    <app-pagination [service]="memberImportService" (paginate)="onPaginate($event)"></app-pagination>
+  </div>
+</div>

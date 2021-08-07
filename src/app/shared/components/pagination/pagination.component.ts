@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { EventsService } from '../../services/events.service';
 import { APIService } from '../../services/api/api.service';
+import { AppModel } from '../../model/api/app.model';
 
 export interface PageEvent {
   page: number;
@@ -16,10 +17,10 @@ export interface PageEvent {
 export class PaginationComponent implements OnInit, OnDestroy {
 
   @Output() paginate = new EventEmitter();
-  @Input() service: APIService;
+  @Input() service: APIService<AppModel>;
 
   public pageLimit = 15;
-  public collectionSize = 0;
+  public collectionSize = 1;
   public currentPage = 1;
   public pagination_limits: Array<any>;
 

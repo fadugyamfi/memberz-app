@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card" *ngIf="!reviewingImport()">
   <div class="card-header">
     <div class="row">
       <div class="col-md-6">&nbsp;</div>
@@ -19,11 +19,11 @@
     <p>Please click on <strong>Import Data</strong> button to upload content</p>
   </div>
 
-  <div class="loader-box m-auto" *ngIf="!fileImportService.getItems()">
+  <div class="loader-box m-auto" *ngIf="fileImportService.requesting">
     <span class="rotate dashed colored"></span>
   </div>
 
-  <table class="table table-bordered table-hover" *ngIf="fileImportService.hasItems()">
+  <table class="table table-bordered table-hover" *ngIf="fileImportService.hasItems() && !fileImportService.requesting">
     <thead>
       <tr>
         <th colspan="4"></th>
@@ -50,7 +50,7 @@
         <td>{{ fileImport.file_name }}</td>
 
         <td class="text-center">
-          <span class="badge" [class]="badgeClasses(fileImport)">{{ fileImport.import_status }}</span>
+          <span class="badge" [class]="badgeClasses(fileImport)">{{ fileImport.import_status | translate }}</span>
         </td>
 
         <td class="text-center">{{ fileImport.records_imported || 0 }}</td>
@@ -58,8 +58,8 @@
         <td class="text-center">{{ fileImport.records_existing || 0 }}</td>
 
         <td class="text-center">
-          <button class="btn btn-xs btn-info m-r-10">
-            <i class="fa fa-file"></i> {{ 'Preview' | translate }}
+          <button class="btn btn-xs btn-info m-r-10" (click)="reviewImport(fileImport)">
+            <i class="fa fa-file"></i> {{ 'Review' | translate }}
           </button>
 
           <button class="btn btn-xs btn-danger m-r-10" (click)="deleteFileImport(fileImport)">
@@ -69,7 +69,13 @@
       </tr>
     </tbody>
   </table>
+
+  <div class="card-footer">
+    <app-pagination [service]="fileImportService" (paginate)="onPaginate($event)"></app-pagination>
+  </div>
 </div>
+
+<app-upload-review *ngIf="reviewingImport()" [organisationFileImport]="selectedFileImport" (clear)="clearImportReview()"></app-upload-review>
 
 <ng-template #uploadModal let-modal>
   <form (submit)="onSubmit($event)" class="form form-horizontal" [formGroup]="uploadForm">

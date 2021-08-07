@@ -8,7 +8,7 @@ import { SmsBroadcastList } from '../../model/api/sms-broadcast-list';
 @Injectable({
   providedIn: 'root'
 })
-export class SmsBroadcastListService extends APIService {
+export class SmsBroadcastListService extends APIService<SmsBroadcastList> {
 
   constructor(http: HttpClient, protected events: EventsService, protected storage: StorageService) {
     super(http, events, storage);

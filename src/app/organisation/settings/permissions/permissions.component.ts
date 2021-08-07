@@ -75,7 +75,7 @@ export class PermissionsComponent implements OnInit, OnDestroy {
    * Fetches all available permissions and caches the result for 24 hours
    */
   fetchAndStorePermissions() {
-    const sub = this.permissionService.getAll<Permission[]>({limit: 200}).subscribe((permissions) => {
+    const sub = this.permissionService.getAll({limit: 200}).subscribe((permissions) => {
       this.permissions = permissions;
       this.storage.local().set(this.cacheKey, permissions);
     });

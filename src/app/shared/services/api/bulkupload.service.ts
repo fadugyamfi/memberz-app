@@ -10,7 +10,7 @@ import { Member } from "../../model/api/member";
 @Injectable({
   providedIn: "root",
 })
-export class BulkUploadService extends APIService {
+export class BulkUploadService extends APIService<Member> {
   public memberHeaders = [
     "Category Name",
     "Membership ID",

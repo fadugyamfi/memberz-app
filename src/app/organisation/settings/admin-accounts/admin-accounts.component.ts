@@ -54,11 +54,11 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
   }
 
   loadRoles() {
-    this.roleService.getAll<OrganisationRole[]>({ limit: 30, sort: 'name:asc' }).subscribe(roles => this.roles = roles);
+    this.roleService.getAll({ limit: 30, sort: 'name:asc' }).subscribe(roles => this.roles = roles);
   }
 
   loadAccounts() {
-    const sub = this.accountService.getAll<OrganisationAccount[]>({
+    const sub = this.accountService.getAll({
       contain: ['member_account.member.profile_photo', 'organisation_role'].join(),
       deleted: 0,
       limit: 100

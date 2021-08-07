@@ -8,7 +8,7 @@ import { Member } from '../../model/api/member';
 @Injectable({
   providedIn: 'root'
 })
-export class MemberService extends APIService {
+export class MemberService extends APIService<Member> {
 
   constructor(http: HttpClient, protected events: EventsService, protected storage: StorageService) {
     super(http, events, storage);

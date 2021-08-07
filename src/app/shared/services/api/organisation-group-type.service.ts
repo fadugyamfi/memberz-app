@@ -8,7 +8,7 @@ import { StorageService } from '../storage.service';
 @Injectable({
   providedIn: 'root'
 })
-export class OrganisationGroupTypeService extends APIService{
+export class OrganisationGroupTypeService extends APIService<OrganisationGroupType> {
 
 
   constructor(http: HttpClient,protected events: EventsService, protected storage: StorageService) {

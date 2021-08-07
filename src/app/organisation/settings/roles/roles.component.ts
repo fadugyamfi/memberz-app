@@ -44,7 +44,7 @@ export class RolesComponent implements OnInit, OnDestroy {
   }
 
   loadRoles() {
-    const sub = this.roleService.getAll<OrganisationRole[]>({
+    const sub = this.roleService.getAll({
       limit: 100, sort: 'name:asc', count: ['permissions', 'organisation_account'].join()
     }).subscribe(
       (roles) => this.roles = roles

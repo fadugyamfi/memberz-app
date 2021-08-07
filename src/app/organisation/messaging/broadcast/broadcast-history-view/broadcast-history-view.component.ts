@@ -22,7 +22,7 @@ export class BroadcastHistoryViewComponent implements OnInit {
   fetchBroadcasts(page = 1, limit = 15) {
     const params = { page, limit };
 
-    this.smsBroadcastService.getAll<SmsBroadcast>(params).subscribe(broadcasts => {
+    this.smsBroadcastService.getAll(params).subscribe(broadcasts => {
       this.broadcasts = broadcasts;
     });
   }

@@ -8,7 +8,7 @@ import { SmsAccountMessage } from '../../model/api/sms-account-message';
 @Injectable({
   providedIn: 'root'
 })
-export class SmsAccountMessageService extends APIService {
+export class SmsAccountMessageService extends APIService<SmsAccountMessage> {
 
 
   constructor(http: HttpClient, protected events: EventsService, protected storage: StorageService) {

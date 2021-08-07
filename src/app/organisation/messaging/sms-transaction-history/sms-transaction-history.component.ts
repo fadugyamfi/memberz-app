@@ -22,7 +22,7 @@ export class SmsTransactionHistoryComponent implements OnInit {
 
   loadTransactions(page = 1, limit = 10) {
     this.topups = null;
-    this.smsAccountTopupService.getAll<SmsAccountTopup[]>({ page, limit, sort: 'id:desc' }).subscribe(
+    this.smsAccountTopupService.getAll({ page, limit, sort: 'id:desc' }).subscribe(
       (topups) => this.topups = topups
     );
   }

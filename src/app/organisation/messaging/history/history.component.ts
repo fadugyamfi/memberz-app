@@ -97,7 +97,7 @@ export class HistoryComponent implements OnInit {
       }
     }
 
-    this.messageService.getAll<SmsAccountMessage[]>(params).subscribe((messages) => {
+    this.messageService.getAll(params).subscribe((messages) => {
       this.messages = messages;
       this.highlightWordsInText();
     });

@@ -9,7 +9,7 @@ import { OrganisationService } from './organisation.service';
 @Injectable({
   providedIn: 'root'
 })
-export class SmsAccountService extends APIService {
+export class SmsAccountService extends APIService<SmsAccount> {
 
   public orgSmsAccount: SmsAccount;
 
@@ -31,7 +31,7 @@ export class SmsAccountService extends APIService {
   refreshAccount(organisation_id = null) {
     const params = this.getAccountParams(organisation_id);
 
-    return this.getAll<SmsAccount[]>(params).subscribe(accounts => {
+    return this.getAll(params).subscribe(accounts => {
       this.cacheAccountInfo(accounts);
       this.events.trigger(`${this.model_name}:refresh`, this.orgSmsAccount);
     });

@@ -40,7 +40,7 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setupForm();
     this.setupEvents();
-    this.roles$ = this.roleService.getAll<OrganisationRole[]>();
+    this.roles$ = this.roleService.getAll();
   }
 
   ngOnDestroy() {

@@ -4,12 +4,14 @@ import { BulkUploadService } from './../../../shared/services/api/bulkupload.ser
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { OrganisationFileImportService } from '../../../shared/services/api/organisation-file-import.service';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
 import { OrganisationFileImport } from '../../../shared/model/api/organisation-file-import';
 import { EventsService } from '../../../shared/services/events.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
+import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-bulk-upload',
@@ -17,7 +19,7 @@ import { EventsService } from '../../../shared/services/events.service';
   styleUrls: ['./bulk-upload.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class BulkUploadComponent implements OnInit, OnDestroy {
+export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('uploadModal', { static: true }) uploadModal: any;
   @ViewChild('editorModal', { static: true }) editorModal: any;
 
@@ -29,19 +31,26 @@ export class BulkUploadComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   public categories: OrganisationMemberCategory[] = [];
 
+  public selectedFileImport: OrganisationFileImport;
+
   constructor(
     public bulkuploadService: BulkUploadService,
     private modalService: NgbModal,
     private categoryService: OrganisationMemberCategoryService,
     public fileImportService: OrganisationFileImportService,
-    private events: EventsService
-  ) {}
+    private events: EventsService,
+    private organisationService: OrganisationService
+  ) { }
 
   ngOnInit() {
     this.setupEvents();
     this.setupUploadForm();
     this.fetchCategories();
     this.fetchImports();
+  }
+
+  ngAfterViewInit() {
+    this.events.trigger('OrganisationFileImport:paging', this.fileImportService.pagingMeta);
   }
 
   setupEvents() {
@@ -73,13 +82,23 @@ export class BulkUploadComponent implements OnInit, OnDestroy {
     this.subscriptions.push(sub);
   }
 
-  fetchImports() {
-    const sub = this.fileImportService.getAll<OrganisationFileImport[]>({
-      limit: 20,
+  fetchImports(page = 1, limit = 30) {
+    const sub = this.fileImportService.getAll({
+      limit,
+      page,
       sort: 'latest'
     }).subscribe();
 
     this.subscriptions.push(sub);
+  }
+
+  /**
+   * Handles the pagination events
+   *
+   * @param event PageEvent
+   */
+  onPaginate(event: PageEvent) {
+    this.fetchImports(event.page, event.limit);
   }
 
   isArray(item) {
@@ -137,6 +156,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy {
 
   private setupUploadForm() {
     this.uploadForm = new FormGroup({
+      organisation_id: new FormControl(this.organisationService.getActiveOrganisation().id),
       import_to_id: new FormControl('', Validators.required),
       file: new FormControl('', Validators.required),
       import_file: new FormControl('', Validators.required),
@@ -165,7 +185,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy {
   /**
    * Batch delete a select list of member records
    */
-   deleteFileImport(fileImport: OrganisationFileImport) {
+  deleteFileImport(fileImport: OrganisationFileImport) {
     Swal.fire({
       title: 'Confirm Deletion',
       text: `This action will delete this file import from the database. This action currently cannot be reverted`,
@@ -178,5 +198,20 @@ export class BulkUploadComponent implements OnInit, OnDestroy {
         this.fileImportService.remove(fileImport);
       }
     });
+  }
+
+  reviewingImport(): boolean {
+    return this.selectedFileImport != null;
+  }
+
+  reviewImport(fileImport: OrganisationFileImport) {
+    this.selectedFileImport = fileImport;
+  }
+
+  clearImportReview() {
+    this.selectedFileImport = null;
+    setTimeout(() => {
+      this.events.trigger('OrganisationFileImport:paging', this.fileImportService.pagingMeta);
+    }, 100);
   }
 }

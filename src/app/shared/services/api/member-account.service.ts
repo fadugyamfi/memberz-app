@@ -10,7 +10,7 @@ import { Organisation } from '../../model/api/organisation';
 @Injectable({
   providedIn: 'root'
 })
-export class MemberAccountService extends APIService {
+export class MemberAccountService extends APIService<MemberAccount> {
 
   constructor(http: HttpClient, protected events: EventsService, protected storage: StorageService) {
     super(http, events, storage);

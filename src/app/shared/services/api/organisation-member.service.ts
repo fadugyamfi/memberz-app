@@ -10,7 +10,7 @@ import { OrganisationService } from './organisation.service';
 @Injectable({
   providedIn: 'root'
 })
-export class OrganisationMemberService extends APIService {
+export class OrganisationMemberService extends APIService<OrganisationMember> {
 
   constructor(
     protected http: HttpClient,

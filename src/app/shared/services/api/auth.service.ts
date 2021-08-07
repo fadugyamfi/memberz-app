@@ -13,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService extends APIService {
+export class AuthService extends APIService<MemberAccount> {
 
     public userData;
     public _sessionId;
