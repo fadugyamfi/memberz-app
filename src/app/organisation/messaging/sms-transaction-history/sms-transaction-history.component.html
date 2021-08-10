@@ -32,7 +32,7 @@
         </td>
         <td>{{ topup.invoice_description }}</td>
         <td class="text-right">{{ topup.credit_amount | number }}</td>
-        <td class="text-right">{{ topup.cost | currency : topup.currency.currency_code }}</td>
+        <td class="text-right">{{ topup.cost | currency : topup.currency?.currency_code }}</td>
         <td class="text-center">
           <span class="badge badge-success" *ngIf="topup.credited">Credited</span>
           <span class="badge badge-warning" *ngIf="!topup.credited">Pending</span>
