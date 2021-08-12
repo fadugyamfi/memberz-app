@@ -1,5 +1,5 @@
 <button class="btn m-b-15" [routerLink]="['/organisation/memberships/profiles']">
-  <i class="fa fa-long-arrow-left"></i> Back To Profiles
+  <i class="fa fa-long-arrow-left"></i> {{'Back To Profiles' | translate}}
 </button>
 
 <ngb-alert *ngIf="alertMessage" [type]="alertType" (close)="alertMessage = null">{{ alertMessage }}
@@ -29,16 +29,16 @@
               <div class="col-sm-8">
                 <button class="btn btn-success btn-sm m-r-10" *ngIf="membership?.pendingApproval()"
                         (click)="membershipService.approveRegistration(membership)">
-                  <i class="fa fa-check"></i> Approve
+                  <i class="fa fa-check"></i> {{'Approve' | translate}}
                 </button>
 
                 <button class="btn btn-danger btn-sm m-r-10" *ngIf="membership?.pendingApproval()"
                         (click)="membershipService.rejectRegistration(membership)">
-                  <i class="fa fa-thumbs-down"></i> Reject
+                  <i class="fa fa-thumbs-down"></i> {{'Reject' | translate}}
                 </button>
 
                 <button class="btn btn-info btn-sm" *ngIf="membership?.approved" (click)="editProfile()">
-                  <i class="fa fa-pencil"></i> Edit Profile
+                  <i class="fa fa-pencil"></i> {{'Edit Profile' | translate}}
                 </button>
               </div>
 

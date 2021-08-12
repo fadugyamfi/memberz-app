@@ -5,7 +5,7 @@
 
         <div class="card-body">
           <button class="btn btn-primary btn-block m-b-5" (click)="showComposer()">
-            <i class="fa fa-envelope"></i> New Broadcast
+            <i class="fa fa-envelope"></i> {{'New Broadcast' | translate}}
           </button>
 
           <hr size=1 />
@@ -14,7 +14,7 @@
 
             <a href="#" class="list-group-item" (click)="showHistory(); $event.preventDefault()">
               <i class="fa fa-envelope"></i>
-              <span>Broadcast History</span>
+              <span>{{'Broadcast History' | translate}}</span>
             </a>
 
           </ul>

@@ -16,7 +16,7 @@
 
   <div class="m-t-50 text-center" *ngIf="fileImportService.hasZeroItems()">
     <h3>{{ 'No bulk uploads file available' | translate }}</h3>
-    <p>Please click on <strong>Import Data</strong> button to upload content</p>
+    <p>{{'Please click on Import Data button to upload content' | translate}}</p>
   </div>
 
   <div class="loader-box m-auto" *ngIf="fileImportService.requesting">
