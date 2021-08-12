@@ -1,11 +1,11 @@
 <div class="card">
   <div class="card-header">
-    <h6>SMS Account History</h6>
+    <h6>{{ 'SMS Account History' | translate }}</h6>
   </div>
 
   <div class="m-t-50 text-center" *ngIf="topups && topups.length == 0">
-    <h3>No Search Results Found</h3>
-    <p>Please search for members to display results here</p>
+    <h3>{{ 'No Search Results Found' | translate }}</h3>
+    <p>{{ 'Please search for members to display results here' | translate }}</p>
   </div>
 
   <div class="loader-box m-auto" *ngIf="smsAccountTopupService.requesting">
@@ -15,12 +15,12 @@
   <table class="table table-bordered table-hover table-striped" *ngIf="topups && topups.length > 0">
     <thead>
       <tr>
-        <th>Date</th>
-        <th>Description</th>
-        <th class="text-right">Credits</th>
-        <th class="text-right">Cost</th>
-        <th class="text-center">Status</th>
-        <th class="text-center">Actions</th>
+        <th>{{ 'Date' | translate }}</th>
+        <th>{{ 'Description' | translate }}</th>
+        <th class="text-right">{{ 'Credits' | translate }}</th>
+        <th class="text-right">{{ 'Cost' | translate }}</th>
+        <th class="text-center">{{ 'Status' | translate }}</th>
+        <th class="text-center">{{ 'Actions' | translate }}</th>
       </tr>
     </thead>
 
@@ -34,12 +34,12 @@
         <td class="text-right">{{ topup.credit_amount | number }}</td>
         <td class="text-right">{{ topup.cost | currency : topup.currency?.currency_code }}</td>
         <td class="text-center">
-          <span class="badge badge-success" *ngIf="topup.credited">Credited</span>
-          <span class="badge badge-warning" *ngIf="!topup.credited">Pending</span>
+          <span class="badge badge-success" *ngIf="topup.credited">{{ 'Credited' | translate }}</span>
+          <span class="badge badge-warning" *ngIf="!topup.credited">{{ 'Pending' | translate }}</span>
         </td>
         <td class="text-center">
           <button class="btn btn-xs btn-info" (click)="invoiceModal.showInvoice(topup.organisation_invoice_id)">
-            <i class="fa fa-file-text"></i> View Invoice
+            <i class="fa fa-file-text"></i> {{ 'View Invoice' | translate }}
           </button>
         </td>
       </tr>

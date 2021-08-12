@@ -4,14 +4,14 @@
       <div class="col-md-6">
         <div ngbDropdown class="d-inline-block" placement="bottom-left">
           <button class="btn btn-sm btn-outline-primary" id="withSelectedMenu" ngbDropdownToggle
-                  [disabled]="!itemSelected()">With Selected</button>
+                  [disabled]="!itemSelected()">{{'With Selected' | translate}}</button>
           <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="withSelectedMenu">
             <button class="dropdown-item" (click)="showChangeCategoryModal()">
-              <i class="fa fa-fw fa-repeat"></i> Change Category
+              <i class="fa fa-fw fa-repeat"></i> {{'Change Category' | translate}}
             </button>
             <span class="dropdown-divider"></span>
             <button class="dropdown-item text-danger" (click)="deleteSelected()">
-              <i class="fa fa-fw fa-trash-o"></i> Delete
+              <i class="fa fa-fw fa-trash-o"></i> {{'Delete' | translate}}
             </button>
           </div>
         </div>
@@ -19,7 +19,7 @@
 
       <div class="col-md-6 text-right">
         <button class="btn btn-primary btn-sm m-r-10" (click)="showSearchModal()">
-          <i class="fa fa-search"></i> Find Members
+          <i class="fa fa-search"></i> {{'Find Members' | translate}}
         </button>
 
         <!-- <button class="btn btn-sm btn-outline-info m-r-10">
@@ -35,8 +35,8 @@
   </div>
 
   <div class="m-t-50 text-center" *ngIf="emptyDataset()">
-    <h3>No Search Results Found</h3>
-    <p>Please search for members to display results here</p>
+    <h3>{{'No Search Results Found' | translate}}</h3>
+    <p>{{'Please search for members to display results here' | translate}}</p>
   </div>
 
   <div class="loader-box m-auto" *ngIf="organisationMemberService.requesting">
@@ -49,10 +49,10 @@
         <th class="text-center">
           <input type="checkbox" class="checkbox" [checked]="allSelected" (change)="toggleAllSelected()">
         </th>
-        <th>No.</th>
-        <th>Member Name</th>
-        <th>Membership Category</th>
-        <th class="text-right">Actions</th>
+        <th>{{'No' | translate}}.</th>
+        <th>{{'Member Name' | translate}}</th>
+        <th>{{'Membership Category' | translate}}</th>
+        <th class="text-right">{{'Actions' | translate}}</th>
       </tr>
     </thead>
 
@@ -68,15 +68,15 @@
 
         <td class="text-right">
           <button class="btn btn-xs btn-primary m-r-15" (click)="viewProfile(profile)">
-            <i class="fa fa-file"></i> View
+            <i class="fa fa-file"></i> {{'View' | translate}}
           </button>
 
           <button class="btn btn-xs btn-info m-r-15" (click)="editProfile(profile)">
-            <i class="fa fa-pencil"></i> Edit
+            <i class="fa fa-pencil"></i> {{'Edit' | translate}}
           </button>
 
           <button class="btn btn-xs btn-danger" (click)="deleteProfile(profile)">
-            <i class="fa fa-trash-o"></i> Delete
+            <i class="fa fa-trash-o"></i> {{'Delete' | translate}}
           </button>
         </td>
       </tr>
@@ -92,7 +92,7 @@
 <ng-template #searchModal let-modal>
   <form (submit)="onSearch($event)" class="form form-horizontal theme-form" [formGroup]="searchForm">
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Find Members</h4>
+      <h4 class="modal-title" id="modal-basic-title">{{'Find Members' | translate}}</h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -101,45 +101,45 @@
     <div class="modal-body">
 
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Member Category</label>
+        <label class="col-sm-4 col-form-label">{{'Member Category' | translate}}</label>
         <div class="col-sm-8">
           <select class="form-control" formControlName="organisation_member_category_id">
-            <option value="">Select Category</option>
+            <option value="">{{'Select Category' | translate}}</option>
             <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
           </select>
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Membership No</label>
+        <label class="col-sm-4 col-form-label">{{'Membership No' | translate}}</label>
         <div class="col-sm-8">
           <input type="text" class="form-control" placeholder="e.g. A/195" formControlName="organisation_no" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">First Name</label>
+        <label class="col-sm-4 col-form-label">{{'First Name' | translate}}</label>
         <div class="col-sm-8">
           <input type="text" class="form-control" placeholder="e.g. Frank" formControlName="first_name_like" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Last Name</label>
+        <label class="col-sm-4 col-form-label">{{'Last Name' | translate}}</label>
         <div class="col-sm-8">
           <input type="text" class="form-control" placeholder="e.g. Jones" formControlName="last_name_like" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Email</label>
+        <label class="col-sm-4 col-form-label">{{'Email' | translate}}</label>
         <div class="col-sm-8">
           <input type="email" class="form-control" placeholder="e.g. joe@mail.com" formControlName="email_like" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Mobile Number</label>
+        <label class="col-sm-4 col-form-label">{{'Mobile Number' | translate}}</label>
         <div class="col-sm-8">
           <input type="email" class="form-control" placeholder="e.g. 0245000000" formControlName="mobile_number_like" />
         </div>
@@ -147,9 +147,9 @@
 
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-primary">Search</button>
-      <button type="reset" class="btn btn-outline-info">Clear</button>
-      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+      <button type="submit" class="btn btn-primary">{{'Search' | translate}}</button>
+      <button type="reset" class="btn btn-outline-info">{{'Clear' | translate}}</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
     </div>
   </form>
 </ng-template>
@@ -158,7 +158,7 @@
 <ng-template #changeCategoryModal let-modal>
   <form (submit)="onChangeCategory($event)" class="form theme-form" [formGroup]="changeCategoryForm">
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Change Member Category</h4>
+      <h4 class="modal-title" id="modal-basic-title">{{'Change Member Category' | translate}}</h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -167,10 +167,10 @@
     <div class="modal-body">
 
       <div class="form-group">
-        <label class="col-12 col-form-label">New Member Category</label>
+        <label class="col-12 col-form-label">{{'New Member Category' | translate}}</label>
         <div class="col-12">
           <select class="form-control" formControlName="organisation_member_category_id">
-            <option value="">Select Category</option>
+            <option value="">{{'Select Category' | translate}}</option>
             <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
           </select>
         </div>
@@ -178,8 +178,8 @@
 
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-primary">Change Category</button>
-      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+      <button type="submit" class="btn btn-primary">{{'Change Category' | translate}}</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
     </div>
   </form>
 </ng-template>

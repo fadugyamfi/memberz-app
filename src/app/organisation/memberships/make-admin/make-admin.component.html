@@ -1,5 +1,5 @@
 <button class="btn btn-sm btn-outline-secondary" *ngIf="!hasAdminAccount()" (click)="showAssignmentModal()">
-  <i class="fa fa-fw fa-user-secret"></i> Make Admin
+  <i class="fa fa-fw fa-user-secret"></i> {{'Make Admin' | translate}}
 </button>
 
 <div class="f-12" *ngIf="hasAdminAccount()">
@@ -9,7 +9,7 @@
 <ng-template #makeAdminModal let-modal>
   <form (submit)="onSubmit($event)" class="form theme-form" [formGroup]="makeAdminForm">
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Make Member An Admin</h4>
+      <h4 class="modal-title" id="modal-basic-title">{{'Make Member An Admin' | translate}}</h4>
 
       <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
@@ -18,7 +18,7 @@
     <div class="modal-body">
 
       <div class="form-group row">
-        <label class="col-4 col-form-label">Name</label>
+        <label class="col-4 col-form-label">{{'Name' | translate}}</label>
         <div class="col-8">
           <div class="form-control form-control-sm">
               {{ membership?.member?.firstThenLastName() }}
@@ -27,27 +27,27 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-4 col-form-label">Email</label>
+        <label class="col-4 col-form-label">{{'Email' | translate}}</label>
         <div class="col-8">
           <div class="form-control form-control-sm">
               {{ membership?.member?.email }}
           </div>
           <div class="text-danger" *ngIf="!membership?.member?.email">
-            <p>Email required. Please update member profile with an email before attempting to make them an admin</p>
+            <p>{{'Email required. Please update member profile with an email before attempting to make them an admin' | translate}}</p>
           </div>
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-4 col-form-label">Select Admin Role</label>
+        <label class="col-4 col-form-label">{{'Select Admin Role' | translate}}</label>
         <div class="col-8">
           <select class="form-control" formControlName="organisation_role_id">
-            <option value="">Select Role</option>
-            <option *ngFor="let role of (roles$ | async)" [value]="role.id">{{ role.name }}</option>
+            <option value="">{{'Select Role' | translate}}</option>
+            <option *ngFor="let role of (roles$ | async)" [value]="role.id">{{ role.name | translate }}</option>
           </select>
 
           <div class="text-danger" *ngIf="makeAdminForm.controls.organisation_role_id?.errors?.required">
-            <p>Role required</p>
+            <p>{{'Role required' | translate}}</p>
           </div>
         </div>
       </div>

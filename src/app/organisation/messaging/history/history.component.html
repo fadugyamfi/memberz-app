@@ -4,24 +4,24 @@
       <div class="col-md-6">
         <div class="btn-group btn-sm">
           <button class="btn btn-sm btn-outline-secondary" [ngClass]="isActiveIf('all')"
-                  (click)="setSentStatusFilter('all')">All</button>
+                  (click)="setSentStatusFilter('all')">{{'All' | translate}}</button>
           <button class="btn btn-sm btn-outline-warning" [ngClass]="isActiveIf('pending')"
-                  (click)="setSentStatusFilter('pending')">Pending</button>
+                  (click)="setSentStatusFilter('pending')">{{'Pending' | translate}}</button>
           <button class="btn btn-sm btn-outline-success" [ngClass]="isActiveIf('success')"
-                  (click)="setSentStatusFilter('success')">Success</button>
+                  (click)="setSentStatusFilter('success')">{{'Success' | translate}}</button>
           <button class="btn btn-sm btn-outline-danger" [ngClass]="isActiveIf('failed')"
-                  (click)="setSentStatusFilter('failed')">Failed</button>
+                  (click)="setSentStatusFilter('failed')">{{'Failed' | translate}}</button>
         </div>
       </div>
 
       <div class="col-md-6 text-right">
 
         <button class="btn btn-secondary btn-sm m-r-10" (click)="smsMessenger.show()">
-          <i class="fa fa-envelope"></i> Send Message
+          <i class="fa fa-envelope"></i> {{'Send Message' | translate}}
         </button>
 
         <button class="btn btn-primary btn-sm" (click)="showSearchModal()">
-          <i class="fa fa-search"></i> Find Messages
+          <i class="fa fa-search"></i> {{'Find Messages' | translate}}
         </button>
       </div>
     </div>
@@ -29,8 +29,8 @@
   </div>
 
   <div class="m-t-50 text-center" *ngIf="emptyDataset()">
-    <h3>No Search Results Found</h3>
-    <p>Please search for members to display results here</p>
+    <h3>{{'No Search Results Found' | translate}}</h3>
+    <p>{{'Please search for members to display results here' | translate}}</p>
   </div>
 
   <div class="loader-box m-auto" *ngIf="messageService.requesting">
