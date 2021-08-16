@@ -25,10 +25,11 @@ export class ProfileSummaryComponent implements OnInit {
   }
 
   hasWorkInformation() {
-    return this.membership.member && this.membership.member.occupation;
+    return this.membership && this.membership.member && this.membership.member.occupation;
   }
 
   hasContactInformation() {
-    return this.membership.member && (this.membership.member.email || this.membership.member.mobile_number);
+    return this.membership && this.membership.member &&
+      (this.membership.member.email || this.membership.member.mobile_number);
   }
 }
