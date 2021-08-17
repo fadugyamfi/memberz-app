@@ -27,7 +27,7 @@ export class APIService<T extends AppModel> {
   };
 
   public selectedModel: T;
-  public results: T[] = [];
+  public results: T[];
   public fetching = false;
 
   public batchRequests = [];
@@ -51,6 +51,7 @@ export class APIService<T extends AppModel> {
     };
 
     this.setApiUrl();
+    this.results = [];
   }
 
   set model_name(value) {
