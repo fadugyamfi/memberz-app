@@ -18,6 +18,8 @@ import { CookieService } from 'ngx-cookie-service';
 
 import { environment } from '../environments/environment';
 import { SlydepayModule } from 'slydepay-angular';
+import { RegisterComponent } from './auth/register/register.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -28,6 +30,8 @@ export function HttpLoaderFactory(http: HttpClient) {
   declarations: [
     AppComponent,
     LoginComponent,
+    RegisterComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

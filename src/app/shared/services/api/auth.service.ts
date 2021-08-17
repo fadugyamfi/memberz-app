@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { OrganisationService } from './organisation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RegisterUserContract } from "../../contracts/register-user-contract";
 
 @Injectable({
     providedIn: 'root'
@@ -55,6 +56,29 @@ export class AuthService extends APIService<MemberAccount> {
                 Swal.fire('Login Failed', 'Username or Password may be incorrect. Please try again', 'error');
                 this.requesting = false;
             },
+            () => this.requesting = false
+        );
+    }
+
+    public register(data: RegisterUserContract){
+       return this.post(`${this.url}/register`, data).subscribe(
+           () => this.login(data.email, data.password, data.remember_user),
+           () => this.requesting = false
+       );
+    }
+
+    public forgotPassword(email: string){
+        return this.post(`${this.url}/forgot-password`, {email: email}).subscribe(
+            () => this.router.navigate(['/auth/login']),
+            () => this.requesting = false
+        )
+    }
+
+    public resetPassword(username: string, password: string, token: string) {
+        const params = { username, password, token };
+
+        return this.post(`${this.url}/reset-password`, params).subscribe(
+            () => this.router.navigate(['/auth/login']),
             () => this.requesting = false
         );
     }
