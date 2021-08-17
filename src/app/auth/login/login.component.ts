@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
 
   // Simple Login
   login() {
-    // this.authService.SignIn(this.loginForm.value['email'], this.loginForm.value['password']);
     const login = this.loginForm.value;
     this.authService.login(login.email, login.password, login.remember_me);
   }

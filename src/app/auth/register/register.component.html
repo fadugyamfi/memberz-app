@@ -147,31 +147,27 @@
                 Password Required
               </div>
             </div>
-            <div class="checkbox p-0">
-              <input
-                id="checkbox1"
-                type="checkbox"
-                formControlName="remember_me"
-              />
-              <label for="checkbox1">Remember Me For 2 Weeks</label>
+            <div class="form-group">
+              <button
+                class="btn btn-primary btn-block btn-lg"
+                [class.loader--text]="authService.showLoader"
+                [disabled]="!registerForm.valid || authService.showLoader"
+                (click)="register()"
+                type="submit"
+              >
+                <span>{{ authService.showLoader ? "" : "Register" }}</span>
+              </button>
             </div>
-            <div class="form-row">
-                <div class="col-sm-4">
-                    <button
-                    class="btn btn-primary btn-block btn-lg"
-                    [class.loader--text]="authService.showLoader"
-                    [disabled]="!registerForm.valid || authService.showLoader"
-                    (click)="register()"
-                    type="submit"
-                  >
-                    <span>{{ authService.showLoader ? "" : "Register" }}</span>
-                  </button>
-                </div>
-                <div class="col-sm-8">
-                  <div class="text-left mt-2 m-l-20">Are you already user?  <a class="btn-link text-capitalize"
-                      href="/auth/login">Login</a></div>
-                </div>
+
+            <div class="form-group">
+              <div class="text-center mt-2">
+                Are you already user?  <a
+                  class="btn-link text-capitalize"
+                  routerLink="/auth/login"
+                  >Login</a
+                >
               </div>
+            </div>
             <div class="login-divider hidden"></div>
           </form>
         </div>

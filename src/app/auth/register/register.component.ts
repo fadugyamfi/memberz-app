@@ -21,7 +21,6 @@ export class RegisterComponent implements OnInit {
     'email': '',
     'password': '',
   };
-  public errorMessage: any;
 
   constructor(public authService: AuthService, private fb: FormBuilder) {
     this.registerForm = fb.group({
@@ -32,7 +31,6 @@ export class RegisterComponent implements OnInit {
       mobile_number: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      remember_me: [true]
     });
   }
 
