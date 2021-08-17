@@ -21,7 +21,6 @@ export class RegisterComponent implements OnInit {
     'email': '',
     'password': '',
   };
-  public errorMessage: any;
 
   constructor(public authService: AuthService, private fb: FormBuilder) {
     this.registerForm = fb.group({
