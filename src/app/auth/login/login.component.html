@@ -64,26 +64,31 @@
               />
               <label for="checkbox1">Remember Me For 2 Weeks</label>
             </div>
-            <div class="form-row">
-              <div class="col-sm-4">
-                <button
-                  class="btn btn-primary btn-block btn-lg"
-                  [class.loader--text]="authService.showLoader"
-                  [disabled]="!loginForm.valid || authService.showLoader"
-                  (click)="login()"
-                  type="submit"
+            <div class="form-group">
+              <button
+                class="btn btn-primary btn-block btn-lg"
+                [class.loader--text]="authService.showLoader"
+                [disabled]="!loginForm.valid || authService.showLoader"
+                (click)="login()"
+                type="submit"
+              >
+                <span>{{ authService.showLoader ? "" : "Login" }}</span>
+              </button>
+            </div>
+            <div class="form-row mt-2">
+              <div class="col-sm-7">
+                Not yet registered?  <a
+                  class="btn-link text-capitalize"
+                  href="/auth/register"
+                  >Register</a
                 >
-                  <span>{{ authService.showLoader ? "" : "Login" }}</span>
-                </button>
               </div>
-              <div class="col-sm-8">
-                <div class="text-left mt-2 m-l-20">
-                  Doesn't have account?  <a
-                    class="btn-link text-capitalize"
-                    href="/auth/register"
-                    >Create Account</a
-                  >
-                </div>
+              <div class="col text-right">
+                <a
+                  class="btn-link text-capitalize"
+                  href="/auth/forgot-password"
+                  >Forgot Password?</a
+                >
               </div>
             </div>
             <div class="login-divider hidden"></div>

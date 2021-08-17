@@ -68,7 +68,7 @@ export class AuthService extends APIService<MemberAccount> {
     }
 
     public forgotPassword(email: string){
-        return this.post(`${this.url}/forgot-password`, {email: email}).subscribe(
+        return this.post(`${this.url}/forgot-password`, {username: email}).subscribe(
             () => this.router.navigate(['/auth/login']),
             () => this.requesting = false
         )
