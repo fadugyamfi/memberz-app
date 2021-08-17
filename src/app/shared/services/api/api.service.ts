@@ -27,7 +27,7 @@ export class APIService<T extends AppModel> {
   };
 
   public selectedModel: T;
-  public results: T[] = null;
+  public results: T[] = [];
   public fetching = false;
 
   public batchRequests = [];

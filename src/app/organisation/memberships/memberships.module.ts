@@ -16,6 +16,7 @@ import { GroupManagerComponent } from './group-manager/group-manager.component';
 import { GroupTypesComponent } from './group-types/group-types.component';
 import { GroupLeadersComponent } from './group-leaders/group-leaders.component';
 import { UploadReviewComponent } from './bulk-upload/upload-review/upload-review.component';
+import { ProfileSummaryComponent } from './profile-view/profile-summary/profile-summary.component';
 
 
 
@@ -33,7 +34,8 @@ import { UploadReviewComponent } from './bulk-upload/upload-review/upload-review
     GroupManagerComponent,
     GroupTypesComponent,
     GroupLeadersComponent,
-    UploadReviewComponent
+    UploadReviewComponent,
+    ProfileSummaryComponent
   ],
   imports: [
     CommonModule,

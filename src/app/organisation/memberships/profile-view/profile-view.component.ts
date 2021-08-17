@@ -21,7 +21,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
   public alertMessage = '';
   public alertType = 'success';
   public membership: OrganisationMember;
-  public active = '';
+  public active = 1;
 
   public subscriptions: Subscription[] = [];
 
@@ -58,8 +58,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
       this.subscriptions.push(sub);
     }
   }
-
-
 
   editProfile() {
     this.membershipService.setSelectedModel(this.membership);
