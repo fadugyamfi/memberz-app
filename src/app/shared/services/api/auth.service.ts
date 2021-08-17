@@ -40,8 +40,8 @@ export class AuthService extends APIService<MemberAccount> {
         this.events.on('api:authentication:required', () => this.logout());
     }
 
-    public login(username: string, password: string, remember_user: boolean = false) {
-        const DURATION = remember_user ? 14 : 1;
+    public login(username: string, password: string, remember_me: boolean = false) {
+        const DURATION = remember_me ? 14 : 1;
         const params = { username, password };
 
         return this.post(`${this.url}/login`, params).pipe(
@@ -49,7 +49,7 @@ export class AuthService extends APIService<MemberAccount> {
                 this.storage.set('auth', response, DURATION, 'day');
                 return response;
             }),
-            switchMap(() => this.me(remember_user))
+            switchMap(() => this.me(remember_me))
         ).subscribe(
             () => this.router.navigate(['/portal/home']),
             () => {
@@ -62,7 +62,7 @@ export class AuthService extends APIService<MemberAccount> {
 
     public register(data: RegisterUserContract){
        return this.post(`${this.url}/register`, data).subscribe(
-           () => this.login(data.email, data.password, data.remember_user),
+           () => this.login(data.email, data.password, data.remember_me),
            () => this.requesting = false
        );
     }

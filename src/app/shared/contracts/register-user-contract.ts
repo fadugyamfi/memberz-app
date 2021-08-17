@@ -7,5 +7,5 @@ export interface RegisterUserContract {
     dob: string;
     gender: string;
     password: string;
-    remember_user?: boolean;
+    remember_me?: boolean;
 }
