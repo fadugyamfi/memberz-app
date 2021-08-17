@@ -62,7 +62,7 @@ export class AuthService extends APIService<MemberAccount> {
 
     public register(data: RegisterUserContract){
        return this.post(`${this.url}/register`, data).subscribe(
-           () => this.login(data.email, data.password, data.remember_me),
+           () => this.login(data.email, data.password),
            () => this.requesting = false
        );
     }
