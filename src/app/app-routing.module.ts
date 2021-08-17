@@ -10,6 +10,8 @@ import { PortalLayoutComponent } from './shared/components/layout/portal-layout/
 import { OrganisationLayoutComponent } from './shared/components/layout/organisation-layout/organisation-layout.component';
 import { LoggedInGuard } from './shared/guard/logged-in.guard';
 import { OrganisationAdminGuard } from './shared/guard/organisation-admin.guard';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 const routes: Routes = [
   {
@@ -20,6 +22,16 @@ const routes: Routes = [
   {
     path: 'auth/login',
     component: LoginComponent,
+    canActivate: [LoggedInGuard]
+  },
+  {
+    path: 'auth/register',
+    component: RegisterComponent,
+    canActivate: [LoggedInGuard]
+  },
+  {
+    path: 'auth/forgot-password',
+    component: ForgotPasswordComponent,
     canActivate: [LoggedInGuard]
   },
   {

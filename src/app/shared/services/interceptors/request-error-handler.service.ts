@@ -16,6 +16,7 @@ export class RequestErrorHandler {
   ) {}
 
   public handleError(err: HttpErrorResponse) {
+    console.log(err);
     this.handleTokenExpiredError(err);
     this.triggerError(err);
   }
