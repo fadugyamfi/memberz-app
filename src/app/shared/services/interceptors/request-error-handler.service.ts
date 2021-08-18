@@ -66,7 +66,7 @@ export class RequestErrorHandler {
   getError(msg: string) {
     return {
       title: 'Request Error',
-      msg: msg,
+      msg,
       type: 'error',
       closeOther: true
     };

@@ -80,7 +80,7 @@ export class APIService<T extends AppModel> {
 
     if (auth) {
       return {
-        'Authorization': `Bearer ${auth.access_token}`
+        Authorization: `Bearer ${auth.access_token}`
       };
     }
 
@@ -114,18 +114,18 @@ export class APIService<T extends AppModel> {
     return this._requesting;
   }
 
-  setHttpHeaders(param_headers) {
+  setHttpHeaders(paramHeaders) {
     let hd = Object.assign({ 'Content-Type': 'application/json' }, this.getUserAuthorization());
 
     if (this.storage.has('auth')) {
       const auth = this.storage.get('auth');
       hd = Object.assign(hd, {
-        'Authorization': `Bearer ${auth.access_token}`
+        Authorization: `Bearer ${auth.access_token}`
       });
     }
 
-    if (param_headers) {
-      hd = Object.assign(hd, param_headers);
+    if (paramHeaders) {
+      hd = Object.assign(hd, paramHeaders);
     }
 
     this.httpOptions = {
@@ -139,14 +139,14 @@ export class APIService<T extends AppModel> {
    * @param url Endpoint url segment
    * @param params Query Parameters
    */
-  public get(url: string, params: object = null, param_headers: object = null): Observable<Object> {
-    const full_url = this.BASE_URL + url;
-    this.setHttpHeaders(param_headers);
-    this.httpOptions['params'] = this.removeEmpty(params);
+  public get(url: string, params: object = null, paramHeaders: object = null): Observable<object> {
+    const fullUrl = this.BASE_URL + url;
+    this.setHttpHeaders(paramHeaders);
+    this.httpOptions.params = this.removeEmpty(params);
 
     this.requesting = true;
 
-    return this.http.get(full_url, this.httpOptions).pipe(map(res => {
+    return this.http.get(fullUrl, this.httpOptions).pipe(map(res => {
       this.requesting = false;
       this.processMeta(res);
       return res;
@@ -155,8 +155,8 @@ export class APIService<T extends AppModel> {
 
 
   public processMeta(response) {
-    if (response['meta']) {
-      this.pagingMeta = response['meta'];
+    if (response.meta) {
+      this.pagingMeta = response.meta;
       setTimeout(() => this.events.trigger(`${this.model_name}:paging`, this.pagingMeta), 100);
     }
   }
@@ -169,14 +169,14 @@ export class APIService<T extends AppModel> {
    * @param params Body Form Data
    * @param qparams Query Parameters
    */
-  public post(url: string, params: object | string, qparams: object = null, param_headers: object = null): Observable<Object> {
-    const full_url = this.BASE_URL + url;
-    this.setHttpHeaders(param_headers);
-    this.httpOptions['params'] = qparams;
+  public post(url: string, params: object | string, qparams: object = null, paramHeaders: object = null): Observable<object> {
+    const fullUrl = this.BASE_URL + url;
+    this.setHttpHeaders(paramHeaders);
+    this.httpOptions.params = qparams;
 
     this.requesting = true;
 
-    return this.http.post(full_url, params, this.httpOptions).pipe(map(res => {
+    return this.http.post(fullUrl, params, this.httpOptions).pipe(map(res => {
       this.requesting = false;
       this.processMeta(res);
       return res;
@@ -191,14 +191,14 @@ export class APIService<T extends AppModel> {
    * @param params Body Form Data
    * @param qparams Query Parameters
    */
-  public put(url: string, params: object, qparams: object = null, param_headers: object = null): Observable<Object> {
-    const full_url = this.BASE_URL + url;
-    this.setHttpHeaders(param_headers);
-    this.httpOptions['params'] = qparams;
+  public put(url: string, params: object, qparams: object = null, paramHeaders: object = null): Observable<object> {
+    const fullUrl = this.BASE_URL + url;
+    this.setHttpHeaders(paramHeaders);
+    this.httpOptions.params = qparams;
 
     this.requesting = true;
 
-    return this.http.put(full_url, params, this.httpOptions).pipe(map(res => {
+    return this.http.put(fullUrl, params, this.httpOptions).pipe(map(res => {
       this.requesting = false;
       this.processMeta(res);
       return res;
@@ -212,14 +212,14 @@ export class APIService<T extends AppModel> {
    * @param url URL to query
    * @param params Query Parameters
    */
-  public delete(url, params: object = null, param_headers: object = null): Observable<Object> {
-    const full_url = this.BASE_URL + url;
-    this.setHttpHeaders(param_headers);
-    this.httpOptions['params'] = params;
+  public delete(url, params: object = null, paramHeaders: object = null): Observable<object> {
+    const fullUrl = this.BASE_URL + url;
+    this.setHttpHeaders(paramHeaders);
+    this.httpOptions.params = params;
 
     this.requesting = true;
 
-    return this.http.delete(full_url, this.httpOptions).pipe(map(res => {
+    return this.http.delete(fullUrl, this.httpOptions).pipe(map(res => {
       this.requesting = false;
       return res;
     }));
@@ -243,7 +243,7 @@ export class APIService<T extends AppModel> {
   }
 
   public hasZeroItems(): boolean {
-    return this.results && this.results.length == 0;
+    return this.results && this.results.length === 0;
   }
 
   public hasItems(): boolean {
@@ -289,7 +289,7 @@ export class APIService<T extends AppModel> {
   /**
    * Returns an observable array of AppModel objects
    */
-  getAll(params: object = {}, headers = {}): Observable<T[]> {
+  getAll(params = {}, headers = {}): Observable<T[]> {
     if (params['cacheResults']) {
       const results = this.fetchCachedData(true);
 
@@ -401,7 +401,7 @@ export class APIService<T extends AppModel> {
     return this.get(`${this.url}/count`, params);
   }
 
-  search<T>(params): Observable<T> {
+  search(params): Observable<T[]> {
     return this.get(`${this.url}/search`, params).pipe(map((res) => {
       return this.results = res['data'].map(data => new this.model(data));
     }));
@@ -414,7 +414,7 @@ export class APIService<T extends AppModel> {
    * @param qparams Query parameters
    */
   createWithUpload(model: AppModel, qparams: any = null) {
-    let hd = Object.assign({}, this.getUserAuthorization());
+    const hd = Object.assign({}, this.getUserAuthorization());
 
     const headers = new HttpHeaders(hd);
     const params = new HttpParams({ fromObject: qparams });
@@ -427,7 +427,7 @@ export class APIService<T extends AppModel> {
     }
 
     return this.http.post(this.BASE_URL + this.url, formData, {
-      reportProgress: true, params, headers: headers, observe: 'events'
+      reportProgress: true, params, headers, observe: 'events'
     })
       .subscribe(
         (event) => {
@@ -452,7 +452,7 @@ export class APIService<T extends AppModel> {
    * @param qparams Query params
    */
   updateWithUpload(model: AppModel, qparams: any = null) {
-    let hd = Object.assign({}, this.getUserAuthorization());
+    const hd = Object.assign({}, this.getUserAuthorization());
 
     const headers = new HttpHeaders(hd);
     const params = new HttpParams({ fromObject: qparams });
@@ -465,7 +465,7 @@ export class APIService<T extends AppModel> {
     }
 
     return this.http.post(this.BASE_URL + this.url + `/${model.id}`, formData, {
-      reportProgress: true, params, headers: headers, observe: 'events'
+      reportProgress: true, params, headers, observe: 'events'
     })
       .subscribe(
         (event) => {
@@ -497,8 +497,8 @@ export class APIService<T extends AppModel> {
         }
         break;
       case 1: {
-        if (Math.round(this.uploadedPercentage) !== Math.round(event['loaded'] / event['total'] * 100)) {
-          this.uploadedPercentage = event['loaded'] / event['total'] * 100;
+        if (Math.round(this.uploadedPercentage) !== Math.round(event.loaded / event.total * 100)) {
+          this.uploadedPercentage = event.loaded / event.total * 100;
           this.events.trigger(`${this.model_name}:upload:progress`, Math.round(this.uploadedPercentage));
         }
         break;
@@ -509,7 +509,7 @@ export class APIService<T extends AppModel> {
   getError(msg: string) {
     return {
       title: 'Record Save Failed',
-      msg: msg,
+      msg,
       type: 'error',
       closeOther: true
     };
@@ -594,10 +594,10 @@ export class APIService<T extends AppModel> {
     const id = (Math.random() * 10000).toFixed(0);
 
     return {
-      'request_id': `${this.model_name}:${method}:${id}`,
-      'url': '/api' + url,
-      'method': method,
-      'params': params
+      request_id: `${this.model_name}:${method}:${id}`,
+      url: '/api' + url,
+      method,
+      params
     };
   }
 
@@ -727,7 +727,7 @@ export class APIService<T extends AppModel> {
     try {
       const data = JSON.parse(this.getCachedData());
 
-      if( !asArray ) {
+      if ( !asArray ) {
         return data;
       }
 

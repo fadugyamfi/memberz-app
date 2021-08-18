@@ -72,7 +72,7 @@ export class MemberControlComponent {
       distinctUntilChanged(),
       switchMap(term => {
         const params = {
-          term: term,
+          term,
           sort: ['last_name:asc', 'first_name:asc'].join(',')
         };
 
@@ -80,7 +80,7 @@ export class MemberControlComponent {
           params['mobile_number_isNotNull'] = true;
         }
 
-        return this.orgMemberService.search<OrganisationMember[]>(params).pipe(
+        return this.orgMemberService.search(params).pipe(
           tap(() => this.searchFailed = false),
           catchError(() => {
             this.searchFailed = true;

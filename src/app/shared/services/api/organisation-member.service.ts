@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { OrganisationMember } from '../../model/api/organisation-member';
 import { StorageService } from '../storage.service';
 import { OrganisationService } from './organisation.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,7 @@ export class OrganisationMemberService extends APIService<OrganisationMember> {
     this.model_name = 'OrganisationMember';
   }
 
-  findMembers(options: object, page = 1, limit = 30) {
+  findMembers(options: object, page = 1, limit = 30): Observable<OrganisationMember[]> {
     const params = Object.assign(options, {
       page,
       limit,

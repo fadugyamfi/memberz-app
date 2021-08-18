@@ -36,7 +36,7 @@ export class OrganisationSubscriptionService extends APIService<OrganisationSubs
   upgrade(organisationSubscriptionId: number, newSubscriptionTypeId: number, length: number) {
     const params = {
       subscription_type_id: newSubscriptionTypeId,
-      length: length
+      length
     };
 
     const qparams = {

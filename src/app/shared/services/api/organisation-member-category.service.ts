@@ -26,6 +26,6 @@ export class OrganisationMemberCategoryService extends APIService<OrganisationMe
       active: 1
     });
 
-    return this.search<OrganisationMemberCategory[]>(params);
+    return this.search(params);
   }
 }

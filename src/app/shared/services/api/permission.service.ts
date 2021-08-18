@@ -22,8 +22,8 @@ export class PermissionService extends APIService<Permission> {
 
   findPermissions(options, page = 1, limit = 30) {
     const params = Object.assign(options, {
-      page: page,
-      limit: limit,
+      page,
+      limit,
       sort: 'type:asc,name:asc'
     });
 

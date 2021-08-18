@@ -28,8 +28,8 @@ export class SmsAccountService extends APIService<SmsAccount> {
     this.refreshAccount();
   }
 
-  refreshAccount(organisation_id = null) {
-    const params = this.getAccountParams(organisation_id);
+  refreshAccount(organisationId = null) {
+    const params = this.getAccountParams(organisationId);
 
     return this.getAll(params).subscribe(accounts => {
       this.cacheAccountInfo(accounts);
@@ -37,13 +37,13 @@ export class SmsAccountService extends APIService<SmsAccount> {
     });
   }
 
-  private getAccountParams(organisation_id = null) {
-    if (!organisation_id) {
+  private getAccountParams(organisationId = null) {
+    if (!organisationId) {
       const organisation = this.orgService.getActiveOrganisation();
-      organisation_id = organisation ? organisation.id : null;
+      organisationId = organisation ? organisation.id : null;
     }
 
-    return { organisation_id, limit: 1 };
+    return { organisation_id: organisationId, limit: 1 };
   }
 
   getOrganisationAccount() {

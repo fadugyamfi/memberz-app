@@ -1,44 +1,44 @@
-import { Injectable } from "@angular/core";
-import { APIService } from "./api.service";
-import { EventsService } from "../events.service";
-import { HttpClient } from "@angular/common/http";
-import { StorageService } from "../storage.service";
-import { ExcelService } from "../excel.service";
-import { MemberService } from "./member.service";
-import { Member } from "../../model/api/member";
+import { Injectable } from '@angular/core';
+import { APIService } from './api.service';
+import { EventsService } from '../events.service';
+import { HttpClient } from '@angular/common/http';
+import { StorageService } from '../storage.service';
+import { ExcelService } from '../excel.service';
+import { MemberService } from './member.service';
+import { Member } from '../../model/api/member';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class BulkUploadService extends APIService<Member> {
   public memberHeaders = [
-    "Category Name",
-    "Membership ID",
-    "Title",
-    "Surname",
-    "Other Names",
-    "Mobile Number",
-    "Email",
-    "Place of Work",
-    "Occupation",
-    "Marital Status",
-    "Gender",
-    "Date Of Birth",
-    "Address",
-    "Nationality",
+    'Category Name',
+    'Membership ID',
+    'Title',
+    'Surname',
+    'Other Names',
+    'Mobile Number',
+    'Email',
+    'Place of Work',
+    'Occupation',
+    'Marital Status',
+    'Gender',
+    'Date Of Birth',
+    'Address',
+    'Nationality',
   ];
 
   public categoryHeaders = [
-    "Category Name",
-    "Parent Category Name",
-    "Description",
-    "Auto Generate IDs",
-    "ID Prefix",
-    "ID Suffix",
-    "Starting ID",
+    'Category Name',
+    'Parent Category Name',
+    'Description',
+    'Auto Generate IDs',
+    'ID Prefix',
+    'ID Suffix',
+    'Starting ID',
   ];
   public excelData = null;
-  public isValid: boolean = false;
+  public isValid = false;
   private headersValidations = [];
 
   constructor(
@@ -49,7 +49,7 @@ export class BulkUploadService extends APIService<Member> {
     protected memberService: MemberService
   ) {
     super(http, events, storage);
-    this.url = "/bulk-uploads";
+    this.url = '/bulk-uploads';
   }
 
   getModuleHeader(type) {
@@ -85,7 +85,7 @@ export class BulkUploadService extends APIService<Member> {
     }
 
     for (let i = 0; i < moduleHeaders.length; i++) {
-      if( moduleHeaders[i] !== headers[i] ) {
+      if ( moduleHeaders[i] !== headers[i] ) {
         return false;
       }
     }
@@ -95,7 +95,7 @@ export class BulkUploadService extends APIService<Member> {
 
   uploadImportedMemberships() {
     this.excelData.forEach(attributes => {
-      if( !Array.isArray(attributes) ) {
+      if ( !Array.isArray(attributes) ) {
         const member = new Member(attributes);
         console.log(member);
         // this.memberService.create(member);
