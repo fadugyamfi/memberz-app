@@ -14,17 +14,25 @@ export class OrganisationFileImport extends AppModel {
   public records_imported: number;
   public records_linked: number;
   public records_existing: number;
-  public _member_account: MemberAccount;
+  public ma: MemberAccount;
 
   constructor(data) {
     super(data);
   }
 
   set member_account(value) {
-    this._member_account = value ? new MemberAccount(value) : null;
+    this.ma = value ? new MemberAccount(value) : null;
   }
 
   get member_account(): MemberAccount {
-    return this._member_account;
+    return this.ma;
+  }
+
+  badgeClasses() {
+    return {
+      'bg-success': this.import_status === 'completed',
+      'bg-warning': this.import_status === 'pending',
+      'bg-danger': this.import_status === 'failed'
+    };
   }
 }

@@ -13,7 +13,9 @@
 
       <!-- right column -->
       <div class="col-lg-6 text-right">
-        <span class="badge" [class]="badgeClasses()">{{ organisationFileImport.import_status | translate }}</span>
+        <span class="badge" [class]="organisationFileImport.badgeClasses()">
+          {{ organisationFileImport.import_status | translate }}
+        </span>
       </div>
     </div>
 

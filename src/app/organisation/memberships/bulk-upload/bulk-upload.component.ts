@@ -56,7 +56,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
   setupEvents() {
     this.events.on('OrganisationFileImport:created', (fileImport: OrganisationFileImport) => {
       this.modalService.dismissAll();
-      Swal.fire("Data Imported!", "Your file has been imported.", "success");
+      Swal.fire('Data Imported!', 'Your file has been imported.', 'success');
       Swal.hideLoading();
     });
 
@@ -137,8 +137,8 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
     e.preventDefault();
 
     Swal.fire({
-      title: "Are you sure you want to import this data?",
-      text: "You won't be able to revert this!",
+      title: 'Are you sure you want to import this data?',
+      text: 'You won\'t be able to revert this!',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -146,7 +146,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
       cancelButtonColor: '#dd3333',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Uploading File", "Please wait as the file is uploaded", "info");
+        Swal.fire('Uploading File', 'Please wait as the file is uploaded', 'info');
         Swal.showLoading();
         const importFile = new OrganisationFileImport(this.uploadForm.value);
         this.fileImportService.createWithUpload(importFile);
@@ -172,14 +172,6 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
         import_file: file
       });
     }
-  }
-
-  badgeClasses(fileImport: OrganisationFileImport) {
-    return {
-      'bg-success': fileImport.import_status == 'completed',
-      'bg-warning': fileImport.import_status == 'pending',
-      'bg-danger': fileImport.import_status == 'failed'
-    };
   }
 
   /**

@@ -22,7 +22,7 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
 
   @ViewChild('makeAdminModal', { static: true }) makeAdminModal: any;
 
-  public _membership: OrganisationMember;
+  public mbshp: OrganisationMember;
   public account: MemberAccount;
   public subscriptions: Subscription[] = [];
   public roles$: Observable<OrganisationRole[]>;
@@ -50,7 +50,7 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
 
   @Input()
   set membership(value) {
-    this._membership = value;
+    this.mbshp = value;
 
     if ( value ) {
       this.loadAccount();
@@ -58,7 +58,7 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
   }
 
   get membership(): OrganisationMember {
-    return this._membership;
+    return this.mbshp;
   }
 
   hasAdminAccount() {

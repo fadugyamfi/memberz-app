@@ -23,7 +23,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   public profileForm: FormGroup;
   public membershipForm: FormGroup;
 
-  public _membership: OrganisationMember;
+  public mbshp: OrganisationMember;
   public subscriptions: Subscription[] = [];
   public editorTitle = 'Add New Member Profile';
   public editorIcon = 'fa-user-plus';
@@ -56,7 +56,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   }
 
   set membership(value) {
-    this._membership = value;
+    this.mbshp = value;
 
     if (value) {
       this.membershipForm.patchValue(this.membership);
@@ -66,13 +66,13 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   }
 
   get membership() {
-    return this._membership;
+    return this.mbshp;
   }
 
   loadProfile() {
 
     const sub = this.route.params.subscribe(params => {
-      const membershipId = params['id']; // (+) converts string 'id' to a number
+      const membershipId = params.id; // (+) converts string 'id' to a number
 
       // check if a memberhsip id was passed, if not clear any existing membership information
       // so we can create a new member

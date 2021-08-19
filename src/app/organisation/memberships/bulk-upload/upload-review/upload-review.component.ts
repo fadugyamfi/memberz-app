@@ -15,7 +15,7 @@ import { EventsService } from '../../../../shared/services/events.service';
 })
 export class UploadReviewComponent implements OnInit, OnDestroy {
 
-  public _organisationFileImport: OrganisationFileImport;
+  public ofi: OrganisationFileImport;
   private subscriptions: Subscription[] = [];
 
   @Output()
@@ -37,23 +37,15 @@ export class UploadReviewComponent implements OnInit, OnDestroy {
 
   @Input()
   set organisationFileImport(value: OrganisationFileImport) {
-    this._organisationFileImport = value;
+    this.ofi = value;
   }
 
   get organisationFileImport(): OrganisationFileImport {
-    return this._organisationFileImport;
+    return this.ofi;
   }
 
   exitReview() {
     this.clear.emit();
-  }
-
-  badgeClasses() {
-    return {
-      'bg-success': this.organisationFileImport.import_status == 'completed',
-      'bg-warning': this.organisationFileImport.import_status == 'pending',
-      'bg-danger': this.organisationFileImport.import_status == 'failed'
-    };
   }
 
   fetchImportedMemberships(page = 1, limit = 100) {
@@ -72,7 +64,7 @@ export class UploadReviewComponent implements OnInit, OnDestroy {
    *
    * @param event PageEvent
    */
-   onPaginate(event: PageEvent) {
+  onPaginate(event: PageEvent) {
     this.fetchImportedMemberships(event.page, event.limit);
   }
 
@@ -81,8 +73,7 @@ export class UploadReviewComponent implements OnInit, OnDestroy {
    *
    * @param profile OrganisationMember
    */
-   viewProfile(profile: OrganisationMember) {
-    // this.organisationMemberService.setSelectedModel(profile);
+  viewProfile(profile: OrganisationMember) {
     this.router.navigate(['/organisation/memberships/view', profile.id]);
   }
 }

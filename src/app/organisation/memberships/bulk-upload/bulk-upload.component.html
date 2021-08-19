@@ -50,7 +50,7 @@
         <td>{{ fileImport.file_name }}</td>
 
         <td class="text-center">
-          <span class="badge" [class]="badgeClasses(fileImport)">{{ fileImport.import_status | translate }}</span>
+          <span class="badge" [class]="fileImport.badgeClasses()">{{ fileImport.import_status | translate }}</span>
         </td>
 
         <td class="text-center">{{ fileImport.records_imported || 0 }}</td>
