@@ -28,6 +28,24 @@
               >
                 First Name Required
               </div>
+              <div
+                *ngIf="
+                  registerForm.controls.first_name.touched &&
+                  registerForm.controls.first_name.errors?.minlength
+                "
+                class="text text-danger mt-1"
+              >
+                First Name must be at least 3 characters long.
+              </div>
+              <div
+                *ngIf="
+                  registerForm.controls.first_name.touched &&
+                  registerForm.controls.first_name.errors?.maxlength
+                "
+                class="text text-danger mt-1"
+              >
+                First Name must be at most 30 characters long.
+              </div>
             </div>
 
             <div class="form-group">
@@ -46,6 +64,24 @@
                 class="text text-danger mt-1"
               >
                 Last Name Required
+              </div>
+              <div
+                *ngIf="
+                  registerForm.controls.last_name.touched &&
+                  registerForm.controls.last_name.errors?.minlength
+                "
+                class="text text-danger mt-1"
+              >
+                Last Name must be at least 3 characters long.
+              </div>
+              <div
+                *ngIf="
+                  registerForm.controls.last_name.touched &&
+                  registerForm.controls.last_name.errors?.maxlength
+                "
+                class="text text-danger mt-1"
+              >
+                Last Name must be at most 30 characters long.
               </div>
             </div>
 
@@ -93,6 +129,24 @@
               >
                 Mobile Number Required
               </div>
+              <div
+                *ngIf="
+                  registerForm.controls.mobile_number.touched &&
+                  registerForm.controls.mobile_number.errors?.minlength
+                "
+                class="text text-danger mt-1"
+              >
+                Mobile Number must be at least 6 characters long.
+              </div>
+              <div
+                *ngIf="
+                  registerForm.controls.mobile_number.touched &&
+                  registerForm.controls.mobile_number.errors?.maxlength
+                "
+                class="text text-danger mt-1"
+              >
+                Mobile Number must be at most 15 characters long.
+              </div>
             </div>
             <div class="form-group">
               <label class="col-form-label pt-0">Gender</label>
@@ -130,7 +184,12 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-form-label">Password</label>
+              <label class="d-flex justify-content-between">
+                <div>Password</div>
+                <div title="Password must be min(8), mixed case(letters, numbers & symbols)" class="pr-2">
+                    <i class="fa fa-info font-italic"></i>        
+                </div>
+              </label>
               <input
                 class="form-control"
                 type="password"

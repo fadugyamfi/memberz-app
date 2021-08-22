@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms";
 import { AuthService } from "../../shared/services/api/auth.service";
 import { ToastrService } from "ngx-toastr";
 import { EventsService } from "../../shared/services/events.service";
@@ -37,18 +37,20 @@ export class RegisterComponent implements OnInit, OnDestroy {
     public events: EventsService
   ) {
     this.registerForm = fb.group({
-      first_name: ["", Validators.required],
-      last_name: ["", Validators.required],
-      dob: ["", Validators.required],
-      gender: ["", Validators.required],
-      mobile_number: ["", Validators.required],
-      email: ["", [Validators.required, Validators.email]],
-      password: ["", Validators.required],
+      first_name: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      last_name: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      dob: new FormControl("", [Validators.required]),
+      gender: new FormControl("", [Validators.required]),
+      mobile_number: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+      email: new FormControl("", [Validators.required, Validators.email]),
+      password: new FormControl("", [Validators.required]),
     });
   }
 
   ngOnInit() {
+
     this.authService.requesting = false;
+
     this.events.on("toast", (toast) => {
       switch (toast.type) {
         case "error":
