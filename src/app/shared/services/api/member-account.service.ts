@@ -51,9 +51,9 @@ export class MemberAccountService extends APIService<MemberAccount> {
     }));
   }
 
-  getAccountByMemberId(member_id: number) {
+  getAccountByMemberId(memberId: number) {
     const params = {
-      member_id: member_id,
+      member_id: memberId,
       contain: ['organisation_accounts.organisation_role'].join()
     };
 

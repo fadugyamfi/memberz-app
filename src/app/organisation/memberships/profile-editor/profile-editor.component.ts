@@ -43,7 +43,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     this.setupEvents();
     this.fetchMemberCategories();
 
-    if ( this.route.snapshot.data['editMode'] ) {
+    if ( this.route.snapshot.data.editMode ) {
       this.editorTitle = 'Edit Member Profile';
       this.editorIcon = 'fa-pencil';
       this.loadProfile();
@@ -72,11 +72,11 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   loadProfile() {
 
     const sub = this.route.params.subscribe(params => {
-      const membership_id = params['id']; // (+) converts string 'id' to a number
+      const membershipId = params['id']; // (+) converts string 'id' to a number
 
       // check if a memberhsip id was passed, if not clear any existing membership information
       // so we can create a new member
-      if (!membership_id) {
+      if (!membershipId) {
         this.membershipService.clearSelectedModel();
         return;
       }
@@ -84,7 +84,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       this.membership = this.membershipService.getSelectedModel();
 
       if (!this.membership) {
-        const ps = this.membershipService.getProfile(membership_id).subscribe((profile: OrganisationMember) => {
+        const ps = this.membershipService.getProfile(membershipId).subscribe((profile: OrganisationMember) => {
           this.membership = profile;
         });
 
