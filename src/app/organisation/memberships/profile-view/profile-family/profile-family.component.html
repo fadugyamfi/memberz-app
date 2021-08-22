@@ -1,12 +1,15 @@
 <section class="profile-family">
 
-  <div class="m-t-50 text-center" *ngIf="memberRelationService.hasZeroItems() && !memberRelationService.requesting">
-    <h3>{{'No Relatives Defined' | translate}}</h3>
-    <p>{{'Add a family member to get started' | translate}}</p>
+  <div class="m-b-15">
+    <a href="#" class="btn btn-sm btn-outline-primary">
+      <i class="fa fa-plus-circle fa-2x m-r-10 middle"></i>
+      <span>{{ 'Add Family Member' | translate }}</span>
+    </a>
+  </div>
 
-    <button class="btn btn-primary">
-      <i class="fa fa-user-plus"></i> {{ 'Add Relative' | translate }}
-    </button>
+  <div class="m-t-50 text-center" *ngIf="memberRelationService.hasZeroItems() && !memberRelationService.requesting">
+    <h3>{{'No Family Members Added' | translate}}</h3>
+    <p>{{'Add a family member to get started' | translate}}</p>
   </div>
 
   <div class="loader-box m-auto" *ngIf="memberRelationService.requesting">
@@ -23,24 +26,24 @@
               <img [src]="relation.profilePhoto()" class="rounded-circle" default="/assets/images/user/no-photo-icon.jpg" />
             </div>
             <div class="media-body">
-              <h6 class="m-b-5">
+              <h6 class="m-b-0">
                 {{ relation.name }}
                 <span class="m-l-30" *ngIf="!relation.is_alive">
                   <i class="fa fa-times text-danger"></i>
                 </span>
               </h6>
-              <p class="text-uppercase text-muted">{{ relation.member_relation_type?.name | translate }}</p>
+              <p class="text-capitalize text-muted">{{ relation.member_relation_type?.name | translate }}</p>
             </div>
           </div>
         </div>
 
         <!-- Right Column-->
         <div class="col-sm-4 text-center">
-          <button href="#" class="btn btn-sm icon-btn btn-outline-info m-r-15">
+          <button href="#" class="btn btn-outline-info m-r-15">
             <i class="fa fa-pencil"></i>
           </button>
 
-          <button href="#" class="btn btn-sm icon-btn btn-outline-danger">
+          <button href="#" class="btn btn-outline-danger">
             <i class="fa fa-trash-o"></i>
           </button>
         </div>

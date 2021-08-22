@@ -21,8 +21,10 @@ export class ContentLayoutComponent implements OnInit, AfterViewInit {
 
   public right_side_bar: boolean;
 
-  constructor(public navServices: NavService,
-    public customizer: CustomizerService) { }
+  constructor(
+    public navServices: NavService,
+    public customizer: CustomizerService
+  ) { }
 
 
   ngAfterViewInit() {
@@ -37,14 +39,14 @@ export class ContentLayoutComponent implements OnInit, AfterViewInit {
     document.getElementById('outer-container').onclick = function (e) {
       e.stopPropagation()
       if (e.target != document.getElementById('search-outer')) {
-        document.getElementsByTagName("body")[0].classList.remove("offcanvas");
+        document.getElementsByTagName('body')[0].classList.remove('offcanvas');
       }
       if (e.target != document.getElementById('outer-container')) {
-        document.getElementById("canvas-bookmark").classList.remove("offcanvas-bookmark");
+        document.getElementById('canvas-bookmark').classList.remove('offcanvas-bookmark');
       }
       if (e.target != document.getElementById('inner-customizer')) {
-        document.getElementsByClassName("customizer-links")[0].classList.remove("open")
-        document.getElementsByClassName("customizer-contain")[0].classList.remove("open")
+        document.getElementsByClassName('customizer-links')[0].classList.remove('open')
+        document.getElementsByClassName('customizer-contain')[0].classList.remove('open')
       }
     }
   }
@@ -54,7 +56,7 @@ export class ContentLayoutComponent implements OnInit, AfterViewInit {
   }
 
   public rightSidebar($event) {
-    this.right_side_bar = $event
+    this.right_side_bar = $event;
   }
 
   ngOnInit() { }

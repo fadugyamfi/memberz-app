@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener, OnDestroy } from '@angular/core';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { bounce, zoomOut, zoomIn, fadeIn, bounceIn } from 'ng-animate';
 import { NavService } from '../../../services/nav.service';
@@ -18,7 +18,7 @@ import { EventsService } from '../../../services/events.service';
     }))])
   ]
 })
-export class OrganisationLayoutComponent implements OnInit, AfterViewInit {
+export class OrganisationLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   public right_side_bar: boolean;
@@ -40,7 +40,7 @@ export class OrganisationLayoutComponent implements OnInit, AfterViewInit {
   @HostListener('document:click', ['$event'])
   clickedOutside(event) {
     // click outside Area perform following action
-    document.getElementById('outer-container').onclick = function (e) {
+    document.getElementById('outer-container').onclick = (e) => {
       e.stopPropagation();
       if (e.target !== document.getElementById('search-outer')) {
         document.getElementsByTagName('body')[0].classList.remove('offcanvas');
@@ -77,4 +77,7 @@ export class OrganisationLayoutComponent implements OnInit, AfterViewInit {
     });
   }
 
+  ngOnDestroy() {
+    this.events.off('toast');
+  }
 }
