@@ -1,10 +1,10 @@
 <section class="profile-family">
 
   <div class="m-b-15">
-    <a href="#" class="btn btn-sm btn-outline-primary">
+    <button class="btn btn-sm btn-outline-primary" (click)="addFamilyMember()">
       <i class="fa fa-plus-circle fa-2x m-r-10 middle"></i>
       <span>{{ 'Add Family Member' | translate }}</span>
-    </a>
+    </button>
   </div>
 
   <div class="m-t-50 text-center" *ngIf="memberRelationService.hasZeroItems() && !memberRelationService.requesting">
@@ -39,7 +39,7 @@
 
         <!-- Right Column-->
         <div class="col-sm-4 text-center">
-          <button href="#" class="btn btn-outline-info m-r-15">
+          <button href="#" class="btn btn-outline-info m-r-15" (click)="editFamilyMember()">
             <i class="fa fa-pencil"></i>
           </button>
 
@@ -53,3 +53,5 @@
   </ul>
 
 </section>
+
+<app-family-member-editor #familyMemberEditor></app-family-member-editor>

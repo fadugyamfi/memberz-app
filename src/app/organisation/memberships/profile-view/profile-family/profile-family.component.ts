@@ -1,7 +1,9 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { MemberRelationService } from '../../../../shared/services/api/member-relation.service';
+import { EventsService } from '../../../../shared/services/events.service';
 
 @Component({
   selector: 'app-profile-family',
@@ -10,11 +12,15 @@ import { MemberRelationService } from '../../../../shared/services/api/member-re
 })
 export class ProfileFamilyComponent implements OnInit, OnDestroy {
 
+  @ViewChild('familyMemberEditor', { static: true }) familyMemberEditor: any;
+
   public mbsp: OrganisationMember;
   public subscriptions: Subscription[] = [];
 
   constructor(
-    public memberRelationService: MemberRelationService
+    public memberRelationService: MemberRelationService,
+    public modalService: NgbModal,
+    public events: EventsService
   ) { }
 
   ngOnInit(): void {
@@ -40,5 +46,13 @@ export class ProfileFamilyComponent implements OnInit, OnDestroy {
     }).subscribe();
 
     this.subscriptions.push(sub);
+  }
+
+  addFamilyMember() {
+    this.familyMemberEditor.open();
+  }
+
+  editFamilyMember() {
+    this.familyMemberEditor.open();
   }
 }

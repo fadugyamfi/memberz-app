@@ -18,6 +18,7 @@ import { GroupLeadersComponent } from './group-leaders/group-leaders.component';
 import { UploadReviewComponent } from './bulk-upload/upload-review/upload-review.component';
 import { ProfileSummaryComponent } from './profile-view/profile-summary/profile-summary.component';
 import { ProfileFamilyComponent } from './profile-view/profile-family/profile-family.component';
+import { FamilyMemberEditorComponent } from './profile-view/profile-family/family-member-editor/family-member-editor.component';
 
 
 
@@ -37,7 +38,8 @@ import { ProfileFamilyComponent } from './profile-view/profile-family/profile-fa
     GroupLeadersComponent,
     UploadReviewComponent,
     ProfileSummaryComponent,
-    ProfileFamilyComponent
+    ProfileFamilyComponent,
+    FamilyMemberEditorComponent
   ],
   imports: [
     CommonModule,
