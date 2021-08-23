@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms";
 import { AuthService } from "../../shared/services/api/auth.service";
 import { ActivatedRoute} from "@angular/router";
 import { ToastrService } from "ngx-toastr";
@@ -33,7 +33,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     this.resetPasswordForm = fb.group({
       email: ["", [Validators.required, Validators.email]],
       password: ["", Validators.required],
-      confirm_password: ["", Validators.required],
+      confirm_password: new FormControl("", [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]),
     });
   }
 

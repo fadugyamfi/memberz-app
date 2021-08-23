@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms"
 import { AuthService } from "../../shared/services/api/auth.service";
 import { ToastrService } from "ngx-toastr";
 import { EventsService } from "../../shared/services/events.service";
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 type UserFields =
   | "email"
@@ -30,6 +31,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
     password: "",
   };
 
+  separateDialCode = true;
+	SearchCountryField = SearchCountryField;
+	CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+	preferredCountries: CountryISO[] = [CountryISO.Ghana, CountryISO.Nigeria, CountryISO.Togo];
+
   constructor(
     public authService: AuthService,
     private fb: FormBuilder,
@@ -43,7 +50,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       gender: new FormControl("", [Validators.required]),
       mobile_number: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
       email: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", [Validators.required]),
+      password: new FormControl("", [Validators.required,  Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]),
     });
   }
 
