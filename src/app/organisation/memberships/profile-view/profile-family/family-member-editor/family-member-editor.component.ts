@@ -36,7 +36,7 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
   public mbshp: OrganisationMember;
   public rel: MemberRelation;
   public subscriptions: Subscription[] = [];
-  public editorTitle = 'Edit Member Profile';
+  public editorTitle = 'Add / Edit Family Member';
   public editorIcon = 'fa-user-plus';
 
   public currentView = 'select-option';

@@ -77,7 +77,7 @@ export class ProfileFamilyComponent implements OnInit, OnDestroy {
   deleteRelation(relation: MemberRelation) {
     Swal.fire({
       title: this.$t.instant('Confirm Deletion'),
-      text: this.$t.instant(`This action will delete the selected relation cannot be reverted`),
+      text: this.$t.instant(`This action will delete the selected family member and cannot be reverted`),
       icon: 'warning',
       showCancelButton: true,
     }).then((action) => {
