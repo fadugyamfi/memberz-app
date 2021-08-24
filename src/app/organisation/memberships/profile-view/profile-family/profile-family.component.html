@@ -7,17 +7,17 @@
     </button>
   </div>
 
-  <div class="m-t-50 text-center" *ngIf="memberRelationService.hasZeroItems() && !memberRelationService.requesting">
+  <div class="m-t-50 text-center" *ngIf="relationService.hasZeroItems() && !relationService.requesting">
     <h3>{{'No Family Members Added' | translate}}</h3>
     <p>{{'Add a family member to get started' | translate}}</p>
   </div>
 
-  <div class="loader-box m-auto" *ngIf="memberRelationService.requesting">
+  <div class="loader-box m-auto" *ngIf="relationService.requesting">
     <span class="rotate dashed colored"></span>
   </div>
 
   <ul class="list-group list-group-flush">
-    <li class="list-group-item" *ngFor="let relation of memberRelationService.getItems()">
+    <li class="list-group-item" *ngFor="let relation of relationService.getItems()">
       <div class="row">
         <!-- Left Column -->
         <div class="col-sm-8">
@@ -39,11 +39,11 @@
 
         <!-- Right Column-->
         <div class="col-sm-4 text-center">
-          <button href="#" class="btn btn-outline-info m-r-15" (click)="editFamilyMember()">
+          <button href="#" class="btn btn-outline-info m-r-15" (click)="editFamilyMember(relation)">
             <i class="fa fa-pencil"></i>
           </button>
 
-          <button href="#" class="btn btn-outline-danger">
+          <button href="#" class="btn btn-outline-danger" (click)="deleteRelation(relation)">
             <i class="fa fa-trash-o"></i>
           </button>
         </div>
@@ -54,4 +54,9 @@
 
 </section>
 
-<app-family-member-editor #familyMemberEditor></app-family-member-editor>
+<app-family-member-editor
+  #familyMemberEditor
+  [membership]="membership"
+  [relation]="selectedRelation"
+>
+</app-family-member-editor>
