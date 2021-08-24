@@ -10,6 +10,7 @@ import { EventsService } from '../../../shared/services/events.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import Swal from 'sweetalert2';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-pending-approvals',
@@ -32,7 +33,8 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
     public modalService: NgbModal,
     public dropdownConfig: NgbDropdownConfig,
     public events: EventsService,
-    public storage: StorageService
+    public storage: StorageService,
+    public $t: TranslateService
   ) {
     dropdownConfig.placement = 'bottom';
     dropdownConfig.autoClose = true;
@@ -208,14 +210,18 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
    */
   approveSelected() {
     Swal.fire({
-      title: 'Confirm Approval',
-      text: 'This action will approve the selected members assign them membership numbers as necessary',
+      title: this.$t.instant('Confirm Approval'),
+      text: this.$t.instant('This action will approve the selected members assign them membership numbers as necessary'),
       icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#d33'
     }).then((action) => {
       if (action.value) {
-        Swal.fire('Approving Selected Profiles', 'Please wait ...', 'warning');
+        Swal.fire(
+          this.$t.instant('Approving Selected Profiles'),
+          this.$t.instant('Please wait') + '...',
+          'warning'
+        );
         Swal.showLoading();
 
         const selected = this.getSelectedMembers().map(profile => {
@@ -234,14 +240,18 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
    */
   rejectSelected() {
     Swal.fire({
-      title: 'Confirm Rejection',
-      text: 'This action will reject the registration of the selected members',
+      title: this.$t.instant('Confirm Rejection'),
+      text: this.$t.instant('This action will reject the registration of the selected members'),
       icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#d33'
     }).then((action) => {
       if (action.value) {
-        Swal.fire('Rejected Selected Registrations', 'Please wait ...', 'warning');
+        Swal.fire(
+          this.$t.instant('Rejected Selected Registrations'),
+          this.$t.instant('Please wait') + "...",
+          'warning'
+        );
         Swal.showLoading();
 
         const selected = this.getSelectedMembers().map(profile => {

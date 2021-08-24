@@ -16,9 +16,9 @@ import { EventsService } from "../../../services/events.service";
       transition(
         "* => *",
         useAnimation(fadeIn, {
-          // Set the duration to 5seconds and delay to 2 seconds
-          // params: { timing: 3}
-        })
+      // Set the duration to 5seconds and delay to 2 seconds
+      // params: { timing: 3}
+})
       ),
     ]),
   ],
@@ -77,14 +77,14 @@ export class PortalLayoutComponent implements OnInit, AfterViewInit {
         case "error":
           this.toastrService.error(toast.msg, toast.title);
           break;
-        
+
         case "success":
             this.toastrService.success(toast.msg, toast.title);
             break;
 
         default:
           this.toastrService.info(toast.msg, toast.title);
-      }
+}
     });
   }
 

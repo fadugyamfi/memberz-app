@@ -40,7 +40,7 @@ export class OrganisationLayoutComponent implements OnInit, OnDestroy, AfterView
   @HostListener('document:click', ['$event'])
   clickedOutside(event) {
     // click outside Area perform following action
-    document.getElementById('outer-container').onclick = function (e) {
+    document.getElementById('outer-container').onclick = (e) => {
       e.stopPropagation();
       if (e.target !== document.getElementById('search-outer')) {
         document.getElementsByTagName('body')[0].classList.remove('offcanvas');

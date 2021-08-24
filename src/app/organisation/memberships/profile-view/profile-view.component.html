@@ -111,6 +111,14 @@
                 neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
             </ng-template>
           </li>
+
+          <!-- Family -->
+          <li [ngbNavItem]="4">
+            <a ngbNavLink>{{ 'Family' | translate }}</a>
+            <ng-template ngbNavContent>
+              <app-profile-family [membership]="membership"></app-profile-family>
+            </ng-template>
+          </li>
         </ul>
 
         <!-- Outlet for the Tab Set above -->

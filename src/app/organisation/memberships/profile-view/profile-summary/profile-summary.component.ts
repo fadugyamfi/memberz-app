@@ -8,7 +8,7 @@ import { OrganisationMember } from '../../../../shared/model/api/organisation-me
 })
 export class ProfileSummaryComponent implements OnInit {
 
-  public _membership: OrganisationMember;
+  public mbsp: OrganisationMember;
 
   constructor() { }
 
@@ -17,11 +17,11 @@ export class ProfileSummaryComponent implements OnInit {
 
   @Input()
   set membership(value) {
-    this._membership = value;
+    this.mbsp = value;
   }
 
   get membership(): OrganisationMember {
-    return this._membership;
+    return this.mbsp;
   }
 
   hasWorkInformation() {
@@ -29,7 +29,8 @@ export class ProfileSummaryComponent implements OnInit {
   }
 
   hasContactInformation() {
-    return this.membership && this.membership.member &&
-      (this.membership.member.email || this.membership.member.mobile_number);
+    return this.membership
+      && this.membership.member
+      && (this.membership.member.email || this.membership.member.mobile_number);
   }
 }

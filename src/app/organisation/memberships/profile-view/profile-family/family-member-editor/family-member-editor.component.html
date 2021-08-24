@@ -1,0 +1,146 @@
+<ng-template #editor let-modal>
+  <form class="form form-horizontal theme-form mega-form" (submit)="onSubmit($event)">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ editorTitle | translate}}</h4>
+
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div [formGroup]="selectOptionForm" *ngIf="isSelectOptionView()">
+        <div class="card border-primary border">
+          <div class="card-body">
+            <div class="radio radio-primary">
+              <input type="radio" id="existing" name="source" value="add-existing" class="radio_animated" checked
+                     formControlName="source" />
+              <label for="existing">
+                <span class="font-weight-bold block m-b-5">{{ 'Add Existing Member' | translate }}</span>
+                <p>{{ 'Add an existing member as a family member' | translate }}</p>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border-info border">
+          <div class="card-body">
+            <div class="radio radio-primary">
+              <input type="radio" id="new" name="source" value="add-new" class="radio_animated"
+                     formControlName="source" />
+              <label for="new">
+                <span class="font-weight-bold block m-b-5">{{ 'Create New Profile' | translate }}</span>
+                <p>{{ 'Add a family by entering new data for the membership' | translate }}</p>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="new-profile-group" *ngIf="isAddNewView() || isEditView()" [formGroup]="newProfileForm">
+        <div class="form-group row">
+          <label class="col-form-label col-sm-3">{{ 'Relation Type' | translate }}</label>
+
+          <div class="col-sm-9">
+            <select class="form-control" formControlName="member_relation_type_id">
+              <option value="">Select Option</option>
+              <option *ngFor="let type of relationTypes" [value]="type.id">
+                {{ type.name | translate }}
+              </option>
+            </select>
+
+            <div class="messages text-danger" *ngIf="newProfileForm.controls.member_relation_type_id.errors?.required">
+              <p class="m-b-0">{{'Relation Type Required' | translate}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-form-label col-sm-3">{{ 'Name' | translate }}</label>
+
+          <div class="col-sm-9">
+            <input type="text" class="form-control" placeholder="e.g.John Mensah" formControlName="name" />
+
+            <div class="messages text-danger" *ngIf="newProfileForm.controls.name.errors?.required">
+              <p class="m-b-0">{{'Name Required' | translate}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-form-label col-sm-3">{{ 'Gender' | translate }}</label>
+
+          <div class="col-sm-9">
+            <div class="m-t-10 m-checkbox-inline mb-0 custom-radio-ml">
+              <div class="radio radio-primary">
+                <input type="radio" name="radio1" id="maleradio" value="male" formControlName="gender">
+                <label for="maleradio" class="mb-0">{{ 'Male' | translate }}</label>
+              </div>
+              <div class="radio radio-primary">
+                <input type="radio" name="radio1" id="femaleradio" value="female" formControlName="gender">
+                <label for="femaleradio" class="mb-0"> {{ 'Female' | translate }}</label>
+              </div>
+            </div>
+
+            <div class="messages text-danger" *ngIf="newProfileForm.controls.gender.errors?.required">
+              <p class="m-b-0">{{'Gender Required' | translate}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-form-label col-sm-3">{{ 'Date of Birth' | translate }}</label>
+
+          <div class="col-sm-9">
+            <input type="date" class="form-control" formControlName="dob" />
+
+            <div class="messages text-danger" *ngIf="newProfileForm.controls.dob.errors?.required">
+              <p class="m-b-0">{{'Date of Birth Required' | translate}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-form-label col-sm-3">{{ 'Still Alive' | translate }}</label>
+
+          <div class="col-sm-9">
+            <ui-switch color="#3498DB" switchColor="#fff" size="small" formControlName="is_alive">
+            </ui-switch>
+          </div>
+        </div>
+      </div>
+
+      <div class="existing-profile-group" *ngIf="isAddExistingView()">
+        <div class="form-group row">
+          <div class="col-3">
+            {{ 'Find Member' | translate }}
+          </div>
+          <div class="col-9">
+            <app-member-control></app-member-control>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer text-right">
+      <span class="m-r-30" *ngIf="relationService.requesting">
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        {{ 'Saving' | translate }}
+      </span>
+
+      <button type="button" class="btn btn-primary m-r-15" *ngIf="isSelectOptionView()" (click)="goToNextView()">
+        {{ 'Next' | translate }}
+        <i class="fa fa-chevron-right"></i>
+      </button>
+
+      <button type="submit" class="btn btn-primary m-r-15" *ngIf="!isSelectOptionView()">
+        <i class="fa fa-save"></i> {{'Save Changes' | translate}}
+      </button>
+
+      <button type="button" class="btn btn-danger" (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
+    </div>
+
+  </form>
+</ng-template>

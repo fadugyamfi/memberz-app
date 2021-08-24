@@ -46,7 +46,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
     if ( !this.membership ) {
       const sub = this.route.params.subscribe(params => {
-        const membership_id = params['id']; // (+) converts string 'id' to a number
+        const membership_id = params.id; // (+) converts string 'id' to a number
 
         const ps = this.membershipService.getProfile(membership_id).subscribe((membership: OrganisationMember) => {
           this.membership = membership;

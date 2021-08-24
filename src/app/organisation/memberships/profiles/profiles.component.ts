@@ -317,8 +317,8 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-  * Shows the change category modal
-  */
+   * Shows the change category modal
+   */
   showChangeCategoryModal() {
     this.modalService.open(this.changeCategoryModal, {});
   }

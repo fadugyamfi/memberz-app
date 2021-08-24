@@ -298,6 +298,8 @@ export class APIService<T extends AppModel> {
       }
     }
 
+    this.results = [];
+
     return this.get(this.url, params, headers).pipe(map((res) => {
 
       if (params['cacheResults']) {
