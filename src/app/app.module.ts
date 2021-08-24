@@ -21,6 +21,7 @@ import { SlydepayModule } from 'slydepay-angular';
 import { RegisterComponent } from './auth/register/register.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -43,6 +44,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SharedModule,
     AppRoutingModule,
     HttpClientModule,
+    NgxIntlTelInputModule,
     ToastrModule.forRoot({
       preventDuplicates: true
     }),

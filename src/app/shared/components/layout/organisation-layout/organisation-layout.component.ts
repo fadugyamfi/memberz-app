@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, HostListener, OnDestroy } from '@angular/core';
 import { trigger, transition, useAnimation } from '@angular/animations';
-import { bounce, zoomOut, zoomIn, fadeIn, bounceIn } from 'ng-animate';
+import { fadeIn } from 'ng-animate';
 import { NavService } from '../../../services/nav.service';
 import { CustomizerService } from '../../../services/customizer.service';
 import * as feather from 'feather-icons';
@@ -18,7 +18,7 @@ import { EventsService } from '../../../services/events.service';
     }))])
   ]
 })
-export class OrganisationLayoutComponent implements OnInit, AfterViewInit, OnDestroy {
+export class OrganisationLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   public right_side_bar: boolean;
@@ -70,6 +70,10 @@ export class OrganisationLayoutComponent implements OnInit, AfterViewInit, OnDes
           this.toastrService.error(toast.msg, toast.title);
           break;
 
+        case "success":
+            this.toastrService.success(toast.msg, toast.title);
+            break;
+
         default:
           this.toastrService.info(toast.msg, toast.title);
       }
@@ -80,4 +84,5 @@ export class OrganisationLayoutComponent implements OnInit, AfterViewInit, OnDes
   ngOnDestroy() {
     this.events.off('toast');
   }
+
 }
