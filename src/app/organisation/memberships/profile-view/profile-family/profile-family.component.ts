@@ -1,4 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -26,7 +27,8 @@ export class ProfileFamilyComponent implements OnInit, OnDestroy {
     public relationService: MemberRelationService,
     public modalService: NgbModal,
     public events: EventsService,
-    public $t: TranslateService
+    public $t: TranslateService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
