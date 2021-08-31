@@ -39,11 +39,7 @@ export class AuthService extends APIService<MemberAccount> {
     this.events.on("api:authentication:required", () => this.logout());
   }
 
-  public login(
-    username: string,
-    password: string,
-    remember_me: boolean = false
-  ) {
+  public login(username: string, password: string, remember_me: boolean = false) {
     const DURATION = remember_me ? 14 : 1;
     const params = { username, password };
 
@@ -63,16 +59,31 @@ export class AuthService extends APIService<MemberAccount> {
             "Username or Password may be incorrect. Please try again",
             "error"
           );
-          this.requesting = false;
         },
-        () => (this.requesting = false)
+        () => {
+          Swal.close();
+        }
       );
   }
 
   public register(data: RegisterUserContract) {
+    Swal.fire(
+      'Registering Your Account',
+      'You will be logged in automatically when successful',
+      'info'
+    );
+    Swal.showLoading();
+
     return this.post(`${this.url}/register`, data).subscribe(
-      () => this.login(data.email, data.password),
-      () => (this.requesting = false)
+      () => {
+        this.login(data.email, data.password);
+        Swal.fire("Registration Successful", "Logging in to the application", "success");
+        Swal.showLoading();
+      },
+      () => {
+        Swal.fire("Registration Failed", "Please try again", "error");
+        Swal.hideLoading();
+      }
     );
   }
 

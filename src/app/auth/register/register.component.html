@@ -7,12 +7,12 @@
       <div class="card mt-4">
         <div class="card-body">
           <div class="text-center">
-            <h4>Create Account</h4>
-            <h6>Enter Your Information For Signup.</h6>
+            <h4>{{'Create Account' | translate}}</h4>
+            <h6>{{'Enter Your Information For Signup' | translate}}.</h6>
           </div>
           <form class="theme-form" [formGroup]="registerForm">
             <div class="form-group">
-              <label class="col-form-label pt-0">First Name</label>
+              <label class="col-form-label pt-0">{{'First Name' | translate}}</label>
               <input
                 class="form-control"
                 formControlName="first_name"
@@ -26,7 +26,7 @@
                 "
                 class="text text-danger mt-1"
               >
-                First Name Required
+                {{'First Name Required' | translate}}
               </div>
               <div
                 *ngIf="
@@ -35,7 +35,7 @@
                 "
                 class="text text-danger mt-1"
               >
-                First Name must be at least 3 characters long.
+                {{'First Name must be at least 3 characters long' | translate}}.
               </div>
               <div
                 *ngIf="
@@ -44,12 +44,12 @@
                 "
                 class="text text-danger mt-1"
               >
-                First Name must be at most 30 characters long.
+                {{'First Name must be at most 30 characters long' | translate}}.
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-form-label pt-0">Last Name</label>
+              <label class="col-form-label pt-0">{{'Last Name' | translate}}</label>
               <input
                 class="form-control"
                 formControlName="last_name"
@@ -63,7 +63,7 @@
                 "
                 class="text text-danger mt-1"
               >
-                Last Name Required
+                {{'Last Name Required' | translate}}
               </div>
               <div
                 *ngIf="
@@ -72,7 +72,7 @@
                 "
                 class="text text-danger mt-1"
               >
-                Last Name must be at least 3 characters long.
+                {{'Last Name must be at least 3 characters long' | translate}}.
               </div>
               <div
                 *ngIf="
@@ -81,12 +81,12 @@
                 "
                 class="text text-danger mt-1"
               >
-                Last Name must be at most 30 characters long.
+                {{'Last Name must be at most 30 characters long' | translate}}.
               </div>
             </div>
 
             <div class="form-group">
-              <label class="col-form-label pt-0">Email</label>
+              <label class="col-form-label pt-0">{{'Email' | translate}}</label>
               <input
                 class="form-control"
                 formControlName="email"
@@ -100,7 +100,7 @@
                 "
                 class="text text-danger mt-1"
               >
-                Email Required
+                {{'Email Required' | translate}}
               </div>
               <div
                 *ngIf="
@@ -109,11 +109,11 @@
                 "
                 class="text text-danger mt-1"
               >
-                Invalid Email
+                {{'Invalid Email' | translate}}
               </div>
             </div>
             <div class="form-group">
-              <label class="col-form-label pt-0 mr-3">Mobile Number</label>
+              <label class="col-form-label pt-0 d-block">{{'Mobile Number' | translate}}</label>
               <ngx-intl-tel-input
                 [preferredCountries]="preferredCountries"
                 [enableAutoCountrySelect]="true"
@@ -140,7 +140,7 @@
                 "
                 class="text text-danger mt-1"
               >
-                Mobile Number Required
+                {{'Mobile Number Required' | translate}}
               </div>
               <div
                 *ngIf="
@@ -149,7 +149,7 @@
                 "
                 class="text text-danger mt-1"
               >
-                Mobile Number must be at least 6 characters long.
+                {{'Mobile Number must be at least 6 characters long' | translate}}.
               </div>
               <div
                 *ngIf="
@@ -158,15 +158,24 @@
                 "
                 class="text text-danger mt-1"
               >
-                Mobile Number must be at most 15 characters long.
+                {{'Mobile Number must be at most 15 characters long' | translate}}
+              </div>
+              <div
+                *ngIf="
+                  registerForm.controls.mobile_number.touched &&
+                  registerForm.controls.mobile_number.errors?.validatePhoneNumber
+                "
+                class="text text-danger mt-1"
+              >
+                {{'Mobile Number Not Valid For Selected Country' | translate}}
               </div>
             </div>
             <div class="form-group">
               <label class="col-form-label pt-0">Gender</label>
               <select class="form-control mb-1" formControlName="gender">
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
+                <option value="">{{'Select Gender' | translate}}</option>
+                <option value="male">{{'Male' | translate}}</option>
+                <option value="female">{{'Female' | translate}}</option>
               </select>
               <div
                 *ngIf="
@@ -175,11 +184,11 @@
                 "
                 class="text text-danger mt-1"
               >
-                Gender
+                {{'Gender' | translate}}
               </div>
             </div>
             <div class="form-group">
-              <label class="col-form-label pt-0">Date of Birth</label>
+              <label class="col-form-label pt-0">{{'Date of Birth' | translate}}</label>
               <input
                 class="form-control"
                 formControlName="dob"
@@ -193,12 +202,12 @@
                 "
                 class="text text-danger mt-1"
               >
-                Date of Birth Required
+                {{'Date of Birth Required' | translate}}
               </div>
             </div>
             <div class="form-group">
               <label class="d-flex justify-content-between">
-                <div>Password</div>
+                <div>{{'Password' | translate}}</div>
                 <div
                   title="Password must be min(8), mixed case(letters, numbers & symbols)"
                   class="pr-2"
@@ -219,7 +228,7 @@
                 "
                 class="text text-danger mt-1"
               >
-                Password Required
+                {{ 'Password Required' | translate }}
               </div>
               <div
                 *ngIf="
@@ -228,7 +237,7 @@
                 "
                 class="text text-danger mt-1"
               >
-                Password must be min(8), mixed case(letters, numbers & symbols)
+                {{ 'Password must be min(8), mixed case (letters, numbers & symbols)' | translate }}
               </div>
             </div>
             <div class="form-group">
@@ -239,17 +248,16 @@
                 (click)="register()"
                 type="submit"
               >
-                <span>{{ authService.showLoader ? "" : "Register" }}</span>
+                <span>{{ authService.showLoader ? "" : "Register" | translate }}</span>
               </button>
             </div>
 
             <div class="form-group">
               <div class="text-center mt-2">
-                Are you already user?  <a
-                  class="btn-link text-capitalize"
-                  routerLink="/auth/login"
-                  >Login</a
-                >
+                {{ 'Are you already user?' | translate }}  
+                <a class="btn-link text-capitalize" routerLink="/auth/login">
+                  {{ 'Login' | translate }}
+                </a>
               </div>
             </div>
             <div class="login-divider hidden"></div>
