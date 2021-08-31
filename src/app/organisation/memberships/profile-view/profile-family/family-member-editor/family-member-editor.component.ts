@@ -64,7 +64,7 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
   @Input()
   set membership(value) {
     this.mbshp = value;
-    this.setupNewProfileForm();
+    this.setupForms();
   }
 
   get membership(): OrganisationMember {
@@ -99,9 +99,9 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
     e.preventDefault();
 
     const newProfileFormIsValid = (this.isAddNewView() || this.isEditView()) && !this.newProfileForm.invalid;
-    const existingProfileFormIsValid = this.isAddExistingView && !this.existingProfileForm.invalid;
+    const existingProfileFormIsValid = this.isAddExistingView() && !this.existingProfileForm.invalid;
 
-    if (!newProfileFormIsValid || !existingProfileFormIsValid) {
+    if (!newProfileFormIsValid && !existingProfileFormIsValid) {
       return;
     }
 
@@ -110,13 +110,15 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
       return this.relationService.create(relation);
     }
 
+    if( this.isAddExistingView() ) {
+      const relation = new MemberRelation(this.existingProfileForm.value);
+      return this.relationService.create(relation);
+    }
+
     if ( this.isEditView() ) {
       const relation = new MemberRelation(this.newProfileForm.value);
       return this.relationService.update(relation);
     }
-
-    const existing = new MemberRelation(this.newProfileForm.value);
-    return this.relationService.create(existing);
   }
 
   cancel() {
@@ -133,18 +135,17 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  setupNewProfileForm() {
-    this.newProfileForm = new FormGroup({
+  setupForms() {
+    this.newProfileForm = this.existingProfileForm = new FormGroup({
       id: new FormControl(),
       member_id: new FormControl(this.membership.member_id),
       member_relation_type_id: new FormControl('', Validators.required),
       name: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
       dob: new FormControl(''),
-      is_alive: new FormControl(1)
+      is_alive: new FormControl(1),
+      relation_member_id: new FormControl()
     });
-
-    this.existingProfileForm = new FormGroup({});
   }
 
   isSelectOptionView() {
@@ -174,15 +175,26 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
       this.newProfileForm.reset();
       this.existingProfileForm.reset();
 
-      this.setupNewProfileForm();
+      this.setupForms();
     }
 
     if ( options.relation ) {
-      this.setupNewProfileForm();
+      this.setupForms();
       this.newProfileForm.patchValue(options.relation);
       this.currentView = EDIT;
     }
 
     this.modalService.open(this.editor, { animation: true, centered: true });
+  }
+
+  setExistingMember(membership: OrganisationMember) {
+    const values = {
+      member_id: this.membership.member_id,
+      name: membership.member.firstThenLastName(),
+      dob: membership.member.dob,
+      gender: membership.member.gender,
+      relation_member_id: membership.member_id
+    }
+    this.existingProfileForm.patchValue(values);
   }
 }

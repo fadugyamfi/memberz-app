@@ -17,7 +17,7 @@
   </div>
 
   <ul class="list-group list-group-flush">
-    <li class="list-group-item" *ngFor="let relation of relationService.getItems()">
+    <li class="list-group-item p-t-15 p-b-15" *ngFor="let relation of relationService.getItems()">
       <div class="row">
         <!-- Left Column -->
         <div class="col-sm-8">
@@ -27,12 +27,22 @@
             </div>
             <div class="media-body">
               <h6 class="m-b-0">
-                {{ relation.name }}
+                <a *ngIf="relation.relation_member_id" [routerLink]="['/organisation/memberships/view', relation.relative_organisation_member_id]">
+                  {{ relation.name }}
+                </a>
+                <span *ngIf="!relation.relation_member_id">{{ relation.name }}</span>
                 <span class="m-l-30" *ngIf="!relation.is_alive">
                   <i class="fa fa-times text-danger"></i>
                 </span>
               </h6>
-              <p class="text-capitalize text-muted">{{ relation.member_relation_type?.name | translate }}</p>
+              <p class="text-capitalize text-muted">
+                <span class="font-weight-bold">{{ relation.member_relation_type?.name | translate }}</span>
+                <span *ngIf="relation.gender">&nbsp; &bull; &nbsp; {{ relation.gender }}</span>
+                <span *ngIf="relation.dob">
+                  &nbsp; &bull; &nbsp;
+                  <i class="fa fa-fw fa-calendar"></i> {{ relation.dob | date: mediumdate }}
+                </span>
+              </p>
             </div>
           </div>
         </div>

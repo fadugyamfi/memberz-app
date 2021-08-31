@@ -52,6 +52,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
           this.membership = membership;
         });
 
+        this.active = 1;
         this.subscriptions.push(ps);
       });
 
