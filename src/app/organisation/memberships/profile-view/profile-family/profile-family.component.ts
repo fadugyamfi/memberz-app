@@ -94,4 +94,15 @@ export class ProfileFamilyComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  loadRelativeProfile(relation: MemberRelation) {
+    Swal.fire(
+      this.$t.instant('Loading Profile'),
+      this.$t.instant('Please wait') + '...',
+      'info'
+    );
+    Swal.showLoading();
+
+    this.router.navigate(['/organisation/memberships/view', relation.relative_organisation_member_id]);
+  }
 }

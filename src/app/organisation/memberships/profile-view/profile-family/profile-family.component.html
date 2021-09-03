@@ -7,12 +7,12 @@
     </button>
   </div>
 
-  <div class="m-t-50 text-center" *ngIf="relationService.hasZeroItems() && !relationService.requesting">
+  <div class="m-t-50 text-center" *ngIf="relationService.hasZeroItems() && !relationService.fetching">
     <h3>{{'No Family Members Added' | translate}}</h3>
     <p>{{'Add a family member to get started' | translate}}</p>
   </div>
 
-  <div class="loader-box m-auto" *ngIf="relationService.requesting">
+  <div class="loader-box m-auto" *ngIf="relationService.fetching">
     <span class="rotate dashed colored"></span>
   </div>
 
@@ -27,7 +27,7 @@
             </div>
             <div class="media-body">
               <h6 class="m-b-0">
-                <a *ngIf="relation.relation_member_id" [routerLink]="['/organisation/memberships/view', relation.relative_organisation_member_id]">
+                <a *ngIf="relation.relation_member_id" href="javascript:void(0)" (click)="loadRelativeProfile(relation)">
                   {{ relation.name }}
                 </a>
                 <span *ngIf="!relation.relation_member_id">{{ relation.name }}</span>

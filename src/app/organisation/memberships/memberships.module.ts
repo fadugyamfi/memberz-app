@@ -19,6 +19,7 @@ import { UploadReviewComponent } from './bulk-upload/upload-review/upload-review
 import { ProfileSummaryComponent } from './profile-view/profile-summary/profile-summary.component';
 import { ProfileFamilyComponent } from './profile-view/profile-family/profile-family.component';
 import { FamilyMemberEditorComponent } from './profile-view/profile-family/family-member-editor/family-member-editor.component';
+import { ProfileContributionsComponent } from './profile-view/profile-contributions/profile-contributions.component';
 
 
 
@@ -39,7 +40,8 @@ import { FamilyMemberEditorComponent } from './profile-view/profile-family/famil
     UploadReviewComponent,
     ProfileSummaryComponent,
     ProfileFamilyComponent,
-    FamilyMemberEditorComponent
+    FamilyMemberEditorComponent,
+    ProfileContributionsComponent
   ],
   imports: [
     CommonModule,

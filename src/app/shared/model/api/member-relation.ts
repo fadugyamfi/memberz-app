@@ -9,6 +9,7 @@ export class MemberRelation extends AppModel {
   public gender: string;
   public dob: string;
   public relation_member_id: number;
+  public relative_organisation_member_id: number;
   public is_alive: boolean;
   public member_relation_type_id: number;
   public active: boolean;
