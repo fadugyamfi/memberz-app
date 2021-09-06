@@ -50,6 +50,8 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
         const ps = this.membershipService.getProfile(membership_id).subscribe((membership: OrganisationMember) => {
           this.membership = membership;
+          // close any open loader
+          Swal.close();
         });
 
         this.active = 1;

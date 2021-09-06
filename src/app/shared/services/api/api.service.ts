@@ -29,6 +29,9 @@ export class APIService<T extends AppModel> {
   public selectedModel: T;
   public results: T[];
   public fetching = false;
+  public creating = false;
+  public updating = false;
+  public deleting = false;
 
   public batchRequests = [];
 
@@ -145,9 +148,11 @@ export class APIService<T extends AppModel> {
     this.httpOptions.params = this.removeEmpty(params);
 
     this.requesting = true;
+    this.fetching = true;
 
     return this.http.get(fullUrl, this.httpOptions).pipe(map(res => {
       this.requesting = false;
+      this.fetching = false;
       this.processMeta(res);
       return res;
     }));
@@ -326,6 +331,7 @@ export class APIService<T extends AppModel> {
    * @param model Model data to pass
    */
   create(model: T, qparams: object = null) {
+    this.creating = true;
 
     return this.post(`${this.url}`, model, qparams).pipe(
       map((response) => new this.model(response['data'])))
@@ -338,9 +344,11 @@ export class APIService<T extends AppModel> {
           this.events.trigger(`${this.model_name}:created`, model);
         },
         (error: HttpErrorResponse) => {
-          this.requesting = false;
           this.events.trigger(`${this.model_name}:create:error`, error);
           this.triggerError(error);
+        },
+        () => {
+          this.creating = false;
         }
       );
   }
@@ -351,6 +359,7 @@ export class APIService<T extends AppModel> {
    * @param model Model data to pass
    */
   update(model: T, qparams: object = null) {
+    this.updating = true;
 
     return this.put(`${this.url}/${model.id}`, model, qparams).pipe(
       map((response) => new this.model(response['data'])))
@@ -363,9 +372,11 @@ export class APIService<T extends AppModel> {
           this.events.trigger(`${this.model_name}:updated`, model);
         },
         (error: HttpErrorResponse) => {
-          this.requesting = false;
           this.events.trigger(`${this.model_name}:update:error`, error);
           this.triggerError(error);
+        },
+        () => {
+          this.updating = false;
         }
       );
   }
@@ -381,6 +392,8 @@ export class APIService<T extends AppModel> {
       return;
     }
 
+    this.deleting = true;
+
     return this.delete(`${this.url}/${model.id}`, qparams).subscribe(
       (data) => {
         this.setSelectedModel(null); // clear any cached data
@@ -389,9 +402,11 @@ export class APIService<T extends AppModel> {
         this.events.trigger(`${this.model_name}:deleted`, model, data);
       },
       (error) => {
-        this.requesting = false;
         this.events.trigger(`${this.model_name}:delete:error`, error);
         this.triggerError(error);
+      },
+      () => {
+        this.deleting = false;
       }
     );
   }
