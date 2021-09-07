@@ -4,9 +4,11 @@ import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/api/auth.service';
 import { environment } from '../../../../environments/environment';
 import { StorageService } from '../../services/storage.service';
+import { EventsService } from '../../services/events.service';
+import { NotificationService } from '../../services/api/notification.service';
+import { Notification } from '../../model/api/notification';
 
 const body = document.getElementsByTagName('body')[0];
-let es;
 
 @Component({
   selector: 'app-header',
@@ -31,14 +33,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public navServices: NavService,
     private translate: TranslateService,
     public authService: AuthService,
-    protected storage: StorageService
+    protected storage: StorageService,
+    public events: EventsService,
+    public notificationService: NotificationService,
   ) {
     translate.setDefaultLang('en');
   }
 
   ngOnDestroy() {
     this.removeFix();
-    es.close();
   }
 
 
@@ -109,47 +112,54 @@ export class HeaderComponent implements OnInit, OnDestroy {
       ;
   }
 
-  getUnreadNotifications() {
-    let full_url = `${environment.api.url}/notifications/subscribe-unread/${this.storage.get('user').id}`;
+  /**
+   * Connect to the backend service and wait for SSEs
+   */
+   subscribeToNotifications() {
+    this.notificationService.connectToServer().subscribe((notifications: Notification[]) => {
+      this.unreadNotifications.unshift(...notifications);
 
-    es = new EventSource(full_url, { withCredentials: false });
+      notifications.forEach(notification => {
+        this.events.trigger('toast', {
+          title: notification.user.name,
+          msg: notification.message,
+          type: 'info',
+          onClick: () => this.performAction(notification)
+        });
+      });
 
-    es.addEventListener(
-      "message",
-      (event) => {
-        let data = JSON.parse(event["data"]);
-
-        if (!data.length || data.length == this.unreadNotifications.length) {
-          return;
-        }
-
-        let notifications = data.map((item) => item);
-        this.unreadNotifications = [];
-        this.unreadNotifications = notifications;
-      },
-
-      false
-    );
-
-    es.addEventListener(
-      "error",
-      (event) => {
-        if (event.readyState == EventSource.CLOSED) {
-          console.log("Event was closed");
-          console.log(EventSource);
-        }
-      },
-      false
-    );
-    
+    });
   }
-  
+
+  performAction(notification: Notification) {
+    if (!notification.read_at) {
+      this.notificationService.markRead(notification);
+    }
+  }
+
+  markAllRead(e: Event) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    this.notificationService.markAllRead().subscribe(() => this.unreadNotifications = []);
+  }
+
+  public fetchUnreadNotifications() {
+    this.notificationService.getUnreadNotifications().subscribe(notifications => this.unreadNotifications = notifications);
+  }
+
   ngOnInit() {
     this.navServices.organisationMenuItems.subscribe(menuItems => {
       this.items = menuItems;
     });
 
-    this.getUnreadNotifications();
+    this.fetchUnreadNotifications();
+
+    // connect to backend for user notifications
+    setTimeout(() => {
+      this.subscribeToNotifications();
+    }, 10000);
+
   }
 
 }
