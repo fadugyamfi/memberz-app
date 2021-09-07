@@ -59,6 +59,7 @@ export class AuthService extends APIService<MemberAccount> {
             "Username or Password may be incorrect. Please try again",
             "error"
           );
+          this.requesting = false;
         },
         () => {
           Swal.close();

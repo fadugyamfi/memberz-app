@@ -1,10 +1,12 @@
-
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { NavService, Menu } from '../../services/nav.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/api/auth.service';
+import { environment } from '../../../../environments/environment';
+import { StorageService } from '../../services/storage.service';
 
 const body = document.getElementsByTagName('body')[0];
+let es;
 
 @Component({
   selector: 'app-header',
@@ -21,18 +23,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public right_sidebar = false;
   public text: string;
   public isOpenMobile = false;
+  public unreadNotifications = [];
+
   @Output() rightSidebarEvent = new EventEmitter<boolean>();
 
   constructor(
     public navServices: NavService,
     private translate: TranslateService,
-    public authService: AuthService
+    public authService: AuthService,
+    protected storage: StorageService
   ) {
     translate.setDefaultLang('en');
   }
 
   ngOnDestroy() {
     this.removeFix();
+    es.close();
   }
 
 
@@ -99,12 +105,51 @@ export class HeaderComponent implements OnInit, OnDestroy {
   removeFix() {
     this.searchResult = false;
     body.classList.remove('offcanvas');
-    this.text = '';
+    this.text = ''
+      ;
   }
+
+  getUnreadNotifications() {
+    let full_url = `${environment.api.url}/notifications/subscribe-unread/${this.storage.get('user').id}`;
+
+    es = new EventSource(full_url, { withCredentials: false });
+
+    es.addEventListener(
+      "message",
+      (event) => {
+        let data = JSON.parse(event["data"]);
+
+        if (!data.length || data.length == this.unreadNotifications.length) {
+          return;
+        }
+
+        let notifications = data.map((item) => item);
+        this.unreadNotifications = [];
+        this.unreadNotifications = notifications;
+      },
+
+      false
+    );
+
+    es.addEventListener(
+      "error",
+      (event) => {
+        if (event.readyState == EventSource.CLOSED) {
+          console.log("Event was closed");
+          console.log(EventSource);
+        }
+      },
+      false
+    );
+    
+  }
+  
   ngOnInit() {
     this.navServices.organisationMenuItems.subscribe(menuItems => {
       this.items = menuItems;
     });
+
+    this.getUnreadNotifications();
   }
 
 }
