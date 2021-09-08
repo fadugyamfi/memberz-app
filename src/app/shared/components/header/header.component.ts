@@ -2,7 +2,6 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { NavService, Menu } from '../../services/nav.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/api/auth.service';
-import { environment } from '../../../../environments/environment';
 import { StorageService } from '../../services/storage.service';
 import { EventsService } from '../../services/events.service';
 import { NotificationService } from '../../services/api/notification.service';
