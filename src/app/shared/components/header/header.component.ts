@@ -1,8 +1,11 @@
-
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { NavService, Menu } from '../../services/nav.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/api/auth.service';
+import { StorageService } from '../../services/storage.service';
+import { EventsService } from '../../services/events.service';
+import { NotificationService } from '../../services/api/notification.service';
+import { Notification } from '../../model/api/notification';
 
 const body = document.getElementsByTagName('body')[0];
 
@@ -21,12 +24,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public right_sidebar = false;
   public text: string;
   public isOpenMobile = false;
+  public unreadNotifications = [];
+
   @Output() rightSidebarEvent = new EventEmitter<boolean>();
 
   constructor(
     public navServices: NavService,
     private translate: TranslateService,
-    public authService: AuthService
+    public authService: AuthService,
+    protected storage: StorageService,
+    public events: EventsService,
+    public notificationService: NotificationService,
   ) {
     translate.setDefaultLang('en');
   }
@@ -99,12 +107,58 @@ export class HeaderComponent implements OnInit, OnDestroy {
   removeFix() {
     this.searchResult = false;
     body.classList.remove('offcanvas');
-    this.text = '';
+    this.text = ''
+      ;
   }
+
+  /**
+   * Connect to the backend service and wait for SSEs
+   */
+   subscribeToNotifications() {
+    this.notificationService.connectToServer().subscribe((notifications: Notification[]) => {
+      this.unreadNotifications.unshift(...notifications);
+
+      notifications.forEach(notification => {
+        this.events.trigger('toast', {
+          title: notification.user.name,
+          msg: notification.message,
+          type: 'info',
+          onClick: () => this.performAction(notification)
+        });
+      });
+
+    });
+  }
+
+  performAction(notification: Notification) {
+    if (!notification.read_at) {
+      this.notificationService.markRead(notification);
+    }
+  }
+
+  markAllRead(e: Event) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    this.notificationService.markAllRead().subscribe(() => this.unreadNotifications = []);
+  }
+
+  public fetchUnreadNotifications() {
+    this.notificationService.getUnreadNotifications().subscribe(notifications => this.unreadNotifications = notifications);
+  }
+
   ngOnInit() {
     this.navServices.organisationMenuItems.subscribe(menuItems => {
       this.items = menuItems;
     });
+
+    this.fetchUnreadNotifications();
+
+    // connect to backend for user notifications
+    setTimeout(() => {
+      this.subscribeToNotifications();
+    }, 10000);
+
   }
 
 }

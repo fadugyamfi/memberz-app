@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import Swal from 'sweetalert2';
 import { MemberRelation } from '../../../../../shared/model/api/member-relation';
 import { MemberRelationType } from '../../../../../shared/model/api/member-relation-type';
 import { OrganisationMember } from '../../../../../shared/model/api/organisation-member';
