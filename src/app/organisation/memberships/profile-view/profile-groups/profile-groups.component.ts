@@ -64,6 +64,10 @@ export class ProfileGroupsComponent implements OnInit, OnDestroy {
     }).subscribe();
   }
 
+  getMemberGroups() {
+    return this.memberGroupService.getItems().filter(mg => mg.organisation_group != null);
+  }
+
   setupAssignmentForm() {
     this.assignmentForm = new FormGroup({
       id: new FormControl(),

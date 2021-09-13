@@ -20,7 +20,7 @@ export class OrganisationMemberGroup extends AppModel {
   }
 
   set organisation_group(value) {
-    this.orgGroup = new OrganisationGroup(value);
+    this.orgGroup = value ? new OrganisationGroup(value) : null;
   }
 
   get organisation_member(): OrganisationMember {

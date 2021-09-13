@@ -8,9 +8,8 @@ import { Observable} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-
 export class NotificationService extends APIService<Notification> {
 
     constructor(http: HttpClient, protected events: EventsService, protected storage: StorageService) {
@@ -68,4 +67,3 @@ export class NotificationService extends APIService<Notification> {
         return this.post(`${this.url}/mark_all_read`, {});
     }
 }
-

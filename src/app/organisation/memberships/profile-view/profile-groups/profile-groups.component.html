@@ -29,10 +29,10 @@
 
     <tbody>
       <!--  -->
-      <tr *ngFor="let memberGroup of memberGroupService.getItems(); let row = index">
+      <tr *ngFor="let memberGroup of getMemberGroups(); let row = index">
         <td class="text-right">{{ memberGroupService.pagingMeta.from + row }}.</td>
-        <td>{{ memberGroup.organisation_group.organisation_group_type.name }}</td>
-        <td>{{ memberGroup.organisation_group.name }}</td>
+        <td>{{ memberGroup.organisation_group?.organisation_group_type?.name }}</td>
+        <td>{{ memberGroup.organisation_group?.name }}</td>
         <td class="text-center">
           <button class="btn btn-xs btn-primary m-r-15" (click)="editAssignment(memberGroup)">{{ 'Edit' | translate }}</button>
           <button class="btn btn-xs btn-danger" (click)="deleteAssignment(memberGroup)">{{ 'Delete' | translate }}</button>
