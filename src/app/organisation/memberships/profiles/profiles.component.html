@@ -145,6 +145,20 @@
         </div>
       </div>
 
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Added After/On' | translate}}</label>
+        <div class="col-sm-8">
+          <input type="date" class="form-control" placeholder="Start Date" title="Start Date" formControlName="created_gte" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Added Before/On' | translate}}</label>
+        <div class="col-sm-8">
+          <input type="date" class="form-control" placeholder="End Date" title="End Date" formControlName="created_lte" />
+        </div>
+      </div>
+
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-primary">{{'Search' | translate}}</button>
