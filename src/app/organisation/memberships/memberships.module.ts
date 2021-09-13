@@ -20,6 +20,7 @@ import { ProfileSummaryComponent } from './profile-view/profile-summary/profile-
 import { ProfileFamilyComponent } from './profile-view/profile-family/profile-family.component';
 import { FamilyMemberEditorComponent } from './profile-view/profile-family/family-member-editor/family-member-editor.component';
 import { ProfileContributionsComponent } from './profile-view/profile-contributions/profile-contributions.component';
+import { ProfileGroupsComponent } from './profile-view/profile-groups/profile-groups.component';
 
 
 
@@ -41,7 +42,8 @@ import { ProfileContributionsComponent } from './profile-view/profile-contributi
     ProfileSummaryComponent,
     ProfileFamilyComponent,
     FamilyMemberEditorComponent,
-    ProfileContributionsComponent
+    ProfileContributionsComponent,
+    ProfileGroupsComponent
   ],
   imports: [
     CommonModule,
