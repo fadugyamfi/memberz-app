@@ -120,7 +120,7 @@
           ><span class="dot"></span>
           <ul class="notification-dropdown onhover-show-div">
             <li>
-              {{'Notification' | translate }}
+              {{ "Notification" | translate }}
               <span class="badge badge-pill badge-primary ml-1">{{
                 unreadNotifications.length
               }}</span>
@@ -128,35 +128,34 @@
                 href="javascript:;"
                 class="text-primary pull-right"
                 (click)="markAllRead($event)"
-                ><span class="f-12">{{'Clear All' | translate }}</span></a
+                ><span class="f-12">{{ "Clear All" | translate }}</span></a
               >
             </li>
             <li class="text-center" *ngIf="unreadNotifications.length == 0">
               <app-feather-icons [icon]="'bell'"></app-feather-icons
               ><span class="dot"></span> <br />
-              {{'No new notifications' | translate }}
+              {{ "No new notifications" | translate }}
             </li>
-            <li *ngIf="unreadNotifications.length != 0">
+            <li
+              *ngFor="let notification of unreadNotifications; let row = index"
+            >
               <div class="media">
                 <div class="media-body">
                   <h6 class="mt-0">
                     <span>
                       <!-- <app-feather-icons class="shopping-color" [icon]="'shopping-bag'"></app-feather-icons> --> </span
-                    >{{ unreadNotifications.title
+                    >{{ notification.title
                     }}<small class="pull-right">{{
-                      unreadNotifications.timeAgo()
+                      notification.timeAgo()
                     }}</small>
                   </h6>
-                  <p class="mb-0">{{ unreadNotifications.message }}</p>
+                  <p class="m-0">{{ notification.message }}</p>
                 </div>
               </div>
             </li>
             <li class="bg-light txt-dark text-center">
-              <a
-                href="javascript:void(0)"
-                >{{'All' | translate }}</a
-              >
-              {{'notifications' | translate }}
+              <a href="javascript:void(0)">{{ "All" | translate }}</a>
+              {{ "notifications" | translate }}
             </li>
           </ul>
         </li>
