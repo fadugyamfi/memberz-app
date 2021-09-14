@@ -155,7 +155,9 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
       first_name_like: new FormControl(),
       last_name_like: new FormControl(),
       email_like: new FormControl(),
-      mobile_number_like: new FormControl()
+      mobile_number_like: new FormControl(),
+      created_gte: new FormControl(),
+      created_lte: new FormControl()
     });
   }
 
@@ -195,7 +197,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, {});
+    this.modalService.open(this.searchModal);
   }
 
   /**

@@ -6,9 +6,10 @@ import { OrganisationMemberCategory } from './organisation-member-category';
 export class OrganisationMember extends AppModel {
 
   public id: any;
-  public selected: boolean = false;
+  public selected = false;
   public _member: Member;
   public organisation_no: string;
+  public organisation_id: number;
   public approved: number;
   public active: number;
   public member_id: number;
@@ -35,7 +36,7 @@ export class OrganisationMember extends AppModel {
   }
 
   pendingApproval() {
-    return this.approved == 0 && this.active == 1;
+    return this.approved === 0 && this.active === 1;
   }
 
   set organisation_member_category(value) {
