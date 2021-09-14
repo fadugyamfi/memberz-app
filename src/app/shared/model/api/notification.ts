@@ -9,7 +9,7 @@ export class Notification extends AppModel {
     public sent: number;
     public created_at;
 
-    constructor(data = {}) {
+    constructor(data) {
         super(data);
     }
 
