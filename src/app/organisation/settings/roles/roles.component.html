@@ -70,20 +70,20 @@
 
       <div class="form-group">
         <div class="col-sm-4 col-form-label">
-          <i class="fa fa-shield"></i> Name
+          <i class="fa fa-shield"></i> {{ 'Name' | translate }}
         </div>
         <div class="col-sm">
           <input type="text" class="form-control" formControlName="name" placeholder="e.g. Officer" />
 
           <div class="messages text-danger" *ngIf="editorForm.controls.name.errors?.required">
-            <p>Role name required</p>
+            <p>{{ 'Role name required' | translate }}</p>
           </div>
         </div>
       </div>
 
       <div class="form-group">
         <div class="col-sm-4 col-form-label">
-          <i class="fa fa-file-text"></i> Description
+          <i class="fa fa-file-text"></i> {{ 'Description' | translate }}
         </div>
         <div class="col-sm">
           <input type="text" class="form-control" formControlName="description"
@@ -96,11 +96,11 @@
 
     <div class="modal-footer flex-grow-1 text-right">
       <span class="m-r-15" *ngIf="saving && roleService.requesting">
-        <i class="fa fa-spin fa-circle-o-notch"></i> Saving
+        <i class="fa fa-spin fa-circle-o-notch"></i> {{ 'Saving' | translate }}
       </span>
 
-      <button type="submit" class="btn btn-primary ripple light">Save Changes</button>
-      <button type="button" class="btn btn-outline-danger ripple" (click)="hideModal()">Close</button>
+      <button type="submit" class="btn btn-primary ripple light">{{ 'Save Changes' | translate }}</button>
+      <button type="button" class="btn btn-outline-danger ripple" (click)="hideModal()">{{ 'Close' | translate }}</button>
     </div>
 
   </form>
