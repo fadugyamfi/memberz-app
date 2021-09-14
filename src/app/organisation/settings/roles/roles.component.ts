@@ -79,7 +79,6 @@ export class RolesComponent implements OnInit, OnDestroy {
   setupEvents() {
     this.events.on('OrganisationRole:created', (role) => {
       this.hideModal();
-      this.roles.push(role);
       this.saving = false;
     });
 
