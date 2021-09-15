@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { StorageService } from '../../../shared/services/storage.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     public router: Router,
     public organisationService: OrganisationService,
     public storage: StorageService,
-    public events: EventsService
+    public events: EventsService,
+    public smsAccountService: SmsAccountService
   ) { }
 
   ngOnInit() {
@@ -91,7 +93,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     Swal.fire(`Switching To ${org.name}`, '', 'info');
     Swal.showLoading();
 
+    this.events.trigger('switching_organisation');
     this.organisationService.setActiveOrganisation(org);
+    this.smsAccountService.refreshAccount();
     this.router.navigate(['/organisation/dashboard']);
 
     setTimeout(() => Swal.close(), 1000);

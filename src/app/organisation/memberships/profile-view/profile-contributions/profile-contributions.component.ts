@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
-import { MemberRelation } from '../../../../shared/model/api/member-relation';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { ContributionService } from '../../../../shared/services/api/contribution.service';
 

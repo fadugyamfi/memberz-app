@@ -165,30 +165,15 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    * Setup listeners for model changes
    */
   setupEvents() {
-    this.events.on('OrganisationMember:updated', (profile) => {
-      this.members.forEach((g, index) => {
-        if (g.id === profile.id) {
-          this.members[index] = profile;
-          return false;
-        }
-      });
-    });
-
-    this.events.on('OrganisationMember:deleted', (profile) => {
-      Swal.close();
-      this.members.forEach((g, index) => {
-        if (g.id === profile.id) {
-          this.members.splice(index, 1);
-          return false;
-        }
-      });
-    });
+    this.events.on('switching_organisation', () => this.clearCacheData());
+    this.events.on('OrganisationMember:deleted', () => Swal.close());
   }
 
   /**
    * Remove listeners waiting on model changes
    */
   removeEvents() {
+    this.events.off('switching_organisation');
     this.events.off('OrganisationMember:updated');
     this.events.off('OrganisationMember:deleted');
   }

@@ -34,8 +34,8 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     const sub = this.subscriptionService.getAll({
       contain: ['organisation_invoice.transaction_type', 'organisation_invoice.currency'].join(),
       sort: 'id:desc',
-      page: page,
-      limit: limit
+      page,
+      limit
     }).subscribe(
       (history) => this.history = history
     );
