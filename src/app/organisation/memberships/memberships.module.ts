@@ -21,6 +21,7 @@ import { ProfileFamilyComponent } from './profile-view/profile-family/profile-fa
 import { FamilyMemberEditorComponent } from './profile-view/profile-family/family-member-editor/family-member-editor.component';
 import { ProfileContributionsComponent } from './profile-view/profile-contributions/profile-contributions.component';
 import { ProfileGroupsComponent } from './profile-view/profile-groups/profile-groups.component';
+import { ProfileSmsMessagesComponent } from './profile-view/profile-sms-messages/profile-sms-messages.component';
 
 
 
@@ -43,7 +44,8 @@ import { ProfileGroupsComponent } from './profile-view/profile-groups/profile-gr
     ProfileFamilyComponent,
     FamilyMemberEditorComponent,
     ProfileContributionsComponent,
-    ProfileGroupsComponent
+    ProfileGroupsComponent,
+    ProfileSmsMessagesComponent
   ],
   imports: [
     CommonModule,

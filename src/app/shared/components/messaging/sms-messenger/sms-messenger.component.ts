@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SmsAccount } from '../../../model/api/sms-account';
 import { EventsService } from '../../../services/events.service';
@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import * as moment from 'moment';
 import { SmsAccountMessage } from '../../../model/api/sms-account-message';
+import { Member } from '../../../model/api/member';
 
 @Component({
   selector: 'app-sms-messenger',
@@ -22,6 +23,8 @@ export class SmsMessengerComponent implements OnInit {
 
   public messageForm: FormGroup;
   public orgSmsAccount: SmsAccount;
+  private _member: Member;
+  private _membership: OrganisationMember;
 
   public modal: NgbModalRef;
   public chars = 0;
@@ -54,6 +57,26 @@ export class SmsMessengerComponent implements OnInit {
     this.orgSmsAccount = this.smsAccountService.getOrganisationAccount();
   }
 
+  @Input()
+  set member(value: Member) {
+    this._member = value;
+  }
+
+  get member(): Member {
+    return this._member;
+  }
+
+  @Input()
+  set membership(value: OrganisationMember) {
+    this._membership = value;
+    this.member = this.membership.member;
+    this.selectedContacts.push(this.membership);
+  }
+
+  get membership(): OrganisationMember {
+    return this._membership;
+  }
+
   /**
    * Sets up the message form group and validations
    */
@@ -61,7 +84,7 @@ export class SmsMessengerComponent implements OnInit {
     this.messageForm = new FormGroup({
       to: new FormControl('', Validators.required),
       module_sms_account_id: new FormControl(this.orgSmsAccount ? this.orgSmsAccount.id : null, Validators.required),
-      member_id: new FormControl('', Validators.required),
+      member_id: new FormControl(this.member ? this.member.id : '', Validators.required),
       message: new FormControl('', Validators.required),
       sent_at: new FormControl(moment())
     });
@@ -82,10 +105,10 @@ export class SmsMessengerComponent implements OnInit {
   }
 
   /**
-  * Shows the mobile number of the selected member
-  *
-  * @param orgMember Selected Member
-  */
+   * Shows the mobile number of the selected member
+   *
+   * @param orgMember Selected Member
+   */
   addContact(orgMember: OrganisationMember) {
     const ids = this.selectedContacts.map(c => c.id);
     if (!ids.includes(orgMember.id)) {
@@ -109,10 +132,12 @@ export class SmsMessengerComponent implements OnInit {
     this.modalService.dismissAll();
 
     const messages = this.selectedContacts.map(contact => {
-      return new SmsAccountMessage( Object.assign({}, this.messageForm.value, {
-        member_id: contact.member_id,
-        to: contact.member.mobile_number
-      }));
+      return new SmsAccountMessage(
+        Object.assign({}, this.messageForm.value, {
+          member_id: contact.member_id,
+          to: contact.member.mobile_number
+        })
+      );
     });
 
     this.messageService.batchCreate(messages);

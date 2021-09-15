@@ -139,7 +139,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   markAllRead(e: Event) {
     e.preventDefault();
     e.stopPropagation();
-    
+
     this.notificationService.markAllRead().subscribe(() => this.unreadNotifications = []);
   }
 

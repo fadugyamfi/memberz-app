@@ -54,7 +54,7 @@ export class PermissionsComponent implements OnInit, OnDestroy {
    * the server
    */
   loadPermissions() {
-    if( this.storage.isValid(this.cacheKey) ) {
+    if ( this.storage.isValid(this.cacheKey) ) {
       this.permissions = this.storage.get(this.cacheKey).map(perm => new Permission(perm));
       return;
     }
@@ -95,24 +95,24 @@ export class PermissionsComponent implements OnInit, OnDestroy {
   set permissions(values) {
     this._permissions = values;
 
-    if( values ) {
+    if ( values ) {
       this.permissionGroups = [];
 
       values.forEach(permission => {
-        const parts = permission.name.split(":");
-        const groupName = parts[0].replace(/_/g, " ");
-        const subGroupName = parts[1].replace(/_/g, " ");
+        const parts = permission.name.split(':');
+        const groupName = parts[0].replace(/_/g, ' ');
+        const subGroupName = parts[1].replace(/_/g, ' ');
 
-        let permGroup = this.permissionGroups.find((pg) => pg.name == groupName);
+        let permGroup = this.permissionGroups.find((pg) => pg.name === groupName);
 
-        if( !permGroup ) {
+        if ( !permGroup ) {
           permGroup = new PermissionGroup({name: groupName});
           this.permissionGroups.push(permGroup);
         }
 
-        let subGroup = permGroup.groups.find(gp => gp.name == subGroupName);
+        let subGroup = permGroup.groups.find(gp => gp.name === subGroupName);
 
-        if( !subGroup ) {
+        if ( !subGroup ) {
           subGroup = new PermissionGroup({name: subGroupName});
           permGroup.addGroup(subGroup);
         }
@@ -120,9 +120,9 @@ export class PermissionsComponent implements OnInit, OnDestroy {
         subGroup.addPermission(permission);
       });
 
-      this.permissionGroups.sort((a,b) => a.name > b.name ? 1 : (a.name < b.name ? -1 : 0) );
+      this.permissionGroups.sort((a, b) => a.name > b.name ? 1 : (a.name < b.name ? -1 : 0) );
       this.permissionGroups.forEach(group => {
-        group.groups.sort((a,b) => a.name > b.name ? 1 : (a.name < b.name ? -1 : 0) );
+        group.groups.sort((a, b) => a.name > b.name ? 1 : (a.name < b.name ? -1 : 0) );
       });
 
       this.markSelectedPermissions();
@@ -136,10 +136,11 @@ export class PermissionsComponent implements OnInit, OnDestroy {
   /**
    * Set role
    */
-  @Input() set role(value) {
+  @Input()
+  set role(value) {
     this._role = value;
 
-    if( value ) {
+    if ( value ) {
       this.selectAll(false);
       this.getRolePermissions( value.id );
     }
@@ -173,7 +174,7 @@ export class PermissionsComponent implements OnInit, OnDestroy {
   }
 
   markSelectedPermissions() {
-    if( !this.rolePermissions ) {
+    if ( !this.rolePermissions ) {
       return;
     }
 
@@ -208,10 +209,10 @@ export class PermissionsComponent implements OnInit, OnDestroy {
    */
   onSubmit(e) {
     this.setupForm();
-    let params = this.editorForm.value;
+    const params = this.editorForm.value;
 
     // if setting permissions for a role
-    if( this.role ) {
+    if ( this.role ) {
       this.roleService.syncPermissions(params).subscribe(() => this.hide());
     }
 
@@ -223,7 +224,7 @@ export class PermissionsComponent implements OnInit, OnDestroy {
   totalSelectedPermissions() {
     let count = 0;
     this.permissions.forEach(perm => {
-      if( perm.selected ) count++;
+      if ( perm.selected ) { count++; }
     });
 
     return count;

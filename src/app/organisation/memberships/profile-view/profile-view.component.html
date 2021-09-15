@@ -65,7 +65,7 @@
 
           <!-- Profile Summary Tab -->
           <li [ngbNavItem]="1">
-            <a ngbNavLink>{{'Profile' | translate}}</a>
+            <a ngbNavLink><i class="fa fa-globe"></i> {{'Overview' | translate}}</a>
             <ng-template ngbNavContent>
               <app-profile-summary [membership]="membership"></app-profile-summary>
             </ng-template>
@@ -73,27 +73,37 @@
 
           <!-- Groups Tab -->
           <li [ngbNavItem]="2">
-            <a ngbNavLink>{{ 'Groups' | translate }}</a>
+            <a ngbNavLink><i class="fa fa-users"></i> {{ 'Groups' | translate }}</a>
             <ng-template ngbNavContent>
               <app-profile-groups [membership]="membership"></app-profile-groups>
             </ng-template>
           </li>
 
-          <!-- Contributions -->
+          <!-- Family -->
           <li [ngbNavItem]="3">
-            <a ngbNavLink>{{ 'Contributions' | translate }}</a>
+            <a ngbNavLink><i class="fa fa-link"></i> {{ 'Family' | translate }}</a>
+            <ng-template ngbNavContent>
+              <app-profile-family [membership]="membership"></app-profile-family>
+            </ng-template>
+          </li>
+
+          <!-- Messages -->
+          <li [ngbNavItem]="4">
+            <a ngbNavLink><i class="fa fa-envelope"></i> {{ 'Messages' | translate }}</a>
+            <ng-template ngbNavContent>
+              <app-profile-sms-messages [membership]="membership"></app-profile-sms-messages>
+            </ng-template>
+          </li>
+
+          <!-- Contributions -->
+          <li [ngbNavItem]="5">
+            <a ngbNavLink><i class="fa fa-money"></i> {{ 'Contributions' | translate }}</a>
             <ng-template ngbNavContent>
               <app-profile-contributions [membership]="membership"></app-profile-contributions>
             </ng-template>
           </li>
 
-          <!-- Family -->
-          <li [ngbNavItem]="4">
-            <a ngbNavLink>{{ 'Family' | translate }}</a>
-            <ng-template ngbNavContent>
-              <app-profile-family [membership]="membership"></app-profile-family>
-            </ng-template>
-          </li>
+
         </ul>
 
         <!-- Outlet for the Tab Set above -->

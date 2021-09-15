@@ -12,6 +12,7 @@ import { OrganisationService } from './organisation.service';
 export class SmsAccountService extends APIService<SmsAccount> {
 
   public orgSmsAccount: SmsAccount;
+  private accountCacheKey: string = null;
 
   constructor(
     http: HttpClient,
@@ -24,8 +25,6 @@ export class SmsAccountService extends APIService<SmsAccount> {
     this.url = '/sms_accounts';
     this.model = SmsAccount;
     this.model_name = 'SmsAccount';
-
-    this.refreshAccount();
   }
 
   refreshAccount(organisationId = null) {
@@ -43,18 +42,24 @@ export class SmsAccountService extends APIService<SmsAccount> {
       organisationId = organisation ? organisation.id : null;
     }
 
+    this.accountCacheKey = `org_${organisationId}_sms_account`;
+
     return { organisation_id: organisationId, limit: 1 };
   }
 
+  hasOrganisationAccount() {
+    return this.storage.has(this.accountCacheKey);
+  }
+
   getOrganisationAccount() {
-    return this.storage.get('org_sms_account');
+    return this.storage.get(this.accountCacheKey);
   }
 
   cacheAccountInfo(accounts) {
     this.orgSmsAccount = accounts[0];
 
     if (this.orgSmsAccount) {
-      this.storage.set('org_sms_account', this.orgSmsAccount, 2, 'hours');
+      this.storage.set(this.accountCacheKey, this.orgSmsAccount, 6, 'hours');
     }
   }
 }

@@ -247,6 +247,10 @@ export class APIService<T extends AppModel> {
     this.setSelectedModel = null;
   }
 
+  public clearItems() {
+    this.results = [];
+  }
+
   public hasZeroItems(): boolean {
     return this.results && this.results.length === 0;
   }

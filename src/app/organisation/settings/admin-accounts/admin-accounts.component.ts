@@ -78,32 +78,9 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
   }
 
   setupEvents() {
-    this.events.on('OrganisationAccount:created', (account: OrganisationAccount) => {
-      this.editorModalRef.close();
-
-      if (account.id) {
-        this.accountData.push(account);
-      }
-    });
-
-    this.events.on('OrganisationAccount:updated', (account: OrganisationAccount) => {
-      this.editorModalRef.close();
-      this.accountData.forEach((acc, index) => {
-        if (acc.id === account.id) {
-          this.accountData[index] = account;
-        }
-      });
-    });
-
-    this.events.on('OrganisationAccount:deleted', (account) => {
-      this.accountData.forEach((acc, index) => {
-        if (acc.id === account.id) {
-          this.accountData.splice(index, 1);
-        }
-      });
-
-      Swal.close();
-    });
+    this.events.on('OrganisationAccount:created', () => this.editorModalRef.close());
+    this.events.on('OrganisationAccount:updated', () => this.editorModalRef.close());
+    this.events.on('OrganisationAccount:deleted', () => Swal.close());
   }
 
   removeEvents() {

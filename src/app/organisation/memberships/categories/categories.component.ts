@@ -186,30 +186,9 @@ export class CategoriesComponent implements OnInit, OnDestroy {
    * Setup listeners for model changes
    */
   setupEvents() {
-    this.events.on('OrganisationMemberCategory:created', (category: OrganisationMemberCategory) => {
-      this.categories.push(category);
-      this.modalService.dismissAll();
-    });
-
-    this.events.on('OrganisationMemberCategory:updated', (category: OrganisationMemberCategory) => {
-      this.modalService.dismissAll();
-      this.categories.forEach((g, index) => {
-        if (g.id === category.id) {
-          this.categories[index] = category;
-          return false;
-        }
-      });
-    });
-
-    this.events.on('OrganisationMemberCategory:deleted', (category: OrganisationMemberCategory) => {
-      Swal.close();
-      this.categories.forEach((g, index) => {
-        if (g.id === category.id) {
-          this.categories.splice(index, 1);
-          return false;
-        }
-      });
-    });
+    this.events.on('OrganisationMemberCategory:created', () => this.modalService.dismissAll());
+    this.events.on('OrganisationMemberCategory:updated', () => this.modalService.dismissAll());
+    this.events.on('OrganisationMemberCategory:deleted', () => Swal.close());
   }
 
   /**
