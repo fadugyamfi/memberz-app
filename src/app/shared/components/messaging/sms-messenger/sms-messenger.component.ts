@@ -41,8 +41,8 @@ export class SmsMessengerComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.setupMessageForm();
     this.fetchSmsAccount();
+    this.setupMessageForm();
     this.setupEventListeners();
   }
 
@@ -50,6 +50,8 @@ export class SmsMessengerComponent implements OnInit {
     this.events.on('SmsAccountMessage:created', (message) => {
       this.smsAccountService.refreshAccount();
       this.fetchSmsAccount(); // refresh sms account
+      this.modalService.dismissAll();
+      Swal.close();
     });
   }
 
@@ -129,8 +131,6 @@ export class SmsMessengerComponent implements OnInit {
   onMessage(e: Event) {
     e.preventDefault();
 
-    this.modalService.dismissAll();
-
     const messages = this.selectedContacts.map(contact => {
       return new SmsAccountMessage(
         Object.assign({}, this.messageForm.value, {
@@ -139,6 +139,13 @@ export class SmsMessengerComponent implements OnInit {
         })
       );
     });
+
+    Swal.fire({
+      title: 'Sending Messages',
+      text: 'Sending messages to specified contacts',
+      icon: 'info'
+    });
+    Swal.showLoading();
 
     this.messageService.batchCreate(messages);
   }

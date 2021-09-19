@@ -59,7 +59,7 @@ export class SmsAccountService extends APIService<SmsAccount> {
     this.orgSmsAccount = accounts[0];
 
     if (this.orgSmsAccount) {
-      this.storage.set(this.accountCacheKey, this.orgSmsAccount, 6, 'hours');
+      this.storage.set(this.accountCacheKey, this.orgSmsAccount, 1, 'days');
     }
   }
 }
