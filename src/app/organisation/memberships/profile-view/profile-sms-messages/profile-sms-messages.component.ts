@@ -23,7 +23,11 @@ export class ProfileSmsMessagesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadMessages();
+    if ( this.smsAccountService.hasOrganisationAccount() ) {
+      this.loadMessages();
+    } else {
+      this.smsAccountService.refreshAccount();
+    }
 
     this.events.on('SmsAccount:refresh', () => this.loadMessages());
   }
