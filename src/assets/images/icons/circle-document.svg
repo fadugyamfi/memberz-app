@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="73.581mm" height="73.607mm" version="1.1" viewBox="0 0 73.581 73.607" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(-451.67 -411.08)">
+  <g id="XMLID_621_" transform="matrix(.26458 0 0 .26458 245.82 35.534)" clip-rule="evenodd" fill-rule="evenodd">
+   <path d="m917.02 1697.6c76.6 0 139.1-62.5 139.1-139.1s-62.5-139.1-139.1-139.1-139 62.5-139 139.1c0 76.5 62.4 139.1 139 139.1z" fill="#ececec"/>
+   <path d="m868.12 1490.8h80.9c9.4 0 17.1 7.7 17.1 17.1v118.3h-97.9v-135.4z" fill="#fff"/>
+   <path d="m949.02 1490.8c9.4 0 17.1 7.7 17.1 17.1h-17.1z" fill="#eee"/>
+   <rect x="876.32" y="1535.9" width="81.6" height="4.6"/>
+   <rect x="876.32" y="1547.2" width="81.6" height="4.6"/>
+   <rect x="876.32" y="1558.4" width="81.6" height="4.7"/>
+   <rect x="876.32" y="1569.7" width="81.6" height="4.7"/>
+   <rect x="929.92" y="1592.7" width="27.9" height="4.7"/>
+  </g>
+ </g>
+</svg>

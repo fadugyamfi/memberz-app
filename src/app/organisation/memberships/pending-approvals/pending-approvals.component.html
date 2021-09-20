@@ -34,9 +34,10 @@
 
   </div>
 
-  <div class="m-t-50 text-center" *ngIf="emptyDataset()">
-    <h3>{{'No Registrations Pending Approval Found' | translate}}</h3>
-    <p>{{'Create and share some registration forms to start get data into this view' | translate}}</p>
+  <div class="m-t-30 m-b-30 text-center" *ngIf="emptyDataset()">
+    <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
+    <h4 class="font-weight-bold">{{'No Registrations Pending Approval Found' | translate}}</h4>
+    <h6>{{'Create and share some registration forms to start get data into this view' | translate}}</h6>
   </div>
 
   <div class="loader-box m-auto" *ngIf="membershipService.requesting">
