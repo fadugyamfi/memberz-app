@@ -25,26 +25,27 @@ export class SmsAccountService extends APIService<SmsAccount> {
     this.url = '/sms_accounts';
     this.model = SmsAccount;
     this.model_name = 'SmsAccount';
+
+    this.setAccountCacheKey();
   }
 
-  refreshAccount(organisationId = null) {
-    const params = this.getAccountParams(organisationId);
+  setAccountCacheKey(organisation_id = null) {
+    if ( !organisation_id ) {
+      const organisation = this.orgService.getActiveOrganisation();
+      organisation_id = organisation ? organisation.id : null;
+    }
+
+    this.accountCacheKey = `org_${organisation_id}_sms_account`;
+  }
+
+  refreshAccount(organisation_id = null) {
+    this.setAccountCacheKey(organisation_id);
+    const params = { organisation_id, limit: 1 };
 
     return this.getAll(params).subscribe(accounts => {
       this.cacheAccountInfo(accounts);
       this.events.trigger(`${this.model_name}:refresh`, this.orgSmsAccount);
     });
-  }
-
-  private getAccountParams(organisationId = null) {
-    if (!organisationId) {
-      const organisation = this.orgService.getActiveOrganisation();
-      organisationId = organisation ? organisation.id : null;
-    }
-
-    this.accountCacheKey = `org_${organisationId}_sms_account`;
-
-    return { organisation_id: organisationId, limit: 1 };
   }
 
   hasOrganisationAccount() {

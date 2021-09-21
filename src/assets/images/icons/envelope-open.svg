@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="55.113mm" height="56.383mm" version="1.1" viewBox="0 0 55.113 56.383" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(-281.28 -138.66)">
+  <g id="XMLID_621_" transform="matrix(.26458 0 0 .26458 245.82 35.534)">
+   <g id="XMLID_443_" transform="translate(-594 -120.44)">
+    <g id="XMLID_442_">
+     <g id="XMLID_452_">
+      <path id="XMLID_827_" d="m917.5 718.1h-170.7c-7.5 0-13.6-6.1-13.6-13.6v-121.7c0-7.5 6.1-13.6 13.6-13.6h170.7c7.5 0 13.6 6.1 13.6 13.6v121.6c0 7.6-6.1 13.7-13.6 13.7z" fill="#91c83e"/>
+     </g>
+    </g>
+    <g id="XMLID_444_">
+     <g id="XMLID_7_">
+      <path id="XMLID_826_" d="m744.7 569.2h179.9c3.6 0 5.2 4.6 2.2 6.8l-89.8 66c-1.3 1-3.1 1-4.5 0l-90.1-66c-2.8-2.1-1.3-6.8 2.3-6.8z" fill="#7aab41"/>
+     </g>
+    </g>
+    <g id="XMLID_441_">
+     <g id="XMLID_647_">
+      <path id="XMLID_12_" d="m917.5 723.3h-170.7c-10.4 0-18.8-8.4-18.8-18.8v-121.7c0-10.4 8.4-18.8 18.8-18.8h170.7c10.4 0 18.8 8.4 18.8 18.8v121.6c0 10.4-8.5 18.9-18.8 18.9zm-170.7-148.9c-4.6 0-8.4 3.8-8.4 8.4v121.6c0 4.6 3.8 8.4 8.4 8.4h170.7c4.6 0 8.4-3.8 8.4-8.4v-121.6c0-4.6-3.8-8.4-8.4-8.4z" fill="#333"/>
+     </g>
+    </g>
+    <g id="XMLID_435_">
+     <g id="XMLID_11_">
+      <polygon id="XMLID_825_" points="908 515.4 908 590 833.9 643.7 759.7 591.6 759.7 515.4" fill="#71c4ee"/>
+     </g>
+    </g>
+    <g id="XMLID_440_">
+     <g id="XMLID_646_">
+      <polygon id="XMLID_824_" points="732.8 579.2 738.7 570.7 834.8 637.3 925.5 570.7 931.6 579.1 834.9 650" fill="#333"/>
+     </g>
+    </g>
+    <g id="XMLID_437_">
+     <g id="XMLID_439_">
+      <g id="XMLID_645_">
+       <rect id="XMLID_823_" transform="matrix(.7688 .6394 -.6394 .7688 606.13 -339.05)" x="766.8" y="612.1" width="10.4" height="113.4" fill="#333"/>
+      </g>
+     </g>
+     <g id="XMLID_438_">
+      <g id="XMLID_644_">
+       <rect id="XMLID_822_" transform="matrix(.6016 .7988 -.7988 .6016 891.59 -448.08)" x="839.2" y="664.6" width="111.6" height="10.4" fill="#333"/>
+      </g>
+     </g>
+    </g>
+    <g id="XMLID_436_">
+     <g id="XMLID_642_">
+      <path id="XMLID_821_" d="m764.9 591.6h-10.4v-76.2c0-2.9 2.3-5.2 5.2-5.2h148.3c2.9 0 5.2 2.3 5.2 5.2v74.6h-10.4v-69.4h-137.9z" fill="#333"/>
+     </g>
+    </g>
+    <g id="XMLID_445_">
+     <g id="XMLID_626_">
+      <rect id="XMLID_820_" x="788.2" y="545.3" width="91.3" height="10.4" fill="#333"/>
+     </g>
+    </g>
+    <g id="XMLID_446_">
+     <g id="XMLID_625_">
+      <rect id="XMLID_819_" x="788.2" y="571.5" width="91.3" height="10.4" fill="#333"/>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>
