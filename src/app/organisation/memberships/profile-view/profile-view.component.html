@@ -2,59 +2,13 @@
 </ngb-alert>
 
 <div class="row">
+  <!-- SIDEBAR -->
   <aside class="col-lg-3">
-    <div class="card profile-header">
-      <div class="card-header">
-        <button class="btn btn-pill btn-outline-primary back-btn" [routerLink]="['/organisation/memberships/profiles']">
-          <i class="fa fa-long-arrow-left"></i> {{ 'Back To Profiles' | translate }}
-        </button>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <div class="p-b-15 image-cropper">
-              <img [src]="profileImageUrl" class="profile-img" default="/assets/images/user/no-photo-icon.jpg" />
-            </div>
-
-            <div class="p-15">
-              <div class="m-b-25" *ngIf="imageUploadProgress">
-                <ngb-progressbar type="success" [value]="imageUploadProgress" height="5px" [striped]="true">
-                </ngb-progressbar>
-              </div>
-
-              <!-- <label for="image-file-picker" class="btn btn-success btn-pill">
-                {{ 'Change Photo' | translate }}
-                <input type="file" name="image" id="image-file-picker"
-                       style="opacity: 0; position: absolute; display: block; width: 100%;"
-                       (change)="onImageFormSubmit($event)" />
-              </label> -->
-
-              <button class="btn btn-success btn-pill" (click)="imageCropper.show()">
-                {{ 'Change Photo' | translate }}
-              </button>
-
-              <app-image-cropper #imageCropper (save)="onCroppedImageSaved($event)"></app-image-cropper>
-            </div>
-
-            <div class="p-15">
-              <h4>{{ membership?.name() }}</h4>
-
-              <p class="f-12">
-                {{ membership?.organisation_no }}
-                &nbsp; &bull; &nbsp;
-                {{ membership?.organisation_member_category?.name }}
-              </p>
-
-            </div>
-          </div>
-        </div>
-
-
-      </div>
-    </div>
+    <app-profile-sidebar [membership]="membership"></app-profile-sidebar>
   </aside>
 
-  <section class="col-lg-9">
+  <!-- MAIN CONTENT -->
+  <main class="col-lg-9">
     <div class="card">
       <div class="card-header">
         <div class="row">
@@ -129,5 +83,5 @@
         <div [ngbNavOutlet]="nav" class="mt-2"></div>
       </div>
     </div>
-  </section>
+  </main>
 </div>

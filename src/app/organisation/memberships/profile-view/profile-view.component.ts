@@ -26,24 +26,18 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
   public membership: OrganisationMember;
   public active = 1;
 
-  public profileImageForm: FormGroup;
-  public profileImageUrl: any;
-  public imageUploadProgress = 0;
-
   public subscriptions: Subscription[] = [];
 
   constructor(
     public membershipService: OrganisationMemberService,
     public route: ActivatedRoute,
     public router: Router,
-    public events: EventsService,
-    public memberImageService: MemberImageService
+    public events: EventsService
   ) { }
 
   ngOnInit() {
     this.setupEvents();
     this.loadProfile();
-    this.setupImageUploadEvents();
   }
 
   ngOnDestroy() {
@@ -59,7 +53,6 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
         const ps = this.membershipService.getProfile(membership_id).subscribe((membership: OrganisationMember) => {
           this.membership = membership;
-          this.profileImageUrl = this.membership.member.image();
           // close any open loader
           Swal.close();
         });
@@ -94,40 +87,5 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
         this._messages.next('Registration Rejected');
       }
     });
-  }
-
-  setupImageUploadEvents() {
-    this.events.on(`MemberImage:upload:start`, () => this.imageUploadProgress = 1);
-    this.events.on(`MemberImage:upload:progress`, (value) => this.imageUploadProgress = value);
-    this.events.on('MemberImage:upload:complete', () => this.imageUploadProgress = 0);
-  }
-
-  onImageFormSubmit(e: any) {
-    e.preventDefault();
-
-    const file: File = e.target.files[0];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.addEventListener('load', (ev) => {
-      this.profileImageUrl = reader.result;
-
-      const memberImage = new MemberImage({
-        member_id: this.membership.member_id,
-        image: file
-      });
-
-      this.memberImageService.createWithUpload(memberImage);
-    });
-  }
-
-  onCroppedImageSaved(image) {
-    this.profileImageUrl = image;
-
-    const memberImage = new MemberImage({
-      member_id: this.membership.member_id,
-      image_base64: image
-    });
-
-    this.memberImageService.createWithUpload(memberImage);
   }
 }
