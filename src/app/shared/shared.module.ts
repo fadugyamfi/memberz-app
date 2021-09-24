@@ -25,6 +25,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import 'hammerjs';
 import 'mousetrap';
 
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 // services
 import { NavService } from './services/nav.service';
 import { ChatService } from './services/chat.service';
@@ -45,6 +47,7 @@ import { SubscriptionStatusComponent } from './components/subscription-status/su
 import { MemberControlComponent } from './components/forms/member-control/member-control.component';
 import { SmsMessengerComponent } from './components/messaging/sms-messenger/sms-messenger.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
+import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +71,8 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
     SubscriptionStatusComponent,
     MemberControlComponent,
     SmsMessengerComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    ImageCropperComponent
   ],
   imports: [
     CommonModule,
@@ -83,6 +87,7 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
     InternationalPhoneNumberModule,
     NgxPrintModule,
     NgxChartsModule,
+    ImageCropperModule
   ],
   exports: [
     LoaderComponent,
@@ -101,6 +106,8 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
     SmsMessengerComponent,
     InvoiceComponent,
     NgxChartsModule,
+    ImageCropperModule,
+    ImageCropperComponent
   ],
   providers: [
     NavService,

@@ -12,6 +12,7 @@ import { OrganisationAccount } from '../../../shared/model/api/organisation-acco
 import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
 import { EventsService } from '../../../shared/services/events.service';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-make-admin',
@@ -34,7 +35,8 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
     public organisationAccountService: OrganisationAccountService,
     public roleService: OrganisationRoleService,
     public modalService: NgbModal,
-    public events: EventsService
+    public events: EventsService,
+    public translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -119,7 +121,11 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
       return;
     }
 
-    Swal.fire('Creating Admin Account', 'Please wait as account is created...', 'info');
+    Swal.fire(
+      this.translate.instant('Creating Admin Account'),
+      this.translate.instant('Please wait as account is created') + '...',
+      'info'
+    );
     Swal.showLoading();
 
     const orgAccount = new OrganisationAccount(this.makeAdminForm.value);

@@ -2,40 +2,13 @@
 </ngb-alert>
 
 <div class="row">
+  <!-- SIDEBAR -->
   <aside class="col-lg-3">
-    <div class="card profile-header">
-      <div class="card-header">
-        <button class="btn btn-pill btn-outline-primary back-btn" [routerLink]="['/organisation/memberships/profiles']">
-          <i class="fa fa-long-arrow-left"></i> {{ 'Back To Profiles' | translate }}
-        </button>
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <div class="p-b-15 image-cropper">
-              <img [src]="membership?.member?.image()" class="profile-img"
-                   default="/assets/images/user/no-photo-icon.jpg" />
-            </div>
-
-            <div class="p-15">
-              <h4>{{ membership?.name() }}</h4>
-
-              <p class="f-12">
-                {{ membership?.organisation_no }}
-                &nbsp; &bull; &nbsp;
-                {{ membership?.organisation_member_category?.name }}
-              </p>
-
-            </div>
-          </div>
-        </div>
-
-
-      </div>
-    </div>
+    <app-profile-sidebar [membership]="membership"></app-profile-sidebar>
   </aside>
 
-  <section class="col-lg-9">
+  <!-- MAIN CONTENT -->
+  <main class="col-lg-9">
     <div class="card">
       <div class="card-header">
         <div class="row">
@@ -110,5 +83,5 @@
         <div [ngbNavOutlet]="nav" class="mt-2"></div>
       </div>
     </div>
-  </section>
+  </main>
 </div>
