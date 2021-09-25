@@ -10,7 +10,7 @@ import { PageEvent } from '../../../shared/components/pagination/pagination.comp
 import { EventsService } from '../../../shared/services/events.service';
 import Swal from 'sweetalert2';
 import { StorageService } from '../../../shared/services/storage.service';
-import { Observable, Subscription, of } from "rxjs";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-profiles',

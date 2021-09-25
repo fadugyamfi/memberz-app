@@ -1,17 +1,9 @@
 import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from "@angular/core";
 import { UserActivityService } from "../../../shared/services/api/user-activities.service";
-import { Observable, Subscription, of } from "rxjs";
+import { Subscription } from "rxjs";
 import { UserActivity } from "../../../shared/model/api/user-activity";
-import {
-  map,
-  debounceTime,
-  distinctUntilChanged,
-  tap,
-  switchMap,
-  catchError,
-} from "rxjs/operators";
 import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl } from "@angular/forms";
 import { EventsService } from "../../../shared/services/events.service";
 import { PageEvent } from "../../../shared/components/pagination/pagination.component";
 import { MemberAccount } from "src/app/shared/model/api/member-account";
