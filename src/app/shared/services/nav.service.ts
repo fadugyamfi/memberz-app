@@ -694,6 +694,11 @@ export class NavService {
           title: 'Admin Accounts',
           type: 'link'
         },
+        {
+          path: '/organisation/settings/user-activities',
+          title: 'User Activities',
+          type: 'link'
+        },
         // {
         //   path: '/organisation/settings/payment-platforms',
         //   title: 'Payment Platforms',

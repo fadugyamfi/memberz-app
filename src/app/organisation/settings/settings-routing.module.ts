@@ -8,6 +8,7 @@ import { SubscriptionRenewalComponent } from './subscription-renewal/subscriptio
 import { SubscriptionUpgradeComponent } from './subscription-upgrade/subscription-upgrade.component';
 import { InvoicePaymentComponent } from './invoice-payment/invoice-payment.component';
 import { PaymentProcessorComponent } from './payment-processor/payment-processor.component';
+import { UserActivitiesComponent } from './user-activities/user-activities.component';
 
 
 const routes: Routes = [
@@ -66,7 +67,14 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Processing Payment'
     }
-  }
+  },
+  {
+    path: 'user-activities',
+    component: UserActivitiesComponent,
+    data: {
+      breadcrumb: 'User Activities'
+    }
+  },
 ];
 
 @NgModule({
