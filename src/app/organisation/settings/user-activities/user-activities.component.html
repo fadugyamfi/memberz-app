@@ -26,7 +26,7 @@
         <tr>
           <th>{{ 'No.' | translate }}</th>
           <th>{{ 'Causer' | translate }}</th>
-          <th>{{ 'Log Name' | translate }}</th>
+          <th>{{ 'Name' | translate }}</th>
           <th>{{ 'Description' | translate }}</th>
           <th class="text-right">{{ 'Created' | translate }}</th>
           <!-- <th class="text-center">Actions</th> -->
@@ -67,26 +67,43 @@
     </div> -->
   </div>
   
+ 
   <ng-template #searchModal let-modal>
     <form (submit)="onSearch($event)" class="form form-horizontal theme-form" [formGroup]="searchForm">
       <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">{{'Find Activities' | translate}}</h4>
-    
+        <h4 class="modal-title" id="modal-basic-title">{{'Find User Activities' | translate}}</h4>
+        
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
   
-        <!-- <div class="form-group row">
-          <label class="col-sm-4 col-form-label">{{'Name' | translate}}</label>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'User' | translate}}</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" placeholder="e.g. Default" formControlName="name_like" />
+            <select class="form-control" formControlName="causer_id">
+              <option value="">{{'Select User' | translate}}</option>
+              <option *ngFor="let user of memberAccounts" [value]="user.id">{{ user.member?.full_name }}</option>
+            </select>
           </div>
-        </div> -->
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'Added After/On' | translate}}</label>
+          <div class="col-sm-8">
+            <input type="date" class="form-control" placeholder="Start Date" title="Start Date" formControlName="created_at_gte" />
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'Added Before/On' | translate}}</label>
+          <div class="col-sm-8">
+            <input type="date" class="form-control" placeholder="End Date" title="End Date" formControlName="created_at_lte" />
+          </div>
+        </div>
   
       </div>
-  
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary">{{'Search' | translate}}</button>
         <button type="reset" class="btn btn-outline-info">{{'Clear' | translate}}</button>
@@ -94,4 +111,3 @@
       </div>
     </form>
   </ng-template>
-  
