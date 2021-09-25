@@ -4,7 +4,7 @@ import { EventsService } from '../events.service';
 import { HttpClient } from '@angular/common/http';
 import { Notification } from '../../model/api/notification';
 import { StorageService } from '../storage.service';
-import { Observable} from 'rxjs';
+import { Observable, Subject} from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -27,30 +27,29 @@ export class NotificationService extends APIService<Notification> {
             return;
         }
 
-        let full_url = this.BASE_URL + `${this.url}/subscribe/${user.id}`;
+        const full_url = this.BASE_URL + `${this.url}/subscribe/${user.id}`;
 
         return this.observeMessages(full_url);
     }
 
     observeMessages(sseUrl: string, channels = ['message']): Observable<Notification[]> {
-        return new Observable<Notification[]>(obs => {
-            const es = new EventSource(sseUrl, { withCredentials: true });
+      const subject = new Subject<Notification[]>();
+      const es = new EventSource(sseUrl, { withCredentials: true });
 
-            channels.forEach((channel: string) => {
-                es.addEventListener(channel, (evt) => {
-                    try {
-                        const data = JSON.parse(evt['data']);
-                        const items = data.map(item => new Notification(item));
+      channels.forEach((channel: string) => {
+        es.addEventListener(channel, (evt) => {
+            try {
+                const data = JSON.parse(evt['data']);
+                const items = data.map(item => new Notification(item));
 
-                        obs.next(items);
-                    } catch (e) {
-                        console.log(e);
-                    }
-                });
-            });
-
-            return () => es.close();
+                subject.next(items);
+            } catch (e) {
+                console.log(e);
+            }
         });
+      });
+
+      return subject;
     }
 
     getUnreadNotifications() {

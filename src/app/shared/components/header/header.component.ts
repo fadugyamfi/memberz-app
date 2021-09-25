@@ -157,7 +157,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // connect to backend for user notifications
     setTimeout(() => {
       this.subscribeToNotifications();
-    }, 10000);
+    }, 1000);
 
   }
 
