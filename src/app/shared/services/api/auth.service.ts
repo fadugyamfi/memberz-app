@@ -1,18 +1,19 @@
-import { APIService } from "./api.service";
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { EventsService } from "../events.service";
-import { StorageService } from "../storage.service";
-import { map, switchMap } from "rxjs/operators";
-import { MemberAccount } from "../../model/api/member-account";
-import { Router } from "@angular/router";
-import Swal from "sweetalert2";
-import { OrganisationService } from "./organisation.service";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
-import { RegisterUserContract } from "../../contracts/register-user-contract";
+import { APIService } from './api.service';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { EventsService } from '../events.service';
+import { StorageService } from '../storage.service';
+import { map, switchMap } from 'rxjs/operators';
+import { MemberAccount } from '../../model/api/member-account';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { OrganisationService } from './organisation.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RegisterUserContract } from '../../contracts/register-user-contract';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthService extends APIService<MemberAccount> {
   public userData;
@@ -24,19 +25,20 @@ export class AuthService extends APIService<MemberAccount> {
     public storage: StorageService,
     public router: Router,
     public organisationService: OrganisationService,
-    public modalService: NgbModal
+    public modalService: NgbModal,
+    public translate: TranslateService
   ) {
     super(http, events, storage);
 
-    this.url = "/auth";
-    this.model_name = "Auth";
+    this.url = '/auth';
+    this.model_name = 'Auth';
 
     this.setupEvents();
     this.loadUserData();
   }
 
   public setupEvents() {
-    this.events.on("api:authentication:required", () => this.logout());
+    this.events.on('api:authentication:required', () => this.logout());
   }
 
   public login(username: string, password: string, remember_me: boolean = false) {
@@ -46,18 +48,18 @@ export class AuthService extends APIService<MemberAccount> {
     return this.post(`${this.url}/login`, params)
       .pipe(
         map((response) => {
-          this.storage.set("auth", response, DURATION, "day");
+          this.storage.set('auth', response, DURATION, 'day');
           return response;
         }),
         switchMap(() => this.me(remember_me))
       )
       .subscribe(
-        () => this.router.navigate(["/portal/home"]),
+        () => this.router.navigate(['/portal/home']),
         () => {
           Swal.fire(
-            "Login Failed",
-            "Username or Password may be incorrect. Please try again",
-            "error"
+            this.translate.instant('Login Failed'),
+            this.translate.instant('Username or Password may be incorrect. Please try again'),
+            'error'
           );
           this.requesting = false;
         },
@@ -69,8 +71,8 @@ export class AuthService extends APIService<MemberAccount> {
 
   public register(data: RegisterUserContract) {
     Swal.fire(
-      'Registering Your Account',
-      'You will be logged in automatically when successful',
+      this.translate.instant('Registering Your Account'),
+      this.translate.instant('You will be logged in automatically when successful'),
       'info'
     );
     Swal.showLoading();
@@ -78,11 +80,19 @@ export class AuthService extends APIService<MemberAccount> {
     return this.post(`${this.url}/register`, data).subscribe(
       () => {
         this.login(data.email, data.password);
-        Swal.fire("Registration Successful", "Logging in to the application", "success");
+        Swal.fire(
+          this.translate.instant('Registration Successful'),
+          this.translate.instant('Logging in to the application'),
+          'success'
+        );
         Swal.showLoading();
       },
       () => {
-        Swal.fire("Registration Failed", "Please try again", "error");
+        Swal.fire(
+          this.translate.instant('Registration Failed'),
+          this.translate.instant('Please try again'),
+          'error'
+        );
         Swal.hideLoading();
       }
     );
@@ -94,11 +104,11 @@ export class AuthService extends APIService<MemberAccount> {
     }).subscribe(
       () => {
         Swal.fire(
-          "Request Successful",
-          "A password reset link has been sent to your email. Please use that link to reset your password.",
-          "success"
+          this.translate.instant('Request Successful'),
+          this.translate.instant('A password reset link has been sent to your email. Please use that link to reset your password.'),
+          'success'
         );
-        this.router.navigate(["/auth/login"]);
+        this.router.navigate(['/auth/login']);
       },
       () => (this.requesting = false)
     );
@@ -108,7 +118,7 @@ export class AuthService extends APIService<MemberAccount> {
     const params = { username, password, token };
 
     return this.post(`${this.url}/reset-password`, params).subscribe(
-      () => this.router.navigate(["/auth/login"]),
+      () => this.router.navigate(['/auth/login']),
       () => (this.requesting = false)
     );
   }
@@ -119,7 +129,7 @@ export class AuthService extends APIService<MemberAccount> {
     return this.get(`${this.url}/me`).pipe(
       map((response) => {
         const user = new MemberAccount(response);
-        this.storage.set("user", user, DURATION, "day");
+        this.storage.set('user', user, DURATION, 'day');
         this.loadUserData();
         return user;
       })
@@ -128,13 +138,13 @@ export class AuthService extends APIService<MemberAccount> {
 
   // Sign out
   public logout() {
-    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
 
-    if (!this.storage.isValid("auth")) {
+    if (!this.storage.isValid('auth')) {
       this.clearSession();
-      this.router.navigate(["/auth/login"]);
+      this.router.navigate(['/auth/login']);
       return;
     }
 
@@ -148,24 +158,24 @@ export class AuthService extends APIService<MemberAccount> {
     Swal.close();
     this.modalService.dismissAll();
     this.clearSession();
-    this.router.navigate(["/auth/login"]);
+    this.router.navigate(['/auth/login']);
   }
 
   public clearSession() {
     this.organisationService.clearActiveOrganisation();
-    this.storage.remove("user");
-    this.storage.remove("auth");
+    this.storage.remove('user');
+    this.storage.remove('auth');
   }
 
   loadUserData() {
-    if (this.storage.has("user")) {
-      this.userData = new MemberAccount(this.storage.get("user"));
+    if (this.storage.has('user')) {
+      this.userData = new MemberAccount(this.storage.get('user'));
       this._sessionId = this.userData;
     }
   }
 
   get isLoggedIn(): boolean {
-    return this.storage.has("auth") && this.storage.has("user");
+    return this.storage.has('auth') && this.storage.has('user');
   }
 
   get showLoader() {
