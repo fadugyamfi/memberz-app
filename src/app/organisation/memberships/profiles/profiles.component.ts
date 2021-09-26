@@ -10,6 +10,7 @@ import { PageEvent } from '../../../shared/components/pagination/pagination.comp
 import { EventsService } from '../../../shared/services/events.service';
 import Swal from 'sweetalert2';
 import { StorageService } from '../../../shared/services/storage.service';
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-profiles',
@@ -31,6 +32,8 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   public cacheDataKey = 'searched_members';
   public cachePagingKey = 'searched_members_paging';
   public cacheOptionsKey = 'searched_members_options';
+
+  public subscriptions: Subscription[] = [];
 
   constructor(
     public organisationMemberService: OrganisationMemberService,
@@ -62,17 +65,20 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.removeEvents();
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   /**
    * Loads the list of member categories to display on the form
    */
   fetchMemberCategories() {
-    this.categoryService.getAll({
+    const sub = this.categoryService.getAll({
       active: 1, limit: '100', sort: 'default:desc,name:asc'
     }).subscribe((categories: OrganisationMemberCategory[]) => {
       this.categories = categories;
     });
+
+    this.subscriptions.push(sub);
   }
 
   loadDataFromCache() {
@@ -106,11 +112,13 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.members = null;
     this.clearCacheData();
 
-    this.organisationMemberService.findMembers(options, page, limit).subscribe((members: OrganisationMember[]) => {
+    const sub = this.organisationMemberService.findMembers(options, page, limit).subscribe((members: OrganisationMember[]) => {
       this.members = members;
       this.storeCacheData();
       this.allSelected = false;
     });
+
+    this.subscriptions.push(sub);
   }
 
   /**

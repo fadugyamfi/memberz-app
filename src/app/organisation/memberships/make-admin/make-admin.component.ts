@@ -81,7 +81,7 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
       email: new FormControl(this.membership ? this.membership.member.email : null, Validators.required),
       organisation_id: new FormControl(organisation.id, Validators.required),
       member_account_id: new FormControl(this.account ? this.account.id : null),
-      organisation_role_id: new FormControl('', Validators.required)
+      organisation_role_id: new FormControl('', Validators.required),
     });
   }
 
@@ -128,7 +128,8 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
     );
     Swal.showLoading();
 
-    const orgAccount = new OrganisationAccount(this.makeAdminForm.value);
+    let orgAccount = new OrganisationAccount(this.makeAdminForm.value);
+    orgAccount.active = 1;
 
     return this.organisationAccountService.create(orgAccount);
   }
