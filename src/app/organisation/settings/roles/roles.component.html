@@ -50,7 +50,7 @@
     <p>{{ 'Click the "Add New Role" button to begin' | translate }}</p>
   </div>
 
-  <div class="loader-box m-auto" *ngIf="roleService.requesting">
+  <div class="loader-box m-auto" *ngIf="roleService.fetching">
     <span class="rotate dashed colored"></span>
   </div>
 </div>

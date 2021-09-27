@@ -20,7 +20,7 @@
     <h6>{{'Please click on Import Data button to upload content' | translate}}</h6>
   </div>
 
-  <div class="loader-box m-auto" *ngIf="fileImportService.requesting">
+  <div class="loader-box m-auto" *ngIf="fileImportService.fetching">
     <span class="rotate dashed colored"></span>
   </div>
 
