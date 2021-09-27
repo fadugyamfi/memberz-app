@@ -9,51 +9,50 @@
           </button>
         </div>
       </div>
-  
+
     </div>
-  
+
     <div class="m-t-50 text-center" *ngIf="!userActivitiesService.requesting && !recordsPresent()">
       <h3>{{ 'No Search Results Found' | translate }}</h3>
       <p>{{ 'Please search for user activities to display results here' | translate }}</p>
     </div>
-  
+
     <div class="loader-box m-auto" *ngIf="userActivitiesService.requesting">
       <span class="rotate dashed colored"></span>
     </div>
-  
+
     <table class="table table-bordered table-hover table-striped" *ngIf="recordsPresent()">
       <thead>
         <tr>
           <th>{{ 'No.' | translate }}</th>
+          <th>{{ 'Created' | translate }}</th>
+          <th>{{ 'Log Group' | translate }}</th>
           <th>{{ 'Causer' | translate }}</th>
-          <th>{{ 'Name' | translate }}</th>
           <th>{{ 'Description' | translate }}</th>
-          <th class="text-right">{{ 'Created' | translate }}</th>
           <!-- <th class="text-center">Actions</th> -->
         </tr>
       </thead>
-  
-  
+
+
       <tbody>
         <tr *ngFor="let activity of activities; let row = index">
           <td>{{ userActivitiesService.pagingMeta?.from + row }}</td>
-  
+          <td>{{ activity.timeAgo() }}</td>
+          <td>{{ activity.log_display_name }}</td>
           <td>
-            {{ activity.causer?.member?.full_name }}
+            {{ activity.causer?.member?.name() }}
           </td>
-          <td>{{ activity.log_name }}</td>
           <td>{{ activity.description }}</td>
-          <td class="text-right">{{ activity.timeAgo() }}</td>
-  
+
           <!-- <td class="text-center">
             <button class="btn btn-xs btn-primary m-r-5" (click)="viewAccount(account)">
               <i class="fa fa-file"></i> View
             </button>
-  
+
             <button class="btn btn-xs btn-info m-r-5" (click)="showEditor(account)">
               <i class="fa fa-pencil"></i> Edit
             </button>
-  
+
             <button class="btn btn-xs btn-danger" (click)="deleteAccount(account)">
               <i class="fa fa-trash-o"></i> Remove
             </button>
@@ -61,30 +60,40 @@
         </tr>
       </tbody>
     </table>
-  
+
     <!-- <div class="card-footer">
       <app-pagination [service]="accountService" (paginate)="onPaginate($event)"></app-pagination>
     </div> -->
   </div>
-  
- 
+
+
   <ng-template #searchModal let-modal>
     <form (submit)="onSearch($event)" class="form form-horizontal theme-form" [formGroup]="searchForm">
       <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">{{'Find User Activities' | translate}}</h4>
-        
+
         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-  
+
         <div class="form-group row">
           <label class="col-sm-4 col-form-label">{{'User' | translate}}</label>
           <div class="col-sm-8">
             <select class="form-control" formControlName="causer_id">
               <option value="">{{'Select User' | translate}}</option>
-              <option *ngFor="let user of memberAccounts" [value]="user.id">{{ user.member?.full_name }}</option>
+              <option *ngFor="let user of orgAccounts" [value]="user.member_account_id">{{ user.name }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'Log Group' | translate}}</label>
+          <div class="col-sm-8">
+            <select class="form-control" formControlName="log_name">
+              <option value="">{{'Select Log Group' | translate}}</option>
+              <option *ngFor="let group of logGroups" [value]="group.log_name">{{ group.log_display_name | titlecase }}</option>
             </select>
           </div>
         </div>
@@ -95,14 +104,14 @@
             <input type="date" class="form-control" placeholder="Start Date" title="Start Date" formControlName="created_at_gte" />
           </div>
         </div>
-  
+
         <div class="form-group row">
           <label class="col-sm-4 col-form-label">{{'Added Before/On' | translate}}</label>
           <div class="col-sm-8">
             <input type="date" class="form-control" placeholder="End Date" title="End Date" formControlName="created_at_lte" />
           </div>
         </div>
-  
+
       </div>
       <div class="modal-footer">
         <button type="submit" class="btn btn-primary">{{'Search' | translate}}</button>

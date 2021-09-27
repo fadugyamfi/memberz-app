@@ -29,4 +29,8 @@ export class UserActivityService extends APIService<UserActivity> {
 
     return this.search(params);
   }
+
+  getLogGroups() {
+    return this.get(`${this.url}/log_groups`);
+  }
 }
