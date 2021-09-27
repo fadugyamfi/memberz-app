@@ -35,4 +35,8 @@ export class OrganisationAccount extends AppModel {
   set member_account(value) {
     this._member_account = value ? new MemberAccount(value) : null;
   }
+
+  get name() {
+    return this.member_account?.member?.name();
+  }
 }
