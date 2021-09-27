@@ -25,10 +25,10 @@
       <thead>
         <tr>
           <th>{{ 'No.' | translate }}</th>
-          <th>{{ 'Causer' | translate }}</th>
+          <th>{{ 'Created' | translate }}</th>
           <th>{{ 'Log Group' | translate }}</th>
+          <th>{{ 'Causer' | translate }}</th>
           <th>{{ 'Description' | translate }}</th>
-          <th class="text-right">{{ 'Created' | translate }}</th>
           <!-- <th class="text-center">Actions</th> -->
         </tr>
       </thead>
@@ -37,13 +37,12 @@
       <tbody>
         <tr *ngFor="let activity of activities; let row = index">
           <td>{{ userActivitiesService.pagingMeta?.from + row }}</td>
-
+          <td>{{ activity.timeAgo() }}</td>
+          <td>{{ activity.log_display_name }}</td>
           <td>
             {{ activity.causer?.member?.name() }}
           </td>
-          <td>{{ activity.log_name.replace('_', ' ') | titlecase }}</td>
           <td>{{ activity.description }}</td>
-          <td class="text-right">{{ activity.timeAgo() }}</td>
 
           <!-- <td class="text-center">
             <button class="btn btn-xs btn-primary m-r-5" (click)="viewAccount(account)">
