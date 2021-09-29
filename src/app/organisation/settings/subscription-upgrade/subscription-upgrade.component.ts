@@ -10,6 +10,7 @@ import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrappe
 import Swal from 'sweetalert2';
 import { SubscriptionTypeService } from '../../../shared/services/api/subscription-type.service';
 import { SubscriptionType } from '../../../shared/model/api/subscription-type';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-subscription-upgrade',
@@ -29,7 +30,8 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
     public subscriptionService: OrganisationSubscriptionService,
     public subscriptionTypeService: SubscriptionTypeService,
     public router: Router,
-    public slydepayWrapper: SlydepayWrapperService
+    public slydepayWrapper: SlydepayWrapperService,
+    public translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -56,6 +58,7 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
     this.activeSubscription = organisation.active_subscription;
 
     this.subscriptionForm = new FormGroup({
+      organisation_id: new FormControl( organisation.id ),
       subscription_type_name: new FormControl(
         this.activeSubscription.subscription_type.description
       ),
@@ -85,8 +88,8 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
    * @param type_id the id of the subscription type
    */
   calculateUpgradeInfo(length, type_id = null) {
-    const sub_length = parseInt(length || this.subscriptionForm.value['length'], 10);
-    const subscription_type_id = parseInt(type_id || this.subscriptionForm.value['subscription_type_id'], 10);
+    const sub_length = parseInt(length || this.subscriptionForm.value.length, 10);
+    const subscription_type_id = parseInt(type_id || this.subscriptionForm.value.subscription_type_id, 10);
 
     if ( !this.subscriptionTypes || !subscription_type_id ) {
       return;
@@ -109,26 +112,35 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
    */
   upgradeSubscription() {
     const params = this.subscriptionForm.value;
-    let message = `This action will upgrade your subscription and generate an invoice for payment`;
+    let message = this.translate.instant(`This action will upgrade your subscription and generate an invoice for payment`);
 
     if ( params.payment_method !== 'invoice' ) {
-      message = `This action will upgrade your subscription, generate an invoice for payment and
-                 redirect you to the chosen payment gateway to complete the payment process`;
+      message = this.translate.instant(`This action will upgrade your subscription, generate an invoice for payment and
+                 redirect you to the chosen payment gateway to complete the payment process`);
     }
 
     Swal.fire({
       icon: 'warning',
-      title: 'Ugrading Subscription',
+      title: this.translate.instant('Ugrading Subscription'),
       text: message,
       showCancelButton: true,
       cancelButtonColor: '#933'
     }).then(action => {
       if (action.value) {
-        Swal.fire('Ugrading Subscription', 'Please wait as subscription is upgraded', 'info');
+        Swal.fire(
+          this.translate.instant('Ugrading Subscription'),
+          this.translate.instant('Please wait as subscription is upgraded'),
+          'info'
+        );
         Swal.showLoading();
 
         const sub = this.subscriptionService
-          .upgrade(params.organisation_subscription_id, params.subscription_type_id, params.length)
+          .upgrade(
+            params.organisation_id,
+            params.organisation_subscription_id,
+            params.subscription_type_id,
+            params.length
+          )
           .subscribe(result => {
             this.updateOrganisationSubscription(result);
             if ( params.payment_method === 'slydepay' ) {
@@ -155,8 +167,8 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
 
   notifyAndRedirect() {
     Swal.fire(
-      'Subscription Upgrade Initiated',
-      'An invoice for the payment has been generated and sent to your email',
+      this.translate.instant('Subscription Upgrade Initiated'),
+      this.translate.instant('An invoice for the payment has been generated and sent to your email'),
       'info'
     ).then(() => this.router.navigate(['/organisation/settings/subscription']) );
   }

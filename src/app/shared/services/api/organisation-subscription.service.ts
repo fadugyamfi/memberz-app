@@ -19,8 +19,8 @@ export class OrganisationSubscriptionService extends APIService<OrganisationSubs
     this.model_name = 'OrganisationSubscription';
   }
 
-  renew(organisationSubscriptionId: number, length: number) {
-    const params = { length };
+  renew(organisation_id: number, organisationSubscriptionId: number, length: number) {
+    const params = { organisation_id, length };
     const qparams = {
       contain: [
         'organisation_invoice.transaction_type',
@@ -33,9 +33,10 @@ export class OrganisationSubscriptionService extends APIService<OrganisationSubs
     }));
   }
 
-  upgrade(organisationSubscriptionId: number, newSubscriptionTypeId: number, length: number) {
+  upgrade(organisation_id: number, organisationSubscriptionId: number, newSubscriptionTypeId: number, length: number) {
     const params = {
       subscription_type_id: newSubscriptionTypeId,
+      organisation_id,
       length
     };
 
