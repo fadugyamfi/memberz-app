@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../../shared/shared.module';
 import { CreateOrganisationModule } from './create-organisation/create-organisation.module';
 import { OrganisationEditorComponent } from './home/organisation-editor/organisation-editor.component';
+import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
 
 
 
@@ -17,6 +18,7 @@ import { OrganisationEditorComponent } from './home/organisation-editor/organisa
     CommonModule,
     PortalRoutingModule,
     SharedModule,
+    NgxIntlTelInputModule,
     CreateOrganisationModule
   ]
 })

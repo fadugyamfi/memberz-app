@@ -10,6 +10,7 @@ import { NgbModal, NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstra
 import { EventsService } from '../../../../shared/services/events.service';
 import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-organisation-editor-modal',
@@ -25,6 +26,12 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   private modalRef: NgbModalRef;
   private freePlan: SubscriptionType;
   public modalTitle = 'Create New Organisation - Free Plan';
+
+  separateDialCode = true;
+  SearchCountryField = SearchCountryField;
+  CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+  preferredCountries: CountryISO[] = [CountryISO.Ghana, CountryISO.Nigeria, CountryISO.Togo];
 
   @ViewChild('editorModal', { static: true }) editorModal: ElementRef;
   @Output() saveProfile = new EventEmitter<Organisation>();
@@ -56,7 +63,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
       organisation_type_id: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      phone: new FormControl('', [Validators.required]),
+      phone: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
       country_id: new FormControl(80, [Validators.required]),
       address: new FormControl(''),
       city: new FormControl(''),
@@ -100,7 +107,10 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.organisation = new Organisation(this.profileForm.value);
+    const input = this.profileForm.value;
+    input.phone = input.phone.e164Number;
+
+    this.organisation = new Organisation(input);
     const params = { contain: ['active_subscription.subscription_type', 'organisation_type'].join() };
 
     if (this.organisation.id) {

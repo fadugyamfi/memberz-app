@@ -1,132 +1,263 @@
 <ng-template #editorModal let-modal>
-  <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="profileForm">
+  <form
+    (submit)="onSubmit($event)"
+    class="form form-horizontal theme-form"
+    [formGroup]="profileForm"
+  >
     <div class="modal-header bg-dark d-block">
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
 
-      <h4 class="modal-title d-block f-none" id="modal-basic-title">{{ modalTitle | titlecase }}</h4>
+      <h4 class="modal-title d-block f-none" id="modal-basic-title">
+        {{ modalTitle | titlecase }}
+      </h4>
       <p class="mb-0 d-block">
-        New organisations are created with a Free Tier Plan, and you can upgrade for additional functionality
+        {{
+          "New organisations are created with a Free Tier Plan, and you can upgrade
+         for additional functionality"
+            | translate
+        }}
       </p>
     </div>
 
     <div class="modal-body">
-
       <div class="form-group row">
-        <div class="col-form-label col-sm-3">* Type of Organisation</div>
+        <div class="col-form-label col-sm-3">
+          * {{ "Type of Organisation" | translate }}
+        </div>
         <div class="col-sm-9">
           <select class="form-control" formControlName="organisation_type_id">
-            <option value="">Select Type</option>
-            <option *ngFor="let type of orgTypes" [value]="type.id">{{ type.name }}</option>
+            <option value="">{{ "Select Type" | translate }}</option>
+            <option *ngFor="let type of orgTypes" [value]="type.id">
+              {{ type.name }}
+            </option>
           </select>
 
-          <div class="text-danger" *ngIf="profileForm.controls.organisation_type_id?.errors?.required">
-            Organisation Type Required
+          <div
+            class="text-danger"
+            *ngIf="profileForm.controls.organisation_type_id?.errors?.required"
+          >
+            {{ " Organisation Type Required" | translate }}
           </div>
         </div>
       </div>
 
       <div class="form-group row">
-        <div class="col-form-label col-sm-3">* Name</div>
+        <div class="col-form-label col-sm-3">* {{ "Name" | translate }}</div>
         <div class="col-sm-9">
-          <input type="text" class="form-control" placeholder="Enter Name Here" formControlName="name" />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter Name Here"
+            formControlName="name"
+          />
 
-          <div class="text-danger" *ngIf="profileForm.controls.name?.errors?.required">
-            Name Of Organisation Required
+          <div
+            class="text-danger"
+            *ngIf="profileForm.controls.name?.errors?.required"
+          >
+            {{ "Name Of Organisation Required" | translate }}
           </div>
         </div>
       </div>
 
       <div class="form-group row">
-        <div class="col-form-label col-sm-3">* Email</div>
+        <div class="col-form-label col-sm-3">* {{ "Email" | translate }}</div>
         <div class="col-sm-9">
-          <input type="email" class="form-control" placeholder="e.g. info@example.com" formControlName="email" />
+          <input
+            type="email"
+            class="form-control"
+            placeholder="e.g. info@example.com"
+            formControlName="email"
+          />
 
-          <div class="text-danger" *ngIf="profileForm.controls.email?.errors?.required">
-            Email Required
+          <div
+            class="text-danger"
+            *ngIf="profileForm.controls.email?.errors?.required"
+          >
+            {{ "Email Required" | translate }}
           </div>
 
-          <div class="text-danger" *ngIf="profileForm.controls.email?.errors?.email">
-            Email Invalid
+          <div
+            class="text-danger"
+            *ngIf="profileForm.controls.email?.errors?.email"
+          >
+            {{ "Email Invalid" | translate }}
           </div>
         </div>
       </div>
 
       <div class="form-group row">
-        <div class="col-form-label col-sm-3">* Phone</div>
+        <div class="col-form-label col-sm-3">* {{ "Phone" | translate }}</div>
         <div class="col-sm-9">
-          <international-phone-number formControlName="phone" [defaultCountry]="'gh'" placeholder="Enter phone number">
-          </international-phone-number>
-
-          <div class="text-danger" *ngIf="profileForm.controls.phone?.errors?.required">
-            Phone Number Required
-          </div>
-
-          <div class="messages text-danger" *ngIf="profileForm.controls.phone?.errors?.phoneEmptyError">
-            <p>Phone number invalid</p>
-          </div>
-        </div>
+          <ngx-intl-tel-input
+            [preferredCountries]="preferredCountries"
+            [enableAutoCountrySelect]="true"
+            [enablePlaceholder]="false"
+            [searchCountryFlag]="true"
+            [searchCountryField]="[
+              SearchCountryField.Iso2,
+              SearchCountryField.Name
+            ]"
+            [selectFirstCountry]="true"
+            [selectedCountryISO]="CountryISO.Ghana"
+            [maxLength]="15"
+            [phoneValidation]="true"
+            [separateDialCode]="separateDialCode"
+            [numberFormat]="PhoneNumberFormat.National"
+            name="phone"
+            formControlName="phone"
+          >
+          </ngx-intl-tel-input>
+          <div
+                *ngIf="
+                  profileForm.controls.phone.touched &&
+                  profileForm.controls.phone.errors?.required
+                "
+                class="text text-danger mt-1"
+              >
+                {{'Phone Number Required' | translate}}
+              </div>
+              <div
+                *ngIf="
+                  profileForm.controls.phone.touched &&
+                  profileForm.controls.phone.errors?.minlength
+                "
+                class="text text-danger mt-1"
+              >
+                {{'Phone Number must be at least 6 characters long' | translate}}.
+              </div>
+              <div
+                *ngIf="
+                  profileForm.controls.phone.touched &&
+                  profileForm.controls.phone.errors?.maxlength
+                "
+                class="text text-danger mt-1"
+              >
+                {{'Phone Number must be at most 15 characters long' | translate}}
+              </div>
+              <div
+                *ngIf="
+                  profileForm.controls.phone.touched &&
+                  profileForm.controls.phone.errors?.validatePhoneNumber
+                "
+                class="text text-danger mt-1"
+              >
+                {{'Phone Number Not Valid For Selected Country' | translate}}
+              </div>
+        </div><!-- end of col-sm-9 -->
       </div>
 
       <div class="form-group row">
-        <div class="col-form-label col-sm-3">* Country</div>
+        <div class="col-form-label col-sm-3">* {{ "Country" | translate }}</div>
         <div class="col-sm-9">
           <select class="form-control" formControlName="country_id">
-            <option value="">Select Country</option>
-            <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+            <option value="">{{ "Select Country" | translate }}</option>
+            <option *ngFor="let country of countries" [value]="country.id">
+              {{ country.name }}
+            </option>
           </select>
 
-          <div class="text-danger" *ngIf="profileForm.controls.country_id?.errors?.required">
-            Country Required
+          <div
+            class="text-danger"
+            *ngIf="profileForm.controls.country_id?.errors?.required"
+          >
+            {{ "Country Required" | translate }}
           </div>
         </div>
       </div>
 
       <div class="form-group row">
-        <div class="col-form-label col-sm-3">Street Address</div>
+        <div class="col-form-label col-sm-3">
+          {{ "Street Address" | translate }}
+        </div>
         <div class="col-sm-9">
-          <input type="text" class="form-control" placeholder="" formControlName="address" />
+          <input
+            type="text"
+            class="form-control"
+            placeholder=""
+            formControlName="address"
+          />
         </div>
       </div>
 
       <div class="form-group row">
-        <div class="col-form-label col-sm-3">City</div>
+        <div class="col-form-label col-sm-3">{{ "City" | translate }}</div>
         <div class="col-sm-9">
-          <input type="text" class="form-control" placeholder="" formControlName="city"  />
+          <input
+            type="text"
+            class="form-control"
+            placeholder=""
+            formControlName="city"
+          />
         </div>
       </div>
 
       <div class="form-group row">
-        <div class="col-form-label col-sm-3">State / Region</div>
+        <div class="col-form-label col-sm-3">
+          {{ "State / Region" | translate }}
+        </div>
         <div class="col-sm-9">
-          <input type="text" class="form-control" placeholder="" formControlName="state"  />
+          <input
+            type="text"
+            class="form-control"
+            placeholder=""
+            formControlName="state"
+          />
         </div>
       </div>
 
       <div class="form-group row">
-        <div class="col-form-label col-sm-3">Post / Zip Code</div>
+        <div class="col-form-label col-sm-3">
+          {{ "Post / Zip Code" | translate }}
+        </div>
         <div class="col-sm-9">
-          <input type="text" class="form-control" placeholder="e.g. 00000" formControlName="post_code"  />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="e.g. 00000"
+            formControlName="post_code"
+          />
         </div>
       </div>
 
       <div class="form-group row">
-        <div class="col-form-label col-sm-3">Website Address</div>
+        <div class="col-form-label col-sm-3">
+          {{ "Website Address" | translate }}
+        </div>
         <div class="col-sm-9">
-          <input type="url" class="form-control" placeholder="e.g. http://www.example.com" formControlName="website"  />
+          <input
+            type="url"
+            class="form-control"
+            placeholder="e.g. http://www.example.com"
+            formControlName="website"
+          />
         </div>
       </div>
-
     </div>
 
     <div class="modal-footer">
       <span *ngIf="organisationService.requesting" class="m-r-25">
-        <i class="fa fa-spin fa-circle-o-notch"></i> Saving ...
+        <i class="fa fa-spin fa-circle-o-notch"></i>
+        {{ "Saving ..." | translate }}
       </span>
 
-      <button type="submit" class="btn btn-primary"> Save Changes</button>
-      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+      <button type="submit" class="btn btn-primary">
+        {{ "Save Changes" | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-danger"
+        (click)="modal.close('Save click')"
+      >
+        {{ "Cancel" | translate }}
+      </button>
     </div>
   </form>
 </ng-template>
