@@ -12,6 +12,7 @@ import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import Swal from 'sweetalert2';
+import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-admin-accounts',
@@ -57,11 +58,11 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
     this.roleService.getAll({ limit: 30, sort: 'name:asc' }).subscribe(roles => this.roles = roles);
   }
 
-  loadAccounts() {
+  loadAccounts(page = 1, limit = 15) {
     const sub = this.accountService.getAll({
       contain: ['member_account.member.profile_photo', 'organisation_role'].join(),
-      deleted: 0,
-      limit: 100
+      limit,
+      page
     }).pipe(map(result => {
       return result.sort((a, b) => {
         const nameA = a.member_account.member.last_name;
@@ -104,7 +105,7 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
   showEditor(account: OrganisationAccount = null) {
     this.modalTitle = 'Add New Account';
     this.editingAccount = null;
-    this.editorForm.reset();
+    this.setupEditorForm();
 
     if (account) {
       this.modalTitle = 'Edit Account Info';
@@ -143,5 +144,14 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
         this.accountService.remove(user);
       }
     });
+  }
+
+  /**
+   * Handles the pagination events
+   *
+   * @param event PageEvent
+   */
+   onPaginate(event: PageEvent) {
+    this.loadAccounts(event.page, event.limit);
   }
 }

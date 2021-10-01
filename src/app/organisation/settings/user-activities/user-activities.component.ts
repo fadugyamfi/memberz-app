@@ -80,7 +80,7 @@ export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy
   fetchLogGroups() {
     return this.userActivitiesService.getLogGroups().subscribe((groups: any[]) => {
       this.logGroups = groups.map(group => {
-        group.log_display_name = group.log_name.replace(/_/g, ' ');
+        // group.log_display_name = group.log_name.replace(/_/g, ' ');
         return group;
       });
     });
