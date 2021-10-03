@@ -1,0 +1,123 @@
+<form [formGroup]="subscriptionForm" (submit)="upgradeSubscription()">
+  <div class="row">
+    <div class="col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+
+      <div class="card">
+        <div class="card-header">
+          <h5>Subscription Upgrade</h5>
+        </div>
+
+        <div class="card-body">
+
+          <div class='form-group row'>
+            <label class='col-sm-3 control-label'>New Plan:</label>
+            <div class='col-sm-9'>
+              <select class="form-control" formControlName="subscription_type_id">
+                <option value=''>Select New Plan</option>
+                <option *ngFor="let subType of subscriptionTypes" [value]="subType.id">{{ subType.description }}</option>
+              </select>
+
+              <div class="messages text-danger" *ngIf="subscriptionForm.controls.subscription_type_id.errors?.required">
+                <p>New Plan Required</p>
+              </div>
+
+              <input type="hidden" id="base_price" />
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label class='col-sm-3 control-label'>Subscription Period:</label>
+            <div class='col-sm-9'>
+
+              <div class="btn-group btn-group-toggle m-b-5" ngbRadioGroup name="radioBasic" formControlName="length">
+                <!-- formControlName="model" -->
+                <label ngbButtonLabel class="btn-outline-info">
+                  <input ngbButton type="radio" [value]="1"> 1 Month
+                </label>
+                <label ngbButtonLabel class="btn-outline-info">
+                  <input ngbButton type="radio" [value]="3"> 3 Months
+                </label>
+                <label ngbButtonLabel class="btn-outline-info">
+                  <input ngbButton type="radio" [value]="6"> 6 Months
+                </label>
+                <label ngbButtonLabel class="btn-outline-info">
+                  <input ngbButton type="radio" [value]="12"> 12 Months
+                </label>
+              </div>
+
+              <div>
+                <small class='text-muted'>
+                  Save <b>16%</b> when you choose the 6 or 12 month subscription.
+                </small>
+              </div>
+
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label class='col-sm-3 control-label'>Subscription Cost:</label>
+            <div class='col-sm-4'>
+              <div class='input-group'>
+                <div class="input-group-prepend">
+                  <span class="input-group-text">GHS</span>
+                </div>
+                <input type='hidden' id='base_price' />
+                <input type='text' id='amount_due' readonly="" class='form-control'
+                       formControlName="subscription_cost" />
+              </div>
+            </div>
+          </div>
+
+          <div class='form-group row m-b-30'>
+            <label class='col-sm-3 col-form-label'>Next Renewal:</label>
+            <div class='col-sm-4'>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div>
+
+                <input type='text' id='end_dt_display' readonly="" class='form-control'
+                       formControlName="next_upgrade_date" />
+              </div>
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label class='col-sm-3 col-form-label'>
+              Payment Method:
+
+            </label>
+            <div class='col-sm-9'>
+              <label class="d-block m-b-15" for="slydepay">
+                <input class="radio_animated" id="slydepay" type="radio" name="payment_method" checked=""
+                       value="slydepay" formControlName="payment_method">
+                <i class="fa fa-credit-card"></i>
+                Slydepay (Visa, MasterCard, Mobile Money)
+
+                <p class="small text-muted p-l-30">You will be redirected to the Slydepay Payment portal to complete
+                  your payment</p>
+              </label>
+
+              <label class="d-block" for="cash">
+                <input class="radio_animated" id="cash" type="radio" name="payment_method" value="invoice"
+                       formControlName="payment_method">
+                <i class="fa fa-money"></i>
+                Cash Payment (Generates Invoice Only)
+
+                <p class="small text-muted p-l-30">You will be emailed an invoice with bank details to complete payment
+                </p>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="card-footer text-right">
+          <button type="submit" class="btn btn-info m-r-15">Upgrade Subscription</button>
+          <button type="button" class="btn btn-danger" (click)="cancelUpgrade()">Cancel</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>

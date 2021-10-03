@@ -4,7 +4,7 @@ import { ChatUsers, chat } from '../../shared/model/chat.model';
 import { Observable, Subscriber } from 'rxjs';
 import { map, filter, scan } from 'rxjs/operators';
 
-var today = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+const today = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,8 @@ export class ChatService {
   public users: any[] = []
 
   constructor() {
-    this.chat = ChatDB.chat
-    this.users = ChatDB.chatUser
+    this.chat = ChatDB.chat;
+    this.users = ChatDB.chatUser;
   }
 
   // Get User Data
@@ -68,12 +68,12 @@ export class ChatService {
   // Send Message to user
   public sendMessage(chat) {
     this.chat.filter(chats => {
-      if (chats.id == chat.receiver) {
+      if (chats.id === chat.receiver) {
         chats.message.push({ sender: chat.sender, time: today.toLowerCase(), text: chat.message })
         setTimeout(function () {
-          document.querySelector(".chat-history").scrollBy({ top: 200, behavior: 'smooth' });
-        }, 310)
-        this.responseMessage(chat)
+          document.querySelector('.chat-history').scrollBy({ top: 200, behavior: 'smooth' });
+        }, 310);
+        this.responseMessage(chat);
       }
     })
   }
@@ -81,12 +81,16 @@ export class ChatService {
   public responseMessage(chat) {
 
     this.chat.filter(chats => {
-      if (chats.id == chat.receiver) {
+      if (chats.id === chat.receiver) {
         setTimeout(() => {
-          chats.message.push({ sender: chat.receiver, time: today.toLowerCase(), text: 'Hey This is ' + chat.receiver_name + ', Sorry I busy right now, I will text you later' })
+          chats.message.push({
+            sender: chat.receiver,
+            time: today.toLowerCase(),
+            text: 'Hey This is ' + chat.receiver_name + ', Sorry I busy right now, I will text you later'
+          });
         }, 2000);
         setTimeout(function () {
-          document.querySelector(".chat-history").scrollBy({ top: 200, behavior: 'smooth' });
+          document.querySelector('.chat-history').scrollBy({ top: 200, behavior: 'smooth' });
         }, 2310)
       }
     })

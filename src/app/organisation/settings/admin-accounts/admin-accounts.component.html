@@ -13,20 +13,12 @@
         <button class="btn btn-info btn-sm m-r-10" (click)="showEditor()">
           <i class="fa fa-user-plus"></i> Add Account
         </button>
-
-        <!-- <button class="btn btn-sm btn-outline-info m-r-10">
-            <i class="fa fa-file-excel-o"></i> Export
-          </button>
-  
-          <button class="btn btn-sm btn-outline-dark">
-            <i class="fa fa-print"></i> Print
-          </button> -->
       </div>
     </div>
 
   </div>
 
-  <div class="m-t-50 text-center" *ngIf="!recordsPresent()">
+  <div class="m-t-50 text-center" *ngIf="!accountService.requesting && !recordsPresent()">
     <h3>No Search Results Found</h3>
     <p>Please search for members to display results here</p>
   </div>
@@ -35,7 +27,7 @@
     <span class="rotate dashed colored"></span>
   </div>
 
-  <table class="table table-bordered table-hover table-striped">
+  <table class="table table-bordered table-hover table-striped" *ngIf="recordsPresent()">
     <thead>
       <tr>
         <th>No.</th>
@@ -129,23 +121,9 @@
       <div class="form-group row" *ngIf="!editingAccount">
         <label class="col-4 col-form-label">Member Name</label>
         <div class="col-8">
-          <div class="media">
-            <div class="media-left m-r-10">
-              <img [src]="selectedMember?.member?.thumbnail()" default='assets/images/user/user.png' class="img-thumbnail rounded-circle img-40" />
-            </div>
-            <div class="media-body">
-              <input type="text" class="form-control" [ngbTypeahead]="searchMember" [resultTemplate]="rt"
-                     [inputFormatter]="formatter" placeholder="Enter Member Name" (selectItem)="setSelectedMember($event)" />
+          <app-member-control formControlName="member_id"></app-member-control>
 
-              <ng-template #rt let-r="result" let-t="term">
-                <img [src]="r.member?.thumbnail()" default='assets/images/user/user.png'
-                     class="img-thumbnail rounded-circle img-40 m-r-10">
-                <ngb-highlight [result]="r.member?.firstThenLastName()" [term]="t"></ngb-highlight>
-              </ng-template>
-            </div>
-          </div>
-
-          <div class="messages text-danger" *ngIf="editorForm.controls.member_account_id?.errors?.required">
+          <div class="messages text-danger" *ngIf="editorForm.controls.member_id?.errors?.required">
             <p>Existing Member Required</p>
           </div>
         </div>
@@ -175,6 +153,9 @@
     </div>
 
     <div class="modal-footer">
+      <span *ngIf="accountService.requesting" class="m-r-15">
+        <i class="fa fa-spin fa-fw fa-circle-o-notch"></i> Saving...
+      </span>
       <button type="submit" class="btn btn-primary">Save Changes</button>
       <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
     </div>

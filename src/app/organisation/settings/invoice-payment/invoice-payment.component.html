@@ -1,0 +1,70 @@
+<form [formGroup]="subscriptionForm" (submit)="paySubscription()">
+  <div class="row">
+    <div class="col-sm-8 offset-sm-2">
+
+      <div class="card">
+        <div class="card-header">
+          <h5>Invoice Payment</h5>
+        </div>
+
+        <div class="card-body">
+
+          <div class='form-group row'>
+            <label class='col-sm-3 control-label'>Invoice Number:</label>
+            <div class='col-sm-9'>
+              <input type="text" class="form-control input-sm input-s" readonly
+                     formControlName="invoice_no" />
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label class='col-sm-3 control-label'>Transaction Type:</label>
+            <div class='col-sm-9'>
+              <input type="text" class="form-control input-sm input-s" readonly
+                     formControlName="transaction_type_name" />
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label class='col-sm-3 control-label'>Total Due:</label>
+            <div class='col-sm-4'>
+              <div class='input-group'>
+                <div class="input-group-prepend">
+                  <span class="input-group-text">GHS</span>
+                </div>
+                <input type='hidden' id='base_price' />
+                <input type='text' id='amount_due' readonly="" class='form-control'
+                       formControlName="total_due" />
+              </div>
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label class='col-sm-3 col-form-label'>
+              Payment Method:
+
+            </label>
+            <div class='col-sm-9'>
+              <label class="d-block m-b-15" for="slydepay">
+                <input class="radio_animated" id="slydepay" type="radio" name="payment_method" checked=""
+                       value="slydepay" formControlName="payment_method">
+                <i class="fa fa-credit-card"></i>
+                Slydepay (Visa, MasterCard, Mobile Money)
+
+                <p class="small text-muted p-l-30">You will be redirected to the Slydepay Payment portal to complete
+                  your payment</p>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="card-footer text-right">
+          <button type="submit" class="btn btn-info m-r-15">Pay Subscription</button>
+          <button type="button" class="btn btn-danger" (click)="cancelPayment()">Cancel</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>

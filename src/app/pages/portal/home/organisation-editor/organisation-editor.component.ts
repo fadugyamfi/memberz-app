@@ -1,15 +1,16 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationTypeService } from '../../../../shared/services/cakeapi/organisation-type.service';
-import { OrganisationType } from '../../../../shared/model/cakeapi/organisation-type';
-import { OrganisationService } from '../../../../shared/services/cakeapi/organisation.service';
-import { Country } from '../../../../shared/model/cakeapi/country';
-import { CountryService } from '../../../../shared/services/cakeapi/country.service';
-import { Organisation } from '../../../../shared/model/cakeapi/organisation';
+import { OrganisationTypeService } from '../../../../shared/services/api/organisation-type.service';
+import { OrganisationType } from '../../../../shared/model/api/organisation-type';
+import { OrganisationService } from '../../../../shared/services/api/organisation.service';
+import { Country } from '../../../../shared/model/api/country';
+import { CountryService } from '../../../../shared/services/api/country.service';
+import { Organisation } from '../../../../shared/model/api/organisation';
 import { NgbModal, NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService } from '../../../../shared/services/events.service';
-import { SubscriptionTypeService } from '../../../../shared/services/cakeapi/subscription-type.service';
-import { SubscriptionType } from '../../../../shared/model/cakeapi/subscription-type';
+import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
+import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
+import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-organisation-editor-modal',
@@ -24,9 +25,15 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   private organisation: Organisation;
   private modalRef: NgbModalRef;
   private freePlan: SubscriptionType;
-  public modalTitle = "Create New Organisation - Free Plan";
+  public modalTitle = 'Create New Organisation - Free Plan';
 
-  @ViewChild('editorModal', { static: true }) editorModal: ElementRef; 
+  separateDialCode = true;
+  SearchCountryField = SearchCountryField;
+  CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+  preferredCountries: CountryISO[] = [CountryISO.Ghana, CountryISO.Nigeria, CountryISO.Togo];
+
+  @ViewChild('editorModal', { static: true }) editorModal: ElementRef;
   @Output() saveProfile = new EventEmitter<Organisation>();
 
   constructor(
@@ -56,7 +63,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
       organisation_type_id: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      phone: new FormControl('', [Validators.required]),
+      phone: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
       country_id: new FormControl(80, [Validators.required]),
       address: new FormControl(''),
       city: new FormControl(''),
@@ -78,7 +85,8 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
 
   loadSubscriptionTypes() {
     this.subTypeService.getAll({ active: 1 }).subscribe((subTypes: SubscriptionType[]) => {
-      this.freePlan = subTypes.find((value) => value.name == 'free2');
+      this.freePlan = subTypes.find((value) => value.name === 'free2');
+      this.profileForm.patchValue({ subscription_type_id: this.freePlan.id });
     });
   }
 
@@ -95,14 +103,17 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   onSubmit(e: Event) {
     e.preventDefault();
 
-    if( !this.profileForm.valid ) {
+    if (!this.profileForm.valid) {
       return;
     }
 
-    this.organisation = new Organisation(this.profileForm.value);
+    const input = this.profileForm.value;
+    input.phone = input.phone.e164Number;
+
+    this.organisation = new Organisation(input);
     const params = { contain: ['active_subscription.subscription_type', 'organisation_type'].join() };
 
-    if( this.organisation.id ) {
+    if (this.organisation.id) {
       return this.organisationService.update(this.organisation, params);
     }
 
@@ -113,8 +124,8 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
     this.setupProfileForm();
     this.modalRef = this.modalService.open(this.editorModal, { size: 'lg' });
 
-    if( organisation ) {
-      this.modalTitle = "Update Organisation Info";
+    if (organisation) {
+      this.modalTitle = 'Update Organisation Info';
       this.profileForm.patchValue(organisation);
     }
   }

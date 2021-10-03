@@ -5,7 +5,7 @@
 
   <div class="sidebar-user text-center" *ngIf="authService.userData as user">
     <div>
-      <img class="img-60 rounded-circle" [src]="user?.photoURL() || 'assets/images/user/1.jpg'" alt="#">
+      <img class="img-100 rounded-circle" [src]="user?.member?.image() || 'assets/images/user/1.jpg'" alt="#">
       <div class="profile-edit">
         <a>
           <i class="icofont icofont-pencil-alt-5"><input class="upload" type="file" (change)="readUrl($event)" /></i>

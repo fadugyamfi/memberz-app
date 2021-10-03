@@ -1,0 +1,45 @@
+<section class="profile-family">
+
+  <div class="m-b-15">
+    <!-- <button class="btn btn-sm btn-outline-primary">
+      <i class="fa fa-plus-circle fa-2x m-r-10 middle"></i>
+      <span>{{ 'Add Family Member' | translate }}</span>
+    </button> -->
+  </div>
+
+  <div class="m-t-50 text-center" *ngIf="!contributionService.fetching && contributionService.hasZeroItems()">
+    <h3>{{'No Contributions Found' | translate}}</h3>
+    <p>{{'Add contributions to see them here' | translate}}</p>
+  </div>
+
+  <div class="loader-box m-auto" *ngIf="contributionService.fetching">
+    <span class="rotate dashed colored"></span>
+  </div>
+
+  <table class="table table-bordered table-striped" *ngIf="!contributionService.fetching && contributionService.hasItems()">
+    <thead>
+      <tr>
+        <th colspan="2">{{ 'Receipt Date' | translate }}</th>
+        <th>{{ 'Receipt No' | translate }}</th>
+        <th>{{ 'Contribution Type' | translate }}</th>
+        <th>{{ 'Period' | translate }}</th>
+        <th class="text-right">{{ 'Amount' | translate }}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let contribution of contributionService.getItems(); let row = index">
+        <td class="text-right">{{ contributionService.pagingMeta.from + row }}.</td>
+        <td>{{ contribution.contribution_receipt.receipt_dt | date : mediumDate }}</td>
+        <td>{{ contribution.contribution_receipt.receipt_no }}</td>
+        <td>{{ contribution.contribution_type.name }}</td>
+        <td>{{ contribution.period() }}</td>
+        <td class="text-right font-weight-bold">{{ contribution.amount | currency : contribution.currency.currency_code }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="border-top-secondary p-t-15 m-t-15">
+  <app-pagination [service]="contributionService" (paginate)="onPaginate($event)"></app-pagination>
+</section>

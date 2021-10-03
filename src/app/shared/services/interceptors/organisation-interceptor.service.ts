@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpRequest, HttpResponse, HttpInterceptor, HttpHandler } from '@angular/common/http';
-
-import { Observable } from 'rxjs/Observable';
-import { tap } from 'rxjs/operators';
+import { HttpRequest, HttpInterceptor, HttpHandler } from '@angular/common/http';
 import 'rxjs/add/observable/of';
-
-import { RequestCache } from './request-cache.service';
-import { of } from 'rxjs';
-import { OrganisationService } from '../cakeapi/organisation.service';
+import { OrganisationService } from '../api/organisation.service';
 
 @Injectable()
 export class OrganisationInterceptor implements HttpInterceptor {
@@ -17,9 +11,9 @@ export class OrganisationInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         const organisation = this.organisationService.getActiveOrganisation();
         if (organisation) {
-            const cloneReq = req.clone({ 
-                setParams: {
-                    organisation_id: organisation.id
+            const cloneReq = req.clone({
+                setHeaders: {
+                  'X-Tenant-Id': organisation.uuid
                 }
              });
             return next.handle(cloneReq);

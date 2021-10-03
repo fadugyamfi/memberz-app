@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="49.424mm" height="48.763mm" version="1.1" viewBox="0 0 49.424 48.763" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(-100.72 -41.492)">
+  <g id="XMLID_583_" transform="matrix(.26458 0 0 .26458 59.924 -27.405)">
+   <g id="XMLID_578_">
+    <g id="XMLID_770_">
+     <path id="XMLID_847_" d="m335.9 344.3c0-43.5-39.5-78.7-88.2-78.7s-88.2 35.2-88.2 78.7 39.5 78.7 88.2 78.7c10.2 0 20.1-1.6 29.2-4.4l27.3 16.8v-30.6c19.3-14.5 31.7-36.2 31.7-60.5z" fill="#91c83e"/>
+    </g>
+   </g>
+   <g id="XMLID_576_">
+    <g id="XMLID_780_">
+     <path id="XMLID_902_" d="m309.3 444.7-33.2-20.5c-9.2 2.6-18.8 4-28.5 4-51.5 0-93.4-37.6-93.4-83.9s41.9-83.9 93.4-83.9 93.4 37.6 93.4 83.9c0 24.2-11.5 47-31.7 63zm-31.7-31.8 21.3 13.2v-23.9l2.1-1.6c18.8-14 29.6-34.5 29.6-56.3 0-40.5-37.2-73.5-83-73.5-45.7 0-83 33-83 73.5s37.2 73.5 83 73.5c9.4 0 18.7-1.4 27.6-4.2z" fill="#333"/>
+    </g>
+   </g>
+   <g id="XMLID_579_">
+    <g id="XMLID_582_">
+     <g id="XMLID_898_">
+      <circle id="XMLID_846_" cx="201.6" cy="344.5" r="12.4" fill="#fff"/>
+     </g>
+    </g>
+    <g id="XMLID_581_">
+     <g id="XMLID_895_">
+      <circle id="XMLID_845_" cx="247.7" cy="344.5" r="12.4" fill="#fff"/>
+     </g>
+    </g>
+    <g id="XMLID_580_">
+     <g id="XMLID_892_">
+      <circle id="XMLID_844_" cx="293.8" cy="344.5" r="12.4" fill="#fff"/>
+     </g>
+    </g>
+   </g>
+   <g id="XMLID_574_">
+    <g id="XMLID_573_">
+     <g id="XMLID_777_">
+      <path id="XMLID_887_" d="m201.6 362.1c-9.7 0-17.6-7.9-17.6-17.6s7.9-17.6 17.6-17.6 17.6 7.9 17.6 17.6-7.9 17.6-17.6 17.6zm0-24.8c-4 0-7.2 3.2-7.2 7.2s3.2 7.2 7.2 7.2 7.2-3.2 7.2-7.2-3.2-7.2-7.2-7.2z" fill="#333"/>
+     </g>
+    </g>
+    <g id="XMLID_575_">
+     <g id="XMLID_774_">
+      <path id="XMLID_882_" d="m247.7 362.1c-9.7 0-17.6-7.9-17.6-17.6s7.9-17.6 17.6-17.6 17.6 7.9 17.6 17.6-7.9 17.6-17.6 17.6zm0-24.8c-4 0-7.2 3.2-7.2 7.2s3.2 7.2 7.2 7.2 7.2-3.2 7.2-7.2-3.2-7.2-7.2-7.2z" fill="#333"/>
+     </g>
+    </g>
+    <g id="XMLID_577_">
+     <g id="XMLID_771_">
+      <path id="XMLID_877_" d="m293.8 362.1c-9.7 0-17.6-7.9-17.6-17.6s7.9-17.6 17.6-17.6 17.6 7.9 17.6 17.6-7.9 17.6-17.6 17.6zm0-24.8c-4 0-7.2 3.2-7.2 7.2s3.2 7.2 7.2 7.2 7.2-3.2 7.2-7.2-3.2-7.2-7.2-7.2z" fill="#333"/>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

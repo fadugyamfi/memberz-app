@@ -1,15 +1,16 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { OrganisationMemberService } from '../../../shared/services/cakeapi/organisation-member.service';
-import { OrganisationMember } from '../../../shared/model/cakeapi/organisation-member';
+import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
+import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { Router } from '@angular/router';
 import { NgbModal, NgbActiveModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationMemberCategoryService } from '../../../shared/services/cakeapi/organisation-member-category.service';
-import { OrganisationMemberCategory } from '../../../shared/model/cakeapi/organisation-member-category';
+import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
+import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 import { EventsService } from '../../../shared/services/events.service';
 import Swal from 'sweetalert2';
 import { StorageService } from '../../../shared/services/storage.service';
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-profiles',
@@ -32,6 +33,8 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   public cachePagingKey = 'searched_members_paging';
   public cacheOptionsKey = 'searched_members_options';
 
+  public subscriptions: Subscription[] = [];
+
   constructor(
     public organisationMemberService: OrganisationMemberService,
     public categoryService: OrganisationMemberCategoryService,
@@ -53,7 +56,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    if( this.storage.isValid( this.cacheDataKey ) ) {
+    if ( this.storage.isValid( this.cacheDataKey ) ) {
       this.loadDataFromCache();
     } else {
       this.showSearchModal();
@@ -62,15 +65,20 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.removeEvents();
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   /**
    * Loads the list of member categories to display on the form
    */
   fetchMemberCategories() {
-    this.categoryService.getAll({ active: 1, limit: '100', sort: 'default:desc,name:asc' }).subscribe((categories: OrganisationMemberCategory[]) => {
+    const sub = this.categoryService.getAll({
+      active: 1, limit: '100', sort: 'default:desc,name:asc'
+    }).subscribe((categories: OrganisationMemberCategory[]) => {
       this.categories = categories;
     });
+
+    this.subscriptions.push(sub);
   }
 
   loadDataFromCache() {
@@ -95,20 +103,22 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Loads the list of members from the backend
-   * 
-   * @param options 
-   * @param page 
-   * @param limit 
+   *
+   * @param options Configuration options
+   * @param page Page number
+   * @param limit Total records to load
    */
   loadMemberships(options: object, page = 1, limit = 15) {
     this.members = null;
     this.clearCacheData();
 
-    this.organisationMemberService.findMembers(options, page, limit).subscribe((members: OrganisationMember[]) => {
+    const sub = this.organisationMemberService.findMembers(options, page, limit).subscribe((members: OrganisationMember[]) => {
       this.members = members;
       this.storeCacheData();
       this.allSelected = false;
     });
+
+    this.subscriptions.push(sub);
   }
 
   /**
@@ -122,12 +132,12 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    * Returns true if no data is available
    */
   emptyDataset() {
-    return this.members && this.members.length == 0;
+    return this.members && this.members.length === 0;
   }
 
   /**
    * Sets the member profile to view and navigates to the details page
-   * 
+   *
    * @param profile OrganisationMember
    */
   viewProfile(profile: OrganisationMember) {
@@ -140,7 +150,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   editProfile(profile: OrganisationMember) {
     this.organisationMemberService.setSelectedModel(profile);
-    this.router.navigate(['/organisation/memberships/edit', profile.id])
+    this.router.navigate(['/organisation/memberships/edit', profile.id]);
   }
 
   /**
@@ -153,7 +163,9 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
       first_name_like: new FormControl(),
       last_name_like: new FormControl(),
       email_like: new FormControl(),
-      mobile_number_like: new FormControl()
+      mobile_number_like: new FormControl(),
+      created_gte: new FormControl(),
+      created_lte: new FormControl()
     });
   }
 
@@ -161,30 +173,15 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    * Setup listeners for model changes
    */
   setupEvents() {
-    this.events.on('OrganisationMember:updated', (profile) => {
-      this.members.forEach((g, index) => {
-        if (g.id === profile.id) {
-          this.members[index] = profile;
-          return false;
-        }
-      });
-    });
-
-    this.events.on('OrganisationMember:deleted', (profile) => {
-      Swal.close();
-      this.members.forEach((g, index) => {
-        if (g.id === profile.id) {
-          this.members.splice(index, 1);
-          return false;
-        }
-      });
-    });
+    this.events.on('switching_organisation', () => this.clearCacheData());
+    this.events.on('OrganisationMember:deleted', () => Swal.close());
   }
 
   /**
    * Remove listeners waiting on model changes
    */
   removeEvents() {
+    this.events.off('switching_organisation');
     this.events.off('OrganisationMember:updated');
     this.events.off('OrganisationMember:deleted');
   }
@@ -193,18 +190,18 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, {});
+    this.modalService.open(this.searchModal);
   }
 
   /**
    * Handles the searching functionality
-   * 
+   *
    * @param e Event
    */
   onSearch(e: Event) {
     e.preventDefault();
 
-    let data = this.searchForm.value;
+    const data = this.searchForm.value;
 
     this.loadMemberships(data);
     this.modalService.dismissAll();
@@ -212,7 +209,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   /**
    * Handles the pagination events
-   * 
+   *
    * @param event PageEvent
    */
   onPaginate(event: PageEvent) {
@@ -252,7 +249,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     Swal.fire({
       title: 'Confirm Deletion',
       text: 'This action will delete the selected members from the database and currently cannot be reverted',
-      type: 'warning',
+      icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#d33'
     }).then((action) => {
@@ -274,7 +271,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     Swal.fire({
       title: 'Confirm Deletion',
       text: 'This action will delete this member from the database. This action currently cannot be reverted',
-      type: 'warning',
+      icon: 'warning',
       showCancelButton: true,
     }).then((action) => {
       if (action.value) {
@@ -297,15 +294,15 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     Swal.fire({
       title: 'Confirm Category Change',
       text: 'This action will change the membership category of the selected members. Are you sure you want to continue?',
-      type: 'warning',
+      icon: 'warning',
       confirmButtonText: 'Yes',
       showCancelButton: true,
       cancelButtonColor: '#d33',
       cancelButtonText: 'No'
     }).then((action) => {
       if (action.value) {
-        let data = this.changeCategoryForm.value;
-        let selected = this.getSelectedMembers().map(profile => Object.assign(profile, data));
+        const data = this.changeCategoryForm.value;
+        const selected = this.getSelectedMembers().map(profile => Object.assign(profile, data));
 
         this.organisationMemberService.batchUpdate(selected, { contain: ['member', 'organisation_member_category'].join()});
         this.changeCategoryForm.reset();
@@ -315,8 +312,8 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-  * Shows the change category modal
-  */
+   * Shows the change category modal
+   */
   showChangeCategoryModal() {
     this.modalService.open(this.changeCategoryModal, {});
   }

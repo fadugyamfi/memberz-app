@@ -1,0 +1,30 @@
+.profile-header {
+  p {
+    font-size: 1em;
+  }
+
+  .back-btn {
+    font-size: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .image-cropper {
+    width: 15em;
+    height: 15em;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 0px auto;
+    border: solid 5px #069;
+    overflow: hidden;
+  }
+
+  .profile-img {
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    left: -10px;
+    top: -10px;
+  }
+}

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoaderComponent } from './components/loader/loader.component';
@@ -20,15 +20,21 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GalleryModule } from '@ks89/angular-modal-gallery';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
+import { NgxPrintModule } from 'ngx-print';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import 'hammerjs';
 import 'mousetrap';
 
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 // services
-import { NavService } from "./services/nav.service";
-import { ChatService } from "./services/chat.service";
-import { CustomizerService } from "./services/customizer.service";
+import { NavService } from './services/nav.service';
+import { ChatService } from './services/chat.service';
+import { CustomizerService } from './services/customizer.service';
+import { ExcelService } from './services/excel.service';
+
 // Directives
-import { ToggleFullscreenDirective } from "./directives/fullscreen.directive";
+import { ToggleFullscreenDirective } from './directives/fullscreen.directive';
 import { PortalLayoutComponent } from './components/layout/portal-layout/portal-layout.component';
 import { OrganisationLayoutComponent } from './components/layout/organisation-layout/organisation-layout.component';
 import { RequestErrorHandler } from './services/interceptors/request-error-handler.service';
@@ -37,6 +43,11 @@ import { OrganisationSidebarComponent } from './components/organisation-sidebar/
 import { OrganisationInterceptor } from './services/interceptors/organisation-interceptor.service';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ImagePreloadDirective } from './directives/image-preload.directive';
+import { SubscriptionStatusComponent } from './components/subscription-status/subscription-status.component';
+import { MemberControlComponent } from './components/forms/member-control/member-control.component';
+import { SmsMessengerComponent } from './components/messaging/sms-messenger/sms-messenger.component';
+import { InvoiceComponent } from './components/invoice/invoice.component';
+import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +67,12 @@ import { ImagePreloadDirective } from './directives/image-preload.directive';
     PortalLayoutComponent,
     OrganisationLayoutComponent,
     OrganisationSidebarComponent,
-    PaginationComponent
+    PaginationComponent,
+    SubscriptionStatusComponent,
+    MemberControlComponent,
+    SmsMessengerComponent,
+    InvoiceComponent,
+    ImageCropperComponent
   ],
   imports: [
     CommonModule,
@@ -68,7 +84,10 @@ import { ImagePreloadDirective } from './directives/image-preload.directive';
     NgbModule,
     GalleryModule.forRoot(),
     UiSwitchModule,
-    InternationalPhoneNumberModule
+    InternationalPhoneNumberModule,
+    NgxPrintModule,
+    NgxChartsModule,
+    ImageCropperModule
   ],
   exports: [
     LoaderComponent,
@@ -80,12 +99,21 @@ import { ImagePreloadDirective } from './directives/image-preload.directive';
     UiSwitchModule,
     ImagePreloadDirective,
     InternationalPhoneNumberModule,
-    NgbModule
+    SubscriptionStatusComponent,
+    NgbModule,
+    NgxPrintModule,
+    MemberControlComponent,
+    SmsMessengerComponent,
+    InvoiceComponent,
+    NgxChartsModule,
+    ImageCropperModule,
+    ImageCropperComponent
   ],
   providers: [
     NavService,
     ChatService,
     CustomizerService,
+    ExcelService,
 
     // error handling
     RequestErrorHandler,
@@ -96,4 +124,3 @@ import { ImagePreloadDirective } from './directives/image-preload.directive';
   ]
 })
 export class SharedModule { }
-

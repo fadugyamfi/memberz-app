@@ -8,7 +8,7 @@ export class FirebaseService {
 
   constructor(public db: AngularFirestore) { }
 
-  //For Creating a new task
+  // For Creating a new task
   createTask(value) {
     return this.db.collection('todo').add({
       task: value,
@@ -17,17 +17,17 @@ export class FirebaseService {
     });
   }
 
-  //Display complete list of task
+  // Display complete list of task
   getTasks() {
     return this.db.collection('todo').snapshotChanges();
   }
 
-  //For deleting particular task
+  // For deleting particular task
   deleteTask(taskKey) {
     return this.db.collection('todo').doc(taskKey).delete();
   }
 
-  //For updating particular task
+  // For updating particular task
   updateTask(taskKey, value) {
     return this.db.collection('todo').doc(taskKey).set(
       {

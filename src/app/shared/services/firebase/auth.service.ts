@@ -7,7 +7,7 @@ import * as firebase from 'firebase/app';
 import { ToastrService } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 import { StorageService } from '../storage.service';
-import { MemberAccount } from '../../model/cakeapi/member-account';
+import { MemberAccount } from '../../model/api/member-account';
 
 export interface User {
   uid: string;
@@ -20,7 +20,7 @@ export interface User {
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService implements OnInit {
+export class AuthService {
 
   public userData: any;
   public user: firebase.User;
@@ -40,8 +40,6 @@ export class AuthService implements OnInit {
     //this.validateUserLogin();
     this.validateCakeAPIUserLogin();
   }
-
-  ngOnInit(): void { }
 
   validateCakeAPIUserLogin() {
     if( this.storage.has('user') ) {

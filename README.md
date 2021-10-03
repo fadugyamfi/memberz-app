@@ -1,8 +1,10 @@
-# EndlessStarterkit
+## Creative
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.1.
 
 ## Development server
+
+Run `ng build slydepay-angular` to build the dependent library for handling requests to the Slydepay payment gateway.
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
@@ -12,7 +14,12 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
+Run `ng build slydepay-angular` to build the dependent library for handling requests to the Slydepay payment gateway.
+
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Generate Localization Files
+Run `npm run i18n:extract` to extract the strings from the application that need to be localized, and update the content of the various localization files.
 
 ## Running unit tests
 

@@ -7,6 +7,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
 import { PendingApprovalsComponent } from './pending-approvals/pending-approvals.component';
+import { GroupManagerComponent } from './group-manager/group-manager.component';
 
 
 const routes: Routes = [
@@ -77,6 +78,14 @@ const routes: Routes = [
         data: {
           title: 'Pending Approvals',
           breadcrumb: 'Pending Approvals'
+        }
+      },
+      {
+        path: 'groups',
+        component: GroupManagerComponent,
+        data: {
+          title: 'Organisation Groups',
+          breadcrumb: 'Groups'
         }
       }
     ]

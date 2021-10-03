@@ -589,15 +589,7 @@ perfect-scrollbar {
 .swal2-popup {
     .swal2-styled {
         font-size: 14px !important;
-
-        &.swal2-confirm {
-            background-color: $primary-color !important;
-        }
-
-        &.swal2-cancel {
-            background-color: $danger-color !important;
-        }
-        
+        background-color: $primary-color !important;
     }
     .swal2-title {
         font-size: 26px !important;

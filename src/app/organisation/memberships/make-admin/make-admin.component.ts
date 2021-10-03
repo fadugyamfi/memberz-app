@@ -1,17 +1,18 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
-import { OrganisationMember } from '../../../shared/model/cakeapi/organisation-member';
-import { MemberAccount } from '../../../shared/model/cakeapi/member-account';
-import { MemberAccountService } from '../../../shared/services/cakeapi/member-account.service';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
+import { OrganisationMember } from '../../../shared/model/api/organisation-member';
+import { MemberAccount } from '../../../shared/model/api/member-account';
+import { MemberAccountService } from '../../../shared/services/api/member-account.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { Subscription, Observable } from 'rxjs';
-import { OrganisationRoleService } from '../../../shared/services/cakeapi/organisation-role.service';
-import { OrganisationRole } from '../../../shared/model/cakeapi/organisation-role';
+import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
+import { OrganisationRole } from '../../../shared/model/api/organisation-role';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationAccount } from '../../../shared/model/cakeapi/organisation-account';
-import { OrganisationAccountService } from '../../../shared/services/cakeapi/organisation-account.service';
+import { OrganisationAccount } from '../../../shared/model/api/organisation-account';
+import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
 import { EventsService } from '../../../shared/services/events.service';
 import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-make-admin',
@@ -22,7 +23,7 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
 
   @ViewChild('makeAdminModal', { static: true }) makeAdminModal: any;
 
-  public _membership: OrganisationMember;
+  public mbshp: OrganisationMember;
   public account: MemberAccount;
   public subscriptions: Subscription[] = [];
   public roles$: Observable<OrganisationRole[]>;
@@ -34,13 +35,14 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
     public organisationAccountService: OrganisationAccountService,
     public roleService: OrganisationRoleService,
     public modalService: NgbModal,
-    public events: EventsService
+    public events: EventsService,
+    public translate: TranslateService
   ) { }
 
   ngOnInit() {
     this.setupForm();
     this.setupEvents();
-    this.roles$ = this.roleService.getAll<OrganisationRole[]>();
+    this.roles$ = this.roleService.getAll();
   }
 
   ngOnDestroy() {
@@ -50,24 +52,24 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
 
   @Input()
   set membership(value) {
-    this._membership = value;
+    this.mbshp = value;
 
-    if( value ) {
+    if ( value ) {
       this.loadAccount();
     }
   }
 
   get membership(): OrganisationMember {
-    return this._membership;
+    return this.mbshp;
   }
 
   hasAdminAccount() {
-    const organisation = this.organisationService.getActiveOrganisation(); 
+    const organisation = this.organisationService.getActiveOrganisation();
     return this.account && this.account.isOrganisationAdmin(organisation.id);
   }
 
   getOrganisationAccount() {
-    const organisation = this.organisationService.getActiveOrganisation(); 
+    const organisation = this.organisationService.getActiveOrganisation();
     return this.account ? this.account.getOrganisationAccount(organisation.id) : null;
   }
 
@@ -79,15 +81,15 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
       email: new FormControl(this.membership ? this.membership.member.email : null, Validators.required),
       organisation_id: new FormControl(organisation.id, Validators.required),
       member_account_id: new FormControl(this.account ? this.account.id : null),
-      organisation_role_id: new FormControl('', Validators.required)
+      organisation_role_id: new FormControl('', Validators.required),
     });
   }
 
   loadAccount() {
     const sub = this.accountService.getAccountByMemberId(this.membership.member_id).subscribe(account => {
       this.account = account;
-      
-      if( this.account ) {
+
+      if ( this.account ) {
         this.makeAdminForm.patchValue({ member_account_id: this.account.id });
       }
     });
@@ -115,14 +117,19 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
   onSubmit(e: Event) {
     e.preventDefault();
 
-    if( !this.makeAdminForm.valid ) {
+    if ( !this.makeAdminForm.valid ) {
       return;
     }
 
-    Swal.fire('Creating Admin Account', "Please wait as account is created...", "info");
+    Swal.fire(
+      this.translate.instant('Creating Admin Account'),
+      this.translate.instant('Please wait as account is created') + '...',
+      'info'
+    );
     Swal.showLoading();
 
     let orgAccount = new OrganisationAccount(this.makeAdminForm.value);
+    orgAccount.active = 1;
 
     return this.organisationAccountService.create(orgAccount);
   }

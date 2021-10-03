@@ -1,1 +1,109 @@
-<p>roles works!</p>
+<div class="card">
+  <div class="card-header">
+    <button class="btn btn-sm btn-primary" (click)="showEditor($event)">
+        <i class="fa fa-plus-circle"></i> {{ 'Add New Role' | translate }}
+    </button>
+  </div>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th colspan="2">{{ 'Name' | translate }}</th>
+        <th class="text-center">{{ 'Permissions' | translate }}</th>
+        <th class="text-center">{{ 'Accounts' | translate }}</th>
+        <th class="text-center">{{ 'Actions' | translate }}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let role of roles; let row = index">
+        <td class="text-right">{{ row + 1 }}.</td>
+        <td>
+          <div>{{ role.name }}</div>
+          <div class="text-muted small">{{ role.description }}</div>
+        </td>
+        <td class="text-center">
+          {{ role.permissions_count }}
+        </td>
+        <td class="text-center">
+          {{ role.organisation_account_count }}
+        </td>
+        <td class="text-center">
+          <button class="btn btn-xs btn-primary m-r-5" (click)="viewPermissions(role)">
+            <i class="fa fa-lock fa-fw"></i> {{ 'Permissions' | translate }}
+          </button>
+
+          <button class="btn btn-xs btn-info m-r-5" (click)="showEditor($event, role)">
+            <i class="fa fa-pencil fa-fw"></i> {{ 'Edit' | translate }}
+          </button>
+
+          <button class="btn btn-xs btn-danger" (click)="deleteRole(role)">
+            <i class="fa fa-trash-o fa-fw"></i> {{ 'Delete' | translate }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="m-t-50 text-center" *ngIf="!roleService.requesting && !recordsPresent()">
+    <h3>{{ 'No Roles Found' | translate }}</h3>
+    <p>{{ 'Click the "Add New Role" button to begin' | translate }}</p>
+  </div>
+
+  <div class="loader-box m-auto" *ngIf="roleService.fetching">
+    <span class="rotate dashed colored"></span>
+  </div>
+</div>
+
+
+<ng-template #editorModal let-modal>
+  <form class="form-horizontal theme-form" (ngSubmit)="onSubmit($event)" [formGroup]='editorForm'>
+
+    <div class="modal-header">
+      <h4 class="modal-title">{{modalTitle}}</h4>
+      <button type="button" class="close basic-close" (click)="hideModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-group">
+        <div class="col-sm-4 col-form-label">
+          <i class="fa fa-shield"></i> {{ 'Name' | translate }}
+        </div>
+        <div class="col-sm">
+          <input type="text" class="form-control" formControlName="name" placeholder="e.g. Officer" />
+
+          <div class="messages text-danger" *ngIf="editorForm.controls.name.errors?.required">
+            <p>{{ 'Role name required' | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-4 col-form-label">
+          <i class="fa fa-file-text"></i> {{ 'Description' | translate }}
+        </div>
+        <div class="col-sm">
+          <input type="text" class="form-control" formControlName="description"
+                 placeholder="e.g Something brief about this role" />
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="modal-footer flex-grow-1 text-right">
+      <span class="m-r-15" *ngIf="saving && roleService.requesting">
+        <i class="fa fa-spin fa-circle-o-notch"></i> {{ 'Saving' | translate }}
+      </span>
+
+      <button type="submit" class="btn btn-primary ripple light">{{ 'Save Changes' | translate }}</button>
+      <button type="button" class="btn btn-outline-danger ripple" (click)="hideModal()">{{ 'Close' | translate }}</button>
+    </div>
+
+  </form>
+</ng-template>
+
+<app-permissions #permissions [role]="selectedRole"></app-permissions>

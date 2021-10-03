@@ -1,14 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { OrganisationMemberService } from '../../../shared/services/cakeapi/organisation-member.service';
-import { Organisation } from '../../../shared/model/cakeapi/organisation';
-import { AuthService } from '../../../shared/services/cakeapi/auth.service';
-import { MemberAccountService } from '../../../shared/services/cakeapi/member-account.service';
+import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
+import { Organisation } from '../../../shared/model/api/organisation';
+import { AuthService } from '../../../shared/services/api/auth.service';
+import { MemberAccountService } from '../../../shared/services/api/member-account.service';
 import { Router } from '@angular/router';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import Swal from 'sweetalert2';
 import { StorageService } from '../../../shared/services/storage.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 
 @Component({
   selector: 'app-home',
@@ -25,13 +26,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     public router: Router,
     public organisationService: OrganisationService,
     public storage: StorageService,
-    public events: EventsService
+    public events: EventsService,
+    public smsAccountService: SmsAccountService
   ) { }
 
   ngOnInit() {
     this.setupEvents();
-    const activeOrganisation = this.organisationService.getActiveOrganisation(); 
-    if( activeOrganisation ) {
+    const activeOrganisation = this.organisationService.getActiveOrganisation();
+    if ( activeOrganisation ) {
       this.loadOrganisation(activeOrganisation);
     } else {
       this.fetchUserOrganisations();
@@ -52,20 +54,20 @@ export class HomeComponent implements OnInit, OnDestroy {
       Swal.close();
 
       this.organisations.forEach((org, index) => {
-        if( org.id == organisation.id ) {
+        if ( org.id === organisation.id ) {
           this.organisations[index] = organisation;
         }
-      })
+      });
     });
 
     this.events.on('Organisation:deleted', (organisation) => {
       Swal.close();
 
       this.organisations.forEach((org, index) => {
-        if( org.id == organisation.id ) {
+        if ( org.id === organisation.id ) {
           this.organisations.splice(index, 1);
         }
-      })
+      });
     });
   }
 
@@ -74,7 +76,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   emptyDataset() {
-    return this.organisations && this.organisations.length == 0;
+    return this.organisations && this.organisations.length === 0;
   }
 
   dataAvailable() {
@@ -88,10 +90,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadOrganisation(org: Organisation) {
-    Swal.fire(`Switching To ${org.name}`, '', "info");
+    Swal.fire(`Switching To ${org.name}`, '', 'info');
     Swal.showLoading();
 
+    this.events.trigger('switching_organisation');
     this.organisationService.setActiveOrganisation(org);
+    this.smsAccountService.refreshAccount();
     this.router.navigate(['/organisation/dashboard']);
 
     setTimeout(() => Swal.close(), 1000);
@@ -101,14 +105,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     Swal.fire({
       title: 'Delete Organisation',
       text: `This action will delete '${organisation.name}' and all related data.`,
-      type: 'warning',
-      confirmButtonText: "Delete",
+      icon: 'warning',
+      confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
       showCancelButton: true,
       cancelButtonColor: '#933'
     }).then((action) => {
-      if( action.value ) {
-        Swal.fire('Deleting Organisation', "Please wait ...", "info");
+      if ( action.value ) {
+        Swal.fire('Deleting Organisation', 'Please wait ...', 'info');
         Swal.showLoading();
 
         this.organisationService.remove(organisation);
@@ -118,7 +122,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   /**
    * Handles the pagination events
-   * 
+   *
    * @param event PageEvent
    */
   onPaginate(event: PageEvent) {

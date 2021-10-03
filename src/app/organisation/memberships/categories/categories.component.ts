@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { OrganisationMemberCategoryService } from '../../../shared/services/cakeapi/organisation-member-category.service';
+import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { Subscription } from 'rxjs';
-import { OrganisationMemberCategory } from '../../../shared/model/cakeapi/organisation-member-category';
+import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
@@ -52,7 +52,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     this.setupEditorForm();
     this.setupSearchForm();
     this.setupEvents();
-    //this.showSearchModal();
+    // this.showSearchModal();
     this.findCategories();
   }
 
@@ -63,7 +63,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   findCategories(options = {}, page = 1, limit = 15) {
     this.categories = null;
-    
+
     const sub = this.categoryService.findCategories(options, page, limit).subscribe(categories => {
       this.categories = categories;
     });
@@ -89,13 +89,13 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   /**
    * Handles the searching functionality
-   * 
+   *
    * @param e Event
    */
   onSearch(e: Event) {
     e.preventDefault();
 
-    let data = this.searchForm.value;
+    const data = this.searchForm.value;
 
     this.findCategories(data);
     this.modalService.dismissAll();
@@ -103,7 +103,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   /**
    * Handles the pagination events
-   * 
+   *
    * @param event PageEvent
    */
   onPaginate(event: PageEvent) {
@@ -111,7 +111,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 
+   *
    */
   setupEditorForm() {
     this.editorForm = new FormGroup({
@@ -127,7 +127,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   get autoGeneratingIDs() {
-    return this.editorForm.controls.auto_gen_ids.value == true ? 'open' : 'closed';
+    return this.editorForm.controls.auto_gen_ids.value === true ? 'open' : 'closed';
   }
 
   get exampleID() {
@@ -136,12 +136,12 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 
+   *
    */
   showEditorModal(category: OrganisationMemberCategory = null) {
     this.setupEditorForm();
 
-    if( category ) {
+    if (category) {
       this.editorForm.patchValue(category);
     }
 
@@ -149,20 +149,20 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * 
+   *
    */
   onSubmit(e: Event) {
     e.preventDefault();
 
-    if( !this.editorForm.valid ) {
+    if (!this.editorForm.valid) {
       return;
     }
 
-    let category = new OrganisationMemberCategory(this.editorForm.value);
+    const category = new OrganisationMemberCategory(this.editorForm.value);
 
     this.resetFlags(category);
 
-    if( category.id ) {
+    if (category.id) {
       return this.categoryService.update(category);
     }
 
@@ -170,12 +170,12 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   resetFlags(category: OrganisationMemberCategory) {
-    if( category.default == 1 ) {
+    if (category.default === 1) {
       this.categories.forEach(cat => {
-        if( cat.id != category.id ) {
+        if (cat.id !== category.id) {
           cat.default = 0;
         }
-      })
+      });
     }
   }
 
@@ -186,30 +186,9 @@ export class CategoriesComponent implements OnInit, OnDestroy {
    * Setup listeners for model changes
    */
   setupEvents() {
-    this.events.on('OrganisationMemberCategory:created', (category) => {
-      this.categories.push(category);
-      this.modalService.dismissAll();
-    });
-
-    this.events.on('OrganisationMemberCategory:updated', (category) => {
-      this.modalService.dismissAll();
-      this.categories.forEach((g, index) => {
-        if (g.id === category.id) {
-          this.categories[index] = category;
-          return false;
-        }
-      });
-    });
-
-    this.events.on('OrganisationMemberCategory:deleted', (category) => {
-      Swal.close();
-      this.categories.forEach((g, index) => {
-        if (g.id === category.id) {
-          this.categories.splice(index, 1);
-          return false;
-        }
-      });
-    });
+    this.events.on('OrganisationMemberCategory:created', () => this.modalService.dismissAll());
+    this.events.on('OrganisationMemberCategory:updated', () => this.modalService.dismissAll());
+    this.events.on('OrganisationMemberCategory:deleted', () => Swal.close());
   }
 
   /**
@@ -228,7 +207,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     Swal.fire({
       title: 'Confirm Deletion',
       text: `This action will delete "${category.name}" from the database. This action currently cannot be reverted`,
-      type: 'warning',
+      icon: 'warning',
       showCancelButton: true,
     }).then((action) => {
       if (action.value) {

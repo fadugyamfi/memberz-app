@@ -1,7 +1,7 @@
 <div class="row" *ngIf="collectionSize">
-  <div class="col-sm-3">
+  <div class="{{ startColWidth }}">
     <div class="input-group m-0">
-      <select name='limit' class='form-control form-control-sm m-r-20 col-4' size="" (change)="onLimitChange($event.target.value)">
+      <select name='limit' class='form-control form-control-sm m-r-20 col-4' size="" (change)="onLimitChangeEvent($event)">
         <option *ngFor="let number of pagination_limits;" [selected]="pageLimit == number" value="{{ number }}">
           {{ number }}
         </option>
@@ -11,7 +11,7 @@
       </span>
     </div>
   </div>
-  <div class="col-sm-6">
+  <div class="{{ midColWidth }}">
     <ngb-pagination class="d-flex justify-content-center" [collectionSize]="collectionSize" [maxSize]="4" [pageSize]="pageLimit" [(page)]="currentPage"
                     [rotate]="true" [boundaryLinks]="true" (pageChange)="onPageChange($event)"></ngb-pagination>
   </div>

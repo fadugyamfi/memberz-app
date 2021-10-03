@@ -1,0 +1,75 @@
+<div class="row">
+  <div class="col-sm-4">
+    <app-subscription-status></app-subscription-status>
+  </div>
+
+  <div class="col-sm-8">
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Subscription History</h5>
+        </div>
+
+        <div class="loader-box m-auto" *ngIf="subscriptionService?.requesting">
+          <span class="rotate dashed colored"></span>
+        </div>
+
+        <table *ngIf="history" class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th colspan="2">Date</th>
+                    <th>Invoice #</th>
+                    <th>Description</th>
+                    <th class="text-right">Total Due</th>
+                    <th class="">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let item of history">
+                    <td class="text-center">
+                        <span *ngIf="!item?.organisation_invoice?.paid" title="Unpaid">
+                            <i class="fa fa-circle text-warning"></i>
+                        </span>
+
+                        <span *ngIf="item?.organisation_invoice?.paid" title="Paid">
+                            <i class="fa fa-circle text-success"></i>
+                        </span>
+                    </td>
+                    <td>{{ item.created | date : 'mediumDate' }}</td>
+                    <td>{{ item?.organisation_invoice?.invoice_no }}</td>
+                    <td>{{ item?.organisation_invoice?.transaction_type?.name }}</td>
+                    <td class="text-right">
+                        {{ item?.organisation_invoice?.total_due | currency : item?.organisation_invoice?.currency?.currency_code }}
+                    </td>
+                    <td class="">
+
+
+                        <button class="btn btn-xs btn-info m-r-5" title="View Invoice" (click)="invoiceModal.showInvoice(item.organisation_invoice.id)">
+                            <i class="fa fa-file-text"></i>
+                        </button>
+
+                        <button class="btn btn-xs btn-secondary  m-r-5" title="Email">
+                            <i class="fa fa-envelope"></i>
+                        </button>
+
+                        <span *ngIf="!item?.organisation_invoice?.paid" >
+                            <button class="btn btn-xs btn-success" [routerLink]="['/organisation/settings/invoice-payment', item.organisation_invoice.id]">
+                                <i class="fa fa-credit-card"></i> Pay Now
+                            </button>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="card-footer">
+            <app-pagination [startColWidth]="'col-sm-4'" [service]="subscriptionService" (paginate)="onPaginate($event)"></app-pagination>
+        </div>
+    </div>
+
+  </div>
+</div>
+
+
+<app-invoice #invoiceModal></app-invoice>

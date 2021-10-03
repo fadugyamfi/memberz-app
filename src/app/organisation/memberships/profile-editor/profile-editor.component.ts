@@ -1,16 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationMemberService } from '../../../shared/services/cakeapi/organisation-member.service';
-import { Member } from '../../../shared/model/cakeapi/member';
-import { OrganisationMember } from '../../../shared/model/cakeapi/organisation-member';
-import { MemberService } from '../../../shared/services/cakeapi/member.service';
-import { OrganisationService } from '../../../shared/services/cakeapi/organisation.service';
+import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
+import { Member } from '../../../shared/model/api/member';
+import { OrganisationMember } from '../../../shared/model/api/organisation-member';
+import { MemberService } from '../../../shared/services/api/member.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
-import { OrganisationMemberCategory } from '../../../shared/model/cakeapi/organisation-member-category';
-import { OrganisationMemberCategoryService } from '../../../shared/services/cakeapi/organisation-member-category.service';
+import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
+import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-editor',
@@ -23,10 +24,10 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   public profileForm: FormGroup;
   public membershipForm: FormGroup;
 
-  public _membership: OrganisationMember;
+  public mbshp: OrganisationMember;
   public subscriptions: Subscription[] = [];
-  public editorTitle = "Add New Member Profile";
-  public editorIcon = "fa-user-plus";
+  public editorTitle = 'Add New Member Profile';
+  public editorIcon = 'fa-user-plus';
 
   constructor(
     public categoryService: OrganisationMemberCategoryService,
@@ -35,7 +36,8 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     public membershipService: OrganisationMemberService,
     public events: EventsService,
     public router: Router,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public $t: TranslateService
   ) { }
 
   ngOnInit() {
@@ -43,9 +45,9 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     this.setupEvents();
     this.fetchMemberCategories();
 
-    if( this.route.snapshot.data['editMode'] ) {
-      this.editorTitle = "Edit Member Profile";
-      this.editorIcon = "fa-pencil";
+    if ( this.route.snapshot.data.editMode ) {
+      this.editorTitle = 'Edit Member Profile';
+      this.editorIcon = 'fa-pencil';
       this.loadProfile();
     }
   }
@@ -56,7 +58,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   }
 
   set membership(value) {
-    this._membership = value;
+    this.mbshp = value;
 
     if (value) {
       this.membershipForm.patchValue(this.membership);
@@ -66,17 +68,17 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   }
 
   get membership() {
-    return this._membership;
+    return this.mbshp;
   }
 
   loadProfile() {
 
     const sub = this.route.params.subscribe(params => {
-      const membership_id = params['id']; // (+) converts string 'id' to a number
+      const membershipId = params.id; // (+) converts string 'id' to a number
 
-      // check if a memberhsip id was passed, if not clear any existing membership information 
+      // check if a memberhsip id was passed, if not clear any existing membership information
       // so we can create a new member
-      if (!membership_id) {
+      if (!membershipId) {
         this.membershipService.clearSelectedModel();
         return;
       }
@@ -84,7 +86,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       this.membership = this.membershipService.getSelectedModel();
 
       if (!this.membership) {
-        const ps = this.membershipService.getProfile(membership_id).subscribe((profile: OrganisationMember) => {
+        const ps = this.membershipService.getProfile(membershipId).subscribe((profile: OrganisationMember) => {
           this.membership = profile;
         });
 
@@ -100,7 +102,11 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
    * Loads the list of member categories to display on the form
    */
   fetchMemberCategories() {
-    this.categoryService.getAll({ active: 1, limit: '100', sort: 'default:desc,name:asc' }).subscribe((categories: OrganisationMemberCategory[]) => {
+    this.categoryService.getAll({
+      active: 1,
+      limit: '100',
+      sort: 'default:desc,name:asc'
+    }).subscribe((categories: OrganisationMemberCategory[]) => {
       this.categories = categories;
     });
   }
@@ -146,7 +152,11 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     const params = { contain: ['member.profile_photo', 'organisation_member_category'].join() };
 
     if (membership.id) {
-      Swal.fire('Saving Changes', "Saving Membership Changes. Please wait ...", "info");
+      Swal.fire(
+        this.$t.instant('Saving Changes'),
+        this.$t.instant('Saving Membership Changes') + '.' + this.$t.instant('Please wait') + '...',
+        'info'
+      );
       Swal.showLoading();
 
       this.profileService.update(profile);
@@ -154,7 +164,11 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       return;
     }
 
-    Swal.fire('Creating New Membership', "Creating Membership. Please wait ...", "info");
+    Swal.fire(
+      this.$t.instant('Creating New Membership'),
+      this.$t.instant('Creating Membership') + '.' + this.$t.instant('Please wait') + '...',
+      'info'
+    );
     Swal.showLoading();
 
     this.profileService.create(profile);
@@ -188,15 +202,16 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   cancel() {
     const action = this.membership ? 'Update' : 'Creation';
     Swal.fire({
-      title: `Cancel Membership ${action}?`,
-      text: 'This action will cancel the membership creation / update and any changes made will be lost. Are you sure you want to continue?',
-      type: 'warning',
+      title: this.$t.instant(`Cancel Membership ${action}?`),
+      text: this.$t.instant(`This action will cancel the membership creation / update and any changes made will be lost`)
+        + '.' + this.$t.instant(`Are you sure you want to continue?`),
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No',
+      confirmButtonText: this.$t.instant('Yes'),
+      cancelButtonText: this.$t.instant('No'),
       cancelButtonColor: '#933'
-    }).then((action) => {
-      if (action.value) {
+    }).then((confirmAction) => {
+      if (confirmAction.value) {
         if (this.membership) {
           this.router.navigate(['/organisation/memberships/view', this.membership.id]);
         } else {

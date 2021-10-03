@@ -1,185 +1,87 @@
-<button class="btn m-b-15" [routerLink]="['/organisation/memberships/profiles']">
-  <i class="fa fa-long-arrow-left"></i> Back To Profiles
-</button>
-
 <ngb-alert *ngIf="alertMessage" [type]="alertType" (close)="alertMessage = null">{{ alertMessage }}
 </ngb-alert>
 
-<div class="card">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-sm-8">
-        <div class="media">
-          <div class="media-left">
-            <img [src]="membership?.member?.image()" class="img-100 rounded-circle"
-                 default="/assets/images/avtar/3.jpg" />
+<div class="row">
+  <!-- SIDEBAR -->
+  <aside class="col-lg-3">
+    <app-profile-sidebar [membership]="membership"></app-profile-sidebar>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="col-lg-9">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-sm-8">
+            <button class="btn btn-success btn-sm m-r-10" *ngIf="membership?.pendingApproval()"
+                    (click)="membershipService.approveRegistration(membership)">
+              <i class="fa fa-check"></i> {{'Approve' | translate}}
+            </button>
+
+            <button class="btn btn-danger btn-sm m-r-10" *ngIf="membership?.pendingApproval()"
+                    (click)="membershipService.rejectRegistration(membership)">
+              <i class="fa fa-thumbs-down"></i> {{'Reject' | translate}}
+            </button>
+
+            <button class="btn btn-info btn-sm" *ngIf="membership?.approved" (click)="editProfile()">
+              <i class="fa fa-pencil"></i> {{'Edit Profile' | translate}}
+            </button>
           </div>
-          <div class="media-body p-l-15">
-            <h4>{{ membership?.name() }}</h4>
 
-            <p class="f-12">
-              {{ membership?.organisation_no }} &nbsp; &bull; &nbsp;
-              {{ membership?.organisation_member_category?.name }}
-
-              <span *ngIf="membership?.member?.occupation">&nbsp; &bull; &nbsp;
-                {{ membership?.member?.occupation }}</span>
-            </p>
-
-            <div class="row">
-              <div class="col-sm-8">
-                <button class="btn btn-success btn-sm m-r-10" *ngIf="membership?.pendingApproval()"
-                        (click)="membershipService.approveRegistration(membership)">
-                  <i class="fa fa-check"></i> Approve
-                </button>
-
-                <button class="btn btn-danger btn-sm m-r-10" *ngIf="membership?.pendingApproval()"
-                        (click)="membershipService.rejectRegistration(membership)">
-                  <i class="fa fa-thumbs-down"></i> Reject
-                </button>
-
-                <button class="btn btn-info btn-sm" *ngIf="membership?.approved" (click)="editProfile(membership)">
-                  <i class="fa fa-pencil"></i> Edit Profile
-                </button>
-              </div>
-
-              <div class="col-sm-4 text-right">
-                <app-make-admin [membership]="membership"></app-make-admin>
-              </div>
-            </div>
-
+          <div class="col-sm-4 text-right">
+            <app-make-admin [membership]="membership"></app-make-admin>
           </div>
         </div>
       </div>
+      <div class="card-body">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills">
 
-      <div class="col-sm-4 p-t-10">
-        <p>
-          <i class="fa fa-fw fa-envelope m-r-5"></i>
-          <a href="mailto:{{ membership?.member?.email }}">
-            {{ membership?.member?.email || 'N/A'}}
-          </a>
-        </p>
+          <!-- Profile Summary Tab -->
+          <li [ngbNavItem]="1">
+            <a ngbNavLink><i class="fa fa-globe"></i> {{'Overview' | translate}}</a>
+            <ng-template ngbNavContent>
+              <app-profile-summary [membership]="membership"></app-profile-summary>
+            </ng-template>
+          </li>
 
-        <p>
-          <i class="fa fa-fw fa-phone m-r-5"></i>
-          {{ membership?.member?.mobile_number || 'N/A' }}
-        </p>
+          <!-- Groups Tab -->
+          <li [ngbNavItem]="2">
+            <a ngbNavLink><i class="fa fa-users"></i> {{ 'Groups' | translate }}</a>
+            <ng-template ngbNavContent>
+              <app-profile-groups [membership]="membership"></app-profile-groups>
+            </ng-template>
+          </li>
+
+          <!-- Family -->
+          <li [ngbNavItem]="3">
+            <a ngbNavLink><i class="fa fa-link"></i> {{ 'Family' | translate }}</a>
+            <ng-template ngbNavContent>
+              <app-profile-family [membership]="membership"></app-profile-family>
+            </ng-template>
+          </li>
+
+          <!-- Messages -->
+          <li [ngbNavItem]="4">
+            <a ngbNavLink><i class="fa fa-envelope"></i> {{ 'Messages' | translate }}</a>
+            <ng-template ngbNavContent>
+              <app-profile-sms-messages [membership]="membership"></app-profile-sms-messages>
+            </ng-template>
+          </li>
+
+          <!-- Contributions -->
+          <li [ngbNavItem]="5">
+            <a ngbNavLink><i class="fa fa-money"></i> {{ 'Contributions' | translate }}</a>
+            <ng-template ngbNavContent>
+              <app-profile-contributions [membership]="membership"></app-profile-contributions>
+            </ng-template>
+          </li>
+
+
+        </ul>
+
+        <!-- Outlet for the Tab Set above -->
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
       </div>
     </div>
-
-
-  </div>
-</div>
-
-<div class="card">
-  <div class="card-body">
-    <ngb-tabset type="pills" [justify]="'justified'">
-      <ngb-tab title="Overview">
-        <ng-template ngbTabContent>
-          <div class="p-30">
-            <div class="row">
-              <div class="col-sm-3 text-right">
-                <h6 class="text-muted">Personal Information</h6>
-              </div>
-
-              <div class="col-sm-8 offset-sm-1">
-                <div class="row m-b-20">
-                  <div class="col-sm-6">
-                    <small class='text-muted text-uppercase'>Date of Birth</small>
-                    <p>{{ (membership?.member?.dob | date: short) || 'N/A' }}</p>
-                  </div>
-
-                  <div class="col-sm-6">
-                    <small class='text-muted text-uppercase'>Gender</small>
-                    <p>{{ (membership?.member?.gender | titlecase) || 'N/A' }}</p>
-                  </div>
-                </div>
-
-                <div class="row m-b-20">
-                  <div class="col-sm-6">
-                    <small class='text-muted text-uppercase'>Nationality</small>
-                    <p>{{ membership?.member?.nationality || 'N/A' }}</p>
-                  </div>
-
-                  <div class="col-sm-6">
-                    <small class='text-muted text-uppercase'>Place of Birth</small>
-                    <p>{{ membership?.member?.place_of_birth || 'N/A' }}</p>
-                  </div>
-                </div>
-
-                <div class="row m-b-20">
-                  <div class="col-sm-6">
-                    <small class='text-muted text-uppercase'>Occupation</small>
-                    <p>{{ membership?.member?.occupation || 'N/A' }}</p>
-                  </div>
-
-                  <div class="col-sm-6">
-                    <small class='text-muted text-uppercase'>Place of Work</small>
-                    <p>{{ membership?.member?.business_name || 'N/A' }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row m-t-40">
-              <div class="col-sm-3 text-right">
-                <h6 class="text-muted">Contact Information</h6>
-              </div>
-
-              <div class="col-sm-8 offset-sm-1">
-                <div class="row">
-                  <div class="col-sm-6">
-                    <small class='text-muted text-uppercase'>Email</small>
-                    <p>{{ membership?.member?.email || 'N/A'}}</p>
-                  </div>
-
-                  <div class="col-sm-6">
-                    <small class='text-muted text-uppercase'>Phone Number</small>
-                    <p>{{ membership?.member?.mobile_number || 'N/A' }}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab>
-        <ng-template ngbTabTitle>Contributions</ng-template>
-        <ng-template ngbTabContent>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin
-          coffee squid.
-          <p>Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko
-            farm-to-table
-            craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts
-            ullamco ad vinyl
-            cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica
-            VHS salvia
-            yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit,
-            sustainable jean
-            shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr
-            butcher vero
-            sint qui sapiente accusamus tattooed echo park.</p>
-        </ng-template>
-      </ngb-tab>
-      <ngb-tab title="Groups">
-        <ng-template ngbTabContent>
-          <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla
-            facilisi. Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt
-            eu, congue et odio. Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie
-            lectus ultrices et. Sed diam urna, egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla
-            tortor arcu. Vivamus faucibus nisl enim, nec tristique ipsum euismod facilisis. Morbi ut bibendum est,
-            eu tincidunt odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus
-            mus. Mauris aliquet odio ac lorem aliquet ultricies in eget neque. Phasellus nec tortor vel tellus
-            pulvinar feugiat.</p>
-        </ng-template>
-      </ngb-tab>
-
-      <ngb-tab title="Photos">
-        <ng-template ngbTabContent>
-          <p>Sed commodo, leo at susci
-          </p>
-        </ng-template>
-      </ngb-tab>
-    </ngb-tabset>
-
-  </div>
+  </main>
 </div>

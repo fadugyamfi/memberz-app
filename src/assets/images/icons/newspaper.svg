@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60.457mm" height="43.577mm" version="1.1" viewBox="0 0 60.457 43.577" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(-276.75 -139.55)">
+  <g id="XMLID_621_" transform="matrix(.26458 0 0 .26458 245.82 35.534)">
+   <g id="XMLID_460_" transform="translate(-900.21 -165.48)">
+    <g id="XMLID_457_">
+     <path id="XMLID_818_" d="m1203.7 718.1h-176.2c-2.9 0-5.2-2.3-5.2-5.2v-143.9c0-2.9 2.3-5.2 5.2-5.2h176.2c2.9 0 5.2 2.3 5.2 5.2v143.9c0 2.9-2.3 5.2-5.2 5.2z" fill="#73c9bb"/>
+    </g>
+    <g id="XMLID_447_">
+     <path id="XMLID_793_" d="m1203.7 723.3h-176.2c-5.7 0-10.4-4.7-10.4-10.4v-143.9c0-5.7 4.7-10.4 10.4-10.4h176.2c5.7 0 10.4 4.7 10.4 10.4v143.9c0 5.7-4.6 10.4-10.4 10.4zm-176.2-154.3v143.9h176.2v-143.9z" fill="#333"/>
+    </g>
+    <g id="XMLID_458_">
+     <path id="XMLID_817_" d="m1208.9 718.1v-123.1h26.3c2.9 0 5.2 2.3 5.2 5.2v86.4c0 17.4-14.1 31.5-31.5 31.5z" fill="#2c95b5"/>
+    </g>
+    <g id="XMLID_448_">
+     <path id="XMLID_790_" d="m1208.9 723.3h-5.2v-133.5h31.5c5.7 0 10.4 4.7 10.4 10.4v86.4c0 20.2-16.4 36.7-36.7 36.7zm5.2-123.1v112.2c12-2.4 21.1-13.1 21.1-25.8v-86.4z" fill="#333"/>
+    </g>
+    <g id="XMLID_456_">
+     <g id="XMLID_451_">
+      <rect id="XMLID_789_" x="1048.5" y="632.3" width="134.2" height="10.4" fill="#333"/>
+     </g>
+     <g id="XMLID_453_">
+      <rect id="XMLID_788_" x="1048.5" y="659" width="134.2" height="10.4" fill="#333"/>
+     </g>
+     <g id="XMLID_454_">
+      <rect id="XMLID_787_" x="1048.5" y="685.6" width="134.2" height="10.4" fill="#333"/>
+     </g>
+     <g id="XMLID_459_">
+      <rect id="XMLID_783_" x="1053.5" y="591" width="78.9" height="25.9" fill="#fff"/>
+     </g>
+     <g id="XMLID_450_">
+      <path id="XMLID_784_" d="m1132.4 622.1h-78.9c-2.9 0-5.2-2.3-5.2-5.2v-25.9c0-2.9 2.3-5.2 5.2-5.2h78.9c2.9 0 5.2 2.3 5.2 5.2v25.9c0 2.9-2.3 5.2-5.2 5.2zm-73.7-10.4h68.6v-15.5h-68.6z" fill="#333"/>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavService, Menu } from '../../services/nav.service';
 import { EventsService } from '../../services/events.service';
 import { Observable, BehaviorSubject, Subscription } from 'rxjs';
-import { OrganisationService } from '../../services/cakeapi/organisation.service';
+import { OrganisationService } from '../../services/api/organisation.service';
 
 @Component({
   selector: 'app-bookmark',
@@ -10,7 +10,7 @@ import { OrganisationService } from '../../services/cakeapi/organisation.service
   styleUrls: ['./bookmark.component.scss']
 })
 export class BookmarkComponent implements OnInit {
-  
+
   public menuItems  : Menu[];
   public items  : Menu[];
   public text  : string
@@ -35,7 +35,7 @@ export class BookmarkComponent implements OnInit {
 
   loadItems(itemArray: BehaviorSubject<Menu[]>) {
     itemArray.subscribe(menuItems => {
-      this.items = menuItems 
+      this.items = menuItems
       this.bookmarkItems = [];
       this.items.filter(items => {
         if(items.bookmark){
@@ -55,7 +55,7 @@ export class BookmarkComponent implements OnInit {
     if (!term) {
      this.open = false
      return this.menuItems = [];
-    }  
+    }
     let items = [];
     term = term.toLowerCase();
     this.items.filter(menuItems => {

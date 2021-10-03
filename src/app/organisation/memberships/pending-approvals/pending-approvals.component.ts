@@ -1,22 +1,23 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { OrganisationMember } from '../../../shared/model/cakeapi/organisation-member';
-import { OrganisationMemberCategory } from '../../../shared/model/cakeapi/organisation-member-category';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { OrganisationMember } from '../../../shared/model/api/organisation-member';
+import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationMemberService } from '../../../shared/services/cakeapi/organisation-member.service';
-import { OrganisationMemberCategoryService } from '../../../shared/services/cakeapi/organisation-member-category.service';
+import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
+import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { Router } from '@angular/router';
 import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService } from '../../../shared/services/events.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import Swal from 'sweetalert2';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-pending-approvals',
   templateUrl: './pending-approvals.component.html',
   styleUrls: ['./pending-approvals.component.scss']
 })
-export class PendingApprovalsComponent implements OnInit {
+export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('searchModal', { static: true }) searchModal: any;
 
@@ -32,7 +33,8 @@ export class PendingApprovalsComponent implements OnInit {
     public modalService: NgbModal,
     public dropdownConfig: NgbDropdownConfig,
     public events: EventsService,
-    public storage: StorageService
+    public storage: StorageService,
+    public $t: TranslateService
   ) {
     dropdownConfig.placement = 'bottom';
     dropdownConfig.autoClose = true;
@@ -56,31 +58,34 @@ export class PendingApprovalsComponent implements OnInit {
    * Loads the list of member categories to display on the form
    */
   fetchMemberCategories() {
-    this.categoryService.getAll({ active: 1, limit: '100', sort: 'default:desc,name:asc' }).subscribe((categories: OrganisationMemberCategory[]) => {
+    this.categoryService.getAll({
+      active: 1,
+      limit: '100',
+      sort: 'default:desc,name:asc'
+    }).subscribe((categories: OrganisationMemberCategory[]) => {
       this.categories = categories;
     });
   }
 
   /**
    * Loads the list of members from the backend
-   * 
-   * @param options 
-   * @param page 
-   * @param limit 
+   *
+   * @param page Page number
+   * @param limit Total records to load
    */
   loadMemberships(page = 1, limit = 15) {
     this.members = null;
 
     const options = {
-      approved: 0, 
+      approved: 0,
       active: 1,
       page,
       limit,
       contain: ['member', 'organisation_member_category'].join(),
       sort: 'created:asc'
-    }
+    };
 
-    this.membershipService.getAll(options).subscribe((members: OrganisationMember[]) => {
+    this.membershipService.unapproved().subscribe((members: OrganisationMember[]) => {
       this.members = members;
       this.allSelected = false;
     });
@@ -97,12 +102,12 @@ export class PendingApprovalsComponent implements OnInit {
    * Returns true if no data is available
    */
   emptyDataset() {
-    return this.members && this.members.length == 0;
+    return this.members && this.members.length === 0;
   }
 
   /**
    * Sets the member profile to view and navigates to the details page
-   * 
+   *
    * @param profile OrganisationMember
    */
   viewProfile(profile: OrganisationMember) {
@@ -115,7 +120,7 @@ export class PendingApprovalsComponent implements OnInit {
    */
   editProfile(profile: OrganisationMember) {
     this.membershipService.setSelectedModel(profile);
-    this.router.navigate(['/organisation/memberships/edit', profile.id])
+    this.router.navigate(['/organisation/memberships/edit', profile.id]);
   }
 
   /**
@@ -167,7 +172,7 @@ export class PendingApprovalsComponent implements OnInit {
 
   /**
    * Handles the pagination events
-   * 
+   *
    * @param event PageEvent
    */
   onPaginate(event: PageEvent) {
@@ -205,14 +210,18 @@ export class PendingApprovalsComponent implements OnInit {
    */
   approveSelected() {
     Swal.fire({
-      title: 'Confirm Approval',
-      text: 'This action will approve the selected members assign them membership numbers as necessary',
-      type: 'warning',
+      title: this.$t.instant('Confirm Approval'),
+      text: this.$t.instant('This action will approve the selected members assign them membership numbers as necessary'),
+      icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#d33'
     }).then((action) => {
       if (action.value) {
-        Swal.fire('Approving Selected Profiles', 'Please wait ...', 'warning');
+        Swal.fire(
+          this.$t.instant('Approving Selected Profiles'),
+          this.$t.instant('Please wait') + '...',
+          'warning'
+        );
         Swal.showLoading();
 
         const selected = this.getSelectedMembers().map(profile => {
@@ -231,14 +240,18 @@ export class PendingApprovalsComponent implements OnInit {
    */
   rejectSelected() {
     Swal.fire({
-      title: 'Confirm Rejection',
-      text: 'This action will reject the registration of the selected members',
-      type: 'warning',
+      title: this.$t.instant('Confirm Rejection'),
+      text: this.$t.instant('This action will reject the registration of the selected members'),
+      icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#d33'
     }).then((action) => {
       if (action.value) {
-        Swal.fire('Rejected Selected Registrations', 'Please wait ...', 'warning');
+        Swal.fire(
+          this.$t.instant('Rejected Selected Registrations'),
+          this.$t.instant('Please wait') + "...",
+          'warning'
+        );
         Swal.showLoading();
 
         const selected = this.getSelectedMembers().map(profile => {

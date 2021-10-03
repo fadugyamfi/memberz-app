@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { MemberAccountService } from '../../shared/services/cakeapi/member-account.service';
-import { StorageService } from '../../shared/services/storage.service';
-import { AuthService } from '../../shared/services/cakeapi/auth.service';
+import { AuthService } from '../../shared/services/api/auth.service';
 
 type UserFields = 'email' | 'password';
 type FormErrors = { [u in UserFields]: string };
@@ -17,7 +13,7 @@ type FormErrors = { [u in UserFields]: string };
 export class LoginComponent implements OnInit {
 
   public newUser = false;
-  public user: firebase.User;
+  // public user: firebase.User;
   public loginForm: FormGroup;
   public formErrors: FormErrors = {
     'email': '',
@@ -27,16 +23,12 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private afauth: AngularFireAuth,
-    private fb: FormBuilder,
-    private router: Router,
-    private memberAccountService: MemberAccountService,
-    private storage: StorageService
+    private fb: FormBuilder
   ) {
     this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      remember_me: ['']
+      remember_me: [true]
     });
   }
 
@@ -61,7 +53,6 @@ export class LoginComponent implements OnInit {
 
   // Simple Login
   login() {
-    //this.authService.SignIn(this.loginForm.value['email'], this.loginForm.value['password']);
     const login = this.loginForm.value;
     this.authService.login(login.email, login.password, login.remember_me);
   }
