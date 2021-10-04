@@ -60,7 +60,9 @@ export class MessageComposerComponent implements OnInit {
   }
 
   loadBroadcastLists(page = 1, limit = 10) {
+    const smsAccount = this.smsAccountService.getOrganisationAccount();
     this.broadcastListService.getAll({
+      module_sms_account_id: smsAccount.id,
       page, limit, sort: 'name:asc'
     }).subscribe({
       next: (broadcastLists) => this.broadcastLists = broadcastLists,

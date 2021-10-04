@@ -37,9 +37,9 @@
       <tbody>
         <tr *ngFor="let activity of activities; let row = index">
           <td>{{ userActivitiesService.pagingMeta?.from + row }}</td>
-          <td>{{ activity.timeAgo() }}</td>
-          <td>{{ activity.log_display_name }}</td>
-          <td>
+          <td [noWrap]="true">{{ activity.timeAgo() }}</td>
+          <td [noWrap]="true">{{ activity.log_display_name }}</td>
+          <td [noWrap]="true">
             {{ activity.causer?.member?.name() }}
           </td>
           <td>{{ activity.description }}</td>
