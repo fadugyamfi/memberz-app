@@ -25,7 +25,7 @@
     >
       <div class="row">
         <!-- Left Column -->
-        <div class="col-sm-8">
+        <div class="col-12">
           <table
             class="table table-bordered table-striped"
             *ngIf="
@@ -34,14 +34,9 @@
           >
             <thead>
               <tr>
-                <th>{{ "Name" | translate }}</th>
-                <th>{{ "Count" | translate }}</th>
-                <th>{{ "Show on Registration Form" | translate }}</th>
-                <th>{{ "Send Anniversary Message" | translate }}</th>
-                <th>{{ "Notify on Anniversary" | translate }}</th>
-                <th>{{ "Active" | translate }}</th>
-                <th>{{ "Message" | translate }}</th>
-                <th>{{ "Description" | translate }}</th>
+                <th>{{ "Type" | translate }}</th>
+                <th>{{ "Date" | translate }}</th>
+                <th class="text-right">{{ 'Actions' | translate }}</th>
               </tr>
             </thead>
 
@@ -57,63 +52,21 @@
                 </td>
                 <td>{{ anniv.orgAnniv?.name }}</td>
                 <td>
-                  {{ anniv.orgAnniv?.organisation_member_anniversary_count }}
+                  {{ anniv.value | date: 'dd/MM/yyyy' }}
                 </td>
-                <td>
-                  <ui-switch
-                    class="js-small"
-                    color="#3498DB"
-                    switchColor="#fff"
-                    size="small"
-                    [checked]="anniv.orgAnniv?.show_on_reg_forms"
-                  ></ui-switch>
+                <td class="text-right">
+                  <button href="#" class="btn btn-outline-info m-r-15">
+                    <i class="fa fa-pencil"></i>
+                  </button>
+        
+                  <button href="#" class="btn btn-outline-danger">
+                    <i class="fa fa-trash-o"></i>
+                  </button>
                 </td>
-                <td>
-                  <ui-switch
-                    class="js-small"
-                    color="#3498DB"
-                    switchColor="#fff"
-                    size="small"
-                    [checked]="anniv.orgAnniv?.send_anniversary_message"
-                  ></ui-switch>
-                </td>
-                <td>
-                  <ui-switch
-                    class="js-small"
-                    color="#3498DB"
-                    switchColor="#fff"
-                    size="small"
-                    [checked]="anniv.orgAnniv?.notify_on_anniversary"
-                  ></ui-switch>
-                </td>
-                <td>
-                  <ui-switch
-                    class="js-small"
-                    color="#3498DB"
-                    switchColor="#fff"
-                    size="small"
-                    [checked]="anniv.orgAnniv?.active"
-                  ></ui-switch>
-                </td>
-                <td>{{ anniv.orgAnniv?.message }}</td>
-                <td>{{ anniv.orgAnniv?.description }}</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <!-- end of col-sm-8 -->
-
-        <!-- Right Column-->
-        <!-- <div class="col-sm-4 text-center">
-            <button href="#" class="btn btn-outline-info m-r-15" (click)="editAnniversary(anniv)">
-              <i class="fa fa-pencil"></i>
-            </button>
-  
-            <button href="#" class="btn btn-outline-danger" (click)="deleteAnniversary(anniv)">
-              <i class="fa fa-trash-o"></i>
-            </button>
-          </div>
-           -->
       </div>
     </li>
   </ul>
