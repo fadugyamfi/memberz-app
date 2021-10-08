@@ -1,0 +1,120 @@
+<section class="profile-family">
+  <div class="m-b-15">
+    <button class="btn btn-sm btn-outline-primary" (click)="addAnniversary()">
+      <i class="fa fa-plus-circle fa-2x m-r-10 middle"></i>
+      <span>{{ "Add Anniversary" | translate }}</span>
+    </button>
+  </div>
+
+  <div
+    class="m-t-50 text-center"
+    *ngIf="anniversaryService.hasZeroItems() && !anniversaryService.fetching"
+  >
+    <h3>{{ "No Anniversary Added" | translate }}</h3>
+    <p>{{ "Add an Anniversary to get started" | translate }}</p>
+  </div>
+
+  <div class="loader-box m-auto" *ngIf="anniversaryService.fetching">
+    <span class="rotate dashed colored"></span>
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <li
+      class="list-group-item p-t-15 p-b-15"
+      *ngFor="let relation of anniversaryService.getItems()"
+    >
+      <div class="row">
+        <!-- Left Column -->
+        <div class="col-sm-8">
+          <table
+            class="table table-bordered table-striped"
+            *ngIf="
+              !anniversaryService.fetching && anniversaryService.hasItems()
+            "
+          >
+            <thead>
+              <tr>
+                <th>{{ "Name" | translate }}</th>
+                <th>{{ "Count" | translate }}</th>
+                <th>{{ "Show on Registration Form" | translate }}</th>
+                <th>{{ "Send Anniversary Message" | translate }}</th>
+                <th>{{ "Notify on Anniversary" | translate }}</th>
+                <th>{{ "Active" | translate }}</th>
+                <th>{{ "Message" | translate }}</th>
+                <th>{{ "Description" | translate }}</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngFor="
+                  let anniv of anniversaryService.getItems();
+                  let row = index
+                "
+              >
+                <td class="text-right">
+                  {{ anniversaryService.pagingMeta.from + row }}.
+                </td>
+                <td>{{ anniv.orgAnniv?.name }}</td>
+                <td>
+                  {{ anniv.orgAnniv?.organisation_member_anniversary_count }}
+                </td>
+                <td>
+                  <ui-switch
+                    class="js-small"
+                    color="#3498DB"
+                    switchColor="#fff"
+                    size="small"
+                    [checked]="anniv.orgAnniv?.show_on_reg_forms"
+                  ></ui-switch>
+                </td>
+                <td>
+                  <ui-switch
+                    class="js-small"
+                    color="#3498DB"
+                    switchColor="#fff"
+                    size="small"
+                    [checked]="anniv.orgAnniv?.send_anniversary_message"
+                  ></ui-switch>
+                </td>
+                <td>
+                  <ui-switch
+                    class="js-small"
+                    color="#3498DB"
+                    switchColor="#fff"
+                    size="small"
+                    [checked]="anniv.orgAnniv?.notify_on_anniversary"
+                  ></ui-switch>
+                </td>
+                <td>
+                  <ui-switch
+                    class="js-small"
+                    color="#3498DB"
+                    switchColor="#fff"
+                    size="small"
+                    [checked]="anniv.orgAnniv?.active"
+                  ></ui-switch>
+                </td>
+                <td>{{ anniv.orgAnniv?.message }}</td>
+                <td>{{ anniv.orgAnniv?.description }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- end of col-sm-8 -->
+
+        <!-- Right Column-->
+        <!-- <div class="col-sm-4 text-center">
+            <button href="#" class="btn btn-outline-info m-r-15" (click)="editAnniversary(anniv)">
+              <i class="fa fa-pencil"></i>
+            </button>
+  
+            <button href="#" class="btn btn-outline-danger" (click)="deleteAnniversary(anniv)">
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </div>
+           -->
+      </div>
+    </li>
+  </ul>
+</section>
