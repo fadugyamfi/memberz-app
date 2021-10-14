@@ -34,6 +34,13 @@ const routes: Routes = [
         data: {
           breadcrumb: 'Messaging'
         }
+      },
+      {
+        path: 'finance',
+        loadChildren: () => import('./finance/finance.module').then(m => m.FinanceModule),
+        data: {
+          breadcrumb: 'Finance'
+        }
       }
     ]
   }
