@@ -654,19 +654,19 @@ export class NavService {
       path: '/organisation/finance/dashboard',
       children: [
         { path: '/organisation/finance/dashboard', title: 'Dashboard', type: 'link', icon: 'dashboard' },
-        // { path: '/organisation/finance/settings', title: 'Settings', type: 'link' },
-        // { path: '/organisation/finance/income', title: 'Income', type: 'link' },
+        { path: '/organisation/finance/income', title: 'Income', type: 'link' },
+        { path: '/organisation/finance/settings', title: 'Settings', type: 'link' },
         // { path: '/organisation/finance/expenditure', title: 'Expenditure', type: 'link' },
-        // {
-        //   title: 'Reports',
-        //   type: 'sub',
-        //   active: false,
-        //   children: [
-        //     { path: '/organisation/finance/reports/income-summary', title: 'Income Summary', type: 'link' },
-        //     { path: '/organisation/finance/reports/expenditure-summary', title: 'Expenditure Summary', type: 'link' },
-        //     { path: '/organisation/finance/reports/top-contributors', title: 'Top Contributors', type: 'link' }
-        //   ]
-        // }
+        {
+          title: 'Reports',
+          type: 'sub',
+          active: false,
+          children: [
+            { path: '/organisation/finance/reports/income-summary', title: 'Income Summary', type: 'link' },
+            { path: '/organisation/finance/reports/expenditure-summary', title: 'Expenditure Summary', type: 'link' },
+            { path: '/organisation/finance/reports/top-contributors', title: 'Top Contributors', type: 'link' }
+          ]
+        }
       ]
     },
     {

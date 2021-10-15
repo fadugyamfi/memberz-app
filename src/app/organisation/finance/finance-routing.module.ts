@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { IncomeComponent } from './income/income.component';
 
 
 const routes: Routes = [
@@ -9,6 +10,13 @@ const routes: Routes = [
     component: DashboardComponent,
     data: {
       breadcrumb: 'Dashboard'
+    }
+  },
+  {
+    path: 'income',
+    component: IncomeComponent,
+    data: {
+      breadcrumb: 'Income'
     }
   },
 ];
