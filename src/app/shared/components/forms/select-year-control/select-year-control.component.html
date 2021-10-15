@@ -1,0 +1,8 @@
+<div>
+  <select class="form-control digits" (change)="setValue($event)">
+    <option value="" *ngIf="! years ">NULL</option>
+    <option *ngFor="let opt of years;"  value="{{ opt }}">
+      {{ opt }}
+    </option>
+  </select>
+</div>
