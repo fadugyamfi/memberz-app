@@ -89,13 +89,7 @@
               </select>
             </div>
             <div class="col-3">
-              <select class="form-control digits">
-                <option>January</option>
-                <option>Feb</option>
-                <option>2022</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+              <app-select-month-control (selectedMonthEvent)="weeklyBreakDownByMonth($event)"></app-select-month-control>
             </div>
             <!-- end of col -->
             <div class="col">
@@ -136,13 +130,7 @@
             </div>
             <!-- end of col -->
             <div class="col-3">
-              <select class="form-control digits">
-                <option>January</option>
-                <option>Feb</option>
-                <option>2022</option>
-                <option>4</option>
-                <option>5</option>
-              </select>
+              <app-select-month-control (selectedMonthEvent)="categoryBreakDownByMonth($event)"></app-select-month-control>
             </div>
             <!-- end of col -->
             <div class="col">

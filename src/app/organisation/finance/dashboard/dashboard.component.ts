@@ -48,8 +48,13 @@ export class DashboardComponent implements OnInit {
 
   public chartHovered(e: any): void { }
 
-  public getWeeklyBreadown(year: number, month: number): void {
 
+  public weeklyBreakDownByMonth($event): void {
+    console.log($event);
+  }
+
+  public categoryBreakDownByMonth($event): void {
+    console.log($event);
   }
 
   public trend(year: number): void {
