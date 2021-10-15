@@ -4,18 +4,20 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FinanceRoutingModule } from './finance-routing.module';
 import { ChartsModule } from 'ng2-charts';
 import { IncomeComponent } from './income/income.component';
-import { SelectMonthControlComponent } from 'src/app/shared/components/forms/select-month-control/select-month-control.component';
+import { ReceiptsComponent } from './settings/receipts/receipts.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     IncomeComponent,
-    SelectMonthControlComponent,
+    ReceiptsComponent,
   ],
   imports: [
     CommonModule,
     FinanceRoutingModule,
-    ChartsModule
+    ChartsModule,
+    SharedModule
   ],
   // schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
