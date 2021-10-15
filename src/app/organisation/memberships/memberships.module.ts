@@ -23,6 +23,7 @@ import { ProfileContributionsComponent } from './profile-view/profile-contributi
 import { ProfileGroupsComponent } from './profile-view/profile-groups/profile-groups.component';
 import { ProfileSmsMessagesComponent } from './profile-view/profile-sms-messages/profile-sms-messages.component';
 import { ProfileSidebarComponent } from './profile-view/profile-sidebar/profile-sidebar.component';
+import { ProfileAnniversariesComponent } from './profile-view/profile-anniversaries/profile-anniversaries.component';
 
 
 
@@ -47,7 +48,8 @@ import { ProfileSidebarComponent } from './profile-view/profile-sidebar/profile-
     ProfileContributionsComponent,
     ProfileGroupsComponent,
     ProfileSmsMessagesComponent,
-    ProfileSidebarComponent
+    ProfileSidebarComponent,
+    ProfileAnniversariesComponent
   ],
   imports: [
     CommonModule,

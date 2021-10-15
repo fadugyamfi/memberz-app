@@ -1,0 +1,73 @@
+<section class="profile-family">
+  <div class="m-b-15">
+    <button class="btn btn-sm btn-outline-primary" (click)="addAnniversary()">
+      <i class="fa fa-plus-circle fa-2x m-r-10 middle"></i>
+      <span>{{ "Add Anniversary" | translate }}</span>
+    </button>
+  </div>
+
+  <div
+    class="m-t-50 text-center"
+    *ngIf="anniversaryService.hasZeroItems() && !anniversaryService.fetching"
+  >
+    <h3>{{ "No Anniversary Added" | translate }}</h3>
+    <p>{{ "Add an Anniversary to get started" | translate }}</p>
+  </div>
+
+  <div class="loader-box m-auto" *ngIf="anniversaryService.fetching">
+    <span class="rotate dashed colored"></span>
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <li
+      class="list-group-item p-t-15 p-b-15"
+      *ngFor="let relation of anniversaryService.getItems()"
+    >
+      <div class="row">
+        <!-- Left Column -->
+        <div class="col-12">
+          <table
+            class="table table-bordered table-striped"
+            *ngIf="
+              !anniversaryService.fetching && anniversaryService.hasItems()
+            "
+          >
+            <thead>
+              <tr>
+                <th>{{ "Type" | translate }}</th>
+                <th>{{ "Date" | translate }}</th>
+                <th class="text-right">{{ 'Actions' | translate }}</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr
+                *ngFor="
+                  let anniv of anniversaryService.getItems();
+                  let row = index
+                "
+              >
+                <td class="text-right">
+                  {{ anniversaryService.pagingMeta.from + row }}.
+                </td>
+                <td>{{ anniv.orgAnniv?.name }}</td>
+                <td>
+                  {{ anniv.value | date: 'dd/MM/yyyy' }}
+                </td>
+                <td class="text-right">
+                  <button href="#" class="btn btn-outline-info m-r-15">
+                    <i class="fa fa-pencil"></i>
+                  </button>
+        
+                  <button href="#" class="btn btn-outline-danger">
+                    <i class="fa fa-trash-o"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </li>
+  </ul>
+</section>
