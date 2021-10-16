@@ -3,6 +3,7 @@ export var barChartOptions: any = {
   scaleShowVerticalLines: false,
   responsive: true
 };
+
 export var barChartLabels: string[] = ["January", "February", "March", "April", "May", "June", "July"];
 export var barChartType = 'bar';
 export var barChartLegend = false;
