@@ -48,7 +48,6 @@ import { MemberControlComponent } from './components/forms/member-control/member
 import { SmsMessengerComponent } from './components/messaging/sms-messenger/sms-messenger.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
-import { SelectMonthControlComponent } from './components/forms/select-month-control/select-month-control.component';
 
 @NgModule({
   declarations: [
@@ -73,8 +72,7 @@ import { SelectMonthControlComponent } from './components/forms/select-month-con
     MemberControlComponent,
     SmsMessengerComponent,
     InvoiceComponent,
-    ImageCropperComponent,
-    SelectMonthControlComponent
+    ImageCropperComponent
   ],
   imports: [
     CommonModule,
@@ -109,8 +107,7 @@ import { SelectMonthControlComponent } from './components/forms/select-month-con
     InvoiceComponent,
     NgxChartsModule,
     ImageCropperModule,
-    ImageCropperComponent,
-    SelectMonthControlComponent
+    ImageCropperComponent
   ],
   providers: [
     NavService,
