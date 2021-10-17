@@ -49,6 +49,7 @@ import { SmsMessengerComponent } from './components/messaging/sms-messenger/sms-
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
 import { SelectMonthControlComponent } from './components/forms/select-month-control/select-month-control.component';
+import { SelectYearControlComponent } from './components/forms/select-year-control/select-year-control.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { SelectMonthControlComponent } from './components/forms/select-month-con
     SmsMessengerComponent,
     InvoiceComponent,
     ImageCropperComponent,
-    SelectMonthControlComponent
+    SelectMonthControlComponent,
+    SelectYearControlComponent
   ],
   imports: [
     CommonModule,
@@ -110,7 +112,8 @@ import { SelectMonthControlComponent } from './components/forms/select-month-con
     NgxChartsModule,
     ImageCropperModule,
     ImageCropperComponent,
-    SelectMonthControlComponent
+    SelectMonthControlComponent,
+    SelectYearControlComponent
   ],
   providers: [
     NavService,

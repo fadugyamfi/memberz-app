@@ -5,20 +5,19 @@ import { FinanceRoutingModule } from './finance-routing.module';
 import { ChartsModule } from 'ng2-charts';
 import { IncomeComponent } from './income/income.component';
 import { ReceiptsComponent } from './settings/receipts/receipts.component';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     IncomeComponent,
-    ReceiptsComponent,
+    ReceiptsComponent
   ],
   imports: [
     CommonModule,
     FinanceRoutingModule,
-    ChartsModule,
-    SharedModule
+    SharedModule,
+    ChartsModule
   ],
-  // schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class FinanceModule { }

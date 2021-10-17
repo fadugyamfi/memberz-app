@@ -4,6 +4,7 @@ import { EventsService } from '../events.service';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../storage.service';
 import { Contribution } from '../../model/api/contribution';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,13 @@ export class ContributionService extends APIService<Contribution> {
     this.url = '/contributions';
     this.model =  Contribution;
     this.model_name = 'Contribution';
+  }
+
+  getAvailableYears() {
+    return this.get(`${this.url}/available_years`).pipe(map(res => {
+      return res['data'] ? res['data'] : null;
+    }));
+
   }
 
 }
