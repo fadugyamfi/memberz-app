@@ -10,6 +10,7 @@ const routes: Routes = [
     path: 'settings',
     component: SettingsComponent,
     data: {
+      title: 'Settings',
       breadcrumb: 'Settings'
     }
   },
@@ -17,6 +18,7 @@ const routes: Routes = [
     path: 'history',
     component: HistoryComponent,
     data: {
+      title: 'History',
       breadcrumb: 'History'
     }
   },
@@ -24,6 +26,7 @@ const routes: Routes = [
     path: 'broadcast',
     component: BroadcastComponent,
     data: {
+      title: 'Broadcast',
       breadcrumb: 'Broadcast'
     }
   }

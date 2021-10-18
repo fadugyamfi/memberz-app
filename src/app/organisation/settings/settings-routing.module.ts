@@ -16,6 +16,7 @@ const routes: Routes = [
     path: 'accounts',
     component: AdminAccountsComponent,
     data: {
+      title: 'Admin Accounts',
       breadcrumb: 'Admin Accounts'
     }
   },
@@ -23,6 +24,7 @@ const routes: Routes = [
     path: 'roles',
     component: RolesComponent,
     data: {
+      title: 'Roles & Permissions',
       breadcrumb: 'Roles & Permissions'
     }
   },
@@ -30,6 +32,7 @@ const routes: Routes = [
     path: 'subscription',
     component: SubscriptionComponent,
     data: {
+      title: 'Subscription',
       breadcrumb: 'Subscription'
     }
   },
@@ -37,6 +40,7 @@ const routes: Routes = [
     path: 'payment-platforms',
     component: PaymentPlatformsComponent,
     data: {
+      title: 'Payment Platforms',
       breadcrumb: 'Payment Platforms'
     }
   },
@@ -44,6 +48,7 @@ const routes: Routes = [
     path: 'subscription-renewal',
     component: SubscriptionRenewalComponent,
     data: {
+      title: 'Subscription Renewal',
       breadcrumb: 'Subscription Renewal'
     }
   },
@@ -51,6 +56,7 @@ const routes: Routes = [
     path: 'subscription-upgrade',
     component: SubscriptionUpgradeComponent,
     data: {
+      title: 'Subscription Upgrade',
       breadcrumb: 'Subscription Upgrade'
     }
   },
@@ -58,6 +64,7 @@ const routes: Routes = [
     path: 'invoice-payment/:id',
     component: InvoicePaymentComponent,
     data: {
+      title: 'Invoice Payment',
       breadcrumb: 'Invoice Payment'
     }
   },
@@ -65,6 +72,7 @@ const routes: Routes = [
     path: 'process-payment',
     component: PaymentProcessorComponent,
     data: {
+      title: 'Processing Payment',
       breadcrumb: 'Processing Payment'
     }
   },
@@ -72,6 +80,7 @@ const routes: Routes = [
     path: 'user-activities',
     component: UserActivitiesComponent,
     data: {
+      title: 'User Activities',
       breadcrumb: 'User Activities'
     }
   },
