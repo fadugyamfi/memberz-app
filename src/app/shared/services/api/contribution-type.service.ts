@@ -13,7 +13,7 @@ export class ContributionTypeService extends APIService<ContributionType> {
   constructor(http: HttpClient, protected events: EventsService, protected storage: StorageService) {
     super(http, events, storage);
 
-    this.url = '/contribution-types';
+    this.url = '/contribution_types';
     this.model =  ContributionType;
     this.model_name = 'ContributionType';
   }

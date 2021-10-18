@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { IncomeComponent } from './income/income.component';
-import { ReceiptsComponent } from './settings/receipts/receipts.component';
 
 
 const routes: Routes = [
@@ -10,6 +9,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     data: {
+      title: 'Dashboard',
       breadcrumb: 'Dashboard'
     }
   },
@@ -17,16 +17,18 @@ const routes: Routes = [
     path: 'income',
     component: IncomeComponent,
     data: {
+      title: 'Income',
       breadcrumb: 'Income'
     }
   },
   {
-    path: 'settings/receipts',
-    component: ReceiptsComponent,
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
     data: {
-      breadcrumb: 'Receipts'
+      title: 'Settings',
+      breadcrumb: 'Settings'
     }
-  },
+  }
 ];
 
 @NgModule({

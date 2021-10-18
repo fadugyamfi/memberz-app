@@ -661,6 +661,7 @@ export class NavService {
           type: 'sub',
           active: false,
           children: [
+            { path: '/organisation/finance/settings/income-sources', title: 'Income Sources', type: 'link', icon: 'cash' },
             { path: '/organisation/finance/settings/receipts', title: 'Receipts', type: 'link', icon: 'cogs' },
           ]
         },
