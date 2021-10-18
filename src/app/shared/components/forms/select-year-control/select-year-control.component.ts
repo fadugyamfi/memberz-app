@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { ContributionService } from 'src/app/shared/services/api/contribution.service';
 import { Subscription } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './select-year-control.component.html',
   styleUrls: ['./select-year-control.component.scss']
 })
-export class SelectYearControlComponent implements OnInit {
+export class SelectYearControlComponent implements OnInit, OnDestroy {
 
   @Output() selectedYearEvent = new EventEmitter();
   public years: any;

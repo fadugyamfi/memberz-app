@@ -4,14 +4,21 @@ import { EventsService } from '../events.service';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from '../storage.service';
 import { Contribution } from '../../model/api/contribution';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
+import { OrganisationService } from './organisation.service';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContributionService extends APIService<Contribution> {
 
-  constructor(http: HttpClient, protected events: EventsService, protected storage: StorageService) {
+  constructor(
+    protected http: HttpClient,
+    protected events: EventsService,
+    protected storage: StorageService,
+    protected orgSerivce: OrganisationService
+  ) {
     super(http, events, storage);
 
     this.url = '/contributions';
@@ -20,10 +27,18 @@ export class ContributionService extends APIService<Contribution> {
   }
 
   getAvailableYears() {
-    return this.get(`${this.url}/available_years`).pipe(map(res => {
-      return res['data'] ? res['data'] : null;
-    }));
+    const org = this.orgSerivce.getActiveOrganisation();
+    const cacheKey = `available_years_${org.id}`;
 
+    if ( this.storage.has(cacheKey) ) {
+      return of(this.storage.get(cacheKey));
+    }
+
+    return this.get(`${this.url}/available_years`).pipe(
+      tap((res) => {
+        this.storage.set(cacheKey, res, 1, 'hours');
+      })
+    );
   }
 
 }
