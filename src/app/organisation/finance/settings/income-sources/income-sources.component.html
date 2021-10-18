@@ -40,7 +40,7 @@
             <td>{{ contributionTypeService.pagingMeta.from + row }}.</td>
             <td>{{ type.name }}</td>
             <td>{{ type.member_required == 'Required' ? 'Yes' : 'No' | translate }}</td>
-            <td>{{ type.fixed_amount_per_period ? ( type.fixed_amount | currency : type.currency.currency_code ) : 'N/A' }}</td>
+            <td>{{ type.fix_amount_per_period ? ( type.fixed_amount | currency : type.currency.currency_code ) : 'N/A' }}</td>
             <td>{{ type.contribution_count | number }}</td>
             <td class="text-center">
               <button type="button" class="btn btn-xs btn-info m-r-10" (click)="showEditorModal(type)">
@@ -108,7 +108,7 @@
       <div class="form-group row">
         <label class="col-sm-3 col-form-label">{{'Fixed Amount Per Period' | translate}}</label>
         <div class="col-sm-9">
-          <ui-switch formControlName="fixed_amount_per_period" class="align-middle m-r-10"></ui-switch>
+          <ui-switch formControlName="fix_amount_per_period" class="align-middle m-r-10"></ui-switch>
           <span class='text-muted small align-middle'>
             {{'This will be the default category for adding and searching for members' | translate}}
           </span>

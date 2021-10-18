@@ -83,14 +83,13 @@ export class IncomeSourcesComponent implements OnInit, OnDestroy {
       name: new FormControl('', Validators.required),
       description: new FormControl(),
       member_required: new FormControl(),
-      fixed_amount_per_period: new FormControl(),
+      fix_amount_per_period: new FormControl(),
       fixed_amount: new FormControl(),
       currency_id: new FormControl('')
     });
 
     this.editorForm.valueChanges.subscribe(value => {
-      this.configuringFixedAmount = value.fixed_amount_per_period;
-      console.log(this.configuringFixedAmount);
+      this.configuringFixedAmount = value.fix_amount_per_period;
     });
   }
 
