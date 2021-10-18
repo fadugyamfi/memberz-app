@@ -6,12 +6,14 @@ import { ChartsModule } from 'ng2-charts';
 import { IncomeComponent } from './income/income.component';
 import { ReceiptsComponent } from './settings/receipts/receipts.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { IncomeSourcesComponent } from './settings/income-sources/income-sources.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     IncomeComponent,
-    ReceiptsComponent
+    ReceiptsComponent,
+    IncomeSourcesComponent
   ],
   imports: [
     CommonModule,

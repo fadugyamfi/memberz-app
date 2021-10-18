@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { ContributionReceiptSetting } from '../../../../shared/model/api/contribution-receipt-setting';
 import { ContributionReceiptSettingService} from '../../../../shared/services/api/contribution-receipt-setting.service';
 import { CurrencyService} from '../../../../shared/services/api/currency.service';
@@ -10,10 +11,11 @@ import { CurrencyService} from '../../../../shared/services/api/currency.service
   templateUrl: './receipts.component.html',
   styleUrls: ['./receipts.component.scss']
 })
-export class ReceiptsComponent implements OnInit {
+export class ReceiptsComponent implements OnInit, OnDestroy {
 
   public settingsForm: FormGroup;
   public settings: ContributionReceiptSetting;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     public translate: TranslateService,
@@ -27,15 +29,22 @@ export class ReceiptsComponent implements OnInit {
     this.setupSettingsForm();
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
   fetchCurrencies() {
-    this.currencyService.getAll({ sort: 'currency_code:asc'}).subscribe();
+    const sub = this.currencyService.getAll({ sort: 'currency_code:asc'}).subscribe();
+    this.subscriptions.push(sub);
   }
 
   fetchReceiptSettings() {
-    this.receiptSettingService.fetchSettings().subscribe(settings => {
+    const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {
       this.settings = settings;
       this.setupSettingsForm();
     });
+
+    this.subscriptions.push(sub);
   }
 
   setupSettingsForm() {
@@ -50,9 +59,11 @@ export class ReceiptsComponent implements OnInit {
       sms_notify: new FormControl( this.settings?.sms_notify ),
     });
 
-    this.settingsForm.valueChanges.subscribe((value) => {
+    const sub = this.settingsForm.valueChanges.subscribe((value) => {
       this.settings.update(value);
     });
+
+    this.subscriptions.push(sub);
   }
 
   getNextReceiptNumber() {
@@ -65,5 +76,9 @@ export class ReceiptsComponent implements OnInit {
 
   saveChanges(e: Event) {
     this.receiptSettingService.update(this.settings);
+  }
+
+  isManual(): boolean {
+    return this.settings.receipt_mode === 'manual';
   }
 }
