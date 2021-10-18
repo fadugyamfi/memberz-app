@@ -8,6 +8,7 @@ const routes: Routes = [
     path: 'receipts',
     component: ReceiptsComponent,
     data: {
+      title: 'Receipts',
       breadcrumb: 'Receipts'
     }
   },
@@ -15,6 +16,7 @@ const routes: Routes = [
     path: 'income-sources',
     component: IncomeSourcesComponent,
     data: {
+      title: 'Income Sources',
       breadcrumb: 'Income Sources'
     }
   },

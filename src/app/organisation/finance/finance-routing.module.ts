@@ -9,6 +9,7 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     data: {
+      title: 'Dashboard',
       breadcrumb: 'Dashboard'
     }
   },
@@ -16,6 +17,7 @@ const routes: Routes = [
     path: 'income',
     component: IncomeComponent,
     data: {
+      title: 'Income',
       breadcrumb: 'Income'
     }
   },
@@ -23,6 +25,7 @@ const routes: Routes = [
     path: 'settings',
     loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
     data: {
+      title: 'Settings',
       breadcrumb: 'Settings'
     }
   }
