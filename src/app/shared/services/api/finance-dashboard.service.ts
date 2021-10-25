@@ -19,21 +19,21 @@ export class FinanceDashboardService extends APIService<MemberAccount> {
     this.model_name = 'MemberAccount';
   }
 
-
-  /**
-   * Fetch contribution summary report for weekly breakdown
-   * @param month 
-   * @param year 
-   * @returns 
-   */
   getWeeklyBreakdown(month = null, year = null) {
     const params = {
       month,
       year
     };
 
-
     return this.get(`${this.url}/weekly_breakdown`, params);
+  }
+
+  getTotalsByCategory(year = null) {
+    const params = {
+      year
+    };
+    
+    return this.get(`${this.url}/totals_by_category`, params);
   }
 
 }
