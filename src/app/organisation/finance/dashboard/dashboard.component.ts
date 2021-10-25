@@ -1,5 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { FinanceDashboardService } from 'src/app/shared/services/api/finance-dashboard.service';
 import * as chartData from '../../../shared/data/chart/chartjs';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -9,7 +11,58 @@ import * as chartData from '../../../shared/data/chart/chartjs';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  private subscriptions: Subscription[] = [];
+  public weeklyBreakDownData = [];
+  public weeklyBreakdownLabels: string[] = [];
+  public weeklyBreadownData = [];
+
+  private weeklyBreakdownDataCurrencies = [];
+
+  constructor(
+    public reportService: FinanceDashboardService
+  ) { }
+
+  ngOnInit(): void {
+    this.fetchWeeklyBreakdownReport();
+  }
+
+  fetchWeeklyBreakdownReport() {
+    return this.reportService.getWeeklyBreakdown().subscribe((data: any[]) => {
+      for (let i = 0; i < data.length; i++) {
+
+        /** Populate weeklybreakdown lables array */
+        if (!this.weeklyBreakdownLabels.includes('Week ' + data[i].week)) {
+          this.weeklyBreakdownLabels.push('Week ' + data[i].week);
+        }
+
+        /** Populate weeklybreakdown currencies array */
+        if (!this.weeklyBreakdownDataCurrencies.includes(data[i].currency_code)) {
+          this.weeklyBreakdownDataCurrencies.push(data[i].currency_code);
+        }
+
+      }
+
+
+      /** Populate weeklybreakdown data */
+      for (let i = 0; i < this.weeklyBreakdownDataCurrencies.length; i++) {
+        let label = this.weeklyBreakdownDataCurrencies[i];
+        let dataset = [];
+
+        /** Group data by {data: [...data], label: 'currency_code' } */
+        for (let j = 0; j < data.length; j++) {
+          if (data[j].currency_code == label) {
+            dataset.push(data[j].amount);
+          }
+        }
+
+        this.weeklyBreadownData.push({
+          data: dataset, label: label
+        });
+
+      }
+
+    });
+  }
 
   // barChart
   public barChartOptions = chartData.barChartOptions;
@@ -53,6 +106,10 @@ export class DashboardComponent implements OnInit {
     console.log($event);
   }
 
+  public getDefaultWeeklyBreakDown() {
+
+  }
+
   public categoryBreakDownByMonth($event): void {
     console.log($event);
   }
@@ -69,7 +126,6 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-  }
+
 
 }

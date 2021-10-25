@@ -85,11 +85,11 @@
           <canvas
             baseChart
             class="chart"
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
+            [datasets]="weeklyBreadownData"
+            [labels]="weeklyBreakdownLabels"
             [options]="barChartOptions"
             [colors]="barChartColors"
-            [legend]="barChartLegend"
+            [legend]="true"
             [chartType]="barChartType"
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"
