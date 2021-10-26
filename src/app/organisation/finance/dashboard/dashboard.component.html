@@ -16,14 +16,13 @@
           </div>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block">
+        <div class="card-body chart-block" *ngIf="showTotalsByCategory">
           <canvas
             baseChart
             class="chart"
             [datasets]="totalsByCategoryData"
             [labels]="monthLabels"
             [options]="barChartOptions"
-            [colors]="barChartColors"
             [legend]="true"
             [chartType]="barChartType"
             (chartHover)="chartHovered($event)"
@@ -47,14 +46,13 @@
           </div>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block">
+        <div class="card-body chart-block" *ngIf="showTrendChart">
           <canvas
             baseChart
             class="chart"
             [datasets]="trendData"
             [labels]="monthLabels"
             [options]="lineGraphOptions"
-            [colors]="lineGraphColors"
             [legend]="true"
             [chartType]="lineGraphType"
             (chartHover)="chartHovered($event)"
@@ -81,14 +79,13 @@
           </div>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block">
+        <div class="card-body chart-block"  *ngIf="showWeeklybreakdownChart">
           <canvas
             baseChart
             class="chart"
             [datasets]="weeklyBreakDownData"
             [labels]="weeklyBreakdownLabels"
             [options]="barChartOptions"
-            [colors]="barChartColors"
             [legend]="true"
             [chartType]="barChartType"
             (chartHover)="chartHovered($event)"
@@ -116,15 +113,14 @@
           </div>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block">
+        <div class="card-body chart-block" *ngIf="showCategoryBreakdownChart">
           <canvas
             baseChart
             class="chart"
-            [data]="doughnutChartData"
+            [data]="categoryBreakdownData"
             [labels]="categoryBreakdownLables"
             [options]="doughnutChartOptions"
             [chartType]="doughnutChartType"
-            [colors]="doughnutChartColors"
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"
           ></canvas>
