@@ -78,12 +78,14 @@ export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   fetchLogGroups() {
-    return this.userActivitiesService.getLogGroups().subscribe((groups: any[]) => {
+    const sub = this.userActivitiesService.getLogGroups().subscribe((groups: any[]) => {
       this.logGroups = groups.map(group => {
         // group.log_display_name = group.log_name.replace(/_/g, ' ');
         return group;
       });
     });
+
+    this.subscriptions.push(sub);
   }
 
   /**
@@ -162,6 +164,5 @@ export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy
   ngOnDestroy() {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
     this.events.off('switching_organisation');
-
   }
 }

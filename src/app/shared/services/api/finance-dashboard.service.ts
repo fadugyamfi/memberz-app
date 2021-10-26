@@ -14,41 +14,35 @@ export class FinanceDashboardService extends APIService<MemberAccount> {
   constructor(http: HttpClient, protected events: EventsService, protected storage: StorageService) {
     super(http, events, storage);
 
-    this.url = '/finance_dashboard';
+    this.url = '/contribution_summaries';
     this.model = MemberAccount;
     this.model_name = 'MemberAccount';
   }
 
+  getWeeklyBreakdown(month = null, year = null) {
+    const params = {
+      month,
+      year
+    };
 
-  /**
-   * Fetch summary of financial transactions trend by year
-   *
-   */
-   trend(year: number) {
-     //
+    return this.get(`${this.url}/weekly_breakdown`, params);
   }
 
-   /**
-   * Fetch summary of financial transactions weekly breakdown by year and by month
-   *
-   */
-    weeklyBreakdown(year: number, month: number) {
-      //
-   }
+  getTotalsByCategory(year = null) {
+    const params = {
+      year
+    };
+    
+    return this.get(`${this.url}/totals_by_category`, params);
+  }
 
-    /**
-   * Fetch summary of financial transactions totals by category by year
-   *
-   */
-     totalsByCategory(year: number) {
-      //
-   }
+  getCategoryBreakdown(month = null, year = null) {
+    const params = {
+      month,
+      year
+    };
 
-    /**
-   * Fetch summary of financial transactions category breakdown by year and by month
-   *
-   */
-     cateogryBreakdown(year: number, month: number) {
-      //
-   }
+    return this.get(`${this.url}/category_breakdown`, params);
+  }
+
 }

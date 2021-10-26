@@ -16,15 +16,14 @@
           </div>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block">
+        <div class="card-body chart-block" *ngIf="showTotalsByCategory">
           <canvas
             baseChart
             class="chart"
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
+            [datasets]="totalsByCategoryData"
+            [labels]="monthLabels"
             [options]="barChartOptions"
-            [colors]="barChartColors"
-            [legend]="barChartLegend"
+            [legend]="true"
             [chartType]="barChartType"
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"
@@ -47,15 +46,14 @@
           </div>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block">
+        <div class="card-body chart-block" *ngIf="showTrendChart">
           <canvas
             baseChart
             class="chart"
-            [datasets]="lineGraphData"
-            [labels]="lineGraphLabels"
+            [datasets]="trendData"
+            [labels]="monthLabels"
             [options]="lineGraphOptions"
-            [colors]="lineGraphColors"
-            [legend]="lineGraphLegend"
+            [legend]="true"
             [chartType]="lineGraphType"
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"
@@ -81,15 +79,14 @@
           </div>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block">
+        <div class="card-body chart-block"  *ngIf="showWeeklybreakdownChart">
           <canvas
             baseChart
             class="chart"
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
+            [datasets]="weeklyBreakDownData"
+            [labels]="weeklyBreakdownLabels"
             [options]="barChartOptions"
-            [colors]="barChartColors"
-            [legend]="barChartLegend"
+            [legend]="true"
             [chartType]="barChartType"
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"
@@ -116,15 +113,14 @@
           </div>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block">
+        <div class="card-body chart-block" *ngIf="showCategoryBreakdownChart">
           <canvas
             baseChart
             class="chart"
-            [data]="doughnutChartData"
-            [labels]="doughnutChartLabels"
+            [data]="categoryBreakdownData"
+            [labels]="categoryBreakdownLables"
             [options]="doughnutChartOptions"
             [chartType]="doughnutChartType"
-            [colors]="doughnutChartColors"
             (chartHover)="chartHovered($event)"
             (chartClick)="chartClicked($event)"
           ></canvas>
