@@ -13,17 +13,23 @@ export class DashboardComponent implements OnInit {
 
   public monthLabels = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", 'Oct', "Nov", "Dec"];
   private subscriptions: Subscription[] = [];
+  // public barChartType = 'bar';
+
   public weeklyBreakDownData = [];
   public weeklyBreakdownLabels = [];
-  public weeklyBreadownData = [];
   private weeklyBreakdownDataCurrencies = [];
 
 
   public totalsByCategoryData = [];
-  public
   private totalsByCategoryDataCurrencies = [];
 
 
+  public trendData = [];
+  public trendCurrencies = [];
+
+  public categoryBreakdownData = [];
+  public categoryBreakdownLables = [];
+  private categoryBreakdownCurrencies = [];
 
   constructor(
     public reportService: FinanceDashboardService
@@ -32,6 +38,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.fetchWeeklyBreakdownReport();
     this.fetchTotalsByCategory();
+    this.fetchCategoryBreakdown();
   }
 
   fetchWeeklyBreakdownReport() {
@@ -62,7 +69,7 @@ export class DashboardComponent implements OnInit {
           }
         }
 
-        this.weeklyBreadownData.push({
+        this.weeklyBreakDownData.push({
           data: dataset, label: label
         });
       }
@@ -77,25 +84,63 @@ export class DashboardComponent implements OnInit {
         /** Populate totalsByCategory currencies array */
         if (!this.totalsByCategoryDataCurrencies.includes(data[i].currency_code)) {
           this.totalsByCategoryDataCurrencies.push(data[i].currency_code);
+          this.trendCurrencies.push(data[i].currency_code);
         }
       }
 
       /** Populate totalsByCategory chart data array */
       for (let i = 0; i < this.totalsByCategoryDataCurrencies.length; i++) {
         let label = this.totalsByCategoryDataCurrencies[i];
+        let trendLabel = this.trendCurrencies[i];
         let dataset = [];
+        let trendDataset = [];
 
         /** Group data by {data: [...data], label: 'currency_code' } */
         for (let j = 0; j < data.length; j++) {
           if (data[j].currency_code == label) {
             dataset.push(data[j].amount);
+            trendDataset.push(data[j].amount);
           }
         }
 
         this.totalsByCategoryData.push({
           data: dataset, label: label
         });
+
+        this.trendData.push({ data: trendDataset, label: trendLabel });
       }
+
+    });
+  }
+
+  fetchCategoryBreakdown(){
+    return this.reportService.getCategoryBreakdown().subscribe((data: any[]) => {
+      for (let i = 0; i < data.length; i++) {
+
+        /** Populate weeklybreakdown lables array */
+        if (!this.categoryBreakdownLables.includes(data[i].contribution_type)) {
+          this.categoryBreakdownLables.push(data[i].contribution_type);
+        }
+
+      }
+
+      /** Populate categoryBreakdown chart data array */
+      for (let i = 0; i < this.categoryBreakdownLables.length; i++) {
+        let label = this.categoryBreakdownLables[i];
+        let dataset = [];
+
+        /** Group data by {data: [...data], label: 'contribution_type' } */
+        for (let j = 0; j < data.length; j++) {
+          if (data[j].contribution_type == label) {
+            dataset.push(data[j].amount);
+          }
+        }
+
+        this.categoryBreakdownData.push({
+          data: dataset, label: label
+        });
+      }
+
     });
   }
 

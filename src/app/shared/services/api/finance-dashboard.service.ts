@@ -36,4 +36,13 @@ export class FinanceDashboardService extends APIService<MemberAccount> {
     return this.get(`${this.url}/totals_by_category`, params);
   }
 
+  getCategoryBreakdown(month = null, year = null) {
+    const params = {
+      month,
+      year
+    };
+
+    return this.get(`${this.url}/category_breakdown`, params);
+  }
+
 }
