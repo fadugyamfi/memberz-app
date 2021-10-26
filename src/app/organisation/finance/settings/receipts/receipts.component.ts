@@ -79,6 +79,6 @@ export class ReceiptsComponent implements OnInit, OnDestroy {
   }
 
   isManual(): boolean {
-    return this.settings.receipt_mode === 'manual';
+    return this.settings && this.settings.receipt_mode === 'manual';
   }
 }

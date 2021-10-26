@@ -15,4 +15,8 @@ export class ContributionType extends AppModel {
   constructor(data) {
     super(data);
   }
+
+  isMemberSpecific() {
+    return this.member_required === 'Required';
+  }
 }

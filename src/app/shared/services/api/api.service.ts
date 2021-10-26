@@ -32,6 +32,7 @@ export class APIService<T extends AppModel> {
   public creating = false;
   public updating = false;
   public deleting = false;
+  public prependItems = false;
 
   public batchRequests = [];
 
@@ -295,6 +296,10 @@ export class APIService<T extends AppModel> {
     return this;
   }
 
+  public setPrepredItems(status: boolean) {
+    this.prependItems = status;
+  }
+
   /**
    * Returns an observable array of AppModel objects
    */
@@ -343,7 +348,13 @@ export class APIService<T extends AppModel> {
         // eslint-disable-next-line @typescript-eslint/no-shadow
         (model) => {
           this.setSelectedModel(model);
-          this.addItem(model);
+
+          if ( this.prependItems ) {
+            this.prependItem(model);
+          } else {
+            this.addItem(model);
+          }
+
           this.clearCache();
           this.events.trigger(`${this.model_name}:created`, model);
         },
@@ -454,7 +465,12 @@ export class APIService<T extends AppModel> {
         (event) => {
           this.handleUploadProgress(event, (res) => {
             const createdModel = new this.model(res['data']);
-            this.addItem(createdModel);
+            if ( this.prependItems ) {
+              this.prependItem(createdModel);
+            } else {
+              this.addItem(createdModel);
+            }
+
             this.clearCache();
             this.events.trigger(`${this.model_name}:created`, createdModel);
           });

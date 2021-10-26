@@ -1,0 +1,155 @@
+<ng-template #editorModal let-modal>
+  <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="editorForm">
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-basic-title">{{'Income Editor' | translate}}</h5>
+      <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{'Receipt Date' | translate}}</label>
+        <div class="col-sm-3">
+          <input type="date" class="form-control" placeholder="YYYY-MM-DD" formControlName="receipt_dt" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{'Receipt No.' | translate}}</label>
+        <div class="col-sm-6">
+          <div class="form-control" *ngIf="receiptSettings.isReceiptModeAuto()">
+            <i class="fa fa-magic"></i> {{ 'Auto Generated' | translate }}
+          </div>
+
+          <div>
+            <input *ngIf="!receiptSettings.isReceiptModeAuto()" type="text" class="form-control w-50" placeholder="e.g. 000101"
+              formControlName="receipt_no" />
+            <span class="small font-italic">
+              {{ 'You can enabled auto-generated receipt numbers by changing' | translate}}
+              <a [routerLink]="['/organisation/finance/settings/receipts']" target="_blank">{{'receipt settings' | translate}}</a>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{'Contribution Type' | translate}}</label>
+        <div class="col-sm-10">
+          <select class="form-control" formControlName="module_contribution_type_id">
+            <option value="">{{ 'Select Type' | translate }}</option>
+            <option *ngFor="let type of contributionTypeService.getItems()" [value]="type.id">{{ type.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div *ngIf="!selectedContributionTypeIsMemberSpecific()" class="form-group row animated fadeInDown">
+        <label class="col-sm-2 col-form-label">{{'Description' | translate}}</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="e.g. From John" formControlName="description" />
+        </div>
+      </div>
+
+      <div *ngIf="selectedContributionTypeIsMemberSpecific()" class="form-group row animated fadeInDown"
+           style="z-index: 1; position: relative;">
+        <label class="col-sm-2 col-form-label">{{'Member' | translate}}</label>
+        <div class="col-sm-10">
+          <app-member-control formControlName="organisation_member_id" [returnMembershipId]="true"
+                              [membership]="selectedContribution?.organisation_member"
+                              [readonly]="selectedContribution != null">
+          </app-member-control>
+
+          <div class="messages text-danger" *ngIf="editorForm.controls.organisation_member_id?.errors?.required">
+            <p class="m-b-0 m-t-5">{{ 'Member Required For This Contribution Type' | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{'Payment Method' | translate}}</label>
+        <div class="col-sm-10">
+          <select class="form-control" formControlName="module_contribution_payment_type_id">
+            <option value="">{{ 'Select Payment Method' | translate }}</option>
+            <option *ngFor="let type of paymentTypeService.getItems()" [value]="type.id">{{ type.name }}</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{'Periods & Amounts' | translate}}</label>
+        <div class="col-sm-8">
+          <div formArrayName="periods" *ngFor="let period of editorForm.get('periods')['controls']; let i = index;">
+
+            <div class="form-inline form-group" [formGroupName]="i">
+              <select class="form-control m-r-10" formControlName="week">
+                <option value="">{{ 'Select Week' | translate }}</option>
+                <option value="1">{{ 'Week' | translate }} 1</option>
+                <option value="2">{{ 'Week' | translate }} 2</option>
+                <option value="3">{{ 'Week' | translate }} 3</option>
+                <option value="4">{{ 'Week' | translate }} 4</option>
+                <option value="5">{{ 'Week' | translate }} 5</option>
+              </select>
+
+              <select class="form-control m-r-10" formControlName="month">
+                <option value="">{{ 'Select Month' | translate }}</option>
+                <option value="1">{{ 'January' | translate }}</option>
+                <option value="2">{{ 'February' | translate}}</option>
+                <option value="3">{{ 'March' | translate}}</option>
+                <option value="4">{{ 'April' | translate}}</option>
+                <option value="5">{{ 'May' | translate}}</option>
+                <option value="6">{{ 'June' | translate}}</option>
+                <option value="7">{{ 'July' | translate}}</option>
+                <option value="8">{{ 'August' | translate}}</option>
+                <option value="9">{{ 'September' | translate}}</option>
+                <option value="10">{{ 'October' | translate}}</option>
+                <option value="11">{{ 'November' | translate}}</option>
+                <option value="12">{{ 'December' | translate}}</option>
+              </select>
+
+              <select class="form-control m-r-10" formControlName="year">
+                <option value="">{{ 'Select Year' | translate }}</option>
+                <option *ngFor="let opt of years;" value="{{ opt }}">{{ opt }}</option>
+              </select>
+
+              <select class="form-control m-r-10" formControlName="currency_id">
+                <option value="">{{ 'Currency' | translate }}</option>
+                <option *ngFor="let currency of currencyService.getItems()" [value]="currency.id">
+                  {{ currency.currency_code }}
+                </option>
+              </select>
+
+              <input type="number" class="form-control" formControlName="amount" placeholder="0.00"
+                     style="width: 150px; margin-right: 10px;" />
+
+              <a href="javascript:void(0)" *ngIf="i > 0" class="btn btn-sm btn-danger"
+                 style="padding-left: 15px; padding-right: 15px;" (click)="removePeriodAt(i)">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="col-sm-2 text-right">
+          <a href="javascript:void(0)" type="button" class="btn btn-sm btn-primary" (click)="addPeriod()">
+            <i class="fa fa-plus-square"></i> {{ 'Add Period' | translate }}
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <span *ngIf="contributionService?.requesting" class="m-r-20">
+        <i class="fa fa-spin fa-circle-o-notch"></i> {{'Saving' | translate}}...
+      </span>
+
+      <button type="submit" class="btn btn-primary">{{'Save Changes' | translate}}</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">
+        {{'Cancel' | translate}}
+      </button>
+    </div>
+  </form>
+</ng-template>
