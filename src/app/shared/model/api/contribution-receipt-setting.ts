@@ -14,4 +14,8 @@ export class ContributionReceiptSetting extends AppModel {
   constructor(data) {
     super(data);
   }
+
+  isReceiptModeAuto() {
+    return this.receipt_mode === 'auto';
+  }
 }

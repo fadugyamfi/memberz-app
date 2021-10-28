@@ -35,6 +35,15 @@ export class ContributionService extends APIService<Contribution> {
     }
 
     return this.get(`${this.url}/available_years`).pipe(
+      map((res) => {
+        const years = Object.values(res);
+        const currentYear = (new Date()).getFullYear();
+        if ( !years.includes(currentYear) ) {
+          years.unshift(currentYear);
+        }
+        return years;
+      }),
+
       tap((res) => {
         this.storage.set(cacheKey, res, 1, 'hours');
       })

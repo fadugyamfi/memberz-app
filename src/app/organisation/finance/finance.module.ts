@@ -7,13 +7,15 @@ import { IncomeComponent } from './income/income.component';
 import { ReceiptsComponent } from './settings/receipts/receipts.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { IncomeSourcesComponent } from './settings/income-sources/income-sources.component';
+import { IncomeEditorComponent } from './income/income-editor/income-editor.component';
 
 @NgModule({
   declarations: [
     DashboardComponent,
     IncomeComponent,
     ReceiptsComponent,
-    IncomeSourcesComponent
+    IncomeSourcesComponent,
+    IncomeEditorComponent
   ],
   imports: [
     CommonModule,

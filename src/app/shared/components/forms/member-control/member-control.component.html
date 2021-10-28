@@ -1,11 +1,13 @@
 <div class="media">
   <div class="media-left m-r-10">
-    <img [src]="selectedMember?.member?.thumbnail()" default='assets/images/user/user.png'
+    <img [src]="membership?.member?.thumbnail()" default='assets/images/user/user.png'
          class="img-thumbnail rounded-circle img-40" />
   </div>
   <div class="media-body">
-    <input type="text" class="form-control" [ngbTypeahead]="searchMember" [resultTemplate]="rt" [(ngModel)]="model"
-           [inputFormatter]="formatter" placeholder="Enter Member Name" #input (selectItem)="setSelectedMember($event, input)" />
+    <input type="text" class="form-control" [ngbTypeahead]="searchMember" [resultTemplate]="rt"
+           [value]="membership?.member?.firstThenLastName()" [inputFormatter]="formatter"
+           placeholder="Enter Member Name" #input (selectItem)="setSelectedMember($event, input)"
+           [readonly]="readonly" />
 
     <ng-template #rt let-r="result" let-t="term">
       <img [src]="r.member?.thumbnail()" default='assets/images/user/user.png'

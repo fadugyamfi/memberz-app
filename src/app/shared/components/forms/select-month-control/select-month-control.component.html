@@ -1,16 +1,17 @@
 <div>
-  <select class="form-control digits" (change)="setValue($event)">
-    <option value="1">January</option>
-    <option value="2">February</option>
-    <option value="3">March</option>
-    <option value="4">April</option>
-    <option value="5">May</option>
-    <option value="6">June</option>
-    <option value="7">July</option>
-    <option value="8">August</option>
-    <option value="9">September</option>
-    <option value="10">October</option>
-    <option value="11">November</option>
-    <option value="12">December</option>
+  <select class="form-control digits" [(ngModel)]="value">
+    <option value="">{{ 'Select Month' | translate }}</option>
+    <option value="1">{{ 'January' | translate }}</option>
+    <option value="2">{{ 'February' | translate }}</option>
+    <option value="3">{{ 'March' | translate }}</option>
+    <option value="4">{{ 'April' | translate }}</option>
+    <option value="5">{{ 'May' | translate }}</option>
+    <option value="6">{{ 'June' | translate }}</option>
+    <option value="7">{{ 'July' | translate }}</option>
+    <option value="8">{{ 'August' | translate }}</option>
+    <option value="9">{{ 'September' | translate }}</option>
+    <option value="10">{{ 'October' | translate }}</option>
+    <option value="11">{{ 'November' | translate }}</option>
+    <option value="12">{{ 'December' | translate }}</option>
   </select>
 </div>
