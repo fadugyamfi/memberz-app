@@ -775,13 +775,12 @@ export class APIService<T extends AppModel> {
             results.push(new this.model(data[id]));
         }
       }
-      console.log(results);
 
       return results;
 
     } catch (e) {
       console.log(e);
-      return {};
+      return asArray ? [] : {};
     }
   }
 }
