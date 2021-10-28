@@ -76,6 +76,25 @@
         </div>
       </div>
 
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{'Cheque Details' | translate}}</label>
+        <div class="col-sm-3">
+          <app-select-bank-control formControlName="bank_id"></app-select-bank-control>
+        </div>
+
+        <div class="col-sm-3">
+          <input type="text" class="form-control" formControlName="cheque_number" placeholder="Cheque No." maxlength="20" />
+        </div>
+
+        <div class="col-sm-3">
+          <select class="form-control" formControlName="cheque_status">
+            <option value="">{{ 'Cheque Status' | translate }}</option>\
+            <option value="Cleared">{{ 'Cleared' | translate }}</option>\
+            <option value="Not Cleared">{{ 'Not Cleared' | translate }}</option>\
+          </select>
+        </div>
+      </div>
+
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">{{'Periods & Amounts' | translate}}</label>
@@ -92,26 +111,9 @@
                 <option value="5">{{ 'Week' | translate }} 5</option>
               </select>
 
-              <select class="form-control m-r-10" formControlName="month">
-                <option value="">{{ 'Select Month' | translate }}</option>
-                <option value="1">{{ 'January' | translate }}</option>
-                <option value="2">{{ 'February' | translate}}</option>
-                <option value="3">{{ 'March' | translate}}</option>
-                <option value="4">{{ 'April' | translate}}</option>
-                <option value="5">{{ 'May' | translate}}</option>
-                <option value="6">{{ 'June' | translate}}</option>
-                <option value="7">{{ 'July' | translate}}</option>
-                <option value="8">{{ 'August' | translate}}</option>
-                <option value="9">{{ 'September' | translate}}</option>
-                <option value="10">{{ 'October' | translate}}</option>
-                <option value="11">{{ 'November' | translate}}</option>
-                <option value="12">{{ 'December' | translate}}</option>
-              </select>
+              <app-select-month-control class="m-r-10" formControlName="month"></app-select-month-control>
 
-              <select class="form-control m-r-10" formControlName="year">
-                <option value="">{{ 'Select Year' | translate }}</option>
-                <option *ngFor="let opt of years;" value="{{ opt }}">{{ opt }}</option>
-              </select>
+              <app-select-year-control class="m-r-10" formControlName="year"></app-select-year-control>
 
               <select class="form-control m-r-10" formControlName="currency_id">
                 <option value="">{{ 'Currency' | translate }}</option>

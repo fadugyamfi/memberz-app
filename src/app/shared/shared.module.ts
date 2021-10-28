@@ -50,6 +50,7 @@ import { InvoiceComponent } from './components/invoice/invoice.component';
 import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
 import { SelectMonthControlComponent } from './components/forms/select-month-control/select-month-control.component';
 import { SelectYearControlComponent } from './components/forms/select-year-control/select-year-control.component';
+import { SelectBankControlComponent } from './components/forms/select-bank-control/select-bank-control.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { SelectYearControlComponent } from './components/forms/select-year-contr
     InvoiceComponent,
     ImageCropperComponent,
     SelectMonthControlComponent,
-    SelectYearControlComponent
+    SelectYearControlComponent,
+    SelectBankControlComponent
   ],
   imports: [
     CommonModule,
@@ -113,7 +115,8 @@ import { SelectYearControlComponent } from './components/forms/select-year-contr
     ImageCropperModule,
     ImageCropperComponent,
     SelectMonthControlComponent,
-    SelectYearControlComponent
+    SelectYearControlComponent,
+    SelectBankControlComponent
   ],
   providers: [
     NavService,

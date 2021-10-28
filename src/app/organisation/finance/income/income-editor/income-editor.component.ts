@@ -46,7 +46,6 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.fetchYears();
     this.fetchReceiptSettings();
     this.setupEvents();
   }
@@ -68,6 +67,9 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
       organisation_member_id: new FormControl(''),
       module_contribution_type_id: new FormControl('', [Validators.required]),
       module_contribution_payment_type_id: new FormControl('', [Validators.required]),
+      bank_id: new FormControl(''),
+      cheque_number: new FormControl(''),
+      cheque_status: new FormControl('Not Cleared'),
       periods: new FormArray([ this.createPeriodItem(contribution) ])
     });
 
@@ -165,14 +167,6 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
     this.subscriptions.push(sub);
   }
 
-  fetchYears() {
-    const sub = this.contributionService.getAvailableYears().subscribe((years: number[]) => {
-      this.years = years;
-    });
-
-    this.subscriptions.push(sub);
-  }
-
   selectedContributionTypeIsMemberSpecific() {
     return this.selectedContributionType?.isMemberSpecific();
   }
@@ -189,6 +183,11 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
 
   onSubmit(e: Event) {
     e.preventDefault();
+
+    if ( !this.editorForm.valid ) {
+      console.log(this.editorForm.value);
+      return;
+    }
 
     const formValues = this.editorForm.value;
     const contributions: Contribution[] = formValues.periods.map(period => {

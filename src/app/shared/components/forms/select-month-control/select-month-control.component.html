@@ -1,16 +1,17 @@
 <div>
-  <select class="form-control digits" (change)="setValue($event)">
+  <select class="form-control digits" [(ngModel)]="value">
+    <option value="">{{ 'Select Month' | translate }}</option>
     <option value="1">{{ 'January' | translate }}</option>
-    <option value="2">{{'February' | translate}}</option>
-    <option value="3">{{'March' | translate}}</option>
-    <option value="4">{{'April' | translate}}</option>
-    <option value="5">{{'May' | translate}}</option>
-    <option value="6">{{'June' | translate}}</option>
-    <option value="7">{{'July' | translate}}</option>
-    <option value="8">{{'August' | translate}}</option>
-    <option value="9">{{'September' | translate}}</option>
-    <option value="10">{{'October' | translate}}</option>
-    <option value="11">{{'November' | translate}}</option>
-    <option value="12">{{'December' | translate}}</option>
+    <option value="2">{{ 'February' | translate }}</option>
+    <option value="3">{{ 'March' | translate }}</option>
+    <option value="4">{{ 'April' | translate }}</option>
+    <option value="5">{{ 'May' | translate }}</option>
+    <option value="6">{{ 'June' | translate }}</option>
+    <option value="7">{{ 'July' | translate }}</option>
+    <option value="8">{{ 'August' | translate }}</option>
+    <option value="9">{{ 'September' | translate }}</option>
+    <option value="10">{{ 'October' | translate }}</option>
+    <option value="11">{{ 'November' | translate }}</option>
+    <option value="12">{{ 'December' | translate }}</option>
   </select>
 </div>
