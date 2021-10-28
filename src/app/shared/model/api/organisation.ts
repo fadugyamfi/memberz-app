@@ -13,6 +13,11 @@ export class Organisation extends AppModel {
   public logo: string;
   private _activeSubscription: OrganisationSubscription;
   private _organisationType: OrganisationType;
+  public country_id: number;
+  public slug: string;
+  public address: string;
+  public city: string;
+  public state: string;
 
   constructor(data) {
     super(data);

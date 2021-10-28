@@ -69,16 +69,13 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">{{'Payment Method' | translate}}</label>
         <div class="col-sm-10">
-          <select class="form-control" formControlName="module_contribution_payment_type_id">
-            <option value="">{{ 'Select Payment Method' | translate }}</option>
-            <option *ngFor="let type of paymentTypeService.getItems()" [value]="type.id">{{ type.name }}</option>
-          </select>
+          <app-select-payment-type-control formControlName="module_contribution_payment_type_id"></app-select-payment-type-control>
         </div>
       </div>
 
-      <div class="form-group row">
+      <div class="form-group row animated fadeInDown" *ngIf="paymentMethodIsCheque()">
         <label class="col-sm-2 col-form-label">{{'Cheque Details' | translate}}</label>
-        <div class="col-sm-3">
+        <div class="col-sm-4">
           <app-select-bank-control formControlName="bank_id"></app-select-bank-control>
         </div>
 
@@ -115,12 +112,7 @@
 
               <app-select-year-control class="m-r-10" formControlName="year"></app-select-year-control>
 
-              <select class="form-control m-r-10" formControlName="currency_id">
-                <option value="">{{ 'Currency' | translate }}</option>
-                <option *ngFor="let currency of currencyService.getItems()" [value]="currency.id">
-                  {{ currency.currency_code }}
-                </option>
-              </select>
+              <app-select-currency-control class="m-r-10" formControlName="currency_id"></app-select-currency-control>
 
               <input type="number" class="form-control" formControlName="amount" placeholder="0.00"
                      style="width: 150px; margin-right: 10px;" />

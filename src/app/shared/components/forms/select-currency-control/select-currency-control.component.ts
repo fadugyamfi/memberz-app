@@ -1,25 +1,24 @@
 import { Component, forwardRef, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { BankService } from '../../../services/api/bank.service';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OrganisationService } from '../../../services/api/organisation.service';
+import { Subscription } from 'rxjs';
+import { CurrencyService } from '../../../services/api/currency.service';
 
-export const BANK_CONTROL_ACCESSOR: any = {
+export const CURRENCY_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  useExisting: forwardRef(() => SelectBankControlComponent),
+  useExisting: forwardRef(() => SelectCurrencyControlComponent),
   multi: true
 };
 
 @Component({
-  selector: 'app-select-bank-control',
-  templateUrl: './select-bank-control.component.html',
-  styleUrls: ['./select-bank-control.component.scss'],
-  providers: [BANK_CONTROL_ACCESSOR]
+  selector: 'app-select-currency-control',
+  templateUrl: './select-currency-control.component.html',
+  styleUrls: ['./select-currency-control.component.scss'],
+  providers: [CURRENCY_CONTROL_ACCESSOR]
 })
-export class SelectBankControlComponent implements OnInit, OnDestroy {
+export class SelectCurrencyControlComponent implements OnInit, OnDestroy {
 
-  private bankSub: Subscription;
+  private currencySub: Subscription;
 
   private _value = '';
   public disabled = false;
@@ -27,24 +26,19 @@ export class SelectBankControlComponent implements OnInit, OnDestroy {
   public onTouched = () => { };
 
   constructor(
-    public bankService: BankService,
-    public orgService: OrganisationService
+    public currencyService: CurrencyService
   ) { }
 
   ngOnInit(): void {
-    this.fetchBanks();
+    this.fetchCurrencies();
   }
 
   ngOnDestroy() {
-    this.bankSub.unsubscribe();
+    this.currencySub.unsubscribe();
   }
 
-  fetchBanks() {
-    this.bankSub = this.bankService.getAll({
-      cacheResults: true,
-      country_id: this.orgService.getActiveOrganisation().country_id,
-      limit: 100
-    }).subscribe();
+  fetchCurrencies() {
+    this.currencySub = this.currencyService.getAll({ cacheResults: true, limit: 100 }).subscribe();
   }
 
   get value() {

@@ -1,25 +1,24 @@
 import { Component, forwardRef, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { BankService } from '../../../services/api/bank.service';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OrganisationService } from '../../../services/api/organisation.service';
+import { Subscription } from 'rxjs';
+import { ContributionPaymentTypeService } from '../../../services/api/contribution-payment-type.service';
 
-export const BANK_CONTROL_ACCESSOR: any = {
+export const PAYMENT_TYPE_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  useExisting: forwardRef(() => SelectBankControlComponent),
+  useExisting: forwardRef(() => SelectPaymentTypeControlComponent),
   multi: true
 };
 
 @Component({
-  selector: 'app-select-bank-control',
-  templateUrl: './select-bank-control.component.html',
-  styleUrls: ['./select-bank-control.component.scss'],
-  providers: [BANK_CONTROL_ACCESSOR]
+  selector: 'app-select-payment-type-control',
+  templateUrl: './select-payment-type-control.component.html',
+  styleUrls: ['./select-payment-type-control.component.scss'],
+  providers: [PAYMENT_TYPE_CONTROL_ACCESSOR]
 })
-export class SelectBankControlComponent implements OnInit, OnDestroy {
+export class SelectPaymentTypeControlComponent implements OnInit, OnDestroy {
 
-  private bankSub: Subscription;
+  private paymentSub: Subscription;
 
   private _value = '';
   public disabled = false;
@@ -27,24 +26,19 @@ export class SelectBankControlComponent implements OnInit, OnDestroy {
   public onTouched = () => { };
 
   constructor(
-    public bankService: BankService,
-    public orgService: OrganisationService
+    public paymentTypeService: ContributionPaymentTypeService
   ) { }
 
   ngOnInit(): void {
-    this.fetchBanks();
+    this.fetchPaymentTypes();
   }
 
   ngOnDestroy() {
-    this.bankSub.unsubscribe();
+    this.paymentSub.unsubscribe();
   }
 
-  fetchBanks() {
-    this.bankSub = this.bankService.getAll({
-      cacheResults: true,
-      country_id: this.orgService.getActiveOrganisation().country_id,
-      limit: 100
-    }).subscribe();
+  fetchPaymentTypes() {
+    this.paymentSub = this.paymentTypeService.getAll({ cacheResults: true }).subscribe();
   }
 
   get value() {

@@ -14,6 +14,7 @@ import { ContributionReceiptSettingService} from '../../../../shared/services/ap
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../../shared/services/events.service';
 import Swal from 'sweetalert2';
+import { ContributionPaymentType } from '../../../../shared/model/api/contribution-payment-type';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   public selectedContributionType: ContributionType;
   public selectedContribution: Contribution;
+  public selectedPaymentType: ContributionPaymentType;
   public years;
   public receiptSettings: ContributionReceiptSetting;
   private modal: NgbModalRef;
@@ -85,6 +87,13 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
         } else {
           this.editorForm.controls.organisation_member_id.removeValidators(Validators.required);
         }
+      }
+
+      if ( value.module_contribution_payment_type_id ) {
+        this.selectedPaymentType = this.paymentTypeService.getItems().find(type => {
+          // tslint:disable-next-line: triple-equals
+          return type.id == value.module_contribution_payment_type_id;
+        });
       }
     });
 
@@ -152,23 +161,17 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
     this.subscriptions.push(sub);
   }
 
-  fetchPaymentTypes() {
-    const sub = this.paymentTypeService.getAll().subscribe();
-    this.subscriptions.push(sub);
-  }
-
   fetchContributionTypes() {
     const sub = this.contributionTypeService.getAll({ sort: 'name:asc' }).subscribe();
     this.subscriptions.push(sub);
   }
 
-  fetchCurrencies() {
-    const sub = this.currencyService.getAll({ sort: 'currency_code:asc' }).subscribe();
-    this.subscriptions.push(sub);
-  }
-
   selectedContributionTypeIsMemberSpecific() {
     return this.selectedContributionType?.isMemberSpecific();
+  }
+
+  paymentMethodIsCheque() {
+    return this.selectedPaymentType?.name === 'Cheque';
   }
 
   setupEvents() {

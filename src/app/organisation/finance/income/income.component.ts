@@ -38,10 +38,7 @@ export class IncomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.fetchContributions();
     this.setupSearchForm();
-    this.findYears();
-    this.fetchPaymentTypes();
     this.fetchContributionTypes();
-    this.fetchCurrencies();
     this.setupEvents();
   }
 
@@ -62,25 +59,15 @@ export class IncomeComponent implements OnInit, OnDestroy {
     this.subscriptions.push(sub);
   }
 
-  fetchPaymentTypes() {
-    const sub = this.paymentTypeService.getAll().subscribe();
-    this.subscriptions.push(sub);
-  }
-
   fetchContributionTypes() {
     const sub = this.contributionTypeService.getAll({ sort: 'name:asc' }).subscribe();
-    this.subscriptions.push(sub);
-  }
-
-  fetchCurrencies() {
-    const sub = this.currencyService.getAll({ sort: 'currency_code:asc'}).subscribe();
     this.subscriptions.push(sub);
   }
 
   /**
    * Sets up the search form group and validations
    */
-   setupSearchForm() {
+  setupSearchForm() {
     this.searchForm = new FormGroup({
       receipt_dt: new FormControl(''),
       receipt_no: new FormControl(''),
@@ -92,6 +79,9 @@ export class IncomeComponent implements OnInit, OnDestroy {
       month: new FormControl(''),
       year: new FormControl(''),
       currency_id: new FormControl(''),
+      bank_id: new FormControl(''),
+      cheque_number_like: new FormControl(),
+      cheque_status: new FormControl(''),
       amount: new FormControl(),
       created_gte: new FormControl(),
       created_lte: new FormControl()
@@ -110,7 +100,7 @@ export class IncomeComponent implements OnInit, OnDestroy {
    *
    * @param e Event
    */
-   onSearch(e: Event) {
+  onSearch(e: Event) {
     e.preventDefault();
     this.fetchContributions(this.searchForm.value);
     this.modalService.dismissAll();
@@ -121,16 +111,8 @@ export class IncomeComponent implements OnInit, OnDestroy {
    *
    * @param event PageEvent
    */
-   onPaginate(event: PageEvent): void {
+  onPaginate(event: PageEvent): void {
     this.fetchContributions(this.searchForm.value, event.page, event.limit);
-  }
-
-  findYears() {
-    const sub = this.contributionService.getAvailableYears().subscribe(years => {
-      this.years = years;
-    });
-
-    this.subscriptions.push(sub);
   }
 
   setupEvents() {

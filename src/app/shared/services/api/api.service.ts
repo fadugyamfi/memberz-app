@@ -308,6 +308,7 @@ export class APIService<T extends AppModel> {
       const results = this.fetchCachedData(true);
 
       if (results && results.length > 0) {
+        this.results = results;
         return of(results);
       }
     }
@@ -774,10 +775,12 @@ export class APIService<T extends AppModel> {
             results.push(new this.model(data[id]));
         }
       }
+      console.log(results);
 
       return results;
 
     } catch (e) {
+      console.log(e);
       return {};
     }
   }

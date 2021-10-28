@@ -142,10 +142,7 @@
       <div class="form-group row">
         <label class="col-sm-4 col-form-label">{{'Payment Method' | translate}}</label>
         <div class="col-sm-8">
-          <select class="form-control" formControlName="module_contribution_payment_type_id">
-            <option value="">{{ 'Select Payment Type' | translate }}</option>
-            <option *ngFor="let type of paymentTypeService.getItems()" [value]="type.id">{{ type.name }}</option>
-          </select>
+          <app-select-payment-type-control formControlName="module_contribution_payment_type_id"></app-select-payment-type-control>
         </div>
       </div>
 
@@ -166,44 +163,46 @@
       <div class="form-group row">
         <label class="col-sm-4 col-form-label">{{'Month' | translate}}</label>
         <div class="col-sm-8">
-          <select class="form-control" formControlName="month">
-            <option value="">{{ 'Select Month' | translate }}</option>
-            <option value="1">{{ 'January' | translate }}</option>
-            <option value="2">{{'February' | translate}}</option>
-            <option value="3">{{'March' | translate}}</option>
-            <option value="4">{{'April' | translate}}</option>
-            <option value="5">{{'May' | translate}}</option>
-            <option value="6">{{'June' | translate}}</option>
-            <option value="7">{{'July' | translate}}</option>
-            <option value="8">{{'August' | translate}}</option>
-            <option value="9">{{'September' | translate}}</option>
-            <option value="10">{{'October' | translate}}</option>
-            <option value="11">{{'November' | translate}}</option>
-            <option value="12">{{'December' | translate}}</option>
-          </select>
+          <app-select-month-control formControlName="month"></app-select-month-control>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-4 col-form-label">{{'Year' | translate}}</label>
         <div class="col-sm-8">
-          <select class="form-control" formControlName="year">
-            <option value="">{{ 'Select Year' | translate }}</option>
-            <option *ngFor="let opt of years;"  value="{{ opt }}">{{ opt }}</option>
-          </select>
+          <app-select-year-control formControlName="year"></app-select-year-control>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-4 col-form-label">{{'Amount and/or Currency' | translate}}</label>
         <div class="col-sm-4">
-          <select class="form-control" formControlName="currency_id">
-            <option value="">{{ 'Currency' | translate }}</option>
-            <option *ngFor="let currency of currencyService.getItems()" [value]="currency.id">{{ currency.currency_code }}</option>
-          </select>
+          <app-select-currency-control formControlName="currency_id"></app-select-currency-control>
         </div>
         <div class="col-sm-4">
           <input type="number" class="form-control" formControlName="amount" placeholder="0.00" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Bank' | translate}}</label>
+        <div class="col-sm-8">
+          <app-select-bank-control formControlName="bank_id"></app-select-bank-control>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{' Cheque Number / Status' | translate}}</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" formControlName="cheque_number_like" placeholder="Cheque No." maxlength="20" />
+        </div>
+
+        <div class="col-sm-4">
+          <select class="form-control" formControlName="cheque_status">
+            <option value="">{{ 'Cheque Status' | translate }}</option>\
+            <option value="Cleared">{{ 'Cleared' | translate }}</option>\
+            <option value="Not Cleared">{{ 'Not Cleared' | translate }}</option>\
+          </select>
         </div>
       </div>
 
