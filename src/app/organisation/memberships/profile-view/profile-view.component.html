@@ -60,6 +60,14 @@
             </ng-template>
           </li>
 
+          <!-- Anniversaries -->
+          <li [ngbNavItem]="6">
+            <a ngbNavLink><i class="fa fa-birthday-cake"></i> {{ 'Anniversaries' | translate }}</a>
+            <ng-template ngbNavContent>
+              <app-profile-anniversaries [membership]="membership"></app-profile-anniversaries>
+            </ng-template>
+          </li>
+
           <!-- Messages -->
           <li [ngbNavItem]="4">
             <a ngbNavLink><i class="fa fa-envelope"></i> {{ 'Messages' | translate }}</a>
@@ -76,13 +84,7 @@
             </ng-template>
           </li>
 
-          <!-- Contributions -->
-          <li [ngbNavItem]="6">
-            <a ngbNavLink><i class="fa fa-birthday-cake"></i> {{ 'Anniversaries' | translate }}</a>
-            <ng-template ngbNavContent>
-              <app-profile-anniversaries [membership]="membership"></app-profile-anniversaries>
-            </ng-template>
-          </li>
+
 
         </ul>
 
