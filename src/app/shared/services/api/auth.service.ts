@@ -58,7 +58,7 @@ export class AuthService extends APIService<MemberAccount> {
         () => {
           Swal.fire(
             this.translate.instant('Login Failed'),
-            this.translate.instant('Username or Password may be incorrect. Please try again'),
+            this.translate.instant('Username or Password may be incorrect') + '.' + this.translate.instant('Please try again'),
             'error'
           );
           this.requesting = false;
@@ -105,7 +105,8 @@ export class AuthService extends APIService<MemberAccount> {
       () => {
         Swal.fire(
           this.translate.instant('Request Successful'),
-          this.translate.instant('A password reset link has been sent to your email. Please use that link to reset your password.'),
+          this.translate.instant('A password reset link has been sent to your email') + '.' +
+          this.translate.instant('Please use that link to reset your password'),
           'success'
         );
         this.router.navigate(['/auth/login']);

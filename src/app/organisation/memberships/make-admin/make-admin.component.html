@@ -33,7 +33,7 @@
               {{ membership?.member?.email }}
           </div>
           <div class="text-danger" *ngIf="!membership?.member?.email">
-            <p>{{'Email required. Please update member profile with an email before attempting to make them an admin' | translate}}</p>
+            <p>{{'Email required' | translate}}. {{'Please update member profile with an email before attempting to make them an admin' | translate}}</p>
           </div>
         </div>
       </div>

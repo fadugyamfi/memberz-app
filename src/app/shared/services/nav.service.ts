@@ -599,9 +599,14 @@ export class NavService {
       path: '/organisation/memberships/profiles',
       children: [
         {
-          path: '/organisation/memberships/categories',
-          title: 'Categories',
-          type: 'link'
+          title: 'Settings',
+          type: 'sub',
+          active: false,
+          children: [
+            { path: '/organisation/memberships/categories', title: 'Categories', type: 'link' },
+            { path: '/organisation/memberships/groups', title: 'Groups', type: 'link' },
+            { path: '/organisation/memberships/anniversaries', title: 'Anniversaries', type: 'link' }
+          ]
         },
         {
           path: '/organisation/memberships/add',
@@ -686,7 +691,6 @@ export class NavService {
       active: false,
       path: '/organisation/settings/subscription',
       children: [
-        // { path: '/organisation/settings/profile', title: 'Profile', type: 'link', icon: 'settings' },
         {
           path: '/organisation/settings/subscription',
           title: 'Subscription',

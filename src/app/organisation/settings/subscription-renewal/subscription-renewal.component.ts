@@ -79,8 +79,7 @@ export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
     let message = this.translate.instant(`This action will renew your subscription and generate an invoice for payment`);
 
     if ( params.payment_method !== 'invoice' ) {
-      message = this.translate.instant(`This action will renew your subscription, generate an invoice for payment and
-                 redirect you to the chosen payment gateway to complete the payment process`);
+      message = this.translate.instant(`This action will renew your subscription, generate an invoice for payment and redirect you to the chosen payment gateway to complete the payment process`);
     }
 
     Swal.fire({
