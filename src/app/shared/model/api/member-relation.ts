@@ -1,5 +1,6 @@
 
 import { AppModel } from './app.model';
+import { MemberRelationType } from './member-relation-type';
 
 export class MemberRelation extends AppModel {
 
@@ -14,6 +15,7 @@ export class MemberRelation extends AppModel {
   public member_relation_type_id: number;
   public active: boolean;
   public relative;
+  public member_relation_type: MemberRelationType;
 
   constructor(data) {
     super(data);
@@ -21,5 +23,17 @@ export class MemberRelation extends AppModel {
 
   profilePhoto() {
     return this.relative?.profile_photo?.thumb_url;
+  }
+
+  isParent() {
+    return this.member_relation_type?.name === 'Parent';
+  }
+
+  isChild() {
+    return this.member_relation_type?.name === 'Child';
+  }
+
+  isSpouse() {
+    return this.member_relation_type?.name === 'Spouse';
   }
 }

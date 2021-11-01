@@ -4,21 +4,21 @@
 
       <div class="card">
         <div class="card-header">
-          <h5>Subscription Upgrade</h5>
+          <h5>{{'Subscription Upgrade' | translate}}</h5>
         </div>
 
         <div class="card-body">
 
           <div class='form-group row'>
-            <label class='col-sm-3 control-label'>New Plan:</label>
+            <label class='col-sm-3 control-label'>{{'New Plan' | translate}}:</label>
             <div class='col-sm-9'>
               <select class="form-control" formControlName="subscription_type_id">
-                <option value=''>Select New Plan</option>
+                <option value=''>{{'Select New Plan' | translate}}</option>
                 <option *ngFor="let subType of subscriptionTypes" [value]="subType.id">{{ subType.description }}</option>
               </select>
 
               <div class="messages text-danger" *ngIf="subscriptionForm.controls.subscription_type_id.errors?.required">
-                <p>New Plan Required</p>
+                <p>{{'New Plan Required' | translate}}</p>
               </div>
 
               <input type="hidden" id="base_price" />
@@ -26,28 +26,28 @@
           </div>
 
           <div class='form-group row'>
-            <label class='col-sm-3 control-label'>Subscription Period:</label>
+            <label class='col-sm-3 control-label'>{{'Subscription Period' | translate}}:</label>
             <div class='col-sm-9'>
 
               <div class="btn-group btn-group-toggle m-b-5" ngbRadioGroup name="radioBasic" formControlName="length">
                 <!-- formControlName="model" -->
                 <label ngbButtonLabel class="btn-outline-info">
-                  <input ngbButton type="radio" [value]="1"> 1 Month
+                  <input ngbButton type="radio" [value]="1"> 1 {{'Month' | translate}}
                 </label>
                 <label ngbButtonLabel class="btn-outline-info">
-                  <input ngbButton type="radio" [value]="3"> 3 Months
+                  <input ngbButton type="radio" [value]="3"> 3 {{'Months' | translate}}
                 </label>
                 <label ngbButtonLabel class="btn-outline-info">
-                  <input ngbButton type="radio" [value]="6"> 6 Months
+                  <input ngbButton type="radio" [value]="6"> 6 {{'Months' | translate}}
                 </label>
                 <label ngbButtonLabel class="btn-outline-info">
-                  <input ngbButton type="radio" [value]="12"> 12 Months
+                  <input ngbButton type="radio" [value]="12"> 12 {{'Months' | translate}}
                 </label>
               </div>
 
               <div>
                 <small class='text-muted'>
-                  Save <b>16%</b> when you choose the 6 or 12 month subscription.
+                  {{'Save' | translate}} <b>16%</b> {{'when you choose the 6 or 12 month subscription' | translate}}.
                 </small>
               </div>
 
@@ -55,7 +55,7 @@
           </div>
 
           <div class='form-group row'>
-            <label class='col-sm-3 control-label'>Subscription Cost:</label>
+            <label class='col-sm-3 control-label'>{{'Subscription Cost' | translate}}:</label>
             <div class='col-sm-4'>
               <div class='input-group'>
                 <div class="input-group-prepend">
@@ -69,7 +69,7 @@
           </div>
 
           <div class='form-group row m-b-30'>
-            <label class='col-sm-3 col-form-label'>Next Renewal:</label>
+            <label class='col-sm-3 col-form-label'>{{'Next Renewal' | translate}}:</label>
             <div class='col-sm-4'>
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -84,7 +84,7 @@
 
           <div class='form-group row'>
             <label class='col-sm-3 col-form-label'>
-              Payment Method:
+              {{'Payment Method' | translate}}:
 
             </label>
             <div class='col-sm-9'>
@@ -92,19 +92,21 @@
                 <input class="radio_animated" id="slydepay" type="radio" name="payment_method" checked=""
                        value="slydepay" formControlName="payment_method">
                 <i class="fa fa-credit-card"></i>
-                Slydepay (Visa, MasterCard, Mobile Money)
+                {{'Slydepay (Visa, MasterCard, Mobile Money)' | translate}}
 
-                <p class="small text-muted p-l-30">You will be redirected to the Slydepay Payment portal to complete
-                  your payment</p>
+                <p class="small text-muted p-l-30">
+                  {{'You will be redirected to the Slydepay Payment portal to complete your payment' | translate}}
+                </p>
               </label>
 
               <label class="d-block" for="cash">
                 <input class="radio_animated" id="cash" type="radio" name="payment_method" value="invoice"
                        formControlName="payment_method">
                 <i class="fa fa-money"></i>
-                Cash Payment (Generates Invoice Only)
+                {{'Cash Payment (Generates Invoice Only)' | translate}}
 
-                <p class="small text-muted p-l-30">You will be emailed an invoice with bank details to complete payment
+                <p class="small text-muted p-l-30">
+                  {{'You will be emailed an invoice with bank details to complete payment' | translate}}
                 </p>
               </label>
             </div>
@@ -113,8 +115,8 @@
         </div>
 
         <div class="card-footer text-right">
-          <button type="submit" class="btn btn-info m-r-15">Upgrade Subscription</button>
-          <button type="button" class="btn btn-danger" (click)="cancelUpgrade()">Cancel</button>
+          <button type="submit" class="btn btn-info m-r-15">{{'Upgrade Subscription' | translate}}</button>
+          <button type="button" class="btn btn-danger" (click)="cancelUpgrade()">{{'Cancel' | translate}}</button>
         </div>
       </div>
 

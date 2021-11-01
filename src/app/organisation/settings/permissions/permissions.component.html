@@ -1,7 +1,7 @@
 <ng-template #editorModal let-modal>
   <form (ngSubmit)="onSubmit($event)" [formGroup]='editorForm'>
     <div class="modal-header">
-      <h5 class="modal-title">Set Permissions For Role: <b class="text-primary">{{ role?.name | titlecase }}</b></h5>
+      <h5 class="modal-title">{{'Set Permissions For Role' | translate}}: <b class="text-primary">{{ role?.name | titlecase }}</b></h5>
 
       <button type="button" class="close basic-close" (click)="hide()">
         <span aria-hidden="true">&times;</span>
@@ -14,13 +14,13 @@
             <label class="d-flex mb-0">
               <ui-switch color="#3498DB" switchColor="#fff" size="small" (change)="selectAll($event)">
               </ui-switch>
-              <span class="m-l-5">Select All Permissions</span>
+              <span class="m-l-5">{{'Select All Permissions' | translate}}</span>
             </label>
           </div>
 
           <div class="col-sm-4 text-center">
             <span class="f-16 text-primary font-weight-bold" *ngIf="permissionService?.requesting">
-              <i class="fa fa-spin fa-circle-o-notch"></i> Loading Role Permissions ...
+              <i class="fa fa-spin fa-circle-o-notch"></i> {{'Loading Role Permissions' | translate}} ...
             </span>
 
             <span class="badge badge-info" *ngIf="!permissionService?.requesting">
@@ -32,7 +32,7 @@
 
           <div class="col-sm-4 text-right p-r-30">
             <button type='button' class="btn btn-xs btn-primary" (click)="refreshPermissionCache()">
-              <i class="fa fa-refresh"></i> Refresh Permission Cache
+              <i class="fa fa-refresh"></i> {{'Refresh Permission Cache' | translate}}
             </button>
           </div>
         </div>
@@ -43,8 +43,8 @@
         <div id="accordion" class="table-responsive m-t-10 p-l-15 p-r-15">
           <div class="p-15">
             <div class="row font-weight-bold">
-              <div class="col-4">Permission Group</div>
-              <div class="col-8">Actions</div>
+              <div class="col-4">{{'Permission Group' | translate}}</div>
+              <div class="col-8">{{'Actions' | translate}}</div>
             </div>
           </div>
 
@@ -52,7 +52,7 @@
             <div class="card-header p-t-10 p-b-10">
               <div class="row">
                 <div class="col-1">
-                  <ui-switch class="js-small" color="#3498DB" switchColor="#fff" size="small" 
+                  <ui-switch class="js-small" color="#3498DB" switchColor="#fff" size="small"
                              (change)="selectAllInGroup($event, permGroup)" [checked]="permGroup.selected"></ui-switch>
                 </div>
 
@@ -65,7 +65,7 @@
                 <div class="col-7 p-t-5">
                   <i class="label"
                      [ngClass]="{'label-inverse': permGroup.totalSelected() > 0, 'label-default': permGroup.totalSelected() == 0}">
-                    Selected: {{ permGroup.totalSelected() }} / {{ permGroup.totalPermissions() }}
+                    {{'Selected' | translate}}: {{ permGroup.totalSelected() }} / {{ permGroup.totalPermissions() }}
                   </i>
                 </div>
 
@@ -117,12 +117,12 @@
     <div class="modal-footer flex-grow-1">
       <div class="text-right">
         <span class="m-r-15" *ngIf="roleService?.requesting">
-          <i class="fa fa-spin fa-circle-o-notch"></i> Saving
+          <i class="fa fa-spin fa-circle-o-notch"></i> {{'Saving' | translate}}
         </span>
 
-        <button type="submit" class="btn btn-primary m-r-10 btn-sm">Save Permissions</button>
+        <button type="submit" class="btn btn-primary m-r-10 btn-sm">{{'Save Permissions' | translate}}</button>
 
-        <button type="button" class="btn btn-outline-danger btn-sm" (click)="hide()">Cancel</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="hide()">{{'Cancel' | translate}}</button>
       </div>
     </div>
   </form>

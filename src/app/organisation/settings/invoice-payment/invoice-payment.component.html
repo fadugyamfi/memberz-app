@@ -4,13 +4,13 @@
 
       <div class="card">
         <div class="card-header">
-          <h5>Invoice Payment</h5>
+          <h5>{{'Invoice Payment' | translate}}</h5>
         </div>
 
         <div class="card-body">
 
           <div class='form-group row'>
-            <label class='col-sm-3 control-label'>Invoice Number:</label>
+            <label class='col-sm-3 control-label'>{{'Invoice Number' | translate}}:</label>
             <div class='col-sm-9'>
               <input type="text" class="form-control input-sm input-s" readonly
                      formControlName="invoice_no" />
@@ -18,7 +18,7 @@
           </div>
 
           <div class='form-group row'>
-            <label class='col-sm-3 control-label'>Transaction Type:</label>
+            <label class='col-sm-3 control-label'>{{'Transaction Type' | translate}}:</label>
             <div class='col-sm-9'>
               <input type="text" class="form-control input-sm input-s" readonly
                      formControlName="transaction_type_name" />
@@ -26,7 +26,7 @@
           </div>
 
           <div class='form-group row'>
-            <label class='col-sm-3 control-label'>Total Due:</label>
+            <label class='col-sm-3 control-label'>{{'Total Due' | translate}}:</label>
             <div class='col-sm-4'>
               <div class='input-group'>
                 <div class="input-group-prepend">
@@ -41,7 +41,7 @@
 
           <div class='form-group row'>
             <label class='col-sm-3 col-form-label'>
-              Payment Method:
+              {{'Payment Method' | translate}}:
 
             </label>
             <div class='col-sm-9'>
@@ -49,10 +49,11 @@
                 <input class="radio_animated" id="slydepay" type="radio" name="payment_method" checked=""
                        value="slydepay" formControlName="payment_method">
                 <i class="fa fa-credit-card"></i>
-                Slydepay (Visa, MasterCard, Mobile Money)
+                {{'Slydepay (Visa, MasterCard, Mobile Money)' | translate}}
 
-                <p class="small text-muted p-l-30">You will be redirected to the Slydepay Payment portal to complete
-                  your payment</p>
+                <p class="small text-muted p-l-30">
+                  {{'You will be redirected to the Slydepay Payment portal to complete your payment' | translate}}
+                </p>
               </label>
             </div>
           </div>
@@ -60,8 +61,8 @@
         </div>
 
         <div class="card-footer text-right">
-          <button type="submit" class="btn btn-info m-r-15">Pay Subscription</button>
-          <button type="button" class="btn btn-danger" (click)="cancelPayment()">Cancel</button>
+          <button type="submit" class="btn btn-info m-r-15">{{'Pay Subscription' | translate}}</button>
+          <button type="button" class="btn btn-danger" (click)="cancelPayment()">{{ 'Cancel' | translate }}</button>
         </div>
       </div>
 

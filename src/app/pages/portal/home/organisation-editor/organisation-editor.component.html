@@ -43,7 +43,7 @@
             class="text-danger"
             *ngIf="profileForm.controls.organisation_type_id?.errors?.required"
           >
-            {{ " Organisation Type Required" | translate }}
+            {{ "Organisation Type Required" | translate }}
           </div>
         </div>
       </div>
@@ -245,7 +245,7 @@
     <div class="modal-footer">
       <span *ngIf="organisationService.requesting" class="m-r-25">
         <i class="fa fa-spin fa-circle-o-notch"></i>
-        {{ "Saving ..." | translate }}
+        {{ "Saving" | translate }} ...
       </span>
 
       <button type="submit" class="btn btn-primary">

@@ -608,11 +608,6 @@ export class NavService {
             { path: '/organisation/memberships/anniversaries', title: 'Anniversaries', type: 'link' }
           ]
         },
-        // {
-        //   path: '/organisation/memberships/categories',
-        //   title: 'Categories',
-        //   type: 'link'
-        // },
         {
           path: '/organisation/memberships/add',
           title: 'Add Member',
@@ -696,7 +691,6 @@ export class NavService {
       active: false,
       path: '/organisation/settings/subscription',
       children: [
-        // { path: '/organisation/settings/profile', title: 'Profile', type: 'link', icon: 'settings' },
         {
           path: '/organisation/settings/subscription',
           title: 'Subscription',
