@@ -10,7 +10,10 @@ import { PageEvent } from '../../../shared/components/pagination/pagination.comp
 import { EventsService } from '../../../shared/services/events.service';
 import Swal from 'sweetalert2';
 import { StorageService } from '../../../shared/services/storage.service';
-import { Subscription } from "rxjs";
+import { Subscription } from 'rxjs';
+import { OrganisationGroupTypeService } from '../../../shared/services/api/organisation-group-type.service';
+import { OrganisationGroupType } from '../../../shared/model/api/orgainsation-group-type';
+import { OrganisationAnniversaryService } from '../../../shared/services/api/organisation-anniversary.service';
 
 @Component({
   selector: 'app-profiles',
@@ -32,8 +35,12 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   public cacheDataKey = 'searched_members';
   public cachePagingKey = 'searched_members_paging';
   public cacheOptionsKey = 'searched_members_options';
+  public cacheAdvancedToggleKey = 'searched_members_advanced';
 
   public subscriptions: Subscription[] = [];
+
+  public showAdvanced = false;
+  public selectedGroupType: OrganisationGroupType;
 
   constructor(
     public organisationMemberService: OrganisationMemberService,
@@ -42,7 +49,9 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     public modalService: NgbModal,
     public dropdownConfig: NgbDropdownConfig,
     public events: EventsService,
-    public storage: StorageService
+    public storage: StorageService,
+    public groupTypeService: OrganisationGroupTypeService,
+    public anniversaryService: OrganisationAnniversaryService
   ) {
     dropdownConfig.placement = 'bottom';
     dropdownConfig.autoClose = true;
@@ -53,6 +62,8 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setupSearchForm();
     this.setupChangeCategoryForm();
     this.setupEvents();
+    this.fetchGroupTypes();
+    this.fetchAnniversaryTypes();
   }
 
   ngAfterViewInit() {
@@ -81,24 +92,48 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions.push(sub);
   }
 
+  /**
+   * Load all available groups
+   */
+  fetchGroupTypes() {
+    const sub = this.groupTypeService.getAll({
+      contain: ['organisation_groups'].join(),
+      limit: 100
+    }).subscribe(() => {
+      if ( this.searchForm.value.organisation_group_type_id ) {
+        this.setSelectedGroupType(this.searchForm.value.organisation_group_type_id);
+      }
+    });
+
+    this.subscriptions.push(sub);
+  }
+
+  fetchAnniversaryTypes() {
+    const sub = this.anniversaryService.getAll({ limit: 100 }).subscribe();
+    this.subscriptions.push(sub);
+  }
+
   loadDataFromCache() {
     this.members = this.storage.get(this.cacheDataKey).map(data => new OrganisationMember(data));
     this.events.trigger('OrganisationMember:paging', this.storage.get(this.cachePagingKey));
     this.searchForm.patchValue( this.storage.get(this.cacheOptionsKey) );
+    this.showAdvanced = this.storage.get(this.cacheAdvancedToggleKey);
   }
 
   clearCacheData() {
     this.storage.remove(this.cacheDataKey);
     this.storage.remove(this.cachePagingKey);
     this.storage.remove(this.cacheOptionsKey);
+    this.storage.remove(this.cacheAdvancedToggleKey);
   }
 
   storeCacheData() {
-    const duration = 5;
+    const duration = 10;
     const unit = 'minutes';
     this.storage.set(this.cacheDataKey, this.members, duration, unit);
     this.storage.set(this.cacheOptionsKey, this.searchForm.value, duration, unit);
     this.storage.set(this.cachePagingKey, this.organisationMemberService.pagingMeta, duration, unit);
+    this.storage.set(this.cacheAdvancedToggleKey, this.showAdvanced, duration, unit);
   }
 
   /**
@@ -165,7 +200,28 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
       email_like: new FormControl(),
       mobile_number_like: new FormControl(),
       created_gte: new FormControl(),
-      created_lte: new FormControl()
+      created_lte: new FormControl(),
+
+      // advanced options
+      dob_gte: new FormControl(''),
+      dob_lte: new FormControl(''),
+      gender: new FormControl(''),
+      marital_status: new FormControl(''),
+      dayname: new FormControl(''),
+      monthname: new FormControl(''),
+      age_gte: new FormControl('', [Validators.min(0), Validators.max(150)]),
+      age_lte: new FormControl('', [Validators.min(0), Validators.max(150)]),
+      occupation_like: new FormControl(''),
+      business_name_like: new FormControl(''),
+      organisation_group_type_id: new FormControl(''),
+      organisation_group_id: new FormControl(''),
+      organisation_anniversary_id: new FormControl(''),
+      anniversary_start_date: new FormControl(''),
+      anniversary_end_date: new FormControl('')
+    });
+
+    this.searchForm.valueChanges.subscribe(values => {
+      this.setSelectedGroupType(values.organisation_group_type_id);
     });
   }
 
@@ -190,7 +246,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal);
+    this.modalService.open(this.searchModal, { size: 'lg' });
   }
 
   /**
@@ -316,5 +372,14 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   showChangeCategoryModal() {
     this.modalService.open(this.changeCategoryModal, {});
+  }
+
+  toggleAdvanced() {
+    this.showAdvanced = !this.showAdvanced;
+  }
+
+  setSelectedGroupType(groupTypeId) {
+    // tslint:disable-next-line: triple-equals
+    this.selectedGroupType = this.groupTypeService.getItems().find(type => type.id == groupTypeId);
   }
 }
