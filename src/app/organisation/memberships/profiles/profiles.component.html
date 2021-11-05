@@ -55,7 +55,7 @@
         <th>{{'Membership Category' | translate}}</th>
         <th>{{'Phone Number' | translate}}</th>
         <th>{{'Email' | translate}}</th>
-        <th class="text-right">{{'Actions' | translate}}</th>
+        <th class="text-center">{{'Actions' | translate}}</th>
       </tr>
     </thead>
 
@@ -66,15 +66,20 @@
           <input type="checkbox" class="checkbox" [checked]="profile.selected" (change)="toggleSelected(profile)" />
         </td>
         <td>{{ profile.organisation_no }}</td>
-        <td>{{ profile.member?.last_name }} {{ profile.member?.first_name }} </td>
+        <td>
+          <a href="javascript:void(0)" (click)="viewProfile(profile)">
+            {{ profile.member?.last_name }} {{ profile.member?.first_name }}
+          </a>
+        </td>
         <td>{{ profile.organisation_member_category?.name }}</td>
         <td><a href="tel:{{ profile.member?.mobile_number }}">{{ profile.member?.mobile_number }}</a></td>
         <td><a href="mailto:{{ profile.member?.email }}">{{ profile.member?.email }}</a></td>
 
-        <td class="text-right">
-          <button class="btn btn-xs btn-primary m-r-15" (click)="viewProfile(profile)">
+        <!-- Actions -->
+        <td class="text-center">
+          <!-- <button class="btn btn-xs btn-primary m-r-15" (click)="viewProfile(profile)">
             <i class="fa fa-file"></i> {{'View' | translate}}
-          </button>
+          </button> -->
 
           <button class="btn btn-xs btn-info m-r-15" (click)="editProfile(profile)">
             <i class="fa fa-pencil"></i> {{'Edit' | translate}}
@@ -151,24 +156,186 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">{{'Added After/On' | translate}}</label>
-        <div class="col-sm-8">
-          <input type="date" class="form-control" placeholder="Start Date" title="Start Date" formControlName="created_gte" />
+        <label class="col-sm-4 col-form-label">{{'Added Between' | translate}}</label>
+        <div class="col-sm-4">
+          <input type="date" class="form-control" placeholder="Start Date" title="Start Date"
+                 formControlName="created_gte" />
+        </div>
+        <div class="col-sm-4">
+          <input type="date" class="form-control" placeholder="End Date" title="End Date"
+                 formControlName="created_lte" />
         </div>
       </div>
 
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">{{'Added Before/On' | translate}}</label>
-        <div class="col-sm-8">
-          <input type="date" class="form-control" placeholder="End Date" title="End Date" formControlName="created_lte" />
+
+
+      <section class="advanced-search animated fadeIn" [ngClass]="{ 'hidden': !showAdvanced }">
+        <hr />
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'Birth Date Between' | translate}}</label>
+          <div class="col-sm-3">
+            <input type="date" min="0" max="130" class="form-control" formControlName="dob_gte"
+                   placeholder="{{ 'Min' | translate }}" />
+          </div>
+          <div class="col-sm-2">
+            <span class="form-control border-0 text-center">{{ 'and' | translate }}</span>
+          </div>
+          <div class="col-sm-3">
+            <input type="date" min="0" max="130" class="form-control" formControlName="dob_lte"
+                   placeholder="{{ 'Max' | translate }}" />
+          </div>
         </div>
-      </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'Birth Day Of Week' | translate}}</label>
+          <div class="col-sm-8">
+            <select class="form-control" formControlName="dayname">
+              <option value="">{{ 'Select Day of Week' | translate }}</option>
+              <option value="Monday">{{ 'Monday' | translate }}</option>
+              <option value="Tuesday">{{ 'Tuesday' | translate }}</option>
+              <option value="Wednesday">{{ 'Wednesday' | translate }}</option>
+              <option value="Thursday">{{ 'Thursday' | translate }}</option>
+              <option value="Friday">{{ 'Friday' | translate }}</option>
+              <option value="Saturday">{{ 'Saturday' | translate }}</option>
+              <option value="Sunday">{{ 'Sunday' | translate }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'Birth Month' | translate}}</label>
+          <div class="col-sm-8">
+            <select class="form-control" formControlName="monthname">
+              <option value="">{{ 'Select Month' | translate }}</option>
+              <option value="January">{{ 'January' | translate }}</option>
+              <option value="February">{{ 'February' | translate }}</option>
+              <option value="March">{{ 'March' | translate }}</option>
+              <option value="April">{{ 'April' | translate }}</option>
+              <option value="May">{{ 'May' | translate }}</option>
+              <option value="June">{{ 'June' | translate }}</option>
+              <option value="July">{{ 'July' | translate }}</option>
+              <option value="August">{{ 'August' | translate }}</option>
+              <option value="September">{{ 'September' | translate }}</option>
+              <option value="October">{{ 'October' | translate }}</option>
+              <option value="November">{{ 'November' | translate }}</option>
+              <option value="December">{{ 'Decembber' | translate }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'Age Between' | translate}}</label>
+          <div class="col-sm-3">
+            <input type="number" min="0" max="130" class="form-control" formControlName="age_gte"
+                   placeholder="{{ 'Min' | translate }}" />
+          </div>
+          <div class="col-sm-2">
+            <span class="form-control border-0 text-center">{{ 'and' | translate }}</span>
+          </div>
+          <div class="col-sm-3">
+            <input type="number" min="0" max="130" class="form-control" formControlName="age_lte"
+                   placeholder="{{ 'Max' | translate }}" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'Gender' | translate}}</label>
+          <div class="col-sm-8">
+            <select class="form-control" formControlName="gender">
+              <option value="">{{ 'Select Gender' | translate }}</option>
+              <option value="Male">{{ 'Male' | translate }}</option>
+              <option value="Female">{{ 'Female' | translate }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'Marital Status' | translate}}</label>
+          <div class="col-sm-8">
+            <select class="form-control" formControlName="marital_status">
+              <option value="">{{ 'Select Status' | translate }}</option>
+              <option value="single">{{ 'Single' | translate }}</option>
+              <option value="married">{{ 'Married' | translate }}</option>
+              <option value="separated">{{ 'Separated' | translate }}</option>
+              <option value="widowed">{{ 'Widowed' | translate }}</option>
+              <option value="cohabiting">{{ 'Co-Habiting' | translate }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'Occupation' | translate}}</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="occupation_like" placeholder="e.g. Trader">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'Place of Work' | translate}}</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" formControlName="business_name_like" placeholder="e.g. Job Name" />
+          </div>
+        </div>
+
+
+
+        <!-- GROUPS -->
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'Belongs To Group' | translate}}</label>
+          <div class="col-sm-4">
+            <select class="form-control" formControlName="organisation_group_type_id">
+              <option value="">{{ 'Select Group Type' | translate }}</option>
+              <option *ngFor="let type of groupTypeService.getItems()" [value]="type.id">{{ type.name }}</option>
+            </select>
+          </div>
+
+          <div class="col-sm-4">
+            <select class="form-control" formControlName="organisation_group_id">
+              <option value="">{{ 'Select Group' | translate }}</option>
+              <option *ngFor="let group of selectedGroupType?.organisation_groups" [value]="group.id">{{ group.name }}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ANNIVERSARIES -->
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label">{{'Has Anniversary' | translate}}</label>
+          <div class="col-sm-8 m-b-10">
+            <select class="form-control" formControlName="organisation_anniversary_id"
+                    (change)="setSelectedGroupType($event)">
+              <option value="">{{ 'Select Anniversary' | translate }}</option>
+              <option *ngFor="let type of anniversaryService.getItems()" [value]="type.id">{{ type.name }}</option>
+            </select>
+          </div>
+
+          <div class="col-sm-3 offset-sm-4">
+            <input type="date" class="form-control" formControlName="anniversary_start_date" placeholder="YYYY-MM-DD" />
+          </div>
+
+          <div class="col-sm-2">
+            <span class="form-control border-0 text-center">{{ 'and' | translate }}</span>
+          </div>
+
+          <div class="col-sm-3">
+            <input type="date" class="form-control" formControlName="anniversary_end_date" placeholder="YYYY-MM-DD" />
+          </div>
+        </div>
+
+      </section>
 
     </div>
     <div class="modal-footer">
-      <button type="submit" class="btn btn-primary">{{'Search' | translate}}</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="toggleAdvanced()">
+        <i class="fa fa-list"></i> {{ 'Advanced' | translate }}
+      </button>
+      <div class="flex-grow-1"></div>
+      <button type="submit" class="btn btn-primary">
+        <i class="fa fa-search"></i> {{'Search' | translate}}
+      </button>
       <button type="reset" class="btn btn-outline-info">{{'Clear' | translate}}</button>
-      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
+      <button type="button" class="btn btn-outline-danger"
+              (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
     </div>
   </form>
 </ng-template>
@@ -198,7 +365,8 @@
     </div>
     <div class="modal-footer">
       <button type="submit" class="btn btn-primary">{{'Change Category' | translate}}</button>
-      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
+      <button type="button" class="btn btn-outline-danger"
+              (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
     </div>
   </form>
 </ng-template>

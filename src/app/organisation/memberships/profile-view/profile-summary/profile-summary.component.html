@@ -57,6 +57,18 @@
         </div>
 
         <div class="col-sm-6">
+          <small class='text-muted text-uppercase'>{{'Age' | translate}}</small>
+          <p>{{ membership?.member?.age || 'N/A' }}</p>
+        </div>
+      </div>
+
+      <div class="row m-b-25">
+        <div class="col-sm-6">
+          <small class='text-muted text-uppercase'>{{'Marital Status' | translate}}</small>
+          <p>{{ (membership?.member?.marital_status | titlecase) || 'N/A' }}</p>
+        </div>
+
+        <div class="col-sm-6">
           <small class='text-muted text-uppercase'>{{'Gender' | translate}}</small>
           <p>{{ (membership?.member?.gender | titlecase) || 'N/A' }}</p>
         </div>
