@@ -16,18 +16,8 @@
           </div>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block" *ngIf="showTotalsByCategory">
-          <canvas
-            baseChart
-            class="chart"
-            [datasets]="totalsByCategoryData"
-            [labels]="monthLabels"
-            [options]="barChartOptions"
-            [legend]="true"
-            [chartType]="barChartType"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)"
-          ></canvas>
+        <div class="card-body chart-block">
+          <app-finance-totals-by-category></app-finance-totals-by-category>
         </div>
       </div>
     </div>
@@ -46,19 +36,7 @@
           </div>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block" *ngIf="showTrendChart">
-          <canvas
-            baseChart
-            class="chart"
-            [datasets]="trendData"
-            [labels]="monthLabels"
-            [options]="lineGraphOptions"
-            [legend]="true"
-            [chartType]="lineGraphType"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)"
-          ></canvas>
-        </div>
+        <app-finance-trend></app-finance-trend>
       </div>
     </div>
     <div class="col-xl-6 col-md-12">
@@ -69,7 +47,9 @@
               <app-select-year-control></app-select-year-control>
             </div>
             <div class="col-3">
-              <app-select-month-control (selectedMonthEvent)="weeklyBreakDownByMonth($event)"></app-select-month-control>
+              <app-select-month-control
+                (selectedMonthEvent)="weeklyBreakDownByMonth($event)"
+              ></app-select-month-control>
             </div>
             <!-- end of col -->
             <div class="col">
@@ -79,18 +59,8 @@
           </div>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block"  *ngIf="showWeeklybreakdownChart">
-          <canvas
-            baseChart
-            class="chart"
-            [datasets]="weeklyBreakDownData"
-            [labels]="weeklyBreakdownLabels"
-            [options]="barChartOptions"
-            [legend]="true"
-            [chartType]="barChartType"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)"
-          ></canvas>
+        <div class="card-body chart-block">
+          <app-finance-weekly-breakdown></app-finance-weekly-breakdown>
         </div>
       </div>
     </div>
@@ -103,7 +73,9 @@
             </div>
             <!-- end of col -->
             <div class="col-3">
-              <app-select-month-control (selectedMonthEvent)="categoryBreakDownByMonth($event)"></app-select-month-control>
+              <app-select-month-control
+                (selectedMonthEvent)="categoryBreakDownByMonth($event)"
+              ></app-select-month-control>
             </div>
             <!-- end of col -->
             <div class="col">
@@ -113,17 +85,8 @@
           </div>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block" *ngIf="showCategoryBreakdownChart">
-          <canvas
-            baseChart
-            class="chart"
-            [data]="categoryBreakdownData"
-            [labels]="categoryBreakdownLables"
-            [options]="doughnutChartOptions"
-            [chartType]="doughnutChartType"
-            (chartHover)="chartHovered($event)"
-            (chartClick)="chartClicked($event)"
-          ></canvas>
+        <div class="card-body chart-block">
+          <app-finance-category-breakdown></app-finance-category-breakdown>
         </div>
       </div>
     </div>

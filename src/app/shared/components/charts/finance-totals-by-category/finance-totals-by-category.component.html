@@ -1,0 +1,14 @@
+<div class="loader-box m-auto" *ngIf="!showTotalsByCategory">
+  <span class="rotate dashed colored"></span>
+</div>
+<div *ngIf="showTotalsByCategory">
+    <canvas
+      baseChart
+      class="chart"
+      [datasets]="totalsByCategoryData"
+      [labels]="monthLabels"
+      [options]="barChartOptions"
+      [legend]="true"
+      [chartType]="barChartType"
+    ></canvas>
+  </div>

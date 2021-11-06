@@ -1,0 +1,21 @@
+<div class="loader-box m-auto" *ngIf="!showCategoryBreakdownChart">
+  <span class="rotate dashed colored"></span>
+</div>
+<div *ngIf="showCategoryBreakdownChart">
+    <div class="col mb-2">
+      <canvas
+        baseChart
+        class="chart"
+        [data]="data"
+        [labels]="labels"
+        [options]="doughnutChartOptions"
+        [chartType]="doughnutChartType"
+      ></canvas>
+    </div>
+    <!-- end of col -->
+    <div class="col d-flex justify-content-center" *ngIf="currencyCodes.length > 1">
+      <span *ngFor="let code of currencyCodes; let row = index">
+         Layer {{ row + 1}} => {{code}} | 
+      </span>
+    </div>
+  </div>

@@ -1,0 +1,14 @@
+<div class="loader-box m-auto" *ngIf="!showTrendChart">
+  <span class="rotate dashed colored"></span>
+</div>
+<div *ngIf="showTrendChart">
+  <canvas
+    baseChart
+    class="chart"
+    [datasets]="trendData"
+    [labels]="monthLabels"
+    [options]="lineGraphOptions"
+    [legend]="true"
+    [chartType]="lineGraphType"
+  ></canvas>
+</div>
