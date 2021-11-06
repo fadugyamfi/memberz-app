@@ -165,11 +165,11 @@ export var lineChartLegend = false;
 export var lineChartType = 'line';
 
 // Doughnut
-export var doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-export var doughnutChartData: any[] = [
-  [350, 450, 100],
-  [50, 450, 50],
-];
+// export var doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+// export var doughnutChartData: any[] = [
+//   [350, 450, 100],
+//   [50, 450, 50],
+// ];
 export var doughnutChartColors: any[] = [{ backgroundColor: ["#4466f2", "#1ea6ec", "#FF5370", '#22af47', '#007bff', "#ff2046"] }];
 export var doughnutChartType = 'doughnut';
 export var doughnutChartOptions: any = {
