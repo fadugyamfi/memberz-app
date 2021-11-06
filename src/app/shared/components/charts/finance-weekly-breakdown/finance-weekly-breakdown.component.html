@@ -1,0 +1,11 @@
+<div  *ngIf="showWeeklybreakdownChart">
+    <canvas
+      baseChart
+      class="chart"
+      [datasets]="weeklyBreakDownData"
+      [labels]="weeklyBreakdownLabels"
+      [options]="barChartOptions"
+      [legend]="true"
+      [chartType]="barChartType"
+    ></canvas>
+  </div>

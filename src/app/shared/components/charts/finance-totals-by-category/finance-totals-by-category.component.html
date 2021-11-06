@@ -1,0 +1,11 @@
+<div *ngIf="showTotalsByCategory">
+    <canvas
+      baseChart
+      class="chart"
+      [datasets]="totalsByCategoryData"
+      [labels]="monthLabels"
+      [options]="barChartOptions"
+      [legend]="true"
+      [chartType]="barChartType"
+    ></canvas>
+  </div>
