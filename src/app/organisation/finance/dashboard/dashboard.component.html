@@ -19,50 +19,13 @@
         <div class="card-body chart-block">
           <app-finance-totals-by-category></app-finance-totals-by-category>
         </div>
-      </div>
+      </div><!-- end of card -->
     </div>
     <div class="col-xl-6 col-md-12">
-      <div class="card">
-        <div class="card-header b-l-secondary">
-          <div class="row">
-            <div class="col-auto">
-              <app-select-year-control></app-select-year-control>
-            </div>
-            <!-- end of col -->
-            <div class="col">
-              <h6 class="chart-title">Trend</h6>
-            </div>
-            <!-- end of col -->
-          </div>
-          <!-- end of row -->
-        </div>
-        <app-finance-trend></app-finance-trend>
-      </div>
+      <app-finance-trend></app-finance-trend>
     </div>
     <div class="col-xl-6 col-md-12">
-      <div class="card">
-        <div class="card-header b-l-success">
-          <div class="row">
-            <div class="col-auto">
-              <app-select-year-control></app-select-year-control>
-            </div>
-            <div class="col-3">
-              <app-select-month-control
-                (selectedMonthEvent)="weeklyBreakDownByMonth($event)"
-              ></app-select-month-control>
-            </div>
-            <!-- end of col -->
-            <div class="col">
-              <h6 class="chart-title">Weekly Breakdown</h6>
-            </div>
-            <!-- end of col -->
-          </div>
-          <!-- end of row -->
-        </div>
-        <div class="card-body chart-block">
-          <app-finance-weekly-breakdown></app-finance-weekly-breakdown>
-        </div>
-      </div>
+      <app-finance-weekly-breakdown></app-finance-weekly-breakdown>
     </div>
     <div class="col-xl-6 col-md-12">
       <div class="card">

@@ -14,10 +14,12 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
   public barChartOptions: any = chartData.barChartOptions;
   public barChartType = chartData.barChartType;
 
-  public weeklyBreakDownData = [];
-  public weeklyBreakdownLabels = [];
-  private weeklyBreakdownDataCurrencies = [];
-  public showWeeklybreakdownChart = false;
+  public chartData = [];
+  public labels = [];
+  private currencyCodes = [];
+  public showChart = false;
+  public monthValue = null;
+  public yearValue = null;
 
   constructor(
     public reportService: FinanceDashboardService
@@ -30,44 +32,78 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
 
   fetchWeeklyBreakdownReport() {
     this.reportService.getWeeklyBreakdown().subscribe((data: any[]) => {
-      for (let i = 0; i < data.length; i++) {
-
-        /** Populate weeklybreakdown lables array */
-        if (!this.weeklyBreakdownLabels.includes('Week ' + data[i].week)) {
-          this.weeklyBreakdownLabels.push('Week ' + data[i].week);
-        }
-
-        /** Populate weeklybreakdown currencies array */
-        if (!this.weeklyBreakdownDataCurrencies.includes(data[i].currency_code)) {
-          this.weeklyBreakdownDataCurrencies.push(data[i].currency_code);
-        }
-
-      }
-
-      /** Populate weeklybreakdown chart data array */
-      for (let i = 0; i < this.weeklyBreakdownDataCurrencies.length; i++) {
-        let label = this.weeklyBreakdownDataCurrencies[i];
-        let dataset = [];
-
-        /** Group data by {data: [...data], label: 'currency_code' } */
-        for (let j = 0; j < data.length; j++) {
-          if (data[j].currency_code == label) {
-            dataset.push(data[j].amount);
-          }
-        }
-
-        this.weeklyBreakDownData.push({
-          data: dataset, label: label,
-          backgroundColor: this.chartColors[i].bgColor,
-          borderColor: this.chartColors[i].bdColor,
-          borderwidth: this.chartColors[i].bWidth
-        });
-
-        this.showWeeklybreakdownChart = true;
-      }
-
+      this.processChartData(data);
     });
 
+  }
+
+
+  searchByMonth(value: number) {
+    this.showChart = false;
+    this.monthValue = value;
+    this.reportService.getWeeklyBreakdown(this.monthValue).subscribe((data: any[]) => {
+      this.processChartData(data);
+    });
+  }
+
+  searchByYear(value: number) {
+    event.preventDefault();
+    this.showChart = false;
+    this.yearValue = value;
+    this.reportService.getWeeklyBreakdown(this.monthValue, this.yearValue).subscribe((data: any[]) => {
+      this.processChartData(data);
+    });
+  }
+
+  processChartData(data: any[]) {
+
+    if (data.length == 0) {
+      return this.showChart = true;
+    }
+
+    this.reset();
+
+    for (let i = 0; i < data.length; i++) {
+
+      /** Populate weeklybreakdown lables array */
+      if (!this.labels.includes('Week ' + data[i].week)) {
+        this.labels.push('Week ' + data[i].week);
+      }
+
+      /** Populate weeklybreakdown currencies array */
+      if (!this.currencyCodes.includes(data[i].currency_code)) {
+        this.currencyCodes.push(data[i].currency_code);
+      }
+
+    }
+
+    /** Populate weeklybreakdown chart data array */
+    for (let i = 0; i < this.currencyCodes.length; i++) {
+      let label = this.currencyCodes[i];
+      let dataset = [];
+
+      /** Group data by {data: [...data], label: 'currency_code' } */
+      for (let j = 0; j < data.length; j++) {
+        if (data[j].currency_code == label) {
+          dataset.push(data[j].amount);
+        }
+      }
+
+      this.chartData.push({
+        data: dataset, label: label,
+        backgroundColor: this.chartColors[i].bgColor,
+        borderColor: this.chartColors[i].bdColor,
+        borderwidth: this.chartColors[i].bWidth
+      });
+
+      this.showChart = true;
+    }
+  }
+
+  reset(){
+    this.labels = [];
+    this.currencyCodes = [];
+    this.chartData = [];
   }
 
 }
