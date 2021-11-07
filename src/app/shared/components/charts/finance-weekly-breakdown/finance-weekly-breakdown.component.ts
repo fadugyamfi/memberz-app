@@ -47,7 +47,6 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
   }
 
   searchByYear(value: number) {
-    event.preventDefault();
     this.showChart = false;
     this.yearValue = value;
     this.reportService.getWeeklyBreakdown(this.monthValue, this.yearValue).subscribe((data: any[]) => {

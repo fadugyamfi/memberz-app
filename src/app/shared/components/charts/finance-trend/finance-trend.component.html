@@ -1,8 +1,8 @@
 <div class="card">
   <div class="card-header b-l-primary">
     <div class="row">
-      <div class="col-auto">
-        <app-select-year-control></app-select-year-control>
+      <div class="col-3">
+        <app-select-year-control (selectedYearEvent)="searchByYear($event)"></app-select-year-control>
       </div>
       <!-- end of col -->
       <div class="col">
@@ -12,11 +12,15 @@
     </div>
     <!-- end of row -->
   </div>
-  <div class="card-body chart-block" *ngIf="showTrendChart">
+  <div class="card-body chart-block">
+    <div class="loader-box m-auto" *ngIf="!showChart">
+      <span class="rotate dashed colored"></span>
+    </div>
     <canvas
+      *ngIf="showChart"
       baseChart
       class="chart"
-      [datasets]="trendData"
+      [datasets]="chartData"
       [labels]="monthLabels"
       [options]="lineGraphOptions"
       [legend]="true"

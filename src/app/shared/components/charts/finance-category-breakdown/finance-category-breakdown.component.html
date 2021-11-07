@@ -1,21 +1,49 @@
-<div class="loader-box m-auto" *ngIf="!showCategoryBreakdownChart">
-  <span class="rotate dashed colored"></span>
-</div>
-<div *ngIf="showCategoryBreakdownChart">
+<div class="card">
+  <div class="card-header b-l-info">
+    <div class="row">
+      <div class="col-auto">
+        <app-select-year-control
+          (selectedYearEvent)="searchByYear($event)"
+        ></app-select-year-control>
+      </div>
+      <!-- end of col -->
+      <div class="col-3">
+        <app-select-month-control
+          (selectedMonthEvent)="searchByMonth($event)"
+        ></app-select-month-control>
+      </div>
+      <!-- end of col -->
+      <div class="col">
+        <h6 class="chart-title">Category Breakdown</h6>
+      </div>
+      <!-- end of col -->
+    </div>
+    <!-- end of row -->
+  </div>
+  <div class="card-body chart-block">
+    <div class="loader-box m-auto" *ngIf="!showChart">
+      <span class="rotate dashed colored"></span>
+    </div>
     <div class="col mb-2">
       <canvas
+        *ngIf="showChart"
         baseChart
         class="chart"
-        [data]="data"
+        [data]="chartData"
         [labels]="labels"
         [options]="doughnutChartOptions"
         [chartType]="doughnutChartType"
       ></canvas>
     </div>
     <!-- end of col -->
-    <div class="col d-flex justify-content-center" *ngIf="currencyCodes.length > 1">
+    <div
+      class="col d-flex justify-content-center"
+      *ngIf="currencyCodes.length > 1"
+    >
       <span *ngFor="let code of currencyCodes; let row = index">
-         Layer {{ row + 1}} => {{code}} | 
+        Layer {{ row + 1 }} => {{ code }} |
       </span>
     </div>
   </div>
+</div>
+<!-- end of card -->
