@@ -17,11 +17,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-
-  public weeklyBreakDownByMonth($event): void {
-    console.log($event);
-  }
-
   public getDefaultWeeklyBreakDown() {
 
   }
