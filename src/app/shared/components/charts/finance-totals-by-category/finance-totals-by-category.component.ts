@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { FinanceDashboardService } from 'src/app/shared/services/api/finance-dashboard.service';
 import * as chartData from '../../../data/chart/chartjs'
 
@@ -24,7 +25,7 @@ export class FinanceTotalsByCategoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fetchTotalsByCategory();
+    this.searchByYear( moment().year() );
   }
 
   fetchTotalsByCategory() {
