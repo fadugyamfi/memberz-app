@@ -1,14 +1,33 @@
-<div class="loader-box m-auto" *ngIf="!showTotalsByCategory">
-  <span class="rotate dashed colored"></span>
-</div>
-<div *ngIf="showTotalsByCategory">
+<div class="card">
+  <div class="card-header b-l-primary">
+    <div class="row">
+      <div class="col-auto">
+        <app-select-year-control
+        (selectedYearEvent)="searchByYear($event)"
+      ></app-select-year-control>
+      </div>
+      <!-- end of col -->
+      <div class="col">
+        <h6 class="chart-title">Totals By Category</h6>
+      </div>
+      <!-- end of col -->
+    </div>
+    <!-- end of row -->
+  </div>
+  <div class="card-body chart-block">
+    <div class="loader-box m-auto" *ngIf="!showChart">
+      <span class="rotate dashed colored"></span>
+    </div>
     <canvas
+      *ngIf="showChart"
       baseChart
       class="chart"
-      [datasets]="totalsByCategoryData"
+      [datasets]="chartData"
       [labels]="monthLabels"
       [options]="barChartOptions"
       [legend]="true"
       [chartType]="barChartType"
     ></canvas>
   </div>
+</div>
+<!-- end of card -->
