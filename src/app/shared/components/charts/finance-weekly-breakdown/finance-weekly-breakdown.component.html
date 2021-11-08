@@ -3,11 +3,13 @@
     <div class="row">
       <div class="col-auto">
         <app-select-year-control
+          [(ngModel)]="yearValue"
           (selectedYearEvent)="searchByYear($event)"
         ></app-select-year-control>
       </div>
       <div class="col-3">
         <app-select-month-control
+          [(ngModel)]="monthValue"
           (selectedMonthEvent)="searchByMonth($event)"
         ></app-select-month-control>
       </div>

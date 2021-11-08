@@ -175,7 +175,7 @@ export var doughnutChartType = 'doughnut';
 export var doughnutChartOptions: any = {
   animation: false,
   responsive: true,
-  maintainAspectRatio: false
+  maintainAspectRatio: true
 };
 
 // PolarArea
@@ -189,7 +189,3 @@ export var polarChartOptions: any = {
   responsive: true,
   maintainAspectRatio: false
 };
-
-
-
-

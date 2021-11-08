@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { FinanceDashboardService } from 'src/app/shared/services/api/finance-dashboard.service';
 import * as chartData from '../../../data/chart/chartjs'
 
@@ -27,7 +28,8 @@ export class FinanceCategoryBreakdownComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fetchCategoryBreakdown();
+    this.monthValue = moment().month() + 1;
+    this.searchByYear(moment().year());
   }
 
   fetchCategoryBreakdown() {
@@ -37,12 +39,12 @@ export class FinanceCategoryBreakdownComponent implements OnInit {
   }
 
   processChartData(data: any[]) {
+    this.reset();
 
     if (data.length == 0) {
       return this.showChart = true;
     }
 
-    this.reset();
 
     data.forEach((d, index) => {
       /** Populate weeklybreakdown unique lables array */
@@ -62,7 +64,7 @@ export class FinanceCategoryBreakdownComponent implements OnInit {
     let amount = 0;
 
     /**
-     * Create a 3 dimentional array of 
+     * Create a 3 dimentional array of
      * [label1Amount, label2Amount, label3Amount] -> GHS
      * [label1Amount, label2Amount, label3Amount] -> USD
      * -------------, ------------,  ------------ ->  --
