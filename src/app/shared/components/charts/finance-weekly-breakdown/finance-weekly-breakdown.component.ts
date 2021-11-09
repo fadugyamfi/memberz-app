@@ -30,17 +30,11 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
     this.searchByYear( moment().year() );
   }
 
-  fetchWeeklyBreakdownReport() {
-    this.reportService.getWeeklyBreakdown().subscribe((data: any[]) => {
-      this.processChartData(data);
-    });
-
-  }
-
   searchByMonth(value: number) {
     this.showChart = false;
     this.monthValue = value;
     this.reportService.getWeeklyBreakdown(this.monthValue).subscribe((data: any[]) => {
+      console.log(data);
       this.processChartData(data);
     });
   }
@@ -59,11 +53,11 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
 
   processChartData(data: any[]) {
 
+    this.reset();
+
     if (data.length === 0) {
       return this.showChart = true;
     }
-
-    this.reset();
 
     for (const prop of data) {
 

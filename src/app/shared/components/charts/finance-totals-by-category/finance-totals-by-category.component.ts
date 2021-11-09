@@ -40,11 +40,12 @@ export class FinanceTotalsByCategoryComponent implements OnInit {
 
   processChartData(data: any[]) {
 
+    this.reset();
+
     if (data.length === 0) {
+     
       return this.showChart = true;
     }
-
-    this.reset();
 
     for (const contribution of data) {
 
