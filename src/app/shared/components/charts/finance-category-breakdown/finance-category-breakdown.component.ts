@@ -12,7 +12,6 @@ export class FinanceCategoryBreakdownComponent implements OnInit {
   public chartColors = chartData.chartColors;
    // Doughnut
    public doughnutChartType = chartData.doughnutChartType;
-   public doughnutChartColors = [];
    public doughnutChartOptions = chartData.doughnutChartOptions;
 
 
