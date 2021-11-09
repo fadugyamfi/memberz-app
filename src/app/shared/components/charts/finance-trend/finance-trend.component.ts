@@ -10,8 +10,9 @@ import * as chartData from '../../../data/chart/chartjs';
 })
 export class FinanceTrendComponent implements OnInit {
 
-  public monthLabels = chartData.monthLabels;
-  public chartColors = chartData.chartColors;
+  private monthObjLabels = chartData.monthObjLabels;
+  public labels = [];
+  private months = [];
 
   // lineGraph Chart
   public lineGraphOptions = chartData.lineGraphOptions;
@@ -31,16 +32,11 @@ export class FinanceTrendComponent implements OnInit {
     this.searchByYear( moment().year() );
   }
 
-  fetchTotalsByCategory() {
-    this.reportService.getTotalsByCategory().subscribe((data: any[]) => {
-      this.processChartData(data);
-    });
-  }
-
   searchByYear(value: number) {
     this.showChart = false;
     this.yearValue = value;
-    this.reportService.getTotalsByCategory(this.yearValue).subscribe((data: any[]) => {
+    this.reportService.getTrendReport(this.yearValue).subscribe((data: any[]) => {
+      console.log(data);
       this.processChartData(data);
     });
   }
@@ -52,39 +48,58 @@ export class FinanceTrendComponent implements OnInit {
     }
 
     this.reset();
+    let currencyCodesSet = new Set;
+    let labelsSet = new Set;
+    let monthsSets = new Set;
 
     /** Populate trend currencies array with unique currency code */
     for (const contribution of data) {
-      if (!this.currencyCodes.includes(contribution.currency_code)) {
-        this.currencyCodes.push(contribution.currency_code);
-      }
+        currencyCodesSet.add(contribution.currency_code);
+        labelsSet.add(this.monthObjLabels[contribution.month]);
+        monthsSets.add(contribution.month);
     }
 
-    /** Populate trend chart data array */
-    for (let i = 0; i < this.currencyCodes.length; i++) {
-      const label = this.currencyCodes[i];
-      const dataset = [];
+    this.currencyCodes = Array.from(currencyCodesSet);
+    this.labels = Array.from(labelsSet);
+    this.months = Array.from(monthsSets);
 
-      /** Group data by {data: [...data], label: 'currency_code' } */
-      for (const contribution of data) {
-        if (contribution.currency_code === label) {
-          dataset.push(contribution.amount.toFixed(2));
+    let dataset = [];
+    const dataset2 = [];
+    let amount = 0;
+
+    /**
+     * Create a 3 dimentional array of
+     * [label1Amount, label2Amount, label3Amount] -> GHS
+     * [label1Amount, label2Amount, label3Amount] -> USD
+     * -------------, ------------,  ------------ ->  --
+     */
+
+     for (const currencyCode of this.currencyCodes) {
+
+      for (const label of this.months) {
+
+        for (const contribution of data) {
+          if ((contribution.month === label) && (contribution.currency_code === currencyCode)) {
+            amount = contribution.amount;
+            continue;
+          }
         }
+
+        dataset.push(amount.toFixed(2));
+        amount = 0;
       }
 
-      /** Set chart data for trends */
-      this.chartData.push({
-        data: dataset,
-        label,
-        backgroundColor: this.chartColors[i].bgColor,
-        borderColor: this.chartColors[i].bdColor,
-        borderwidth: this.chartColors[i].bWidth
-      });
 
+      dataset2.push(dataset);
+      if (dataset) {
+        this.chartData.push({
+          data: dataset,
+          label: currencyCode
+        });
+      }
+      dataset = [];
     }
-
-    this.showChart = true;
-
+    
   }
 
   reset() {

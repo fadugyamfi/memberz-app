@@ -10,7 +10,6 @@ import * as chartData from '../../../data/chart/chartjs';
 })
 export class FinanceWeeklyBreakdownComponent implements OnInit {
   public monthLabels = chartData.monthLabels;
-  public chartColors = chartData.chartColors;
 
   public barChartOptions: any = chartData.barChartOptions;
   public barChartType = chartData.barChartType;
@@ -95,10 +94,7 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
       if ( dataset ) {
         this.chartData.push({
           data: dataset,
-          label,
-          backgroundColor: this.chartColors[i].bgColor,
-          borderColor: this.chartColors[i].bdColor,
-          borderwidth: this.chartColors[i].bWidth
+          label
         });
       }
 

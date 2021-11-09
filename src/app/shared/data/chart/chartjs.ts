@@ -5,38 +5,8 @@ export let barChartOptions: any = {
 };
 
 export let monthLabels: string[] = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-export let chartColors: any[] = [
-  {
-    bgColor: '#4466f2',
-    bdColor: 'rgba(30, 166, 236, 0.8)',
-    bWidth: 1,
-  },
-  {
-    bgColor: '#1ea6ec',
-    bdColor: 'rgba(68, 102, 242, 0.8)',
-    bWidth: 1,
-  },
-  {
-    bgColor: '#22af47',
-    bdColor: '#22af46',
-    bWidth: 1,
-  },
-  {
-    bgColor: '#007bff',
-    bdColor: '#007bf5',
-    bWidth: 1,
-  },
-  {
-    bgColor: '#ff2046',
-    bdColor: '#ff2045',
-    bWidth: 1,
-  },
-  {
-    bgColor: '#FF5370',
-    bdColor: '#FF5371',
-    bWidth: 1,
-  },
-];
+
+export let monthObjLabels = {1: 'Jan', 2: 'Feb', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July', 8: 'Aug', 9: 'Sept', 10: 'Oct', 11: 'Nov', 12: 'Dec'}
 
 export let barChartType = 'bar';
 export let barChartLegend = false;
