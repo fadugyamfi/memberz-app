@@ -34,7 +34,6 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
     this.showChart = false;
     this.monthValue = value;
     this.reportService.getWeeklyBreakdown(this.monthValue).subscribe((data: any[]) => {
-      console.log(data);
       this.processChartData(data);
     });
   }
