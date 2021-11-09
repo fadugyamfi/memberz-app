@@ -1,45 +1,45 @@
 // barChart
-export var barChartOptions: any = {
+export let barChartOptions: any = {
   scaleShowVerticalLines: false,
   responsive: true
 };
 
-export var monthLabels: string[] = ["Jan", "Feb", "March", "April", "May", "June", "July", "Aug", "Sept", 'Oct', "Nov", "Dec"];
-export var chartColors: any[] = [
+export let monthLabels: string[] = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+export let chartColors: any[] = [
   {
     bgColor: '#4466f2',
-    bdColor: "rgba(30, 166, 236, 0.8)",
+    bdColor: 'rgba(30, 166, 236, 0.8)',
     bWidth: 1,
   },
   {
     bgColor: '#1ea6ec',
-    bdColor: "rgba(68, 102, 242, 0.8)",
+    bdColor: 'rgba(68, 102, 242, 0.8)',
     bWidth: 1,
   },
   {
     bgColor: '#22af47',
-    bdColor: "#22af46",
+    bdColor: '#22af46',
     bWidth: 1,
   },
   {
     bgColor: '#007bff',
-    bdColor: "#007bf5",
+    bdColor: '#007bf5',
     bWidth: 1,
   },
   {
     bgColor: '#ff2046',
-    bdColor: "#ff2045",
+    bdColor: '#ff2045',
     bWidth: 1,
   },
   {
     bgColor: '#FF5370',
-    bdColor: "#FF5371",
+    bdColor: '#FF5371',
     bWidth: 1,
   },
 ];
 
-export var barChartType = 'bar';
-export var barChartLegend = false;
+export let barChartType = 'bar';
+export let barChartLegend = false;
 
 // export var barChartData: any[] = [
 //   { data: [35, 59, 80, 81, 56, 55, 40], label: 'Series A' },
@@ -60,9 +60,9 @@ export var barChartLegend = false;
 // ];
 
 // LineGraph Chart
-export var lineGraphOptions: any = {
+export let lineGraphOptions: any = {
   scaleShowGridLines: true,
-  scaleGridLineColor: "rgba(0,0,0,.05)",
+  scaleGridLineColor: 'rgba(0,0,0,.05)',
   scaleGridLineWidth: 1,
   scaleShowHorizontalLines: true,
   scaleShowVerticalLines: true,
@@ -74,12 +74,12 @@ export var lineGraphOptions: any = {
   pointHitDetectionRadius: 20,
   datasetStroke: true,
   datasetStrokeWidth: 2,
-  datasetFill: true,
-  legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+  datasetFill: false,
+  legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].strokeColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
 };
 // export var lineGraphLabels: string[] = ["January", "February", "March", "April", "May", "June", "July"];
-export var lineGraphType = 'line';
-export var lineGraphLegend = false;
+export let lineGraphType = 'line';
+export let lineGraphLegend = false;
 // export var lineGraphData: any[] = [
 //   { data: [10, 59, 80, 81, 56, 55, 40], label: 'Series A' },
 //   { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
@@ -135,7 +135,7 @@ export var lineGraphLegend = false;
 //   { data: [60, 10, 40, 30, 80, 30, 20, 90] }
 // ];
 // export var lineChartLabels: Array<any> = ["", "10", "20", "30", "40", "50", "60", "70", "80"];
-export var lineChartOptions: any = {
+export let lineChartOptions: any = {
   responsive: true,
   scaleShowVerticalLines: false,
   maintainAspectRatio: false,
@@ -161,8 +161,8 @@ export var lineChartOptions: any = {
 //     lineTension: 0,
 //   }
 // ];
-export var lineChartLegend = false;
-export var lineChartType = 'line';
+export let lineChartLegend = false;
+export let lineChartType = 'line';
 
 // Doughnut
 // export var doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
@@ -170,21 +170,21 @@ export var lineChartType = 'line';
 //   [350, 450, 100],
 //   [50, 450, 50],
 // ];
-export var doughnutChartColors: any[] = [{ backgroundColor: ["#4466f2", "#1ea6ec", "#FF5370", '#22af47', '#007bff', "#ff2046"] }];
-export var doughnutChartType = 'doughnut';
-export var doughnutChartOptions: any = {
+export let doughnutChartColors: any[] = [{ backgroundColor: ['#4466f2', '#1ea6ec', '#FF5370', '#22af47', '#007bff', '#ff2046'] }];
+export let doughnutChartType = 'doughnut';
+export let doughnutChartOptions: any = {
   animation: false,
   responsive: true,
   maintainAspectRatio: true
 };
 
 // PolarArea
-export var polarAreaChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales', 'Telesales', 'Corporate Sales'];
-export var polarAreaChartData: number[] = [300, 500, 100, 40, 120];
-export var polarAreaLegend = false;
-export var ploarChartColors: any[] = [{ backgroundColor: ["#4466f2", "#1ea6ec", "#22af47", "#007bff", "#ff2046"] }];
-export var polarAreaChartType = 'polarArea';
-export var polarChartOptions: any = {
+export let polarAreaChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail Sales', 'Telesales', 'Corporate Sales'];
+export let polarAreaChartData: number[] = [300, 500, 100, 40, 120];
+export let polarAreaLegend = false;
+export let ploarChartColors: any[] = [{ backgroundColor: ['#4466f2', '#1ea6ec', '#22af47', '#007bff', '#ff2046'] }];
+export let polarAreaChartType = 'polarArea';
+export let polarChartOptions: any = {
   animation: false,
   responsive: true,
   maintainAspectRatio: false

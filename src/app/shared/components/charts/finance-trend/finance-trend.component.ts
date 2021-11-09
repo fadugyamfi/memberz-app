@@ -47,35 +47,35 @@ export class FinanceTrendComponent implements OnInit {
 
   processChartData(data: any[]) {
 
-    if (data.length == 0) {
+    if (data.length === 0) {
       return this.showChart = true;
     }
 
     this.reset();
 
-    for (let i = 0; i < data.length; i++) {
-
-      /** Populate trend currencies array with unique currency code */
-      if (!this.currencyCodes.includes(data[i].currency_code)) {
-        this.currencyCodes.push(data[i].currency_code);
+    /** Populate trend currencies array with unique currency code */
+    for (const contribution of data) {
+      if (!this.currencyCodes.includes(contribution.currency_code)) {
+        this.currencyCodes.push(contribution.currency_code);
       }
     }
 
     /** Populate trend chart data array */
     for (let i = 0; i < this.currencyCodes.length; i++) {
-      let label = this.currencyCodes[i];
-      let dataset = [];
+      const label = this.currencyCodes[i];
+      const dataset = [];
 
       /** Group data by {data: [...data], label: 'currency_code' } */
-      for (let j = 0; j < data.length; j++) {
-        if (data[j].currency_code == label) {
-          dataset.push(data[j].amount);
+      for (const contribution of data) {
+        if (contribution.currency_code === label) {
+          dataset.push(contribution.amount.toFixed(2));
         }
       }
 
       /** Set chart data for trends */
       this.chartData.push({
-        data: dataset, label: label,
+        data: dataset,
+        label,
         backgroundColor: this.chartColors[i].bgColor,
         borderColor: this.chartColors[i].bdColor,
         borderwidth: this.chartColors[i].bWidth
@@ -90,6 +90,10 @@ export class FinanceTrendComponent implements OnInit {
   reset() {
     this.currencyCodes = [];
     this.chartData = [];
+  }
+
+  hasDataAvailable() {
+    return this.chartData && this.chartData.length > 0;
   }
 
 }

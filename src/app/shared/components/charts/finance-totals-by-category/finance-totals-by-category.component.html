@@ -9,7 +9,7 @@
       </div>
       <!-- end of col -->
       <div class="col">
-        <h6 class="chart-title">Totals By Category</h6>
+        <h6 class="chart-title">{{'Totals By Category' | translate}}</h6>
       </div>
       <!-- end of col -->
     </div>
@@ -19,8 +19,14 @@
     <div class="loader-box m-auto" *ngIf="!showChart">
       <span class="rotate dashed colored"></span>
     </div>
+
+    <div *ngIf="showChart && !hasDataAvailable()" class="text-center p-30 m-b-50">
+      <img src="/assets/images/icons/circle-document.svg" height="90" class="m-b-30" />
+      <h5 class="font-weight-bold">{{ 'No Data Available' | translate }}</h5>
+    </div>
+
     <canvas
-      *ngIf="showChart"
+      *ngIf="showChart && hasDataAvailable()"
       baseChart
       class="chart"
       [datasets]="chartData"

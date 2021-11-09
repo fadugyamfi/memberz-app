@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { FinanceDashboardService } from 'src/app/shared/services/api/finance-dashboard.service';
-import * as chartData from '../../../data/chart/chartjs'
+import * as chartData from '../../../data/chart/chartjs';
 
 @Component({
   selector: 'app-finance-category-breakdown',
@@ -38,10 +38,14 @@ export class FinanceCategoryBreakdownComponent implements OnInit {
     });
   }
 
+  hasDataAvailable() {
+    return  this.chartData && this.chartData.length > 0;
+  }
+
   processChartData(data: any[]) {
     this.reset();
 
-    if (data.length == 0) {
+    if (data.length === 0) {
       return this.showChart = true;
     }
 
@@ -60,7 +64,7 @@ export class FinanceCategoryBreakdownComponent implements OnInit {
 
 
     let dataset = [];
-    let dataset2 = [];
+    const dataset2 = [];
     let amount = 0;
 
     /**
@@ -70,18 +74,18 @@ export class FinanceCategoryBreakdownComponent implements OnInit {
      * -------------, ------------,  ------------ ->  --
      */
 
-    for (let i = 0; i < this.currencyCodes.length; i++) {
+    for (const currencyCode of this.currencyCodes) { // let i = 0; i < this.currencyCodes.length; i++) {
 
-      for (let j = 0; j < this.labels.length; j++) {
+      for (const label of this.labels) {
 
-        for (let k = 0; k < data.length; k++) {
-          if ((data[k].contribution_type_name == this.labels[j]) && (data[k].currency_code == this.currencyCodes[i])) {
-              amount = data[k].amount;
+        for (const contribution of data) {
+          if ((contribution.contribution_type_name === label) && (contribution.currency_code === currencyCode)) {
+              amount = contribution.amount;
               continue;
           }
         }
 
-        dataset.push(amount);
+        dataset.push(amount.toFixed(2));
         amount = 0;
       }
 

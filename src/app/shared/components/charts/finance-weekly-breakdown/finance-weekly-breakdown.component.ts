@@ -54,46 +54,53 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
     });
   }
 
+  hasDataAvailable() {
+    return this.chartData && this.chartData.length > 0;
+  }
+
   processChartData(data: any[]) {
 
-    if (data.length == 0) {
+    if (data.length === 0) {
       return this.showChart = true;
     }
 
     this.reset();
 
-    for (let i = 0; i < data.length; i++) {
+    for (const prop of data) {
 
       /** Populate weeklybreakdown lables array */
-      if (!this.labels.includes('Week ' + data[i].week)) {
-        this.labels.push('Week ' + data[i].week);
+      if (!this.labels.includes('Week ' + prop.week)) {
+        this.labels.push('Week ' + prop.week);
       }
 
       /** Populate weeklybreakdown currencies array */
-      if (!this.currencyCodes.includes(data[i].currency_code)) {
-        this.currencyCodes.push(data[i].currency_code);
+      if (!this.currencyCodes.includes(prop.currency_code)) {
+        this.currencyCodes.push(prop.currency_code);
       }
 
     }
 
     /** Populate weeklybreakdown chart data array */
     for (let i = 0; i < this.currencyCodes.length; i++) {
-      let label = this.currencyCodes[i];
-      let dataset = [];
+      const label = this.currencyCodes[i];
+      const dataset = [];
 
       /** Group data by {data: [...data], label: 'currency_code' } */
-      for (let j = 0; j < data.length; j++) {
-        if (data[j].currency_code == label) {
-          dataset.push(data[j].amount);
+      for (const prop of data) {
+        if ( prop.currency_code === label ) {
+          dataset.push(prop.amount.toFixed(2));
         }
       }
 
-      this.chartData.push({
-        data: dataset, label: label,
-        backgroundColor: this.chartColors[i].bgColor,
-        borderColor: this.chartColors[i].bdColor,
-        borderwidth: this.chartColors[i].bWidth
-      });
+      if ( dataset ) {
+        this.chartData.push({
+          data: dataset,
+          label,
+          backgroundColor: this.chartColors[i].bgColor,
+          borderColor: this.chartColors[i].bdColor,
+          borderwidth: this.chartColors[i].bWidth
+        });
+      }
 
       this.showChart = true;
     }
