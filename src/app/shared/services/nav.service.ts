@@ -677,8 +677,9 @@ export class NavService {
           active: false,
           children: [
             { path: '/organisation/finance/reports/income-summary', title: 'Income Summary', type: 'link' },
-            { path: '/organisation/finance/reports/expenditure-summary', title: 'Expenditure Summary', type: 'link' },
-            { path: '/organisation/finance/reports/top-contributors', title: 'Top Contributors', type: 'link' }
+            { path: '/organisation/finance/reports/monthly-consolidated-report', title: 'Consolidated Report', type: 'link' },
+            { path: '/organisation/finance/reports/top-contributors', title: 'Top Contributors', type: 'link' },
+            { path: '/organisation/finance/reports/non-contributing-members', title: 'Non Contributing', type: 'link' }
           ]
         }
       ]

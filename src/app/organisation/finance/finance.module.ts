@@ -7,6 +7,10 @@ import { ReceiptsComponent } from './settings/receipts/receipts.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { IncomeSourcesComponent } from './settings/income-sources/income-sources.component';
 import { IncomeEditorComponent } from './income/income-editor/income-editor.component';
+import { IncomeSummaryComponent } from './reports/income-summary/income-summary.component';
+import { TopContributorsComponent } from './reports/top-contributors/top-contributors.component';
+import { NonContributingMembersComponent } from './reports/non-contributing-members/non-contributing-members.component';
+import { MonthlyConsolidatedReportComponent } from './reports/monthly-consolidated-report/monthly-consolidated-report.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +18,11 @@ import { IncomeEditorComponent } from './income/income-editor/income-editor.comp
     IncomeComponent,
     ReceiptsComponent,
     IncomeSourcesComponent,
-    IncomeEditorComponent
+    IncomeEditorComponent,
+    IncomeSummaryComponent,
+    TopContributorsComponent,
+    NonContributingMembersComponent,
+    MonthlyConsolidatedReportComponent
   ],
   imports: [
     CommonModule,
