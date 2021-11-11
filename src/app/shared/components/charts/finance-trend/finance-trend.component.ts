@@ -43,11 +43,12 @@ export class FinanceTrendComponent implements OnInit {
 
   processChartData(data: any[]) {
 
+    this.reset();
+
     if (data.length === 0) {
       return this.showChart = true;
     }
 
-    this.reset();
     let currencyCodesSet = new Set;
     let labelsSet = new Set;
     let monthsSets = new Set;
