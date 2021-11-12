@@ -58,10 +58,6 @@ import { FinanceCategoryBreakdownComponent } from './components/charts/finance-c
 import { FinanceTrendComponent } from './components/charts/finance-trend/finance-trend.component';
 import { FinanceTotalsByCategoryComponent } from './components/charts/finance-totals-by-category/finance-totals-by-category.component';
 import { ChartsModule } from 'ng2-charts';
-import { FinanceTopContributorsComponent } from './components/reports/finance-top-contributors/finance-top-contributors.component';
-import { FinanceNonContributingMembersComponent } from './components/reports/finance-non-contributing-members/finance-non-contributing-members.component';
-import { FinanceIncomeSummaryComponent } from './components/reports/finance-income-summary/finance-income-summary.component';
-import { FinanceMonthlyConsolidatedReportComponent } from './components/reports/finance-monthly-consolidated-report/finance-monthly-consolidated-report.component';
 
 @NgModule({
   declarations: [
@@ -95,11 +91,7 @@ import { FinanceMonthlyConsolidatedReportComponent } from './components/reports/
     FinanceWeeklyBreakdownComponent,
     FinanceCategoryBreakdownComponent,
     FinanceTrendComponent,
-    FinanceTotalsByCategoryComponent,
-    FinanceTopContributorsComponent,
-    FinanceNonContributingMembersComponent,
-    FinanceIncomeSummaryComponent,
-    FinanceMonthlyConsolidatedReportComponent
+    FinanceTotalsByCategoryComponent
   ],
   imports: [
     CommonModule,
