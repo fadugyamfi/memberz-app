@@ -47,8 +47,8 @@
     <tbody>
       <tr *ngFor="let contribution of contributionService.getItems(); let row = index">
         <td class="text-right">{{ row + contributionService?.pagingMeta?.from }}.</td>
-        <td>{{ contribution.receipt_dt | date : short }}</td>
-        <td>{{ contribution.receipt_no }}</td>
+        <td [noWrap]="true">{{ contribution.receipt_dt | date : short }}</td>
+        <td [noWrap]="true">{{ contribution.receipt_no }}</td>
         <td>{{ contribution.contribution_type.name }}</td>
         <td>
           <div *ngIf="contribution.member_name">
@@ -68,9 +68,9 @@
             {{ contribution.bank?.short_code }} {{ contribution.cheque_number }}</span>
           <span *ngIf="contribution.payment_type != 'Cheque'">{{ contribution.payment_type }}</span>
         </td>
-        <td class="text-right font-weight-bold">{{ contribution.amount | currency : contribution.currency_code }}</td>
+        <td [noWrap]="true" class="text-right font-weight-bold">{{ contribution.amount | currency : contribution.currency_code }}</td>
 
-        <td class="text-center">
+        <td class="text-center" [noWrap]="true">
           <button class="btn btn-xs btn-primary m-r-10" (click)="incomeEditor.show(contribution)">
             <i class="fa fa-pencil"></i>
           </button>

@@ -43,7 +43,7 @@ export class FinanceTotalsByCategoryComponent implements OnInit {
     this.reset();
 
     if (data.length === 0) {
-     
+
       return this.showChart = true;
     }
 

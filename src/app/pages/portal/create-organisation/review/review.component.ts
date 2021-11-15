@@ -1,14 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Organisation } from '../../../../shared/model/api/organisation';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
-import { Subscription } from 'rxjs';
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
-import { EventsService } from '../../../../shared/services/events.service';
 import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
-import { OrganisationSubscriptionService } from '../../../../shared/services/api/organisation-subscription.service';
-import { OrganisationSubscription } from '../../../../shared/model/api/organisation-subscription';
-import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-review-step',

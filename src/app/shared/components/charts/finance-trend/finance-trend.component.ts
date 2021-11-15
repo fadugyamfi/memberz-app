@@ -29,14 +29,13 @@ export class FinanceTrendComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.searchByYear( moment().year() );
+    this.searchByYear(moment().year());
   }
 
   searchByYear(value: number) {
     this.showChart = false;
     this.yearValue = value;
     this.reportService.getTrendReport(this.yearValue).subscribe((data: any[]) => {
-      console.log(data);
       this.processChartData(data);
     });
   }
@@ -55,9 +54,9 @@ export class FinanceTrendComponent implements OnInit {
 
     /** Populate trend currencies array with unique currency code */
     for (const contribution of data) {
-        currencyCodesSet.add(contribution.currency_code);
-        labelsSet.add(this.monthObjLabels[contribution.month]);
-        monthsSets.add(contribution.month);
+      currencyCodesSet.add(contribution.currency_code);
+      labelsSet.add(this.monthObjLabels[contribution.month]);
+      monthsSets.add(contribution.month);
     }
 
     this.currencyCodes = Array.from(currencyCodesSet);
@@ -75,7 +74,7 @@ export class FinanceTrendComponent implements OnInit {
      * -------------, ------------,  ------------ ->  --
      */
 
-     for (const currencyCode of this.currencyCodes) {
+    for (const currencyCode of this.currencyCodes) {
 
       for (const label of this.months) {
 
@@ -98,9 +97,10 @@ export class FinanceTrendComponent implements OnInit {
           label: currencyCode
         });
       }
-      dataset = [];
+      // dataset = [];
     }
-    
+
+    this.showChart = true;
   }
 
   reset() {
