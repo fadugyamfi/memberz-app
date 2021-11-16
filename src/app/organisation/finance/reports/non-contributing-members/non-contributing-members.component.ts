@@ -10,26 +10,33 @@ import * as moment from 'moment';
 })
 export class NonContributingMembersComponent implements OnInit {
 
-  public reportData: any[] = [];
+  public reportData = [];
   public subscriptions: Subscription[] = [];
   public yearValue: number = moment().year();
+  public showData = false;
 
   constructor(
     public reportingService: FinanceReportingService
   ) { }
 
   ngOnInit(): void {
-    this.fetchReportData();
+    this.fetchReportData(moment().year());
   }
 
-  fetchReportData(){
+  fetchReportData(value : number){
+    this.showData = false;
+    this.yearValue = value ? value : moment().year();
     const sub = this.reportingService.getNonContributingMembers(this.yearValue).subscribe((data: any[]) => {
-      console.log(data);
+      this.showData = true;
+      this.reportData = data;
     });
 
     this.subscriptions.push(sub);
   }
 
+  hasDataAvailable() {
+    return this.reportData && this.reportData.length > 0;
+  }
 
   ngOnDestroy() {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
