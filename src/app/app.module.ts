@@ -11,10 +11,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 
-import { AuthService } from './shared/services/firebase/auth.service';
 import { AdminGuard } from './shared/guard/admin.guard';
 import { SecureInnerPagesGuard } from './shared/guard/SecureInnerPagesGuard.guard';
-import { CookieService } from 'ngx-cookie-service';
 
 import { environment } from '../environments/environment';
 import { SlydepayModule } from 'slydepay-angular';
@@ -58,7 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     SlydepayModule.forRoot( environment.slydepay )
   ],
-  providers: [AuthService, AdminGuard, SecureInnerPagesGuard, CookieService],
+  providers: [AdminGuard, SecureInnerPagesGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

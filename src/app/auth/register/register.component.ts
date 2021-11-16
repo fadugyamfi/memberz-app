@@ -4,7 +4,6 @@ import { AuthService } from "../../shared/services/api/auth.service";
 import { ToastrService } from "ngx-toastr";
 import { EventsService } from "../../shared/services/events.service";
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-import Swal from "sweetalert2";
 
 type UserFields =
   | "email"
