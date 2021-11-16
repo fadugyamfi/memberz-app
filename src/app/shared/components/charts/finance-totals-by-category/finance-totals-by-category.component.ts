@@ -15,7 +15,7 @@ export class FinanceTotalsByCategoryComponent implements OnInit {
   public chartData = [];
   public labels = [];
   private currencyCodes = [];
-  public showChart = false;
+  public showChart = true;
   public yearValue: number = null;
 
   constructor(
@@ -27,6 +27,10 @@ export class FinanceTotalsByCategoryComponent implements OnInit {
   }
 
   searchByYear(value: number) {
+    if( !this.showChart ) {
+      return;
+    }
+
     this.showChart = false;
     this.yearValue = value;
     this.reportService.getTotalsByCategory(this.yearValue).subscribe((data: any[]) => {

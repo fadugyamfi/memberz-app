@@ -17,7 +17,7 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
   public chartData = [];
   public labels = [];
   private currencyCodes = [];
-  public showChart = false;
+  public showChart = true;
   public monthValue = null;
   public yearValue = null;
 
@@ -31,6 +31,10 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
   }
 
   searchByMonth(value: number) {
+    if( !this.showChart ) {
+      return;
+    }
+
     this.showChart = false;
     this.monthValue = value;
     this.reportService.getWeeklyBreakdown(this.monthValue).subscribe((data: any[]) => {
@@ -39,6 +43,10 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
   }
 
   searchByYear(value: number) {
+    if( !this.showChart ) {
+      return;
+    }
+
     this.showChart = false;
     this.yearValue = value;
     this.reportService.getWeeklyBreakdown(this.monthValue, this.yearValue).subscribe((data: any[]) => {

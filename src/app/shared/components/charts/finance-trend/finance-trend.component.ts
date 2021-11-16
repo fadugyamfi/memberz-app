@@ -21,7 +21,7 @@ export class FinanceTrendComponent implements OnInit {
 
   public chartData = [];
   public currencyCodes = [];
-  public showChart = false;
+  public showChart = true;
   public yearValue: number = null;
 
   constructor(
@@ -33,6 +33,8 @@ export class FinanceTrendComponent implements OnInit {
   }
 
   searchByYear(value: number) {
+    if( !this.showChart ) { return }
+
     this.showChart = false;
     this.yearValue = value;
     this.reportService.getTrendReport(this.yearValue).subscribe((data: any[]) => {
