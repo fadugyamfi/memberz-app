@@ -28,7 +28,15 @@ const routes: Routes = [
       title: 'Settings',
       breadcrumb: 'Settings'
     }
-  }
+  },
+  {
+    path: 'reports',
+    loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule),
+    data: {
+      title: 'Reports',
+      breadcrumb: 'Reports'
+    }
+  },
 ];
 
 @NgModule({
