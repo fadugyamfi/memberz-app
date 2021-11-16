@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpInterceptor, HttpHandler } from '@angular/common/http';
-import 'rxjs/add/observable/of';
 import { OrganisationService } from '../api/organisation.service';
 
 @Injectable()

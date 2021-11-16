@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService, Menu } from '../../services/nav.service';
-import { EventsService } from '../../services/events.service';
-import { Observable, BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { OrganisationService } from '../../services/api/organisation.service';
 
 @Component({

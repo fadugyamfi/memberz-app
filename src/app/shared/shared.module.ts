@@ -17,13 +17,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CustomizerComponent } from './components/customizer/customizer.component';
 import { DragulaModule } from 'ng2-dragula';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { GalleryModule } from '@ks89/angular-modal-gallery';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 import { NgxPrintModule } from 'ngx-print';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import 'hammerjs';
-import 'mousetrap';
 
 import { ImageCropperModule } from 'ngx-image-cropper';
 
@@ -109,7 +106,6 @@ import { FinanceMonthlyConsolidatedReportComponent } from './components/reports/
     TranslateModule,
     DragulaModule.forRoot(),
     NgbModule,
-    GalleryModule.forRoot(),
     UiSwitchModule,
     InternationalPhoneNumberModule,
     NgxPrintModule,
