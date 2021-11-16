@@ -1,20 +1,45 @@
 <div class="card">
   <div class="card-header">
-    <h6 class="m-b-0"><i class="fa fa-list"></i> {{'Broadcast History' | translate}}</h6>
+    <div class="row">
+      <div class="col-md-6">
+        <h6 class="m-b-0"><i class="fa fa-list"></i> {{'Broadcast History' | translate}}</h6>
+      </div>
+      <div class="col-md-6 text-right">
+        <button class="btn btn-primary m-r-15" (click)="showComposer()">
+          <i class="fa fa-envelope"></i> {{'New Broadcast' | translate}}
+        </button>
+      </div>
+    </div>
   </div>
 
-  <div class="card-body">
-    <ul class="list-group list-group-sp">
-      <li class="list-group-item" *ngFor="let broadcast of broadcasts">
-        <div class="m-b-15 row text-sm f-12">
-          <div class="col-xl-4 font-weight-bold">{{ broadcast.sentTo }}</div>
-          <div class="col-xl-4">{{ broadcast.sentTo }}</div>
-          <div class="col-xl-4 text-right">Sent {{ broadcast.whenCreated() }}</div>
-        </div>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th colspan=2>{{ 'Broadcast Date' | translate }}</th>
+        <th>{{ 'Sent To' | translate }}</th>
+        <th>{{ 'Message' | translate }}</th>
+        <th class="text-center">{{ 'Actions' | translate }}</th>
+      </tr>
+    </thead>
 
-        <div class="">{{ broadcast.message }}</div>
+    <tbody>
+      <tr *ngFor="let broadcast of broadcasts; let row = index">
+        <td class="text-right">{{ row + smsBroadcastService?.pagingMeta?.from }}.</td>
+        <td [noWrap]="true">{{'Sent' | translate}} {{ broadcast.whenCreated() }}</td>
+        <td [noWrap]="true">{{ broadcast.sentTo }}</td>
+        <td>{{ broadcast.message }}</td>
 
-      </li>
-    </ul>
+        <td [noWrap]="true" class="text-center">
+          <button class="btn btn-info btn-sm m-r-15">{{ 'Edit' | translate }}</button>
+          <button class="btn btn-danger btn-sm">
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-footer">
+    <app-pagination [service]="smsBroadcastService" (paginate)="onPaginate($event)"></app-pagination>
   </div>
 </div>

@@ -1,7 +1,7 @@
-// @import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
-// @import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+@use "sass:math";
+
 @import '~animate.css/animate.min.css';
-@import "chartist/chartist";
+// @import "chartist/chartist";
 @import "~bootstrap/scss/bootstrap";
 @import "theme/variables";
 @import "style";
@@ -13,7 +13,7 @@
 @import "sticky/sticky.scss";
 @import "~@swimlane/ngx-datatable/index.css";
 @import "~@swimlane/ngx-datatable/themes/bootstrap.css";
-// @import "~angular-custom-tour/styles/main.css";
+// // @import "~angular-custom-tour/styles/main.css";
 @import '~dropzone/dist/min/dropzone.min.css';
 @import '~leaflet/dist/leaflet.css';
-@import '~angular-archwizard/archwizard.scss';
+@import '~angular-archwizard/styles/archwizard.scss';

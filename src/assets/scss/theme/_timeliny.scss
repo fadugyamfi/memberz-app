@@ -62,7 +62,7 @@ $timeliny_small-breakdown: 768px;
 			display: block;
 			position: absolute;
 			top: -$timeliny_spacings;
-			left: $timeliny_spacings / 4;
+			left: math.div($timeliny_spacings, 4);
 			color: $dark-color;
 			font-family: $font-work-sans, $font-serif;
 			font-size: 22px;
@@ -77,14 +77,14 @@ $timeliny_small-breakdown: 768px;
 			content: attr(data-text);
 			display: block;
 			position: absolute;
-			width: $timeliny_max-inner-width / 4;
+			width: math.div($timeliny_max-inner-width, 4);
 			top: $timeliny_spacings + $timeliny_dots-radius;
-			left: $timeliny_spacings / 4;
+			left: math.div($timeliny_spacings, 4);
 			color: $light-color;
 			opacity: 0;
 			font-size: 0.9em;
 			@media (min-width: $timeliny_small-breakdown) {
-				width: $timeliny_max-inner-width / 3;
+				width: math.div($timeliny_max-inner-width, 3);
 			}
 		}
 	}
@@ -155,7 +155,7 @@ $timeliny_small-breakdown: 768px;
 		position: absolute;
 		display: block;
 		z-index: 1;
-		left: $timeliny_vertical-line-pos / 2;
+		left: math.div($timeliny_vertical-line-pos, 2);
 		top: 0;
 		width: 1px;
 		height: 100%;

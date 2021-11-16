@@ -17,7 +17,7 @@ export class FinanceCategoryBreakdownComponent implements OnInit {
    public chartData = [];
    public labels = [];
    public currencyCodes = [];
-   public showChart = false;
+   public showChart = true;
    public monthValue: number = null;
    public yearValue: number = null;
 
@@ -97,6 +97,10 @@ export class FinanceCategoryBreakdownComponent implements OnInit {
   }
 
   searchByMonth(value: number) {
+    if( !this.showChart ) {
+      return;
+    }
+
     this.showChart = false;
     this.monthValue = value;
     this.reportService.getCategoryBreakdown(this.monthValue).subscribe((data: any[]) => {
@@ -105,6 +109,10 @@ export class FinanceCategoryBreakdownComponent implements OnInit {
   }
 
   searchByYear(value: number) {
+    if( !this.showChart ) {
+      return;
+    }
+
     this.showChart = false;
     this.yearValue = value;
     this.reportService.getCategoryBreakdown(this.monthValue, this.yearValue).subscribe((data: any[]) => {

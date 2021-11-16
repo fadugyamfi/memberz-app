@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
 import { SmsBroadcast } from '../../../../shared/model/api/sms-broadcast';
 import { SmsBroadcastService } from '../../../../shared/services/api/sms-broadcast.service';
 
@@ -10,6 +11,7 @@ import { SmsBroadcastService } from '../../../../shared/services/api/sms-broadca
 export class BroadcastHistoryViewComponent implements OnInit {
 
   public broadcasts;
+  @Output() newBroadcast = new EventEmitter();
 
   constructor(
     public smsBroadcastService: SmsBroadcastService
@@ -20,10 +22,18 @@ export class BroadcastHistoryViewComponent implements OnInit {
   }
 
   fetchBroadcasts(page = 1, limit = 15) {
-    const params = { page, limit };
+    const params = { page, limit, sort: 'id:desc' };
 
     this.smsBroadcastService.getAll(params).subscribe(broadcasts => {
       this.broadcasts = broadcasts;
     });
+  }
+
+  showComposer() {
+    this.newBroadcast.emit();
+  }
+
+  onPaginate(event: PageEvent) {
+    this.fetchBroadcasts(event.page, event.limit);
   }
 }
