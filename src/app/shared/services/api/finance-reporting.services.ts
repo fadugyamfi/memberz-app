@@ -29,38 +29,32 @@ export class FinanceReportingService extends APIService<MemberAccount> {
   }
 
 
-  getIncomeSummary(start_date = null, end_date = null) {
+  getIncomeSummary(start_date, end_date, currency_id) {
     const params = {
       start_date,
-      end_date
+      end_date,
+      currency_id
     };
 
     return this.get(`${this.url}/income_summary`, params);
   }
 
-  getTotalsByCategory(year = null) {
+  getTopContributors(year, currency_id) {
     const params = {
-      year
+      year,
+      currency_id
     };
     
-    return this.get(`${this.url}/totals_by_category`, params);
+    return this.get(`${this.url}/top_contributors`, params);
   }
 
-  getTrendReport(year = null) {
+  getMonthlyConsolidatedReport(year, currency_id) {
     const params = {
-      year
+      year,
+      currency_id
     };
     
-    return this.get(`${this.url}/trend_report`, params);
-  }
-
-  getCategoryBreakdown(month = null, year = null) {
-    const params = {
-      month,
-      year
-    };
-
-    return this.get(`${this.url}/category_breakdown`, params);
+    return this.get(`${this.url}/monthly_consolidated_report`, params);
   }
 
 }

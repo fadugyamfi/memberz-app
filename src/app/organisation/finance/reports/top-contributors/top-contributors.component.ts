@@ -28,10 +28,11 @@ export class TopContributorsComponent implements OnInit {
     this.fetchReceiptSettings();
   }
 
-  fetchReportData(value : number){
+  fetchReportData(year = null, currencyId = null){
     this.showData = false;
-    this.yearValue = value ? value : moment().year();
-    const sub = this.reportingService.getNonContributingMembers(this.yearValue).subscribe((data: any[]) => {
+    this.yearValue = year ? year : moment().year();
+    this.default_currency = currencyId ? currencyId : this.default_currency;
+    const sub = this.reportingService.getTopContributors(this.yearValue, this.default_currency).subscribe((data: any[]) => {
       this.showData = true;
       this.reportData = data;
     });
@@ -42,7 +43,7 @@ export class TopContributorsComponent implements OnInit {
   fetchReceiptSettings() {
     const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {
       this.default_currency = settings.default_currency;
-      this.fetchReportData(moment().year());
+      this.fetchReportData(moment().year(), this.default_currency);
     });
 
     this.subscriptions.push(sub);

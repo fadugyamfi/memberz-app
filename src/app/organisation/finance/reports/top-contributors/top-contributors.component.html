@@ -8,7 +8,7 @@
             <div class="col-2">
               <app-select-year-control
                 [(ngModel)]="yearValue"
-                (selectedYearEvent)="fetchReportData($event)"
+                (selectedYearEvent)="fetchReportData($event, null)"
               ></app-select-year-control>
             </div>
             <!-- end of col -->
@@ -19,7 +19,7 @@
             </div>
             <!-- end of col -->
             <div class="col-2">
-              <app-select-currency-control  [(ngModel)]="default_currency"></app-select-currency-control>
+              <app-select-currency-control  [(ngModel)]="default_currency" (change)="fetchReportData(null, $event.target.value)"></app-select-currency-control>
             </div>
             <div class="col-1">
               <h6 class="title">

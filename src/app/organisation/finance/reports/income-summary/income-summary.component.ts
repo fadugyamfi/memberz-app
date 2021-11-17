@@ -15,8 +15,8 @@ export class IncomeSummaryComponent implements OnInit {
 
   public reportData = [];
   public subscriptions: Subscription[] = [];
-  public startYearValue: number = moment().year();
-  public endYearValue: number = moment().year();
+  public startDateValue = moment().format('YYYY-MM-DD');
+  public endDateValue = moment().format('YYYY-MM-DD');
   public showData = false;
   public settings: ContributionReceiptSetting;
   public default_currency;
@@ -31,10 +31,12 @@ export class IncomeSummaryComponent implements OnInit {
     this.fetchReceiptSettings();
   }
 
-  fetchReportData(value : number){
+  fetchReportData(startDate = null, endDate = null, currencyId = null){
     this.showData = false;
-    this.startYearValue = value ? value : moment().year();
-    const sub = this.reportingService.getNonContributingMembers(this.startYearValue).subscribe((data: any[]) => {
+    this.startDateValue = startDate ? startDate : moment();
+    this.endDateValue = endDate ? endDate : moment();
+    this.default_currency = currencyId ? currencyId : this.default_currency;
+    const sub = this.reportingService.getIncomeSummary(this.startDateValue, this.endDateValue, this.default_currency).subscribe((data: any[]) => {
       this.showData = true;
       this.reportData = data;
     });
@@ -45,7 +47,7 @@ export class IncomeSummaryComponent implements OnInit {
   fetchReceiptSettings() {
     const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {
       this.default_currency = settings.default_currency;
-      this.fetchReportData(moment().year());
+      this.fetchReportData(moment(), moment(), this.default_currency);
     });
 
     this.subscriptions.push(sub);

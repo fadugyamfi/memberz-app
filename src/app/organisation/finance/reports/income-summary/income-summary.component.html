@@ -6,33 +6,27 @@
           <div class="card-header b-l-primary">
             <div class="row">
               <div class="col-2">
-                <app-select-year-control
-                  [(ngModel)]="startYearValue"
-                  (selectedYearEvent)="fetchReportData($event)"
-                ></app-select-year-control>
+                <input type="date" [(ngModel)]="startDateValue" (change)="fetchReportData($event.target.value, null, null)" class="form-control" placeholder="YYYY-MM-DD" />
               </div>
               <!-- end of col -->
               <div class="col-1">
                 <h6 class="title">
-                  {{ "Start Year" | translate }}
+                  {{ "Start Date" | translate }}
                 </h6>
               </div>
               <!-- end of col -->
               <div class="col-2">
-                <app-select-year-control
-                  [(ngModel)]="endYearValue"
-                  (selectedYearEvent)="fetchReportData($event)"
-                ></app-select-year-control>
+                <input type="date" [(ngModel)]="endDateValue" (change)="fetchReportData(null, $event.target.value, null)" class="form-control" placeholder="YYYY-MM-DD" />
               </div>
               <!-- end of col -->
               <div class="col-1">
                 <h6 class="title">
-                  {{ "End Year" | translate }}
+                  {{ "End Date" | translate }}
                 </h6>
               </div>
               <!-- end of col -->
               <div class="col-2">
-                <app-select-currency-control  [(ngModel)]="default_currency"></app-select-currency-control>
+                <app-select-currency-control  [(ngModel)]="default_currency" (change)="fetchReportData(null, null, $event.target.value)"></app-select-currency-control>
               </div>
               <div class="col-1">
                 <h6 class="title">
