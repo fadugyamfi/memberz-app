@@ -17,7 +17,8 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
   public subscriptions: Subscription[] = [];
   public yearValue: number = moment().year();
   public settings: ContributionReceiptSetting;
-  public default_currency;
+  public default_currency: number;
+  public default_currency_code: string;
   public showData = false;
   private monthObjLabels = chartData.monthObjLabels;
   public contributionTypesData: any[] = [];
@@ -70,6 +71,7 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
   setContributionTypesReportData(data: any[]) {
     let datasetInner = [];
     let dataSetOuter = [];
+    let total = 0;
 
     for (let type of this.contributionTypes) {
       for (let monthValue of Object.keys(this.monthObjLabels)) {
@@ -79,17 +81,17 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
             value = d.amount;
           }
         }
-        datasetInner.push(value);
+
+        total += value;
+
+        datasetInner.push(this.formatAmount(value));
       }
 
-      let total = datasetInner.reduce((acc, cur)=>{
-        return acc + cur;
-      }, 0);
-
-      datasetInner.push(total.toFixed(2));
+      datasetInner.push(this.formatAmount(total));
 
       dataSetOuter.push(datasetInner);
       datasetInner = [];
+      total = 0;
     }
 
     this.contributionTypesReportData = dataSetOuter;
@@ -99,6 +101,7 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
   setPaymentTypesReportData(data: any[]) {
     let datasetInner = [];
     let dataSetOuter = [];
+    let total = 0;
 
     for (let type of this.paymentTypes) {
       for (let monthValue of Object.keys(this.monthObjLabels)) {
@@ -108,20 +111,29 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
             value = d.amount;
           }
         }
-        datasetInner.push(value);
+
+        total += value;
+        datasetInner.push(this.formatAmount(value));
       }
 
-      let total = datasetInner.reduce((acc, cur)=>{
-        return acc + cur;
-      }, 0);
-
-      datasetInner.push(total);
+      datasetInner.push(this.formatAmount(total));
 
       dataSetOuter.push(datasetInner);
       datasetInner = [];
+      total = 0;
     }
 
     this.paymentTypesReportData = dataSetOuter;
+  }
+
+
+  formatAmount(amount){
+    let formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: this.default_currency_code,
+    });
+    
+    return formatter.format(amount); 
   }
 
   setPaymentTypes(data: any[]) {
@@ -140,6 +152,7 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
   fetchReceiptSettings() {
     const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {
       this.default_currency = settings.default_currency;
+      this.default_currency_code = settings.default_currency_code;
       this.fetchReportData(moment().year(), this.default_currency);
     });
 
