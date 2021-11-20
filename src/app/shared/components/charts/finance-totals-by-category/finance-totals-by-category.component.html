@@ -16,14 +16,10 @@
     <!-- end of row -->
   </div>
   <div class="card-body chart-block">
-    <div class="loader-box m-auto" *ngIf="!showChart">
-      <span class="rotate dashed colored"></span>
-    </div>
-
-    <div *ngIf="showChart && !hasDataAvailable()" class="text-center p-30 m-b-50">
-      <img src="/assets/images/icons/circle-document.svg" height="90" class="m-b-30" />
-      <h5 class="font-weight-bold">{{ 'No Data Available' | translate }}</h5>
-    </div>
+    <app-loading-rotate-dashed *ngIf="!showChart"></app-loading-rotate-dashed>
+    <app-no-data-available
+      *ngIf="showChart && !hasDataAvailable()"
+    ></app-no-data-available>
 
     <canvas
       *ngIf="showChart && hasDataAvailable()"
