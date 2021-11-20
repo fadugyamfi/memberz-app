@@ -84,10 +84,10 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
 
         total += value;
 
-        datasetInner.push(this.formatAmount(value));
+        datasetInner.push(value);
       }
 
-      datasetInner.push(this.formatAmount(total));
+      datasetInner.push(total);
 
       dataSetOuter.push(datasetInner);
       datasetInner = [];
@@ -113,10 +113,10 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
         }
 
         total += value;
-        datasetInner.push(this.formatAmount(value));
+        datasetInner.push(value);
       }
 
-      datasetInner.push(this.formatAmount(total));
+      datasetInner.push(total);
 
       dataSetOuter.push(datasetInner);
       datasetInner = [];
@@ -124,16 +124,6 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
     }
 
     this.paymentTypesReportData = dataSetOuter;
-  }
-
-
-  formatAmount(amount){
-    let formatter = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: this.default_currency_code,
-    });
-    
-    return formatter.format(amount); 
   }
 
   setPaymentTypes(data: any[]) {

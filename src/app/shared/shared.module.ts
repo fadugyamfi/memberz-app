@@ -55,6 +55,8 @@ import { FinanceCategoryBreakdownComponent } from './components/charts/finance-c
 import { FinanceTrendComponent } from './components/charts/finance-trend/finance-trend.component';
 import { FinanceTotalsByCategoryComponent } from './components/charts/finance-totals-by-category/finance-totals-by-category.component';
 import { ChartsModule } from 'ng2-charts';
+import { NoDataAvailableComponent } from './components/forms/no-data-available/no-data-available.component';
+import { LoadingRotateDashedComponent } from './components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,9 @@ import { ChartsModule } from 'ng2-charts';
     FinanceWeeklyBreakdownComponent,
     FinanceCategoryBreakdownComponent,
     FinanceTrendComponent,
-    FinanceTotalsByCategoryComponent
+    FinanceTotalsByCategoryComponent,
+    NoDataAvailableComponent,
+    LoadingRotateDashedComponent
   ],
   imports: [
     CommonModule,
@@ -132,7 +136,9 @@ import { ChartsModule } from 'ng2-charts';
     FinanceWeeklyBreakdownComponent,
     FinanceCategoryBreakdownComponent,
     FinanceTrendComponent,
-    FinanceTotalsByCategoryComponent
+    FinanceTotalsByCategoryComponent,
+    NoDataAvailableComponent,
+    LoadingRotateDashedComponent
   ],
   providers: [
     NavService,
