@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FinanceReportingService } from 'src/app/shared/services/api/finance-reporting.services';
 import { ContributionReceiptSettingService } from 'src/app/shared/services/api/contribution-receipt-setting.service';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { ContributionReceiptSetting } from 'src/app/shared/model/api/contribution-receipt-setting';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import * as chartData from '../../../../shared/data/chart/chartjs';
+
 
 @Component({
   selector: 'app-monthly-consolidated-report',
@@ -28,20 +30,26 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
   public contributionTypesReportData: any[] = [];
   public paymentTypesReportData: any[] = [];
 
+  public searchForm: FormGroup;
+  
+
   constructor(
     public reportingService: FinanceReportingService,
-    public receiptSettingService: ContributionReceiptSettingService
-  ) { }
+    public receiptSettingService: ContributionReceiptSettingService,
+    private fb: FormBuilder,
+  ) { 
+    this.searchForm = fb.group({
+      year: new FormControl(moment().year()),
+      currency_id: new FormControl(this.default_currency)
+    });
+  }
 
   ngOnInit(): void {
     this.fetchReceiptSettings();
   }
 
-  fetchReportData(year: number, currencyId: number) {
-    this.showData = false;
-    this.yearValue = year ? year : moment().year();
-    this.default_currency = currencyId ? currencyId : this.default_currency;
-    const sub = this.reportingService.getMonthlyConsolidatedReport(this.yearValue, this.default_currency).subscribe((data: { contributionTypesData: any[], paymentTypesData: any[] }) => {
+  fetchReportData() {
+    const sub = this.reportingService.getMonthlyConsolidatedReport(this.searchForm.value).subscribe((data: { contributionTypesData: any[], paymentTypesData: any[] }) => {
       this.showData = true;
 
       this.contributionTypesData = data.contributionTypesData;
@@ -143,7 +151,10 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
     const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {
       this.default_currency = settings.default_currency;
       this.default_currency_code = settings.default_currency_code;
-      this.fetchReportData(moment().year(), this.default_currency);
+      this.searchForm.patchValue({
+        currency_id: this.default_currency
+      });
+      this.fetchReportData();
     });
 
     this.subscriptions.push(sub);

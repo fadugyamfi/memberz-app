@@ -48,10 +48,10 @@ export class FinanceReportingService extends APIService<MemberAccount> {
     return this.get(`${this.url}/top_contributors`, params);
   }
 
-  getMonthlyConsolidatedReport(year, currency_id) {
+  getMonthlyConsolidatedReport(data) {
     const params = {
-      year,
-      currency_id
+      year: data.year,
+      currency_id: data.currency_id
     };
     
     return this.get(`${this.url}/monthly_consolidated_report`, params);

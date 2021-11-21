@@ -4,40 +4,34 @@
     <div class="col">
       <div class="card">
         <div class="card-header b-l-info">
-          <div class="row">
-            <div class="col-2">
+          <form [formGroup]="searchForm" class="form-inline">
+            <div class="form-group mb-2">
+              <label class="mr-2 title"> {{ "Year" | translate }}</label>
               <app-select-year-control
-                [(ngModel)]="yearValue"
-                (selectedYearEvent)="fetchReportData($event, null)"
+                formControlName="year"
+                class="w-50"
+                (selectedYearEvent)="fetchReportData()"
               ></app-select-year-control>
             </div>
             <!-- end of col -->
-            <div class="col-1">
-              <h6 class="title">
-                {{ "Year" | translate }}
-              </h6>
-            </div>
-            <!-- end of col -->
-
-            <div class="col-2">
+            <div class="form-group mb-2">
+              <label class="mr-2 title">{{ "Currency" | translate }}</label>
               <app-select-currency-control
-                [(ngModel)]="default_currency"
-                (change)="fetchReportData(null, $event.target.value)"
+                class="w-50"
+                formControlName="currency_id"
+                (change)="fetchReportData()"
               ></app-select-currency-control>
             </div>
-            <div class="col-1">
-              <h6 class="title">
-                {{ "Currency" | translate }}
-              </h6>
-            </div>
-            <!-- end of col -->
-          </div>
-          <!-- end of row -->
+          </form>
         </div>
         <div class="card-body chart-block">
-          <app-loading-rotate-dashed *ngIf="!showData"></app-loading-rotate-dashed>
-        
-          <app-no-data-available *ngIf="showData && !hasDataAvailable()"></app-no-data-available>
+          <app-loading-rotate-dashed
+            *ngIf="!showData"
+          ></app-loading-rotate-dashed>
+
+          <app-no-data-available
+            *ngIf="showData && !hasDataAvailable()"
+          ></app-no-data-available>
 
           <div class="row" *ngIf="showData && hasDataAvailable()">
             <div class="col table-responsive">
@@ -50,7 +44,7 @@
 
                 <tbody>
                   <tr *ngFor="let type of contributionTypes; let row = index">
-                    <td>{{type}}</td>
+                    <td>{{ type }}</td>
                   </tr>
                 </tbody>
 
@@ -62,16 +56,14 @@
 
                 <tbody>
                   <tr *ngFor="let type of paymentTypes; let row = index">
-                    <td>{{type}}</td>
+                    <td>{{ type }}</td>
                   </tr>
                 </tbody>
-
               </table>
-            </div><!-- end of col -->
+            </div>
+            <!-- end of col -->
             <div class="col-10 table-responsive">
-              <table
-                class="table table-striped table-bordered table-sm"
-              >
+              <table class="table table-striped table-bordered table-sm">
                 <thead>
                   <tr>
                     <th>{{ "Jan" | translate }}</th>
@@ -91,9 +83,14 @@
                 </thead>
 
                 <tbody>
-                  <tr *ngFor="let data of contributionTypesReportData; let row = index">
-                    <td *ngFor="let d of data" class="text-right" >
-                      {{d | currency: default_currency_code}}
+                  <tr
+                    *ngFor="
+                      let data of contributionTypesReportData;
+                      let row = index
+                    "
+                  >
+                    <td *ngFor="let d of data" class="text-right">
+                      {{ d | currency: default_currency_code }}
                     </td>
                   </tr>
                 </tbody>
@@ -103,9 +100,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let data of paymentTypesReportData; let row = index">
+                  <tr
+                    *ngFor="let data of paymentTypesReportData; let row = index"
+                  >
                     <td *ngFor="let d of data" class="text-right">
-                      {{d | currency: default_currency_code}}
+                      {{ d | currency: default_currency_code }}
                     </td>
                   </tr>
                 </tbody>
