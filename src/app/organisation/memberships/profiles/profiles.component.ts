@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { Router } from '@angular/router';
-import { NgbModal, NgbActiveModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';

@@ -13,7 +13,6 @@ import { ContributionReceiptSetting } from '../../../../shared/model/api/contrib
 import { ContributionReceiptSettingService} from '../../../../shared/services/api/contribution-receipt-setting.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../../shared/services/events.service';
-import Swal from 'sweetalert2';
 import { ContributionPaymentType } from '../../../../shared/model/api/contribution-payment-type';
 
 

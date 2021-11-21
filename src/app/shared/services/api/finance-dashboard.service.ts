@@ -3,7 +3,6 @@ import { APIService } from './api.service';
 import { EventsService } from '../events.service';
 import { HttpClient } from '@angular/common/http';
 import { MemberAccount } from '../../model/api/member-account';
-import { map } from 'rxjs/operators';
 import { StorageService } from '../storage.service';
 
 @Injectable({

@@ -5,6 +5,7 @@ export class ContributionReceiptSetting extends AppModel {
   public id: any;
   public organisation_id: number;
   public default_currency: number;
+  public default_currency_code: string;
   public receipt_mode: string;
   public receipt_prefix: string;
   public receipt_postfix: string;

@@ -1,1 +1,60 @@
-<p>non-contributing-members works!</p>
+<!-- Container-fluid starts -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-header b-l-info">
+          <div class="row">
+            <div class="col-auto">
+              <app-select-year-control
+                [(ngModel)]="yearValue"
+                (selectedYearEvent)="fetchReportData($event)"
+              ></app-select-year-control>
+            </div>
+            <!-- end of col -->
+            <div class="col">
+              <h6 class="title">
+                {{ "Year" | translate }}
+              </h6>
+            </div>
+            <!-- end of col -->
+          </div>
+          <!-- end of row -->
+        </div>
+        <div class="card-body chart-block">
+          <app-loading-rotate-dashed *ngIf="!showData"></app-loading-rotate-dashed>
+          <app-no-data-available *ngIf="showData && !hasDataAvailable()"></app-no-data-available>
+
+          <table
+            class="table table-striped table-bordered"
+            *ngIf="showData && hasDataAvailable()"
+          >
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>{{ "Name" | translate }}</th>
+                <th>{{ "E-Mail" | translate }}</th>
+                <th>{{ "Age" | translate }}</th>
+                <th>{{ "Mobile Number" | translate }}</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let data of reportData; let row = index">
+                <td>{{ row + 1 }}.</td>
+                <td>{{ data.full_name }}</td>
+                <td>{{ data.email }}</td>
+                <td>{{ data.age }}</td>
+                <td>{{ data.mobile_number }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- end of card -->
+    </div>
+    <!-- end of col -->
+  </div>
+  <!-- end of row -->
+</div>
+<!-- Container-fluid Ends -->

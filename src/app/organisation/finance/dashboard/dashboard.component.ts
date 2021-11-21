@@ -16,24 +16,4 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
   }
-
-  public getDefaultWeeklyBreakDown() {
-
-  }
-
-  public categoryBreakDownByMonth($event): void {
-    console.log($event);
-  }
-
-  public trend(year: number): void {
-  }
-
-  public getTotalsByCategory(year: number): void {
-
-  }
-
-  public getCategoryBreakdwon(year: number, month: number): void {
-
-  }
-
 }
