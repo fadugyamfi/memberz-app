@@ -3,7 +3,6 @@ import { APIService } from './api.service';
 import { EventsService } from '../events.service';
 import { HttpClient } from '@angular/common/http';
 import { MemberAccount } from '../../model/api/member-account';
-import { map } from 'rxjs/operators';
 import { StorageService } from '../storage.service';
 
 @Injectable({
@@ -29,11 +28,11 @@ export class FinanceReportingService extends APIService<MemberAccount> {
   }
 
 
-  getIncomeSummary(start_date, end_date, currency_id) {
+  getIncomeSummary(data) {
     const params = {
-      start_date,
-      end_date,
-      currency_id
+      start_date: data.start_date,
+      end_date: data.end_date,
+      currency_id: data.currency_id
     };
 
     return this.get(`${this.url}/income_summary`, params);
