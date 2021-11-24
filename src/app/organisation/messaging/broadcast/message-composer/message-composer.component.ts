@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,13 +12,15 @@ import { SmsBroadcastService } from '../../../../shared/services/api/sms-broadca
 import { EventsService } from '../../../../shared/services/events.service';
 import { SmsTemplateTagService } from '../../../../shared/services/utilities/sms-template-tag.service';
 import * as moment from 'moment';
+import { OrganisationMemberCategoryService } from '../../../../shared/services/api/organisation-member-category.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-message-composer',
   templateUrl: './message-composer.component.html',
   styleUrls: ['./message-composer.component.scss']
 })
-export class MessageComposerComponent implements OnInit {
+export class MessageComposerComponent implements OnInit, OnDestroy {
 
   @Output() public cancel = new EventEmitter();
   @ViewChild('messageField', { static: true }) messageField;
@@ -27,6 +29,7 @@ export class MessageComposerComponent implements OnInit {
   public broadcastForm: FormGroup;
   public broadcastLists: SmsBroadcastList[];
   public broadcast: SmsBroadcast;
+  public subscriptions: Subscription[] = [];
 
   private messageCharLimit = 160;
   public previews: any[] = [];
@@ -44,13 +47,19 @@ export class MessageComposerComponent implements OnInit {
     public events: EventsService,
     public translate: TranslateService,
     public smsTagService: SmsTemplateTagService,
-    public modalService: NgbModal
+    public modalService: NgbModal,
+    public categoryService: OrganisationMemberCategoryService
   ) { }
 
   ngOnInit(): void {
     this.setupEvents();
     this.setupBroadcastForm();
     this.loadBroadcastLists();
+    this.loadMembershipCategories();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   setupBroadcastForm() {
@@ -60,7 +69,8 @@ export class MessageComposerComponent implements OnInit {
     this.broadcastForm = new FormGroup({
       id: new FormControl(),
       module_sms_account_id: new FormControl(smsAccount.id, Validators.required),
-      module_sms_broadcast_list_id: new FormControl('', Validators.required),
+      module_sms_broadcast_list_id: new FormControl(''),
+      organisation_member_category_id: new FormControl(''),
       message: new FormControl('', Validators.required),
       send_at_date: new FormControl('', [Validators.required]),
       send_at_time: new FormControl('', [Validators.required]),
@@ -112,7 +122,7 @@ export class MessageComposerComponent implements OnInit {
 
   loadBroadcastLists(page = 1, limit = 10) {
     const smsAccount = this.smsAccountService.getOrganisationAccount();
-    this.broadcastListService.getAll({
+    const sub = this.broadcastListService.getAll({
       module_sms_account_id: smsAccount.id,
       page, limit, sort: 'name:asc'
     }).subscribe({
@@ -120,6 +130,13 @@ export class MessageComposerComponent implements OnInit {
       error: () => {},
       complete: () => {}
     });
+
+    this.subscriptions.push(sub);
+  }
+
+  loadMembershipCategories() {
+    const sub = this.categoryService.getAll({ limit: 1000 }).subscribe();
+    this.subscriptions.push(sub);
   }
 
   cancelCompose() {
@@ -135,7 +152,17 @@ export class MessageComposerComponent implements OnInit {
   onSubmit(e: Event) {
     e.preventDefault();
 
+    if( !this.broadcastForm.valid ) {
+      return;
+    }
+
     const broadcast = new SmsBroadcast(this.smsBroadcastService.removeEmpty(this.broadcastForm.value));
+
+    if( !broadcast.module_sms_broadcast_list_id && !broadcast.organisation_member_category_id ) {
+      Swal.fire('List Required', 'Please select a broadcast or membership category', 'error');
+      return;
+    }
+
     broadcast.send_at = broadcast.send_at_date + ' ' + broadcast.send_at_time;
 
     const params = { contain: ['sms_broadcast_list'].join() };
@@ -158,6 +185,7 @@ export class MessageComposerComponent implements OnInit {
     );
     Swal.showLoading();
 
+    this.smsBroadcastService.setPrepredItems(true);
     return this.smsBroadcastService.create(broadcast, params);
   }
 
@@ -175,5 +203,9 @@ export class MessageComposerComponent implements OnInit {
 
       this.broadcastForm.patchValue(values);
     }
+  }
+
+  getMinDateToSchedule() {
+    return moment().format('YYYY-MM-DD');
   }
 }

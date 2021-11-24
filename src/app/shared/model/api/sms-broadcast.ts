@@ -11,6 +11,8 @@ export class SmsBroadcast extends AppModel {
   public send_at_date: any;
   public send_at_time: any;
   public _scheduler: OrganisationAccount;
+  public organisation_member_category_id: number;
+  public module_sms_broadcast_list_id: number;
 
   constructor(data: object) {
     super(data);
