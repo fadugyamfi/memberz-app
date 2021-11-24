@@ -52,20 +52,20 @@
             <thead>
               <tr>
                 <th>#</th>
-                <th>{{ "Name" | translate }}</th>
-                <th>{{ "E-Mail" | translate }}</th>
-                <th>{{ "Age" | translate }}</th>
-                <th>{{ "Mobile Number" | translate }}</th>
+                <th>{{ "Contribution Types" | translate }}</th>
+                <th>{{ "Cash" | translate }}</th>
+                <th>{{ "Cheque" | translate }}</th>
+                <th>{{ "Total" | translate }}</th>
               </tr>
             </thead>
 
             <tbody>
               <tr *ngFor="let data of reportData; let row = index">
                 <td>{{ row + 1 }}.</td>
-                <td>{{ data.full_name }}</td>
-                <td>{{ data.email }}</td>
-                <td>{{ data.age }}</td>
-                <td>{{ data.mobile_number }}</td>
+                <td>{{ data[0] }}</td>
+                <td>{{ data[1] | currency: currency_code }}</td>
+                <td>{{ data[2] | currency: currency_code }}</td>
+                <td>{{ data[3] | currency: currency_code }}</td>
               </tr>
             </tbody>
           </table>

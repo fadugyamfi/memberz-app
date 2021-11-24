@@ -20,13 +20,14 @@ export class IncomeSummaryComponent implements OnInit {
   public settings: ContributionReceiptSetting;
   public default_currency;
   public searchForm: FormGroup;
+  public currency_code: string;
 
 
   constructor(
     public reportingService: FinanceReportingService,
     public receiptSettingService: ContributionReceiptSettingService,
     private fb: FormBuilder,
-  ) { 
+  ) {
     this.searchForm = fb.group({
       start_date: new FormControl(moment().format('YYYY-MM-DD')),
       end_date: new FormControl(moment().format('YYYY-MM-DD')),
@@ -38,19 +39,54 @@ export class IncomeSummaryComponent implements OnInit {
     this.fetchReceiptSettings();
   }
 
-  fetchReportData(){
+  fetchReportData() {
     this.showData = false;
     const sub = this.reportingService.getIncomeSummary(this.searchForm.value).subscribe((data: any[]) => {
       this.showData = true;
       this.reportData = data;
+      if (data.length > 0) {
+        this.processData(data);
+      }
     });
 
     this.subscriptions.push(sub);
   }
 
+  processData(data) {
+    let contributionTypes = new Set;
+    this.reportData = [];
+    this.currency_code = data[0].currency_code;
+
+    for (let d of data) {
+      if (d.contribution_type_name != null) {
+        contributionTypes.add(d.contribution_type_name);
+      }
+    }
+
+    let contributionTypesArray = Array.from(contributionTypes);
+
+    for (let contributiontype of contributionTypesArray) {
+      let cashAmount = 0;
+      let chequeAmount = 0;
+      for (let d of data) {
+        if (d.contribution_type_name == contributiontype && d.payment_type_name == "Cash") {
+          cashAmount = d.amount;
+        }
+
+        if (d.contribution_type_name == contributiontype && d.payment_type_name == "Cheque") {
+          chequeAmount = d.amount;
+        }
+      }
+
+      this.reportData.push([contributiontype, cashAmount, chequeAmount, cashAmount + chequeAmount]);
+    }
+
+  }
+
   fetchReceiptSettings() {
     const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {
       this.default_currency = settings.default_currency;
+
       this.searchForm.patchValue({
         currency_id: this.default_currency
       });
