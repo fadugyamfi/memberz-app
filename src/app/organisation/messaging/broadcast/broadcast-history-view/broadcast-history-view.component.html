@@ -12,12 +12,14 @@
     </div>
   </div>
 
-  <table class="table table-bordered table-striped">
+  <table class="table table-bordered table-striped f-12">
     <thead>
       <tr>
-        <th colspan=2>{{ 'Broadcast Date' | translate }}</th>
+        <th colspan=2>{{ 'Date' | translate }}</th>
         <th>{{ 'Sent To' | translate }}</th>
         <th>{{ 'Message' | translate }}</th>
+        <th>{{ 'Scheduled By' | translate }}</th>
+        <th class="text-center">{{ 'Status' }}</th>
         <th class="text-center">{{ 'Actions' | translate }}</th>
       </tr>
     </thead>
@@ -25,13 +27,31 @@
     <tbody>
       <tr *ngFor="let broadcast of broadcasts; let row = index">
         <td class="text-right">{{ row + smsBroadcastService?.pagingMeta?.from }}.</td>
-        <td [noWrap]="true">{{'Sent' | translate}} {{ broadcast.whenCreated() }}</td>
+        <td [noWrap]="true">{{ broadcast.whenCreated() }}</td>
         <td [noWrap]="true">{{ broadcast.sentTo }}</td>
-        <td>{{ broadcast.message }}</td>
+        <td class="pre-message">{{ broadcast.message }}</td>
+        <td [noWrap]="true">
+          <a *ngIf="broadcast.scheduler" [routerLink]="['/organisation/memberships/view', broadcast.scheduler.membership.id]" target="_blank">
+            {{ broadcast.scheduler?.name }}
+          </a>
+          <span *ngIf="!broadcast.scheduler">{{ 'N/A' | translate }}</span>
+        </td>
+        <td [noWrap]="true" class="text-center">
+          <div class="badge badge-warning" *ngIf="!broadcast.sent">{{ 'Pending' | translate }}</div>
+          <div class="badge badge-success" *ngIf="broadcast.sent">{{ 'Sent' | translate }}</div>
+          <!-- <span *ngIf="broadcast.sent">
+            {{ 'to' | translate }} {{ broadcast.sent_count }} of {{ broadcast.total_contacts }} {{ 'Contacts' | translate }}
+          </span> -->
+        </td>
 
         <td [noWrap]="true" class="text-center">
-          <button class="btn btn-info btn-sm m-r-15">{{ 'Edit' | translate }}</button>
-          <button class="btn btn-danger btn-sm">
+          <button
+            class="btn btn-info btn-xs m-r-15"
+            (click)="editSmsBroadcast(broadcast)"
+            [disabled]="broadcast.sent"
+          >{{ 'Edit' | translate }}</button>
+
+          <button class="btn btn-danger btn-xs" (click)="deleteBroadcast(broadcast)">
             <i class="fa fa-trash-o"></i>
           </button>
         </td>

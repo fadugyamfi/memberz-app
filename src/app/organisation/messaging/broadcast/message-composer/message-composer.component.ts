@@ -1,5 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import { SmsBroadcast } from '../../../../shared/model/api/sms-broadcast';
 import { SmsBroadcastList } from '../../../../shared/model/api/sms-broadcast-list';
@@ -8,6 +10,8 @@ import { SmsAccountService } from '../../../../shared/services/api/sms-account.s
 import { SmsBroadcastListService } from '../../../../shared/services/api/sms-broadcast-list.service';
 import { SmsBroadcastService } from '../../../../shared/services/api/sms-broadcast.service';
 import { EventsService } from '../../../../shared/services/events.service';
+import { SmsTemplateTagService } from '../../../../shared/services/utilities/sms-template-tag.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-message-composer',
@@ -17,17 +21,30 @@ import { EventsService } from '../../../../shared/services/events.service';
 export class MessageComposerComponent implements OnInit {
 
   @Output() public cancel = new EventEmitter();
+  @ViewChild('messageField', { static: true }) messageField;
+  @ViewChild('composerModal', { static: true }) composerModal: any;
 
   public broadcastForm: FormGroup;
-
   public broadcastLists: SmsBroadcastList[];
+  public broadcast: SmsBroadcast;
+
+  private messageCharLimit = 160;
+  public previews: any[] = [];
+  public maxSmsChars = 480;
+  public charsEntered = 0;
+  public selectedList: SmsBroadcastList;
+  public modalRef: NgbModalRef;
+  public saveBtnText = "Send Broadcast";
 
   constructor(
     public organisationService: OrganisationService,
     public broadcastListService: SmsBroadcastListService,
     public smsBroadcastService: SmsBroadcastService,
     public smsAccountService: SmsAccountService,
-    public events: EventsService
+    public events: EventsService,
+    public translate: TranslateService,
+    public smsTagService: SmsTemplateTagService,
+    public modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -50,12 +67,46 @@ export class MessageComposerComponent implements OnInit {
       send_at: new FormControl(),
     });
 
+    this.broadcastForm.valueChanges.subscribe(values => {
+      const message = this.smsTagService.processMessageTags(values.message);
+      this.previews = this.chunkMessageStrings(message, this.messageCharLimit);
+      this.charsEntered  = values.message.length;
+
+      if( values.module_sms_broadcast_list_id ) {
+        this.selectedList = this.broadcastListService.getItem(values.module_sms_broadcast_list_id);
+      }
+    });
+  }
+
+  private chunkMessageStrings(str, size) {
+    const numChunks = Math.ceil(str.length / size)
+    const chunks = new Array(numChunks)
+
+    for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
+      chunks[i] = str.substr(o, size);
+    }
+
+    return chunks
+  }
+
+  insertInTextarea(newText: string, el: HTMLInputElement) {
+    const [start, end] = [el.selectionStart, el.selectionEnd];
+    el.setRangeText(newText, start, end, 'select');
+    el.focus();
   }
 
   setupEvents() {
     this.events.on('SmsBroadcast:created', () => {
-      Swal.fire('SMS Broadcast Created Successfully', '', 'info');
-      this.cancel.emit();
+      Swal.fire(
+        this.translate.instant('SMS Broadcast Created Successfully'),
+        '',
+        'info'
+      );
+      this.cancelCompose();
+    });
+
+    this.events.on('SmsBroadcast:updated', () => {
+      this.cancelCompose();
     });
   }
 
@@ -73,13 +124,16 @@ export class MessageComposerComponent implements OnInit {
 
   cancelCompose() {
     this.cancel.emit();
+    this.modalRef.close();
+  }
+
+  show() {
+    this.saveBtnText = "Send Broadcast";
+    this.modalRef = this.modalService.open(this.composerModal, { size: 'xl'});
   }
 
   onSubmit(e: Event) {
     e.preventDefault();
-
-    Swal.fire('Creating SMS Broadcast', 'Please wait ...', 'info');
-    Swal.showLoading();
 
     const broadcast = new SmsBroadcast(this.smsBroadcastService.removeEmpty(this.broadcastForm.value));
     broadcast.send_at = broadcast.send_at_date + ' ' + broadcast.send_at_time;
@@ -87,9 +141,39 @@ export class MessageComposerComponent implements OnInit {
     const params = { contain: ['sms_broadcast_list'].join() };
 
     if (broadcast.id) {
+      Swal.fire(
+        this.translate.instant('Updating SMS Broadcast'),
+        this.translate.instant('Please wait') + '...',
+        'info'
+      );
+      Swal.showLoading();
+
       return this.smsBroadcastService.update(broadcast, params);
     }
 
+    Swal.fire(
+      this.translate.instant('Creating SMS Broadcast'),
+      this.translate.instant('Please wait') + '...',
+      'info'
+    );
+    Swal.showLoading();
+
     return this.smsBroadcastService.create(broadcast, params);
+  }
+
+  setBroadcast(broadcast: SmsBroadcast) {
+    this.broadcast = broadcast;
+
+    if( broadcast ) {
+      this.saveBtnText = "Save Changes";
+      this.setupBroadcastForm();
+
+      const values = Object.assign({}, broadcast, {
+        send_at_date: moment(broadcast.send_at).format('YYYY-MM-DD'),
+        send_at_time: moment(broadcast.send_at).format('HH:mm')
+      });
+
+      this.broadcastForm.patchValue(values);
+    }
   }
 }

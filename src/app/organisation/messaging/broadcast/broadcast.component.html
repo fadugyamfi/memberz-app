@@ -1,8 +1,11 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xl-12">
-      <app-message-composer *ngIf="view == 'composer'" (cancel)="showHistory()"></app-message-composer>
-      <app-broadcast-history-view *ngIf="view == 'history'" (newBroadcast)="showComposer()"></app-broadcast-history-view>
+      <app-message-composer #composer></app-message-composer>
+      <app-broadcast-history-view
+        (newBroadcast)="showComposer()"
+        (editBroadcast)="showComposer($event)">
+      </app-broadcast-history-view>
     </div>
   </div>
 </div>
