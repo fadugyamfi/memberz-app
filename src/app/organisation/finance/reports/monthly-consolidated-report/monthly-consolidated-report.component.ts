@@ -25,7 +25,6 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
   private monthObjLabels = chartData.monthObjLabels;
   public contributionTypesData: any[] = [];
   public paymentTypesData: any[] = [];
-  public paymentTypes: any[] = [];
   public contributionTypesReportData: any[] = [];
   public paymentTypesReportData: any[] = [];
 
