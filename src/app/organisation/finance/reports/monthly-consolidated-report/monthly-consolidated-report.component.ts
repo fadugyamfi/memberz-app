@@ -25,19 +25,17 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
   private monthObjLabels = chartData.monthObjLabels;
   public contributionTypesData: any[] = [];
   public paymentTypesData: any[] = [];
-  public contributionTypes: any[] = [];
-  public paymentTypes: any[] = [];
   public contributionTypesReportData: any[] = [];
   public paymentTypesReportData: any[] = [];
 
   public searchForm: FormGroup;
-  
+
 
   constructor(
     public reportingService: FinanceReportingService,
     public receiptSettingService: ContributionReceiptSettingService,
     private fb: FormBuilder,
-  ) { 
+  ) {
     this.searchForm = fb.group({
       year: new FormControl(moment().year()),
       currency_id: new FormControl(this.default_currency)
@@ -53,35 +51,29 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
       this.showData = true;
 
       this.contributionTypesData = data.contributionTypesData;
-      this.setContributionTypes(this.contributionTypesData);
       this.setContributionTypesReportData(this.contributionTypesData);
 
       this.paymentTypesData = data.paymentTypesData;
-      this.setPaymentTypes(this.paymentTypesData);
       this.setPaymentTypesReportData(this.paymentTypesData);
     });
 
     this.subscriptions.push(sub);
   }
 
-  setContributionTypes(data: any[]) {
+  setContributionTypesReportData(data: any[]) {
     let types = new Set;
 
     data.forEach(d => {
-      if (d.contribution_type_name != null){
+      if (d.contribution_type_name != null) {
         types.add(d.contribution_type_name);
       }
     });
 
-    this.contributionTypes = Array.from(types);
-  }
-
-  setContributionTypesReportData(data: any[]) {
     let datasetInner = [];
     let dataSetOuter = [];
     let total = 0;
 
-    for (let type of this.contributionTypes) {
+    for (let type of types) {
       for (let monthValue of Object.keys(this.monthObjLabels)) {
         let value = 0.00;
         for (let d of data) {
@@ -97,21 +89,29 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
 
       datasetInner.push(total);
 
-      dataSetOuter.push(datasetInner);
+      dataSetOuter.push([type, ...datasetInner]);
       datasetInner = [];
       total = 0;
     }
 
     this.contributionTypesReportData = dataSetOuter;
+
   }
 
-
   setPaymentTypesReportData(data: any[]) {
+    let types = new Set;
+
+    data.forEach(d => {
+      if (d.payment_type_name != null) {
+        types.add(d.payment_type_name);
+      }
+    });
+
     let datasetInner = [];
     let dataSetOuter = [];
     let total = 0;
 
-    for (let type of this.paymentTypes) {
+    for (let type of types) {
       for (let monthValue of Object.keys(this.monthObjLabels)) {
         let value = 0.00;
         for (let d of data) {
@@ -126,26 +126,13 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
 
       datasetInner.push(total);
 
-      dataSetOuter.push(datasetInner);
+      dataSetOuter.push([type, ...datasetInner]);
       datasetInner = [];
       total = 0;
     }
 
     this.paymentTypesReportData = dataSetOuter;
   }
-
-  setPaymentTypes(data: any[]) {
-    let types = new Set;
-
-    data.forEach(d => {
-      if (d.payment_type_name != null) {
-        types.add(d.payment_type_name);
-      }
-    });
-
-    this.paymentTypes = Array.from(types);
-  }
-
 
   fetchReceiptSettings() {
     const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {

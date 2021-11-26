@@ -53,9 +53,9 @@
               <tr>
                 <th>#</th>
                 <th>{{ "Contribution Types" | translate }}</th>
-                <th>{{ "Cash" | translate }}</th>
-                <th>{{ "Cheque" | translate }}</th>
-                <th>{{ "Total" | translate }}</th>
+                <th class="text-right">{{ "Cash" | translate }}</th>
+                <th class="text-right">{{ "Cheque" | translate }}</th>
+                <th class="text-right">{{ "Total" | translate }}</th>
               </tr>
             </thead>
 
@@ -63,9 +63,9 @@
               <tr *ngFor="let data of reportData; let row = index">
                 <td>{{ row + 1 }}.</td>
                 <td>{{ data[0] }}</td>
-                <td>{{ data[1] | currency: currency_code }}</td>
-                <td>{{ data[2] | currency: currency_code }}</td>
-                <td>{{ data[3] | currency: currency_code }}</td>
+                <td class="text-right">{{ data[1] | currency: currency_code }}</td>
+                <td class="text-right">{{ data[2] | currency: currency_code }}</td>
+                <td class="text-right font-weight-bold">{{ data[3] | currency: currency_code }}</td>
               </tr>
             </tbody>
           </table>
