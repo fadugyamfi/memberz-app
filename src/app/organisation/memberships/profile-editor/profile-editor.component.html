@@ -52,21 +52,21 @@
               <label class="col-form-label col-sm-3">{{'Name' | translate}}</label>
 
               <div class="col-sm-3">
-                <input type="text" class="form-control" placeholder="Last Name" formControlName="last_name" />
+                <input type="text" class="form-control" placeholder="{{'Last Name' | translate }}" formControlName="last_name" />
                 <div class="messages text-danger" *ngIf="profileForm.controls.last_name.errors?.required">
                   <p class="m-b-0">{{'Last Name Required' | translate}}</p>
                 </div>
               </div>
 
               <div class="col-sm-3">
-                <input type="text" class="form-control" placeholder="First Name" formControlName="first_name" />
+                <input type="text" class="form-control" placeholder="{{'First Name' | translate }}" formControlName="first_name" />
                 <div class="messages text-danger" *ngIf="profileForm.controls.first_name.errors?.required">
                   <p class="m-b-0">{{'First Name Required' | translate}}</p>
                 </div>
               </div>
 
               <div class="col-sm-3">
-                <input type="text" class="form-control" placeholder="Middle Name" formControlName="middle_name" />
+                <input type="text" class="form-control" placeholder="{{'Middle Name' | translate }}" formControlName="middle_name" />
               </div>
             </div>
 

@@ -629,11 +629,11 @@ export class NavService {
           title: 'Bulk Upload',
           type: 'link'
         },
-        {
-          path: '/organisation/memberships/reports',
-          title: 'Reports',
-          type: 'link'
-        }
+        // {
+        //   path: '/organisation/memberships/reports',
+        //   title: 'Reports',
+        //   type: 'link'
+        // }
       ]
     },
     {
