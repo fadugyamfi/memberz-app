@@ -72,8 +72,8 @@ export class StorageService {
     try {
       return JSON.parse(result.data);
     } catch (e) {
-      this.engine.removeItem(key);
-      return result;
+      // this.engine.removeItem(key);
+      return result && result.data;
     }
   }
 
