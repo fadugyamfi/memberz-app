@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { Router } from '@angular/router';
@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
 import { OrganisationGroupTypeService } from '../../../shared/services/api/organisation-group-type.service';
 import { OrganisationGroupType } from '../../../shared/model/api/orgainsation-group-type';
 import { OrganisationAnniversaryService } from '../../../shared/services/api/organisation-anniversary.service';
+import { ExcelService } from 'src/app/shared/services/excel.service';
 
 @Component({
   selector: 'app-profiles',
@@ -25,6 +26,8 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('searchModal', { static: true }) searchModal: any;
   @ViewChild('changeCategoryModal', { static: true }) changeCategoryModal: any;
+  /* the table reference */
+  @ViewChild('membersTable') membersTable: ElementRef;
 
   public members: OrganisationMember[] = [];
   public categories: OrganisationMemberCategory[];
@@ -51,7 +54,8 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     public events: EventsService,
     public storage: StorageService,
     public groupTypeService: OrganisationGroupTypeService,
-    public anniversaryService: OrganisationAnniversaryService
+    public anniversaryService: OrganisationAnniversaryService,
+    public excelService: ExcelService
   ) {
     dropdownConfig.placement = 'bottom';
     dropdownConfig.autoClose = true;
@@ -67,7 +71,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    if ( this.storage.isValid( this.cacheDataKey ) ) {
+    if (this.storage.isValid(this.cacheDataKey)) {
       this.loadDataFromCache();
     } else {
       this.showSearchModal();
@@ -100,7 +104,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
       contain: ['organisation_groups'].join(),
       limit: 100
     }).subscribe(() => {
-      if ( this.searchForm.value.organisation_group_type_id ) {
+      if (this.searchForm.value.organisation_group_type_id) {
         this.setSelectedGroupType(this.searchForm.value.organisation_group_type_id);
       }
     });
@@ -116,7 +120,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   loadDataFromCache() {
     this.members = this.storage.get(this.cacheDataKey).map(data => new OrganisationMember(data));
     this.events.trigger('OrganisationMember:paging', this.storage.get(this.cachePagingKey));
-    this.searchForm.patchValue( this.storage.get(this.cacheOptionsKey) );
+    this.searchForm.patchValue(this.storage.get(this.cacheOptionsKey));
     this.showAdvanced = this.storage.get(this.cacheAdvancedToggleKey);
   }
 
@@ -360,7 +364,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
         const data = this.changeCategoryForm.value;
         const selected = this.getSelectedMembers().map(profile => Object.assign(profile, data));
 
-        this.organisationMemberService.batchUpdate(selected, { contain: ['member', 'organisation_member_category'].join()});
+        this.organisationMemberService.batchUpdate(selected, { contain: ['member', 'organisation_member_category'].join() });
         this.changeCategoryForm.reset();
         this.modalService.dismissAll();
       }
@@ -381,5 +385,13 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   setSelectedGroupType(groupTypeId) {
     // tslint:disable-next-line: triple-equals
     this.selectedGroupType = this.groupTypeService.getItems().find(type => type.id == groupTypeId);
+  }
+
+  exportToExcel(): void {
+    if (this.members.length == 0 ){
+      return;
+    }
+    
+    this.excelService.generateExcel(this.members, 'members_data');
   }
 }
