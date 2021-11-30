@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { Router } from '@angular/router';
@@ -26,8 +26,6 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('searchModal', { static: true }) searchModal: any;
   @ViewChild('changeCategoryModal', { static: true }) changeCategoryModal: any;
-  /* the table reference */
-  @ViewChild('membersTable') membersTable: ElementRef;
 
   public members: OrganisationMember[] = [];
   public categories: OrganisationMemberCategory[];
@@ -391,7 +389,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.members.length == 0 ){
       return;
     }
-    
+
     this.excelService.generateExcel(this.members, 'members_data');
   }
 }
