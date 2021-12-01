@@ -51,6 +51,7 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
       this.showData = true;
 
       this.contributionTypesData = data.contributionTypesData;
+      this.default_currency_code = data.contributionTypesData[0].currency_code;
       this.setContributionTypesReportData(this.contributionTypesData);
 
       this.paymentTypesData = data.paymentTypesData;
