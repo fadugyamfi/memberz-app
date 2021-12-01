@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { SettingsComponent } from './settings/settings.component';
 import { HistoryComponent } from './history/history.component';
 import { BroadcastComponent } from './broadcast/broadcast.component';
+import { BroadcastListsComponent } from './broadcast-lists/broadcast-lists.component';
 
 
 const routes: Routes = [
@@ -28,6 +29,14 @@ const routes: Routes = [
     data: {
       title: 'Broadcast',
       breadcrumb: 'Broadcast'
+    }
+  },
+  {
+    path: 'broadcast-lists',
+    component: BroadcastListsComponent,
+    data: {
+      title: 'Broadcast Lists',
+      breadcrumb: 'Broadcast Lists'
     }
   }
 ];

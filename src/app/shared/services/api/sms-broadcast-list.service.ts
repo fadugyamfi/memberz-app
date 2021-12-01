@@ -17,4 +17,8 @@ export class SmsBroadcastListService extends APIService<SmsBroadcastList> {
     this.model = SmsBroadcastList;
     this.model_name = 'SmsBroadcastList';
   }
+
+  getFilters() {
+    return this.get(`${this.url}/filters`);
+  }
 }

@@ -386,7 +386,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   exportToExcel(): void {
-    if (this.members.length == 0) {
+    if (this.members.length == 0 ){
       return;
     }
 
