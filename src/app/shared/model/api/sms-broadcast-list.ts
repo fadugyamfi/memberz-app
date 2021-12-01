@@ -8,6 +8,7 @@ export class SmsBroadcastList extends AppModel {
   public sms_broadcast: any;
   public organisation_member_category: any;
   public size: number;
+  public filters: [];
 
   constructor(data: object) {
     super(data);

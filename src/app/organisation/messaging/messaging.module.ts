@@ -9,6 +9,7 @@ import { BroadcastComponent } from './broadcast/broadcast.component';
 import { SmsTransactionHistoryComponent } from './sms-transaction-history/sms-transaction-history.component';
 import { MessageComposerComponent } from './broadcast/message-composer/message-composer.component';
 import { BroadcastHistoryViewComponent } from './broadcast/broadcast-history-view/broadcast-history-view.component';
+import { BroadcastListsComponent } from './broadcast-lists/broadcast-lists.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { BroadcastHistoryViewComponent } from './broadcast/broadcast-history-vie
     BroadcastComponent,
     SmsTransactionHistoryComponent,
     MessageComposerComponent,
-    BroadcastHistoryViewComponent
+    BroadcastHistoryViewComponent,
+    BroadcastListsComponent
   ],
   imports: [
     CommonModule,
