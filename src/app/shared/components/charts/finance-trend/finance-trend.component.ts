@@ -33,7 +33,7 @@ export class FinanceTrendComponent implements OnInit {
   }
 
   searchByYear(value: number) {
-    if( !this.showChart ) { return }
+    if (!this.showChart) { return }
 
     this.showChart = false;
     this.yearValue = value;
@@ -66,8 +66,6 @@ export class FinanceTrendComponent implements OnInit {
     this.months = Array.from(monthsSets);
 
     let dataset = [];
-    const dataset2 = [];
-    let amount = 0;
 
     /**
      * Create a 3 dimentional array of
@@ -79,6 +77,7 @@ export class FinanceTrendComponent implements OnInit {
     for (const currencyCode of this.currencyCodes) {
 
       for (const label of this.months) {
+        let amount = 0;
 
         for (const contribution of data) {
           if ((contribution.month === label) && (contribution.currency_code === currencyCode)) {
@@ -89,17 +88,15 @@ export class FinanceTrendComponent implements OnInit {
 
         dataset.push(amount.toFixed(2));
         amount = 0;
+
       }
 
+      this.chartData.push({
+        data: dataset,
+        label: currencyCode
+      });
 
-      dataset2.push(dataset);
-      if (dataset) {
-        this.chartData.push({
-          data: dataset,
-          label: currencyCode
-        });
-      }
-      // dataset = [];
+      dataset = [];
     }
 
     this.showChart = true;

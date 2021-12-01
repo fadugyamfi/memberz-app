@@ -386,10 +386,20 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   exportToExcel(): void {
-    if (this.members.length == 0 ){
+    if (this.members.length == 0) {
       return;
     }
 
-    this.excelService.generateExcel(this.members, 'members_data');
+    const members = this.members.map((m) => {
+      return {
+        membership_no: m.organisation_no,
+        name: m.member.lastThenFirstName(),
+        membership_category: m.organisation_member_category.name,
+        email: m.member.email,
+        phone_number: m.member.mobile_number
+      }
+    });
+
+    this.excelService.generateExcel(members, 'members_data');
   }
 }
