@@ -71,4 +71,8 @@ export class OrganisationMemberService extends APIService<OrganisationMember> {
       return response['data'].map(result => new OrganisationMember(result));
     }));
   }
+
+  getAllRecord() {    
+    return this.get('/organisation_members_all');
+  }
 }

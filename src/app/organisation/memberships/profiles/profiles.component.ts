@@ -385,21 +385,43 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedGroupType = this.groupTypeService.getItems().find(type => type.id == groupTypeId);
   }
 
-  exportToExcel(): void {
-    if (this.members.length == 0 ){
-      return;
-    }
+  exportToExcel(type = "page"): void {
 
-    const members = this.members.map((m) => {
-      return {
-        membership_no: m.organisation_no,
-        name: m.member.lastThenFirstName(),
-        membership_category: m.organisation_member_category.name,
-        email: m.member.email,
-        phone_number: m.member.mobile_number
+    if (type == 'page') {
+      if (this.members.length == 0) {
+        return;
       }
+
+      const members = this.members.map((m) => {
+        return {
+          membership_no: m.organisation_no,
+          name: m.member.lastThenFirstName(),
+          membership_category: m.organisation_member_category.name,
+          email: m.member.email,
+          phone_number: m.member.mobile_number
+        }
+      });
+
+      return this.excelService.generateExcel(members, 'members_data');
+
+    }//end if page
+
+
+    Swal.fire(
+      'Fetching all data',
+      'Please wait as organisation data is being fetched...',
+      'info'
+    );
+    Swal.showLoading();
+
+    const sub = this.organisationMemberService.getAllRecord().subscribe((data: any[]) => {
+      this.excelService.generateExcel(data, 'members_data');
     });
 
-    this.excelService.generateExcel(members, 'members_data');
+    this.subscriptions.push(sub);
+
   }
+
+
+
 }
