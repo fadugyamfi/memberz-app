@@ -392,9 +392,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
         return;
       }
 
-      const members = this.formatMembersDataForExport(this.members);
-
-      return this.excelService.generateExcel(members, 'members_data');
+      return this.excelService.generateExcel(this.formatMembersDataForExport(this.members), 'members_data');
 
     }//end if page
 
