@@ -57,6 +57,10 @@ import { FinanceTotalsByCategoryComponent } from './components/charts/finance-to
 import { ChartsModule } from 'ng2-charts';
 import { NoDataAvailableComponent } from './components/forms/no-data-available/no-data-available.component';
 import { LoadingRotateDashedComponent } from './components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { PrintLayoutComponent } from './components/layout/print-layout/print-layout.component';
+import { PrintFooterComponent } from './components/layout/print-layout/print-footer/print-footer.component';
+import { PrintHeaderComponent } from './components/layout/print-layout/print-header/print-header.component';
+import { TitleComponent } from './components/title/title.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +96,11 @@ import { LoadingRotateDashedComponent } from './components/forms/loading-rotate-
     FinanceTrendComponent,
     FinanceTotalsByCategoryComponent,
     NoDataAvailableComponent,
-    LoadingRotateDashedComponent
+    LoadingRotateDashedComponent,
+    PrintLayoutComponent,
+    PrintFooterComponent,
+    PrintHeaderComponent,
+    TitleComponent
   ],
   imports: [
     CommonModule,
