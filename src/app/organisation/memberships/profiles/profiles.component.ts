@@ -392,15 +392,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
         return;
       }
 
-      const members = this.members.map((m) => {
-        return {
-          membership_no: m.organisation_no,
-          name: m.member.lastThenFirstName(),
-          membership_category: m.organisation_member_category.name,
-          email: m.member.email,
-          phone_number: m.member.mobile_number
-        }
-      });
+      const members = this.formatMembersDataForExport(this.members);
 
       return this.excelService.generateExcel(members, 'members_data');
 
@@ -414,12 +406,26 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     );
     Swal.showLoading();
 
-    const sub = this.organisationMemberService.getAllRecord().subscribe((data: any[]) => {
-      this.excelService.generateExcel(data, 'members_data');
+    const sub = this.organisationMemberService.getAll({ limit: 9999 }).subscribe((members: OrganisationMember[]) => {
+
+      this.excelService.generateExcel(this.formatMembersDataForExport(members), 'members_data');
     });
 
     this.subscriptions.push(sub);
 
+  }
+
+
+  formatMembersDataForExport(members){
+    return members.map((m) => {
+      return {
+        membership_no: m.organisation_no,
+        name: m.member.lastThenFirstName(),
+        membership_category: m.organisation_member_category.name,
+        email: m.member.email,
+        phone_number: m.member.mobile_number
+      }
+    });
   }
 
 

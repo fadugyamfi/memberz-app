@@ -72,7 +72,4 @@ export class OrganisationMemberService extends APIService<OrganisationMember> {
     }));
   }
 
-  getAllRecord() {    
-    return this.get('/organisation_members_all');
-  }
 }
