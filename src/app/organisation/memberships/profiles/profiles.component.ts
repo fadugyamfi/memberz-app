@@ -385,12 +385,37 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.selectedGroupType = this.groupTypeService.getItems().find(type => type.id == groupTypeId);
   }
 
-  exportToExcel(): void {
-    if (this.members.length == 0 ){
-      return;
-    }
+  exportToExcel(type = "page"): void {
 
-    const members = this.members.map((m) => {
+    if (type == 'page') {
+      if (this.members.length == 0) {
+        return;
+      }
+
+      return this.excelService.generateExcel(this.formatMembersDataForExport(this.members), 'members_data');
+
+    }//end if page
+
+
+    Swal.fire(
+      'Fetching all data',
+      'Please wait as organisation data is being fetched...',
+      'info'
+    );
+    Swal.showLoading();
+
+    const sub = this.organisationMemberService.getAll({ limit: 9999 }).subscribe((members: OrganisationMember[]) => {
+
+      this.excelService.generateExcel(this.formatMembersDataForExport(members), 'members_data');
+    });
+
+    this.subscriptions.push(sub);
+
+  }
+
+
+  formatMembersDataForExport(members){
+    return members.map((m) => {
       return {
         membership_no: m.organisation_no,
         name: m.member.lastThenFirstName(),
@@ -399,7 +424,8 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
         phone_number: m.member.mobile_number
       }
     });
-
-    this.excelService.generateExcel(members, 'members_data');
   }
+
+
+
 }
