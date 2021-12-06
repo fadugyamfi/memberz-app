@@ -4,6 +4,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { HistoryComponent } from './history/history.component';
 import { BroadcastComponent } from './broadcast/broadcast.component';
 import { BroadcastListsComponent } from './broadcast-lists/broadcast-lists.component';
+import { BroadcastListPreviewComponent } from './broadcast-list-preview/broadcast-list-preview.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,14 @@ const routes: Routes = [
     data: {
       title: 'Broadcast Lists',
       breadcrumb: 'Broadcast Lists'
+    }
+  },
+  {
+    path: 'broadcast-lists/:id/contacts',
+    component: BroadcastListPreviewComponent,
+    data: {
+      title: 'Broadcast List Contacts',
+      breadcrumb: 'Broadcast List Contacts'
     }
   }
 ];

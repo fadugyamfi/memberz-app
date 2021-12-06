@@ -129,9 +129,9 @@ export class BroadcastListsComponent implements OnInit {
 
   createFilterGroup() {
     return new FormGroup({
-      field: new FormControl(''),
-      condition: new FormControl(''),
-      value: new FormControl('')
+      field: new FormControl('', Validators.required),
+      condition: new FormControl('', Validators.required),
+      value: new FormControl('', Validators.required)
     });
   }
 
@@ -153,16 +153,12 @@ export class BroadcastListsComponent implements OnInit {
   }
 
   setSelectedFilterField(fieldId, index) {
-    this.selectedFilterFields[index] = this.listFilters.fields.find(filter => filter.id == fieldId);
-  }
-
-  get autoGeneratingIDs() {
-    return this.editorForm.controls.auto_gen_ids.value === true ? 'open' : 'closed';
-  }
-
-  get exampleID() {
-    const data = this.editorForm.value;
-    return `${data.id_prefix}${data.id_next_increment}${data.id_suffix}`;
+    this.listFilters.forEach(group => {
+      const selected = group.fields.find(filter => filter.id == fieldId);
+      if( selected ) {
+        this.selectedFilterFields[index] = selected;
+      }
+    });
   }
 
   /**
@@ -225,22 +221,22 @@ export class BroadcastListsComponent implements OnInit {
     this.events.off('SmsBroadcastList:deleted');
   }
 
-  previewBroadcastList(broadcastList: SmsBroadcastList) {
-    console.log('preview - not implemented')
-  }
-
   /**
    * Batch delete a select list of member records
    */
   deleteBroadcastList(broadcastList: SmsBroadcastList) {
     Swal.fire({
-      title: 'Confirm Deletion',
-      text: `This action will delete "${broadcastList.name}" from the database. This action currently cannot be reverted`,
+      title: this.translate.instant('Confirm Deletion'),
+      text: this.translate.instant(`This action will delete :name from the database. This action currently cannot be reverted`, { name: broadcastList.name }),
       icon: 'warning',
       showCancelButton: true,
     }).then((action) => {
       if (action.value) {
-        Swal.fire('Deleting broadcastList', 'Please wait ...', 'error');
+        Swal.fire(
+          this.translate.instant('Deleting broadcastList'),
+          this.translate.instant('Please wait') + ' ...',
+          'error'
+        );
         Swal.showLoading();
         this.broadcastListService.remove(broadcastList);
       }

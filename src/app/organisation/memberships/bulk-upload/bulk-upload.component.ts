@@ -12,6 +12,7 @@ import { OrganisationFileImport } from '../../../shared/model/api/organisation-f
 import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bulk-upload',
@@ -39,7 +40,8 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
     private categoryService: OrganisationMemberCategoryService,
     public fileImportService: OrganisationFileImportService,
     private events: EventsService,
-    private organisationService: OrganisationService
+    private organisationService: OrganisationService,
+    public translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -137,16 +139,20 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
     e.preventDefault();
 
     Swal.fire({
-      title: 'Are you sure you want to import this data?',
-      text: 'You won\'t be able to revert this!',
+      title: this.translate.instant('Are you sure you want to import this data?'),
+      text: this.translate.instant(`You won't be able to revert this!`),
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, import it!',
+      confirmButtonText: this.translate.instant('Yes, import it!'),
       cancelButtonColor: '#dd3333',
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire('Uploading File', 'Please wait as the file is uploaded', 'info');
+        Swal.fire(
+          this.translate.instant('Uploading File'),
+          this.translate.instant('Please wait as the file is uploaded'),
+          'info'
+        );
         Swal.showLoading();
         const importFile = new OrganisationFileImport(this.uploadForm.value);
         this.fileImportService.createWithUpload(importFile);
@@ -179,13 +185,17 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
    */
   deleteFileImport(fileImport: OrganisationFileImport) {
     Swal.fire({
-      title: 'Confirm Deletion',
-      text: `This action will delete this file import from the database. This action currently cannot be reverted`,
+      title: this.translate.instant('Confirm Deletion'),
+      text: this.translate.instant(`This action will delete this file import from the database. This action currently cannot be reverted`),
       icon: 'warning',
       showCancelButton: true,
     }).then((action) => {
       if (action.value) {
-        Swal.fire('Deleting File Import', 'Please wait ...', 'error');
+        Swal.fire(
+          this.translate.instant('Deleting File Import'),
+          this.translate.instant('Please wait') + ' ...',
+          'error'
+        );
         Swal.showLoading();
         this.fileImportService.remove(fileImport);
       }

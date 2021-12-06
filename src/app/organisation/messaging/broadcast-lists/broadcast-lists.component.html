@@ -48,9 +48,9 @@
         <td class="text-right">{{ broadcastList.whenCreated() }}</td>
 
         <td class="text-center">
-          <button type="button" class="btn btn-xs btn-info m-r-10" (click)="previewBroadcastList(broadcastList)">
+          <a [routerLink]="['/organisation/messaging/broadcast-lists', broadcastList.id, 'contacts']" type="button" class="btn btn-xs btn-info m-r-10" (click)="previewBroadcastList(broadcastList)">
             <i class="fa fa-file"></i> {{ 'Preview' | translate }}
-          </button>
+          </a>
 
           <button type="button" class="btn btn-xs btn-primary m-r-10" (click)="showEditorModal(broadcastList)">
             <i class="fa fa-pencil"></i> {{'Edit' | translate}}
@@ -154,8 +154,14 @@
               <div class="col-4">
                 <select class="form-control" formControlName="field" (change)="setSelectedFilterField($event.target.value, i)">
                   <option value="">{{ 'Select Field' | translate }}</option>
-                  <option *ngFor="let field of listFilters.fields" [value]="field.id">{{ field.name | translate }}</option>
+                  <optgroup *ngFor="let group of listFilters" [label]="group.name">
+                    <option *ngFor="let field of group.fields" [value]="field.id">{{ field.name | translate }}</option>
+                  </optgroup>
                 </select>
+
+                <div class="messages text-danger" *ngIf="filterGroup.controls.field?.errors?.required">
+                  <p class="m-b-0 m-t-5">{{'Field Required' | translate}}</p>
+                </div>
               </div>
 
               <div class="col-3">
@@ -163,6 +169,10 @@
                   <option value="">{{ 'Select Condition' | translate }}</option>
                   <option *ngFor="let field of selectedFilterFields[i]?.conditions" [value]="field.value">{{ field.label | translate }}</option>
                 </select>
+
+                <div class="messages text-danger" *ngIf="filterGroup.controls.condition?.errors?.required">
+                  <p class="m-b-0 m-t-5">{{'Condition Required' | translate}}</p>
+                </div>
               </div>
 
               <div class="col-4">
@@ -173,6 +183,12 @@
                   <option value="">{{ 'Select Option' | translate }}</option>
                   <option *ngFor="let option of selectedFilterFields[i]?.options" [value]="option.value">{{ option.label | translate }}</option>
                 </select>
+
+                <div class="form-control-plaintext form-control" *ngIf="!selectedFilterFields[i]"></div>
+
+                <div class="messages text-danger" *ngIf="filterGroup.controls.value?.errors?.required">
+                  <p class="m-b-0 m-t-5">{{'Value Required' | translate}}</p>
+                </div>
               </div>
 
               <div class="col-1 text-center">

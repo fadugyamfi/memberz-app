@@ -14,7 +14,7 @@
 
   <app-loading-rotate-dashed *ngIf="smsBroadcastService.fetching"></app-loading-rotate-dashed>
 
-  <table class="table table-bordered table-striped f-12" *ngIf="!smsBroadcastService.fetching">
+  <table class="table table-bordered table-striped" *ngIf="!smsBroadcastService.fetching">
     <thead>
       <tr>
         <th colspan=2>{{ 'Date' | translate }}</th>

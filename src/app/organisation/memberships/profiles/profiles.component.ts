@@ -15,6 +15,7 @@ import { OrganisationGroupTypeService } from '../../../shared/services/api/organ
 import { OrganisationGroupType } from '../../../shared/model/api/orgainsation-group-type';
 import { OrganisationAnniversaryService } from '../../../shared/services/api/organisation-anniversary.service';
 import { ExcelService } from 'src/app/shared/services/excel.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profiles',
@@ -53,7 +54,8 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     public storage: StorageService,
     public groupTypeService: OrganisationGroupTypeService,
     public anniversaryService: OrganisationAnniversaryService,
-    public excelService: ExcelService
+    public excelService: ExcelService,
+    public translate: TranslateService
   ) {
     dropdownConfig.placement = 'bottom';
     dropdownConfig.autoClose = true;
@@ -305,14 +307,18 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   deleteSelected() {
     Swal.fire({
-      title: 'Confirm Deletion',
-      text: 'This action will delete the selected members from the database and currently cannot be reverted',
+      title: this.translate.instant('Confirm Deletion'),
+      text: this.translate.instant('This action will delete the selected members from the database and currently cannot be reverted'),
       icon: 'warning',
       showCancelButton: true,
       cancelButtonColor: '#d33'
     }).then((action) => {
       if (action.value) {
-        Swal.fire('Deleting Selected Profiles', 'Please wait ...', 'warning');
+        Swal.fire(
+          this.translate.instant('Deleting Selected Profiles'),
+          this.translate.instant('Please wait') + ' ...',
+          'warning'
+        );
         Swal.showLoading();
 
         const selected = this.getSelectedMembers();
@@ -327,13 +333,17 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    */
   deleteProfile(profile: OrganisationMember) {
     Swal.fire({
-      title: 'Confirm Deletion',
-      text: 'This action will delete this member from the database. This action currently cannot be reverted',
+      title: this.translate.instant('Confirm Deletion'),
+      text: this.translate.instant('This action will delete this member from the database. This action currently cannot be reverted'),
       icon: 'warning',
       showCancelButton: true,
     }).then((action) => {
       if (action.value) {
-        Swal.fire('Deleting Profile', 'Please wait ...', 'error');
+        Swal.fire(
+          this.translate.instant('Deleting Profile'),
+          this.translate.instant('Please wait') + ' ...',
+          'info'
+        );
         Swal.showLoading();
         this.organisationMemberService.remove(profile);
       }
@@ -350,8 +360,8 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     e.preventDefault();
 
     Swal.fire({
-      title: 'Confirm Category Change',
-      text: 'This action will change the membership category of the selected members. Are you sure you want to continue?',
+      title: this.translate.instant('Confirm Category Change'),
+      text: this.translate.instant('This action will change the membership category of the selected members. Are you sure you want to continue?'),
       icon: 'warning',
       confirmButtonText: 'Yes',
       showCancelButton: true,
@@ -398,15 +408,15 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
     Swal.fire(
-      'Fetching all data',
-      'Please wait as organisation data is being fetched...',
+      this.translate.instant('Fetching all data'),
+      this.translate.instant('Please wait as organisation data is being fetched') + '...',
       'info'
     );
     Swal.showLoading();
 
-    const sub = this.organisationMemberService.getAll({ limit: 9999 }).subscribe((members: OrganisationMember[]) => {
-
+    const sub = this.organisationMemberService.findMembers(this.searchForm.value, 1, 99999).subscribe((members: OrganisationMember[]) => {
       this.excelService.generateExcel(this.formatMembersDataForExport(members), 'members_data');
+      this.loadMemberships(this.searchForm.value);
     });
 
     this.subscriptions.push(sub);

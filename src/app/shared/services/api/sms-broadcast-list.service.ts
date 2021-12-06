@@ -21,4 +21,8 @@ export class SmsBroadcastListService extends APIService<SmsBroadcastList> {
   getFilters() {
     return this.get(`${this.url}/filters`);
   }
+
+  getListPreview(broadcastList: SmsBroadcastList) {
+    return this.get(`${this.url}/preview/${broadcastList.id}`);
+  }
 }

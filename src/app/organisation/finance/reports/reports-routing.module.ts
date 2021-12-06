@@ -34,8 +34,8 @@ const routes: Routes = [
     path: 'non-contributing-members',
     component: NonContributingMembersComponent,
     data: {
-      title: 'Non Contributing Memberss',
-      breadcrumb: 'Non Contributing Memberss'
+      title: 'Non Contributing Members',
+      breadcrumb: 'Non Contributing Members'
     }
   },
 ];
@@ -45,4 +45,3 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class ReportsRoutingModule { }
-

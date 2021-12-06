@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { ContributionReceiptSettingService } from 'src/app/shared/services/api/contribution-receipt-setting.service';
 import { ContributionReceiptSetting } from 'src/app/shared/model/api/contribution-receipt-setting';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-top-contributors',
@@ -17,7 +18,8 @@ export class TopContributorsComponent implements OnInit {
   public yearValue: number = moment().year();
   public showData = false;
   public settings: ContributionReceiptSetting;
-  public default_currency;
+  public default_currency = 80;
+  public searchForm: FormGroup;
 
   constructor(
     public reportingService: FinanceReportingService,
@@ -25,14 +27,25 @@ export class TopContributorsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.setupSearchForm();
     this.fetchReceiptSettings();
+  }
+
+  setupSearchForm() {
+    this.searchForm = new FormGroup({
+      year: new FormControl(moment().year()),
+      currency_id: new FormControl(this.default_currency)
+    });
+
+    this.searchForm.valueChanges.subscribe(values => {
+      this.fetchReportData(values.year, values.currency_id);
+    });
   }
 
   fetchReportData(year = null, currencyId = null){
     this.showData = false;
-    this.yearValue = year ? year : moment().year();
-    this.default_currency = currencyId ? currencyId : this.default_currency;
-    const sub = this.reportingService.getTopContributors(this.yearValue, this.default_currency).subscribe((data: any[]) => {
+
+    const sub = this.reportingService.getTopContributors(year, currencyId).subscribe((data: any[]) => {
       this.showData = true;
       this.reportData = data;
     });
@@ -43,6 +56,7 @@ export class TopContributorsComponent implements OnInit {
   fetchReceiptSettings() {
     const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {
       this.default_currency = settings.default_currency;
+      this.setupSearchForm();
       this.fetchReportData(moment().year(), this.default_currency);
     });
 
