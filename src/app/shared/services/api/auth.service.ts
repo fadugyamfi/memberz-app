@@ -42,7 +42,7 @@ export class AuthService extends APIService<MemberAccount> {
   }
 
   public login(username: string, password: string, remember_me: boolean = false) {
-    const DURATION = remember_me ? 14 : 1;
+    const DURATION = remember_me ? 30 : 1;
     const params = { username, password };
 
     return this.post(`${this.url}/login`, params)

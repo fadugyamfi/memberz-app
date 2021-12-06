@@ -46,9 +46,12 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
     this.fetchMemberCategories();
 
     if ( this.route.snapshot.data.editMode ) {
-      this.editorTitle = 'Edit Member Profile';
+      this.editorTitle = this.$t.instant('Edit Member Profile');
       this.editorIcon = 'fa-pencil';
       this.loadProfile();
+    } else {
+      this.editorTitle = this.$t.instant('Add New Member Profile');
+      this.editorIcon = 'fa-user-plus';
     }
   }
 

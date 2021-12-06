@@ -10,6 +10,7 @@ import { SmsTransactionHistoryComponent } from './sms-transaction-history/sms-tr
 import { MessageComposerComponent } from './broadcast/message-composer/message-composer.component';
 import { BroadcastHistoryViewComponent } from './broadcast/broadcast-history-view/broadcast-history-view.component';
 import { BroadcastListsComponent } from './broadcast-lists/broadcast-lists.component';
+import { BroadcastListPreviewComponent } from './broadcast-list-preview/broadcast-list-preview.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { BroadcastListsComponent } from './broadcast-lists/broadcast-lists.compo
     SmsTransactionHistoryComponent,
     MessageComposerComponent,
     BroadcastHistoryViewComponent,
-    BroadcastListsComponent
+    BroadcastListsComponent,
+    BroadcastListPreviewComponent
   ],
   imports: [
     CommonModule,

@@ -6,6 +6,7 @@ import { ContributionReceiptSetting } from 'src/app/shared/model/api/contributio
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import * as chartData from '../../../../shared/data/chart/chartjs';
+import { CurrencyService } from '../../../../shared/services/api/currency.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
   public settings: ContributionReceiptSetting;
   public default_currency: number;
   public default_currency_code: string;
+  public selected_currency_code: string;
   public showData = false;
   private monthObjLabels = chartData.monthObjLabels;
   public contributionTypesData: any[] = [];
@@ -35,18 +37,31 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
     public reportingService: FinanceReportingService,
     public receiptSettingService: ContributionReceiptSettingService,
     private fb: FormBuilder,
+    public currencyService: CurrencyService
   ) {
-    this.searchForm = fb.group({
-      year: new FormControl(moment().year()),
-      currency_id: new FormControl(this.default_currency)
-    });
+
   }
 
   ngOnInit(): void {
     this.fetchReceiptSettings();
+    this.setupSearchForm();
+  }
+
+  setupSearchForm() {
+    this.searchForm = this.fb.group({
+      year: new FormControl(moment().year()),
+      currency_id: new FormControl(this.default_currency)
+    });
+
+    this.searchForm.valueChanges.subscribe(values => {
+      this.fetchReportData();
+      this.selected_currency_code = this.currencyService.getItem(values.currency_id).currency_code;
+    });
   }
 
   fetchReportData() {
+    this.showData = false;
+
     const sub = this.reportingService.getMonthlyConsolidatedReport(this.searchForm.value).subscribe((data: { contributionTypesData: any[], paymentTypesData: any[] }) => {
       this.showData = true;
 
