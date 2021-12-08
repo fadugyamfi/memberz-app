@@ -1,0 +1,29 @@
+@media print {
+  .hidden-print {
+    display: none;
+  }
+
+  .page {
+    counter-increment: page;
+  }
+}
+
+@media screen {
+  :host {
+    display: none;
+  }
+}
+
+@page {
+  margin: 2mm;
+}
+
+.my-6 {
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+}
+
+.mx-n1 {
+  margin-left: -1em;
+  margin-right: -1em;
+}

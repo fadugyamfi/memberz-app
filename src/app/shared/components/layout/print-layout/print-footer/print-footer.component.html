@@ -1,0 +1,16 @@
+<div class="border-top p-t-15">
+    <div class="page-counter pull-right" *ngIf="printService?.printMetaData?.pageNumbers">
+      <!-- auto page count will be inserted here through css -->
+    </div>
+  
+    <p class="text-center">
+      <span class="m-r-15">{{ org?.name | titlecase }}</span>
+      <span class="m-r-15">|</span>
+      <span class="m-r-15">{{ org?.address }}</span>
+      <span class="m-r-15">|</span>
+      <span class="m-r-15">Email: {{org?.email}} </span>
+      <span class="m-r-15">|</span>
+      <span class="m-r-15">Phone: {{org?.phone}}</span>
+    </p>
+  </div>
+  
