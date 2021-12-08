@@ -48,7 +48,8 @@
         <td class="text-right">{{ broadcastList.whenCreated() }}</td>
 
         <td class="text-center">
-          <a [routerLink]="['/organisation/messaging/broadcast-lists', broadcastList.id, 'contacts']" type="button" class="btn btn-xs btn-info m-r-10" (click)="previewBroadcastList(broadcastList)">
+          <a [routerLink]="['/organisation/messaging/broadcast-lists', broadcastList.id, 'contacts']" type="button"
+             class="btn btn-xs btn-info m-r-10" (click)="previewBroadcastList(broadcastList)">
             <i class="fa fa-file"></i> {{ 'Preview' | translate }}
           </a>
 
@@ -136,7 +137,8 @@
           <p class="small py-2 pl-2 mb-0">
             <i class="fa fa-info-circle text-info"></i>
             <span>{{ 'Sender ID is the name displayed on the members phone when messages are received from this list' | translate}}.</span>
-            {{ 'It must be a maximum of' | translate }} <b>{{ '11 alphanumeric characters' | translate }}</b> {{ 'and cannot have spaces' | translate }}
+            {{ 'It must be a maximum of' | translate }} <b>{{ '11 alphanumeric characters' | translate }}</b>
+            {{ 'and cannot have spaces' | translate }}
           </p>
 
           <div class="messages text-danger" *ngIf="editorForm.controls.sender_id?.errors?.required">
@@ -147,65 +149,55 @@
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">{{ 'Filters' | translate }}</label>
-        <div class="col-sm-9" formArrayName="filters">
+        <div class="col-sm-8" formArrayName="filters">
 
-          <ng-container *ngFor="let filterGroup of filterControls.controls; let i = index">
-            <div class="form-group row" [formGroup]="filterGroup">
-              <div class="col-4">
-                <select class="form-control" formControlName="field" (change)="setSelectedFilterField($event.target.value, i)">
-                  <option value="">{{ 'Select Field' | translate }}</option>
-                  <optgroup *ngFor="let group of listFilters" [label]="group.name">
-                    <option *ngFor="let field of group.fields" [value]="field.id">{{ field.name | translate }}</option>
-                  </optgroup>
-                </select>
-
-                <div class="messages text-danger" *ngIf="filterGroup.controls.field?.errors?.required">
-                  <p class="m-b-0 m-t-5">{{'Field Required' | translate}}</p>
-                </div>
-              </div>
-
-              <div class="col-3">
-                <select class="form-control" formControlName="condition">
-                  <option value="">{{ 'Select Condition' | translate }}</option>
-                  <option *ngFor="let field of selectedFilterFields[i]?.conditions" [value]="field.value">{{ field.label | translate }}</option>
-                </select>
-
-                <div class="messages text-danger" *ngIf="filterGroup.controls.condition?.errors?.required">
-                  <p class="m-b-0 m-t-5">{{'Condition Required' | translate}}</p>
-                </div>
-              </div>
-
-              <div class="col-4">
-                <input *ngIf="selectedFilterFields[i]?.value_type == 'text'" type="text" class="form-control" placeholder="{{'Enter Value' | translate}}" formControlName="value" />
-                <input *ngIf="selectedFilterFields[i]?.value_type == 'number'" type="number" class="form-control" placeholder="{{'Enter Value' | translate}}" formControlName="value" />
-                <input *ngIf="selectedFilterFields[i]?.value_type == 'date'" type="date" class="form-control" placeholder="{{'YYYY-MM-DD' | translate}}" formControlName="value" />
-                <select *ngIf="selectedFilterFields[i]?.value_type == 'option'" class="form-control" formControlName="value">
-                  <option value="">{{ 'Select Option' | translate }}</option>
-                  <option *ngFor="let option of selectedFilterFields[i]?.options" [value]="option.value">{{ option.label | translate }}</option>
-                </select>
-
-                <div class="form-control-plaintext form-control" *ngIf="!selectedFilterFields[i]"></div>
-
-                <div class="messages text-danger" *ngIf="filterGroup.controls.value?.errors?.required">
-                  <p class="m-b-0 m-t-5">{{'Value Required' | translate}}</p>
-                </div>
-              </div>
-
-              <div class="col-1 text-center">
-                <button type="button" class="btn btn-danger btn-sm remove-filter-btn" title="{{ 'Remove Filter' | translate }}" (click)="removeFilterGroup(i)">
-                  <i class="fa fa-trash-o"></i>
-                </button>
-              </div>
+          <div class="required">
+            <p class="text-uppercase font-weight-bold">{{ 'Required' | translate }}</p>
+            <div>
+              <ng-container *ngFor="let filterGroup of filterControls.controls; let i = index">
+                <app-list-filter [filterGroup]="filterGroup" [listFilters]="listFilterService.listFilters"
+                                 [filter]="selectedBroadcastList?.filters[i]" (remove)="removeFilterGroup(i)">
+                </app-list-filter>
+              </ng-container>
             </div>
-          </ng-container>
+          </div>
 
+          <hr />
 
+          <div class="optional">
+            <p class="text-uppercase font-weight-bold">{{ 'Optional' | translate }}</p>
+
+            <div>
+              <ng-container *ngFor="let filterGroup of filterControls.controls; let i = index">
+                <app-list-filter [filterGroup]="filterGroup" [listFilters]="listFilterService.listFilters" [optionalOnly]="true"
+                                 [filter]="selectedBroadcastList?.filters[i]" (remove)="removeFilterGroup(i)">
+                </app-list-filter>
+              </ng-container>
+            </div>
+
+          </div>
         </div>
 
-        <div class="col-sm-1 text-center">
-          <button type="button" class="btn btn-info btn-sm add-filter-btn" title="{{ 'Add Filter' | translate }}" (click)="addFilterGroup()">
-            <i class="fa fa-plus"></i>
-          </button>
+        <div class="col-sm-2 text-center">
+          <div ngbDropdown placement="bottom-right">
+            <button type="button" class="btn btn-info btn-sm add-filter-btn" title="{{ 'Add Filter' | translate }}"
+                    ngbDropdownToggle>
+              <i class="fa fa-plus"></i> {{ 'Add' | translate }}
+            </button>
+
+            <ul ngbDropdownMenu>
+              <a ngbDropdownItem (click)="addFilterGroup()" ><span class="filter-icon">{{ 'AND' }}</span> {{ 'Required' | translate}}</a>
+              <a ngbDropdownItem (click)="addOptionalFilterGroup()" ><span class="filter-icon">{{ 'OR' }}</span> {{ 'Optional' | translate }}</a>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-2 col-form-label">{{ 'Query Example' | translate }}</div>
+        <div class="col-10">
+          <div class="form-control form-control-sm bg-light text-dark">{{ queryExample }}</div>
         </div>
       </div>
 
