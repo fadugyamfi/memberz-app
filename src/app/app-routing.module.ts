@@ -13,6 +13,7 @@ import { OrganisationAdminGuard } from './shared/guard/organisation-admin.guard'
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { PrintLayoutComponent } from './shared/components/layout/print-layout/print-layout.component';
 
 const routes: Routes = [
   {
@@ -75,6 +76,17 @@ const routes: Routes = [
         breadcrumb: 'Organisation'
       }
     }]
+  },
+  {
+    path: 'print',
+    outlet: 'print',
+    component: PrintLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('./print/print.module').then(m => m.PrintModule)
+      }
+    ]
   },
   {
     path: '**',

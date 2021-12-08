@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
@@ -16,6 +16,7 @@ import { OrganisationGroupType } from '../../../shared/model/api/orgainsation-gr
 import { OrganisationAnniversaryService } from '../../../shared/services/api/organisation-anniversary.service';
 import { ExcelService } from 'src/app/shared/services/excel.service';
 import { TranslateService } from '@ngx-translate/core';
+import { PrintService } from 'src/app/shared/services/print.service';
 
 @Component({
   selector: 'app-profiles',
@@ -55,7 +56,9 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     public groupTypeService: OrganisationGroupTypeService,
     public anniversaryService: OrganisationAnniversaryService,
     public excelService: ExcelService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public printService: PrintService,
+    public route: ActivatedRoute
   ) {
     dropdownConfig.placement = 'bottom';
     dropdownConfig.autoClose = true;
@@ -68,6 +71,11 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setupEvents();
     this.fetchGroupTypes();
     this.fetchAnniversaryTypes();
+
+    if (this.route.snapshot.data['printing']) {
+      console.log(this.printService.params);
+      this.loadMemberships(this.printService.params);
+    }
   }
 
   ngAfterViewInit() {
@@ -424,7 +432,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  formatMembersDataForExport(members){
+  formatMembersDataForExport(members) {
     return members.map((m) => {
       return {
         membership_no: m.organisation_no,
@@ -437,5 +445,22 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
+  print(): void {
+    this.printService.print({
+      url: 'memberships/profiles',
+      options: {
+        title: "List Of Organisation Members Profiles"
+      },
+      params: Object.assign({}, this.searchForm.value, {
+        limit: this.organisationMemberService.pagingMeta.total
+      })
+    });
+  }
+
+  public doPrinting() {
+    if (this.route.snapshot.data['printing']) {
+      this.printService.onDataReady();
+    }
+  }
 
 }
