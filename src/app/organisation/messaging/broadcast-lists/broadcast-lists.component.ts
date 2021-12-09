@@ -10,6 +10,7 @@ import { SmsBroadcastList } from '../../../shared/model/api/sms-broadcast-list';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 import { SmsBroadcastListService } from '../../../shared/services/api/sms-broadcast-list.service';
 import { EventsService } from '../../../shared/services/events.service';
+import { ListFilterService } from '../../../shared/services/utilities/list-filter.service';
 
 @Component({
   selector: 'app-broadcast-lists',
@@ -23,17 +24,19 @@ export class BroadcastListsComponent implements OnInit {
 
   public subscriptions: Subscription[] = [];
   public broadcastLists: SmsBroadcastList[] = [];
+  public selectedBroadcastList: SmsBroadcastList;
   public searchForm: FormGroup;
   public editorForm: FormGroup;
-  public listFilters;
   public selectedFilterFields = [];
+  public queryExample = '';
 
   constructor(
     public smsAccountService: SmsAccountService,
     public broadcastListService: SmsBroadcastListService,
     public events: EventsService,
     public modalService: NgbModal,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public listFilterService: ListFilterService
   ) { }
 
   ngOnInit() {
@@ -42,7 +45,7 @@ export class BroadcastListsComponent implements OnInit {
     this.setupEvents();
     // this.showSearchModal();
     this.findbroadcastLists();
-    this.fetchFilters();
+    this.listFilterService.fetchFilters();
   }
 
   ngOnDestroy() {
@@ -59,12 +62,6 @@ export class BroadcastListsComponent implements OnInit {
     });
 
     this.subscriptions.push(sub);
-  }
-
-  fetchFilters() {
-    this.broadcastListService.getFilters().subscribe(filters => {
-      this.listFilters = filters;
-    });
   }
 
   /**
@@ -121,22 +118,39 @@ export class BroadcastListsComponent implements OnInit {
       size: new FormControl(0),
       filters: new FormArray([ this.createFilterGroup() ])
     });
+
+    this.editorForm.valueChanges.subscribe(values => {
+      this.queryExample = this.listFilterService.getQueryExample(values);
+    });
   }
 
   get filterControls() {
     return (this.editorForm.controls.filters as FormArray);
   }
 
-  createFilterGroup() {
-    return new FormGroup({
+  createFilterGroup(options = { optional: false }) {
+    const group = new FormGroup({
       field: new FormControl('', Validators.required),
       condition: new FormControl('', Validators.required),
-      value: new FormControl('', Validators.required)
+      value: new FormControl('', Validators.required),
+      optional: new FormControl(options.optional ? 1 : 0)
     });
+
+    group.valueChanges.subscribe(values => {
+      setTimeout(() => {
+        this.queryExample = this.listFilterService.getQueryExample(this.editorForm.value.filters);
+      })
+    });
+
+    return group;
   }
 
   addFilterGroup() {
     this.filterControls.push( this.createFilterGroup() );
+  }
+
+  addOptionalFilterGroup() {
+    this.filterControls.push( this.createFilterGroup({ optional: true }) );
   }
 
   removeFilterGroup(index) {
@@ -152,13 +166,8 @@ export class BroadcastListsComponent implements OnInit {
     this.editorForm.controls.filters = new FormArray([ this.createFilterGroup() ]);
   }
 
-  setSelectedFilterField(fieldId, index) {
-    this.listFilters.forEach(group => {
-      const selected = group.fields.find(filter => filter.id == fieldId);
-      if( selected ) {
-        this.selectedFilterFields[index] = selected;
-      }
-    });
+  clearFilterGroups() {
+    this.editorForm.controls.filters = new FormArray([]);
   }
 
   /**
@@ -166,15 +175,19 @@ export class BroadcastListsComponent implements OnInit {
    */
   showEditorModal(broadcastList: SmsBroadcastList = null) {
     this.setupEditorForm();
+    this.selectedBroadcastList = broadcastList;
 
     if (broadcastList) {
-      if( broadcastList.filters?.length > 1 ) {
-        for(let i = 1; i < broadcastList.filters.length; i++ ) {
+      if( broadcastList.filters?.length > 0 ) {
+        this.clearFilterGroups();
+
+        for(let i = 0; i < broadcastList.filters.length; i++ ) {
           this.addFilterGroup();
         }
       }
 
       this.editorForm.patchValue(broadcastList);
+      this.queryExample = this.listFilterService.getQueryExample(this.editorForm.value.filters);
     }
 
     this.modalService.open(this.editorModal, { size: 'xl' });
