@@ -1,0 +1,4 @@
+<select class="form-control" [(ngModel)]="value">
+  <option value="">{{ 'Currency' | translate }}</option>
+  <option *ngFor="let currency of currencyService.getItems()" [value]="currency.id">{{ currency.currency_code }}</option>
+</select>

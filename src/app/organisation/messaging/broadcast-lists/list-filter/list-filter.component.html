@@ -1,0 +1,47 @@
+<div class="form-group row" [formGroup]="filterGroup" *ngIf="showOptional()">
+  <div class="col-4">
+    <select class="form-control" formControlName="field" (change)="setSelectedFilterField($event.target.value)">
+      <option value="">{{ 'Select Field' | translate }}</option>
+      <optgroup *ngFor="let group of listFilters" [label]="group.name">
+        <option *ngFor="let field of group.fields" [value]="field.id">{{ field.name | translate }}</option>
+      </optgroup>
+    </select>
+
+    <div class="messages text-danger" *ngIf="filterGroup.controls.field?.errors?.required">
+      <p class="m-b-0 m-t-5">{{'Field Required' | translate}}</p>
+    </div>
+  </div>
+
+  <div class="col-3">
+    <select class="form-control" formControlName="condition">
+      <option value="">{{ 'Select Condition' | translate }}</option>
+      <option *ngFor="let field of selectedFilterField?.conditions" [value]="field.value">{{ field.label | translate }}</option>
+    </select>
+
+    <div class="messages text-danger" *ngIf="filterGroup.controls.condition?.errors?.required">
+      <p class="m-b-0 m-t-5">{{'Condition Required' | translate}}</p>
+    </div>
+  </div>
+
+  <div class="col-4">
+    <input *ngIf="selectedFilterField?.value_type == 'text'" type="text" class="form-control" placeholder="{{'Enter Value' | translate}}" formControlName="value" />
+    <input *ngIf="selectedFilterField?.value_type == 'number'" type="number" class="form-control" placeholder="{{'Enter Value' | translate}}" formControlName="value" />
+    <input *ngIf="selectedFilterField?.value_type == 'date'" type="date" class="form-control" placeholder="{{'YYYY-MM-DD' | translate}}" formControlName="value" />
+    <select *ngIf="selectedFilterField?.value_type == 'option'" class="form-control" formControlName="value">
+      <option value="">{{ 'Select Option' | translate }}</option>
+      <option *ngFor="let option of selectedFilterField?.options" [value]="option.value">{{ option.label | translate }}</option>
+    </select>
+
+    <div class="form-control-plaintext form-control" *ngIf="!selectedFilterField"></div>
+
+    <div class="messages text-danger" *ngIf="filterGroup.controls.value?.errors?.required">
+      <p class="m-b-0 m-t-5">{{'Value Required' | translate}}</p>
+    </div>
+  </div>
+
+  <div class="col-1 text-center">
+    <button type="button" class="btn btn-danger btn-sm remove-filter-btn" title="{{ 'Remove Filter' | translate }}" (click)="remove.emit()">
+      <i class="fa fa-trash-o"></i>
+    </button>
+  </div>
+</div>

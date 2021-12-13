@@ -7,10 +7,8 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/do';
-
 import { RequestErrorHandler } from './request-error-handler.service';
+import { Observable, tap } from 'rxjs';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -21,10 +19,10 @@ export class RequestInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    return next.handle(request).do(() => { }, (err: any) => {
+    return next.handle(request).pipe(tap((err) => {
       if (err instanceof HttpErrorResponse) {
         this.errorHandler.handleError(err);
       }
-    });
+    }));
   }
 }

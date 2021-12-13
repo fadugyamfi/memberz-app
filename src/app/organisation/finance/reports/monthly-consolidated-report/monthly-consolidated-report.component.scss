@@ -1,0 +1,29 @@
+.title {
+  padding: 0.375rem 0;
+  margin-left: 0;
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #495057;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-25 {
+  width: 25%;
+}
+
+::ng-deep .input-form {
+  .form-control {
+    font-size: 1em;
+  }
+}
+
+#consolidated-table {
+  td, th {
+    text-align: right;
+  }
+}

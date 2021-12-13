@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Products, ColorFilter, ProductColor } from '../../../shared/model/e-commerce/product.model';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import 'rxjs/add/operator/map';
+import { Products, ColorFilter } from '../../../shared/model/e-commerce/product.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({

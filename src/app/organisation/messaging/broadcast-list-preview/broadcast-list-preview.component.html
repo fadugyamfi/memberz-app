@@ -1,0 +1,40 @@
+<div class="card">
+
+  <div class="card-header d-inline-flex align-items-center">
+    <button class="btn btn-pill btn-outline-primary back-btn m-r-15" [routerLink]="['/organisation/messaging/broadcast-lists']">
+      <i class="fa fa-long-arrow-left"></i> {{ 'Back To Lists' | translate }}
+    </button>
+
+    <h5>{{ broadcastList.name }} {{ 'Contacts' | translate }}</h5>
+  </div>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th colspan="2">{{ 'Name' | translate }}</th>
+        <th>{{ 'Membership Category' | translate }}</th>
+        <th>{{ 'Mobile Number' | translate }}</th>
+        <th>{{ 'Birth Date' | translate }}</th>
+        <th>{{ 'Occupation' | translate }}</th>
+        <th>{{ 'Gender' | translate }}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let contact of listContacts; let row = index">
+        <td>{{ row + 1 }}.</td>
+        <td>
+          <a [routerLink]="['/organisation/memberships/view', contact.membership_id]" target="profile">
+            {{ contact.last_name }} {{ contact.first_name }}
+          </a>
+        </td>
+        <td>{{ contact.membership_category_name }}</td>
+        <td><a href="tel:{{ contact.mobile_number }}">{{ contact.mobile_number }}</a></td>
+        <td>{{ contact.dob | date : short }}</td>
+        <td>{{ contact.occupation }}</td>
+        <td>{{ contact.gender | translate | titlecase  }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

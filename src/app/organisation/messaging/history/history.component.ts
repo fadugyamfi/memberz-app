@@ -10,6 +10,7 @@ import { OrganisationService } from '../../../shared/services/api/organisation.s
 import { SmsAccount } from '../../../shared/model/api/sms-account';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-history',
@@ -33,7 +34,8 @@ export class HistoryComponent implements OnInit {
     public messageService: SmsAccountMessageService,
     public organisationService: OrganisationService,
     public modalService: NgbModal,
-    public router: Router
+    public router: Router,
+    public translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -48,8 +50,8 @@ export class HistoryComponent implements OnInit {
 
     if ( !this.orgSmsAccount ) {
       Swal.fire(
-        'SMS Account Not Configured',
-        'Please configure your SMS Sender ID before you can send messages',
+        this.translate.instant('SMS Account Not Configured'),
+        this.translate.instant('Please configure your SMS Sender ID before you can send messages'),
         'warning'
       ).then(
         () => this.router.navigate(['/organisation/messaging/settings'])

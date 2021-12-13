@@ -23,6 +23,7 @@
       <tr>
         <th colspan="2">{{ 'Group Type' | translate }}</th>
         <th>{{ 'Group Name' | translate }}</th>
+        <th>{{ 'Assigned' | translate }}</th>
         <th class="text-center">{{ 'Actions' | translate }}</th>
       </tr>
     </thead>
@@ -33,9 +34,14 @@
         <td class="text-right">{{ memberGroupService.pagingMeta.from + row }}.</td>
         <td>{{ memberGroup.organisation_group?.organisation_group_type?.name }}</td>
         <td>{{ memberGroup.organisation_group?.name }}</td>
+        <td>{{ memberGroup.lastModified() }}</td>
         <td class="text-center">
-          <button class="btn btn-xs btn-primary m-r-15" (click)="editAssignment(memberGroup)">{{ 'Edit' | translate }}</button>
-          <button class="btn btn-xs btn-danger" (click)="deleteAssignment(memberGroup)">{{ 'Delete' | translate }}</button>
+          <button class="btn btn-sm btn-outline-primary m-r-15" (click)="editAssignment(memberGroup)">
+            <i class="fa fa-pencil fa-fw"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteAssignment(memberGroup)">
+            <i class="fa fa-trash-o fa-fw"></i>
+          </button>
         </td>
       </tr>
     </tbody>

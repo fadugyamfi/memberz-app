@@ -8,6 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 import Swal from 'sweetalert2';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-categories',
@@ -46,6 +47,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
     public categoryService: OrganisationMemberCategoryService,
     public events: EventsService,
     public modalService: NgbModal,
+    public translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -205,13 +207,17 @@ export class CategoriesComponent implements OnInit, OnDestroy {
    */
   deleteCategory(category: OrganisationMemberCategory) {
     Swal.fire({
-      title: 'Confirm Deletion',
-      text: `This action will delete "${category.name}" from the database. This action currently cannot be reverted`,
+      title: this.translate.instant('Confirm Deletion'),
+      text: this.translate.instant(`This action will delete :name from the database. This action currently cannot be reverted`, { name: category.name }),
       icon: 'warning',
       showCancelButton: true,
     }).then((action) => {
       if (action.value) {
-        Swal.fire('Deleting Category', 'Please wait ...', 'error');
+        Swal.fire(
+          this.translate.instant('Deleting Category'),
+          this.translate.instant('Please wait') +  ' ...',
+          'error'
+        );
         Swal.showLoading();
         this.categoryService.remove(category);
       }

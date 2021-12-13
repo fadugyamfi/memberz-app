@@ -599,9 +599,14 @@ export class NavService {
       path: '/organisation/memberships/profiles',
       children: [
         {
-          path: '/organisation/memberships/categories',
-          title: 'Categories',
-          type: 'link'
+          title: 'Settings',
+          type: 'sub',
+          active: false,
+          children: [
+            { path: '/organisation/memberships/categories', title: 'Categories', type: 'link' },
+            { path: '/organisation/memberships/groups', title: 'Groups', type: 'link' },
+            { path: '/organisation/memberships/anniversaries', title: 'Anniversaries', type: 'link' }
+          ]
         },
         {
           path: '/organisation/memberships/add',
@@ -624,11 +629,11 @@ export class NavService {
           title: 'Bulk Upload',
           type: 'link'
         },
-        {
-          path: '/organisation/memberships/reports',
-          title: 'Reports',
-          type: 'link'
-        }
+        // {
+        //   path: '/organisation/memberships/reports',
+        //   title: 'Reports',
+        //   type: 'link'
+        // }
       ]
     },
     {
@@ -645,30 +650,40 @@ export class NavService {
         { path: '/organisation/messaging/broadcast-lists', title: 'Broadcast Lists', type: 'link' }
       ]
     },
-    // {
-    //   title: 'Finance',
-    //   icon: 'credit-card',
-    //   type: 'sub',
-    //   active: false,
-    //   bookmark: true,
-    //   path: '/organisation/finance/dashboard',
-    //   children: [
-    //     { path: '/organisation/finance/dashboard', title: 'Dashboard', type: 'link', icon: 'dashboard' },
-    //     { path: '/organisation/finance/settings', title: 'Settings', type: 'link' },
-    //     { path: '/organisation/finance/income', title: 'Income', type: 'link' },
-    //     { path: '/organisation/finance/expenditure', title: 'Expenditure', type: 'link' },
-    //     {
-    //       title: 'Reports',
-    //       type: 'sub',
-    //       active: false,
-    //       children: [
-    //         { path: '/organisation/finance/reports/income-summary', title: 'Income Summary', type: 'link' },
-    //         { path: '/organisation/finance/reports/expenditure-summary', title: 'Expenditure Summary', type: 'link' },
-    //         { path: '/organisation/finance/reports/top-contributors', title: 'Top Contributors', type: 'link' }
-    //       ]
-    //     }
-    //   ]
-    // },
+    {
+      title: 'Finance',
+      icon: 'credit-card',
+      type: 'sub',
+      active: false,
+      bookmark: true,
+      path: '/organisation/finance/dashboard',
+      children: [
+        { path: '/organisation/finance/dashboard', title: 'Dashboard', type: 'link', icon: 'dashboard' },
+        { path: '/organisation/finance/income', title: 'Income', type: 'link' },
+        {
+          path: '/organisation/finance/settings',
+          title: 'Settings',
+          type: 'sub',
+          active: false,
+          children: [
+            { path: '/organisation/finance/settings/income-sources', title: 'Income Sources', type: 'link', icon: 'cash' },
+            { path: '/organisation/finance/settings/receipts', title: 'Receipts', type: 'link', icon: 'cogs' },
+          ]
+        },
+        // { path: '/organisation/finance/expenditure', title: 'Expenditure', type: 'link' },
+        {
+          title: 'Reports',
+          type: 'sub',
+          active: false,
+          children: [
+            { path: '/organisation/finance/reports/income-summary', title: 'Income Summary', type: 'link' },
+            { path: '/organisation/finance/reports/monthly-consolidated-report', title: 'Consolidated', type: 'link' },
+            { path: '/organisation/finance/reports/top-contributors', title: 'Top Contributors', type: 'link' },
+            { path: '/organisation/finance/reports/non-contributing-members', title: 'Non Contributers', type: 'link' }
+          ]
+        }
+      ]
+    },
     {
       title: 'Settings',
       icon: 'settings',
@@ -677,7 +692,6 @@ export class NavService {
       active: false,
       path: '/organisation/settings/subscription',
       children: [
-        // { path: '/organisation/settings/profile', title: 'Profile', type: 'link', icon: 'settings' },
         {
           path: '/organisation/settings/subscription',
           title: 'Subscription',

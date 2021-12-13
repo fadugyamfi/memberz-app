@@ -1,0 +1,230 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn btn-primary btn-sm m-r-10" (click)="incomeEditor.show()">
+          <i class="fa fa-plus"></i> {{'Record Income' | translate}}
+        </button>
+      </div>
+
+      <div class="col-md-6 text-right">
+        <button class="btn btn-outline-info btn-sm m-r-10" (click)="showSearchModal()">
+          <i class="fa fa-search"></i> {{'Search Records' | translate}}
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="m-t-30 m-b-30 text-center" *ngIf="contributionService.hasZeroItems() && !contributionService.fetching">
+    <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
+    <h4 class="font-weight-bold">{{'No Income Records Found' | translate}}</h4>
+    <h6>{{'Please search for record or add a new one to display results here' | translate}}</h6>
+  </div>
+
+  <div class="loader-box m-auto" *ngIf="contributionService.fetching">
+    <span class="rotate dashed colored"></span>
+  </div>
+
+  <table class="table table-bordered table-hover"
+         *ngIf="!contributionService.fetching && contributionService.hasItems()">
+    <thead>
+      <tr>
+        <th colspan="2">{{'Receipt Date' | translate}}</th>
+        <th>{{'Receipt No' | translate}}</th>
+        <th>{{'Type' | translate}}</th>
+        <th>{{'Member / Description' | translate}}</th>
+        <th class="text-center">{{'Week' | translate}}</th>
+        <th class="text-center">{{'Month' | translate}}</th>
+        <th class="text-center">{{'Year' | translate}}</th>
+        <th>{{'Payment Type' | translate}}</th>
+        <th class="text-right font-weight-bold">{{'Amount' | translate}}</th>
+        <th class="text-center">{{'Actions' | translate}}</th>
+      </tr>
+    </thead>
+
+
+    <tbody>
+      <tr *ngFor="let contribution of contributionService.getItems(); let row = index">
+        <td class="text-right">{{ row + contributionService?.pagingMeta?.from }}.</td>
+        <td [noWrap]="true">{{ contribution.receipt_dt | date : short }}</td>
+        <td [noWrap]="true">{{ contribution.receipt_no }}</td>
+        <td>{{ contribution.contribution_type.name }}</td>
+        <td>
+          <div *ngIf="contribution.member_name">
+            <a target="profile" [routerLink]="['/organisation/memberships/view', contribution.organisation_member_id]">
+              {{ contribution.member_name }}
+            </a>
+          </div>
+          <div *ngIf="!contribution.member_name">
+            {{ contribution.description }}
+          </div>
+        </td>
+        <td class="text-center">{{ 'Wk' |translate }} {{ contribution.week }}</td>
+        <td class="text-center">{{ contribution.month_name.substring(0,3) }}</td>
+        <td class="text-center">{{ contribution.year }}</td>
+        <td>
+          <span *ngIf="contribution.payment_type == 'Cheque'">{{ contribution.payment_type }} -
+            {{ contribution.bank?.short_code }} {{ contribution.cheque_number }}</span>
+          <span *ngIf="contribution.payment_type != 'Cheque'">{{ contribution.payment_type }}</span>
+        </td>
+        <td [noWrap]="true" class="text-right font-weight-bold">{{ contribution.amount | currency : contribution.currency_code }}</td>
+
+        <td class="text-center" [noWrap]="true">
+          <button class="btn btn-xs btn-primary m-r-10" (click)="incomeEditor.show(contribution)">
+            <i class="fa fa-pencil"></i>
+          </button>
+
+          <button class="btn btn-xs btn-danger" (click)="deleteIncome(contribution)">
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-footer">
+    <app-pagination [service]="contributionService" (paginate)="onPaginate($event)"></app-pagination>
+  </div>
+</div>
+
+
+<ng-template #searchModal let-modal>
+  <form (submit)="onSearch($event)" class="form form-horizontal theme-form" [formGroup]="searchForm">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{'Find Records' | translate}}</h4>
+      <!-- <p>{{ 'Search your records for entries t' | translate }}</p> -->
+
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Receipt Date' | translate}}</label>
+        <div class="col-sm-8">
+          <input type="date" class="form-control" placeholder="YYYY-MM-DD" formControlName="receipt_dt" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Receipt No.' | translate}}</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" placeholder="e.g. 000101" formControlName="receipt_no" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Contribution Type' | translate}}</label>
+        <div class="col-sm-8">
+          <select class="form-control" formControlName="module_contribution_type_id">
+            <option value="">{{ 'Select Type' | translate }}</option>
+            <option *ngFor="let type of contributionTypeService.getItems()" [value]="type.id">{{ type.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Description' | translate}}</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" placeholder="e.g. From John" formControlName="description_like" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Member' | translate}}</label>
+        <div class="col-sm-8">
+          <app-member-control formControlName="organisation_member_id" [returnMembershipId]="true"></app-member-control>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Payment Method' | translate}}</label>
+        <div class="col-sm-8">
+          <app-select-payment-type-control formControlName="module_contribution_payment_type_id"></app-select-payment-type-control>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Week' | translate}}</label>
+        <div class="col-sm-8">
+          <select class="form-control" formControlName="week">
+            <option value="">{{ 'Select Week' | translate }}</option>
+            <option value="1">{{ 'Week' | translate }} 1</option>
+            <option value="2">{{ 'Week' | translate }} 2</option>
+            <option value="3">{{ 'Week' | translate }} 3</option>
+            <option value="4">{{ 'Week' | translate }} 4</option>
+            <option value="5">{{ 'Week' | translate }} 5</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Month' | translate}}</label>
+        <div class="col-sm-8">
+          <app-select-month-control formControlName="month"></app-select-month-control>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Year' | translate}}</label>
+        <div class="col-sm-8">
+          <app-select-year-control formControlName="year"></app-select-year-control>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Amount and/or Currency' | translate}}</label>
+        <div class="col-sm-4">
+          <app-select-currency-control formControlName="currency_id"></app-select-currency-control>
+        </div>
+        <div class="col-sm-4">
+          <input type="number" class="form-control" formControlName="amount" placeholder="0.00" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Bank' | translate}}</label>
+        <div class="col-sm-8">
+          <app-select-bank-control formControlName="bank_id"></app-select-bank-control>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Cheque Number / Status' | translate}}</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" formControlName="cheque_number_like" placeholder="Cheque No." maxlength="20" />
+        </div>
+
+        <div class="col-sm-4">
+          <select class="form-control" formControlName="cheque_status">
+            <option value="">{{ 'Cheque Status' | translate }}</option>\
+            <option value="Cleared">{{ 'Cleared' | translate }}</option>\
+            <option value="Not Cleared">{{ 'Not Cleared' | translate }}</option>\
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Added Between' | translate}}</label>
+        <div class="col-sm-4">
+          <input type="date" class="form-control" placeholder="Start Date" title="Start Date" formControlName="created_gte" />
+        </div>
+        <div class="col-sm-4">
+          <input type="date" class="form-control" placeholder="End Date" title="End Date" formControlName="created_lte" />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary">{{'Search' | translate}}</button>
+      <button type="reset" class="btn btn-outline-info">{{'Clear' | translate}}</button>
+      <button type="button" class="btn btn-outline-danger"
+              (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
+    </div>
+  </form>
+</ng-template>
+
+<app-income-editor #incomeEditor></app-income-editor>

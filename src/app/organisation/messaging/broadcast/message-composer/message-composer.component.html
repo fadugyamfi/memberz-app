@@ -1,46 +1,121 @@
-<div class="card">
-  <div class="card-header">
+<ng-template #composerModal let-modal>
+  <div class="modal-header">
     <h6 class="m-b-0"><i class="fa fa-pencil"></i> {{'Compose New Message' | translate}}</h6>
+
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
 
-  <div class="card-body">
+  <div class="modal-body">
 
     <form (submit)="onSubmit($event)" class="form theme-form" [formGroup]="broadcastForm">
       <div class="form-group row">
-        <div class="col-xl-3">{{'Broadcast List' | translate}}</div>
-        <div class="col-xl-9">
+        <label class="col-xl-3 font-weight-bold">{{'Broadcast List' | translate}}</label>
+        <div class="col-xl-4">
           <select class="form-control" formControlName="module_sms_broadcast_list_id">
             <option value="">{{'Select Broadcast List' | translate}}</option>
             <option *ngFor="let list of broadcastLists" [value]="list.id">{{ list.name }}</option>
           </select>
+
+          <div class="m-t-10 f-12">
+            {{ 'Approx' | translate }} {{ selectedList?.size || 0 }} {{ 'contacts' | translate }}
+          </div>
         </div>
+        <div class="col-xl-1 text-center">
+          <div class="form-control form-control-plaintext border-0 font-weight-bold">{{ 'or' | translate }}</div>
+        </div>
+        <div class="col-xl-4">
+          <select class="form-control" formControlName="organisation_member_category_id">
+            <option value="">{{'Select Membership Category' | translate}}</option>
+            <option *ngFor="let category of categoryService.getItems()" [value]="category.id">{{ category.name }}</option>
+          </select>
+        </div>
+        <!-- <div class="col-xl-3">
+          <a href="#" class="m-r-15 btn btn-xs btn-info"><i class="fa fa-list"></i> {{ 'Preview List' | translate }}</a>
+          <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> {{ 'Create New' | translate }}</a>
+        </div> -->
       </div>
 
       <div class="form-group row">
-        <div class="col-xl-3">{{'Message' | translate}}</div>
+        <div class="col-xl-3 font-weight-bold">{{'Message' | translate}}</div>
         <div class="col-xl-9">
-          <textarea rows="8" class="form-control" placeholder="Type Message Here" formControlName="message"></textarea>
+          <div class="m-b-15 w-50">
+            <div class="btn-group" ngbDropdown>
+              <button type="button" class="btn btn-sm btn-outline-light" ngbDropdownToggle>
+                <i class="fa fa-tag"></i>
+                {{ 'Insert Tag' | translate }}
+              </button>
+
+              <div ngbDropdownMenu>
+                <button *ngFor="let tag of smsTagService.getTags()" type="button" ngbDropdownItem
+                        (click)="insertInTextarea(tag.template, messageField)">
+                  {{ tag.title | translate }}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <textarea #messageField rows="6" class="form-control form-control-sm" maxlength="480"
+                    placeholder="{{ 'Type Message Here' | translate }}" formControlName="message">
+          </textarea>
+
+          <div class="d-flex justify-content-between">
+            <div class="messages text-danger" *ngIf="broadcastForm.controls.message?.errors?.required">
+              <p class="m-b-0 m-t-5">{{'Message Required' | translate}}</p>
+            </div>
+            <div class="text-right m-t-10 m-b-10 f-12 font-weight-bold">
+              {{ charsEntered }} / {{ maxSmsChars }} {{ 'Chars Remaining' | translate }}
+            </div>
+          </div>
+
+
+
         </div>
       </div>
 
       <div class="form-group row">
-        <div class="col-xl-3">{{'Send Message At' | translate}}</div>
+        <div class="col-xl-3 font-weight-bold">{{ 'Message Preview(s)' | translate }}</div>
+        <div class="col-xl-9">
+          <div class="card b-l-primary" *ngIf="previews.length == 0">
+            <div class="card-body f-12 p-3">
+              {{ 'Message Previews Will Show Up Here' | translate }}
+            </div>
+          </div>
+
+          <div class="card border-3 b-l-primary m-b-15" *ngFor="let preview of previews">
+            <div class="card-body f-12 preview-pre p-3">
+              {{ preview }}
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="col-xl-3 font-weight-bold">{{'Send Message At' | translate}}</div>
         <div class="col-xl-3">
-          <input type="date" class="form-control" placeholder="Scheduled Time" formControlName="send_at_date" />
+          <input type="date" class="form-control" placeholder="Scheduled Time" formControlName="send_at_date" [min]="getMinDateToSchedule()" />
+          <div class="messages text-danger" *ngIf="broadcastForm.controls.send_at_date?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Schedule Date Required' | translate}}</p>
+          </div>
         </div>
 
         <div class="col-xl-3">
           <input type="time" class="form-control" formControlName="send_at_time" />
+          <div class="messages text-danger" *ngIf="broadcastForm.controls.send_at_time?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Schedule Time Required' | translate}}</p>
+          </div>
         </div>
       </div>
 
       <div class="form-group row">
         <div class="col-xl-3">&nbsp;</div>
         <div class="col-xl-9">
-          <button type="submit" class="btn btn-primary m-r-5">{{'Send Broadcast' | translate}}</button>
+          <button type="submit" class="btn btn-primary m-r-5">{{ saveBtnText | translate}}</button>
           <button type="button" class="btn btn-danger" (click)="cancelCompose()">{{'Cancel' | translate}}</button>
         </div>
       </div>
     </form>
   </div>
-</div>
+</ng-template>

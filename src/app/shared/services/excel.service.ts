@@ -1,11 +1,12 @@
 
 import { BulkUploadService } from './api/bulkupload.service';
-import { Injectable } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import * as XLSX from 'xlsx';
 import swal from 'sweetalert2';
 import { StorageService } from './storage.service';
 import { Subject } from 'rxjs';
+import { OrganisationService } from './api/organisation.service';
 
 type AOA = any[][];
 type ExcelImport = {
@@ -26,7 +27,8 @@ export class ExcelService {
   private importedMultiSheetData = {};
 
   constructor(
-    public storage: StorageService
+    public storage: StorageService,
+    public orgService: OrganisationService
   ) { }
 
   import(file, headers): Subject<ExcelImport> {
@@ -87,7 +89,7 @@ export class ExcelService {
       for (let i = 0; i < wb.SheetNames.length; ++i) {
         const wsname: string = wb.SheetNames[i];
         const ws: XLSX.WorkSheet = wb.Sheets[wsname];
-        const data =  XLSX.utils.sheet_to_json(ws, { header: i }) as AOA;
+        const data = XLSX.utils.sheet_to_json(ws, { header: i }) as AOA;
         this.importedMultiSheetData[`sheet${i + 1}`] = data;
         this.importedHeaders = this.extractHeaders(ws);
       }
@@ -117,11 +119,11 @@ export class ExcelService {
 
   public generateExcel(json: any[], name: string): void {
     this.showLoader();
-    const school_data = this.storage.get('authUserData').data.institution;
+    const org_data = this.orgService.getActiveOrganisation();
     const worksheet: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet([
-      [`${school_data.name} (${school_data.short_name})`],
-      [school_data.address],
-      [`Email: ${school_data.email} Phone: ${school_data.phone}`],
+      [`${org_data.name}`],
+      [org_data.address],
+      [`Email: ${org_data.email} Phone: ${org_data.phone}`],
     ]);
 
     XLSX.utils.sheet_add_json(worksheet, json, { origin: 'A5' });

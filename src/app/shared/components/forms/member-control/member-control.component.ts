@@ -23,11 +23,13 @@ export class MemberControlComponent {
 
   @Input() member: Member;
   @Input() withMobileNumber = false;
+  @Input() returnMembershipId = false;
+  @Input() readonly = false;
   @Output() selected = new EventEmitter();
 
+  private _membership: OrganisationMember;
   public searching = false;
   public searchFailed = false;
-  public selectedMember: OrganisationMember;
 
   private value = '';
   private inputEl = null;
@@ -41,6 +43,19 @@ export class MemberControlComponent {
     public orgMemberService: OrganisationMemberService
   ) { }
 
+  @Input()
+  set membership(value: OrganisationMember) {
+    this._membership = value;
+
+    if ( this.membership ) {
+      this.model = this.membership.member.firstThenLastName();
+    }
+  }
+
+  get membership(): OrganisationMember {
+    return this._membership;
+  }
+
   setValue(value) {
     this.value = value;
     this.onChange(this.value);
@@ -50,8 +65,8 @@ export class MemberControlComponent {
     this.value = obj || '';
 
     if (this.value) {
-      this.orgMemberService.getAll({ member_id: this.value, limit: 1 }).subscribe(members => {
-        this.selectedMember = members[0];
+      this.orgMemberService.getById(this.value).subscribe(member => {
+        this.membership = member;
       });
     }
   }
@@ -93,9 +108,9 @@ export class MemberControlComponent {
 
   setSelectedMember(data, input) {
     this.inputEl = input;
-    this.selectedMember = data.item;
-    this.setValue(this.selectedMember.member_id);
-    this.selected.emit(this.selectedMember);
+    this.membership = data.item;
+    this.setValue( this.returnMembershipId ? this.membership.id : this.membership.member_id);
+    this.selected.emit(this.membership);
   }
 
   reset() {
@@ -104,7 +119,7 @@ export class MemberControlComponent {
     }
 
     this.model = null;
-    this.selectedMember = null;
+    this.membership = null;
     this.setValue(null);
   }
 }

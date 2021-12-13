@@ -11,6 +11,7 @@ import { EventsService } from '../../../../shared/services/events.service';
 import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-organisation-editor-modal',
@@ -25,7 +26,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   private organisation: Organisation;
   private modalRef: NgbModalRef;
   private freePlan: SubscriptionType;
-  public modalTitle = 'Create New Organisation - Free Plan';
+  public modalTitle;
 
   separateDialCode = true;
   SearchCountryField = SearchCountryField;
@@ -42,7 +43,8 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
     public countryService: CountryService,
     public subTypeService: SubscriptionTypeService,
     public modalService: NgbModal,
-    public events: EventsService
+    public events: EventsService,
+    public translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -125,8 +127,10 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.open(this.editorModal, { size: 'lg' });
 
     if (organisation) {
-      this.modalTitle = 'Update Organisation Info';
+      this.modalTitle = this.translate.instant('Update Organisation Info');
       this.profileForm.patchValue(organisation);
+    } else {
+      this.modalTitle = this.translate.instant('Create New Organisation - Free Plan');
     }
   }
 

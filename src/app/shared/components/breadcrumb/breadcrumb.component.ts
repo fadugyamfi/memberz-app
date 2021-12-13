@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd, PRIMARY_OUTLET } from '@angular/router';
 
 import { filter } from 'rxjs/operators';
-import { map } from 'rxjs/internal/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -12,10 +12,10 @@ import { map } from 'rxjs/internal/operators';
 export class BreadcrumbComponent implements OnInit {
 
   public breadcrumbs;
-  public title : string
+  public title: string;
 
   constructor(private activatedRoute: ActivatedRoute,
-    private router: Router) {
+              private router: Router) {
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .pipe(map(() => this.activatedRoute))
@@ -27,21 +27,21 @@ export class BreadcrumbComponent implements OnInit {
       }))
       .pipe(filter(route => route.outlet === PRIMARY_OUTLET))
       .subscribe(route => {
-        let snapshot = this.router.routerState.snapshot;
-        let title = route.snapshot.data['title'];
-        let parent = route.parent.snapshot.data['breadcrumb'];
-        let child = route.snapshot.data['breadcrumb'];
+        const snapshot = this.router.routerState.snapshot;
+        const title = route.snapshot.data.title;
+        const parent = route.parent.snapshot.data.breadcrumb;
+        const grandparent = route.parent.parent ? route.parent.parent.snapshot.data.breadcrumb : null;
+        const child = route.snapshot.data.breadcrumb;
         this.breadcrumbs = {};
         this.title = title;
         this.breadcrumbs = {
-          "parentBreadcrumb": parent,
-          "childBreadcrumb": child
-        }
+          grandParentBreadcrumb: grandparent && grandparent !== parent && ['Organisation'].indexOf(grandparent) === -1 ? grandparent : null,
+          parentBreadcrumb: parent,
+          childBreadcrumb: child
+        };
       });
   }
 
   ngOnInit() {  }
-
-  ngOnDestroy() {  }
 
 }

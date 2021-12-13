@@ -25,6 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public text: string;
   public isOpenMobile = false;
   public unreadNotifications = [];
+  public currentLang = 'EN';
 
   @Output() rightSidebarEvent = new EventEmitter<boolean>();
 
@@ -37,6 +38,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public notificationService: NotificationService,
   ) {
     translate.setDefaultLang('en');
+
+    if( this.storage.has('current_lang') ) {
+      this.currentLang = this.storage.get('current_lang');
+      translate.use(this.currentLang);
+    }
   }
 
   ngOnDestroy() {
@@ -58,7 +64,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public changeLanguage(lang) {
+    this.currentLang = lang;
     this.translate.use(lang);
+    this.storage.local().set('current_lang', lang, 1, 'week');
   }
 
   searchTerm(term: any) {

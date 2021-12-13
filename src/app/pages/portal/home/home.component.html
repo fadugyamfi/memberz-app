@@ -7,7 +7,7 @@
 
       <div class="col-sm-6 text-right">
         <button class="btn btn-primary btn-sm" (click)="editorModal.show()" > <!-- [routerLink]="['/portal/create-organisation']" -->
-          <i class="fa fa-plus"></i> Create Organisation
+          <i class="fa fa-plus"></i> {{'Create Organisation' | translate}}
         </button>
       </div>
     </div>
@@ -29,10 +29,10 @@
     <table class="table table-borderless table-hover table-striped" *ngIf="dataAvailable()">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Subscription</th>
-          <th>Expires</th>
-          <th class="text-center">Actions</th>
+          <th>{{'Name' | translate}}</th>
+          <th>{{'Subscription' | translate}}</th>
+          <th>{{'Expires' | translate}}</th>
+          <th class="text-center">{{'Actions' | translate}}</th>
         </tr>
       </thead>
 
@@ -54,7 +54,7 @@
             {{ organisation?.active_subscription?.subscription_type?.description }}
           </td>
           <td>
-            <span *ngIf="organisation?.active_subscription?.isExpired()" class="text-danger">Expired</span>
+            <span *ngIf="organisation?.active_subscription?.isExpired()" class="text-danger">{{'Expired' | translate}}</span>
             <span *ngIf="!organisation?.active_subscription?.isExpired()">
               {{ organisation?.active_subscription?.expiresIn() }}
             </span>
@@ -62,7 +62,7 @@
           </td>
           <td class="text-center">
             <button class="btn btn-primary btn-sm m-r-5" (click)="loadOrganisation(organisation)">
-              <i class="fa fa-sign-in"></i> Manage
+              <i class="fa fa-sign-in"></i> {{'Manage' | translate}}
             </button>
 
             <div ngbDropdown class="d-inline-block" placement="bottom-right">
@@ -71,10 +71,10 @@
               </button>
               <div ngbDropdownMenu aria-labelledby="editMenu">
                 <button class="dropdown-item" (click)="editorModal.show(organisation)">
-                  <i class="fa fa-fw fa-pencil"></i> Edit
+                  <i class="fa fa-fw fa-pencil"></i> {{'Edit' | translate}}
                 </button>
                 <button class="dropdown-item" (click)="deleteOrganisation(organisation)">
-                  <i class="fa fa-fw fa-trash-o"></i> Delete
+                  <i class="fa fa-fw fa-trash-o"></i> {{'Delete' | translate}}
                 </button>
               </div>
             </div>

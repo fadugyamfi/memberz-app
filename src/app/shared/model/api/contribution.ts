@@ -16,6 +16,8 @@ export class Contribution extends AppModel {
   public _organisation_member: OrganisationMember;
   public _contribution_receipt: ContributionReceipt;
   public _contribution_type: ContributionType;
+  public currency_code: string;
+  public currency_id: number;
 
   constructor(data) {
     super(data);
@@ -26,7 +28,7 @@ export class Contribution extends AppModel {
   }
 
   get organisation_member(): OrganisationMember {
-    return this.organisation_member;
+    return this._organisation_member;
   }
 
   set contribution_receipt(value) {

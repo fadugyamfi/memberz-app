@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-10 offset-1">
+    <div class="card">
+
+      <form class="theme-form" [formGroup]="settingsForm" (submit)="saveChanges($event)">
+        <div class="card-body">
+          <div class="form-group row">
+            <div class="col-3">
+              {{ 'Default Currency' | translate }}
+            </div>
+            <div class="col-9">
+              <select class="form-control" formControlName="default_currency">
+                <option value="">{{ 'Select Currency' | translate }}</option>
+                <option *ngFor="let currency of currencyService.getItems()" [value]="currency.id">
+                  {{ currency.currency_code }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-3">
+              {{ 'Receipt Generation' | translate }}
+            </div>
+            <div class="col-9">
+              <select class="form-control" formControlName="receipt_mode">
+                <option value="">{{ 'Select Mode' | translate }}</option>
+                <option value="auto">{{ 'Auto' | translate }}</option>
+                <option value="manual">{{ 'Manual' | translate }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-3">
+              {{ 'Receipt Prefix' | translate }}
+            </div>
+            <div class="col-3">
+              <input type="text" class="form-control" placeholder="e.g. FNO-"
+                     formControlName="receipt_prefix" [readonly]="isManual()" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-3">
+              {{ 'Receipt Suffix' | translate }}
+            </div>
+            <div class="col-3">
+              <input type="text" class="form-control" placeholder="e.g. -21"
+                     formControlName="receipt_postfix" [readonly]="isManual()" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-3">
+              {{ 'Next Receipt Number' | translate }}
+            </div>
+            <div class="col-3">
+              <input type="text" class="form-control" placeholder="0" formControlName="receipt_counter" [readonly]="isManual()" />
+            </div>
+            <div class="col-5">
+              <div class="form-control-plaintext">
+                <em class="text-muted">{{ 'Example Receipt Number'}}: {{ getNextReceiptNumber() }}</em>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-3">
+              {{ 'Send SMS Notifications' | translate }}
+            </div>
+            <div class="col-9">
+              <ui-switch formControlName="sms_notify"></ui-switch>
+              <p class="small m-t-5">
+                <i class="fa fa-info-circle"></i>
+                {{ 'Applies to only "Member Specific" contribution entries' | translate }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer text-right">
+          <span *ngIf="receiptSettingService.updating" class="m-r-15">
+            <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> {{ 'Saving' | translate }}
+          </span>
+
+          <button type="submit" class="btn btn-success">
+            <i class='fa fa-save'></i> {{ 'Save Changes' | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>

@@ -32,6 +32,7 @@ export class APIService<T extends AppModel> {
   public creating = false;
   public updating = false;
   public deleting = false;
+  public prependItems = false;
 
   public batchRequests = [];
 
@@ -263,6 +264,10 @@ export class APIService<T extends AppModel> {
     return this.results;
   }
 
+  public getItem(item_id: any): T {
+    return this.results.find(result => result.id == item_id);
+  }
+
   public addItem(model: T) {
     this.results.push(model);
     return this;
@@ -295,6 +300,10 @@ export class APIService<T extends AppModel> {
     return this;
   }
 
+  public setPrepredItems(status: boolean) {
+    this.prependItems = status;
+  }
+
   /**
    * Returns an observable array of AppModel objects
    */
@@ -303,6 +312,7 @@ export class APIService<T extends AppModel> {
       const results = this.fetchCachedData(true);
 
       if (results && results.length > 0) {
+        this.results = results;
         return of(results);
       }
     }
@@ -339,22 +349,28 @@ export class APIService<T extends AppModel> {
 
     return this.post(`${this.url}`, model, qparams).pipe(
       map((response) => new this.model(response['data'])))
-      .subscribe(
+      .subscribe({
         // eslint-disable-next-line @typescript-eslint/no-shadow
-        (model) => {
+        next: (model) => {
           this.setSelectedModel(model);
-          this.addItem(model);
+
+          if ( this.prependItems ) {
+            this.prependItem(model);
+          } else {
+            this.addItem(model);
+          }
+
           this.clearCache();
           this.events.trigger(`${this.model_name}:created`, model);
         },
-        (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse) => {
           this.events.trigger(`${this.model_name}:create:error`, error);
           this.triggerError(error);
         },
-        () => {
+        complete: () => {
           this.creating = false;
         }
-      );
+      });
   }
 
   /**
@@ -367,22 +383,22 @@ export class APIService<T extends AppModel> {
 
     return this.put(`${this.url}/${model.id}`, model, qparams).pipe(
       map((response) => new this.model(response['data'])))
-      .subscribe(
+      .subscribe({
         // eslint-disable-next-line @typescript-eslint/no-shadow
-        (model) => {
+        next: (model) => {
           this.setSelectedModel(model);
           this.updateItem(model);
           this.clearCache();
           this.events.trigger(`${this.model_name}:updated`, model);
         },
-        (error: HttpErrorResponse) => {
+        error: (error: HttpErrorResponse) => {
           this.events.trigger(`${this.model_name}:update:error`, error);
           this.triggerError(error);
         },
-        () => {
+        complete: () => {
           this.updating = false;
         }
-      );
+      });
   }
 
   /**
@@ -398,21 +414,21 @@ export class APIService<T extends AppModel> {
 
     this.deleting = true;
 
-    return this.delete(`${this.url}/${model.id}`, qparams).subscribe(
-      (data) => {
+    return this.delete(`${this.url}/${model.id}`, qparams).subscribe({
+      next: (data) => {
         this.setSelectedModel(null); // clear any cached data
         this.removeItem(model);
         this.clearCache();
         this.events.trigger(`${this.model_name}:deleted`, model, data);
       },
-      (error) => {
+      error: (error) => {
         this.events.trigger(`${this.model_name}:delete:error`, error);
         this.triggerError(error);
       },
-      () => {
+      complete: () => {
         this.deleting = false;
       }
-    );
+    });
   }
 
   /**
@@ -450,20 +466,21 @@ export class APIService<T extends AppModel> {
     return this.http.post(this.BASE_URL + this.url, formData, {
       reportProgress: true, params, headers, observe: 'events'
     })
-      .subscribe(
-        (event) => {
+      .subscribe({
+        next: (event) => {
           this.handleUploadProgress(event, (res) => {
             const createdModel = new this.model(res['data']);
-            this.addItem(createdModel);
+            this.prependItems ? this.prependItem(createdModel) : this.addItem(createdModel);
+
             this.clearCache();
             this.events.trigger(`${this.model_name}:created`, createdModel);
           });
         },
-        (error) => {
+        error: (error) => {
           this.requesting = false;
           this.triggerError(error);
         }
-      );
+      });
   }
 
   /**
@@ -488,8 +505,8 @@ export class APIService<T extends AppModel> {
     return this.http.post(this.BASE_URL + this.url + `/${model.id}`, formData, {
       reportProgress: true, params, headers, observe: 'events'
     })
-      .subscribe(
-        (event) => {
+      .subscribe({
+        next: (event) => {
           this.handleUploadProgress(event, (res) => {
             const updatedModel = new this.model(res['data']);
             this.updateItem(updatedModel);
@@ -497,11 +514,11 @@ export class APIService<T extends AppModel> {
             this.events.trigger(`${this.model_name}:updated`, updatedModel);
           });
         },
-        (error) => {
+        error: (error) => {
           this.requesting = false;
           this.triggerError(error);
         }
-      );
+      });
   }
 
   handleUploadProgress(event, callback = null) {
@@ -632,13 +649,13 @@ export class APIService<T extends AppModel> {
       return this.buildBatchRequest(`${this.url}`, 'POST', model);
     });
 
-    return this.batch(requests, qparams).subscribe(
-      (data) => this.processBatchResponses(data, 'created'),
-      (error: HttpErrorResponse) => {
+    return this.batch(requests, qparams).subscribe({
+      next: (data) => this.processBatchResponses(data, 'created'),
+      error: (error: HttpErrorResponse) => {
         this.requesting = false;
         this.triggerError(error);
       }
-    );
+    });
   }
 
   /**
@@ -654,13 +671,13 @@ export class APIService<T extends AppModel> {
       return this.buildBatchRequest(`${this.url}`, 'POST', model);
     });
 
-    return this.batch(requests, qparams).subscribe(
-      (data) => this.processBatchResponses(data, 'updated'),
-      (error: HttpErrorResponse) => {
+    return this.batch(requests, qparams).subscribe({
+      next: (data) => this.processBatchResponses(data, 'updated'),
+      error: (error: HttpErrorResponse) => {
         this.requesting = false;
         this.triggerError(error);
       }
-    );
+    });
   }
 
   /**
@@ -673,13 +690,13 @@ export class APIService<T extends AppModel> {
       return this.buildBatchRequest(`${this.url}/${model.id}`, 'DELETE');
     });
 
-    return this.batch(requests, qparams).subscribe(
-      (data) => this.processBatchResponses(data, 'deleted'),
-      (error: HttpErrorResponse) => {
+    return this.batch(requests, qparams).subscribe({
+      next: (data) => this.processBatchResponses(data, 'deleted'),
+      error: (error: HttpErrorResponse) => {
         this.requesting = false;
         this.triggerError(error);
       }
-    );
+    });
   }
 
   /**
@@ -762,7 +779,8 @@ export class APIService<T extends AppModel> {
       return results;
 
     } catch (e) {
-      return {};
+      console.log(e);
+      return asArray ? [] : {};
     }
   }
 }

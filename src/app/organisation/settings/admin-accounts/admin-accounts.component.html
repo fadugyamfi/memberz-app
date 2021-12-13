@@ -6,12 +6,9 @@
       </div>
 
       <div class="col-md-6 text-right">
-        <!-- <button class="btn btn-primary btn-sm m-r-10" (click)="showSearchModal()">
-          <i class="fa fa-search"></i> Find Users
-        </button> -->
 
         <button class="btn btn-info btn-sm m-r-10" (click)="showEditor()">
-          <i class="fa fa-user-plus"></i> Add Account
+          <i class="fa fa-user-plus"></i> {{'Add Account' | translate}}
         </button>
       </div>
     </div>
@@ -19,8 +16,8 @@
   </div>
 
   <div class="m-t-50 text-center" *ngIf="!accountService.requesting && !recordsPresent()">
-    <h3>No Search Results Found</h3>
-    <p>Please search for members to display results here</p>
+    <h3>{{'No Search Results Found' | translate}}</h3>
+    <p>{{'Please search for members to display results here' | translate}}</p>
   </div>
 
   <div class="loader-box m-auto" *ngIf="accountService.requesting">
@@ -30,11 +27,11 @@
   <table class="table table-bordered table-hover table-striped" *ngIf="recordsPresent()">
     <thead>
       <tr>
-        <th>No.</th>
-        <th>Name</th>
-        <th>Role</th>
-        <th class="text-center">Activation</th>
-        <th class="text-center">Actions</th>
+        <th>{{'No' | translate}}.</th>
+        <th>{{'Name' | translate}}</th>
+        <th>{{'Role' | translate}}</th>
+        <th class="text-center">{{'Activation' | translate}}</th>
+        <th class="text-center">{{'Actions' | translate}}</th>
       </tr>
     </thead>
 
@@ -52,8 +49,8 @@
         <td>{{ account.organisation_role?.name }}</td>
 
         <td class="text-center">
-          <div class="text-danger" *ngIf="!account.active">Pending</div>
-          <div class="text-success" *ngIf="account.active">Active</div>
+          <div class="text-danger" *ngIf="!account.active">{{'Pending' | translate}}</div>
+          <div class="text-success" *ngIf="account.active">{{'Active' | translate}}</div>
         </td>
 
         <td class="text-center">
@@ -62,20 +59,20 @@
           </button> -->
 
           <button class="btn btn-xs btn-info m-r-5" (click)="showEditor(account)">
-            <i class="fa fa-pencil"></i> Edit
+            <i class="fa fa-pencil"></i> {{'Edit' | translate}}
           </button>
 
           <button class="btn btn-xs btn-danger" (click)="deleteAccount(account)">
-            <i class="fa fa-trash-o"></i> Remove
+            <i class="fa fa-trash-o"></i> {{'Remove' | translate}}
           </button>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <!-- <div class="card-footer">
+  <div class="card-footer">
     <app-pagination [service]="accountService" (paginate)="onPaginate($event)"></app-pagination>
-  </div> -->
+  </div>
 </div>
 
 
@@ -92,7 +89,7 @@
     <div class="modal-body">
 
       <div class="form-group row" *ngIf="editingAccount">
-        <label class="col-4 col-form-label">Member Name</label>
+        <label class="col-4 col-form-label">{{'Member Name' | translate}}</label>
         <div class="col-8">
           <div class="media">
             <div class="media-left m-r-10">
@@ -110,7 +107,7 @@
       </div>
 
       <div class="form-group row" *ngIf="editingAccount">
-        <label class="col-4 col-form-label">Member Email</label>
+        <label class="col-4 col-form-label">{{'Member Email' | translate}}</label>
         <div class="col-8">
           <div class="form-control form-control-sm bg-light text-dark">
             {{ editingAccount?.member_account?.username || editingAccount?.member_account?.member?.email }}
@@ -119,26 +116,26 @@
       </div>
 
       <div class="form-group row" *ngIf="!editingAccount">
-        <label class="col-4 col-form-label">Member Name</label>
+        <label class="col-4 col-form-label">{{'Member Name' | translate}}</label>
         <div class="col-8">
           <app-member-control formControlName="member_id"></app-member-control>
 
           <div class="messages text-danger" *ngIf="editorForm.controls.member_id?.errors?.required">
-            <p>Existing Member Required</p>
+            <p>{{'Existing Member Required' | translate}}</p>
           </div>
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-4 col-form-label">Role</label>
+        <label class="col-4 col-form-label">{{'Role' | translate}}</label>
         <div class="col-8">
           <select class="form-control" formControlName="organisation_role_id">
-            <option value="">Select Role</option>
+            <option value="">{{'Select Role' | translate}}</option>
             <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
           </select>
 
           <div class="messages text-danger" *ngIf="editorForm.controls.organisation_role_id?.errors?.required">
-            <p>Role required</p>
+            <p>{{'Role required' | translate}}</p>
           </div>
         </div>
       </div>
@@ -154,10 +151,10 @@
 
     <div class="modal-footer">
       <span *ngIf="accountService.requesting" class="m-r-15">
-        <i class="fa fa-spin fa-fw fa-circle-o-notch"></i> Saving...
+        <i class="fa fa-spin fa-fw fa-circle-o-notch"></i> {{'Saving' | translate}}...
       </span>
-      <button type="submit" class="btn btn-primary">Save Changes</button>
-      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
+      <button type="submit" class="btn btn-primary">{{'Save Changes' | translate}}</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
     </div>
   </form>
 </ng-template>

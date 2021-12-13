@@ -17,13 +17,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CustomizerComponent } from './components/customizer/customizer.component';
 import { DragulaModule } from 'ng2-dragula';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { GalleryModule } from '@ks89/angular-modal-gallery';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 import { NgxPrintModule } from 'ngx-print';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import 'hammerjs';
-import 'mousetrap';
 
 import { ImageCropperModule } from 'ngx-image-cropper';
 
@@ -48,6 +45,22 @@ import { MemberControlComponent } from './components/forms/member-control/member
 import { SmsMessengerComponent } from './components/messaging/sms-messenger/sms-messenger.component';
 import { InvoiceComponent } from './components/invoice/invoice.component';
 import { ImageCropperComponent } from './components/image-cropper/image-cropper.component';
+import { SelectMonthControlComponent } from './components/forms/select-month-control/select-month-control.component';
+import { SelectYearControlComponent } from './components/forms/select-year-control/select-year-control.component';
+import { SelectBankControlComponent } from './components/forms/select-bank-control/select-bank-control.component';
+import { SelectCurrencyControlComponent } from './components/forms/select-currency-control/select-currency-control.component';
+import { SelectPaymentTypeControlComponent } from './components/forms/select-payment-type-control/select-payment-type-control.component';
+import { FinanceWeeklyBreakdownComponent } from './components/charts/finance-weekly-breakdown/finance-weekly-breakdown.component';
+import { FinanceCategoryBreakdownComponent } from './components/charts/finance-category-breakdown/finance-category-breakdown.component';
+import { FinanceTrendComponent } from './components/charts/finance-trend/finance-trend.component';
+import { FinanceTotalsByCategoryComponent } from './components/charts/finance-totals-by-category/finance-totals-by-category.component';
+import { ChartsModule } from 'ng2-charts';
+import { NoDataAvailableComponent } from './components/forms/no-data-available/no-data-available.component';
+import { LoadingRotateDashedComponent } from './components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { PrintLayoutComponent } from './components/layout/print-layout/print-layout.component';
+import { PrintFooterComponent } from './components/layout/print-layout/print-footer/print-footer.component';
+import { PrintHeaderComponent } from './components/layout/print-layout/print-header/print-header.component';
+import { TitleComponent } from './components/title/title.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +85,22 @@ import { ImageCropperComponent } from './components/image-cropper/image-cropper.
     MemberControlComponent,
     SmsMessengerComponent,
     InvoiceComponent,
-    ImageCropperComponent
+    ImageCropperComponent,
+    SelectMonthControlComponent,
+    SelectYearControlComponent,
+    SelectBankControlComponent,
+    SelectCurrencyControlComponent,
+    SelectPaymentTypeControlComponent,
+    FinanceWeeklyBreakdownComponent,
+    FinanceCategoryBreakdownComponent,
+    FinanceTrendComponent,
+    FinanceTotalsByCategoryComponent,
+    NoDataAvailableComponent,
+    LoadingRotateDashedComponent,
+    PrintLayoutComponent,
+    PrintFooterComponent,
+    PrintHeaderComponent,
+    TitleComponent
   ],
   imports: [
     CommonModule,
@@ -82,12 +110,12 @@ import { ImageCropperComponent } from './components/image-cropper/image-cropper.
     TranslateModule,
     DragulaModule.forRoot(),
     NgbModule,
-    GalleryModule.forRoot(),
     UiSwitchModule,
     InternationalPhoneNumberModule,
     NgxPrintModule,
     NgxChartsModule,
-    ImageCropperModule
+    ImageCropperModule,
+    ChartsModule
   ],
   exports: [
     LoaderComponent,
@@ -107,7 +135,18 @@ import { ImageCropperComponent } from './components/image-cropper/image-cropper.
     InvoiceComponent,
     NgxChartsModule,
     ImageCropperModule,
-    ImageCropperComponent
+    ImageCropperComponent,
+    SelectMonthControlComponent,
+    SelectYearControlComponent,
+    SelectBankControlComponent,
+    SelectCurrencyControlComponent,
+    SelectPaymentTypeControlComponent,
+    FinanceWeeklyBreakdownComponent,
+    FinanceCategoryBreakdownComponent,
+    FinanceTrendComponent,
+    FinanceTotalsByCategoryComponent,
+    NoDataAvailableComponent,
+    LoadingRotateDashedComponent
   ],
   providers: [
     NavService,

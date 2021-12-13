@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { SmsBroadcast } from '../../../shared/model/api/sms-broadcast';
+import { MessageComposerComponent } from './message-composer/message-composer.component';
 
 @Component({
   selector: 'app-broadcast',
@@ -7,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BroadcastComponent implements OnInit {
 
+  @ViewChild("composer", { static: true }) composer: MessageComposerComponent;
+
   view = 'history';
 
   constructor() { }
@@ -14,8 +18,13 @@ export class BroadcastComponent implements OnInit {
   ngOnInit() {
   }
 
-  showComposer() {
-    this.view = 'composer';
+  showComposer(broadcast?: SmsBroadcast) {
+    // this.view = 'composer';
+    this.composer.show();
+
+    if( broadcast ) {
+      this.composer.setBroadcast(broadcast);
+    }
   }
 
   showHistory() {
