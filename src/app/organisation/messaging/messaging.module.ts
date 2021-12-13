@@ -11,6 +11,7 @@ import { MessageComposerComponent } from './broadcast/message-composer/message-c
 import { BroadcastHistoryViewComponent } from './broadcast/broadcast-history-view/broadcast-history-view.component';
 import { BroadcastListsComponent } from './broadcast-lists/broadcast-lists.component';
 import { BroadcastListPreviewComponent } from './broadcast-list-preview/broadcast-list-preview.component';
+import { ListFilterComponent } from './broadcast-lists/list-filter/list-filter.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { BroadcastListPreviewComponent } from './broadcast-list-preview/broadcas
     MessageComposerComponent,
     BroadcastHistoryViewComponent,
     BroadcastListsComponent,
-    BroadcastListPreviewComponent
+    BroadcastListPreviewComponent,
+    ListFilterComponent
   ],
   imports: [
     CommonModule,
