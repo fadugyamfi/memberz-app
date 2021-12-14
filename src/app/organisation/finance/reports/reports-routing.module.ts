@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { IncomeSummaryComponent } from './income-summary/income-summary.component';
 import { TopContributorsComponent } from './top-contributors/top-contributors.component';
 import { NonContributingMembersComponent } from './non-contributing-members/non-contributing-members.component';
-import { MonthlyConsolidatedReportComponent } from './monthly-consolidated-report/monthly-consolidated-report.component';
+import { YearlySummaryReportComponent } from './yearly-summary-report/yearly-summary-report.component';
 
 const routes: Routes = [
   {
@@ -15,11 +15,11 @@ const routes: Routes = [
     }
   },
   {
-    path: 'monthly-consolidated-report',
-    component: MonthlyConsolidatedReportComponent,
+    path: 'yearly-summary',
+    component: YearlySummaryReportComponent,
     data: {
-      title: 'Monthly Consolidated Report',
-      breadcrumb: 'Monthly Consolidated Report'
+      title: 'Yearly Summary',
+      breadcrumb: 'Yearly Summary'
     }
   },
   {

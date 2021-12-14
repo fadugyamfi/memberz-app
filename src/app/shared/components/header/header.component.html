@@ -137,7 +137,7 @@
                 <app-feather-icons [icon]="'user'"></app-feather-icons> {{'Edit Profile' | translate }}
               </a>
             </li>
-            <li>
+            <!-- <li>
               <a href="javascript:void(0)">
                 <app-feather-icons [icon]="'mail'"></app-feather-icons> {{'Inbox' | translate }}
               </a>
@@ -151,7 +151,7 @@
               <a href="javascript:void(0)">
                 <app-feather-icons [icon]="'settings'"></app-feather-icons> {{'Settings' | translate }}
               </a>
-            </li>
+            </li> -->
             <li *ngIf="authService.userData as user">
               <a href="javascript:void(0)" (click)="authService.logout()">
                 <app-feather-icons [icon]="'log-out'"></app-feather-icons>{{'Logout' | translate }}

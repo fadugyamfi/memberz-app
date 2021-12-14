@@ -10,7 +10,7 @@ import { IncomeEditorComponent } from './income/income-editor/income-editor.comp
 import { IncomeSummaryComponent } from './reports/income-summary/income-summary.component';
 import { TopContributorsComponent } from './reports/top-contributors/top-contributors.component';
 import { NonContributingMembersComponent } from './reports/non-contributing-members/non-contributing-members.component';
-import { MonthlyConsolidatedReportComponent } from './reports/monthly-consolidated-report/monthly-consolidated-report.component';
+import { YearlySummaryReportComponent } from './reports/yearly-summary-report/yearly-summary-report.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { MonthlyConsolidatedReportComponent } from './reports/monthly-consolidat
     IncomeSummaryComponent,
     TopContributorsComponent,
     NonContributingMembersComponent,
-    MonthlyConsolidatedReportComponent
+    YearlySummaryReportComponent
   ],
   imports: [
     CommonModule,

@@ -65,7 +65,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
       organisation_type_id: new FormControl('', [Validators.required]),
       name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      phone: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+      phone_intl: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
       country_id: new FormControl(80, [Validators.required]),
       address: new FormControl(''),
       city: new FormControl(''),
@@ -110,7 +110,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
     }
 
     const input = this.profileForm.value;
-    input.phone = input.phone.e164Number;
+    input.phone = input.phone_intl.e164Number;
 
     this.organisation = new Organisation(input);
     const params = { contain: ['active_subscription.subscription_type', 'organisation_type'].join() };

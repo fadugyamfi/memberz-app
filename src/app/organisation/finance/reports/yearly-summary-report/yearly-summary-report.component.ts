@@ -10,11 +10,11 @@ import { CurrencyService } from '../../../../shared/services/api/currency.servic
 
 
 @Component({
-  selector: 'app-monthly-consolidated-report',
-  templateUrl: './monthly-consolidated-report.component.html',
-  styleUrls: ['./monthly-consolidated-report.component.scss']
+  selector: 'app-yearly-summary-report',
+  templateUrl: './yearly-summary-report.component.html',
+  styleUrls: ['./yearly-summary-report.component.scss']
 })
-export class MonthlyConsolidatedReportComponent implements OnInit {
+export class YearlySummaryReportComponent implements OnInit {
 
   public reportData = [];
   public subscriptions: Subscription[] = [];
@@ -62,7 +62,7 @@ export class MonthlyConsolidatedReportComponent implements OnInit {
   fetchReportData() {
     this.showData = false;
 
-    const sub = this.reportingService.getMonthlyConsolidatedReport(this.searchForm.value).subscribe((data: { contributionTypesData: any[], paymentTypesData: any[] }) => {
+    const sub = this.reportingService.getYearlySummaryReport(this.searchForm.value).subscribe((data: { contributionTypesData: any[], paymentTypesData: any[] }) => {
       this.showData = true;
 
       this.contributionTypesData = data.contributionTypesData;
