@@ -565,6 +565,14 @@ export class NavService {
       type: 'link',
       bookmark: true
     },
+    {
+      path: '/portal/profile',
+      title: 'Profile',
+      icon: 'user',
+      type: 'link',
+      bookmark: true
+    },
+
     // {
     //   path: '/portal/events',
     //   title: 'Upcoming Events',

@@ -22,6 +22,13 @@ const routes: Routes = [
           breadcrumb: 'Create Organisation'
         }
       },
+      {
+        path: 'profile',
+        loadChildren: () => import('./user-profile-settings/user-profile-settings.module').then(m => m.UserProfileSettingsModule),
+        data: {
+          breadcrumb: 'Profile Settings'
+        }
+      },
     ]
   }
 ];

@@ -9,7 +9,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ReviewComponent } from './review/review.component';
 import { SharedModule } from '../../../shared/shared.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
