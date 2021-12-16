@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { OrganisationGroupType } from '../../../shared/model/api/orgainsation-group-type';
+import { OrganisationGroup } from '../../../shared/model/api/organisation-group';
+import { OrganisationGroupTypeService } from '../../../shared/services/api/organisation-group-type.service';
 
 @Component({
   selector: 'app-group-types',
@@ -7,9 +11,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GroupTypesComponent implements OnInit {
 
-  constructor() { }
+  @Output() selectGroupType = new EventEmitter();
+
+  public selectedGroupType: OrganisationGroupType;
+  private subscriptions: Subscription[] = [];
+
+  constructor(
+    public groupTypeService: OrganisationGroupTypeService
+  ) { }
 
   ngOnInit() {
+    this.loadGroupTypes();
   }
 
+  loadGroupTypes() {
+    const sub = this.groupTypeService.getAll({ sort: 'name:asc' }).subscribe();
+    this.subscriptions.push(sub);
+  }
+
+  setSelectedGroupType(groupType: OrganisationGroupType) {
+    this.selectedGroupType = groupType;
+    this.selectGroupType.emit(this.selectedGroupType);
+  }
 }

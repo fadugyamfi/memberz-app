@@ -5,21 +5,25 @@
       <div class="card">
         <div class="card-header b-l-secondary" [formGroup]="searchForm">
           <div class="row">
-            <div class="col-2">
-              <app-select-year-control formControlName="year"></app-select-year-control>
-            </div>
-            <!-- end of col -->
+
             <div class="col-1">
               <h6 class="title">{{ "Year" | translate }}</h6>
             </div>
+
+            <!-- end of col -->
+            <div class="col-2">
+              <app-select-year-control formControlName="year"></app-select-year-control>
+            </div>
+
+            <!-- end of col -->
+            <div class="col-1">
+              <h6 class="title">{{ "Currency" | translate }}</h6>
+            </div>
+
             <!-- end of col -->
             <div class="col-2">
               <app-select-currency-control formControlName="currency_id"></app-select-currency-control>
             </div>
-            <div class="col-1">
-              <h6 class="title">{{ "Currency" | translate }}</h6>
-            </div>
-            <!-- end of col -->
           </div>
           <!-- end of row -->
         </div>
