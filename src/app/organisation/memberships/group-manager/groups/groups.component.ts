@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
-import { OrganisationGroupType } from '../../../shared/model/api/orgainsation-group-type';
-import { OrganisationGroup } from '../../../shared/model/api/organisation-group';
-import { OrganisationGroupService } from '../../../shared/services/api/organisation-group.service';
+import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
+import { OrganisationGroupType } from '../../../../shared/model/api/orgainsation-group-type';
+import { OrganisationGroup } from '../../../../shared/model/api/organisation-group';
+import { OrganisationGroupService } from '../../../../shared/services/api/organisation-group.service';
 
 @Component({
   selector: 'app-groups',

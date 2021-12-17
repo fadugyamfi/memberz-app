@@ -1,8 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { OrganisationGroupType } from '../../../shared/model/api/orgainsation-group-type';
-import { OrganisationGroup } from '../../../shared/model/api/organisation-group';
-import { OrganisationGroupTypeService } from '../../../shared/services/api/organisation-group-type.service';
+import { OrganisationGroupType } from '../../../../shared/model/api/orgainsation-group-type';
+import { OrganisationGroupTypeService } from '../../../../shared/services/api/organisation-group-type.service';
 
 @Component({
   selector: 'app-group-types',
