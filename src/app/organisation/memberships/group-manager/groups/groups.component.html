@@ -1,0 +1,41 @@
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="font-weight-bold mb-0">{{ 'Groups In' | translate }} {{ groupType?.name || ('None Selected' | translate) }}</h6>
+      <a href="#" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i> {{'Add Group' | translate}}</a>
+    </div>
+  </div>
+
+  <app-loading-rotate-dashed *ngIf="groupService.fetching"></app-loading-rotate-dashed>
+
+  <app-no-data-available *ngIf="noDataAvailable()"></app-no-data-available>
+
+  <table class="table table-bordered table-striped" *ngIf="groupDataAvailable()">
+    <thead>
+      <tr>
+        <th colspan="2">{{ 'Name' | translate }}</th>
+        <th class="text-center">{{ 'Members' | translate }}</th>
+        <th>{{ 'Group Leader' | translate }}</th>
+        <th class="text-center">{{ 'Actions' | translate }}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let group of groups; let row = index">
+        <td class="text-right">{{ row + 1 }}.</td>
+        <td>{{ group.name }}</td>
+        <td class="text-center">{{ group.organisation_member_group_count | number }}</td>
+        <td>N/A</td>
+        <td class="text-center">
+          <button class="btn btn-primary btn-xs m-r-15">{{ 'View Members' | translate }}</button>
+          <button class="btn btn-info btn-xs m-r-15">{{ 'Edit' | translate }}</button>
+          <button class="btn btn-danger btn-xs">{{ 'Delete' | translate }}</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-footer">
+    <app-pagination [service]="groupService" (paginate)="onPaginate($event)"></app-pagination>
+  </div>
+</div>

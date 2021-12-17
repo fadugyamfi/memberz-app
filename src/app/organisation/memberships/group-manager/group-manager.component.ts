@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrganisationGroupType } from '../../../shared/model/api/orgainsation-group-type';
 
 @Component({
   selector: 'app-group-manager',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GroupManagerComponent implements OnInit {
 
+  public selectedGroupType: OrganisationGroupType;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  setSelectedGroupType(groupType: OrganisationGroupType) {
+    this.selectedGroupType = groupType;
+  }
 }
