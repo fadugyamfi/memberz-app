@@ -8,6 +8,7 @@ export class OrganisationGroup extends AppModel {
   public organisation_group_type_id: number;
   public name: string;
   private orgGroupType: OrganisationGroupType;
+  public organisation_group_leaders: any[];
 
   constructor(data) {
     super(data);

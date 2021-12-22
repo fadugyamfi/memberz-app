@@ -24,6 +24,7 @@ import { ProfileGroupsComponent } from './profile-view/profile-groups/profile-gr
 import { ProfileSmsMessagesComponent } from './profile-view/profile-sms-messages/profile-sms-messages.component';
 import { ProfileSidebarComponent } from './profile-view/profile-sidebar/profile-sidebar.component';
 import { ProfileAnniversariesComponent } from './profile-view/profile-anniversaries/profile-anniversaries.component';
+import { GroupMembersComponent } from './group-manager/group-members/group-members.component';
 
 
 
@@ -49,7 +50,8 @@ import { ProfileAnniversariesComponent } from './profile-view/profile-anniversar
     ProfileGroupsComponent,
     ProfileSmsMessagesComponent,
     ProfileSidebarComponent,
-    ProfileAnniversariesComponent
+    ProfileAnniversariesComponent,
+    GroupMembersComponent
   ],
   imports: [
     CommonModule,

@@ -1,8 +1,11 @@
 <div class="card">
   <div class="card-header">
     <div class="d-flex justify-content-between align-items-center">
-      <h6 class="font-weight-bold mb-0">{{ 'Groups In' | translate }} {{ groupType?.name || ('None Selected' | translate) }}</h6>
-      <a href="#" class="btn btn-primary btn-sm"> <i class="fa fa-plus"></i> {{'Add Group' | translate}}</a>
+      <h6 class="font-weight-bold mb-0">{{ 'Groups In' | translate }}
+        {{ groupType?.name || ('None Selected' | translate) }}</h6>
+      <button type="button" class="btn btn-primary btn-sm" (click)="showEditorModal()" [disabled]="!groupType">
+        <i class="fa fa-plus"></i> {{'Add Group' | translate}}
+      </button>
     </div>
   </div>
 
@@ -24,12 +27,21 @@
       <tr *ngFor="let group of groups; let row = index">
         <td class="text-right">{{ row + 1 }}.</td>
         <td>{{ group.name }}</td>
-        <td class="text-center">{{ group.organisation_member_group_count | number }}</td>
-        <td>N/A</td>
+        <td class="text-center">{{ group.organisation_group_members_count | number }}</td>
+        <td>
+          <ul *ngIf="group.organisation_group_leaders?.length > 0">
+            <li *ngFor="let leader of group.organisation_group_leaders">
+              <a [routerLink]="['/organisation/memberships/view', leader.organisation_member_id]"
+                 target="profile">{{ leader.name }}</a>
+            </li>
+          </ul>
+
+          <span *ngIf="group.organisation_group_leaders?.length == 0">N/A</span>
+        </td>
         <td class="text-center">
-          <button class="btn btn-primary btn-xs m-r-15">{{ 'View Members' | translate }}</button>
-          <button class="btn btn-info btn-xs m-r-15">{{ 'Edit' | translate }}</button>
-          <button class="btn btn-danger btn-xs">{{ 'Delete' | translate }}</button>
+          <button class="btn btn-primary btn-xs m-r-15" (click)="viewMembers(group)">{{ 'View Members' | translate }}</button>
+          <button class="btn btn-info btn-xs m-r-15" (click)="showEditorModal(group)">{{ 'Edit' | translate }}</button>
+          <button class="btn btn-danger btn-xs" (click)="deleteGroup(group)">{{ 'Delete' | translate }}</button>
         </td>
       </tr>
     </tbody>
@@ -39,3 +51,80 @@
     <app-pagination [service]="groupService" (paginate)="onPaginate($event)"></app-pagination>
   </div>
 </div>
+
+<ng-template #editorModal let-modal>
+  <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="editorForm">
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-basic-title">{{'Group Editor' | translate}}</h5>
+      <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{ 'Group Type' | translate}}</label>
+        <div class="col-sm-10">
+          <select class="form-control" formControlName="organisation_group_type_id">
+            <option value="">{{ 'Select Group Type' | translate }}</option>
+            <option *ngFor="let groupType of groupTypeService.getItems()" [value]="groupType.id">{{ groupType.name }}
+            </option>
+          </select>
+
+          <div class="messages text-danger" *ngIf="editorForm.controls.organisation_group_type_id?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Group Type Required' | translate}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{ 'Name' | translate}}</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="e.g. Default" formControlName="name" />
+          <div class="messages text-danger" *ngIf="editorForm.controls.name?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Name Required' | translate}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{ 'Leaders' | translate}}</label>
+        <div class="col-sm-9" formArrayName="organisation_group_leaders">
+          <ng-container *ngFor="let leaderGroup of leadersArray.controls; let i = index">
+            <div class="form-group row" [formGroup]="leaderGroup">
+              <div class="col-6">
+                <app-member-control formControlName="organisation_member_id" [returnMembershipId]="true"></app-member-control>
+              </div>
+              <div class="col-4">
+                <input type="text" class="form-control" formControlName="role" placeholder="{{ 'Role' | translate }}" />
+              </div>
+              <div class="col-2">
+                <button type="button" class="btn btn-danger btn-sm pr-3 pl-3" (click)="removeLeaderGroup(i)">
+                  <i class="fa fa-trash-o mr-0"></i>
+                </button>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+        <div class="col-sm-1 text-right">
+          <button type="button" class="btn btn-primary btn-sm add-leader-btn pr-3 pl-3" (click)="addLeaderGroup()">
+            <i class="fa fa-plus mr-0"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <span *ngIf="groupService?.saving" class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i>
+        {{'Saving' | translate}}...
+      </span>
+
+      <button type="submit" class="btn btn-primary">{{'Save Changes' | translate}}</button>
+      <button type="button" class="btn btn-outline-danger"
+              (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
+    </div>
+  </form>
+</ng-template>

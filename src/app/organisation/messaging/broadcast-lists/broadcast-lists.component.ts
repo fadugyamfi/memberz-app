@@ -113,8 +113,8 @@ export class BroadcastListsComponent implements OnInit {
     this.editorForm = new FormGroup({
       id: new FormControl(),
       name: new FormControl('', [Validators.required]),
-      sender_id: new FormControl(smsAccount.sender_id, [Validators.required]),
-      module_sms_account_id: new FormControl(smsAccount.id),
+      sender_id: new FormControl(smsAccount?.sender_id, [Validators.required]),
+      module_sms_account_id: new FormControl(smsAccount?.id),
       size: new FormControl(0),
       filters: new FormArray([ this.createFilterGroup() ])
     });
