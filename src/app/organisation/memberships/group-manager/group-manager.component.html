@@ -1,9 +1,20 @@
 <div class="row">
-    <div class="col-sm-4">
-        <app-group-types (selectGroupType)="setSelectedGroupType($event)"></app-group-types>
-    </div>
+  <div class="col-sm-4">
+    <app-group-types (selectGroupType)="setSelectedGroupType($event)"></app-group-types>
+  </div>
 
-    <div class="col-sm-8">
-        <app-groups [groupType]="selectedGroupType"></app-groups>
-    </div>
+  <div class="col-sm-8">
+    <app-groups
+      *ngIf="!selectedGroup"
+      [groupType]="selectedGroupType"
+      (viewGroupMembers)="setSelectedGroup($event)"
+    ></app-groups>
+
+    <app-group-members
+      *ngIf="selectedGroup"
+      [group]="selectedGroup"
+      (back)="setSelectedGroup(null)"
+    ></app-group-members>
+
+  </div>
 </div>

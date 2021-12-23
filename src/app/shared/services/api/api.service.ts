@@ -32,6 +32,7 @@ export class APIService<T extends AppModel> {
   public creating = false;
   public updating = false;
   public deleting = false;
+  public saving = false;
   public prependItems = false;
 
   public batchRequests = [];
@@ -345,7 +346,7 @@ export class APIService<T extends AppModel> {
    * @param model Model data to pass
    */
   create(model: T, qparams: object = null) {
-    this.creating = true;
+    this.creating = this.saving = true;
 
     return this.post(`${this.url}`, model, qparams).pipe(
       map((response) => new this.model(response['data'])))
@@ -368,7 +369,7 @@ export class APIService<T extends AppModel> {
           this.triggerError(error);
         },
         complete: () => {
-          this.creating = false;
+          this.creating = this.saving = false;
         }
       });
   }
@@ -379,7 +380,7 @@ export class APIService<T extends AppModel> {
    * @param model Model data to pass
    */
   update(model: T, qparams: object = null) {
-    this.updating = true;
+    this.updating = this.saving = true;
 
     return this.put(`${this.url}/${model.id}`, model, qparams).pipe(
       map((response) => new this.model(response['data'])))
@@ -396,7 +397,7 @@ export class APIService<T extends AppModel> {
           this.triggerError(error);
         },
         complete: () => {
-          this.updating = false;
+          this.updating = this.saving = false;
         }
       });
   }
