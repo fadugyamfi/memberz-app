@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { UserProfileComponent } from './user-profile-settings/user-profile.component';
 
 
 const routes: Routes = [
@@ -16,19 +17,20 @@ const routes: Routes = [
         }
       },
       {
+        path: 'profile',
+        component: UserProfileComponent,
+        data: {
+          title: "Your Profile",
+          breadcrumb: "user"
+        }
+      },
+      {
         path: 'create-organisation',
         loadChildren: () => import('./create-organisation/create-organisation.module').then(m => m.CreateOrganisationModule),
         data: {
           breadcrumb: 'Create Organisation'
         }
-      },
-      {
-        path: 'profile',
-        loadChildren: () => import('./user-profile-settings/user-profile-settings.module').then(m => m.UserProfileSettingsModule),
-        data: {
-          breadcrumb: 'Profile Settings'
-        }
-      },
+      }
     ]
   }
 ];

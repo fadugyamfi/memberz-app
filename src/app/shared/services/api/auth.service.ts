@@ -98,6 +98,29 @@ export class AuthService extends APIService<MemberAccount> {
     );
   }
 
+
+  public updateProfile(data: RegisterUserContract) {
+    Swal.showLoading();
+
+    return this.post(`${this.url}/register`, data).subscribe(
+      () => {
+        Swal.fire(
+          this.translate.instant('Profile Update Successful'),
+          'success'
+        );
+        Swal.showLoading();
+      },
+      () => {
+        Swal.fire(
+          this.translate.instant('Profile Update Failed'),
+          this.translate.instant('Please try again'),
+          'error'
+        );
+        Swal.hideLoading();
+      }
+    );
+  }
+
   public forgotPassword(email: string) {
     return this.post(`${this.url}/forgot-password`, {
       username: email,
@@ -173,6 +196,10 @@ export class AuthService extends APIService<MemberAccount> {
       this.userData = new MemberAccount(this.storage.get('user'));
       this._sessionId = this.userData;
     }
+  }
+
+  public userStorageData(){
+    return new MemberAccount(this.storage.get('user'));
   }
 
   get isLoggedIn(): boolean {
