@@ -7,8 +7,8 @@
       <div class="card mt-4">
         <div class="card-body">
           <div class="text-center">
-            <h4>LOGIN</h4>
-            <h6>Enter your Username and Password</h6>
+            <h4>{{'LOGIN' | translate}}</h4>
+            <h6>{{'Enter your Username and Password' | translate}}</h6>
           </div>
           <form class="theme-form" [formGroup]="loginForm" *ngIf="!newUser">
             <div class="form-group">
@@ -26,7 +26,7 @@
                 "
                 class="text text-danger mt-1"
               >
-                Email Required
+                {{'Email Required' | translate}}
               </div>
               <div
                 *ngIf="
@@ -35,11 +35,11 @@
                 "
                 class="text text-danger mt-1"
               >
-                Invalid Email
+                {{'Invalid Email' | translate }}
               </div>
             </div>
             <div class="form-group">
-              <label class="col-form-label">Password</label>
+              <label class="col-form-label">{{'Password' | translate}}</label>
               <input
                 class="form-control"
                 type="password"
@@ -53,7 +53,7 @@
                 "
                 class="text text-danger mt-1"
               >
-                Password Required
+                {{'Password Required' | translate}}
               </div>
             </div>
             <div class="checkbox p-0">
@@ -62,7 +62,7 @@
                 type="checkbox"
                 formControlName="remember_me"
               />
-              <label for="checkbox1">Remember Me For 2 Weeks</label>
+              <label for="checkbox1">{{'Remember Me For 1 Month' | translate}}</label>
             </div>
             <div class="form-group">
               <button
@@ -72,22 +72,22 @@
                 (click)="login()"
                 type="submit"
               >
-                <span>{{ authService.showLoader ? "" : "Login" }}</span>
+                <span>{{ authService.showLoader ? "" : "Login" | translate }}</span>
               </button>
             </div>
             <div class="form-row mt-2">
               <div class="col-sm-7">
-                Not yet registered?  <a
+                {{'Not yet registered?' | translate}} <a
                   class="btn-link text-capitalize"
                   routerLink="/auth/register"
-                  >Register</a
+                  >{{'Register' | translate}}</a
                 >
               </div>
               <div class="col text-right">
                 <a
                   class="btn-link text-capitalize"
                   routerLink="/auth/forgot-password"
-                  >Forgot Password?</a
+                  >{{'Forgot Password?' | translate}}</a
                 >
               </div>
             </div>

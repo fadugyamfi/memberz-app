@@ -131,6 +131,10 @@ export class GroupsComponent implements OnInit, OnDestroy {
         leaders: group.organisation_group_leaders
       });
 
+      for(let i = 1; i < group.organisation_group_leaders.length; i++) {
+        this.addLeaderGroup();
+      }
+
       this.editorForm.patchValue(groupData);
     }
 
