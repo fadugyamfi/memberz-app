@@ -23,6 +23,7 @@ import { NgxPrintModule } from 'ngx-print';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ArchwizardModule } from 'angular-archwizard';
 
 // services
 import { NavService } from './services/nav.service';
@@ -115,7 +116,8 @@ import { TitleComponent } from './components/title/title.component';
     NgxPrintModule,
     NgxChartsModule,
     ImageCropperModule,
-    ChartsModule
+    ChartsModule,
+    ArchwizardModule
   ],
   exports: [
     LoaderComponent,
@@ -146,7 +148,8 @@ import { TitleComponent } from './components/title/title.component';
     FinanceTrendComponent,
     FinanceTotalsByCategoryComponent,
     NoDataAvailableComponent,
-    LoadingRotateDashedComponent
+    LoadingRotateDashedComponent,
+    ArchwizardModule
   ],
   providers: [
     NavService,

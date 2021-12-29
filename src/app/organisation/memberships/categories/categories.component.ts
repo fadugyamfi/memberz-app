@@ -182,9 +182,6 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sets up event listeners
-   */
-  /**
    * Setup listeners for model changes
    */
   setupEvents() {
@@ -208,7 +205,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   deleteCategory(category: OrganisationMemberCategory) {
     Swal.fire({
       title: this.translate.instant('Confirm Deletion'),
-      text: this.translate.instant(`This action will delete :name from the database. This action currently cannot be reverted`, { name: category.name }),
+      text: this.translate.instant(`This action will delete record from the database. This action currently cannot be reverted`, { name: category.name }),
       icon: 'warning',
       showCancelButton: true,
     }).then((action) => {

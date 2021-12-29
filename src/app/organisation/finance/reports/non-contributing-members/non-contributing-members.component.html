@@ -5,19 +5,21 @@
       <div class="card">
         <div class="card-header b-l-info">
           <div class="row">
-            <div class="col-auto">
+            <div class="col-1">
+              <h6 class="title">
+                {{ "Year" | translate }}
+              </h6>
+            </div>
+            <!-- end of col -->
+
+            <div class="col-2">
               <app-select-year-control
                 [(ngModel)]="yearValue"
                 (selectedYearEvent)="fetchReportData($event)"
               ></app-select-year-control>
             </div>
             <!-- end of col -->
-            <div class="col">
-              <h6 class="title">
-                {{ "Year" | translate }}
-              </h6>
-            </div>
-            <!-- end of col -->
+
           </div>
           <!-- end of row -->
         </div>
@@ -33,9 +35,9 @@
               <tr>
                 <th>#</th>
                 <th>{{ "Name" | translate }}</th>
-                <th>{{ "E-Mail" | translate }}</th>
-                <th>{{ "Age" | translate }}</th>
+                <th>{{ "Membership Category" | translate }}</th>
                 <th>{{ "Mobile Number" | translate }}</th>
+                <th class="text-center">{{ "Age" | translate }}</th>
               </tr>
             </thead>
 
@@ -43,9 +45,9 @@
               <tr *ngFor="let data of reportData; let row = index">
                 <td>{{ row + 1 }}.</td>
                 <td>{{ data.full_name }}</td>
-                <td>{{ data.email }}</td>
-                <td>{{ data.age }}</td>
+                <td>{{ data.membership_category }}</td>
                 <td>{{ data.mobile_number }}</td>
+                <td class="text-center">{{ data.age }}</td>
               </tr>
             </tbody>
           </table>

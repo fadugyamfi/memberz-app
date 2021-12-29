@@ -599,16 +599,16 @@ export class NavService {
       bookmark: true,
       path: '/organisation/memberships/profiles',
       children: [
-        {
-          title: 'Settings',
-          type: 'sub',
-          active: false,
-          children: [
-            { path: '/organisation/memberships/categories', title: 'Categories', type: 'link' },
-            { path: '/organisation/memberships/groups', title: 'Groups', type: 'link' },
-            { path: '/organisation/memberships/anniversaries', title: 'Anniversaries', type: 'link' }
-          ]
-        },
+        // {
+        //   title: 'Settings',
+        //   type: 'sub',
+        //   active: false,
+        //   children: [
+        //     { path: '/organisation/memberships/categories', title: 'Categories', type: 'link' },
+        //     { path: '/organisation/memberships/groups', title: 'Groups', type: 'link' },
+        //     { path: '/organisation/memberships/anniversaries', title: 'Anniversaries', type: 'link' }
+        //   ]
+        // },
         {
           path: '/organisation/memberships/add',
           title: 'Add Member',
@@ -645,7 +645,7 @@ export class NavService {
       bookmark: true,
       path: '/organisation/messaging/history',
       children: [
-        { path: '/organisation/messaging/settings', title: 'Settings', type: 'link' },
+        // { path: '/organisation/messaging/settings', title: 'Settings', type: 'link' },
         { path: '/organisation/messaging/history', title: 'History', type: 'link' },
         { path: '/organisation/messaging/broadcast', title: 'Broadcast', type: 'link' },
         { path: '/organisation/messaging/broadcast-lists', title: 'Broadcast Lists', type: 'link' }
@@ -661,16 +661,16 @@ export class NavService {
       children: [
         { path: '/organisation/finance/dashboard', title: 'Dashboard', type: 'link', icon: 'dashboard' },
         { path: '/organisation/finance/income', title: 'Income', type: 'link' },
-        {
-          path: '/organisation/finance/settings',
-          title: 'Settings',
-          type: 'sub',
-          active: false,
-          children: [
-            { path: '/organisation/finance/settings/income-sources', title: 'Income Sources', type: 'link', icon: 'cash' },
-            { path: '/organisation/finance/settings/receipts', title: 'Receipts', type: 'link', icon: 'cogs' },
-          ]
-        },
+        // {
+        //   path: '/organisation/finance/settings',
+        //   title: 'Settings',
+        //   type: 'sub',
+        //   active: false,
+        //   children: [
+        //     { path: '/organisation/finance/settings/income-sources', title: 'Income Sources', type: 'link', icon: 'cash' },
+        //     { path: '/organisation/finance/settings/receipts', title: 'Receipts', type: 'link', icon: 'cogs' },
+        //   ]
+        // },
         // { path: '/organisation/finance/expenditure', title: 'Expenditure', type: 'link' },
         {
           title: 'Reports',
@@ -693,12 +693,33 @@ export class NavService {
       active: false,
       path: '/organisation/settings/subscription',
       children: [
+
+        {
+          title: 'Memberships',
+          type: 'sub',
+          active: false,
+          children: [
+            { path: '/organisation/memberships/categories', title: 'Categories', type: 'link' },
+            { path: '/organisation/memberships/groups', title: 'Groups', type: 'link' },
+            { path: '/organisation/memberships/anniversaries', title: 'Anniversaries', type: 'link' }
+          ]
+        },
+        { path: '/organisation/messaging/settings', title: 'Messaging', type: 'link' },
+        {
+          path: '/organisation/finance/settings',
+          title: 'Finances',
+          type: 'sub',
+          active: false,
+          children: [
+            { path: '/organisation/finance/settings/income-sources', title: 'Income Sources', type: 'link', icon: 'cash' },
+            { path: '/organisation/finance/settings/receipts', title: 'Receipts', type: 'link', icon: 'cogs' },
+          ]
+        },
         {
           path: '/organisation/settings/subscription',
           title: 'Subscription',
           type: 'link'
         },
-        // { path: '/organisation/settings/billing', title: 'Billing', type: 'link' },
         {
           path: '/organisation/settings/roles',
           title: 'Roles & Permissions',

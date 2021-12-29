@@ -11,10 +11,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
 import { PendingApprovalsComponent } from './pending-approvals/pending-approvals.component';
 import { MakeAdminComponent } from './make-admin/make-admin.component';
-import { GroupsComponent } from './groups/groups.component';
+import { GroupsComponent } from './group-manager/groups/groups.component';
 import { GroupManagerComponent } from './group-manager/group-manager.component';
-import { GroupTypesComponent } from './group-types/group-types.component';
-import { GroupLeadersComponent } from './group-leaders/group-leaders.component';
+import { GroupTypesComponent } from './group-manager/group-types/group-types.component';
+import { GroupLeadersComponent } from './group-manager/group-leaders/group-leaders.component';
 import { UploadReviewComponent } from './bulk-upload/upload-review/upload-review.component';
 import { ProfileSummaryComponent } from './profile-view/profile-summary/profile-summary.component';
 import { ProfileFamilyComponent } from './profile-view/profile-family/profile-family.component';
@@ -24,6 +24,7 @@ import { ProfileGroupsComponent } from './profile-view/profile-groups/profile-gr
 import { ProfileSmsMessagesComponent } from './profile-view/profile-sms-messages/profile-sms-messages.component';
 import { ProfileSidebarComponent } from './profile-view/profile-sidebar/profile-sidebar.component';
 import { ProfileAnniversariesComponent } from './profile-view/profile-anniversaries/profile-anniversaries.component';
+import { GroupMembersComponent } from './group-manager/group-members/group-members.component';
 
 
 
@@ -49,7 +50,8 @@ import { ProfileAnniversariesComponent } from './profile-view/profile-anniversar
     ProfileGroupsComponent,
     ProfileSmsMessagesComponent,
     ProfileSidebarComponent,
-    ProfileAnniversariesComponent
+    ProfileAnniversariesComponent,
+    GroupMembersComponent
   ],
   imports: [
     CommonModule,

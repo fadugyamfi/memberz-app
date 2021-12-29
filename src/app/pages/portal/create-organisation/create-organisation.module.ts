@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CreateOrganisationRoutingModule } from './create-organisation-routing.module';
 import { CreateOrganisationComponent } from './create-organisation.component';
-import { ArchwizardModule } from 'angular-archwizard';
+
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { ProfileComponent } from './profile/profile.component';
 import { PaymentComponent } from './payment/payment.component';
@@ -22,7 +22,6 @@ import { SharedModule } from '../../../shared/shared.module';
   imports: [
     CommonModule,
     CreateOrganisationRoutingModule,
-    ArchwizardModule,
     SharedModule
   ]
 })
