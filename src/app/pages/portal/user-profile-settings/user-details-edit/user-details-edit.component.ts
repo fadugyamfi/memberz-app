@@ -87,11 +87,11 @@ export class UserDetailsEditComponent implements OnInit, OnDestroy {
   }
 
   setupEvents() {
-  this.events.on('Member:updated', () => {
-    const sub =  this.authService.me(true).subscribe();
-    this.subscriptions.push(sub);
-    Swal.fire('Request successful', 'Your personal information has been updated.', 'success');
-  });
+    this.events.on('Member:updated', () => {
+      const sub = this.authService.me(true).subscribe();
+      this.subscriptions.push(sub);
+      Swal.fire('Request successful', 'Your personal information has been updated.', 'success');
+    });
   }
 
   removeEvents() {

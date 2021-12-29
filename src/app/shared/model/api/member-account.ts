@@ -7,6 +7,8 @@ export class MemberAccount extends AppModel {
   public id: any;
   public _member: Member;
   public username: string;
+  public deleted: boolean;
+  public active: boolean;
 
   public member_id: number;
   public organisation_account: any[];
@@ -25,6 +27,10 @@ export class MemberAccount extends AppModel {
 
   firstName() {
     return this.member.first_name;
+  }
+
+  name() {
+    return this.member.name();
   }
 
   occupation() {
