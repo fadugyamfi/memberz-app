@@ -187,7 +187,6 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
     e.preventDefault();
 
     if ( !this.editorForm.valid ) {
-      console.log(this.editorForm.value);
       return;
     }
 

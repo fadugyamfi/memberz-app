@@ -201,7 +201,35 @@
             </div>
           </div>
           <!-- end of col-sm-9 -->
-        </div>
+        </div><!-- end of form-group -->
+
+        <div class="form-group row">
+          <label class="col-form-label col-sm-3"
+            > {{ "Occupation" | translate }}</label
+          >
+          <div class="col-sm-9">
+            <input
+              class="form-control"
+              formControlName="occupation"
+              type="text"
+            />
+          </div>
+          <!-- end of col-sm-9 -->
+        </div><!-- end of form-group -->
+
+        <div class="form-group row">
+          <label class="col-form-label col-sm-3"
+            > {{ "Business Name" | translate }}</label
+          >
+          <div class="col-sm-9">
+            <input
+              class="form-control"
+              formControlName="business_name"
+              type="text"
+            />
+          </div>
+          <!-- end of col-sm-9 -->
+        </div><!-- end of form-group -->
 
         <div class="form-group row">
           <div class="col-sm-3"></div>
@@ -209,12 +237,12 @@
             <button
               type="button"
               class="btn btn-primary px-4"
-              [class.loader--text]="authService.showLoader"
-              [disabled]="!profileForm.valid || authService.showLoader"
+              [class.loader--text]="memberService.requesting"
+              [disabled]="!profileForm.valid || memberService.requesting"
               (click)="updateProfile()"
             >
               <i class="fa fa-save"></i>
-              {{ authService.showLoader ? "" : ("Update Profile" | translate) }}
+              {{ memberService.requesting ? "" : ("Update Profile" | translate) }}
             </button>
           </div>
         </div>

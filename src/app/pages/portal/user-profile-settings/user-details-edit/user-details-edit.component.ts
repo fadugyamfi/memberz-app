@@ -1,9 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms";
+import { Validators, FormGroup, FormControl } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
 import { EventsService } from 'src/app/shared/services/events.service';
+import { MemberService } from 'src/app/shared/services/api/member.service';
+import { Member } from 'src/app/shared/model/api/member';
+import Swal from 'sweetalert2';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-details-edit',
@@ -20,35 +24,35 @@ export class UserDetailsEditComponent implements OnInit, OnDestroy {
   PhoneNumberFormat = PhoneNumberFormat;
   preferredCountries: CountryISO[] = [CountryISO.Ghana, CountryISO.Nigeria, CountryISO.Togo];
 
+  private memberData: Member;
+  private subscriptions: Subscription[] = [];
+
   constructor(
     public authService: AuthService,
     public events: EventsService,
-    public toastrService: ToastrService
+    public toastrService: ToastrService,
+    public memberService: MemberService
   ) { }
 
   ngOnInit(): void {
     this.setupProfileForm();
     this.initiliazeToastr();
     this.initializeProfileData();
+    this.setupEvents();
   }
 
   ngOnDestroy() {
     this.events.off("toast");
+    this.removeEvents();
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  initializeProfileData(){
+  initializeProfileData() {
     let data = this.authService.userStorageData();
-    
-    let userData = {
-      first_name: data.member.first_name,
-      last_name: data.member.last_name,
-      dob: data.member.dob.split('T')[0],
-      gender: data.member.gender,
-      mobile_number: data.member.mobile_number,
-      email: data.username
-    };
+    this.memberData = data._member;
+    this.memberData.dob = data.member.dob.split('T')[0];
 
-    this.profileForm.patchValue(userData);
+    this.profileForm.patchValue(this.memberData);
   }
 
   initiliazeToastr() {
@@ -77,14 +81,28 @@ export class UserDetailsEditComponent implements OnInit, OnDestroy {
       gender: new FormControl("", [Validators.required]),
       mobile_number: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
       email: new FormControl("", [Validators.required, Validators.email]),
+      occupation: new FormControl(""),
+      business_name: new FormControl("")
     });
   }
 
+  setupEvents() {
+  this.events.on('Member:updated', () => {
+    const sub =  this.authService.me(true).subscribe();
+    this.subscriptions.push(sub);
+    Swal.fire('Request successful', 'Your personal information has been updated.', 'success');
+  });
+  }
+
+  removeEvents() {
+    this.events.off('Member:updated');
+  }
 
   updateProfile() {
     const input = this.profileForm.value;
     input.mobile_number = input.mobile_number.e164Number;
-    this.authService.updateProfile(input);
+    let postData: Member = Object.assign(this.memberData, input);
+    this.memberService.update(postData);
   }
 
 }
