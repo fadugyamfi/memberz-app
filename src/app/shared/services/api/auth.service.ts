@@ -18,6 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class AuthService extends APIService<MemberAccount> {
   public userData;
   public _sessionId;
+  public currentLang;
 
   constructor(
     public http: HttpClient,
@@ -32,6 +33,13 @@ export class AuthService extends APIService<MemberAccount> {
 
     this.url = '/auth';
     this.model_name = 'Auth';
+
+    translate.setDefaultLang('en');
+
+    if( this.storage.has('current_lang') ) {
+      this.currentLang = this.storage.get('current_lang');
+      translate.use(this.currentLang);
+    }
 
     this.setupEvents();
     this.loadUserData();
