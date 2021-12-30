@@ -11,6 +11,7 @@ import { UserProfileComponent } from './user-profile-settings/user-profile.compo
 import { TimezoneEditComponent } from './user-profile-settings/timezone-edit/timezone-edit.component';
 import { DeleteAccountComponent } from './user-profile-settings/delete-account/delete-account.component';
 import { TwofaEnableComponent } from './user-profile-settings/twofa-enable/twofa-enable.component';
+import { MomentTimezonePickerModule } from 'moment-timezone-picker';
 
 
 
@@ -29,7 +30,8 @@ import { TwofaEnableComponent } from './user-profile-settings/twofa-enable/twofa
     PortalRoutingModule,
     SharedModule,
     NgxIntlTelInputModule,
-    CreateOrganisationModule
+    CreateOrganisationModule,
+    MomentTimezonePickerModule
   ]
 })
 export class PortalModule { }

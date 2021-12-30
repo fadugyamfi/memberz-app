@@ -1,10 +1,28 @@
 <div class="card">
   <div class="card-header b-l-secondary">Time Zone</div>
   <div class="card-body">
-    <select class="form-control">
-      <option value="">UTC</option>
-      <!-- <option *ngFor="let type of orgTypes" [value]="type.id">{{ type.name }}</option> -->
-    </select>
+    <div class="row">
+      <div class="col">
+        <ng-moment-timezone-picker [(ngModel)]="timeZone">
+        </ng-moment-timezone-picker>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          [class.loader--text]="memberAccountService.requesting"
+          [disabled]="!timeZone || memberAccountService.requesting"
+          (click)="saveTimeZone()"
+        >
+          <i class="fa fa-save">
+            {{ memberAccountService.requesting ? "" : ("Save" | translate) }}</i
+          >
+        </button>
+      </div>
+    </div>
   </div>
 </div>
 <!-- end of card -->

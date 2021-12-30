@@ -9,6 +9,7 @@ export class MemberAccount extends AppModel {
   public username: string;
   public deleted: boolean;
   public active: boolean;
+  public timezone: string;
 
   public member_id: number;
   public organisation_account: any[];

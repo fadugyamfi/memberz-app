@@ -35,7 +35,7 @@ export class DeleteAccountComponent implements OnInit {
   }
 
   setupEvents() {
-    this.events.on('MemberAccount:updated', () => this.authService.logout());
+    this.events.on('MemberAccount:updated', () => '');
   }
 
   removeEvents() {
@@ -59,6 +59,7 @@ export class DeleteAccountComponent implements OnInit {
         this.memberAccount.deleted = true;
         this.memberAccount.active = false;
         this.memberAccountService.update(this.memberAccount);
+        this.authService.logout();
       }
     });
 
