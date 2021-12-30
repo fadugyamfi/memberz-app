@@ -1,14 +1,23 @@
 <div class="card">
-    <div class="card-header b-l-danger">
-      {{ "Delete Account" | translate }}
-    </div>
-    <div class="card">
-      <div class="card-body">
-        <button type="button" class="btn btn-danger m-r-15" (click)="deleteAccount()">
-            <i class="fa fa-trash"></i> {{ "Delete Account" | translate }}
-          </button>
-      </div>
+  <div class="card-header b-l-danger">
+    {{ "Delete Account" | translate }}
+  </div>
+  <div class="card">
+    <div class="card-body">
+      <button
+        type="button"
+        class="btn btn-danger m-r-15"
+        (click)="deleteAccount()"
+      >
+        <i class="fa fa-trash"></i> {{ "Delete Account" | translate }}
+      </button>
+      <p class="small m-t-5">
+        <i class="fa fa-info-circle text-danger"></i>
+        {{
+          'This action will delete your account and its related user data' | translate
+        }}
+      </p>
     </div>
   </div>
-  <!-- end of card -->
-  
+</div>
+<!-- end of card -->
