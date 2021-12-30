@@ -57,7 +57,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.authService.requesting = false;
+    this.initiliazeToastr();
+  }
 
+  ngOnDestroy() {
+    this.events.off("toast");
+  }
+
+  initiliazeToastr() {
     this.events.on("toast", (toast) => {
       switch (toast.type) {
         case "error":
@@ -74,9 +81,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {
-    this.events.off("toast");
-  }
 
   register() {
     const input = this.registerForm.value;

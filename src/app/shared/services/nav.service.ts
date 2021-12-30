@@ -565,6 +565,7 @@ export class NavService {
       type: 'link',
       bookmark: true
     },
+
     // {
     //   path: '/portal/events',
     //   title: 'Upcoming Events',

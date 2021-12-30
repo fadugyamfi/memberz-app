@@ -183,6 +183,10 @@ export class AuthService extends APIService<MemberAccount> {
     }
   }
 
+  public userStorageData(){
+    return new MemberAccount(this.storage.get('user'));
+  }
+
   get isLoggedIn(): boolean {
     return this.storage.has('auth') && this.storage.has('user');
   }
