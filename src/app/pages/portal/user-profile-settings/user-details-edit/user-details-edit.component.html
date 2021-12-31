@@ -1,253 +1,154 @@
 <div class="card">
-  <div class="card-header b-l-primary">
+  <div class="card-header b-l-primary border-2">
     {{ "Personal Details" | translate }}
   </div>
-  <div class="card">
-    <div class="card-body">
-      <form class="form form-horizontal theme-form" [formGroup]="profileForm">
-        <div class="form-group row">
-          <div class="col-form-label col-sm-3">
-            * {{ "First Name" | translate }}
-          </div>
-          <div class="col-sm-9">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter First Name"
-              formControlName="first_name"
-            />
+  <div class="card-body">
+    <form class="form form-horizontal theme-form" [formGroup]="profileForm">
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">
+          * {{ "First Name" | translate }}
+        </div>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="Enter First Name" formControlName="first_name" />
 
-            <div
-              class="text-danger"
-              *ngIf="profileForm.controls.first_name?.errors?.required"
-            >
-              {{ "First Name Required" | translate }}
-            </div>
-            <div
-              class="text-danger"
-              *ngIf="profileForm.controls.first_name?.errors?.minlength"
-            >
-              {{ "First Name must be at least 3 characters long" | translate }}
-            </div>
-            <div
-              class="text-danger"
-              *ngIf="profileForm.controls.first_name?.errors?.maxlength"
-            >
-              {{ "First Name must be at most 30 characters long" | translate }}
-            </div>
+          <div class="text-danger" *ngIf="profileForm.controls.first_name?.errors?.required">
+            {{ "First Name Required" | translate }}
+          </div>
+          <div class="text-danger" *ngIf="profileForm.controls.first_name?.errors?.minlength">
+            {{ "First Name must be at least 3 characters long" | translate }}
+          </div>
+          <div class="text-danger" *ngIf="profileForm.controls.first_name?.errors?.maxlength">
+            {{ "First Name must be at most 30 characters long" | translate }}
           </div>
         </div>
+      </div>
 
-        <div class="form-group row">
-          <div class="col-form-label col-sm-3">
-            * {{ "Last Name" | translate }}
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">
+          * {{ "Last Name" | translate }}
+        </div>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="Enter Last Name" formControlName="last_name" />
+
+          <div class="text-danger" *ngIf="profileForm.controls.last_name?.errors?.required">
+            {{ "Last Name Required" | translate }}
           </div>
-          <div class="col-sm-9">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter Last Name"
-              formControlName="last_name"
-            />
-
-            <div
-              class="text-danger"
-              *ngIf="profileForm.controls.last_name?.errors?.required"
-            >
-              {{ "Last Name Required" | translate }}
-            </div>
-            <div
-              class="text-danger"
-              *ngIf="profileForm.controls.last_name?.errors?.minlength"
-            >
-              {{ "Last Name must be at least 3 characters long" | translate }}
-            </div>
-            <div
-              class="text-danger"
-              *ngIf="profileForm.controls.last_name?.errors?.maxlength"
-            >
-              {{ "Last Name must be at most 30 characters long" | translate }}
-            </div>
+          <div class="text-danger" *ngIf="profileForm.controls.last_name?.errors?.minlength">
+            {{ "Last Name must be at least 3 characters long" | translate }}
+          </div>
+          <div class="text-danger" *ngIf="profileForm.controls.last_name?.errors?.maxlength">
+            {{ "Last Name must be at most 30 characters long" | translate }}
           </div>
         </div>
+      </div>
 
-        <div class="form-group row">
-          <div class="col-form-label col-sm-3">* {{ "Email" | translate }}</div>
-          <div class="col-sm-9">
-            <input
-              type="email"
-              class="form-control"
-              placeholder="Enter E-Mail"
-              formControlName="email"
-            />
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">* {{ "Email" | translate }}</div>
+        <div class="col-sm-9">
+          <input type="email" class="form-control" placeholder="Enter E-Mail" formControlName="email" />
 
-            <div
-              class="text-danger"
-              *ngIf="profileForm.controls.email?.errors?.required"
-            >
-              {{ "Email Required" | translate }}
-            </div>
+          <div class="text-danger" *ngIf="profileForm.controls.email?.errors?.required">
+            {{ "Email Required" | translate }}
+          </div>
 
-            <div
-              class="text-danger"
-              *ngIf="profileForm.controls.email?.errors?.email"
-            >
-              {{ "Email Invalid" | translate }}
-            </div>
-            <div
-              *ngIf="profileForm.controls.email.errors?.email"
-              class="text-danger"
-            >
-              {{ "Invalid Email" | translate }}
-            </div>
+          <div class="text-danger" *ngIf="profileForm.controls.email?.errors?.email">
+            {{ "Email Invalid" | translate }}
+          </div>
+          <div *ngIf="profileForm.controls.email.errors?.email" class="text-danger">
+            {{ "Invalid Email" | translate }}
           </div>
         </div>
+      </div>
 
-        <div class="form-group row">
-          <div class="col-form-label col-sm-3">
-            * {{ "Mobile Number" | translate }}
+      <div class="form-group row">
+        <div class="col-form-label col-sm-3">
+          * {{ "Mobile Number" | translate }}
+        </div>
+        <div class="col-sm-9">
+          <ngx-intl-tel-input [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                              [enablePlaceholder]="false" [searchCountryFlag]="true"
+                              [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                              [selectFirstCountry]="true" [selectedCountryISO]="CountryISO.Ghana" [maxLength]="15"
+                              [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                              [numberFormat]="PhoneNumberFormat.National" name="mobile_number"
+                              formControlName="mobile_number">
+          </ngx-intl-tel-input>
+
+          <div class="text-danger" *ngIf="profileForm.controls.phone?.errors?.required">
+            {{ "Phone Number Required" | translate }}
           </div>
-          <div class="col-sm-9">
-            <ngx-intl-tel-input
-              [preferredCountries]="preferredCountries"
-              [enableAutoCountrySelect]="true"
-              [enablePlaceholder]="false"
-              [searchCountryFlag]="true"
-              [searchCountryField]="[
-                SearchCountryField.Iso2,
-                SearchCountryField.Name
-              ]"
-              [selectFirstCountry]="true"
-              [selectedCountryISO]="CountryISO.Ghana"
-              [maxLength]="15"
-              [phoneValidation]="true"
-              [separateDialCode]="separateDialCode"
-              [numberFormat]="PhoneNumberFormat.National"
-              name="mobile_number"
-              formControlName="mobile_number"
-            >
-            </ngx-intl-tel-input>
 
-            <div
-              class="text-danger"
-              *ngIf="profileForm.controls.phone?.errors?.required"
-            >
-              {{ "Phone Number Required" | translate }}
-            </div>
-
-            <div
-              *ngIf="profileForm.controls.mobile_number.errors?.minlength"
-              class="text-danger"
-            >
-              {{
-                "Mobile Number must be at least 6 characters long" | translate
-              }}.
-            </div>
-            <div
-              *ngIf="profileForm.controls.mobile_number.errors?.maxlength"
-              class="text-danger"
-            >
-              {{
-                "Mobile Number must be at most 15 characters long" | translate
-              }}
-            </div>
-            <div
-              *ngIf="
-                profileForm.controls.mobile_number.errors?.validatePhoneNumber
-              "
-              class="text-danger"
-            >
-              {{ "Mobile Number Not Valid For Selected Country" | translate }}
-            </div>
+          <div *ngIf="profileForm.controls.mobile_number.errors?.minlength" class="text-danger">
+            {{
+              "Mobile Number must be at least 6 characters long" | translate
+            }}.
+          </div>
+          <div *ngIf="profileForm.controls.mobile_number.errors?.maxlength" class="text-danger">
+            {{
+              "Mobile Number must be at most 15 characters long" | translate
+            }}
+          </div>
+          <div *ngIf="
+              profileForm.controls.mobile_number.errors?.validatePhoneNumber
+            " class="text-danger">
+            {{ "Mobile Number Not Valid For Selected Country" | translate }}
           </div>
         </div>
-        <!-- end of form-group -->
+      </div>
+      <!-- end of form-group -->
 
-        <div class="form-group row">
-          <label class="col-form-label col-sm-3"
-            >* {{ "Gender" | translate }}</label
-          >
-          <div class="col-sm-9">
-            <select class="form-control mb-1" formControlName="gender">
-              <option value="">{{ "Select Gender" | translate }}</option>
-              <option value="male">{{ "Male" | translate }}</option>
-              <option value="female">{{ "Female" | translate }}</option>
-            </select>
-            <div
-              *ngIf="profileForm.controls.gender.errors?.required"
-              class="text-danger"
-            >
-              {{ "Gender Required" | translate }}
-            </div>
-          </div>
-          <!-- end of col-sm-9 -->
-        </div>
-        <div class="form-group row">
-          <label class="col-form-label col-sm-3"
-            >* {{ "Date of Birth" | translate }}</label
-          >
-          <div class="col-sm-9">
-            <input
-              class="form-control"
-              formControlName="dob"
-              type="date"
-              required
-            />
-            <div
-              *ngIf="profileForm.controls.dob.errors?.required"
-              class="text-danger"
-            >
-              {{ "Date of Birth Required" | translate }}
-            </div>
-          </div>
-          <!-- end of col-sm-9 -->
-        </div><!-- end of form-group -->
-
-        <div class="form-group row">
-          <label class="col-form-label col-sm-3"
-            > {{ "Occupation" | translate }}</label
-          >
-          <div class="col-sm-9">
-            <input
-              class="form-control"
-              formControlName="occupation"
-              type="text"
-            />
-          </div>
-          <!-- end of col-sm-9 -->
-        </div><!-- end of form-group -->
-
-        <div class="form-group row">
-          <label class="col-form-label col-sm-3"
-            > {{ "Business Name" | translate }}</label
-          >
-          <div class="col-sm-9">
-            <input
-              class="form-control"
-              formControlName="business_name"
-              type="text"
-            />
-          </div>
-          <!-- end of col-sm-9 -->
-        </div><!-- end of form-group -->
-
-        <div class="form-group row">
-          <div class="col-sm-3"></div>
-          <div class="col-sm-9">
-            <button
-              type="button"
-              class="btn btn-primary px-4"
-              [class.loader--text]="memberService.requesting"
-              [disabled]="!profileForm.valid || memberService.requesting"
-              (click)="updateProfile()"
-            >
-              <i class="fa fa-save"></i>
-              {{ memberService.requesting ? "" : ("Update Profile" | translate) }}
-            </button>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3">* {{ "Gender" | translate }}</label>
+        <div class="col-sm-9">
+          <select class="form-control mb-1" formControlName="gender">
+            <option value="">{{ "Select Gender" | translate }}</option>
+            <option value="male">{{ "Male" | translate }}</option>
+            <option value="female">{{ "Female" | translate }}</option>
+          </select>
+          <div *ngIf="profileForm.controls.gender.errors?.required" class="text-danger">
+            {{ "Gender Required" | translate }}
           </div>
         </div>
-      </form>
-    </div>
+        <!-- end of col-sm-9 -->
+      </div>
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3">* {{ "Date of Birth" | translate }}</label>
+        <div class="col-sm-9">
+          <input class="form-control" formControlName="dob" type="date" required />
+          <div *ngIf="profileForm.controls.dob.errors?.required" class="text-danger">
+            {{ "Date of Birth Required" | translate }}
+          </div>
+        </div>
+        <!-- end of col-sm-9 -->
+      </div><!-- end of form-group -->
+
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3"> {{ "Occupation" | translate }}</label>
+        <div class="col-sm-9">
+          <input class="form-control" formControlName="occupation" type="text" />
+        </div>
+        <!-- end of col-sm-9 -->
+      </div><!-- end of form-group -->
+
+      <div class="form-group row">
+        <label class="col-form-label col-sm-3"> {{ "Business Name" | translate }}</label>
+        <div class="col-sm-9">
+          <input class="form-control" formControlName="business_name" type="text" />
+        </div>
+        <!-- end of col-sm-9 -->
+      </div><!-- end of form-group -->
+
+      <div class="form-group row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-9">
+          <button type="button" class="btn btn-primary px-4" [class.loader--text]="memberService.requesting"
+                  [disabled]="!profileForm.valid || memberService.requesting" (click)="updateProfile()">
+            <i class="fa fa-save"></i>
+            {{ memberService.requesting ? "" : ("Update Profile" | translate) }}
+          </button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>
 <!-- end of card -->

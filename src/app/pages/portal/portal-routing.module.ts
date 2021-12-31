@@ -21,7 +21,7 @@ const routes: Routes = [
         component: UserProfileComponent,
         data: {
           title: "Your Profile",
-          breadcrumb: "user"
+          breadcrumb: "User Settings"
         }
       },
       {
