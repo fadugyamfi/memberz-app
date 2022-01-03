@@ -11,7 +11,9 @@
           </div>
           <div class="col-sm">
             <p>Email Address Verification</p>
-            <small>Protect your account and transactions.</small>
+            <p class="small">
+              {{ "Protect your account and transactions." | translate }}
+            </p>
           </div>
         </div>
       </div>
@@ -36,9 +38,7 @@
 <!-- end of card -->
 
 <ng-template #enableEmailTwofaModal let-modal>
-  <form
-    class="form form-horizontal theme-form"
-  >
+  <form class="form form-horizontal theme-form">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">
         {{ "Enable E-Mail Verification" | translate }}
@@ -59,25 +59,31 @@
           "E-Mail Verification Code" | translate
         }}</label>
         <div class="col-sm-6">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="e.g. 014821"
-          />
+          <input type="text" class="form-control" placeholder="e.g. 014821" />
           <small>
-            {{ "Enter the 6-digit code sent to" | translate }} <em>{{ email }}</em>
+            {{ "Enter the 6-digit code sent to" | translate }}
+            <em>{{ email }}</em>
           </small>
         </div>
 
         <div class="col-sm-3">
-          <button class="btn btn-primary btn-sm" (click)="getEmailVerificationCode()">Get Code</button>
+          <button
+            class="btn btn-primary btn-sm"
+            (click)="getEmailVerificationCode()"
+          >
+            Get Code
+          </button>
         </div>
       </div>
       <!-- end of form-group -->
 
       <div class="form-group text-center">
-         <hr>
-        <button type="submit" class="btn btn-warning mr-2" (click)="submitEmailVerification">
+        <hr />
+        <button
+          type="submit"
+          class="btn btn-warning mr-2"
+          (click)="(submitEmailVerification)"
+        >
           {{ "Submit" | translate }}
         </button>
         <button
