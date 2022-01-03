@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MemberAccount } from 'src/app/shared/model/api/member-account';
+import { AuthService } from 'src/app/shared/services/api/auth.service';
+import { MemberAccountService } from 'src/app/shared/services/api/member-account.service';
+import { EventsService } from 'src/app/shared/services/events.service';
 
 @Component({
   selector: 'app-twofa-enable',
@@ -6,10 +11,38 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./twofa-enable.component.scss']
 })
 export class TwofaEnableComponent implements OnInit {
+  @ViewChild('enableEmailTwofaModal', { static: true }) enableEmailTwofaModal: any;
 
-  constructor() { }
+  private memberAccount: MemberAccount;
+  public email: string = "";
+
+  constructor(
+    public modalService: NgbModal,
+    public authService: AuthService,
+    public events: EventsService,
+    public memberAccountService: MemberAccountService
+  ) { }
 
   ngOnInit(): void {
+    this.initializeMemberAccount();
+  }
+
+  initializeMemberAccount() {
+    this.memberAccount = this.authService.userStorageData();
+    this.email = this.memberAccount.username;
+  }
+
+
+  submitEmailVerification() {
+    this.modalService.dismissAll();
+  }
+
+  getEmailVerificationCode() {
+
+  }
+
+  showEnableEmailTwofaModal() {
+    this.modalService.open(this.enableEmailTwofaModal, { size: 'lg' });
   }
 
 }
