@@ -1,0 +1,30 @@
+<div class="donut-chart-widget">
+  <div class="card">
+    <div class="card-header">
+      <h5>{{'Membership Overview' | translate}}</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="loader-box m-auto" *ngIf="!membershipCategoriesData">
+            <span class="rotate dashed colored"></span>
+          </div>
+
+          <div class="chart-container">
+            <canvas baseChart *ngIf="renderChart" class="chart" [data]="chartData" [labels]="chartLabels"
+                    [chartType]="chartType" [options]="chartOptions"></canvas>
+          </div>
+        </div>
+
+        <!-- <div class="col-sm-5">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item p-2" *ngFor="let item of membershipCategoriesData">
+              <span class="badge badge-info pull-right">{{ item.value }}</span>
+              <span>{{ item.name }}</span>
+            </li>
+          </ul>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

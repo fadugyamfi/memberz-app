@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-header b-l-primary">
+    <div class="row">
+      <div class="col">
+        <h6 class="chart-title">{{'SMS Messages Sent' | translate}}</h6>
+      </div>
+      <!-- end of col -->
+
+      <div class="col-3">
+        <app-select-year-control [(ngModel)]="yearValue" (selectedYearEvent)="searchByYear($event)">
+        </app-select-year-control>
+      </div>
+      <!-- end of col -->
+    </div>
+    <!-- end of row -->
+  </div>
+  <div class="card-body chart-block">
+    <app-loading-rotate-dashed *ngIf="fetching"></app-loading-rotate-dashed>
+    <app-no-data-available *ngIf="!fetching && !hasDataAvailable()"></app-no-data-available>
+
+    <canvas *ngIf="!fetching && hasDataAvailable()" baseChart class="chart" [datasets]="chartData" [labels]="labels"
+            [options]="lineGraphOptions" [legend]="true" [chartType]="lineGraphType" [colors]="lineGraphColors" ></canvas>
+  </div>
+</div>
+<!-- end of card -->
