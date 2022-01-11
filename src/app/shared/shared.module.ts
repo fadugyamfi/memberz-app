@@ -62,6 +62,7 @@ import { PrintLayoutComponent } from './components/layout/print-layout/print-lay
 import { PrintFooterComponent } from './components/layout/print-layout/print-footer/print-footer.component';
 import { PrintHeaderComponent } from './components/layout/print-layout/print-header/print-header.component';
 import { TitleComponent } from './components/title/title.component';
+import { SmsSummaryComponent } from './components/charts/sms-summary/sms-summary.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +102,8 @@ import { TitleComponent } from './components/title/title.component';
     PrintLayoutComponent,
     PrintFooterComponent,
     PrintHeaderComponent,
-    TitleComponent
+    TitleComponent,
+    SmsSummaryComponent
   ],
   imports: [
     CommonModule,
@@ -149,7 +151,9 @@ import { TitleComponent } from './components/title/title.component';
     FinanceTotalsByCategoryComponent,
     NoDataAvailableComponent,
     LoadingRotateDashedComponent,
-    ArchwizardModule
+    ArchwizardModule,
+    SmsSummaryComponent,
+    ChartsModule
   ],
   providers: [
     NavService,

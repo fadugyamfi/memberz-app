@@ -1,46 +1,21 @@
 <!-- Browser uses and website visiter widget Start-->
 <div class="row">
-  <!-- browser uses widget chart Start-->
-  <div class="col-sm-6">
-    <div class="donut-chart-widget">
-      <div class="card">
-        <div class="card-header">
-          <h5>Membership Overview</h5>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="loader-box m-auto" *ngIf="!membershipCategoriesData">
-                <span class="rotate dashed colored"></span>
-              </div>
-
-              <div class="chart-container">
-                <!--  [gradient]=" monthlydoughnutChartGradient"  -->
-                <ngx-charts-pie-chart [results]="membershipCategoriesData" [scheme]="categoryChartColorScheme"
-                                      [labels]="monthlydoughnutChartShowLabels" [arcWidth]=0.60 [doughnut]="true"
-                                      [explodeSlices]="true" [animations]="false">
-                </ngx-charts-pie-chart>
-              </div>
-            </div>
-
-            <div class="col-sm-6">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item" *ngFor="let item of membershipCategoriesData">
-                  <span class="badge badge-info pull-right">{{ item.value }}</span>
-                  <span>{{ item.name }}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- browser uses widget chart Ends-->
-
   <div class="col-sm-6">
     <app-subscription-status></app-subscription-status>
   </div>
+
+  <div class="col-sm-6">
+    <app-membership-overview></app-membership-overview>
+  </div>
+
+  <div class="col-sm-6">
+    <app-finance-trend></app-finance-trend>
+  </div>
+
+  <div class="col-sm-6">
+    <app-sms-summary></app-sms-summary>
+  </div>
+
 </div>
 
 <!-- <div class="row">

@@ -18,4 +18,9 @@ export class SmsAccountMessageService extends APIService<SmsAccountMessage> {
     this.model = SmsAccountMessage;
     this.model_name = 'SmsAccountMessage';
   }
+
+  summary(params = {}) {
+    const options = Object.assign({}, params);
+    return this.get(`/sms/summary`, options);
+  }
 }
