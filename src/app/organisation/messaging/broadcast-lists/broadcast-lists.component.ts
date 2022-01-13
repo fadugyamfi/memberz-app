@@ -120,7 +120,7 @@ export class BroadcastListsComponent implements OnInit {
     });
 
     this.editorForm.valueChanges.subscribe(values => {
-      this.queryExample = this.listFilterService.getQueryExample(values);
+      this.queryExample = this.listFilterService.getQueryExample(values.filters);
     });
   }
 
@@ -137,9 +137,7 @@ export class BroadcastListsComponent implements OnInit {
     });
 
     group.valueChanges.subscribe(values => {
-      setTimeout(() => {
-        this.queryExample = this.listFilterService.getQueryExample(this.editorForm.value.filters);
-      })
+      this.queryExample = this.listFilterService.getQueryExample(this.editorForm.value.filters);
     });
 
     return group;
