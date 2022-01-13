@@ -116,6 +116,7 @@ export class MessageComposerComponent implements OnInit, OnDestroy {
     });
 
     this.events.on('SmsBroadcast:updated', () => {
+      Swal.close();
       this.cancelCompose();
     });
   }
@@ -164,6 +165,9 @@ export class MessageComposerComponent implements OnInit, OnDestroy {
     }
 
     broadcast.send_at = broadcast.send_at_date + ' ' + broadcast.send_at_time;
+    broadcast.sent_offset = 0;
+    broadcast.sent_pages = 0;
+    broadcast.sent_count = 0;
 
     const params = { contain: ['sms_broadcast_list'].join() };
 

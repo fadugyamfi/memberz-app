@@ -10,6 +10,9 @@ export class SmsBroadcast extends AppModel {
   public send_at: any;
   public send_at_date: any;
   public send_at_time: any;
+  public sent_offset = 0;
+  public sent_pages = 0;
+  public sent_count = 0;
   public _scheduler: OrganisationAccount;
   public organisation_member_category_id: number;
   public module_sms_broadcast_list_id: number;
