@@ -29,7 +29,7 @@ export class TwofaEnableComponent implements OnInit {
 
   initializeMemberAccount() {
     this.memberAccount = this.authService.userStorageData();
-    this.email = this.memberAccount.username;
+    this.email = this.concealEmail(this.memberAccount.username);
   }
 
 
@@ -40,6 +40,15 @@ export class TwofaEnableComponent implements OnInit {
   getEmailVerificationCode() {
 
   }
+
+  concealEmail(email) {
+    return email.replace(/(.{3})(.*)(?=@)/,
+      function(gp1, gp2, gp3) { 
+        for(let i = 0; i < gp3.length; i++) { 
+          gp2+= "*"; 
+        } return gp2; 
+      });
+  };
 
   showEnableEmailTwofaModal() {
     this.modalService.open(this.enableEmailTwofaModal, { size: 'lg' });
