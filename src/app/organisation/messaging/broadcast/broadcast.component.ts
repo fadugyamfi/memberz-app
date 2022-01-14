@@ -19,12 +19,11 @@ export class BroadcastComponent implements OnInit {
   }
 
   showComposer(broadcast?: SmsBroadcast) {
-    // this.view = 'composer';
-    this.composer.show();
-
     if( broadcast ) {
       this.composer.setBroadcast(broadcast);
     }
+
+    this.composer.show();
   }
 
   showHistory() {
