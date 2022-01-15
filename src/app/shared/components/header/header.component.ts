@@ -45,6 +45,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngOnInit() {
+    this.navServices.organisationMenuItems.subscribe(menuItems => {
+      this.items = menuItems;
+    });
+
+    this.fetchUnreadNotifications();
+
+    // NOTE: disabled because SSE is not a viable option for the current staging server
+    //
+    // connect to backend for user notifications
+    // setTimeout(() => {
+    //   this.subscribeToNotifications();
+    // }, 1000);
+
+    setInterval(() => this.fetchUnreadNotifications(), 60 * 1000);
+
+  }
+
   ngOnDestroy() {
     this.removeFix();
   }
@@ -154,19 +172,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public fetchUnreadNotifications() {
     this.notificationService.getUnreadNotifications().subscribe(notifications => this.unreadNotifications = notifications);
   }
-
-  ngOnInit() {
-    this.navServices.organisationMenuItems.subscribe(menuItems => {
-      this.items = menuItems;
-    });
-
-    this.fetchUnreadNotifications();
-
-    // connect to backend for user notifications
-    setTimeout(() => {
-      this.subscribeToNotifications();
-    }, 1000);
-
-  }
-
 }
