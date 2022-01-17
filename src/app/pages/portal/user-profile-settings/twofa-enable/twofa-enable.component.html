@@ -66,12 +66,13 @@
           </small>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm">
           <button
             class="btn btn-primary btn-sm"
+            [disabled]="twoFaService.requesting"
             (click)="getEmailVerificationCode()"
           >
-            Get Code
+            Get Code <span *ngIf="twoFaService.requesting" class="fa fa-spinner fa-spin"></span>
           </button>
         </div>
       </div>

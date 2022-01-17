@@ -4,6 +4,8 @@ import { MemberAccount } from 'src/app/shared/model/api/member-account';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
 import { MemberAccountService } from 'src/app/shared/services/api/member-account.service';
 import { EventsService } from 'src/app/shared/services/events.service';
+import { TwoFaService } from 'src/app/shared/services/api/two-fa.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-twofa-enable',
@@ -15,12 +17,14 @@ export class TwofaEnableComponent implements OnInit {
 
   private memberAccount: MemberAccount;
   public email: string = "";
+  public subscriptions: Subscription[] = [];
 
   constructor(
     public modalService: NgbModal,
     public authService: AuthService,
     public events: EventsService,
-    public memberAccountService: MemberAccountService
+    public memberAccountService: MemberAccountService,
+    public twoFaService: TwoFaService
   ) { }
 
   ngOnInit(): void {
@@ -38,7 +42,22 @@ export class TwofaEnableComponent implements OnInit {
   }
 
   getEmailVerificationCode() {
+    const sub = this.twoFaService.sendCode().subscribe((data: any) => {
+      if (data.status == "success"){
+        this.events.trigger("toast", this.getSuccess(data.message));
+      }
+    });
 
+    this.subscriptions.push(sub);
+  }
+
+  getSuccess(msg: string) {
+    return {
+      title: 'Request Success',
+      msg,
+      type: 'success',
+      closeOther: true
+    };
   }
 
   concealEmail(email) {
