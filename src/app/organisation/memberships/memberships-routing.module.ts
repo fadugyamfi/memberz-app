@@ -4,10 +4,10 @@ import { ProfilesComponent } from './profiles/profiles.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
 import { ReportsComponent } from './reports/reports.component';
-import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
 import { PendingApprovalsComponent } from './pending-approvals/pending-approvals.component';
 import { GroupManagerComponent } from './group-manager/group-manager.component';
+import { ProfileViewComponent } from '../../shared/components/profile-view/profile-view.component';
 
 
 const routes: Routes = [
@@ -29,6 +29,16 @@ const routes: Routes = [
           title: 'Profile Details',
           breadcrumb: 'Profile Details'
         }
+      },
+      {
+        path: 'view/:id',
+        component: ProfileViewComponent,
+        data: {
+          title: 'Profile Details',
+          breadcrumb: 'Profile Details',
+          layout: 'flyout'
+        },
+        outlet: 'flyout'
       },
       {
         path: 'add',
