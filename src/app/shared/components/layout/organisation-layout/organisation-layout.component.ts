@@ -6,6 +6,9 @@ import { CustomizerService } from '../../../services/customizer.service';
 import * as feather from 'feather-icons';
 import { ToastrService } from 'ngx-toastr';
 import { EventsService } from '../../../services/events.service';
+import { Router } from '@angular/router';
+import { OrganisationMember } from '../../../model/api/organisation-member';
+import { OrganisationMemberService } from '../../../services/api/organisation-member.service';
 
 @Component({
   selector: 'app-organisation-layout',
@@ -22,12 +25,16 @@ export class OrganisationLayoutComponent implements OnInit, OnDestroy, AfterView
 
 
   public right_side_bar: boolean;
+  public flyoutOpen = false;
+  public membership: OrganisationMember;
 
   constructor(
     public navServices: NavService,
     public customizer: CustomizerService,
     public toastrService: ToastrService,
-    public events: EventsService
+    public events: EventsService,
+    public router: Router,
+    public membershipService: OrganisationMemberService
   ) { }
 
 
@@ -40,19 +47,19 @@ export class OrganisationLayoutComponent implements OnInit, OnDestroy, AfterView
   @HostListener('document:click', ['$event'])
   clickedOutside(event) {
     // click outside Area perform following action
-    document.getElementById('outer-container').onclick = (e) => {
-      e.stopPropagation();
-      if (e.target !== document.getElementById('search-outer')) {
-        document.getElementsByTagName('body')[0].classList.remove('offcanvas');
-      }
-      if (e.target !== document.getElementById('outer-container')) {
-        document.getElementById('canvas-bookmark').classList.remove('offcanvas-bookmark');
-      }
-      if (e.target !== document.getElementById('inner-customizer')) {
-        document.getElementsByClassName('customizer-links')[0].classList.remove('open');
-        document.getElementsByClassName('customizer-contain')[0].classList.remove('open');
-      }
-    };
+    // document.getElementById('outer-container').onclick = (e) => {
+    //   e.stopPropagation();
+    //   if (e.target !== document.getElementById('search-outer')) {
+    //     document.getElementsByTagName('body')[0].classList.remove('offcanvas');
+    //   }
+    //   if (e.target !== document.getElementById('outer-container')) {
+    //     document.getElementById('canvas-bookmark').classList.remove('offcanvas-bookmark');
+    //   }
+    //   if (e.target !== document.getElementById('inner-customizer')) {
+    //     document.getElementsByClassName('customizer-links')[0].classList.remove('open');
+    //     document.getElementsByClassName('customizer-contain')[0].classList.remove('open');
+    //   }
+    // };
   }
 
   public getRouterOutletState(outlet) {
@@ -77,12 +84,21 @@ export class OrganisationLayoutComponent implements OnInit, OnDestroy, AfterView
         default:
           this.toastrService.info(toast.msg, toast.title);
       }
-
     });
+
+    this.events.on("open:membership:flyout", (membership: OrganisationMember) => {
+      this.flyoutOpen = true;
+      this.membership = membership;
+    });
+
+    this.events.on('close:membership:flyout', () => this.flyoutOpen = false);
   }
 
   ngOnDestroy() {
     this.events.off('toast');
   }
 
+  toggleFlyout() {
+    this.flyoutOpen = !this.flyoutOpen;
+  }
 }

@@ -23,6 +23,7 @@ export class IncomeComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
   public searchForm: FormGroup;
+  public contributions: Contribution[] = [];
 
   public years = null;
 
@@ -45,6 +46,7 @@ export class IncomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.removeEvents();
     this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.events.trigger("close:membership:flyout");
   }
 
   fetchContributions(options = {}, page = 1, limit = 50) {
@@ -54,7 +56,7 @@ export class IncomeComponent implements OnInit, OnDestroy {
       limit,
       sort: 'latest',
       contain: ['organisation_member.member'].join()
-    }).subscribe();
+    }).subscribe(contributions => this.contributions = contributions);
 
     this.subscriptions.push(sub);
   }

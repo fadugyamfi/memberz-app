@@ -5,10 +5,10 @@
         <div class="btn-group btn-sm">
           <button class="btn btn-sm btn-outline-secondary" [ngClass]="isActiveIf('all')"
                   (click)="setSentStatusFilter('all')">{{'All' | translate}}</button>
-          <button class="btn btn-sm btn-outline-warning" [ngClass]="isActiveIf('pending')"
-                  (click)="setSentStatusFilter('pending')">{{'Pending' | translate}}</button>
           <button class="btn btn-sm btn-outline-success" [ngClass]="isActiveIf('success')"
                   (click)="setSentStatusFilter('success')">{{'Success' | translate}}</button>
+          <button class="btn btn-sm btn-outline-warning" [ngClass]="isActiveIf('pending')"
+                  (click)="setSentStatusFilter('pending')">{{'Pending' | translate}}</button>
           <button class="btn btn-sm btn-outline-danger" [ngClass]="isActiveIf('failed')"
                   (click)="setSentStatusFilter('failed')">{{'Failed' | translate}}</button>
         </div>

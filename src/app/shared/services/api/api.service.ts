@@ -327,7 +327,7 @@ export class APIService<T extends AppModel> {
       }
 
       this.results = res['data'].map(data => new this.model(data));
-      return this.results;
+      return [...this.results];
     }));
   }
 

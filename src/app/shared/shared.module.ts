@@ -63,6 +63,20 @@ import { PrintFooterComponent } from './components/layout/print-layout/print-foo
 import { PrintHeaderComponent } from './components/layout/print-layout/print-header/print-header.component';
 import { TitleComponent } from './components/title/title.component';
 import { SmsSummaryComponent } from './components/charts/sms-summary/sms-summary.component';
+import { ViewProfileDirective } from './directives/view-profile.directive';
+
+import { ProfileViewComponent } from './components/profile-view/profile-view.component';
+import { ProfileSummaryComponent } from './components/profile-view/profile-summary/profile-summary.component';
+import { ProfileFamilyComponent } from './components/profile-view/profile-family/profile-family.component';
+import { FamilyMemberEditorComponent } from './components/profile-view/profile-family/family-member-editor/family-member-editor.component';
+import { ProfileContributionsComponent } from './components/profile-view/profile-contributions/profile-contributions.component';
+import { ProfileGroupsComponent } from './components/profile-view/profile-groups/profile-groups.component';
+import { ProfileSmsMessagesComponent } from './components/profile-view/profile-sms-messages/profile-sms-messages.component';
+import { ProfileSidebarComponent } from './components/profile-view/profile-sidebar/profile-sidebar.component';
+import { ProfileHeaderComponent } from './components/profile-view/profile-header/profile-header.component';
+import { ProfileAnniversariesComponent } from './components/profile-view/profile-anniversaries/profile-anniversaries.component';
+import { ProfileActionsComponent } from './components/profile-view/profile-actions/profile-actions.component';
+import { MakeAdminComponent } from './components/profile-view/make-admin/make-admin.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +117,20 @@ import { SmsSummaryComponent } from './components/charts/sms-summary/sms-summary
     PrintFooterComponent,
     PrintHeaderComponent,
     TitleComponent,
-    SmsSummaryComponent
+    SmsSummaryComponent,
+    ViewProfileDirective,
+    ProfileViewComponent,
+    ProfileSummaryComponent,
+    ProfileFamilyComponent,
+    FamilyMemberEditorComponent,
+    ProfileContributionsComponent,
+    ProfileGroupsComponent,
+    ProfileSmsMessagesComponent,
+    ProfileSidebarComponent,
+    ProfileHeaderComponent,
+    ProfileAnniversariesComponent,
+    ProfileActionsComponent,
+    MakeAdminComponent
   ],
   imports: [
     CommonModule,
@@ -153,7 +180,10 @@ import { SmsSummaryComponent } from './components/charts/sms-summary/sms-summary
     LoadingRotateDashedComponent,
     ArchwizardModule,
     SmsSummaryComponent,
-    ChartsModule
+    ChartsModule,
+    ViewProfileDirective,
+    ProfileViewComponent,
+    MakeAdminComponent
   ],
   providers: [
     NavService,

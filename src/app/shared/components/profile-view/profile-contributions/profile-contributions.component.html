@@ -28,7 +28,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let contribution of contributionService.getItems(); let row = index">
+      <tr *ngFor="let contribution of contributions; let row = index">
         <td class="text-right">{{ contributionService.pagingMeta.from + row }}.</td>
         <td>{{ contribution.contribution_receipt.receipt_dt | date : mediumDate }}</td>
         <td>{{ contribution.contribution_receipt.receipt_no }}</td>
