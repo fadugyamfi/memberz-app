@@ -4,7 +4,6 @@ import { MemberAccount } from 'src/app/shared/model/api/member-account';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
 import { MemberAccountService } from 'src/app/shared/services/api/member-account.service';
 import { EventsService } from 'src/app/shared/services/events.service';
-import { TwoFaService } from 'src/app/shared/services/api/two-fa.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -17,6 +16,7 @@ export class TwofaEnableComponent implements OnInit {
 
   private memberAccount: MemberAccount;
   public email: string = "";
+  public code = "";
   public subscriptions: Subscription[] = [];
 
   constructor(
@@ -24,7 +24,7 @@ export class TwofaEnableComponent implements OnInit {
     public authService: AuthService,
     public events: EventsService,
     public memberAccountService: MemberAccountService,
-    public twoFaService: TwoFaService
+    public twoFaService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -38,11 +38,17 @@ export class TwofaEnableComponent implements OnInit {
 
 
   submitEmailVerification() {
+    if(!this.code){
+      return;
+    }
+
+    this.twoFaService.enableEmailVerification(this.code);
+
     this.modalService.dismissAll();
   }
 
   getEmailVerificationCode() {
-    const sub = this.twoFaService.sendCode().subscribe((data: any) => {
+    const sub = this.twoFaService.send2FACode().subscribe((data: any) => {
       if (data.status == "success"){
         this.events.trigger("toast", this.getSuccess(data.message));
       }

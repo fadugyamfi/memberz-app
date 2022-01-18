@@ -47,25 +47,22 @@ export let lineGraphOptions: any = {
   datasetFill: false,
   legendTemplate: '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].strokeColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>'
 };
-// export var lineGraphLabels: string[] = ["January", "February", "March", "April", "May", "June", "July"];
+
 export let lineGraphType = 'line';
 export let lineGraphLegend = false;
-// export var lineGraphData: any[] = [
-//   { data: [10, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-//   { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
-// ];
-// export var lineGraphColors: Array<any> = [
-//   {
-//     backgroundColor: 'rgba(68, 102, 242, 0.3)',
-//     borderColor: "#4466f2",
-//     borderWidth: 2,
-//   },
-//   {
-//     backgroundColor: 'rgba(30, 166, 236, 0.3)',
-//     borderColor: "#1ea6ec",
-//     borderWidth: 2,
-//   },
-// ];
+
+export var lineGraphColors: Array<any> = [
+  {
+    backgroundColor: 'rgba(68, 102, 242, 0.3)',
+    borderColor: "#4466f2",
+    borderWidth: 2,
+  },
+  {
+    backgroundColor: 'rgba(30, 166, 236, 0.3)',
+    borderColor: "#1ea6ec",
+    borderWidth: 2,
+  },
+];
 
 
 // RadarGraph Chart
@@ -111,26 +108,26 @@ export let lineChartOptions: any = {
   maintainAspectRatio: false,
 
 };
-// export var lineChartColors: Array<any> = [
-//   {
-//     backgroundColor: 'rgba(68, 102, 242, 0.3)',
-//     borderColor: "#4466f2",
-//     borderWidth: 2,
-//     lineTension: 0,
-//   },
-//   {
-//     backgroundColor: 'rgba(30, 166, 236, 0.3)',
-//     borderColor: "#1ea6ec",
-//     borderWidth: 2,
-//     lineTension: 0,
-//   },
-//   {
-//     backgroundColor: 'rgba(68, 102, 242, 0.4)',
-//     borderColor: "#4466f2",
-//     borderWidth: 2,
-//     lineTension: 0,
-//   }
-// ];
+export var lineChartColors: Array<any> = [
+  {
+    backgroundColor: 'rgba(68, 102, 242, 0.3)',
+    borderColor: "#4466f2",
+    borderWidth: 2,
+    lineTension: 0,
+  },
+  {
+    backgroundColor: 'rgba(30, 166, 236, 0.3)',
+    borderColor: "#1ea6ec",
+    borderWidth: 2,
+    lineTension: 0,
+  },
+  {
+    backgroundColor: 'rgba(68, 102, 242, 0.4)',
+    borderColor: "#4466f2",
+    borderWidth: 2,
+    lineTension: 0,
+  }
+];
 export let lineChartLegend = false;
 export let lineChartType = 'line';
 
