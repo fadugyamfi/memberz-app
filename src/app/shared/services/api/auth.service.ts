@@ -19,7 +19,7 @@ export class AuthService extends APIService<MemberAccount> {
   public userData: MemberAccount;
   public _sessionId: MemberAccount;
   public currentLang: string;
-  public REMEMBER_USER_DAYS = 30;
+  public DAYS_TO_REMEMBER_USER = 30;
 
   constructor(
     public http: HttpClient,
@@ -53,7 +53,7 @@ export class AuthService extends APIService<MemberAccount> {
   }
 
   public login(username: string, password: string, remember_me: boolean = false) {
-    const DURATION = remember_me ? this.REMEMBER_USER_DAYS : 1;
+    const DURATION = remember_me ? this.DAYS_TO_REMEMBER_USER : 1;
     const params = { username, password };
 
     return this.post(`${this.url}/login`, params)
@@ -135,7 +135,7 @@ export class AuthService extends APIService<MemberAccount> {
   }
 
   public me(remember_user: boolean = false) {
-    const DURATION = remember_user ? this.REMEMBER_USER_DAYS : 1;
+    const DURATION = remember_user ? this.DAYS_TO_REMEMBER_USER : 1;
 
     return this.get(`${this.url}/me`).pipe(
       map((response) => {
