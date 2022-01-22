@@ -36,7 +36,7 @@ export class AuthService extends APIService<MemberAccount> {
 
     translate.setDefaultLang('en');
 
-    if( this.storage.has('current_lang') ) {
+    if (this.storage.has('current_lang')) {
       this.currentLang = this.storage.get('current_lang');
       translate.use(this.currentLang);
     }
@@ -102,6 +102,7 @@ export class AuthService extends APIService<MemberAccount> {
           'error'
         );
         Swal.hideLoading();
+        this.requesting = false;
       }
     );
   }
@@ -145,6 +146,42 @@ export class AuthService extends APIService<MemberAccount> {
     );
   }
 
+
+  send2FACode() {
+    return this.get('/2fa/send-code');
+  }
+
+  public enableEmailVerification(code: string) {
+    const param = { code };
+    Swal.fire(
+      this.translate.instant('Enabling E-Mail Verification'),
+      this.translate.instant('You will be logged out automatically when successful'),
+      'info'
+    );
+    Swal.showLoading();
+
+    return this.post('/2fa/email-twofa-enable', param).subscribe(
+      () => {
+        this.logout();
+        Swal.fire(
+          this.translate.instant('E-Mail Verification Enabled'),
+          this.translate.instant('Logging out of the application'),
+          'success'
+        );
+        Swal.showLoading();
+      },
+      () => {
+        Swal.fire(
+          this.translate.instant('E-Mail Verificcation Failed'),
+          this.translate.instant('Please try again'),
+          'error'
+        );
+        Swal.hideLoading();
+        this.requesting = false;
+      }
+    );
+  }
+
   // Sign out
   public logout() {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
@@ -183,7 +220,7 @@ export class AuthService extends APIService<MemberAccount> {
     }
   }
 
-  public userStorageData(){
+  public userStorageData() {
     return new MemberAccount(this.storage.get('user'));
   }
 

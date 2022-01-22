@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms";
 import { AuthService } from "../../shared/services/api/auth.service";
-import { ToastrService } from "ngx-toastr";
 import { EventsService } from "../../shared/services/events.service";
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
@@ -19,7 +18,7 @@ type FormErrors = { [u in UserFields]: string };
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
   public formErrors: FormErrors = {
     first_name: "",
@@ -40,7 +39,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   constructor(
     public authService: AuthService,
     private fb: FormBuilder,
-    public toastrService: ToastrService,
     public events: EventsService
   ) {
     this.registerForm = fb.group({
@@ -55,32 +53,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.authService.requesting = false;
-    this.initiliazeToastr();
   }
-
-  ngOnDestroy() {
-    this.events.off("toast");
-  }
-
-  initiliazeToastr() {
-    this.events.on("toast", (toast) => {
-      switch (toast.type) {
-        case "error":
-          this.toastrService.error(toast.msg, toast.title);
-          break;
-
-        case "success":
-          this.toastrService.success(toast.msg, toast.title);
-          break;
-
-        default:
-          this.toastrService.info(toast.msg, toast.title);
-      }
-    });
-  }
-
 
   register() {
     const input = this.registerForm.value;

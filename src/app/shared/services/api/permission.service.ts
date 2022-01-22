@@ -47,8 +47,6 @@ export class PermissionService extends APIService<Permission> {
       limit: 200
     });
 
-    console.log(params);
-
     return this.post(`/roles/${params.role_id}/permissions`, params).pipe(map(res => {
       return res['data'].map(data => new Permission(data));
     }));
