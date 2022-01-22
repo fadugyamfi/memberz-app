@@ -33,7 +33,7 @@
         <td [noWrap]="true">{{ broadcast.sentTo }}</td>
         <td class="pre-message">{{ broadcast.message }}</td>
         <td [noWrap]="true">
-          <a *ngIf="broadcast.scheduler" [routerLink]="['/organisation/memberships/view', broadcast.scheduler.membership.id]" target="_blank">
+          <a *ngIf="broadcast.scheduler" viewProfile [membership]="broadcast.scheduler.membership" href="javascript:void(0)">
             {{ broadcast.scheduler?.name }}
           </a>
           <span *ngIf="!broadcast.scheduler">{{ 'N/A' | translate }}</span>

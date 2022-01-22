@@ -1,16 +1,16 @@
 import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
-import { OrganisationMember } from '../../../shared/model/api/organisation-member';
-import { MemberAccount } from '../../../shared/model/api/member-account';
-import { MemberAccountService } from '../../../shared/services/api/member-account.service';
-import { OrganisationService } from '../../../shared/services/api/organisation.service';
+import { OrganisationMember } from '../../../model/api/organisation-member';
+import { MemberAccount } from '../../../model/api/member-account';
+import { MemberAccountService } from '../../../services/api/member-account.service';
+import { OrganisationService } from '../../../services/api/organisation.service';
 import { Subscription, Observable } from 'rxjs';
-import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
-import { OrganisationRole } from '../../../shared/model/api/organisation-role';
+import { OrganisationRoleService } from '../../../services/api/organisation-role.service';
+import { OrganisationRole } from '../../../model/api/organisation-role';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { OrganisationAccount } from '../../../shared/model/api/organisation-account';
-import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
-import { EventsService } from '../../../shared/services/events.service';
+import { OrganisationAccount } from '../../../model/api/organisation-account';
+import { OrganisationAccountService } from '../../../services/api/organisation-account.service';
+import { EventsService } from '../../../services/events.service';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
 

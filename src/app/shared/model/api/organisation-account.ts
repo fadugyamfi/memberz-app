@@ -2,6 +2,7 @@
 import { AppModel } from './app.model';
 import { OrganisationRole } from './organisation-role';
 import { MemberAccount } from './member-account';
+import { OrganisationMember } from './organisation-member';
 
 export class OrganisationAccount extends AppModel {
 
@@ -15,6 +16,7 @@ export class OrganisationAccount extends AppModel {
   public weekly_updates: number;
   public _organisation_role: OrganisationRole;
   public _member_account: MemberAccount;
+  public _membership: OrganisationMember;
 
   constructor(data) {
     super(data);
@@ -38,5 +40,13 @@ export class OrganisationAccount extends AppModel {
 
   get name() {
     return this.member_account?.member?.name();
+  }
+
+  set membership(value) {
+    this._membership = value ? new OrganisationMember(value) : null;
+  }
+
+  get membership() {
+    return this._membership;
   }
 }

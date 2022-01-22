@@ -52,6 +52,7 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
 
   ngOnDestroy() {
     this.removeEvents();
+    this.events.trigger("close:membership:flyout");
   }
 
   /**
@@ -112,7 +113,7 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
    */
   viewProfile(profile: OrganisationMember) {
     this.membershipService.setSelectedModel(profile);
-    this.router.navigate(['/organisation/memberships/view', profile.id]);
+    this.events.trigger('open:membership:flyout', profile);
   }
 
   /**

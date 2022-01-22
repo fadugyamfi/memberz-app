@@ -1,0 +1,25 @@
+<ngb-alert *ngIf="alertMessage" [type]="alertType" (close)="alertMessage = null">
+  {{ alertMessage }}
+</ngb-alert>
+
+<div class="row">
+  <div class="col-sm-8">
+    <button class="btn btn-success btn-sm m-r-10" *ngIf="membership?.pendingApproval()"
+            (click)="membershipService.approveRegistration(membership)">
+      <i class="fa fa-check"></i> {{'Approve' | translate}}
+    </button>
+
+    <button class="btn btn-danger btn-sm m-r-10" *ngIf="membership?.pendingApproval()"
+            (click)="membershipService.rejectRegistration(membership)">
+      <i class="fa fa-thumbs-down"></i> {{'Reject' | translate}}
+    </button>
+
+    <button class="btn btn-info btn-sm" *ngIf="membership?.approved" (click)="editProfile()">
+      <i class="fa fa-pencil"></i> {{'Edit Profile' | translate}}
+    </button>
+  </div>
+
+  <div class="col-sm-4 text-right">
+    <app-make-admin [membership]="membership"></app-make-admin>
+  </div>
+</div>

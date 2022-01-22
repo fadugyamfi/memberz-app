@@ -73,7 +73,6 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
     this.fetchAnniversaryTypes();
 
     if (this.route.snapshot.data['printing']) {
-      console.log(this.printService.params);
       this.loadMemberships(this.printService.params);
     }
   }

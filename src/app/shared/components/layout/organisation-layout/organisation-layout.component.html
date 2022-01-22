@@ -28,4 +28,12 @@
   </div>
   <!-- page-wrapper End-->
 </div>
-<app-customizer></app-customizer>
+<!-- <app-customizer></app-customizer> -->
+<div class="flyout" [ngClass]="{open: flyoutOpen}">
+  <header class="text-right">
+    <button class="btn btn-xs btn-secondary btn-round" (click)="toggleFlyout()"><i class="fa fa-times"></i></button>
+  </header>
+  <div class="content">
+    <app-profile-view [membership]="membership" [layout]="'flyout'"></app-profile-view>
+  </div>
+</div>

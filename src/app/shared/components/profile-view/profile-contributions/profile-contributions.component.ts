@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { ContributionService } from '../../../../shared/services/api/contribution.service';
+import { Contribution } from '../../../model/api/contribution';
 
 @Component({
   selector: 'app-profile-contributions',
@@ -13,6 +14,7 @@ export class ProfileContributionsComponent implements OnInit {
 
   public mbsp: OrganisationMember;
   public subscriptions: Subscription[] = [];
+  public contributions: Contribution[] = [];
 
   constructor(
     public contributionService: ContributionService
@@ -29,7 +31,7 @@ export class ProfileContributionsComponent implements OnInit {
       sort: 'latest',
       limit,
       page
-    }).subscribe();
+    }).subscribe(contributions => this.contributions = contributions);
 
     this.subscriptions.push(sub);
   }

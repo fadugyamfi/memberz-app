@@ -45,14 +45,14 @@
 
 
     <tbody>
-      <tr *ngFor="let contribution of contributionService.getItems(); let row = index">
+      <tr *ngFor="let contribution of contributions; let row = index">
         <td class="text-right">{{ row + contributionService?.pagingMeta?.from }}.</td>
         <td [noWrap]="true">{{ contribution.receipt_dt | date : short }}</td>
         <td [noWrap]="true">{{ contribution.receipt_no }}</td>
         <td>{{ contribution.contribution_type.name }}</td>
         <td>
           <div *ngIf="contribution.member_name">
-            <a target="profile" [routerLink]="['/organisation/memberships/view', contribution.organisation_member_id]">
+            <a href="javascript:void(0)" viewProfile [membership]="contribution.organisation_member" > <!-- [routerLink]="['/organisation/memberships/view', contribution.organisation_member_id]" -->
               {{ contribution.member_name }}
             </a>
           </div>
