@@ -16,9 +16,10 @@ import { TranslateService } from '@ngx-translate/core';
   providedIn: 'root',
 })
 export class AuthService extends APIService<MemberAccount> {
-  public userData;
-  public _sessionId;
-  public currentLang;
+  public userData: MemberAccount;
+  public _sessionId: MemberAccount;
+  public currentLang: string;
+  public REMEMBER_USER_DAYS = 30;
 
   constructor(
     public http: HttpClient,
@@ -47,10 +48,12 @@ export class AuthService extends APIService<MemberAccount> {
 
   public setupEvents() {
     this.events.on('api:authentication:required', () => this.logout());
+    this.events.on('auth:logout', () => this.logout());
+    this.events.on('auth:refresh', () => this.me(true).subscribe());
   }
 
   public login(username: string, password: string, remember_me: boolean = false) {
-    const DURATION = remember_me ? 30 : 1;
+    const DURATION = remember_me ? this.REMEMBER_USER_DAYS : 1;
     const params = { username, password };
 
     return this.post(`${this.url}/login`, params)
@@ -61,9 +64,9 @@ export class AuthService extends APIService<MemberAccount> {
         }),
         switchMap(() => this.me(remember_me))
       )
-      .subscribe(
-        () => this.router.navigate(['/portal/home']),
-        () => {
+      .subscribe({
+        next: () => this.router.navigate(['/portal/home']),
+        error: () => {
           Swal.fire(
             this.translate.instant('Login Failed'),
             this.translate.instant('Username or Password may be incorrect') + '.' + this.translate.instant('Please try again'),
@@ -71,10 +74,8 @@ export class AuthService extends APIService<MemberAccount> {
           );
           this.requesting = false;
         },
-        () => {
-          Swal.close();
-        }
-      );
+        complete: () => Swal.close()
+      });
   }
 
   public register(data: RegisterUserContract) {
@@ -85,8 +86,8 @@ export class AuthService extends APIService<MemberAccount> {
     );
     Swal.showLoading();
 
-    return this.post(`${this.url}/register`, data).subscribe(
-      () => {
+    return this.post(`${this.url}/register`, data).subscribe({
+      next: () => {
         this.login(data.email, data.password);
         Swal.fire(
           this.translate.instant('Registration Successful'),
@@ -95,7 +96,7 @@ export class AuthService extends APIService<MemberAccount> {
         );
         Swal.showLoading();
       },
-      () => {
+      error: () => {
         Swal.fire(
           this.translate.instant('Registration Failed'),
           this.translate.instant('Please try again'),
@@ -104,14 +105,14 @@ export class AuthService extends APIService<MemberAccount> {
         Swal.hideLoading();
         this.requesting = false;
       }
-    );
+    });
   }
 
   public forgotPassword(email: string) {
     return this.post(`${this.url}/forgot-password`, {
       username: email,
-    }).subscribe(
-      () => {
+    }).subscribe({
+      next: () => {
         Swal.fire(
           this.translate.instant('Request Successful'),
           this.translate.instant('A password reset link has been sent to your email') + '.' +
@@ -120,65 +121,30 @@ export class AuthService extends APIService<MemberAccount> {
         );
         this.router.navigate(['/auth/login']);
       },
-      () => (this.requesting = false)
-    );
+      error: () => (this.requesting = false)
+    });
   }
 
   public resetPassword(username: string, password: string, token: string) {
     const params = { username, password, token };
 
-    return this.post(`${this.url}/reset-password`, params).subscribe(
-      () => this.router.navigate(['/auth/login']),
-      () => (this.requesting = false)
-    );
+    return this.post(`${this.url}/reset-password`, params).subscribe({
+      next: () => this.router.navigate(['/auth/login']),
+      error: () => (this.requesting = false)
+    });
   }
 
   public me(remember_user: boolean = false) {
-    const DURATION = remember_user ? 14 : 1;
+    const DURATION = remember_user ? this.REMEMBER_USER_DAYS : 1;
 
     return this.get(`${this.url}/me`).pipe(
       map((response) => {
         const user = new MemberAccount(response);
         this.storage.set('user', user, DURATION, 'day');
         this.loadUserData();
+        this.events.trigger('auth:refreshed');
         return user;
       })
-    );
-  }
-
-
-  send2FACode() {
-    return this.get('/2fa/send-code');
-  }
-
-  public enableEmailVerification(code: string) {
-    const param = { code };
-    Swal.fire(
-      this.translate.instant('Enabling E-Mail Verification'),
-      this.translate.instant('You will be logged out automatically when successful'),
-      'info'
-    );
-    Swal.showLoading();
-
-    return this.post('/2fa/email-twofa-enable', param).subscribe(
-      () => {
-        this.logout();
-        Swal.fire(
-          this.translate.instant('E-Mail Verification Enabled'),
-          this.translate.instant('Logging out of the application'),
-          'success'
-        );
-        Swal.showLoading();
-      },
-      () => {
-        Swal.fire(
-          this.translate.instant('E-Mail Verificcation Failed'),
-          this.translate.instant('Please try again'),
-          'error'
-        );
-        Swal.hideLoading();
-        this.requesting = false;
-      }
     );
   }
 
@@ -194,10 +160,10 @@ export class AuthService extends APIService<MemberAccount> {
       return;
     }
 
-    this.post(`${this.url}/logout`, {}).subscribe(
-      () => this.clearAndRedirect(), // on success
-      () => this.clearAndRedirect() // on error
-    );
+    this.post(`${this.url}/logout`, {}).subscribe({
+      next: () => this.clearAndRedirect(), // on success
+      error: () => this.clearAndRedirect() // on error
+    });
   }
 
   public clearAndRedirect() {
@@ -215,9 +181,13 @@ export class AuthService extends APIService<MemberAccount> {
 
   loadUserData() {
     if (this.storage.has('user')) {
-      this.userData = new MemberAccount(this.storage.get('user'));
+      this.userData = this.userStorageData();
       this._sessionId = this.userData;
     }
+  }
+
+  getLoggedInUser() {
+    return this.userData;
   }
 
   public userStorageData() {

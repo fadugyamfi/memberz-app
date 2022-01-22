@@ -4,30 +4,30 @@
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-9">
         <div class="row">
-          <div class="col-sm-1">
-            <i class="fa fa-envelope-square fa-2x text-warning"></i>
+          <div class="col-sm-2 text-right">
+            <i class="fa fa-envelope-square fa-3x text-warning"></i>
           </div>
           <div class="col-sm">
-            <p>{{ "Email Address Verification" | translate }}</p>
+            <p class="m-b-0">{{ "Verification By Email" | translate }}</p>
             <p class="small">
-              {{ "Protect your account and transactions." | translate }}
+              {{ "Enable to prevent unauthorized access to your account" | translate }}
             </p>
           </div>
         </div>
       </div>
-      <div class="col-sm-2">
-        <span> <i class="fa fa-times-circle"></i> Unset </span>
-      </div>
-      <div class="col-sm-4 text-right">
-        <span>
-          <button
-            type="button"
-            class="btn btn-light btn-sm"
-            (click)="showEnableEmailTwofaModal()"
-          >
+
+      <div class="col-sm-3 text-right">
+        <span *ngIf="!memberAccount.is2FAByEmailEnabled()">
+          <button type="button" class="btn btn-primary" (click)="showEnableEmailTwofaModal()">
             {{ "Enable" | translate }}
+          </button>
+        </span>
+
+        <span *ngIf="memberAccount.is2FAByEmailEnabled()">
+          <button type="button" class="btn btn-danger" (click)="disable2FAByEmail()">
+            {{ "Disable" | translate }}
           </button>
         </span>
       </div>
@@ -44,35 +44,31 @@
         {{ "Enable E-Mail Verification" | translate }}
       </h4>
 
-      <button
-        type="button"
-        class="close"
-        aria-label="Close"
-        (click)="modal.dismiss('Cross click')"
-      >
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
       <div class="form-group row">
-        <label class="col-sm-3 col-form-label">{{
-          "E-Mail Verification Code" | translate
-        }}</label>
+        <div class="col-lg-12">
+          <p>
+            {{ "Enter the 6-digit code sent to" | translate }} <em>{{ email }}</em>
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">
+          {{ "E-Mail Verification Code" | translate }}
+        </label>
         <div class="col-sm-6">
           <input type="text" class="form-control" [(ngModel)]="code" placeholder="e.g. 014821" />
-          <small>
-            {{ "Enter the 6-digit code sent to" | translate }}
-            <em>{{ email }}</em>
-          </small>
         </div>
-
         <div class="col-sm">
-          <button
-            class="btn btn-primary btn-sm"
-            [disabled]="twoFaService.requesting"
-            (click)="getEmailVerificationCode()"
-          >
-            {{ "Get Code" | translate }} <span *ngIf="twoFaService.requesting" class="fa fa-spinner fa-spin"></span>
+          <button class="btn btn-primary btn-sm" [disabled]="twoFaService.requesting"
+                  (click)="getEmailVerificationCode()">
+            {{ "Resend Code" | translate }}
+            <span *ngIf="twoFaService.requesting" class="fa fa-spinner fa-spin"></span>
           </button>
         </div>
       </div>
@@ -80,18 +76,10 @@
 
       <div class="form-group text-center">
         <hr />
-        <button
-          type="submit"
-          class="btn btn-warning mr-2"
-          (click)="submitEmailVerification()"
-        >
+        <button type="submit" class="btn btn-warning mr-2" (click)="submitEmailVerification()">
           {{ "Submit" | translate }}
         </button>
-        <button
-          type="button"
-          class="btn btn-outline-danger"
-          (click)="modal.close('Save click')"
-        >
+        <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">
           {{ "Cancel" | translate }}
         </button>
       </div>

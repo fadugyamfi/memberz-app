@@ -13,6 +13,7 @@ export class MemberAccount extends AppModel {
 
   public member_id: number;
   public organisation_account: any[];
+  public email_2fa: number;
 
   constructor(data) {
     super(data);
@@ -55,5 +56,9 @@ export class MemberAccount extends AppModel {
     return this.isOrganisationAdmin(organisation_id) ?
            this.organisation_account.find(account => account.organisation_id === organisation_id) :
            null;
+  }
+
+  is2FAByEmailEnabled() {
+    return this.email_2fa === 1;
   }
 }
