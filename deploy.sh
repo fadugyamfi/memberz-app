@@ -2,4 +2,4 @@
 git pull
 npm install
 npm run build-slydepay
-num run build-staging
+npm run build-staging
