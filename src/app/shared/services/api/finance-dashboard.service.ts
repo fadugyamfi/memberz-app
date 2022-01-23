@@ -19,36 +19,22 @@ export class FinanceDashboardService extends APIService<MemberAccount> {
   }
 
   getWeeklyBreakdown(month = null, year = null) {
-    const params = {
-      month,
-      year
-    };
-
+    const params = { month, year };
     return this.get(`${this.url}/weekly_breakdown`, params);
   }
 
   getTotalsByCategory(year = null) {
-    const params = {
-      year
-    };
-    
+    const params = { year };
     return this.get(`${this.url}/totals_by_category`, params);
   }
 
   getTrendReport(year = null) {
-    const params = {
-      year
-    };
-    
+    const params = { year };
     return this.get(`${this.url}/trend_report`, params);
   }
 
   getCategoryBreakdown(month = null, year = null) {
-    const params = {
-      month,
-      year
-    };
-
+    const params = { month, year };
     return this.get(`${this.url}/category_breakdown`, params);
   }
 

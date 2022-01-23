@@ -45,7 +45,9 @@
               </div>
 
               <div class="media-body">
-                <div>{{ organisation.name }}</div>
+                <div>
+                  <a href="javascript:void(0)" (click)="loadOrganisation(organisation)">{{ organisation.name }}</a>
+                </div>
                 <small>{{ organisation?.organisation_type?.name }}</small>
               </div>
             </div>
