@@ -8,6 +8,7 @@ import { ProfileEditorComponent } from './profile-editor/profile-editor.componen
 import { PendingApprovalsComponent } from './pending-approvals/pending-approvals.component';
 import { GroupManagerComponent } from './group-manager/group-manager.component';
 import { ProfileViewComponent } from '../../shared/components/profile-view/profile-view.component';
+import { AnniversariesComponent } from './anniversaries/anniversaries.component';
 
 
 const routes: Routes = [
@@ -96,6 +97,14 @@ const routes: Routes = [
         data: {
           title: 'Organisation Groups',
           breadcrumb: 'Groups'
+        }
+      },
+      {
+        path: 'anniversaries',
+        component: AnniversariesComponent,
+        data: {
+          title: 'Membership Anniversaries',
+          breadcrumb: 'Anniversaries'
         }
       }
     ]
