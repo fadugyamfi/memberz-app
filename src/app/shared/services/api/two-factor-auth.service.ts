@@ -43,8 +43,8 @@ export class TwoFactorAuthService extends APIService<MemberAccount> {
   public enableEmailVerification(code: string) {
     const param = { code };
     Swal.fire(
-      this.translate.instant('Enabling E-Mail Verification'),
-      this.translate.instant('You will be logged out automatically when successful'),
+      this.translate.instant('Enabling Login Verification'),
+      '',
       'info'
     );
     Swal.showLoading();
@@ -54,7 +54,7 @@ export class TwoFactorAuthService extends APIService<MemberAccount> {
         this.events.trigger('auth:refresh');
 
         Swal.fire(
-          this.translate.instant('E-Mail Verification Enabled'),
+          this.translate.instant('Enabling Login Verification'),
           this.translate.instant('You will be required to provide a code at your next login'),
           'success'
         );
@@ -62,7 +62,7 @@ export class TwoFactorAuthService extends APIService<MemberAccount> {
 
       error: () => {
         Swal.fire(
-          this.translate.instant('E-Mail Verificcation Failed'),
+          this.translate.instant('Failed To Enable Login Verification'),
           this.translate.instant('Please try again'),
           'error'
         );
