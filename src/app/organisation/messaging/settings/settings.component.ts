@@ -4,6 +4,7 @@ import { SmsAccount } from '../../../shared/model/api/sms-account';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -19,7 +20,8 @@ export class SettingsComponent implements OnInit {
   constructor(
     public events: EventsService,
     public smsAccountService: SmsAccountService,
-    public organisationService: OrganisationService
+    public organisationService: OrganisationService,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -79,5 +81,6 @@ export class SettingsComponent implements OnInit {
   }
 
   purchaseSmsCredit() {
+    this.router.navigate(['/organisation/messaging/purchase-credits']);
   }
 }

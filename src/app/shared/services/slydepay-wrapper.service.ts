@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { OrganisationInvoiceItem } from '../model/api/organisation-invoice-item';
 import { CreateInvoiceResult, Transaction } from 'slydepay-angular';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,16 @@ export class SlydepayWrapperService {
 
   constructor(
     private slydepayService: SlydepayService,
-    private router: Router
+    private router: Router,
+    public translate: TranslateService
   ) { }
 
   payInvoice(invoice: OrganisationInvoice, callback: string = null) {
-    Swal.fire('Preparing Payment', 'Please wait as invoice for payment is generated', 'info');
+    Swal.fire(
+      this.translate.instant('Preparing Payment'),
+      this.translate.instant('Please wait as invoice for payment is generated'),
+      'info'
+    );
     Swal.showLoading();
 
     const orderItems = invoice.organisation_invoice_items.map((item: OrganisationInvoiceItem) => {
@@ -39,16 +45,12 @@ export class SlydepayWrapperService {
   }
 
   redirectToPayLive(result: CreateInvoiceResult, callback: string = null) {
-    Swal.fire('Redirecting to Gateway', 'Redirecting to Slydepay Payment Gateway to complete transaction. Please wait...', 'info');
+    Swal.fire(
+      this.translate.instant('Redirecting to Gateway'),
+      this.translate.instant('Redirecting to Slydepay Payment Gateway to complete transaction') + '.' + this.translate.instant('Please wait') + '...',
+      'info'
+    );
     Swal.showLoading();
-
-    // if ( !callback ) {
-    //   callback = window.location.href;
-    // }
-
-    // if ( callback.indexOf(window.location.origin) === -1 ) {
-    //   callback = window.location.origin + callback;
-    // }
 
     callback = window.location.origin + '/organisation/settings/process-payment';
 
@@ -56,7 +58,11 @@ export class SlydepayWrapperService {
   }
 
   completeTransaction(params: Transaction) {
-    Swal.fire('Completing Transaction', 'Please wait...', 'info');
+    Swal.fire(
+      this.translate.instant('Completing Transaction'),
+      this.translate.instant('Please wait') + '...',
+      'info'
+    );
     Swal.showLoading();
 
     return this.slydepayService.confirmTransaction(params).subscribe((response) => {
@@ -74,8 +80,9 @@ export class SlydepayWrapperService {
 
   cancelTransaction(params: Transaction) {
     Swal.fire(
-      'Canceling Transaction',
-      'An error occured while processing this payment. Transaction will be cancelled and payment refunded',
+      this.translate.instant('Canceling Transaction'),
+      this.translate.instant('An error occured while processing this payment') + '.' +
+      this.translate.instant('Transaction will be cancelled and payment refunded'),
       'info'
     );
     Swal.showLoading();
@@ -86,7 +93,9 @@ export class SlydepayWrapperService {
       if ( response.success ) {
         this.redirectToSubscriptions();
       } else {
-        Swal.fire('Failed To Cancel Transaction', response.errorMessage, 'error').then(() => {
+        Swal.fire(
+          this.translate.instant('Failed To Cancel Transaction'), response.errorMessage, 'error'
+        ).then(() => {
           this.redirectToSubscriptions();
         });
       }

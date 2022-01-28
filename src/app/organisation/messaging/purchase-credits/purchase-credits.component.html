@@ -1,0 +1,104 @@
+<div class="row">
+  <div class="col-sm-4 offset-1">
+    <div class="card">
+      <div class="card-header">
+        <h5>{{ 'Step 1' | translate}} - {{ 'Select Credit Bundle' | translate }}</h5>
+      </div>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>{{ 'Credit Bundle' | translate }}</th>
+            <th>{{ 'Cost' | translate }}</th>
+            <th class="text-center">{{ 'Actions' | translate }}</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let bundle of bundles">
+            <td>{{ bundle.credit_amount | number }}</td>
+            <td>{{ bundle.cost | currency : (bundle?.currency?.currency_code + ' ') }}</td>
+            <td class="text-center">
+              <button *ngIf="!isSelectedBundle(bundle)" type="button" class="btn btn-xs btn-info"
+                      (click)="selectBundle(bundle)">
+                <i class="fa fa-circle-o"></i> {{ 'Select' | translate }}
+              </button>
+              <button *ngIf="isSelectedBundle(bundle)" type="button" class="btn btn-xs btn-success">
+                <i class="fa fa-check"></i> {{ 'Selected' | translate }}
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div class="col-sm-6">
+    <form action="" (submit)="purchase($event)" [formGroup]="purchaseForm">
+      <div class="card">
+        <div class="card-header">
+          <h5>{{ 'Step 2' | translate }} - {{ 'Configure & Pay' | translate }}</h5>
+        </div>
+        <div class="card-body">
+
+          <div class="form-group row">
+            <div class="col-sm-4">{{ 'Quantity' | translate }}</div>
+            <div class="col-sm-8"><input type="number" class="form-control text-right" value="1" formControlName="quantity"></div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-4">{{'Total Credit' | translate}}</div>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">{{'SMS' | translate}}</span>
+                </div>
+                <input type="text" placeholder="0" class="form-control text-right" formControlName="credit_amount" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-4">{{'Total Cost' | translate}}</div>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">{{ bundles[0]?.currency?.currency_code }}</span>
+                </div>
+                <input type="text" placeholder="0.00" class="form-control text-right" formControlName="cost" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-4">{{'Payment Method' | translate}}</div>
+            <div class="col-sm-8">
+              <label class="d-block m-b-15" for="slydepay">
+                <input class="radio_animated" id="slydepay" type="radio" name="payment_method" checked=""
+                       value="slydepay" formControlName="payment_method">
+                <i class="fa fa-credit-card"></i>
+                {{'Slydepay (Visa, MasterCard, Mobile Money)' | translate }}
+
+                <p class="small text-muted p-l-30">
+                  {{'You will be redirected to the Slydepay Payment portal to complete your payment' | translate}}
+                </p>
+              </label>
+
+              <label class="d-block" for="cash">
+                <input class="radio_animated" id="cash" type="radio" name="payment_method" value="invoice"
+                       formControlName="payment_method">
+                <i class="fa fa-money"></i>
+                {{'Cash Payment (Generates Invoice Only)' | translate}}
+
+                <p class="small text-muted p-l-30">
+                  {{'You will be emailed an invoice with bank details to complete payment' | translate}}
+                </p>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer text-right">
+          <button class="btn btn-primary m-r-15"><i class="fa fa-shopping-cart"></i> {{ 'Purchase' | translate
+            }}</button>
+          <button class="btn btn-danger" type="button" (click)="cancel()">{{ 'Cancel' | translate }}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

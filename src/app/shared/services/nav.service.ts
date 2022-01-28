@@ -659,10 +659,11 @@ export class NavService {
       bookmark: true,
       path: '/organisation/messaging/history',
       children: [
-        // { path: '/organisation/messaging/settings', title: 'Settings', type: 'link' },
+        { path: '/organisation/messaging/settings', title: 'Dashboard', type: 'link' },
         { path: '/organisation/messaging/history', title: 'History', type: 'link' },
         { path: '/organisation/messaging/broadcast', title: 'Broadcast', type: 'link' },
-        { path: '/organisation/messaging/broadcast-lists', title: 'Broadcast Lists', type: 'link' }
+        { path: '/organisation/messaging/broadcast-lists', title: 'Broadcast Lists', type: 'link' },
+        { path: '/organisation/messaging/purchase-credits', title: 'Purchase Credits', type: 'link' },
       ]
     },
     {
@@ -718,7 +719,7 @@ export class NavService {
             { path: '/organisation/memberships/anniversaries', title: 'Anniversaries', type: 'link' }
           ]
         },
-        { path: '/organisation/messaging/settings', title: 'Messaging', type: 'link' },
+        // { path: '/organisation/messaging/settings', title: 'Messaging', type: 'link' },
         {
           path: '/organisation/finance/settings',
           title: 'Finances',
