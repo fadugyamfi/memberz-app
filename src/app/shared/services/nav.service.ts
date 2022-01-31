@@ -635,6 +635,11 @@ export class NavService {
           icon: 'users'
         },
         {
+          path: '/organisation/memberships/registration-forms',
+          title: 'Registration Forms',
+          type: 'link'
+        },
+        {
           path: '/organisation/memberships/pending-approvals',
           title: 'Pending Approvals',
           type: 'link'
