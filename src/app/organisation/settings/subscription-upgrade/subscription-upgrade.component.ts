@@ -37,10 +37,12 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadSubscriptionTypes();
     this.setupForm();
+    this.setupSlydepayEventListeners();
   }
 
   ngOnDestroy() {
     this.subs.forEach(sub => sub.unsubscribe());
+    this.removeSlydepayEventListeners();
   }
 
   loadSubscriptionTypes() {
@@ -105,6 +107,20 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
       next_upgrade_date: nextUpgradeDate.format('MMM DD, YYYY'),
       subscription_cost: upgradeCost.toFixed(2)
     });
+  }
+
+  setupSlydepayEventListeners() {
+    this.events.on('slydepay:payment:completion:success',   () => this.redirectToSubscriptions() );
+    this.events.on('slydepay:payment:completion:failed',    () => this.redirectToSubscriptions() );
+    this.events.on('slydepay:payment:cancellation:success', () => this.redirectToSubscriptions() );
+    this.events.on('slydepay:payment:cancellation:failed',  () => this.redirectToSubscriptions() );
+  }
+
+  removeSlydepayEventListeners() {
+    this.events.off('slydepay:payment:completion:success');
+    this.events.off('slydepay:payment:completion:failed');
+    this.events.off('slydepay:payment:cancellation:success');
+    this.events.off('slydepay:payment:cancellation:failed');
   }
 
   /**
@@ -176,4 +192,7 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
     this.router.navigate(['/organisation/settings/subscription']);
   }
 
+  redirectToSubscriptions() {
+    this.router.navigate(['/organisation/settings/subscription']);
+  }
 }

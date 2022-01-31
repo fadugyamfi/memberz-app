@@ -10,14 +10,13 @@ import {
   Invoice
 } from './slydepay.models';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { SlydepayMockService } from './slydepay-mock.service';
+import { Observable, of } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class SlydepayService {
+export class SlydepayMockService {
 
   private baseUrl = 'https://app.slydepay.com.gh/api/merchant';
   private redirectUrl = 'https://app.slydepay.com/paylive/detailsnew.aspx';
@@ -25,8 +24,7 @@ export class SlydepayService {
 
   constructor(
     @Inject('config') private config: SlydepayConfig,
-    private http: HttpClient,
-    private mock: SlydepayMockService
+    private http: HttpClient
   ) { }
 
   setMockMode() {
@@ -35,10 +33,6 @@ export class SlydepayService {
 
   setLiveMode() {
     this.mode = 'live';
-  }
-
-  isInMockMode() {
-    return this.mode == 'mock';
   }
 
   getMode() {
@@ -55,74 +49,74 @@ export class SlydepayService {
   createInvoice(
     invoice: Invoice
   ): Observable<SlydepayResponse<CreateInvoiceResult>> {
-    if( this.isInMockMode() ) {
-      return this.mock.createInvoice(invoice);
-    }
-
-    return this.http.post<SlydepayResponse<CreateInvoiceResult>>(
-      `${this.baseUrl}/invoice/create`,
-      invoice
-    );
+    return of({
+      success: true,
+      errorMessage: null,
+      errorCode: null,
+      result: {
+        orderCode: invoice.orderCode,
+        payToken: '123-123-123=' + (Math.random() * 100000),
+        description: 'Mock Invoice',
+        qrCodeUrl: 'http://localhost',
+        fullDiscountAmount: '0',
+        discounts: []
+      }
+    });
   }
 
   createInvoiceAndSend(
     invoice: SendInvoice
   ): Observable<SlydepayResponse<CreateInvoiceResult>> {
-    if( this.isInMockMode() ) {
-      return this.mock.createInvoiceAndSend(invoice);
-    }
-
-    return this.http.post<SlydepayResponse<CreateInvoiceResult>>(
-      `${this.baseUrl}/invoice/create`,
-      invoice
-    );
+    return of({
+      success: true,
+      errorMessage: null,
+      errorCode: null,
+      result: {
+        orderCode: '123',
+        payToken: '123-123-123',
+        description: 'Mock Invoice',
+        qrCodeUrl: 'http://localhost',
+        fullDiscountAmount: '0',
+        discounts: []
+      }
+    });
   }
 
   sendInvoice(options: SendInvoice): Observable<any> {
-    if( this.isInMockMode() ) {
-      return this.mock.sendInvoice(options);
-    }
-
     return this.http.post(`${this.baseUrl}/invoice/send`, options);
   }
 
   checkPaymentStatus(
     options: CheckPaymentStatus
   ): Observable<SlydepayResponse<string>> {
-    if( this.isInMockMode() ) {
-      return this.mock.checkPaymentStatus(options);
-    }
-
-    return this.http.post<SlydepayResponse<string>>(
-      `${this.baseUrl}/invoice/checkstatus`,
-      options
-    );
+    return of({
+      success: true,
+      errorMessage: null,
+      errorCode: null,
+      result: 'CONFIRMED'
+    });
   }
 
   confirmTransaction(
     options: Transaction
   ): Observable<SlydepayResponse<string>> {
-    if( this.isInMockMode() ) {
-      return this.mock.confirmTransaction(options);
-    }
-
-    return this.http.post<SlydepayResponse<string>>(
-      `${this.baseUrl}/transaction/confirm`,
-      options
-    );
+    return of({
+      success: true,
+      errorMessage: null,
+      errorCode: null,
+      result: 'CONFIRMED'
+    });
   }
 
   cancelTransaction(
     options: Transaction
   ): Observable<SlydepayResponse<string>> {
-    if( this.isInMockMode() ) {
-      return this.mock.cancelTransaction(options);
-    }
-
-    return this.http.post<SlydepayResponse<string>>(
-      `${this.baseUrl}/transaction/confirm`,
-      options
-    );
+    return of({
+      success: true,
+      errorMessage: null,
+      errorCode: null,
+      result: 'CANCELLED'
+    });
   }
 
   redirectToPayLive(paytoken: string, returnUrl: string = null) {

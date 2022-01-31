@@ -1,18 +1,25 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router'; // CLI imports router
 import { SlydepayComponent } from './slydepay.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SlydepayConfig } from './slydepay.models';
 import { SlydePayConfigInterceptor } from './slydepay.interceptor';
+import { SlydepayMockComponent } from './slydepay-mock.component';
 
+const routes: Routes = [
+  { path: 'slydepay-mock', component: SlydepayMockComponent }
+];
 @NgModule({
   declarations: [
     SlydepayComponent
   ],
   imports: [
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(routes)
   ],
   exports: [
-    SlydepayComponent
+    SlydepayComponent,
+    RouterModule
   ]
 })
 export class SlydepayModule {

@@ -94,9 +94,12 @@
           </div>
         </div>
         <div class="card-footer text-right">
-          <button class="btn btn-primary m-r-15"><i class="fa fa-shopping-cart"></i> {{ 'Purchase' | translate
-            }}</button>
-          <button class="btn btn-danger" type="button" (click)="cancel()">{{ 'Cancel' | translate }}</button>
+          <button class="btn btn-primary m-r-15" [disabled]="!selectedBundle">
+            <i class="fa fa-shopping-cart"></i> {{ 'Purchase' | translate }}
+          </button>
+          <button class="btn btn-danger" type="button" (click)="cancel()">
+            {{ 'Cancel' | translate }}
+          </button>
         </div>
       </div>
     </form>
