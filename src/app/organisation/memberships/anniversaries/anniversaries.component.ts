@@ -127,9 +127,9 @@ export class AnniversariesComponent implements OnInit, OnDestroy {
       show_on_reg_forms: new FormControl(false),
       send_anniversary_message: new FormControl(false),
       notify_on_anniversary: new FormControl(false),
-      message: new FormControl('', [Validators.required]),
+      message: new FormControl('', []),
       organisation_id: new FormControl(this.orgService.activeOrganisation.id),
-      active: new FormControl(false)
+      active: new FormControl(true)
     });
   }
 
