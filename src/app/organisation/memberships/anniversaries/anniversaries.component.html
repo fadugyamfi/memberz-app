@@ -1,0 +1,354 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <button
+          class="btn btn-primary btn-sm m-r-10"
+          (click)="showEditorModal()"
+        >
+          <i class="fa fa-plus"></i> {{ "Add Anniversary Type" | translate }}
+        </button>
+      </div>
+
+      <div class="col-md-6 text-right">
+        <button
+          class="btn btn-outline-info btn-sm m-r-10"
+          (click)="showSearchModal()"
+        >
+          <i class="fa fa-search"></i> {{ "Find Anniverary Types" | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="m-t-30 m-b-30 text-center"
+    *ngIf="anniversaries && anniversaries.length == 0"
+  >
+    <img
+      src="/assets/images/icons/circle-document.svg"
+      height="180"
+      class="m-b-30"
+    />
+    <h4 class="font-weight-bold">
+      {{ "No Anniversary Type Found" | translate }}
+    </h4>
+    <h6>
+      {{
+        "Please search for anniversaries type or add a new one to display results here"
+          | translate
+      }}
+    </h6>
+  </div>
+
+  <div class="loader-box m-auto" *ngIf="!anniversaries">
+    <span class="rotate dashed colored"></span>
+  </div>
+
+  <table
+    class="table table-bordered table-hover"
+    *ngIf="anniversaries && anniversaries.length > 0"
+  >
+    <thead>
+      <tr>
+        <th colspan="2">{{ "Name" | translate }}</th>
+        <th class="text-center">{{ "Show on Reg. Form" | translate }}</th>
+        <th class="text-center">{{ "Send Message" | translate }}</th>
+        <th class="text-center">{{ "Notify on Anniversary" | translate }}</th>
+        <th class="text-center">{{ "Active" | translate }}</th>
+        <th class="text-center">{{ "Total Members" | translate }}</th>
+        <th class="text-center">{{ "Actions" | translate }}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let anniverary of anniversaries; let row = index">
+        <td class="text-right">
+          {{ row + anniversaryService?.pagingMeta?.from }}.
+        </td>
+        <td>
+          <div>{{ anniverary.name }}</div>
+          <small class="text-muted">{{ anniverary.description }}</small>
+        </td>
+        <td class="text-center">
+          <ui-switch
+            [checked]="anniverary.show_on_reg_forms == 1"
+            [disabled]="true"
+          ></ui-switch>
+        </td>
+        <td class="text-center">
+          <ui-switch
+            [checked]="anniverary.send_anniversary_message == 1"
+            [disabled]="true"
+          ></ui-switch>
+        </td>
+        <td class="text-center">
+          <ui-switch
+            [checked]="anniverary.notify_on_anniversary == 1"
+            [disabled]="true"
+          ></ui-switch>
+        </td>
+        <td class="text-center">
+          <ui-switch
+            [checked]="anniverary.active == 1"
+            [disabled]="true"
+          ></ui-switch>
+        </td>
+        <td class="text-center">
+          {{
+            anniverary.organisation_member_count
+              ? anniverary.organisation_member_count
+              : 0
+          }}
+        </td>
+
+        <td class="text-center">
+          <button
+            class="btn btn-xs btn-success m-r-10"
+            (click)="showMessageModal(anniverary.message)"
+          >
+            <i class="fa fa-envelope"></i> Message
+          </button>
+
+          <button
+            class="btn btn-xs btn-primary m-r-10"
+            (click)="showEditorModal(anniverary)"
+          >
+            <i class="fa fa-pencil"></i> {{ "Edit" | translate }}
+          </button>
+
+          <button
+            class="btn btn-xs btn-danger"
+            (click)="deleteAnniversary(anniverary)"
+          >
+            <i class="fa fa-trash-o"></i> {{ "Delete" | translate }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-footer">
+    <app-pagination
+      [service]="anniversaryService"
+      (paginate)="onPaginate($event)"
+    ></app-pagination>
+  </div>
+</div>
+
+<ng-template #searchModal let-modal>
+  <form
+    (submit)="onSearch($event)"
+    class="form form-horizontal theme-form"
+    [formGroup]="searchForm"
+  >
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "Find Anniversary Type" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{ "Name" | translate }}</label>
+        <div class="col-sm-8">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="e.g. Default"
+            formControlName="name_like"
+          />
+        </div>
+      </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary">
+        {{ "Search" | translate }}
+      </button>
+      <button type="reset" class="btn btn-outline-info">
+        {{ "Clear" | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-danger"
+        (click)="modal.close('Save click')"
+      >
+        {{ "Cancel" | translate }}
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+
+<ng-template #messageModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        {{ "Anniversary Message" | translate }}
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>{{anniversaryMessage}}</p>
+    </div>
+</ng-template>
+
+<ng-template #editorModal let-modal>
+  <form
+    (submit)="onSubmit($event)"
+    class="form form-horizontal theme-form"
+    [formGroup]="editorForm"
+  >
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-basic-title">
+        {{ "Anniversary Type Editor" | translate }}
+      </h5>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{ "Name" | translate }}</label>
+        <div class="col-sm-8">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="e.g. Default"
+            formControlName="name"
+          />
+          <div
+            class="messages text-danger"
+            *ngIf="editorForm.controls.name?.errors?.required"
+          >
+            <p class="m-b-0 m-t-5">{{ "Name Required" | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{
+          "Description" | translate
+        }}</label>
+        <div class="col-sm-8">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="e.g. {{ 'Main anniverary description' | translate }}"
+            formControlName="description"
+          />
+          <div
+            class="messages text-danger"
+            *ngIf="editorForm.controls.description?.errors?.required"
+          >
+            <p class="m-b-0 m-t-5">{{ "Description Required" | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{
+          "Show on Registration Form" | translate
+        }}</label>
+        <div class="col-sm-8">
+          <ui-switch
+            formControlName="show_on_reg_forms"
+            class="align-middle m-r-10"
+          ></ui-switch>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{
+          "Send Message on Anniversary" | translate
+        }}</label>
+        <div class="col-sm-8">
+          <ui-switch
+            formControlName="send_anniversary_message"
+            class="align-middle m-r-10"
+          ></ui-switch>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{
+          "Notify on Anniversary" | translate
+        }}</label>
+        <div class="col-sm-8">
+          <ui-switch
+            formControlName="notify_on_anniversary"
+            class="align-middle m-r-10"
+          ></ui-switch>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{
+          "Active" | translate
+        }}</label>
+        <div class="col-sm-8">
+          <ui-switch
+            formControlName="active"
+            class="align-middle m-r-10"
+          ></ui-switch>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{
+          "Message" | translate
+        }}</label>
+        <div class="col-sm-8">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="e.g. {{ 'Main anniverary Message' | translate }}"
+            formControlName="message"
+          />
+          <div
+            class="messages text-danger"
+            *ngIf="editorForm.controls.message?.errors?.required"
+          >
+            <p class="m-b-0 m-t-5">{{ "Message Required" | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <span *ngIf="anniversaryService?.requesting" class="m-r-20"
+        ><i class="fa fa-spin fa-circle-o-notch"></i>
+        {{ "Saving" | translate }}...
+      </span>
+
+      <button type="submit" class="btn btn-primary">
+        {{ "Save Changes" | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-outline-danger"
+        (click)="modal.close('Save click')"
+      >
+        {{ "Cancel" | translate }}
+      </button>
+    </div>
+  </form>
+</ng-template>
