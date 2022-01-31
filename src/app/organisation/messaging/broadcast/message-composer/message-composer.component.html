@@ -40,21 +40,7 @@
       <div class="form-group row">
         <div class="col-xl-3 font-weight-bold">{{'Message' | translate}}</div>
         <div class="col-xl-9">
-          <div class="m-b-15 w-50">
-            <div class="btn-group" ngbDropdown>
-              <button type="button" class="btn btn-sm btn-outline-light" ngbDropdownToggle>
-                <i class="fa fa-tag"></i>
-                {{ 'Insert Tag' | translate }}
-              </button>
-
-              <div ngbDropdownMenu>
-                <button *ngFor="let tag of smsTagService.getTags()" type="button" ngbDropdownItem
-                        (click)="insertInTextarea(tag.template, messageField)">
-                  {{ tag.title | translate }}
-                </button>
-              </div>
-            </div>
-          </div>
+          <input-sms-template-tag-control [textarea]="messageField"></input-sms-template-tag-control>
 
           <textarea #messageField rows="6" class="form-control form-control-sm" maxlength="480"
                     placeholder="{{ 'Type Message Here' | translate }}" formControlName="message">

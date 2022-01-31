@@ -99,12 +99,6 @@ export class MessageComposerComponent implements OnInit, OnDestroy {
     return chunks
   }
 
-  insertInTextarea(newText: string, el: HTMLInputElement) {
-    const [start, end] = [el.selectionStart, el.selectionEnd];
-    el.setRangeText(newText, start, end, 'select');
-    el.focus();
-  }
-
   setupEvents() {
     this.events.on('SmsBroadcast:created', () => {
       Swal.fire(

@@ -1,11 +1,11 @@
 <div class="row">
-  <div class="col-md-10 offset-md-1">
+  <div class="col-md-12">
 
     <div class="row">
       <div class="col-md-4">
         <div class="card">
           <div class="card-body">
-            <h4>{{ 'SMS Sender ID' | translate }}</h4>
+            <h4>{{ smsAccount?.sender_id || 'N/A' }}</h4>
             <div *ngIf="smsAccount">
               <button class="btn btn-xs btn-primary pull-right" title="Refresh Account Info" (click)="refreshAccount()">
                 <i class="fa fa-refresh"></i>
@@ -16,7 +16,7 @@
                 <i class="fa fa-pencil"></i> {{ 'Edit' | translate }}
               </button>
 
-              <h6>{{ smsAccount?.sender_id }}</h6>
+              <h6 class="text-muted text-uppercase">{{ 'SMS Sender ID' | translate }}</h6>
             </div>
 
             <div class="text-center" *ngIf="!smsAccount">
@@ -31,14 +31,14 @@
       <div class="col-md-4">
         <div class="card">
           <div class="card-body">
-            <h4>{{ 'SMS Credit' | translate }}</h4>
+            <h4>{{ smsAccount?.account_balance || 0 | number }}</h4>
 
             <div *ngIf="!smsAccountService.requesting">
               <button class="btn btn-xs btn-success pull-right" (click)="purchaseSmsCredit()" *ngIf="smsAccount">
                 <i class="fa fa-shopping-cart"></i> {{ 'Purchase' | translate }}
               </button>
 
-              <h6>{{ smsAccount?.account_balance || 0 | number }}</h6>
+              <h6 class="text-muted text-uppercase">{{ 'SMS Credits' | translate }}</h6>
             </div>
 
             <div *ngIf="smsAccountService.requesting">
@@ -51,8 +51,8 @@
       <div class="col-md-4">
         <div class="card">
           <div class="card-body">
-            <h4>{{ 'Bonus Balance' | translate }}</h4>
-            <h6>{{ smsAccount?.bonus_balance || 0 | number }}</h6>
+            <h4>{{ smsAccount?.bonus_balance || 0 | number }}</h4>
+            <h6 class="text-muted text-uppercase">{{ 'Bonus Balance' | translate }}</h6>
           </div>
         </div>
       </div>
@@ -108,7 +108,10 @@
 
 
 <div class="row" *ngIf="!editingAccount">
-  <div class="col-md-10 offset-md-1">
+  <div class="col-md-6">
+    <app-sms-summary></app-sms-summary>
+  </div>
+  <div class="col-md-6">
     <app-sms-transaction-history *ngIf="smsAccount"></app-sms-transaction-history>
   </div>
 </div>

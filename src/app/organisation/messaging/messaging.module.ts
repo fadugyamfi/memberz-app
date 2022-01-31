@@ -12,6 +12,7 @@ import { BroadcastHistoryViewComponent } from './broadcast/broadcast-history-vie
 import { BroadcastListsComponent } from './broadcast-lists/broadcast-lists.component';
 import { BroadcastListPreviewComponent } from './broadcast-list-preview/broadcast-list-preview.component';
 import { ListFilterComponent } from './broadcast-lists/list-filter/list-filter.component';
+import { PurchaseCreditsComponent } from './purchase-credits/purchase-credits.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ListFilterComponent } from './broadcast-lists/list-filter/list-filter.c
     BroadcastHistoryViewComponent,
     BroadcastListsComponent,
     BroadcastListPreviewComponent,
-    ListFilterComponent
+    ListFilterComponent,
+    PurchaseCreditsComponent
   ],
   imports: [
     CommonModule,

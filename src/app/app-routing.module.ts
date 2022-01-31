@@ -14,6 +14,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { RegisterComponent } from './auth/register/register.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { PrintLayoutComponent } from './shared/components/layout/print-layout/print-layout.component';
+import { SlydepayMockComponent } from 'slydepay-angular';
 
 const routes: Routes = [
   {
@@ -51,6 +52,11 @@ const routes: Routes = [
     path: '',
     component: FullLayoutComponent,
     canActivate: [AdminGuard],
+    children: full
+  },
+  {
+    path: 'slydepay-mock',
+    component: SlydepayMockComponent,
     children: full
   },
   {

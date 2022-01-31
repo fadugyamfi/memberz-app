@@ -16,6 +16,7 @@ export const environment = {
     url: 'https://memberz-api.ti8zzavwzb-ewx3lgxzk6zq.p.runcloud.link/api'
   },
   slydepay: {
+    mode: 'live',
     emailOrMobileNumber: 'info@matrixdesignsgh.com',
     merchantKey: '1429300048036'
   }

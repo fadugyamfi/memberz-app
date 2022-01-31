@@ -170,6 +170,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public fetchUnreadNotifications() {
+    if( !this.authService.isLoggedIn ) {
+      return;
+    }
+
     this.notificationService.getUnreadNotifications().subscribe(notifications => this.unreadNotifications = notifications);
   }
 }

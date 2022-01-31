@@ -14,7 +14,7 @@ export class SmsCreditService extends APIService<SmsCredit> {
   constructor(http: HttpClient, protected events: EventsService, protected storage: StorageService) {
     super(http, events, storage);
 
-    this.url = '/sms_account_messages';
+    this.url = '/sms_credits';
     this.model = SmsCredit;
     this.model_name = 'SmsCredit';
   }
