@@ -2,13 +2,15 @@
   <div class="card-header">
     <div class="row">
       <div class="col-md-6">
-        <button class="btn btn-primary btn-sm m-r-10" (click)="showEditorModal()">
-          <i class="fa fa-plus"></i> {{ "Add Anniversary Type" | translate }}
-        </button>
+
       </div>
 
       <div class="col-md-6 text-right">
-        <button class="btn btn-outline-info btn-sm m-r-10" (click)="showSearchModal()">
+        <button class="btn btn-primary btn-sm m-r-10" (click)="showEditorModal()">
+          <i class="fa fa-plus"></i> {{ "Add Anniversary Type" | translate }}
+        </button>
+
+        <button class="btn btn-outline-info btn-sm" (click)="showSearchModal()">
           <i class="fa fa-search"></i> {{ "Find Anniverary Types" | translate }}
         </button>
       </div>
@@ -21,10 +23,7 @@
       {{ "No Anniversary Type Found" | translate }}
     </h4>
     <h6>
-      {{
-      "Please search for anniversaries type or add a new one to display results here"
-      | translate
-      }}
+      {{ "Please search for anniversaries type or add a new one to display results here" | translate }}
     </h6>
   </div>
 
@@ -39,7 +38,6 @@
         <th class="text-center">{{ "Show on Reg. Form" | translate }}</th>
         <th class="text-center">{{ "Send Message" | translate }}</th>
         <th class="text-center">{{ "Notify on Anniversary" | translate }}</th>
-        <th class="text-center">{{ "Active" | translate }}</th>
         <th class="text-center">{{ "Total Members" | translate }}</th>
         <th class="text-center">{{ "Actions" | translate }}</th>
       </tr>
@@ -55,29 +53,22 @@
           <small class="text-muted">{{ anniverary.description }}</small>
         </td>
         <td class="text-center">
-          <ui-switch [checked]="anniverary.show_on_reg_forms == 1" [disabled]="true"></ui-switch>
+          <ui-switch [size]="'small'" [checked]="anniverary.show_on_reg_forms == 1" [disabled]="true"></ui-switch>
         </td>
         <td class="text-center">
-          <ui-switch [checked]="anniverary.send_anniversary_message == 1" [disabled]="true"></ui-switch>
+          <ui-switch [size]="'small'" [checked]="anniverary.send_anniversary_message == 1" [disabled]="true"></ui-switch>
         </td>
         <td class="text-center">
-          <ui-switch [checked]="anniverary.notify_on_anniversary == 1" [disabled]="true"></ui-switch>
+          <ui-switch [size]="'small'" [checked]="anniverary.notify_on_anniversary == 1" [disabled]="true"></ui-switch>
         </td>
         <td class="text-center">
-          <ui-switch [checked]="anniverary.active == 1" [disabled]="true"></ui-switch>
-        </td>
-        <td class="text-center">
-          {{
-          anniverary.organisation_member_count
-          ? anniverary.organisation_member_count
-          : 0
-          }}
+          {{ anniverary.organisation_member_anniversary_count || 0 }}
         </td>
 
         <td class="text-center">
-          <button class="btn btn-xs btn-success m-r-10" (click)="showMessageModal(anniverary.message)">
-            <i class="fa fa-envelope"></i> Message
-          </button>
+          <!-- <button class="btn btn-xs btn-success m-r-10" (click)="showMessageModal(anniverary.message)">
+            <i class="fa fa-envelope"></i> {{'Message' | translate}}
+          </button> -->
 
           <button class="btn btn-xs btn-primary m-r-10" (click)="showEditorModal(anniverary)">
             <i class="fa fa-pencil"></i> {{ "Edit" | translate }}
