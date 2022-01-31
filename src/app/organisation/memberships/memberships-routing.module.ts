@@ -9,6 +9,7 @@ import { PendingApprovalsComponent } from './pending-approvals/pending-approvals
 import { GroupManagerComponent } from './group-manager/group-manager.component';
 import { ProfileViewComponent } from '../../shared/components/profile-view/profile-view.component';
 import { AnniversariesComponent } from './anniversaries/anniversaries.component';
+import { RegistrationFormsComponent } from './registration-forms/registration-forms.component';
 
 
 const routes: Routes = [
@@ -105,6 +106,14 @@ const routes: Routes = [
         data: {
           title: 'Membership Anniversaries',
           breadcrumb: 'Anniversaries'
+        }
+      },
+      {
+        path: 'registration-forms',
+        component: RegistrationFormsComponent,
+        data: {
+          title: 'Registration Forms',
+          breadcrumb: 'Registration Forms'
         }
       }
     ]

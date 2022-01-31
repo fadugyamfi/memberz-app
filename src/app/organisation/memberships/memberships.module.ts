@@ -17,6 +17,7 @@ import { UploadReviewComponent } from './bulk-upload/upload-review/upload-review
 
 import { GroupMembersComponent } from './group-manager/group-members/group-members.component';
 import { AnniversariesComponent } from './anniversaries/anniversaries.component';
+import { RegistrationFormsComponent } from './registration-forms/registration-forms.component';
 
 
 
@@ -36,6 +37,7 @@ import { AnniversariesComponent } from './anniversaries/anniversaries.component'
     UploadReviewComponent,
     GroupMembersComponent,
     AnniversariesComponent,
+    RegistrationFormsComponent,
   ],
   imports: [
     CommonModule,
