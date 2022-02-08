@@ -12,7 +12,7 @@
           </div>
           <form class="theme-form" [formGroup]="loginForm" *ngIf="!newUser">
             <div class="form-group">
-              <label class="col-form-label pt-0">Email</label>
+              <label class="col-form-label pt-0">{{'Email' | translate}}</label>
               <input
                 class="form-control"
                 formControlName="email"
