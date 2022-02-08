@@ -22,7 +22,8 @@ export const environment = {
   },
   slydepay: {
     emailOrMobileNumber: 'info@matrixdesignsgh.com',
-    merchantKey: '1429300048036'
+    merchantKey: '1429300048036',
+    mode: 'dev'
   }
 };
 /*

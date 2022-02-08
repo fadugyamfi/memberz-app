@@ -56,26 +56,54 @@ export class AuthService extends APIService<MemberAccount> {
     const DURATION = remember_me ? this.DAYS_TO_REMEMBER_USER : 1;
     const params = { username, password };
 
-    return this.post(`${this.url}/login`, params)
-      .pipe(
-        map((response) => {
-          this.storage.set('auth', response, DURATION, 'day');
-          return response;
-        }),
-        switchMap(() => this.me(remember_me))
-      )
-      .subscribe({
-        next: () => this.router.navigate(['/portal/home']),
-        error: () => {
-          Swal.fire(
-            this.translate.instant('Login Failed'),
-            this.translate.instant('Username or Password may be incorrect') + '.' + this.translate.instant('Please try again'),
-            'error'
-          );
-          this.requesting = false;
-        },
-        complete: () => Swal.close()
-      });
+    this.storage.set('loginUser', params);
+    this.storage.set('remember_me', remember_me);
+
+    return this.post(`${this.url}/login`, params).subscribe({
+      next: (res) => {
+        if (res['status'] == '2fa') {
+          this.router.navigate(['/auth/2fa']);
+        } else {
+          this.performLogin(res, DURATION, remember_me);
+        }
+      },
+      error: () => {
+        Swal.fire(
+          this.translate.instant('Login Failed'),
+          this.translate.instant('Username or Password may be incorrect') + '.' + this.translate.instant('Please try again'),
+          'error'
+        );
+        this.requesting = false;
+      }
+    });
+  }
+
+
+  public validateTwoFaLogin(username: string, password: string, remember_me: boolean = false, code: string) {
+    const DURATION = remember_me ? this.DAYS_TO_REMEMBER_USER : 1;
+    const params = { username, password, code };
+
+    return this.post(`${this.url}/2fa-validate`, params).subscribe({
+      next: (res) => {
+        this.performLogin(res, DURATION, remember_me);
+      },
+      error: () => {
+        Swal.fire(
+          this.translate.instant('Login Failed'),
+          this.translate.instant('Username or Password may be incorrect') + '.' + this.translate.instant('Please try again'),
+          'error'
+        );
+        this.requesting = false;
+      }
+    });
+  }
+
+  private performLogin(res, DURATION, remember_me) {
+    this.storage.remove('loginUser');
+    this.storage.remove('remember_me');
+    this.storage.set('auth', res, DURATION, 'day');
+    this.me(remember_me);
+    this.router.navigate(['/portal/home']);
   }
 
   public register(data: RegisterUserContract) {
