@@ -18,6 +18,8 @@ import { UploadReviewComponent } from './bulk-upload/upload-review/upload-review
 import { GroupMembersComponent } from './group-manager/group-members/group-members.component';
 import { AnniversariesComponent } from './anniversaries/anniversaries.component';
 import { RegistrationFormsComponent } from './registration-forms/registration-forms.component';
+import { RegistrationFormEditorComponent } from './registration-forms/registration-form-editor/registration-form-editor.component';
+import { CustomFieldEditorComponent } from './registration-forms/custom-field-editor/custom-field-editor.component';
 
 
 
@@ -38,6 +40,8 @@ import { RegistrationFormsComponent } from './registration-forms/registration-fo
     GroupMembersComponent,
     AnniversariesComponent,
     RegistrationFormsComponent,
+    RegistrationFormEditorComponent,
+    CustomFieldEditorComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,148 @@
+<div class="row">
+  <div class="col-sm-10 offset-1">
+
+    <div class="card">
+      <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="editorForm">
+        <div class="card-header">
+          <h6 class="modal-title" id="modal-basic-title">{{ 'Add / Edit Registration Form' | translate }}</h6>
+        </div>
+        <div class="card-body border-bottom">
+
+          <div class="row form-group">
+            <label class="col-sm-3 col-form-label font-weight-bold">
+              {{ 'Name' | translate }}
+            </label>
+
+            <div class="col-sm-9">
+              <input type="text" class="form-control" formControlName="name"
+                     placeholder="e.g. {{ 'New Comers Form' | translate }}" />
+
+              <div class="text-danger" *ngIf="editorForm.controls.name?.errors?.required">
+                <p class="mb-0">{{ 'Name Required' | translate }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="row form-group">
+            <label class="col-sm-3 col-form-label font-weight-bold">
+              {{ 'Description' | translate }}
+            </label>
+
+            <div class="col-sm-9">
+              <input type="text" class="form-control" formControlName="description"
+                     placeholder="e.g. {{ 'A form new comers' | translate }}" />
+            </div>
+          </div> -->
+
+          <div class="row form-group">
+            <label class="col-sm-3 col-form-label font-weight-bold">
+              {{ 'Registration Close Date' | translate }}
+            </label>
+
+            <div class="col-sm-9">
+              <input type="datetime-local" class="form-control" formControlName="expiration_dt" />
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <label class="col-sm-3 col-form-label font-weight-bold">
+              {{ 'Exclude Fields' | translate }}
+
+              <span class="pull-right">
+                <i class="fa fa-exclamation-circle text-info" placement="top"
+                 ngbTooltip="{{ 'These fields will be included on the registration form unless selected for exclusion' | translate }}"></i>
+              </span>
+
+            </label>
+
+            <div class="col-sm-9 m-checkbox-inline" formArrayName="excluded_standard_fields">
+              <!-- <div class="alert alert-light">
+                <p class="text-sm">
+                  {{ 'These fields will be included on the registration form unless selected for exclusion' | translate
+                  }}
+                </p>
+              </div> -->
+
+              <div class="checkbox" *ngFor="let item of standardFields; let i = index" [formGroupName]="i">
+                <input type="checkbox" [id]="item.field" [value]="item.field" formControlName="excluded" />
+                <label [for]="item.field">
+                  {{ item.label | translate }}
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row form-group" formArrayName="custom_fields">
+            <label class="col-sm-3 col-form-label font-weight-bold">
+              {{ 'Custom Fields' | translate }}
+            </label>
+
+            <div class="col-sm-7">
+              <div *ngIf="customFields.length > 0">
+                <div class="card shadow-sm mb-3" *ngFor="let group of customFields?.controls; let i = index">
+                  <div class="card-body p-3">
+                    <div class="d-flex">
+                      <span class="icon px-3">
+                        <i class="fa fa-2x" [ngClass]="{
+                          'fa-font': group.value.type == 'text',
+                          'fa-calendar': group.value.type == 'date',
+                          'fa-clock-o': group.value.type == 'time',
+                          'fa-caret-square-o-down': group.value.type == 'select'
+                        }"></i>
+                      </span>
+                      <div class="flex-grow-1">
+                        <p class="font-weight-bold">{{ group.value.label }}</p>
+                      </div>
+
+                      <div class="">
+                        <button class="btn btn-xs btn-info m-r-15" (click)="editCustomField(group.value)"><i
+                             class='fa fa-pencil fa-fw m-0'></i></button>
+                        <button class="btn btn-xs btn-danger" (click)="removeCustomFieldGroup(i)"><i
+                             class='fa fa-trash-o fa-fw m-0'></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="alert alert-light p-3" *ngIf="customFields.length == 0">
+                <p>{{ 'No Custom Fields Added'}}</p>
+              </div>
+            </div>
+
+            <div class="col-sm-2 text-right">
+              <button type="button" class="btn btn-primary btn-sm pr-3 pl-3" (click)="addCustomField()">
+                <i class="fa fa-plus"></i> {{ 'Add Field' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <span class="pull-left m-r-10" *ngIf="registrationFormService.saving">
+            <i class="fa fa-spin fa-circle-notch-o"></i> {{ 'Saving' | translate }} ...
+          </span>
+
+          <button type="submit" class="btn btn-primary m-r-15">
+            {{ 'Submit' | translate }}
+          </button>
+
+          <button type="button" class="btn btn-outline-danger" (click)="resetForm();">
+            {{ 'Cancel' | translate }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <!-- <div class="col-sm-5">
+    <div class="card">
+      <div class="card-header"><h5>Preview</h5></div>
+      <div class="card-body"></div>
+    </div>
+  </div> -->
+</div>
+
+
+<app-custom-field-editor #customFieldEditor (create)="addCustomFieldGroup($event)"></app-custom-field-editor>
