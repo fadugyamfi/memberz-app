@@ -1,1 +1,57 @@
-<p>registration-forms works!</p>
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-sm-6">
+        <app-loading-rotate-dashed *ngIf="registrationFormService.fetching"></app-loading-rotate-dashed>
+      </div>
+      <div class="col-sm-6 text-right">
+        <button class="btn btn-sm btn-primary" [routerLink]="['/organisation/memberships/registration-forms/add']" > <!-- (click)="showEditorModal()"-->
+          <i class="fa fa-plus"></i> {{ 'Add Form' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-t-30 m-b-30 text-center" *ngIf="registrationFormService.hasZeroItems() && !registrationFormService.fetching">
+    <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
+    <h4 class="font-weight-bold">{{ 'No Registration Forms Available' | translate }}</h4>
+    <h6>{{'Create some registration forms to have them show up here' | translate}}</h6>
+  </div>
+
+  <table class="table table-bordered table-hover" *ngIf="registrationFormService.hasItems() && !registrationFormService.fetching">
+    <thead>
+      <tr>
+        <th colspan="2">{{ 'Name' | translate }}</th>
+        <th>{{ 'Registration Closes' | translate }}</th>
+        <th class="text-right">{{ 'Modified' | translate }}</th>
+        <th class="text-center">{{ 'Total Registered' | translate }}</th>
+        <th class="text-center">{{ 'Actions' | translate }}</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let form of forms; let row = index">
+        <td>{{ row + registrationFormService.pagingMeta?.from }}</td>
+        <td>{{ form.name }}</td>
+        <td>{{ form.expiration_dt | date : medium }}</td>
+        <td class="text-right">{{ form.lastModified() }}</td>
+        <td class="text-center">{{ (form.organisation_members_count || 0) | number }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-primary m-r-10">{{ 'Register' | translate }}</button>
+          <button class="btn btn-sm btn-info m-r-10" [routerLink]="['/organisation/memberships/registration-forms', form.id, 'edit']">{{ 'Edit' | translate }}</button>
+          <button class="btn btn-sm btn-danger">{{ 'Delete' | translate }}</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-footer text-right">
+    <app-pagination [service]="registrationFormService" (paginate)="onPaginate($event)"></app-pagination>
+  </div>
+</div>
+
+
+<ng-template #editorModal let-modal>
+
+</ng-template>

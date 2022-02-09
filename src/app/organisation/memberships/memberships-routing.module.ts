@@ -10,6 +10,7 @@ import { GroupManagerComponent } from './group-manager/group-manager.component';
 import { ProfileViewComponent } from '../../shared/components/profile-view/profile-view.component';
 import { AnniversariesComponent } from './anniversaries/anniversaries.component';
 import { RegistrationFormsComponent } from './registration-forms/registration-forms.component';
+import { RegistrationFormEditorComponent } from './registration-forms/registration-form-editor/registration-form-editor.component';
 
 
 const routes: Routes = [
@@ -114,6 +115,22 @@ const routes: Routes = [
         data: {
           title: 'Registration Forms',
           breadcrumb: 'Registration Forms'
+        }
+      },
+      {
+        path: 'registration-forms/add',
+        component: RegistrationFormEditorComponent,
+        data: {
+          title: 'Add Registration Form',
+          breadcrumb: 'Add Registration Form'
+        }
+      },
+      {
+        path: 'registration-forms/:id/edit',
+        component: RegistrationFormEditorComponent,
+        data: {
+          title: 'Edit Registration Form',
+          breadcrumb: 'Edit Registration Form'
         }
       }
     ]

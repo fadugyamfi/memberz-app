@@ -1,0 +1,130 @@
+<ng-template #customFieldModal let-modal>
+  <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="customFieldForm">
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-basic-title">{{ 'Custom Field Editor' | translate }}</h5>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body border-bottom">
+
+      <!-- <div class="row form-group">
+        <label class="col-sm-3 col-form-label font-weight-bold">
+          {{ 'Name' | translate }}
+        </label>
+
+        <div class="col-sm-9">
+          <input type="text" class="form-control" formControlName="name"
+                 placeholder="e.g. {{ 'New Comers Form' | translate }}" />
+
+          <div class="text-danger" *ngIf="customFieldForm.controls.name?.errors?.required">
+            <p class="mb-0">{{ 'Name Required' | translate }}</p>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="row form-group">
+        <label class="col-sm-3 col-form-label font-weight-bold">
+          {{ 'Type' | translate }}
+        </label>
+
+        <div class="col-sm-9 ">
+          <div class="m-checkbox-inline p-l-25">
+            <div class="radio">
+              <input type="radio" id="textfield" formControlName="type" value="text" />
+              <label for="textfield">
+                <i class='fa fa-font'></i> {{ 'Text Field' | translate }}
+              </label>
+            </div>
+
+            <div class="radio">
+              <input type="radio" id="datefield" formControlName="type" value="date" />
+              <label for="datefield">
+                <i class='fa fa-calendar'></i> {{ 'Date Field' | translate }}
+              </label>
+            </div>
+
+            <div class="radio">
+              <input type="radio" id="timefield" formControlName="type" value="time" />
+              <label for="timefield">
+                <i class='fa fa-clock-o'></i> {{ 'Time Field' | translate }}
+              </label>
+            </div>
+
+            <div class="radio">
+              <input type="radio" id="dropdown" formControlName="type" value="select" />
+              <label for="dropdown">
+                <i class='fa fa-caret-square-o-down'></i> {{ 'Dropdown List' | translate }}
+              </label>
+            </div>
+          </div>
+
+          <div class="text-danger" *ngIf="customFieldForm.controls.type?.errors?.required">
+            <p class="mb-0">{{ 'Field Type Required' | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row form-group">
+        <label class="col-sm-3 col-form-label font-weight-bold">{{ 'Field Label' | translate }}</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="e.g. {{ 'Recent Job' | translate }}" formControlName="label" />
+
+          <div class="text-danger" *ngIf="customFieldForm.controls.label?.errors?.required">
+            <p class="mb-0">{{ 'Field Label Required' | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row form-group animated fadeIn" *ngIf="!selectTypeSelected()">
+        <label class="col-sm-3 col-form-label font-weight-bold">{{ 'Placeholder Text' | translate }}</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="e.g. {{ 'Enter Job Name Here' | translate }}" formControlName="placeholder" />
+        </div>
+      </div>
+
+      <div class="row form-group animated fadeIn" formArrayName="options" *ngIf="selectTypeSelected()">
+        <label class="col-sm-3 col-form-label font-weight-bold">{{ 'Options' | translate }}</label>
+        <div class="col-sm-7">
+          <div class="row form-group" *ngFor="let option of optionGroups?.controls; let i = index" [formGroup]="option">
+            <div class="col-sm-5">
+              <input type="text" class="form-control" placeholder="Label" formControlName="label" />
+            </div>
+
+            <div class="col-sm-5">
+              <input type="text" class="form-control" placeholder="Value" formControlName="value" />
+            </div>
+
+            <div class="col-sm-2">
+              <button type="button" class="btn btn-danger btn-sm btn-icon" (click)="removeFieldOptionGroup(i)">
+                <i class="fa fa-trash-o"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-2 text-right">
+          <button type="button" class="btn btn-sm btn-primary" title="{{ 'Add Option' | translate }}" (click)="addFieldOptionGroup()">
+            <i class="fa fa-plus"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <!-- <span class="pull-left m-r-10" *ngIf="registrationFormService.saving">
+        <i class="fa fa-spin fa-circle-notch-o"></i> {{ 'Saving' | translate }} ...
+      </span> -->
+
+      <button type="submit" class="btn btn-primary">
+        {{ 'Submit' | translate }}
+      </button>
+
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click');">
+        {{ 'Cancel' | translate }}
+      </button>
+    </div>
+  </form>
+</ng-template>
