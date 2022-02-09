@@ -20,6 +20,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
+import { TwoFaCheckComponent } from './auth/two-fa-check/two-fa-check.component';
 
 
 // AoT requires an exported function for factories
@@ -33,7 +34,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoginComponent,
     RegisterComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    TwoFaCheckComponent
   ],
   imports: [
     BrowserModule,

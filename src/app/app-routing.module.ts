@@ -15,6 +15,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { PrintLayoutComponent } from './shared/components/layout/print-layout/print-layout.component';
 import { SlydepayMockComponent } from 'slydepay-angular';
+import { TwoFaCheckComponent } from './auth/two-fa-check/two-fa-check.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
   {
     path: 'auth/login',
     component: LoginComponent,
+    canActivate: [LoggedInGuard]
+  },
+  {
+    path: 'auth/2fa',
+    component: TwoFaCheckComponent,
     canActivate: [LoggedInGuard]
   },
   {
