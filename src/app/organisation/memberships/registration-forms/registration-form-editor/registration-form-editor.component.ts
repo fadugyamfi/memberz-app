@@ -1,17 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrganisationRegistrationFormService } from '../../../../shared/services/api/organisation-registration-form.service';
 import { EventsService } from '../../../../shared/services/events.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { OrganisationRegistrationForm } from '../../../../shared/model/api/organisation-registration-form';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration-form-editor',
   templateUrl: './registration-form-editor.component.html',
   styleUrls: ['./registration-form-editor.component.scss']
 })
-export class RegistrationFormEditorComponent implements OnInit {
+export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
 
   @ViewChild('customFieldEditor', { static: true }) customFieldEditor: any;
   public editorForm: FormGroup;
@@ -31,18 +32,40 @@ export class RegistrationFormEditorComponent implements OnInit {
     public registrationFormService: OrganisationRegistrationFormService,
     private modalService: NgbModal,
     public events: EventsService,
-    public organisationService: OrganisationService
+    public organisationService: OrganisationService,
+    public router: Router,
+    public route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.setupEditorForm();
+    this.setupEvents();
+    this.loadRegistrationForm();
+  }
+
+  ngOnDestroy(): void {
+    this.removeEvents();
+  }
+
+  loadRegistrationForm() {
+    const form_id = this.route.snapshot.paramMap.get('id');
+    const form = this.registrationFormService.getSelectedModel();
+
+    if( form ) {
+      this.editorForm.patchValue(form);
+      return;
+    }
+
+    if( form_id ) {
+      this.registrationFormService.getById(form_id).subscribe(form => {
+        this.editorForm.patchValue(form);
+      });
+    }
   }
 
   get customFields(): FormArray {
     return this.editorForm.controls.custom_fields as FormArray;
   }
-
-
 
   setupEditorForm() {
     const standardFieldGroups = this.standardFields.map(item => {
@@ -105,10 +128,31 @@ export class RegistrationFormEditorComponent implements OnInit {
     this.customFields.removeAt(index);
   }
 
-
-
   resetForm() {
     this.editorForm.reset();
+  }
+
+  cancel() {
+    this.goToRegistrationForms();
+  }
+
+  goToRegistrationForms() {
+    this.router.navigate(['/organisation/memberships/registration-forms']);
+  }
+
+  setupEvents() {
+    this.events.on('OrganisationRegistrationForm:created', () => {
+      this.goToRegistrationForms();
+    });
+
+    this.events.on('OrganisationRegistrationForm:updated', () => {
+      this.goToRegistrationForms();
+    });
+  }
+
+  removeEvents() {
+    this.events.off('OrganisationRegistrationForm:created');
+    this.events.off('OrganisationRegistrationForm:updated');
   }
 
   onSubmit(e) {

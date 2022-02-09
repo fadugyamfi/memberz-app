@@ -130,7 +130,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
       this.modalTitle = this.translate.instant('Update Organisation Info');
       this.profileForm.patchValue(organisation);
     } else {
-      this.modalTitle = this.translate.instant('Create New Organisation - Free Plan');
+      this.modalTitle = this.translate.instant('Create New Organisation') + ' - ' + this.translate.instant('Free Plan');
     }
   }
 
