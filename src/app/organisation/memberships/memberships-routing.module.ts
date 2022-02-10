@@ -126,7 +126,7 @@ const routes: Routes = [
         }
       },
       {
-        path: 'registration-forms/:id/edit',
+        path: 'registration-forms/edit/:id',
         component: RegistrationFormEditorComponent,
         data: {
           title: 'Edit Registration Form',

@@ -21,10 +21,17 @@
   <table class="table table-bordered table-hover" *ngIf="registrationFormService.hasItems() && !registrationFormService.fetching">
     <thead>
       <tr>
+        <th colspan="3">&nbsp;</th>
+        <th colspan="3" class="text-center">{{ 'Registrants' | translate }}</th>
+        <th colspan="2">&nbsp;</th>
+      </tr>
+      <tr>
         <th colspan="2">{{ 'Name' | translate }}</th>
         <th>{{ 'Registration Closes' | translate }}</th>
+        <th class="text-center font-weight-bold">{{ 'Total' | translate }}</th>
+        <th class="text-center text-success font-weight-bold">{{ 'Approved' | translate }}</th>
+        <th class="text-center text-warning font-weight-bold">{{ 'Unapproved' | translate }}</th>
         <th class="text-right">{{ 'Modified' | translate }}</th>
-        <th class="text-center">{{ 'Total Registered' | translate }}</th>
         <th class="text-center">{{ 'Actions' | translate }}</th>
       </tr>
 
@@ -34,13 +41,15 @@
       <tr *ngFor="let form of forms; let row = index">
         <td>{{ row + registrationFormService.pagingMeta?.from }}</td>
         <td>{{ form.name }}</td>
-        <td>{{ form.expiration_dt | date : medium }}</td>
+        <td>{{ form.expiration_dt ? (form.expiration_dt | date : 'MMM d, y, h:mm a') : 'N/A' }}</td>
+        <td class="text-center">{{ (form.registrants_count || 0) | number }}</td>
+        <td class="text-center">{{ (form.approved_registrants_count || 0) | number }}</td>
+        <td class="text-center">{{ (form.unapproved_registrants_count || 0) | number }}</td>
         <td class="text-right">{{ form.lastModified() }}</td>
-        <td class="text-center">{{ (form.organisation_members_count || 0) | number }}</td>
         <td class="text-center">
-          <button class="btn btn-sm btn-primary m-r-10">{{ 'Register' | translate }}</button>
-          <button class="btn btn-sm btn-info m-r-10" [routerLink]="['/organisation/memberships/registration-forms', form.id, 'edit']">{{ 'Edit' | translate }}</button>
-          <button class="btn btn-sm btn-danger">{{ 'Delete' | translate }}</button>
+          <a class="btn btn-sm btn-primary m-r-10" [routerLink]="['/', organisation.slug, 'register', 's', form.slug]" target="_blank">{{ 'Register' | translate }}</a>
+          <button class="btn btn-sm btn-info m-r-10" (click)="editForm(form)">{{ 'Edit' | translate }}</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteForm(form)">{{ 'Delete' | translate }}</button>
         </td>
       </tr>
     </tbody>

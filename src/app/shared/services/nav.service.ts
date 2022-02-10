@@ -1,4 +1,5 @@
 import { Injectable, HostListener } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
 
 // Menu
@@ -560,14 +561,14 @@ export class NavService {
   PORTAL_MENUITEMS: Menu[] = [
     {
       path: '/portal/home',
-      title: 'Home',
+      title: this.translate.instant('Home'),
       icon: 'home',
       type: 'link',
       bookmark: true
     },
     {
       path: '/portal/profile',
-      title: 'Your Profile',
+      title: this.translate.instant('Your Profile'),
       icon: 'user',
       type: 'link',
       bookmark: true
@@ -769,7 +770,9 @@ export class NavService {
   );
 
 
-  constructor() {
+  constructor(
+    public translate: TranslateService
+  ) {
     this.onResize();
     if (this.screenWidth < 991) {
       this.collapseSidebar = true;
