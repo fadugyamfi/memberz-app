@@ -15,8 +15,11 @@ export class CustomFieldEditorComponent implements OnInit {
 
   public customFieldForm: FormGroup;
   public modal: NgbModalRef;
+  public editing = false;
+  public editIndex = 0;
 
   @Output() public create = new EventEmitter();
+  @Output() public update = new EventEmitter();
 
   constructor(
     public registrationFormService: OrganisationRegistrationFormService,
@@ -39,9 +42,11 @@ export class CustomFieldEditorComponent implements OnInit {
   setupForm() {
     this.customFieldForm = new FormGroup({
       id: new FormControl(this.generateGuid()),
+      name: new FormControl('', Validators.required),
       type: new FormControl('text', [Validators.required]),
       label: new FormControl('', [Validators.required]),
       placeholder: new FormControl(''),
+      required: new FormControl(false),
       options: new FormArray([ this.createFieldOptionGroup() ])
     })
 
@@ -71,7 +76,8 @@ export class CustomFieldEditorComponent implements OnInit {
     this.optionGroups?.removeAt(index);
   }
 
-  show(group = null) {
+  show(group = null, index = 0) {
+    this.editing = false;
     this.setupForm();
 
     if( group ) {
@@ -79,6 +85,8 @@ export class CustomFieldEditorComponent implements OnInit {
         group.options.forEach(() => this.addFieldOptionGroup());
       }
 
+      this.editing = true;
+      this.editIndex = index;
       this.customFieldForm.patchValue(group);
     }
 
@@ -88,7 +96,12 @@ export class CustomFieldEditorComponent implements OnInit {
   onSubmit(e) {
     e.preventDefault();
 
-    this.create.emit( this.customFieldForm.value );
+    if( this.editing ) {
+      this.update.emit({ group: this.customFieldForm.value, index: this.editIndex });
+    } else {
+      this.create.emit( this.customFieldForm.value );
+    }
+
     this.modal.close();
   }
 

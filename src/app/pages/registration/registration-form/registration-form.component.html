@@ -1,0 +1,195 @@
+<div class="page-wrapper">
+  <div class="auth-bg">
+
+    <div class="row flex-grow-1 align-self-start">
+      <div class="col-lg-8 offset-2">
+        <div class="text-center">
+          <img src="assets/images/logo_150.png" alt="" />
+        </div>
+
+        <div class="card mt-5">
+          <div class="card-header p-3 bg-primary d-flex align-items-center">
+            <section class="rounded-circle py-2 px-3 mr-3 bg-white" style="width: 64px;">
+              <img [src]="organisation?.logo" class="w-100" alt="Organisation Logo" />
+            </section>
+            <section>
+              <h5 class="text-uppercase">{{ organisation?.name }}</h5>
+              <h6>{{ registrationFormConfig?.name }} - {{ 'Membership Registration' | translate }}</h6>
+            </section>
+          </div>
+
+          <form class="form theme-form" [formGroup]="membershipForm" (submit)="onSubmit($event)">
+            <div class="card-body pb-1" [formGroup]="profileForm">
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3">{{'Name' | translate}}</label>
+
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" placeholder="{{'Surname' | translate }}"
+                         formControlName="last_name" />
+                  <div class="messages text-danger" *ngIf="profileForm.controls.last_name.errors?.required">
+                    <p class="m-b-0">{{'Surname Required' | translate}}</p>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" placeholder="{{'Other Names' | translate }}"
+                         formControlName="first_name" />
+                  <div class="messages text-danger" *ngIf="profileForm.controls.first_name.errors?.required">
+                    <p class="m-b-0">{{'Other Names Required' | translate}}</p>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <input type="text" class="form-control"
+                         placeholder="{{ 'Title' | translate }} e.g. {{ 'Mr, Mrs, Ms' | translate }}"
+                         formControlName="title" />
+                </div>
+              </div>
+
+              <div class="form-group row" *ngIf="!registrationFormConfig?.excludesGender()">
+                <label class="col-form-label col-sm-3">{{'Gender' | translate}}</label>
+                <div class="col-sm-4">
+                  <select class="form-control" formControlName="gender">
+                    <option value="">{{'Select' | translate}}</option>
+                    <option value="male">{{'Male' | translate}}</option>
+                    <option value="female">{{'Female' | translate}}</option>
+                  </select>
+
+                  <div class="messages text-danger" *ngIf="profileForm.controls.gender.errors?.required">
+                    <p class="m-b-0">{{'Gender Required' | translate}}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row" *ngIf="!registrationFormConfig?.excludesBirthDate()">
+                <label class="col-form-label col-sm-3">{{'Date Of Birth' | translate}}</label>
+
+                <div class="col-sm-4">
+                  <input type="date" class="form-control" formControlName="dob" />
+
+                  <div class="messages text-danger" *ngIf="profileForm.controls.dob.errors?.required">
+                    <p class="m-b-0">{{'Date of Birth Required' | translate}}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3">{{'Mobile Number' | translate}}</label>
+                <div class="col-sm-9">
+                  <ngx-intl-tel-input [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                                      [enablePlaceholder]="false" [searchCountryFlag]="true" [searchCountryField]="[
+                      SearchCountryField.Iso2,
+                      SearchCountryField.Name
+                    ]" [selectFirstCountry]="true" [selectedCountryISO]="CountryISO.Ghana" [maxLength]="15"
+                                      [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                                      [numberFormat]="PhoneNumberFormat.National" name="phone"
+                                      formControlName="mobile_number">
+                  </ngx-intl-tel-input>
+                  <div *ngIf="profileForm.controls.mobile_number.touched && profileForm.controls.mobile_number.errors?.required"
+                       class="text text-danger mt-1">
+                    {{'Phone Number Required' | translate}}
+                  </div>
+                  <div *ngIf="profileForm.controls.mobile_number.touched && profileForm.controls.mobile_number.errors?.minlength"
+                       class="text text-danger mt-1">
+                    {{'Phone Number must be at least 6 characters long' | translate}}.
+                  </div>
+                  <div *ngIf="profileForm.controls.mobile_number.touched && profileForm.controls.mobile_number.errors?.maxlength"
+                       class="text text-danger mt-1">
+                    {{'Phone Number must be at most 15 characters long' | translate}}
+                  </div>
+                  <div *ngIf="profileForm.controls.mobile_number.touched && profileForm.controls.mobile_number.errors?.validatePhoneNumber"
+                       class="text text-danger mt-1">
+                    {{'Phone Number Not Valid For Selected Country' | translate}}
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="form-group row" *ngIf="!registrationFormConfig?.excludesEmail()">
+                <label class="col-form-label col-sm-3">{{'Email' | translate}}</label>
+
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" placeholder="e.g. joe@mail.com" formControlName="email" />
+
+                  <div class="messages text-danger" *ngIf="profileForm.controls.email.errors?.required">
+                    <p class="m-b-0">{{'Email Required' | translate}}</p>
+                  </div>
+
+                  <div class="messages text-danger" *ngIf="profileForm.controls.email.errors?.email">
+                    <p class="m-b-0">{{'Email Invalid' | translate}}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row" *ngIf="!registrationFormConfig?.excludesOccupation()">
+                <label class="col-form-label col-sm-3">{{'Occupation' | translate}}</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="e.g. Tailor" formControlName="occupation">
+                </div>
+              </div>
+
+              <div class="form-group row" *ngIf="!registrationFormConfig?.excludesBusinessName()">
+                <label class="col-form-label col-sm-3">{{'Place of Work' | translate}}</label>
+
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="e.g. Jobs Co. Ltd."
+                         formControlName="business_name" />
+                </div>
+              </div>
+
+            </div>
+
+            <div class="card-body pt-1 pb-1" formGroupName="custom_attributes">
+                <div class="form-group row" *ngFor="let field of registrationFormConfig?.decoded_custom_fields; let i = index">
+                  <label class="col-form-label col-sm-3">{{ field.label | translate}}</label>
+
+                  <div class="col-sm-9">
+                    <app-custom-field [config]="field" [formControlName]="field.name"></app-custom-field>
+
+                    <div class="messages text-danger" *ngIf="membershipForm.controls.custom_attributes.controls[field.name]?.errors?.required">
+                      <p class="m-b-0">{{ field.label }} {{'Required' | translate}}</p>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="card-body pt-1" [formGroup]="accountForm" *ngIf="!registrationFormConfig?.excludesEmail()">
+
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3">
+                  <!-- <img src="/assets/images/logo/logo-32x32.png" />
+                  {{'Memberz.Org Account' | translate}} -->
+                </label>
+
+                <div class="col-sm-9">
+                  <div class="checkbox">
+                    <input type="checkbox" formControlName="create_account" id="create_account" />
+                    <label for="create_account">
+                      {{ 'Create an account to have access to your membership data and communicate with others on the
+                      platform' | translate }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="card-footer">
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3">&nbsp;</label>
+
+                <div class="col-sm-9">
+                  <button type="submit" class="btn btn-primary m-r-10">{{ 'Register' | translate }}</button>
+                  <button type="button" class="btn btn-danger">{{ 'Cancel' | translate }}</button>
+                </div>
+              </div>
+
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

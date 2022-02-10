@@ -6,6 +6,9 @@ import { EventsService } from '../../../../shared/services/events.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { OrganisationRegistrationForm } from '../../../../shared/model/api/organisation-registration-form';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
+import { OrganisationMemberCategoryService } from '../../../../shared/services/api/organisation-member-category.service';
+import { OrganisationMemberCategory } from '../../../../shared/model/api/organisation-member-category';
 
 @Component({
   selector: 'app-registration-form-editor',
@@ -18,6 +21,7 @@ export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
   public editorForm: FormGroup;
 
   public selectedCustomFieldGroup: FormGroup
+  public categories: OrganisationMemberCategory[] = [];
 
   public standardFields = [
     {field: 'email', label: 'Email'},
@@ -34,13 +38,15 @@ export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
     public events: EventsService,
     public organisationService: OrganisationService,
     public router: Router,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public categoryService: OrganisationMemberCategoryService
   ) { }
 
   ngOnInit(): void {
     this.setupEditorForm();
     this.setupEvents();
     this.loadRegistrationForm();
+    this.loadMembershipCategories();
   }
 
   ngOnDestroy(): void {
@@ -52,15 +58,21 @@ export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
     const form = this.registrationFormService.getSelectedModel();
 
     if( form ) {
-      this.editorForm.patchValue(form);
+      this.updateEditorFormForEditing(form);
       return;
     }
 
     if( form_id ) {
       this.registrationFormService.getById(form_id).subscribe(form => {
-        this.editorForm.patchValue(form);
+        this.updateEditorFormForEditing(form);
       });
     }
+  }
+
+  loadMembershipCategories() {
+    this.categoryService.getAll({ sort: 'name:asc' }).subscribe(categories => {
+      this.categories = categories;
+    });
   }
 
   get customFields(): FormArray {
@@ -75,11 +87,33 @@ export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
     this.editorForm = new FormGroup({
       id: new FormControl(''),
       organisation_id: new FormControl( this.organisationService.getActiveOrganisation().id ),
+      organisation_member_category_id: new FormControl('', Validators.required),
       name: new FormControl('', [Validators.required]),
       expiration_dt: new FormControl(''),
       excluded_standard_fields: new FormArray([ ...standardFieldGroups ]),
       custom_fields: new FormArray([])
     });
+  }
+
+  updateEditorFormForEditing(form: OrganisationRegistrationForm) {
+    const excludedFieldsArray = form.excluded_standard_fields?.split(',');
+
+    const data = Object.assign({}, form, {
+      expiration_dt: form.expiration_dt ? moment(form.expiration_dt).format('YYYY-MM-DDTHH:mm:ss') : '',
+      custom_fields: JSON.parse(form.custom_fields),
+      excluded_standard_fields: this.standardFields.map(item => {
+        return {
+          field: item.field,
+          excluded: excludedFieldsArray?.includes(item.field)
+        };
+      })
+    });
+
+    data.custom_fields.forEach(element => {
+      this.addCustomFieldGroup(element);
+    });
+
+    this.editorForm.patchValue(data);
   }
 
   createStandardFieldGroup(fieldName) {
@@ -92,9 +126,11 @@ export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
   createCustomFieldGroup(values = null) {
     const group = new FormGroup({
       id: new FormControl(),
-      type: new FormControl('', [Validators.required]),
-      label: new FormControl('', [Validators.required]),
+      name: new FormControl(''),
+      type: new FormControl(''),
+      label: new FormControl(''),
       placeholder: new FormControl(''),
+      required: new FormControl(''),
       options: new FormArray([])
     })
 
@@ -116,12 +152,16 @@ export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
     this.customFieldEditor.show();
   }
 
-  editCustomField(group) {
-    this.customFieldEditor.show(group);
+  editCustomField(group, index) {
+    this.customFieldEditor.show(group, index);
   }
 
   addCustomFieldGroup(values) {
     this.customFields.push(this.createCustomFieldGroup(values));
+  }
+
+  updateCustomFieldGroup(field: { index: number; group: any; }) {
+    this.customFields.at(field.index).patchValue(field.group);
   }
 
   removeCustomFieldGroup(index: number) {

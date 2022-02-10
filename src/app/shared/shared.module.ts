@@ -78,6 +78,7 @@ import { ProfileAnniversariesComponent } from './components/profile-view/profile
 import { ProfileActionsComponent } from './components/profile-view/profile-actions/profile-actions.component';
 import { MakeAdminComponent } from './components/profile-view/make-admin/make-admin.component';
 import { SmsTemplateTagControlComponent } from './components/forms/sms-template-tag-control/sms-template-tag-control.component';
+import { CustomFieldComponent } from './components/forms/custom-field/custom-field.component';
 
 @NgModule({
   declarations: [
@@ -132,7 +133,8 @@ import { SmsTemplateTagControlComponent } from './components/forms/sms-template-
     ProfileAnniversariesComponent,
     ProfileActionsComponent,
     MakeAdminComponent,
-    SmsTemplateTagControlComponent
+    SmsTemplateTagControlComponent,
+    CustomFieldComponent
   ],
   imports: [
     CommonModule,
@@ -186,7 +188,8 @@ import { SmsTemplateTagControlComponent } from './components/forms/sms-template-
     ViewProfileDirective,
     ProfileViewComponent,
     MakeAdminComponent,
-    SmsTemplateTagControlComponent
+    SmsTemplateTagControlComponent,
+    CustomFieldComponent
   ],
   providers: [
     NavService,

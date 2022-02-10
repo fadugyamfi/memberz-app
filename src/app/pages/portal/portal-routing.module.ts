@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { HomeComponent } from './home/home.component';
 import { UserProfileComponent } from './user-profile-settings/user-profile.component';
 

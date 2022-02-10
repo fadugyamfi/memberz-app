@@ -9,20 +9,24 @@
 
     <div class="modal-body border-bottom">
 
-      <!-- <div class="row form-group">
+      <div class="row form-group">
         <label class="col-sm-3 col-form-label font-weight-bold">
           {{ 'Name' | translate }}
+
+          <span class="pull-right">
+            <i class="fa fa-exclamation-circle text-info" placement="bottom"
+             ngbTooltip="{{ 'A unique name of this field, all lowercase and underscores, no spaces and no numbers' | translate }}. {{ 'Names cannot be edited after they are created' | translate}}"></i>
+          </span>
         </label>
 
         <div class="col-sm-9">
-          <input type="text" class="form-control" formControlName="name"
-                 placeholder="e.g. {{ 'New Comers Form' | translate }}" />
+          <input type="text" class="form-control" formControlName="name" placeholder="e.g. hall_of_residence" [readonly]="editing" />
 
           <div class="text-danger" *ngIf="customFieldForm.controls.name?.errors?.required">
             <p class="mb-0">{{ 'Name Required' | translate }}</p>
           </div>
         </div>
-      </div> -->
+      </div>
 
       <div class="row form-group">
         <label class="col-sm-3 col-form-label font-weight-bold">
@@ -81,6 +85,13 @@
         <label class="col-sm-3 col-form-label font-weight-bold">{{ 'Placeholder Text' | translate }}</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" placeholder="e.g. {{ 'Enter Job Name Here' | translate }}" formControlName="placeholder" />
+        </div>
+      </div>
+
+      <div class="row form-group animated fadeIn">
+        <label class="col-sm-3 col-form-label font-weight-bold">{{ 'Field Is Mandatory' | translate }}</label>
+        <div class="col-sm-9">
+          <ui-switch formControlName="required" checkedLabel="Yes" uncheckedLabel="No" checkedTextColor="white"></ui-switch>
         </div>
       </div>
 

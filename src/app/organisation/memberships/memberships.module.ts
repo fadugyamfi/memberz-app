@@ -41,7 +41,7 @@ import { CustomFieldEditorComponent } from './registration-forms/custom-field-ed
     AnniversariesComponent,
     RegistrationFormsComponent,
     RegistrationFormEditorComponent,
-    CustomFieldEditorComponent,
+    CustomFieldEditorComponent
   ],
   imports: [
     CommonModule,

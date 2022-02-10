@@ -6,6 +6,8 @@ import { OrganisationRegistrationFormService } from '../../../shared/services/ap
 import { EventsService } from '../../../shared/services/events.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
+import { Organisation } from '../../../shared/model/api/organisation';
 
 
 @Component({
@@ -18,21 +20,28 @@ export class RegistrationFormsComponent implements OnInit {
   @ViewChild('editorModal', { static: true }) editorModal: any;
 
   public forms: OrganisationRegistrationForm[] = [];
+  public organisation: Organisation;
 
   constructor(
     public registrationFormService: OrganisationRegistrationFormService,
     public events: EventsService,
     public translate: TranslateService,
-    public router: Router
+    public router: Router,
+    public organisationService: OrganisationService
   ) { }
 
   ngOnInit(): void {
     this.loadRegistrationForms();
     this.setupEvents();
+
+    this.organisation = this.organisationService.getActiveOrganisation();
   }
 
   loadRegistrationForms(page = 1, limit = 10) {
-    this.registrationFormService.getAll({ page, limit, count: 'organisation-members' }).subscribe(forms => {
+    this.registrationFormService.getAll({
+      page, limit,
+      count: ['registrants', 'approved-registrants', 'unapproved-registrants'].join(',')
+    }).subscribe(forms => {
       this.forms = forms;
     });
   }

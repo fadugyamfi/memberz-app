@@ -36,7 +36,7 @@ export class OrganisationMember extends AppModel {
   }
 
   pendingApproval() {
-    return this.approved === 0 && this.active === 1;
+    return this.approved == 0 && this.active == 1;
   }
 
   set organisation_member_category(value) {

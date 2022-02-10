@@ -66,6 +66,17 @@ const routes: Routes = [
     children: full
   },
   {
+    path: ':org_slug/register',
+    component: FullLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: () => import('./pages/registration/registration.module').then(m => m.RegistrationModule),
+      data: {
+        breadcrumb: 'Membership Registration'
+      }
+    }]
+  },
+  {
     path: 'portal',
     component: PortalLayoutComponent,
     canActivate: [AdminGuard],

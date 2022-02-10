@@ -23,6 +23,23 @@
             </div>
           </div>
 
+          <div class="row form-group">
+            <label class="col-sm-3 col-form-label font-weight-bold">
+              {{ 'Membership Category To Assign' | translate }}
+            </label>
+
+            <div class="col-sm-9">
+              <select class="form-control" formControlName="organisation_member_category_id">
+                <option value="">{{ 'Select Category' | translate }}</option>
+                <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+              </select>
+
+              <div class="text-danger" *ngIf="editorForm.controls.name?.errors?.required">
+                <p class="mb-0">{{ 'Name Required' | translate }}</p>
+              </div>
+            </div>
+          </div>
+
           <!-- <div class="row form-group">
             <label class="col-sm-3 col-form-label font-weight-bold">
               {{ 'Description' | translate }}
@@ -95,9 +112,9 @@
                       </div>
 
                       <div class="">
-                        <button class="btn btn-xs btn-info m-r-15" (click)="editCustomField(group.value)"><i
+                        <button type="button" class="btn btn-xs btn-info m-r-15" (click)="editCustomField(group.value, i)"><i
                              class='fa fa-pencil fa-fw m-0'></i></button>
-                        <button class="btn btn-xs btn-danger" (click)="removeCustomFieldGroup(i)"><i
+                        <button type="button" class="btn btn-xs btn-danger" (click)="removeCustomFieldGroup(i)"><i
                              class='fa fa-trash-o fa-fw m-0'></i></button>
                       </div>
                     </div>
@@ -145,4 +162,4 @@
 </div>
 
 
-<app-custom-field-editor #customFieldEditor (create)="addCustomFieldGroup($event)"></app-custom-field-editor>
+<app-custom-field-editor #customFieldEditor (create)="addCustomFieldGroup($event)" (update)="updateCustomFieldGroup($event)"></app-custom-field-editor>
