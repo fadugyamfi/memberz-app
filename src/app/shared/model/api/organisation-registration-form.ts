@@ -1,4 +1,5 @@
 
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { CustomFieldConfig } from '../../components/forms/custom-field/custom-field.component';
 import { AppModel } from './app.model';
@@ -42,9 +43,14 @@ export class OrganisationRegistrationForm extends AppModel {
     return this._custom_fields;
   }
 
+  get isClosed() {
+    return moment().isAfter( moment(this.expiration_dt) );
+  }
+
   private excludesField(fieldName) {
     return this.excluded_standard_fields?.split(',').includes(fieldName);
   }
+
 
   excludesBusinessName() {
     return this.excludesField('business_name');
