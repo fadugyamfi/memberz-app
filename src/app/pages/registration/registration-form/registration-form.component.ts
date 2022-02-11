@@ -31,6 +31,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   public membershipForm: FormGroup;
   public profileForm: FormGroup;
   public accountForm: FormGroup;
+  public tenantHeaders = {};
 
   separateDialCode = true;
   SearchCountryField = SearchCountryField;
@@ -71,31 +72,26 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     const orgSlug = this.route.snapshot.paramMap.get('org_slug');
     const slug = this.route.snapshot.paramMap.get('slug');
 
-    const sub = this.organisationService.getAll({ slug: orgSlug }).subscribe(organisations => {
+    const sub = this.organisationService.getBySlug(orgSlug).subscribe({
+      next: (organisation) => {
+        this.organisation = organisation;
 
-      if( !organisations || organisations.length == 0 ) {
+        this.tenantHeaders = {
+          'X-Tenant-Id': organisation.uuid
+        };
+
+        const sub2 = this.registrationFormService.getBySlugs(this.organisation.slug, slug, {}, this.tenantHeaders).subscribe(form => {
+          this.configurationRegistrationForm(form);
+        });
+
+        this.subscriptions.push(sub2);
+      },
+
+      error: (err) => {
         Swal.fire('Invalid Configuration', 'Link provided was invalid. Registration cannot proceed', 'error').then(() => {
           this.router.navigate(['/']);
         });
-        return;
       }
-
-      this.organisation = new Organisation(organisations[0]);
-
-      const sub2 = this.registrationFormService.getAll({ organisation_id: this.organisation.id, slug }).subscribe(forms => {
-        if( !forms || forms.length == 0 ) {
-          Swal.fire('Invalid Configuration', 'Link provided was invalid. Registration cannot proceed', 'error').then(() => {
-            this.router.navigate(['/']);
-          });
-          return;
-        }
-
-        this.registrationFormConfig = new OrganisationRegistrationForm(forms[0]);
-        console.log(this.registrationFormConfig.decoded_custom_fields);
-        this.setupRegistrationForm();
-      });
-
-      this.subscriptions.push(sub2);
     });
 
     this.subscriptions.push(sub);
@@ -114,11 +110,34 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   loadRegistrationFormDefinition() {
     const uuid = this.route.snapshot.paramMap.get('uuid');
     const sub = this.registrationFormService.getAll({ uuid }).subscribe(forms => {
-      this.registrationFormConfig = new OrganisationRegistrationForm(forms[0]);
-      this.setupRegistrationForm();
+      if( !forms || forms.length == 0 ) {
+        Swal.fire('Invalid Configuration', 'Link provided was invalid. Registration cannot proceed', 'error').then(() => {
+          this.router.navigate(['/']);
+        });
+        return;
+      }
+
+      this.configurationRegistrationForm(forms[0]);
     });
 
     this.subscriptions.push(sub);
+  }
+
+  configurationRegistrationForm(form: OrganisationRegistrationForm) {
+    this.registrationFormConfig = new OrganisationRegistrationForm(form);
+
+    if( this.registrationFormConfig.isClosed ) {
+      Swal.fire(
+        this.translate.instant('Registration Closed'),
+        this.translate.instant('Registration for with this form is currently closed'),
+        'warning'
+      ).then(() => {
+        this.router.navigate(['/']);
+      });
+      return;
+    }
+
+    this.setupRegistrationForm();
   }
 
   getSuccessPageRoute() {
@@ -203,39 +222,34 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     );
     Swal.showLoading();
 
-    this.profileService.create(profile);
+    this.profileService.post(`/organisations/${this.organisation.slug}/members`, profile, {}, this.tenantHeaders)
+      .subscribe({
+        next: (result) => {
+          const member = new Member(result['data']);
+          this.membershipForm.patchValue({ member_id: member.id });
+
+          if( this.accountForm.value.create_account ) {
+            this.createAccount(member);
+          } else {
+            this.createMembership();
+          }
+        },
+        error: () => {
+          Swal.fire(this.translate.instant('Registration Failed'), this.translate.instant('Try again or contact support'), 'error');
+        }
+      });
   }
 
   setupEvents() {
-    this.events.on('Member:created', (member) => {
-      this.membershipForm.patchValue({ member_id: member.id });
-
-      if( this.accountForm.value.create_account ) {
-        this.createAccount(member);
-      } else {
-        this.createMembership();
-      }
-    });
-
-    this.events.on('OrganisationMember:created', (membership) => {
-      Swal.close();
-      this.router.navigate(['/', this.organisation.slug, 'register', 's', this.registrationFormConfig.slug, 'success']);
-    });
-
-    this.events.on('MemberAccount:created', (account) => {
-      Swal.close();
-      this.createMembership();
-    });
+    // TODO
   }
 
   removeEvents() {
-    this.events.off('Member:created');
-    this.events.off('OrganisationMember:created');
-    this.events.off('MemberAccount:created');
+    // TODO
   }
 
   createAccount(member) {
-    Swal.fire('Creating Your Platform Account', 'Please wait', 'info');
+    Swal.fire( this.translate.instant('Creating Your Platform Account'), this.translate.instant('Please wait'), 'info');
     Swal.showLoading();
 
     this.accountForm.patchValue({
@@ -246,15 +260,61 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
 
     const account = new MemberAccount(this.accountForm.value);
 
-    this.accountService.create(account);
+    this.accountService.post(`/organisations/${this.organisation.slug}/member_accounts`, account, {}, this.tenantHeaders)
+      .subscribe({
+        next: () => {
+          Swal.close();
+          this.createMembership();
+        },
+        error: () => {
+          Swal.fire(
+            this.translate.instant('Registration Failed'),
+            this.translate.instant(`Could not your account for future access`),
+            'error'
+          );
+        }
+      });
   }
 
   createMembership() {
-    Swal.fire('Creating Your Membership', 'Please wait', 'info');
+    Swal.fire( this.translate.instant('Creating Your Membership'), this.translate.instant('Please wait'), 'info');
     Swal.showLoading();
 
     const membership = new OrganisationMember(this.membershipForm.value);
     const params = { contain: ['member.profile_photo', 'organisation_member_category'].join() };
-    this.membershipService.create(membership, params);
+
+    this.membershipService.post(`/organisations/${this.organisation.slug}/organisation_members`, membership, params, this.tenantHeaders)
+      .subscribe({
+        next: () => {
+          Swal.close();
+          this.router.navigate(['/', this.organisation.slug, 'register', 's', this.registrationFormConfig.slug, 'success']);
+        },
+        error: () => {
+          Swal.fire(
+            this.translate.instant('Registration Failed'),
+            this.translate.instant('Could not create your membership with :orgname', { orgname: this.organisation.name }),
+            'error'
+          );
+        }
+      })
+  }
+
+  canShare() {
+    return typeof navigator['canShare'] != 'undefined';
+  }
+
+  async shareForm() {
+    const shareData = {
+      title: this.registrationFormConfig.name + ' Membership Registration',
+      text: 'Register with ' + this.organisation.name,
+      url: window.location.href
+    }
+
+    try {
+      await navigator.share(shareData);
+      Swal.fire('Form shared successfully', '', 'info');
+    } catch(err) {
+      Swal.fire('Form share failed: ' + err, '', 'error');
+    }
   }
 }

@@ -4,6 +4,7 @@ import { EventsService } from '../events.service';
 import { HttpClient } from '@angular/common/http';
 import { Organisation } from '../../model/api/organisation';
 import { StorageService } from '../storage.service';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +53,11 @@ export class OrganisationService extends APIService<Organisation> {
   refreshActiveOrganisation() {
     const id = this.getActiveOrganisation().id;
     this.getById(id).subscribe((org: Organisation) => this.setActiveOrganisation(org));
+  }
+
+  getBySlug(slug: string, params = {}): Observable<Organisation> {
+    const url = `/organisations/${slug}`;
+
+    return this.get(url, params).pipe(map(res => new this.model(res['data'])));
   }
 }
