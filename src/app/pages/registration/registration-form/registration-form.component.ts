@@ -75,6 +75,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     const sub = this.organisationService.getBySlug(orgSlug).subscribe({
       next: (organisation) => {
         this.organisation = organisation;
+        this.organisationService.setSelectedModel(this.organisation);
 
         this.tenantHeaders = {
           'X-Tenant-Id': organisation.uuid
@@ -101,6 +102,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     const slug = this.route.snapshot.paramMap.get('org_slug');
     const sub = this.organisationService.getAll({ slug }).subscribe(organisations => {
       this.organisation = new Organisation(organisations[0]);
+      this.organisationService.setSelectedModel(this.organisation);
       this.setupRegistrationForm();
     });
 
@@ -125,6 +127,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
 
   configurationRegistrationForm(form: OrganisationRegistrationForm) {
     this.registrationFormConfig = new OrganisationRegistrationForm(form);
+    this.registrationFormService.setSelectedModel(this.registrationFormConfig);
 
     if( this.registrationFormConfig.isClosed ) {
       Swal.fire(
@@ -140,8 +143,8 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     this.setupRegistrationForm();
   }
 
-  getSuccessPageRoute() {
-    return ['/', this.organisation?.slug, 'register', this.registrationFormConfig?.uuid, 'success'];
+  getSuccessPageRoute(membership) {
+    return ['/', this.organisation?.slug, 'register', this.registrationFormConfig?.slug, 'success', membership.id];
   }
 
   setupRegistrationForm() {
@@ -226,6 +229,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (result) => {
           const member = new Member(result['data']);
+          this.profileService.setSelectedModel(member);
           this.membershipForm.patchValue({ member_id: member.id });
 
           if( this.accountForm.value.create_account ) {
@@ -258,12 +262,13 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       mobile_number: member.mobile_number
     });
 
-    const account = new MemberAccount(this.accountForm.value);
+    let account = new MemberAccount(this.accountForm.value);
 
     this.accountService.post(`/organisations/${this.organisation.slug}/member_accounts`, account, {}, this.tenantHeaders)
       .subscribe({
-        next: () => {
+        next: (response) => {
           Swal.close();
+          this.accountService.setSelectedModel( new MemberAccount(response['data']) );
           this.createMembership();
         },
         error: () => {
@@ -280,14 +285,17 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     Swal.fire( this.translate.instant('Creating Your Membership'), this.translate.instant('Please wait'), 'info');
     Swal.showLoading();
 
-    const membership = new OrganisationMember(this.membershipForm.value);
+    let membership = new OrganisationMember(this.membershipForm.value);
     const params = { contain: ['member.profile_photo', 'organisation_member_category'].join() };
 
     this.membershipService.post(`/organisations/${this.organisation.slug}/organisation_members`, membership, params, this.tenantHeaders)
       .subscribe({
-        next: () => {
+        next: (response) => {
           Swal.close();
-          this.router.navigate(['/', this.organisation.slug, 'register', 's', this.registrationFormConfig.slug, 'success']);
+
+          membership = new OrganisationMember(response['data']);
+          this.membershipService.setSelectedModel(membership);
+          this.router.navigate(['/', this.organisation.slug, 'register', this.registrationFormConfig.slug, 'success', membership.id]);
         },
         error: () => {
           Swal.fire(
@@ -316,5 +324,9 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     } catch(err) {
       Swal.fire('Form share failed: ' + err, '', 'error');
     }
+  }
+
+  cancel() {
+    this.router.navigate(['/', this.organisation.slug]);
   }
 }

@@ -6,6 +6,7 @@ import { FullLayoutComponent } from './shared/components/layout/full-layout/full
 import { content } from './shared/routes/content-routes';
 import { full } from './shared/routes/full.routes';
 import { AdminGuard } from './shared/guard/admin.guard';
+import { OrganisationPublicPageGuard } from './shared/guard/organisation-public-page.guard';
 import { PortalLayoutComponent } from './shared/components/layout/portal-layout/portal-layout.component';
 import { OrganisationLayoutComponent } from './shared/components/layout/organisation-layout/organisation-layout.component';
 import { LoggedInGuard } from './shared/guard/logged-in.guard';
@@ -68,6 +69,7 @@ const routes: Routes = [
   {
     path: ':org_slug/register',
     component: FullLayoutComponent,
+    canActivate: [OrganisationPublicPageGuard],
     children: [{
       path: '',
       loadChildren: () => import('./pages/registration/registration.module').then(m => m.RegistrationModule),
