@@ -4,7 +4,7 @@ import { EventsService } from '../events.service';
 import { HttpClient } from '@angular/common/http';
 import { Organisation } from '../../model/api/organisation';
 import { StorageService } from '../storage.service';
-import { map, Observable } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -59,5 +59,22 @@ export class OrganisationService extends APIService<Organisation> {
     const url = `/organisations/${slug}`;
 
     return this.get(url, params).pipe(map(res => new this.model(res['data'])));
+  }
+
+  getAllSlugs(params = {}): Observable<string[]> {
+    if( this.storage.has('org_slugs') ) {
+      return of( this.storage.get('org_slugs') );
+    }
+
+    const url = "/organisations/slugs";
+
+    return this.get(url, params).pipe(
+      tap((response) => {
+        const slugs = response['data'];
+        this.storage.set('org_slugs', slugs, 1, 'hours');
+      }),
+      map((response) => {
+        return response['data'];
+      }));
   }
 }
