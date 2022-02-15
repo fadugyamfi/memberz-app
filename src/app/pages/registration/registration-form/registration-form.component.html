@@ -172,17 +172,24 @@
             <div class="card-body pt-1" [formGroup]="accountForm" *ngIf="!registrationFormConfig?.excludesEmail()">
 
               <div class="form-group row">
-                <label class="col-form-label col-md-3">
-                  <!-- <img src="/assets/images/logo/logo-32x32.png" />
-                  {{'Memberz.Org Account' | translate}} -->
-                </label>
+                <label class="col-form-label col-md-3">&nbsp;</label>
 
                 <div class="col-md-9">
                   <div class="checkbox">
                     <input type="checkbox" formControlName="create_account" id="create_account" />
                     <label for="create_account">
-                      {{ 'Create an account to have access to your membership data and communicate with others on the
-                      platform' | translate }}
+                      {{ 'Create an account to access your data and make payments' | translate }}
+                    </label>
+                  </div>
+
+                  <div class="checkbox">
+                    <input type="checkbox" formControlName="agree_to_terms" id="agree_to_terms" />
+                    <label for="agree_to_terms">
+                      {{ 'I agree to' | translate }}
+                      <a [routerLink]="['/legal/terms']" target="_blank">{{ 'Terms & Conditions' | translate }}</a>
+                      {{ 'and' | translate }}
+                      <a [routerLink]="['/legal/privacy-policy']" target="_blank">{{ 'Data Use Policies' | translate }}</a>
+                      {{ 'of this website' | translate }}
                     </label>
                   </div>
                 </div>
@@ -195,7 +202,7 @@
                 <label class="col-form-label col-md-3">&nbsp;</label>
 
                 <div class="col-md-9">
-                  <button type="submit" class="btn btn-primary m-r-10" [disabled]="">
+                  <button type="submit" class="btn btn-primary m-r-10" [disabled]="!accountForm.value?.agree_to_terms">
                     {{ 'Register' | translate }}
                   </button>
                   <button type="button" class="btn btn-danger" (click)="cancel()">{{ 'Cancel' | translate }}</button>
