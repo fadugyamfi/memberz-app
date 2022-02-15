@@ -102,8 +102,8 @@ export class AuthService extends APIService<MemberAccount> {
     this.storage.remove('loginUser');
     this.storage.remove('remember_me');
     this.storage.set('auth', res, DURATION, 'day');
-    this.me(remember_me);
-    this.router.navigate(['/portal/home']);
+
+    this.me(remember_me).subscribe(() => this.router.navigate(['/portal/home']));
   }
 
   public register(data: RegisterUserContract) {
