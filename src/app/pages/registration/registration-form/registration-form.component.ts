@@ -191,6 +191,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     }
 
     this.accountForm = new FormGroup({
+      agree_to_terms: new FormControl(false, Validators.required),
       create_account: new FormControl( !this.registrationFormConfig?.excludesEmail() ),
       member_id: new FormControl('', [Validators.required]),
       username: new FormControl('', Validators.required),

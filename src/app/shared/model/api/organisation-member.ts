@@ -2,6 +2,7 @@
 import { AppModel } from './app.model';
 import { Member } from './member';
 import { OrganisationMemberCategory } from './organisation-member-category';
+import { OrganisationRegistrationForm } from './organisation-registration-form';
 
 export class OrganisationMember extends AppModel {
 
@@ -14,6 +15,7 @@ export class OrganisationMember extends AppModel {
   public active: number;
   public member_id: number;
   public _organisation_member_category: OrganisationMemberCategory;
+  public _organisation_registration_form: OrganisationRegistrationForm;
 
   constructor(data) {
     super(data);
@@ -45,5 +47,13 @@ export class OrganisationMember extends AppModel {
 
   get organisation_member_category() {
     return this._organisation_member_category;
+  }
+
+  set organisation_registration_form(value) {
+    this._organisation_registration_form = value ? new OrganisationRegistrationForm(value) : null;
+  }
+
+  get organisation_registration_form() {
+    return this._organisation_registration_form;
   }
 }

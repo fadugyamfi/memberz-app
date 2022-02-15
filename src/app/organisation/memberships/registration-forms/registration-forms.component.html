@@ -47,9 +47,20 @@
         <td class="text-center">{{ (form.unapproved_registrants_count || 0) | number }}</td>
         <td class="text-right">{{ form.lastModified() }}</td>
         <td class="text-center">
-          <a class="btn btn-sm btn-primary m-r-10" [routerLink]="['/', organisation.slug, 'register', form.slug]" target="_blank">{{ 'Register' | translate }}</a>
-          <button class="btn btn-sm btn-info m-r-10" (click)="editForm(form)">{{ 'Edit' | translate }}</button>
-          <button class="btn btn-sm btn-danger" (click)="deleteForm(form)">{{ 'Delete' | translate }}</button>
+          <a class="btn btn-xs btn-primary m-r-10" [routerLink]="['/', organisation.slug, 'register', form.slug]" target="_blank">
+            <i class="fa fa-pencil"></i> {{ 'Register' | translate }}
+          </a>
+
+          <a class="btn btn-xs btn-secondary m-r-10" [routerLink]="['/organisation/memberships/pending-approvals']">
+            <i class="fa fa-eye"></i> {{ 'View Registrants' | translate }}
+          </a>
+
+          <button class="btn btn-xs btn-info m-r-10" (click)="editForm(form)">
+            <i class="fa fa-edit"></i> {{ 'Edit' | translate }}
+          </button>
+          <button class="btn btn-xs btn-danger" (click)="deleteForm(form)">
+            <i class="fa fa-trash-o"></i>
+          </button>
         </td>
       </tr>
     </tbody>

@@ -79,6 +79,17 @@ const routes: Routes = [
     }]
   },
   {
+    path: 'legal',
+    component: FullLayoutComponent,
+    children: [{
+      path: '',
+      loadChildren: () => import('./pages/legal-text/legal-text.module').then(m => m.LegalTextModule),
+      data: {
+        breadcrumb: 'Legal'
+      }
+    }]
+  },
+  {
     path: 'portal',
     component: PortalLayoutComponent,
     canActivate: [AdminGuard],
