@@ -74,7 +74,8 @@ export class AuthService extends APIService<MemberAccount> {
           'error'
         );
         this.requesting = false;
-      }
+      },
+      complete: () => Swal.close()
     });
   }
 
@@ -132,7 +133,8 @@ export class AuthService extends APIService<MemberAccount> {
         );
         Swal.hideLoading();
         this.requesting = false;
-      }
+      },
+      complete: () => Swal.close()
     });
   }
 
