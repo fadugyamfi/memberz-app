@@ -39,6 +39,13 @@ export class CustomFieldEditorComponent implements OnInit {
     });
   }
 
+  toSnakeCase(str) {
+    return str && str
+      .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+      .map(x => x.toLowerCase())
+      .join('_');
+  }
+
   setupForm() {
     this.customFieldForm = new FormGroup({
       id: new FormControl(this.generateGuid()),
@@ -55,6 +62,10 @@ export class CustomFieldEditorComponent implements OnInit {
         this.customFieldForm.controls.options = new FormArray([ this.createFieldOptionGroup() ]);
       }
     });
+  }
+
+  forceSnakeCase(event: Event) {
+    this.customFieldForm.controls.name.setValue( this.toSnakeCase((event.target as HTMLInputElement).value) );
   }
 
   createFieldOptionGroup() {

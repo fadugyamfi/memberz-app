@@ -4,7 +4,7 @@ import { OrganisationMemberCategory } from '../../../shared/model/api/organisati
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService } from '../../../shared/services/events.service';
 import { StorageService } from '../../../shared/services/storage.service';
@@ -25,11 +25,13 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
   public categories: OrganisationMemberCategory[];
   public searchForm: FormGroup;
   public allSelected = false;
+  public registrationFormId: number;
 
   constructor(
     public membershipService: OrganisationMemberService,
     public categoryService: OrganisationMemberCategoryService,
     public router: Router,
+    public route: ActivatedRoute,
     public modalService: NgbModal,
     public dropdownConfig: NgbDropdownConfig,
     public events: EventsService,
@@ -41,6 +43,7 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngOnInit() {
+    this.fetchRegistrationFormId();
     this.fetchMemberCategories();
     this.setupSearchForm();
     this.setupEvents();
@@ -53,6 +56,10 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
   ngOnDestroy() {
     this.removeEvents();
     this.events.trigger("close:membership:flyout");
+  }
+
+  fetchRegistrationFormId() {
+    this.registrationFormId = +this.route.snapshot.paramMap.get('id');
   }
 
   /**
@@ -77,16 +84,9 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
   loadMemberships(page = 1, limit = 15) {
     this.members = null;
 
-    const options = {
-      approved: 0,
-      active: 1,
-      page,
-      limit,
-      contain: ['member', 'organisation_member_category'].join(),
-      sort: 'created:asc'
-    };
+    const options = { page, limit, registration_form_id: this.registrationFormId };
 
-    this.membershipService.unapproved().subscribe((members: OrganisationMember[]) => {
+    this.membershipService.unapproved(options).subscribe((members: OrganisationMember[]) => {
       this.members = members;
       this.allSelected = false;
     });

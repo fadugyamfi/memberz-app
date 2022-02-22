@@ -68,18 +68,6 @@ export class APIService<T extends AppModel> {
     return this._model_name;
   }
 
-  // getApiCredentials() {
-  //   const loginUser = this.authData.getUserAuthData();
-  //   let token = btoa(`${''}:${''}`);
-  //   if (loginUser) {
-  //     const app = loginUser.data.app_client;
-  //     token = btoa(`${app.client_id}:${app.client_secret}`);
-  //   }
-  //   return {
-  //     'Authorization': `Basic ${token}`
-  //   }
-  // }
-
   getUserAuthorization() {
     const auth = this.storage.get('auth');
 

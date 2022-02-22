@@ -132,7 +132,15 @@ const routes: Routes = [
           title: 'Edit Registration Form',
           breadcrumb: 'Edit Registration Form'
         }
-      }
+      },
+      {
+        path: 'registration-forms/:id/pending-approvals',
+        component: PendingApprovalsComponent,
+        data: {
+          title: 'Pending Approvals',
+          breadcrumb: 'Pending Approvals'
+        }
+      },
     ]
   }
 

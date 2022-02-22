@@ -20,7 +20,8 @@
         </label>
 
         <div class="col-sm-9">
-          <input type="text" class="form-control" formControlName="name" placeholder="e.g. hall_of_residence" [readonly]="editing" />
+          <input type="text" class="form-control" formControlName="name" placeholder="e.g. hall_of_residence"
+                [readonly]="editing" (blur)="forceSnakeCase($event)" />
 
           <div class="text-danger" *ngIf="customFieldForm.controls.name?.errors?.required">
             <p class="mb-0">{{ 'Name Required' | translate }}</p>

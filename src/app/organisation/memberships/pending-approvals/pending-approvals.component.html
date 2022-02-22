@@ -29,7 +29,7 @@
     <h6>{{'Create and share some registration forms to start get data into this view' | translate}}</h6>
   </div>
 
-  <div class="loader-box m-auto" *ngIf="membershipService.requesting">
+  <div class="loader-box m-auto" *ngIf="membershipService.fetching">
     <span class="rotate dashed colored"></span>
   </div>
 
@@ -55,11 +55,9 @@
         <td class="text-center">
           <input type="checkbox" class="checkbox" [checked]="profile.selected" (change)="toggleSelected(profile)" />
         </td>
-        <!-- <td>{{ profile.organisation_no }}</td> -->
         <td class="text-right">{{ membershipService.pagingMeta.from + row }}.</td>
         <td>
           <a viewProfile [membership]="profile" href="javascript:void(0)">
-            <!--[routerLink]="['/organisation/memberships', { outlets: { flyout: ['view', profile.id] } }]"-->
             {{ profile.member?.last_name }} {{ profile.member?.first_name }}
           </a>
         </td>

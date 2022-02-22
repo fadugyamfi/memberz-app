@@ -51,7 +51,7 @@
             <i class="fa fa-pencil"></i> {{ 'Register' | translate }}
           </a>
 
-          <a class="btn btn-xs btn-secondary m-r-10" [routerLink]="['/organisation/memberships/pending-approvals']">
+          <a class="btn btn-xs btn-secondary m-r-10" [routerLink]="['/organisation/memberships/registration-forms', form.id, 'pending-approvals']">
             <i class="fa fa-eye"></i> {{ 'View Registrants' | translate }}
           </a>
 
