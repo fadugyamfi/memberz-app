@@ -10,10 +10,10 @@ export const environment = {
     appId: 'YOUR_APPID'
   },
   cakeapi: {
-    url: 'https://memberz-api.ti8zzavwzb-ewx3lgxzk6zq.p.runcloud.link/api'
+    url: 'http://api-beta.memberz.org/api'
   },
   api: {
-    url: 'https://memberz-api.ti8zzavwzb-ewx3lgxzk6zq.p.runcloud.link/api'
+    url: 'http://api-beta.memberz.org/api'
   },
   slydepay: {
     mode: 'live',
