@@ -50,6 +50,7 @@ import { SelectMonthControlComponent } from './components/forms/select-month-con
 import { SelectYearControlComponent } from './components/forms/select-year-control/select-year-control.component';
 import { SelectBankControlComponent } from './components/forms/select-bank-control/select-bank-control.component';
 import { SelectCurrencyControlComponent } from './components/forms/select-currency-control/select-currency-control.component';
+import { SelectCountryControlComponent } from './components/forms/select-country-control/select-country-control.component';
 import { SelectPaymentTypeControlComponent } from './components/forms/select-payment-type-control/select-payment-type-control.component';
 import { FinanceWeeklyBreakdownComponent } from './components/charts/finance-weekly-breakdown/finance-weekly-breakdown.component';
 import { FinanceCategoryBreakdownComponent } from './components/charts/finance-category-breakdown/finance-category-breakdown.component';
@@ -108,6 +109,7 @@ import { CustomFieldComponent } from './components/forms/custom-field/custom-fie
     SelectYearControlComponent,
     SelectBankControlComponent,
     SelectCurrencyControlComponent,
+    SelectCountryControlComponent,
     SelectPaymentTypeControlComponent,
     FinanceWeeklyBreakdownComponent,
     FinanceCategoryBreakdownComponent,
@@ -175,6 +177,7 @@ import { CustomFieldComponent } from './components/forms/custom-field/custom-fie
     SelectYearControlComponent,
     SelectBankControlComponent,
     SelectCurrencyControlComponent,
+    SelectCountryControlComponent,
     SelectPaymentTypeControlComponent,
     FinanceWeeklyBreakdownComponent,
     FinanceCategoryBreakdownComponent,

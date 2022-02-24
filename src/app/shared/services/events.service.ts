@@ -36,10 +36,16 @@ export class EventsService {
     this.listeners[name].push(listener);
   }
 
-  off(name: string) {
-    if (this.listeners[name]) {
-      this.listeners[name].pop();
+  off(name: string | string[]) {
+    if( typeof name == 'string' ) {
+      name = [name];
     }
+
+    name.forEach(n => {
+      if (this.listeners[n]) {
+        this.listeners[n].pop();
+      }
+    });
   }
 
   trigger(name: string, ...args) {

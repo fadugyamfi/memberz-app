@@ -1,4 +1,6 @@
 <select class="form-control" [(ngModel)]="value">
-  <option value="">{{ 'Currency' | translate }}</option>
-  <option *ngFor="let currency of currencyService.getItems()" [value]="currency.id">{{ currency.currency_code }}</option>
+  <option value="">{{ 'Select Currency' | translate }}</option>
+  <option *ngFor="let currency of currencyService.getItems()" [value]="currency.id">
+    {{ currency.currency_name }} ({{ currency.currency_code }})
+  </option>
 </select>

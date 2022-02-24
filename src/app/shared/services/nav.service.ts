@@ -756,11 +756,11 @@ export class NavService {
           title: 'User Activities',
           type: 'link'
         },
-        // {
-        //   path: '/organisation/settings/payment-platforms',
-        //   title: 'Payment Platforms',
-        //   type: 'link'
-        // }
+        {
+          path: '/organisation/settings/payment-platforms',
+          title: 'Payment Platforms',
+          type: 'link'
+        }
       ]
     }
   ];

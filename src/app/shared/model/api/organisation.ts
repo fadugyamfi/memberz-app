@@ -14,6 +14,7 @@ export class Organisation extends AppModel {
   private _activeSubscription: OrganisationSubscription;
   private _organisationType: OrganisationType;
   public country_id: number;
+  public currency_id: number;
   public slug: string;
   public address: string;
   public city: string;
