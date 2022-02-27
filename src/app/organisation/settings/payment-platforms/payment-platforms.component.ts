@@ -10,6 +10,7 @@ import { OrganisationService } from '../../../shared/services/api/organisation.s
 import { EventsService } from '../../../shared/services/events.service';
 import { PaymentPlatform } from '../../../shared/model/api/payment-platform';
 import { times } from 'chartist';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-payment-platforms',
@@ -47,17 +48,17 @@ export class PaymentPlatformsComponent implements OnInit, OnDestroy {
   }
 
   setupEvents() {
-    this.events.on('OrganisationPaymentPlatform:created', (platform) => {
-      this.modal.close();
-    });
-
-    this.events.on('OrganisationPaymentPlatform:updated', (platform) => {
-      this.modal.close();
-    });
+    this.events.on('OrganisationPaymentPlatform:created', () => this.modal.close());
+    this.events.on('OrganisationPaymentPlatform:updated', () => this.modal.close());
+    this.events.on('OrganisationPaymentPlatform:deleted', () => Swal.close());
   }
 
   removeEvents() {
-    this.events.off(['OrganisationPaymentPlatform:created', 'OrganisationPaymentPlatform:updated']);
+    this.events.off([
+      'OrganisationPaymentPlatform:created',
+      'OrganisationPaymentPlatform:updated',
+      'OrganisationPaymentPlatform:deleted'
+    ]);
   }
 
   fetchOrganisationPaymentPlatforms(page = 1, limit = 9) {
@@ -80,7 +81,11 @@ export class PaymentPlatformsComponent implements OnInit, OnDestroy {
   }
 
   fetchPaymentPlatforms() {
-    const sub = this.paymentPlatformService.getAll({ limit: 100 }).subscribe(paymentPlatforms => this.paymentPlatforms = paymentPlatforms);
+    const CASH_PLATFORM_ID = 3;
+
+    const sub = this.paymentPlatformService.getAll({ limit: 100 }).subscribe(paymentPlatforms => {
+      this.paymentPlatforms = paymentPlatforms.filter(p => p.id != CASH_PLATFORM_ID); // exclude cash
+    });
     this.subscriptions.push(sub);
   }
 
@@ -99,7 +104,7 @@ export class PaymentPlatformsComponent implements OnInit, OnDestroy {
 
     this.editorForm.controls.payment_platform_id.valueChanges.subscribe(value => {
       const configGroup = this.editorForm.controls.config as FormGroup;
-      for(let name in configGroup.controls) {
+      for (let name in configGroup.controls) {
         configGroup.removeControl(name);
       }
 
@@ -126,16 +131,38 @@ export class PaymentPlatformsComponent implements OnInit, OnDestroy {
   onSubmit(event) {
     event.preventDefault();
 
-    if( !this.editorForm.valid ) {
+    if (!this.editorForm.valid) {
       return;
     }
 
     const platform = new OrganisationPaymentPlatform(this.editorForm.value);
 
-    if( platform.id ) {
+    if (platform.id) {
       return this.orgPlatformService.update(platform);
     }
 
     return this.orgPlatformService.create(platform);
+  }
+
+  /**
+  * Batch delete a select list of member records
+  */
+  deletePlatform(platform: OrganisationPaymentPlatform) {
+    Swal.fire({
+      title: this.translate.instant('Confirm Deletion'),
+      text: this.translate.instant(`This action will delete record from the database. This action currently cannot be reverted`),
+      icon: 'warning',
+      showCancelButton: true,
+    }).then((action) => {
+      if (action.value) {
+        Swal.fire(
+          this.translate.instant('Deleting Category'),
+          this.translate.instant('Please wait') + ' ...',
+          'error'
+        );
+        Swal.showLoading();
+        this.orgPlatformService.remove(platform);
+      }
+    });
   }
 }
