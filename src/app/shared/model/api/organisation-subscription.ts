@@ -31,6 +31,22 @@ export class OrganisationSubscription extends AppModel {
     return this.organisation_invoice != null && this.organisation_invoice.paid;
   }
 
+  isFreePlan() {
+    return this.subscription_type?.description == 'Free Plan';
+  }
+
+  isBasicPlan() {
+    return this.subscription_type?.description == 'Basic Plan';
+  }
+
+  isProPlan() {
+    return this.subscription_type?.description == 'Pro Plan';
+  }
+
+  canAccessFinance() {
+    return this.subscription_type?.revenue_tracking == 1;
+  }
+
   set subscription_type(value) {
     this._subscription_type = value ? new SubscriptionType(value) : null;
   }
