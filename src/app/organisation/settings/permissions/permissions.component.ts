@@ -10,6 +10,9 @@ import { PermissionService } from '../../../shared/services/api/permission.servi
 import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
 import { OrganisationRole } from '../../../shared/model/api/organisation-role';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
+import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-permissions',
@@ -37,7 +40,9 @@ export class PermissionsComponent implements OnInit, OnDestroy {
     public fb: FormBuilder,
     public roleService: OrganisationRoleService,
     public storage: StorageService,
-    public modalService: NgbModal
+    public modalService: NgbModal,
+    public orgAccountService: OrganisationAccountService,
+    public translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -213,7 +218,23 @@ export class PermissionsComponent implements OnInit, OnDestroy {
 
     // if setting permissions for a role
     if ( this.role ) {
-      this.roleService.syncPermissions(params).subscribe(() => this.hide());
+      Swal.fire(this.translate.instant('Saving Permissions Changes'), '', 'info');
+      Swal.showLoading();
+
+      this.roleService.syncPermissions(params).subscribe(() => {
+        this.orgAccountService.refreshActiveAccount().subscribe({
+          next: () => this.hide(),
+          error: () => {
+            Swal.hideLoading();
+            Swal.fire(
+              this.translate.instant('Refresh Error'),
+              this.translate.instant('Could not load new permissions for account') + '.' + this.translate.instant('Please refresh page and try again'),
+              'error'
+            )
+          },
+          complete: () => Swal.close()
+         });
+      });
     }
 
   }
