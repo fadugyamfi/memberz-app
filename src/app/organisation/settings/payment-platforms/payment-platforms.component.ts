@@ -156,7 +156,7 @@ export class PaymentPlatformsComponent implements OnInit, OnDestroy {
     }).then((action) => {
       if (action.value) {
         Swal.fire(
-          this.translate.instant('Deleting Category'),
+          this.translate.instant('Deleting Payment Platform'),
           this.translate.instant('Please wait') + ' ...',
           'error'
         );
