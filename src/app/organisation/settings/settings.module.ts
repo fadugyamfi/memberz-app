@@ -13,6 +13,7 @@ import { SubscriptionUpgradeComponent } from './subscription-upgrade/subscriptio
 import { InvoicePaymentComponent } from './invoice-payment/invoice-payment.component';
 import { PaymentProcessorComponent } from './payment-processor/payment-processor.component';
 import { UserActivitiesComponent } from './user-activities/user-activities.component';
+import { ProSubscriptionRequiredComponent } from './pro-subscription-required/pro-subscription-required.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { UserActivitiesComponent } from './user-activities/user-activities.compo
     SubscriptionUpgradeComponent,
     InvoicePaymentComponent,
     PaymentProcessorComponent,
-    UserActivitiesComponent
+    UserActivitiesComponent,
+    ProSubscriptionRequiredComponent
   ],
   imports: [
     CommonModule,

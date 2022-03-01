@@ -10,6 +10,7 @@ import { MemberAccount } from 'src/app/shared/model/api/member-account';
 import { MemberAccountService } from 'src/app/shared/services/api/member-account.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { OrganisationAccount } from '../../../shared/model/api/organisation-account';
 
 @Component({
@@ -36,6 +37,7 @@ export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy
     public modalService: NgbModal,
     public memberAccountService: MemberAccountService,
     public orgAccountService: OrganisationAccountService,
+    public organisationService: OrganisationService,
     public events: EventsService,
     public storage: StorageService,
   ) { }
@@ -123,7 +125,10 @@ export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy
    * Sets up the search form group and validations
    */
   setupSearchForm() {
+    const organisation = this.organisationService.getActiveOrganisation();
+
     this.searchForm = new FormGroup({
+      organisation_id: new FormControl(organisation.id),
       causer_id: new FormControl(''),
       log_name: new FormControl(''),
       created_at_gte: new FormControl(),

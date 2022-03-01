@@ -51,8 +51,8 @@
           <div class="card m-b-15" *ngFor="let permGroup of permissionGroups; let row = index">
             <div class="card-header p-t-10 p-b-10">
               <div class="row">
-                <div class="col-1">
-                  <ui-switch class="js-small" color="#3498DB" switchColor="#fff" size="small"
+                <div class="col-2">
+                  <ui-switch class="js-small" color="#3498DB" switchColor="#fff"
                              (change)="selectAllInGroup($event, permGroup)" [checked]="permGroup.selected"></ui-switch>
                 </div>
 
@@ -62,7 +62,7 @@
                   </a>
                 </div>
 
-                <div class="col-7 p-t-5">
+                <div class="col-6 p-t-5">
                   <i class="label"
                      [ngClass]="{'label-inverse': permGroup.totalSelected() > 0, 'label-default': permGroup.totalSelected() == 0}">
                     {{'Selected' | translate}}: {{ permGroup.totalSelected() }} / {{ permGroup.totalPermissions() }}

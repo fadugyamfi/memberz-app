@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProSubscriptionGuard } from '../shared/guard/pro-subscription.guard';
+import { FinanceFeaturesGuard } from '../shared/guard/finance-features.guard';
 
 
 const routes: Routes = [
@@ -38,6 +40,7 @@ const routes: Routes = [
       {
         path: 'finance',
         loadChildren: () => import('./finance/finance.module').then(m => m.FinanceModule),
+        canActivate: [FinanceFeaturesGuard],
         data: {
           breadcrumb: 'Finance'
         }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as moment from 'moment';
 import { FinanceDashboardService } from 'src/app/shared/services/api/finance-dashboard.service';
 import * as chartData from '../../../data/chart/chartjs';
+import { OrganisationService } from '../../../services/api/organisation.service';
 
 @Component({
   selector: 'app-finance-trend',
@@ -9,6 +10,9 @@ import * as chartData from '../../../data/chart/chartjs';
   styleUrls: ['./finance-trend.component.scss']
 })
 export class FinanceTrendComponent implements OnInit {
+
+
+  @Input() title = 'Income Trend';
 
   private monthObjLabels = chartData.monthObjLabels;
   public labels = [];
@@ -25,7 +29,8 @@ export class FinanceTrendComponent implements OnInit {
   public yearValue: number = null;
 
   constructor(
-    public reportService: FinanceDashboardService
+    public reportService: FinanceDashboardService,
+    public organisationService: OrganisationService
   ) { }
 
   ngOnInit(): void {
@@ -111,4 +116,12 @@ export class FinanceTrendComponent implements OnInit {
     return this.chartData && this.chartData.length > 0;
   }
 
+  canShowWidgetData() {
+    return this.showChart && this.hasDataAvailable() && this.organisationHasProAccount();
+  }
+
+  organisationHasProAccount() {
+    const activeSubscription = this.organisationService.getActiveOrganisation().active_subscription;
+    return activeSubscription.isProPlan();
+  }
 }
