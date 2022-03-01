@@ -47,7 +47,8 @@ export class AuthService extends APIService<MemberAccount> {
   }
 
   public setupEvents() {
-    this.events.on('api:authentication:required', () => this.logout());
+    this.events.on('api:authentication:required', () => this.logout({ force: true }));
+    this.events.on('api:authentication:clear', () => this.clearAndRedirect());
     this.events.on('auth:logout', () => this.logout());
     this.events.on('auth:refresh', () => this.me(true).subscribe());
   }
@@ -179,14 +180,13 @@ export class AuthService extends APIService<MemberAccount> {
   }
 
   // Sign out
-  public logout() {
+  public logout(options = { force: false }) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
 
-    if (!this.storage.isValid('auth')) {
-      this.clearSession();
-      this.router.navigate(['/auth/login']);
+    if (!this.storage.isValid('auth') || options.force) {
+      this.clearAndRedirect();
       return;
     }
 
