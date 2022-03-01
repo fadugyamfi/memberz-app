@@ -42,11 +42,18 @@ export class OrganisationAccount extends AppModel {
     return this.member_account?.member?.name();
   }
 
+  // in place so deserialization works
+  set name(value) {}
+
   set membership(value) {
     this._membership = value ? new OrganisationMember(value) : null;
   }
 
   get membership() {
     return this._membership;
+  }
+
+  hasPermission(name: string) {
+    return this.organisation_role.hasPermission(name);
   }
 }

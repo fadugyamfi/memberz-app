@@ -2,7 +2,7 @@
   <div class="card-header">
     <div class="row">
       <div class="col-md-6">
-        <button class="btn btn-primary btn-sm m-r-10" (click)="showEditorModal()">
+        <button class="btn btn-primary btn-sm m-r-10" adminHasPermission="settings:categories:manage" (click)="showEditorModal()">
           <i class="fa fa-plus"></i> {{'Add Category' | translate}}
         </button>
       </div>
@@ -54,11 +54,11 @@
             <i class="fa fa-file"></i> View
           </button> -->
 
-          <button class="btn btn-xs btn-primary m-r-10" (click)="showEditorModal(category)">
+          <button class="btn btn-xs btn-primary m-r-10" adminHasPermission="settings:categories:manage" (click)="showEditorModal(category)">
             <i class="fa fa-pencil"></i> {{'Edit' | translate}}
           </button>
 
-          <button class="btn btn-xs btn-danger" (click)="deleteCategory(category)">
+          <button class="btn btn-xs btn-danger" (click)="deleteCategory(category)" adminHasPermission="settings:categories:delete">
             <i class="fa fa-trash-o"></i> {{'Delete' | translate}}
           </button>
         </td>

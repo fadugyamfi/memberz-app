@@ -80,6 +80,7 @@ import { ProfileActionsComponent } from './components/profile-view/profile-actio
 import { MakeAdminComponent } from './components/profile-view/make-admin/make-admin.component';
 import { SmsTemplateTagControlComponent } from './components/forms/sms-template-tag-control/sms-template-tag-control.component';
 import { CustomFieldComponent } from './components/forms/custom-field/custom-field.component';
+import { AdminHasPermissionDirective } from './directives/admin-has-permission.directive';
 
 @NgModule({
   declarations: [
@@ -136,7 +137,8 @@ import { CustomFieldComponent } from './components/forms/custom-field/custom-fie
     ProfileActionsComponent,
     MakeAdminComponent,
     SmsTemplateTagControlComponent,
-    CustomFieldComponent
+    CustomFieldComponent,
+    AdminHasPermissionDirective
   ],
   imports: [
     CommonModule,
@@ -192,7 +194,8 @@ import { CustomFieldComponent } from './components/forms/custom-field/custom-fie
     ProfileViewComponent,
     MakeAdminComponent,
     SmsTemplateTagControlComponent,
-    CustomFieldComponent
+    CustomFieldComponent,
+    AdminHasPermissionDirective
   ],
   providers: [
     NavService,

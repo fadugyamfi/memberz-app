@@ -10,6 +10,9 @@ import { StorageService } from '../../../shared/services/storage.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
+import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
+import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +30,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     public organisationService: OrganisationService,
     public storage: StorageService,
     public events: EventsService,
-    public smsAccountService: SmsAccountService
+    public smsAccountService: SmsAccountService,
+    public orgAccountService: OrganisationAccountService,
+    public translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -96,9 +101,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.events.trigger('switching_organisation');
     this.organisationService.setActiveOrganisation(org);
     this.smsAccountService.refreshAccount();
-    this.router.navigate(['/organisation/dashboard']);
+    const user = this.authService.userData;
 
-    setTimeout(() => Swal.close(), 1000);
+    this.orgAccountService.fetchAdminAccount(org.id, user.id).subscribe({
+      next: () => {
+        this.router.navigate(['/organisation/dashboard']).then(() => {
+          setTimeout(() => Swal.close(), 500);
+        });
+      },
+      error: () => {
+        Swal.fire(
+          this.translate.instant('Invalid Access'),
+          this.translate.instant('Could not retrieve a valid account to access this organisation\'s data'),
+          'error'
+        );
+        Swal.hideLoading();
+      }
+    })
   }
 
   deleteOrganisation(organisation: Organisation) {

@@ -25,11 +25,11 @@ export class OrganisationRole extends AppModel {
     this._permissions = values.map(data => new Permission(data));
   }
 
-  get permissions() {
+  get permissions(): Permission[] {
     return this._permissions;
   }
 
-  hasPermission(name) {
+  hasPermission(name: string) {
     return this.permissions.some(value => value.name == name);
   }
 }

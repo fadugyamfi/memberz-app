@@ -19,7 +19,7 @@
   </div>
 
   <ul class="sidebar-menu">
-    <li *ngFor="let menuItem of menuItems" [ngClass]="{active: menuItem.active}">
+    <li *ngFor="let menuItem of menuItems" [ngClass]="{active: menuItem.active}" [adminHasPermission]="menuItem.permission">
       <!-- Sub -->
       <a href="javascript:void(0)" class="sidebar-header" *ngIf="menuItem.type === 'sub'"
          (click)="toggletNavActive(menuItem)">
@@ -54,7 +54,7 @@
       <!-- 2nd Level Menu -->
       <ul class="sidebar-submenu" [ngClass]="{'menu-open': menuItem.active, 'menu-close': !menuItem.active }"
           *ngIf="menuItem.children">
-        <li *ngFor="let childrenItem of menuItem.children" [ngClass]="{active: childrenItem.active}">
+        <li *ngFor="let childrenItem of menuItem.children" [ngClass]="{active: childrenItem.active}" [adminHasPermission]="childrenItem.permission">
           <!-- Sub -->
           <a href="javascript:void(0)" *ngIf="childrenItem.type === 'sub'" (click)="toggletNavActive(childrenItem)">
             <i class="fa fa-circle"></i><span> {{childrenItem.title| translate}} <span
