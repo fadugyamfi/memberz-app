@@ -10,7 +10,6 @@
               <input
                 type="date"
                 formControlName="start_date"
-                (change)="fetchReportData()"
                 class="form-control"
                 placeholder="YYYY-MM-DD"
               />
@@ -21,7 +20,6 @@
               <input
                 type="date"
                 formControlName="end_date"
-                (change)="fetchReportData()"
                 class="form-control"
                 placeholder="YYYY-MM-DD"
               />
@@ -32,8 +30,11 @@
               <app-select-currency-control
                 class="w-50"
                 formControlName="currency_id"
-                (change)="fetchReportData()"
               ></app-select-currency-control>
+            </div>
+
+            <div class="form-group mb-2">
+              <button type="button" class="btn btn-outline-primary" (click)="fetchReportData()">{{ 'Run Report' | translate }}</button>
             </div>
           </form>
         </div>

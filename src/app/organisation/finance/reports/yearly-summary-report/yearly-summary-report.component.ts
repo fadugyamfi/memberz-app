@@ -54,7 +54,6 @@ export class YearlySummaryReportComponent implements OnInit {
     });
 
     this.searchForm.valueChanges.subscribe(values => {
-      this.fetchReportData();
       this.selected_currency_code = this.currencyService.getItem(values.currency_id).currency_code;
     });
   }

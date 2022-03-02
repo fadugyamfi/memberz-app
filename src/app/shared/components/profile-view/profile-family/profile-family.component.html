@@ -27,7 +27,7 @@
             </div>
             <div class="media-body">
               <h6 class="m-b-0">
-                <a *ngIf="relation.relation_member_id" href="javascript:void(0)" (click)="loadRelativeProfile(relation)">
+                <a *ngIf="relation.relation_member_id" href="javascript:void(0)" viewProfile [membershipId]="relation.relative_organisation_member_id">
                   {{ relation.name }}
                 </a>
                 <span *ngIf="!relation.relation_member_id">{{ relation.name }}</span>

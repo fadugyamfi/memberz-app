@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, HostListener, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener, OnDestroy, ViewChild } from '@angular/core';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { fadeIn } from 'ng-animate';
 import { NavService } from '../../../services/nav.service';
@@ -9,6 +9,7 @@ import { EventsService } from '../../../services/events.service';
 import { Router } from '@angular/router';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { OrganisationMemberService } from '../../../services/api/organisation-member.service';
+import { ProfileViewComponent } from '../../profile-view/profile-view.component';
 
 @Component({
   selector: 'app-organisation-layout',
@@ -23,6 +24,7 @@ import { OrganisationMemberService } from '../../../services/api/organisation-me
 })
 export class OrganisationLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  @ViewChild("profileView") profileView: ProfileViewComponent;
 
   public right_side_bar: boolean;
   public flyoutOpen = false;
@@ -89,6 +91,11 @@ export class OrganisationLayoutComponent implements OnInit, OnDestroy, AfterView
     this.events.on("open:membership:flyout", (membership: OrganisationMember) => {
       this.flyoutOpen = true;
       this.membership = membership;
+    });
+
+    this.events.on("open:membership:flyout:by:id", (membershipId: number) => {
+      this.flyoutOpen = true;
+      this.profileView.loadProfileById(membershipId);
     });
 
     this.events.on('close:membership:flyout', () => this.flyoutOpen = false);

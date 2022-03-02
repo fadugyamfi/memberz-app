@@ -128,8 +128,8 @@
           </div>
 
           <div class="media align-items-center" *ngIf="authService.userData as user">
-            <img class="align-self-center pull-right img-50 rounded-circle"
-                 [src]="user?.member?.thumbnail() || 'assets/images/user/1.jpg'" alt="header-user" />
+            <img class="align-self-center pull-right img-50 rounded-circle" default="/assets/images/user/user.png"
+                 [src]="user?.member?.thumbnail()" alt="header-user" />
             <!-- <div class="dotted-animation">
               <span class="animate-circle"></span>
               <span class="main-circle"></span>
