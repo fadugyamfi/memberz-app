@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 
 import { RequestErrorHandler } from './request-error-handler.service';
-import { catchError, Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 
 @Injectable()
 export class RequestInterceptor implements HttpInterceptor {
@@ -24,7 +24,7 @@ export class RequestInterceptor implements HttpInterceptor {
         if (err instanceof HttpErrorResponse) {
           this.errorHandler.handleError(err);
         }
-        return caught;
+        return throwError(() => new Error("Request Error"));
       })
     );
   }

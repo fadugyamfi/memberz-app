@@ -14,6 +14,9 @@ import { ContributionReceiptSettingService} from '../../../../shared/services/ap
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../../shared/services/events.service';
 import { ContributionPaymentType } from '../../../../shared/model/api/contribution-payment-type';
+import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -43,10 +46,13 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
     public modalService: NgbModal,
     public receiptSettingService: ContributionReceiptSettingService,
     public orgService: OrganisationService,
-    public events: EventsService
+    public events: EventsService,
+    public translate: TranslateService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
+    this.fetchContributionTypes();
     this.fetchReceiptSettings();
     this.setupEvents();
   }
@@ -152,16 +158,50 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
   }
 
   fetchReceiptSettings() {
-    const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {
-      this.receiptSettings = settings;
-      this.setupEditorForm();
+    const sub = this.receiptSettingService.fetchSettings().subscribe({
+      next: settings => {
+        this.receiptSettings = settings;
+        this.setupEditorForm();
+      },
+      error: (err) => {
+        Swal.fire({
+          title: this.translate.instant('Receipts Not Configured'),
+          text: this.translate.instant('Configure your receipt settings in order to add transactions'),
+          icon: 'error',
+          showCancelButton: true,
+          confirmButtonText: this.translate.instant('Configure Now')
+        }).then(action => {
+          if( action.isConfirmed ) {
+            this.router.navigate(['/organisation/finance/settings/receipts']);
+          }
+        });
+      }
     });
 
     this.subscriptions.push(sub);
   }
 
   fetchContributionTypes() {
-    const sub = this.contributionTypeService.getAll({ sort: 'name:asc' }).subscribe();
+    const sub = this.contributionTypeService.getAll({ sort: 'name:asc' }).subscribe({
+      next: (sources) => {
+        if( !sources || sources.length == 0 ) {
+          Swal.fire({
+            title: this.translate.instant('Income Sources Not Configured'),
+            text: this.translate.instant('Configure your income sources in order to add transactions'),
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonText: this.translate.instant('Configure Now')
+          }).then(action => {
+            if( action.isConfirmed ) {
+              this.router.navigate(['/organisation/finance/settings/income-sources']);
+            }
+          });
+        }
+      },
+      error: (err) => {
+
+      }
+    });
     this.subscriptions.push(sub);
   }
 
