@@ -17,6 +17,7 @@ import { ContributionPaymentType } from '../../../../shared/model/api/contributi
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { SmsAccountService } from '../../../../shared/services/api/sms-account.service';
 
 
 @Component({
@@ -48,7 +49,8 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
     public orgService: OrganisationService,
     public events: EventsService,
     public translate: TranslateService,
-    public router: Router
+    public router: Router,
+    public smsAccountService: SmsAccountService
   ) { }
 
   ngOnInit(): void {

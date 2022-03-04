@@ -118,11 +118,18 @@ export class IncomeComponent implements OnInit, OnDestroy {
   }
 
   setupEvents() {
+    this.events.on('Contribution:created', (contribution) => this.contributions.unshift(contribution));
+
+    this.events.on('Contribution:updated', (contribution) => {
+      const index = this.contributions.findIndex(c => c.id == contribution.id);
+      this.contributions[index] = contribution;
+    });
+
     this.events.on('Contribution:deleted', () => Swal.close());
   }
 
   removeEvents() {
-    this.events.off('Contribution:deleted');
+    this.events.off(['Contribution:created', 'Contribution:updated', 'Contribution:deleted']);
   }
 
   deleteIncome(contribution: Contribution) {

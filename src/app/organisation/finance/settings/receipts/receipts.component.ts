@@ -2,10 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 import { ContributionReceiptSetting } from '../../../../shared/model/api/contribution-receipt-setting';
 import { ContributionReceiptSettingService} from '../../../../shared/services/api/contribution-receipt-setting.service';
 import { CurrencyService} from '../../../../shared/services/api/currency.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
+import { SmsAccountService } from '../../../../shared/services/api/sms-account.service';
 import { EventsService } from '../../../../shared/services/events.service';
 
 @Component({
@@ -25,7 +27,8 @@ export class ReceiptsComponent implements OnInit, OnDestroy {
     public receiptSettingService: ContributionReceiptSettingService,
     public currencyService: CurrencyService,
     public organisationService: OrganisationService,
-    public events: EventsService
+    public events: EventsService,
+    public smsAccountService: SmsAccountService
   ) { }
 
   ngOnInit(): void {
@@ -82,7 +85,20 @@ export class ReceiptsComponent implements OnInit, OnDestroy {
       sms_notify: new FormControl( this.settings?.sms_notify ),
     });
 
+    const smsAccountCreated = this.smsAccountService.hasOrganisationAccount();
+
     const sub = this.settingsForm.valueChanges.subscribe((value) => {
+      if( value.sms_notify == 1 && !smsAccountCreated ) {
+        Swal.fire(
+          this.translate.instant('SMS Account Not Setup'),
+          this.translate.instant('Please setup SMS account to enable is feature'),
+          'error'
+        ).then(() => {
+          value.sms_notify = 0;
+          this.settingsForm.patchValue(value);
+        });
+      }
+
       this.settings.update(value);
     });
 
