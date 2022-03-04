@@ -34,6 +34,6 @@
     <button class="btn btn-xs btn-secondary btn-round" (click)="toggleFlyout()"><i class="fa fa-times"></i></button>
   </header>
   <div class="content">
-    <app-profile-view [membership]="membership" [layout]="'flyout'"></app-profile-view>
+    <app-profile-view #profileView [membership]="membership" [layout]="'flyout'"></app-profile-view>
   </div>
 </div>

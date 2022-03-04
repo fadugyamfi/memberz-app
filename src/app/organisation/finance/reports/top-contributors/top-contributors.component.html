@@ -47,7 +47,11 @@
             <tbody>
               <tr *ngFor="let data of reportData; let row = index">
                 <td>{{ row + 1 }}.</td>
-                <td><a [routerLink]="['/organisation/memberships/view', data.organisation_member_id]" target="profile">{{ data.member_name }}</a></td>
+                <td>
+                  <a href="javascript:void(0)" viewProfile [membershipId]="data.organisation_member_id">
+                    {{ data.member_name }}
+                  </a>
+                </td>
                 <td>{{ data.mobile_number }}</td>
                 <td class="text-center">{{ data.age }}</td>
                 <td class="text-right">{{ data.last_contribution_date | date }}</td>

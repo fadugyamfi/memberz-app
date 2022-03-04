@@ -8,12 +8,21 @@ import { EventsService } from '../services/events.service';
 export class ViewProfileDirective {
 
   @Input() membership: OrganisationMember;
+  @Input() membershipId: number;
 
   constructor(
     public events: EventsService
   ) {}
 
 	@HostListener('click') onClick() {
-    this.events.trigger('open:membership:flyout', this.membership)
+    if( this.membership ) {
+      this.events.trigger('open:membership:flyout', this.membership);
+      return;
+    }
+
+    if( this.membershipId ) {
+      this.events.trigger('open:membership:flyout:by:id', this.membershipId);
+      return;
+    }
 	}
 }

@@ -6,6 +6,7 @@ import { Subscription, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { EventsService } from '../../../shared/services/events.service';
 import { ImageCropperComponent } from 'ngx-image-cropper';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-profile-view',
@@ -26,7 +27,8 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     public membershipService: OrganisationMemberService,
     public route: ActivatedRoute,
     public router: Router,
-    public events: EventsService
+    public events: EventsService,
+    public translate: TranslateService
   ) { }
 
   ngOnInit() {
@@ -75,6 +77,13 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
   loadProfileById(membership_id) {
     if( !membership_id ) return;
+
+    Swal.fire(
+      this.translate.instant('Loading Membership Profile'),
+      this.translate.instant('Please Wait'),
+      'info'
+    );
+    Swal.showLoading();
 
     const ps = this.membershipService.getProfile(membership_id).subscribe((membership: OrganisationMember) => {
       this.activeTabId = 1;

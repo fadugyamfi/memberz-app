@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CurrencyService } from '../../../services/api/currency.service';
@@ -17,6 +17,8 @@ export const CURRENCY_CONTROL_ACCESSOR: any = {
   providers: [CURRENCY_CONTROL_ACCESSOR]
 })
 export class SelectCurrencyControlComponent implements OnInit, OnDestroy {
+
+  @Input() showCurrencyName = true;
 
   private currencySub: Subscription;
 

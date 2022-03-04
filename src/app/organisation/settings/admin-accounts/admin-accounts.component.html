@@ -49,8 +49,8 @@
         <td>{{ account.organisation_role?.name }}</td>
 
         <td class="text-center">
-          <div class="text-danger" *ngIf="!account.active">{{'Pending' | translate}}</div>
-          <div class="text-success" *ngIf="account.active">{{'Active' | translate}}</div>
+          <div class="badge badge-danger" *ngIf="!account.active">{{'Pending' | translate}}</div>
+          <div class="badge badge-success" *ngIf="account.active">{{'Active' | translate}}</div>
         </td>
 
         <td class="text-center">

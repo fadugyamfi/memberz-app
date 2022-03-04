@@ -14,6 +14,10 @@
               <label class="mr-2 title">{{ "Currency" | translate }}</label>
               <app-select-currency-control class="w-50" formControlName="currency_id"></app-select-currency-control>
             </div>
+
+            <div class="form-group mb-2">
+              <button type="button" class="btn btn-outline-primary" (click)="fetchReportData()">{{ 'Run Report' | translate }}</button>
+            </div>
           </form>
         </div>
         <div class="card-body chart-block">

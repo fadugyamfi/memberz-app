@@ -1,5 +1,13 @@
 <div class="row">
   <div class="col-10 offset-1">
+
+    <div class="card" *ngIf="newReceiptSetup">
+      <div class="card-body">
+        <h5 class="font-weight-bold">{{ 'New Settings Setup' | translate }}</h5>
+        <p class="f-14">{{ 'Update the settings below to enable taking / recording payments' | translate }} <b class="text-success"><u>{{ 'then SAVE CHANGES' | translate }}</u></b></p>
+      </div>
+    </div>
+
     <div class="card">
 
       <form class="theme-form" [formGroup]="settingsForm" (submit)="saveChanges($event)">
@@ -71,9 +79,13 @@
             </div>
             <div class="col-9">
               <ui-switch formControlName="sms_notify"></ui-switch>
-              <p class="small m-t-5">
+              <p class="m-t-5">
                 <i class="fa fa-info-circle"></i>
                 {{ 'Applies to only "Member Specific" contribution entries' | translate }}
+              </p>
+              <p class="m-t-5">
+                <i class="fa fa-info-circle text-info"></i>
+                {{ 'Please setup SMS messaging account to use this setting' | translate }}
               </p>
             </div>
           </div>
