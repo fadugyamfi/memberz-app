@@ -100,7 +100,7 @@ export class AuthService extends APIService<MemberAccount> {
     });
   }
 
-  private performLogin(res, DURATION, remember_me) {
+  public performLogin(res, DURATION, remember_me) {
     this.storage.remove('loginUser');
     this.storage.remove('remember_me');
     this.storage.set('auth', res, DURATION, 'day');

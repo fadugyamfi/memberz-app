@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../shared/services/api/auth.service';
 
 type UserFields = 'email' | 'password';
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public route: ActivatedRoute
   ) {
     this.loginForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -34,6 +36,20 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.authService.requesting = false;
+    this.doNewExperienceLogin();
+  }
+
+  doNewExperienceLogin() {
+    const trial = this.route.snapshot.queryParamMap.get('net'); // net = new experience trial
+    const access_token = this.route.snapshot.queryParamMap.get('access_token');
+    const expires_in = this.route.snapshot.queryParamMap.get('expires_in');
+
+    if( !trial ) {
+      return;
+    }
+
+    const auth = { access_token, expires_in, token_type: 'bearer' };
+    this.authService.performLogin(auth, 30, true);
   }
 
   // Login With Google
