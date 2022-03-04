@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { AuthService } from '../../shared/services/api/auth.service';
 
@@ -24,7 +25,8 @@ export class TwoFaCheckComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private fb: FormBuilder,
-    private storage: StorageService
+    private storage: StorageService,
+    private route: ActivatedRoute
   ) {
     this.twoFaCheckForm = fb.group({
       code: ['', [Validators.required]]
@@ -33,9 +35,25 @@ export class TwoFaCheckComponent implements OnInit {
 
   ngOnInit() {
     this.authService.requesting = false;
+    this.doNewExperienceSetup();
     this.email = this.concealEmail(this.storage.get('loginUser').username);
   }
 
+  doNewExperienceSetup() {
+    const netCheck = this.route.snapshot.queryParamMap.get('net');
+    const auth = this.route.snapshot.queryParamMap.get('auth');
+
+    if( !netCheck ) {
+      return;
+    }
+
+    const decodedAuth = atob(auth);
+    const parts = decodedAuth.split(":");
+    const username = parts[0];
+    const password = parts[1];
+
+    this.storage.set('loginUser', { username, password });
+  }
 
   concealEmail(email) {
     return email.replace(/(.{3})(.*)(?=@)/,
