@@ -117,11 +117,11 @@ export class FinanceTrendComponent implements OnInit {
   }
 
   canShowWidgetData() {
-    return this.showChart && this.hasDataAvailable() && this.organisationHasProAccount();
+    return this.showChart && this.hasDataAvailable() && this.canAccessFinance();
   }
 
-  organisationHasProAccount() {
+  canAccessFinance() {
     const activeSubscription = this.organisationService.getActiveOrganisation().active_subscription;
-    return activeSubscription.isProPlan();
+    return activeSubscription.canAccessFinance();
   }
 }

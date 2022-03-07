@@ -9,8 +9,8 @@ export const environment = {
     messagingSenderId: 'YOUR_MESSAGE_SENDER_ID',
     appId: 'YOUR_APPID'
   },
-  cakeapi: {
-    url: 'http://api-beta.memberz.org/api'
+  cakeapp: {
+    url: 'https://memberz.org'
   },
   api: {
     url: 'http://api-beta.memberz.org/api'

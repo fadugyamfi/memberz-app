@@ -2,7 +2,13 @@
   <div class="card-header">
     <div class="row">
       <div class="col-sm-6">
-        <!-- <h5>Your Organisations</h5> -->
+        <div class="p-10 bg-light text-dark" *ngIf="systemSettingService.isNewExperienceTrialEnabled()">
+          <span>You are trialing the New Memberz.Org Experience</span>
+          <a href="#" (click)="revertExperience($event)" class="m-l-15">
+            <i class="fa fa-undo text-primary m-r-5"></i>
+            <b>{{'Revert To Old Experience' | translate}}</b>
+          </a>
+        </div>
       </div>
 
       <div class="col-sm-6 text-right">

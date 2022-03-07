@@ -15,10 +15,10 @@
     <!-- end of row -->
   </div>
   <div class="card-body chart-block">
-    <app-loading-rotate-dashed *ngIf="!showChart && organisationHasProAccount()"></app-loading-rotate-dashed>
-    <app-no-data-available *ngIf="showChart && !hasDataAvailable() && organisationHasProAccount()"></app-no-data-available>
+    <app-loading-rotate-dashed *ngIf="!showChart && canAccessFinance()"></app-loading-rotate-dashed>
+    <app-no-data-available *ngIf="showChart && !hasDataAvailable() && canAccessFinance()"></app-no-data-available>
 
-    <div class="pb-3 text-center" *ngIf="!organisationHasProAccount()">
+    <div class="pb-3 text-center" *ngIf="!canAccessFinance()">
       <p class="f-16 pb-3 px-5 d-flex flex-column">
         <img src="/assets/images/illustrations/finance-features.svg" height="150" />
         <span>{{ 'Upgrade to the Pro Plan to track your income, make online payments and more' | translate }}</span>

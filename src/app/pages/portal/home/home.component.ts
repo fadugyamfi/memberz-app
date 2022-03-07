@@ -12,7 +12,9 @@ import { PageEvent } from '../../../shared/components/pagination/pagination.comp
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
 import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
+import { SystemSettingService } from '../../../shared/services/api/system-setting.service';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -32,7 +34,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     public events: EventsService,
     public smsAccountService: SmsAccountService,
     public orgAccountService: OrganisationAccountService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public systemSettingService: SystemSettingService
   ) { }
 
   ngOnInit() {
@@ -146,5 +149,22 @@ export class HomeComponent implements OnInit, OnDestroy {
    */
   onPaginate(event: PageEvent) {
     this.fetchUserOrganisations(event.page, event.limit);
+  }
+
+  revertExperience(e) {
+    e.preventDefault();
+
+    Swal.fire({
+      title: this.translate.instant('Revert Experience'),
+      text: this.translate.instant('This will revert you to the old Memberz\.Org Web Experience on this device') + '.'
+      + this.translate.instant('You can re-activate the experience at any time'),
+      icon: 'info',
+      showCancelButton: true,
+    }).then((action) => {
+      if( action.isConfirmed ) {
+        window.location.href = `${environment.cakeapp.url}/new_experience/reset`;
+      }
+    })
+
   }
 }
