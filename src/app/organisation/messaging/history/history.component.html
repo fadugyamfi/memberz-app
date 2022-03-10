@@ -44,7 +44,10 @@
           <div class="col-sm-9">
             <div class="media">
               <div class="media-left">
-                <img [src]="message.member?.profile_photo?.thumb_url" alt="profile pic" class="img-80 rounded-circle pull-left" default="/assets/images/avtar/3.jpg" />
+                <ngx-avatar class="pull-left m-r-15" [src]="message.member?.profile_photo?.thumb_url"
+                            name="{{ message.member?.last_name }} {{ message.member?.first_name }}"
+                            initialsSize="2"
+                ></ngx-avatar>
               </div>
 
               <div class="media-body">
@@ -59,7 +62,8 @@
 
           <div class="col-sm-3">
             <label>{{ message.sent_at | date : 'medium' }}</label>
-            <p class="f-12 font-weight-bold" [ngClass]="sentStatusClasses(message)">{{ message.sent_status | translate }}</p>
+            <p class="f-12 font-weight-bold" [ngClass]="sentStatusClasses(message)">{{ message.sent_status | translate
+              }}</p>
           </div>
         </div>
       </li>
@@ -115,7 +119,8 @@
     <div class="modal-footer">
       <button type="submit" class="btn btn-primary">{{'Search' | translate }}</button>
       <button type="reset" class="btn btn-outline-info">{{'Clear' | translate}}</button>
-      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' |
+        translate}}</button>
     </div>
   </form>
 </ng-template>

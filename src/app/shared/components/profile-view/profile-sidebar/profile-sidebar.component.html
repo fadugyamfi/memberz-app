@@ -8,8 +8,8 @@
   <div class="card-body">
     <div class="row">
       <div class="col-lg-12 text-center">
-        <div class="p-b-15 image-cropper">
-          <img [src]="profileImageUrl" class="profile-img" default="/assets/images/user/no-photo-icon.jpg" />
+        <div class="d-flex justify-content-center m-b-15">
+          <ngx-avatar [src]="profileImageUrl" [name]="membership?.name()" size="200" initialsSize="2"></ngx-avatar>
         </div>
 
         <div class="p-15">

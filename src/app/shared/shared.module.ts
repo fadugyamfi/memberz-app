@@ -81,6 +81,9 @@ import { MakeAdminComponent } from './components/profile-view/make-admin/make-ad
 import { SmsTemplateTagControlComponent } from './components/forms/sms-template-tag-control/sms-template-tag-control.component';
 import { CustomFieldComponent } from './components/forms/custom-field/custom-field.component';
 import { AdminHasPermissionDirective } from './directives/admin-has-permission.directive';
+import { AvatarModule, AvatarSource } from 'ngx-avatar';
+
+const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
 @NgModule({
   declarations: [
@@ -154,7 +157,10 @@ import { AdminHasPermissionDirective } from './directives/admin-has-permission.d
     NgxChartsModule,
     ImageCropperModule,
     ChartsModule,
-    ArchwizardModule
+    ArchwizardModule,
+    AvatarModule.forRoot({
+      sourcePriorityOrder: avatarSourcesOrder
+    })
   ],
   exports: [
     LoaderComponent,
@@ -195,7 +201,8 @@ import { AdminHasPermissionDirective } from './directives/admin-has-permission.d
     MakeAdminComponent,
     SmsTemplateTagControlComponent,
     CustomFieldComponent,
-    AdminHasPermissionDirective
+    AdminHasPermissionDirective,
+    AvatarModule
   ],
   providers: [
     NavService,

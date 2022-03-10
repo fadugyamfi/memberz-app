@@ -23,7 +23,7 @@
         <div class="col-sm-8">
           <div class="media">
             <div class="media-left">
-              <img [src]="relation.profilePhoto()" class="rounded-circle" default="/assets/images/user/no-photo-icon.jpg" />
+              <ngx-avatar [src]="relation.profilePhoto()" [name]="relation.name" initialsSize="2" size="40" class="m-r-15 pull-left"></ngx-avatar>
             </div>
             <div class="media-body">
               <h6 class="m-b-0">

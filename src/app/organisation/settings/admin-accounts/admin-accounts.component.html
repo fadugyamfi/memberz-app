@@ -40,9 +40,9 @@
       <tr *ngFor="let account of accountData; let row = index">
         <td>{{ accountService.pagingMeta?.from + row }}</td>
 
-        <td>
-          <img src="{{ account.member_account?.member?.thumbnail() }}" default='assets/images/user/user.png'
-               class="img-thumbnail rounded-circle img-40 m-r-15" />
+        <td class="d-flex align-items-center">
+          <ngx-avatar [src]="account.member_account?.member?.thumbnail()" [name]="account.member_account?.member?.lastThenFirstName()" initialsSize="2" size="40" class="m-r-15 pull-left"></ngx-avatar>
+
           {{ account.member_account?.member?.lastThenFirstName() }}
         </td>
 
@@ -58,11 +58,11 @@
             <i class="fa fa-file"></i> View
           </button> -->
 
-          <button class="btn btn-xs btn-info m-r-5" (click)="showEditor(account)">
+          <button class="btn btn-sm btn-outline-info m-r-5" (click)="showEditor(account)">
             <i class="fa fa-pencil"></i> {{'Edit' | translate}}
           </button>
 
-          <button class="btn btn-xs btn-danger" (click)="deleteAccount(account)">
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteAccount(account)">
             <i class="fa fa-trash-o"></i> {{'Remove' | translate}}
           </button>
         </td>

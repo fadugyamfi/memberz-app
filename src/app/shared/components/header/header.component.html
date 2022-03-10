@@ -131,8 +131,7 @@
           </div>
 
           <div class="media align-items-center" *ngIf="authService.userData as user">
-            <img class="align-self-center pull-right img-50 rounded-circle" default="/assets/images/user/user.png"
-                 [src]="user?.member?.thumbnail()" alt="header-user" />
+            <ngx-avatar [src]="user?.member?.thumbnail()" [name]="user?.member?.name()" initialsSize="2"></ngx-avatar>
             <!-- <div class="dotted-animation">
               <span class="animate-circle"></span>
               <span class="main-circle"></span>
