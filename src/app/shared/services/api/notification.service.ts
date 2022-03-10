@@ -52,7 +52,7 @@ export class NotificationService extends APIService<Notification> {
       return subject;
     }
 
-    getUnreadNotifications() {
+    getUnreadNotifications(): Observable<Notification[]> {
         return this.get(`${this.url}/unread`).pipe(map(res => {
             return res['data'].map(data => new Notification(data));
         }));

@@ -291,6 +291,8 @@ export class APIService<T extends AppModel> {
 
   public setPrepredItems(status: boolean) {
     this.prependItems = status;
+
+    return this;
   }
 
   /**
@@ -468,6 +470,7 @@ export class APIService<T extends AppModel> {
         error: (error) => {
           this.requesting = false;
           this.triggerError(error);
+          this.events.trigger(`${this.model_name}:create:error`, error);
         }
       });
   }
@@ -506,6 +509,7 @@ export class APIService<T extends AppModel> {
         error: (error) => {
           this.requesting = false;
           this.triggerError(error);
+          this.events.trigger(`${this.model_name}:update:error`, error);
         }
       });
   }

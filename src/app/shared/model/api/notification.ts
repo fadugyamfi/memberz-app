@@ -8,6 +8,8 @@ export class Notification extends AppModel {
     public data: object;
     public sent: number;
     public created_at;
+    public _type: string;
+    public organisation_id: number;
 
     constructor(data) {
         super(data);
@@ -31,5 +33,32 @@ export class Notification extends AppModel {
 
     get user() {
         return this.data['user'] || {};
+    }
+
+    set type(value) {
+      this._type = value;
+    }
+
+    get type() {
+      return this._type.replace('App\\Notifications\\', '');
+    }
+
+    get route() {
+      switch(this.type) {
+        case 'MembershipImported':
+          return '/organisation/memberships/bulk-upload';
+
+        case 'AdminUserCreated':
+          return '/organisation/settings/accounts';
+
+        case 'InsufficientSmsCredits':
+          return '/organisation/messaging/settings';
+
+        case 'InsufficientSmsCreditsForBroadcast':
+          return '/organisation/messagng/settings';
+
+        case 'OrganisationAccountRoleChanged':
+          return '/organisation/settings/accounts';
+      }
     }
 }

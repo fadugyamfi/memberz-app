@@ -22,6 +22,7 @@ export class ProfileFamilyComponent implements OnInit, OnDestroy {
   public mbsp: OrganisationMember;
   public selectedRelation: MemberRelation;
   public subscriptions: Subscription[] = [];
+  public $relations;
 
   constructor(
     public relationService: MemberRelationService,
@@ -59,11 +60,7 @@ export class ProfileFamilyComponent implements OnInit, OnDestroy {
   }
 
   loadRelations() {
-    const sub = this.relationService.getAll({
-      member_id: this.membership.member_id
-    }).subscribe();
-
-    this.subscriptions.push(sub);
+    this.$relations = this.relationService.getAll({ member_id: this.membership.member_id });
   }
 
   addFamilyMember() {

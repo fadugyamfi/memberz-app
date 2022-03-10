@@ -6,6 +6,11 @@ import { StorageService } from '../../services/storage.service';
 import { EventsService } from '../../services/events.service';
 import { NotificationService } from '../../services/api/notification.service';
 import { Notification } from '../../model/api/notification';
+import { Router } from '@angular/router';
+import { OrganisationService } from '../../services/api/organisation.service';
+import { OrganisationAccountService } from '../../services/api/organisation-account.service';
+import { MemberAccountService } from '../../services/api/member-account.service';
+import Swal from 'sweetalert2';
 
 const body = document.getElementsByTagName('body')[0];
 
@@ -36,6 +41,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     protected storage: StorageService,
     public events: EventsService,
     public notificationService: NotificationService,
+    public router: Router,
+    public organisationService: OrganisationService,
+    public memberAccountService: MemberAccountService,
+    public orgAccountService: OrganisationAccountService
   ) {
     translate.setDefaultLang('en');
 
@@ -169,11 +178,54 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.notificationService.markAllRead().subscribe(() => this.unreadNotifications = []);
   }
 
-  public fetchUnreadNotifications() {
+  fetchUnreadNotifications() {
     if( !this.authService.isLoggedIn ) {
       return;
     }
 
     this.notificationService.getUnreadNotifications().subscribe(notifications => this.unreadNotifications = notifications);
+  }
+
+  onNotificationClicked(notification: Notification) {
+    const organisation = this.organisationService.getActiveOrganisation();
+
+    if( !organisation || notification.organisation_id != organisation.id ) {
+      const userOrgs = this.memberAccountService.getUserOrganisations();
+      if( !userOrgs ) {
+        return;
+      }
+
+      const switchToOrganisation = userOrgs.find(org => org.id == notification.organisation_id);
+      const user = this.authService.userData;
+      const headers = { 'X-Tenant-Id': switchToOrganisation.uuid };
+
+      Swal.fire(
+        this.translate.instant(`Switching To ${switchToOrganisation.name}`),
+        this.translate.instant('Loading organisation information'),
+        'info'
+      );
+      Swal.showLoading();
+
+      this.orgAccountService.fetchAdminAccount(switchToOrganisation.id, user.id, {}, headers).subscribe({
+        next: () => {
+          Swal.close();
+          this.organisationService.setActiveOrganisation( switchToOrganisation );
+          this.notificationService.markRead(notification).subscribe();
+          this.router.navigate([notification.route]);
+        },
+        error: () => {
+          Swal.fire(
+            this.translate.instant('Could Not Switch To Organisation'),
+            this.translate.instant('Please try again'),
+            'error'
+          )
+        }
+      })
+
+      return;
+    }
+
+    this.notificationService.markRead(notification).subscribe();
+    this.router.navigate([notification.route]);
   }
 }

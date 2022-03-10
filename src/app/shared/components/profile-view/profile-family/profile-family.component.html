@@ -17,7 +17,7 @@
   </div>
 
   <ul class="list-group list-group-flush">
-    <li class="list-group-item p-t-15 p-b-15" *ngFor="let relation of relationService.getItems()">
+    <li class="list-group-item p-t-15 p-b-15" *ngFor="let relation of $relations | async">
       <div class="row">
         <!-- Left Column -->
         <div class="col-sm-8">

@@ -17,8 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-bulk-upload',
   templateUrl: './bulk-upload.component.html',
-  styleUrls: ['./bulk-upload.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./bulk-upload.component.scss']
 })
 export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('uploadModal', { static: true }) uploadModal: any;
@@ -62,13 +61,16 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
       Swal.hideLoading();
     });
 
-    this.events.on('OrganisationFileImport:deleted', (fileImport: OrganisationFileImport) => {
-      Swal.close();
-    });
+    this.events.on(`OrganisationFileImport:create:error`, () => Swal.close());
+    this.events.on('OrganisationFileImport:deleted', () => Swal.close());
   }
 
   removeEvents() {
-    this.events.off('OrganisationFileImport:created');
+    this.events.off([
+      'OrganisationFileImport:created',
+      'OrganisationFileImport:create:error',
+      'OrganisationFileImport:deleted'
+    ]);
   }
 
   ngOnDestroy() {
@@ -85,7 +87,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   fetchImports(page = 1, limit = 30) {
-    const sub = this.fileImportService.getAll({
+    const sub = this.fileImportService.setPrepredItems(true).getAll({
       limit,
       page,
       sort: 'latest'

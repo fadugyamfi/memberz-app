@@ -78,7 +78,9 @@
           </ul>
         </li>
         <li class="onhover-dropdown">
-          <app-feather-icons [icon]="'bell'"></app-feather-icons><span class="dot"></span>
+          <app-feather-icons [icon]="'bell'"></app-feather-icons>
+          <span class="dot" *ngIf="unreadNotifications.length > 0"></span>
+
           <ul class="notification-dropdown onhover-show-div">
             <li>
               {{ "Notification" | translate }}
@@ -87,12 +89,12 @@
                       class="f-12">{{ "Clear All" | translate }}</span></a>
             </li>
             <li class="text-center" *ngIf="unreadNotifications.length == 0">
-              <app-feather-icons [icon]="'bell'"></app-feather-icons><span class="dot"></span> <br />
+              <app-feather-icons [icon]="'bell'"></app-feather-icons> <br />
               {{ "No new notifications" | translate }}
             </li>
             <li *ngFor="let notification of unreadNotifications; let row = index">
-              <div class="media">
-                <div class="media-body">
+              <div class="media" >
+                <div class="media-body" (click)="onNotificationClicked(notification)">
                   <h6 class="mt-0">
                     <span>
                       <!-- <app-feather-icons class="shopping-color" [icon]="'shopping-bag'"></app-feather-icons> -->
@@ -110,12 +112,13 @@
             </li>
           </ul>
         </li>
-        <li>
+        <!-- HIDDEN CHAT TOGGLE -->
+        <!-- <li>
           <a>
             <app-feather-icons class="right_side_toggle" [icon]="'message-circle'" (click)="right_side_bar()">
             </app-feather-icons><span class="dot"></span>
           </a>
-        </li>
+        </li> -->
 
         <li class="onhover-dropdown">
           <div class="media align-items-center" *ngIf="!authService.userData as user">

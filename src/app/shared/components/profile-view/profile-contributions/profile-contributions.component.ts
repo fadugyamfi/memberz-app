@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
@@ -10,7 +10,7 @@ import { Contribution } from '../../../model/api/contribution';
   templateUrl: './profile-contributions.component.html',
   styleUrls: ['./profile-contributions.component.scss']
 })
-export class ProfileContributionsComponent implements OnInit {
+export class ProfileContributionsComponent implements OnInit, OnDestroy {
 
   public mbsp: OrganisationMember;
   public subscriptions: Subscription[] = [];
@@ -22,6 +22,10 @@ export class ProfileContributionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadContributions();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   loadContributions(page = 1, limit = 10) {

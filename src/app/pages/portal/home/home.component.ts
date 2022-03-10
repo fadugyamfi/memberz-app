@@ -91,7 +91,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     return this.organisations && this.organisations.length > 0;
   }
 
-  fetchUserOrganisations(page = 1, limit = 10) {
+  fetchUserOrganisations(page = 1, limit = 15) {
     this.organisations = null;
     const user = this.authService.userData;
     this.memberAccountService.organisations(user.id, page, limit).subscribe(organisations => this.organisations = organisations);
