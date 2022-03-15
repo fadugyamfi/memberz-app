@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../shared/services/api/auth.service';
 
-type UserFields = 'email' | 'password';
+type UserFields = 'username' | 'password';
 type FormErrors = { [u in UserFields]: string };
 
 @Component({
@@ -14,10 +14,9 @@ type FormErrors = { [u in UserFields]: string };
 export class LoginComponent implements OnInit {
 
   public newUser = false;
-  // public user: firebase.User;
   public loginForm: FormGroup;
   public formErrors: FormErrors = {
-    'email': '',
+    'username': '',
     'password': '',
   };
   public errorMessage: any;
@@ -28,7 +27,7 @@ export class LoginComponent implements OnInit {
     public route: ActivatedRoute
   ) {
     this.loginForm = fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', [Validators.required]],
       password: ['', Validators.required],
       remember_me: [true]
     });
@@ -70,7 +69,7 @@ export class LoginComponent implements OnInit {
   // Simple Login
   login() {
     const login = this.loginForm.value;
-    this.authService.login(login.email, login.password, login.remember_me);
+    this.authService.login(login.username, login.password, login.remember_me);
   }
 
 }
