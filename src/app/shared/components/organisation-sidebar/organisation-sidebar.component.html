@@ -4,8 +4,8 @@
 <div class="sidebar custom-scrollbar">
 
   <div class="sidebar-user text-center" *ngIf="organisationService.getActiveOrganisation() as organisation">
-    <div>
-      <img class="img-60 rounded-circle shadow-0" [src]="organisation?.logo || 'assets/images/user/1.jpg'" alt="#">
+    <div class="d-flex justify-content-center">
+      <ngx-avatar [src]="organisation?.logo" [name]="organisation?.name" [size]="100"></ngx-avatar>
       <!-- <div class="profile-edit">
         <a>
           <i class="icofont icofont-pencil-alt-5"><input class="upload" type="file" (change)="readUrl($event)" /></i>
