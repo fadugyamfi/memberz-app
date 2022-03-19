@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import Swal from 'sweetalert2';
 import { AuthService } from '../../shared/services/api/auth.service';
 
 
@@ -26,7 +28,9 @@ export class TwoFaCheckComponent implements OnInit {
     public authService: AuthService,
     private fb: FormBuilder,
     private storage: StorageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    public translate: TranslateService
   ) {
     this.twoFaCheckForm = fb.group({
       code: ['', [Validators.required]]
@@ -36,7 +40,11 @@ export class TwoFaCheckComponent implements OnInit {
   ngOnInit() {
     this.authService.requesting = false;
     this.doNewExperienceSetup();
-    this.email = this.concealEmail(this.storage.get('loginUser').username);
+    const login = this.storage.get('loginUser');
+
+    if( login ) {
+      this.email = this.concealEmail(login.username);
+    }
   }
 
   doNewExperienceSetup() {
@@ -68,6 +76,17 @@ export class TwoFaCheckComponent implements OnInit {
     const twoFaForm = this.twoFaCheckForm.value;
     const login = this.storage.get('loginUser');
     const remember_me = this.storage.get('remember_me');
+
+    if( !login || !remember_me ) {
+      Swal.fire(
+        this.translate.instant('Invalid Form State'),
+        this.translate.instant('Please attempt login again'),
+        'error'
+      ).then(() => {
+        return this.router.navigate(['/auth/login']);
+      })
+    }
+
     this.authService.validateTwoFaLogin(login.username, login.password, remember_me, twoFaForm['code']);
   }
 }

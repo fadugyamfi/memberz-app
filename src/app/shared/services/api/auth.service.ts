@@ -105,7 +105,18 @@ export class AuthService extends APIService<MemberAccount> {
     this.storage.remove('remember_me');
     this.storage.set('auth', res, DURATION, 'day');
 
-    this.me(remember_me).subscribe(() => this.router.navigate(['/portal/home']));
+    this.me(remember_me).subscribe({
+      next: () => this.router.navigate(['/portal/home']),
+      error: () => {
+        Swal.fire(
+          this.translate.instant('Account Info Not Found'),
+          this.translate.instant('Please attempt login again'),
+          'info'
+        ).then(() => {
+          this.router.navigate(['/auth/login'])
+        });
+      }
+    });
   }
 
   public register(data: RegisterUserContract) {
