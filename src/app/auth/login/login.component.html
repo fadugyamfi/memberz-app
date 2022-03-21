@@ -7,16 +7,23 @@
       <div class="card mt-4">
         <div class="card-body">
           <div class="text-center">
-            <h4>{{'LOGIN' | translate}}</h4>
-            <h6>{{'Enter your Username and Password' | translate}}</h6>
+            <h4>{{ "LOGIN" | translate }}</h4>
+            <h6>{{ "Enter your Username and Password" | translate }}</h6>
           </div>
           <form class="theme-form" [formGroup]="loginForm" *ngIf="!newUser">
-            <div class="form-group">
-              <label class="col-form-label pt-0">{{'Email or Mobile Number' | translate}}</label>
+            <div class="form-group" *ngIf="emailLogin">
+              <label class="col-form-label pt-0"
+                >{{ "E-Mail " | translate }}
+                <a
+                  (click)="toggleEmailLogin()"
+                  class="btn-link text-capitalize"
+                  >{{ "Or Login With Mobile Number" | translate }}</a
+                ></label
+              >
               <input
                 class="form-control"
                 formControlName="username"
-                type="username"
+                type="email"
                 required=""
               />
               <div
@@ -26,11 +33,49 @@
                 "
                 class="text text-danger mt-1"
               >
-                {{'Username Required' | translate}}
+                {{ "E-Mail Required" | translate }}
+              </div>
+            </div>
+            <div class="form-group" *ngIf="!emailLogin">
+              <label class="col-form-label pt-0"
+                >{{ "Mobile Number " | translate
+                }}<a
+                  (click)="toggleEmailLogin()"
+                  class="btn-link text-capitalize"
+                  >{{ "Or Login With E-Mail" | translate }}</a
+                ></label
+              >
+              <ngx-intl-tel-input
+                [preferredCountries]="preferredCountries"
+                [enableAutoCountrySelect]="true"
+                [enablePlaceholder]="false"
+                [searchCountryFlag]="true"
+                [searchCountryField]="[
+                  SearchCountryField.Iso2,
+                  SearchCountryField.Name
+                ]"
+                [selectFirstCountry]="true"
+                [selectedCountryISO]="CountryISO.Ghana"
+                [maxLength]="15"
+                [phoneValidation]="true"
+                [separateDialCode]="separateDialCode"
+                [numberFormat]="PhoneNumberFormat.National"
+                name="usename"
+                formControlName="username"
+              >
+              </ngx-intl-tel-input>
+              <div
+                *ngIf="
+                  loginForm.controls.username.touched &&
+                  loginForm.controls.username.errors?.required
+                "
+                class="text text-danger mt-1"
+              >
+                {{ "Mobile Number Required" | translate }}
               </div>
             </div>
             <div class="form-group">
-              <label class="col-form-label">{{'Password' | translate}}</label>
+              <label class="col-form-label">{{ "Password" | translate }}</label>
               <input
                 class="form-control"
                 type="password"
@@ -44,7 +89,7 @@
                 "
                 class="text text-danger mt-1"
               >
-                {{'Password Required' | translate}}
+                {{ "Password Required" | translate }}
               </div>
             </div>
             <div class="checkbox p-0">
@@ -53,7 +98,9 @@
                 type="checkbox"
                 formControlName="remember_me"
               />
-              <label for="checkbox1">{{'Remember Me For 1 Month' | translate}}</label>
+              <label for="checkbox1">{{
+                "Remember Me For 1 Month" | translate
+              }}</label>
             </div>
             <div class="form-group">
               <button
@@ -63,22 +110,25 @@
                 (click)="login()"
                 type="submit"
               >
-                <span>{{ authService.showLoader ? "" : "Login" | translate }}</span>
+                <span>{{
+                  authService.showLoader ? "" : ("Login" | translate)
+                }}</span>
               </button>
             </div>
             <div class="form-row mt-2">
               <div class="col-sm-7">
-                {{'Not yet registered?' | translate}} <a
+                {{ "Not yet registered?" | translate }}
+                <a
                   class="btn-link text-capitalize"
                   routerLink="/auth/register"
-                  >{{'Register' | translate}}</a
+                  >{{ "Register" | translate }}</a
                 >
               </div>
               <div class="col text-right">
                 <a
                   class="btn-link text-capitalize"
                   routerLink="/auth/forgot-password"
-                  >{{'Forgot Password?' | translate}}</a
+                  >{{ "Forgot Password?" | translate }}</a
                 >
               </div>
             </div>

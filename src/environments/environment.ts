@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
+  production: false,
   firebase: {
     apiKey: 'ENTER_YOUR_API_KEY',
     authDomain: 'ENTER_YOUR_AUTH_DOMAIN',
@@ -13,7 +13,7 @@ export const environment = {
     messagingSenderId: 'ENTER_YOUR_ID',
     appId: 'ENTER_YOUR_API_ID'
   },
-  cakeapi: {
+  cakeapp: {
     url: 'http://localhost/memberz/api'
   },
   api: {
