@@ -62,7 +62,7 @@
         <div class="col-form-label col-sm-3">* {{ "Phone" | translate }}</div>
         <div class="col-sm-9">
           <ngx-intl-tel-input [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
-                              [enablePlaceholder]="false" [searchCountryFlag]="true" [searchCountryField]="[
+                              [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="[
               SearchCountryField.Iso2,
               SearchCountryField.Name
             ]" [selectFirstCountry]="true" [selectedCountryISO]="CountryISO.Ghana" [maxLength]="15"
