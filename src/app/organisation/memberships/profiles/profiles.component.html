@@ -123,21 +123,17 @@
         </td>
         <td>{{ profile.organisation_member_category?.name }}</td>
         <td>
-          <a href="tel:{{ profile.member?.mobile_number }}">{{
-            profile.member?.mobile_number
-          }}</a>
+          <a href="tel:{{ profile.member?.mobile_number }}">{{ profile.member?.mobile_number }}</a>
         </td>
         <td>
-          <a href="mailto:{{ profile.member?.email }}">{{
-            profile.member?.email
-          }}</a>
+          <a href="mailto:{{ profile.member?.email }}">{{ profile.member?.email }}</a>
         </td>
 
         <!-- Actions -->
         <td class="text-center">
-          <!-- <button class="btn btn-xs btn-primary m-r-15" (click)="viewProfile(profile)">
+          <button class="btn btn-xs btn-primary m-r-15" (click)="viewProfile(profile)">
             <i class="fa fa-file"></i> {{'View' | translate}}
-          </button> -->
+          </button>
 
           <button
             class="btn btn-xs btn-info m-r-15"

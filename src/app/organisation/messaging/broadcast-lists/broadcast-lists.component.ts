@@ -161,19 +161,20 @@ export class BroadcastListsComponent implements OnInit {
   }
 
   resetFilterGroups() {
-    this.editorForm.controls.filters = new FormArray([ this.createFilterGroup() ]);
+    this.clearFilterGroups();
+    this.addFilterGroup();
   }
 
   clearFilterGroups() {
-    this.editorForm.controls.filters = new FormArray([]);
+    this.filterControls.clear();
   }
 
   /**
    *
    */
   showEditorModal(broadcastList: SmsBroadcastList = null) {
-    this.setupEditorForm();
     this.selectedBroadcastList = broadcastList;
+    this.setupEditorForm();
 
     if (broadcastList) {
       if( broadcastList.filters?.length > 0 ) {
@@ -218,18 +219,27 @@ export class BroadcastListsComponent implements OnInit {
    * Setup listeners for model changes
    */
   setupEvents() {
-    this.events.on('SmsBroadcastList:created', () => this.modalService.dismissAll());
-    this.events.on('SmsBroadcastList:updated', () => this.modalService.dismissAll());
-    this.events.on('SmsBroadcastList:deleted', () => Swal.close());
+    this.events.on('SmsBroadcastList:created', () => {
+      this.modalService.dismissAll();
+      this.broadcastLists = this.broadcastListService.getItems();
+    });
+
+    this.events.on('SmsBroadcastList:updated', () => {
+      this.modalService.dismissAll();
+      this.broadcastLists = this.broadcastListService.getItems();
+    });
+
+    this.events.on('SmsBroadcastList:deleted', () => {
+      Swal.close()
+      this.broadcastLists = this.broadcastListService.getItems();
+    });
   }
 
   /**
    * Removes event listeners
    */
   removeEvents() {
-    this.events.off('SmsBroadcastList:created');
-    this.events.off('SmsBroadcastList:updated');
-    this.events.off('SmsBroadcastList:deleted');
+    this.events.off(['SmsBroadcastList:created', 'SmsBroadcastList:updated', 'SmsBroadcastList:deleted']);
   }
 
   /**
