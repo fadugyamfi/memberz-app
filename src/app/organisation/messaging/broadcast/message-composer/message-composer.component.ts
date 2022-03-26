@@ -140,6 +140,7 @@ export class MessageComposerComponent implements OnInit, OnDestroy {
   }
 
   show() {
+    this.setupBroadcastForm();
     this.saveBtnText = "Send Broadcast";
     this.modalRef = this.modalService.open(this.composerModal, { size: 'xl'});
   }
