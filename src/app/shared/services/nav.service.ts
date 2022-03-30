@@ -39,6 +39,13 @@ export class NavService {
       type: 'link',
       bookmark: true
     },
+    {
+      path: '/portal/notifications',
+      title: this.translate.instant('Notifications'),
+      icon: 'star',
+      type: 'link',
+      bookmark: true
+    },
   ];
 
   portalMenuItems = new BehaviorSubject<Menu[]>(this.PORTAL_MENUITEMS);

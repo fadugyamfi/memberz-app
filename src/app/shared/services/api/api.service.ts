@@ -1,12 +1,23 @@
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams, HttpEventType } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { EventsService } from '../events.service';
 import { AppModel } from '../../model/api/app.model';
 import { environment } from '../../../../environments/environment';
 import { StorageService } from '../storage.service';
 import { AuthService } from './auth.service';
+
+export interface PagingMeta {
+  from: number;
+  to?: number;
+  total?: number;
+  current_page?: number;
+  per_page?: number;
+  last_page?: 3;
+  links?: Array<{url: string, label: string, active: boolean}>;
+  path?: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +32,7 @@ export class APIService<T extends AppModel> {
 
   private _requesting = false;
   public uploadedPercentage = 0;
-  public pagingMeta: any = {
+  public pagingMeta: PagingMeta = {
     from: 1,
     total: 1
   };
@@ -34,6 +45,7 @@ export class APIService<T extends AppModel> {
   public deleting = false;
   public saving = false;
   public prependItems = false;
+  public pagination = new Subject();
 
   public batchRequests = [];
 
@@ -153,6 +165,7 @@ export class APIService<T extends AppModel> {
     if (response.meta) {
       this.pagingMeta = response.meta;
       setTimeout(() => this.events.trigger(`${this.model_name}:paging`, this.pagingMeta), 100);
+      setTimeout(() => this.pagination.next(this.pagingMeta));
     }
   }
 

@@ -3,7 +3,7 @@ import * as moment from 'moment';
 
 export class Notification extends AppModel {
 
-    public id;
+    public id: any;
     public read_at;
     public data: object;
     public sent: number;
@@ -55,10 +55,16 @@ export class Notification extends AppModel {
           return '/organisation/messaging/settings';
 
         case 'InsufficientSmsCreditsForBroadcast':
-          return '/organisation/messagng/settings';
+          return '/organisation/messaging/settings';
 
         case 'OrganisationAccountRoleChanged':
           return '/organisation/settings/accounts';
+
+        case 'SmsBroadcastScheduled':
+          return '/organisation/messaging/history';
+
+        default:
+          return '/organisation/dashboard';
       }
     }
 }

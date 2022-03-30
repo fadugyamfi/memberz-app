@@ -53,16 +53,24 @@ export class NotificationService extends APIService<Notification> {
     }
 
     getUnreadNotifications(): Observable<Notification[]> {
-        return this.get(`${this.url}/unread`).pipe(map(res => {
-            return res['data'].map(data => new Notification(data));
-        }));
+      return this.get(`${this.url}/unread`).pipe(map(res => {
+        return res['data'].map(data => new Notification(data));
+      }));
     }
 
+    getNotifications(options = {}, page = 1, limit = 20): Observable<Notification[]> {
+      const params = { ...options, page, limit, sort: 'created_at:desc' };
+
+      return this.get(`${this.url}`, params).pipe(map(res => {
+          return res['data'].map(data => new Notification(data));
+      }));
+  }
+
     markRead(notification: Notification) {
-        return this.post(`${this.url}/${notification.id}/mark_read`, {});
+      return this.post(`${this.url}/${notification.id}/mark_read`, {});
     }
 
     markAllRead() {
-        return this.post(`${this.url}/mark_all_read`, {});
+      return this.post(`${this.url}/mark_all_read`, {});
     }
 }

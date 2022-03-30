@@ -20,6 +20,7 @@
         <th colspan=2>{{ 'Date' | translate }}</th>
         <th>{{ 'Sent To' | translate }}</th>
         <th>{{ 'Message' | translate }}</th>
+        <th [noWrap]="true">{{ 'Scheduled For' | translate }}</th>
         <th>{{ 'Scheduled By' | translate }}</th>
         <th class="text-center">{{ 'Status' }}</th>
         <th class="text-center">{{ 'Actions' | translate }}</th>
@@ -32,6 +33,9 @@
         <td [noWrap]="true">{{ broadcast.whenCreated() }}</td>
         <td [noWrap]="true">{{ broadcast.sentTo }}</td>
         <td class="pre-message">{{ broadcast.message }}</td>
+        <td [noWrap]="true">
+          {{ broadcast.send_at | date : 'short' }}
+        </td>
         <td [noWrap]="true">
           <a *ngIf="broadcast.scheduler" viewProfile [membership]="broadcast.scheduler.membership" href="javascript:void(0)">
             {{ broadcast.scheduler?.name }}

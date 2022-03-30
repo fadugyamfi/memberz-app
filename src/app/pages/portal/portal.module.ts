@@ -12,6 +12,7 @@ import { TimezoneEditComponent } from './user-profile-settings/timezone-edit/tim
 import { DeleteAccountComponent } from './user-profile-settings/delete-account/delete-account.component';
 import { TwofaEnableComponent } from './user-profile-settings/twofa-enable/twofa-enable.component';
 import { MomentTimezonePickerModule } from 'moment-timezone-picker';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 
@@ -23,7 +24,8 @@ import { MomentTimezonePickerModule } from 'moment-timezone-picker';
     UserProfileComponent,
     TimezoneEditComponent,
     DeleteAccountComponent,
-    TwofaEnableComponent
+    TwofaEnableComponent,
+    NotificationsComponent
   ],
   imports: [
     CommonModule,
