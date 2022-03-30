@@ -94,50 +94,7 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   onNotificationClicked(notification: Notification) {
-    const organisation = this.organisationService.getActiveOrganisation();
-
-    if (!organisation || notification.organisation_id != organisation.id) {
-      const userOrgs = this.memberAccountService.getUserOrganisations();
-      if (!userOrgs) {
-        return;
-      }
-
-      const switchToOrganisation = userOrgs.find(org => org.id == notification.organisation_id);
-
-      if( !switchToOrganisation ) {
-        return;
-      }
-      const user = this.authService.userData;
-      const headers = { 'X-Tenant-Id': switchToOrganisation.uuid };
-
-      Swal.fire(
-        this.translate.instant(`Switching To ${switchToOrganisation.name}`),
-        this.translate.instant('Loading organisation information'),
-        'info'
-      );
-      Swal.showLoading();
-
-      this.orgAccountService.fetchAdminAccount(switchToOrganisation.id, user.id, {}, headers).subscribe({
-        next: () => {
-          Swal.close();
-          this.organisationService.setActiveOrganisation(switchToOrganisation);
-          this.notificationService.markRead(notification).subscribe();
-          this.router.navigate([notification.route]);
-        },
-        error: () => {
-          Swal.fire(
-            this.translate.instant('Could Not Switch To Organisation'),
-            this.translate.instant('Please try again'),
-            'error'
-          )
-        }
-      })
-
-      return;
-    }
-
-    this.notificationService.markRead(notification).subscribe();
-    this.router.navigate([notification.route]);
+    this.notificationService.processNotification(notification);
   }
 
   onPaginate(event: PageEvent) {
