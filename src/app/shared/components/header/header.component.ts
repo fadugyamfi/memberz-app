@@ -5,7 +5,6 @@ import { AuthService } from '../../services/api/auth.service';
 import { StorageService } from '../../services/storage.service';
 import { EventsService } from '../../services/events.service';
 import { NotificationService } from '../../services/api/notification.service';
-import { Notification } from '../../model/api/notification';
 import { Router } from '@angular/router';
 import { OrganisationService } from '../../services/api/organisation.service';
 import { OrganisationAccountService } from '../../services/api/organisation-account.service';
@@ -29,7 +28,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public right_sidebar = false;
   public text: string;
   public isOpenMobile = false;
-  public unreadNotifications = [];
   public currentLang = 'EN';
 
   @Output() rightSidebarEvent = new EventEmitter<boolean>();
@@ -59,16 +57,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.items = menuItems;
     });
 
-    this.fetchUnreadNotifications();
-
-    // NOTE: disabled because SSE is not a viable option for the current staging server
-    //
-    // connect to backend for user notifications
-    // setTimeout(() => {
-    //   this.subscribeToNotifications();
-    // }, 1000);
-
-    setInterval(() => this.fetchUnreadNotifications(), 60 * 1000);
 
   }
 
@@ -146,86 +134,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
       ;
   }
 
-  /**
-   * Connect to the backend service and wait for SSEs
-   */
-   subscribeToNotifications() {
-    this.notificationService.connectToServer().subscribe((notifications: Notification[]) => {
-      this.unreadNotifications.unshift(...notifications);
-
-      notifications.forEach(notification => {
-        this.events.trigger('toast', {
-          title: notification.user.name,
-          msg: notification.message,
-          type: 'info',
-          onClick: () => this.performAction(notification)
-        });
-      });
-
-    });
-  }
-
-  performAction(notification: Notification) {
-    if (!notification.read_at) {
-      this.notificationService.markRead(notification);
-    }
-  }
-
-  markAllRead(e: Event) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    this.notificationService.markAllRead().subscribe(() => this.unreadNotifications = []);
-  }
-
-  fetchUnreadNotifications() {
-    if( !this.authService.isLoggedIn ) {
-      return;
-    }
-
-    this.notificationService.getUnreadNotifications().subscribe(notifications => this.unreadNotifications = notifications);
-  }
-
-  onNotificationClicked(notification: Notification) {
-    const organisation = this.organisationService.getActiveOrganisation();
-
-    if( !organisation || notification.organisation_id != organisation.id ) {
-      const userOrgs = this.memberAccountService.getUserOrganisations();
-      if( !userOrgs ) {
-        return;
-      }
-
-      const switchToOrganisation = userOrgs.find(org => org.id == notification.organisation_id);
-      const user = this.authService.userData;
-      const headers = { 'X-Tenant-Id': switchToOrganisation.uuid };
-
-      Swal.fire(
-        this.translate.instant(`Switching To ${switchToOrganisation.name}`),
-        this.translate.instant('Loading organisation information'),
-        'info'
-      );
-      Swal.showLoading();
-
-      this.orgAccountService.fetchAdminAccount(switchToOrganisation.id, user.id, {}, headers).subscribe({
-        next: () => {
-          Swal.close();
-          this.organisationService.setActiveOrganisation( switchToOrganisation );
-          this.notificationService.markRead(notification).subscribe();
-          this.router.navigate([notification.route]);
-        },
-        error: () => {
-          Swal.fire(
-            this.translate.instant('Could Not Switch To Organisation'),
-            this.translate.instant('Please try again'),
-            'error'
-          )
-        }
-      })
-
-      return;
-    }
-
-    this.notificationService.markRead(notification).subscribe();
-    this.router.navigate([notification.route]);
-  }
 }

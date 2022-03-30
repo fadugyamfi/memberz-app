@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { EventsService } from '../../services/events.service';
-import { APIService } from '../../services/api/api.service';
+import { APIService, PagingMeta } from '../../services/api/api.service';
 import { AppModel } from '../../model/api/app.model';
 
 export interface PageEvent {
@@ -34,11 +34,19 @@ export class PaginationComponent implements OnInit, OnDestroy {
       throw new Error('[service] input is required');
     }
 
-    this.events.on(this.service.model_name + ':paging', (data) => {
-      this.collectionSize = data.total;
-      this.pageLimit = data.per_page;
-      this.currentPage = data.current_page;
-    });
+    // this.events.on(this.service.model_name + ':paging', (data) => {
+    //   this.collectionSize = data.total;
+    //   this.pageLimit = data.per_page;
+    //   this.currentPage = data.current_page;
+    // });
+
+    this.service.pagination.subscribe({
+      next: (meta: PagingMeta) => {
+        this.collectionSize = meta.total;
+        this.pageLimit = meta.per_page;
+        this.currentPage = meta.current_page;
+      }
+    })
 
     this.pagination_limits = [5, 10, 15, 20, 25, 30, 50, 100];
   }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 import { UserProfileComponent } from './user-profile-settings/user-profile.component';
 
 const routes: Routes = [
@@ -21,6 +22,14 @@ const routes: Routes = [
         data: {
           title: "Your Profile",
           breadcrumb: "User Settings"
+        }
+      },
+      {
+        path: 'notifications',
+        component: NotificationsComponent,
+        data: {
+          title: "Notifications",
+          breadcrumb: "Notifications"
         }
       },
       {

@@ -11,7 +11,7 @@ export class OrganisationInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         const organisation = this.organisationService.getActiveOrganisation();
 
-        if (organisation && req.url.includes(environment.api.url)) {
+        if (organisation && req.url.includes(environment.api.url) && !req.headers.has('X-Tenant-Id')) {
             const cloneReq = req.clone({
                 setHeaders: {
                   'X-Tenant-Id': organisation.uuid
