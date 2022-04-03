@@ -13,6 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { OrganisationAccountService } from './organisation-account.service';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { SmsAccountService } from './sms-account.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,8 @@ export class NotificationService extends APIService<Notification> {
       public translate: TranslateService,
       public orgAccountService: OrganisationAccountService,
       public router: Router,
-      public authService: AuthService
+      public authService: AuthService,
+      public smsAccountService: SmsAccountService
     ) {
         super(http, events, storage);
 
@@ -113,10 +115,12 @@ export class NotificationService extends APIService<Notification> {
         );
         Swal.showLoading();
 
+        this.organisationService.setActiveOrganisation( switchToOrganisation );
+        this.smsAccountService.refreshAccount();
+
         this.orgAccountService.fetchAdminAccount(switchToOrganisation.id, user.id, {}, headers).subscribe({
           next: () => {
             Swal.close();
-            this.organisationService.setActiveOrganisation( switchToOrganisation );
             this.markRead(notification).subscribe();
             this.router.navigate([notification.route]);
           },

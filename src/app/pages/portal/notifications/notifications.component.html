@@ -26,7 +26,7 @@
             <div class="media-body" (click)="onNotificationClicked(notification)">
               <h6 class="mt-0 mb-1">
                 <span>
-                  <app-feather-icons class="shopping-color" style="vertical-align: middle" [icon]="'shopping-bag'"></app-feather-icons>
+                  <app-feather-icons class="shopping-color" style="vertical-align: middle" [icon]="notification.icon"></app-feather-icons>
                 </span>
                 {{ notification.title }}
                 <span class="pull-right f-14">{{ notification.timeAgo() }}</span>

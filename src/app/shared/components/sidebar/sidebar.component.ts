@@ -1,7 +1,10 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NavService, Menu } from '../../services/nav.service';
 import { AuthService } from '../../services/api/auth.service';
+import { EventsService } from '../../services/events.service';
+import { MemberImage } from '../../model/api/member-image';
+import { MemberImageService } from '../../services/api/member-image.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,27 +12,38 @@ import { AuthService } from '../../services/api/auth.service';
   styleUrls: ['./sidebar.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit, OnDestroy {
 
   public menuItems: Menu[];
   public url: any;
   public fileurl: any;
+  public profileImageUrl: any;
+  public imageUploadProgress = 0;
 
   constructor(
     public router: Router,
     public navServices: NavService,
-    public authService: AuthService
+    public authService: AuthService,
+    public events: EventsService,
+    public memberImageService: MemberImageService
   ) {
-
-    // this.navServices.items.subscribe(menuItems => {
-    //   this.menuItems = menuItems
-    //   this.setActiveNavElement(menuItems);
-    // });
-
     this.navServices.portalMenuItems.subscribe(menuItems => {
       this.menuItems = menuItems;
       this.setActiveNavElement(menuItems);
     });
+  }
+
+  ngOnInit(): void {
+    this.setupImageUploadEvents();
+    this.profileImageUrl = this.authService.userData?.member?.image();
+  }
+
+  ngOnDestroy(): void {
+    this.events.off([
+      `MemberImage:upload:start`,
+      `MemberImage:upload:progress`,
+      'MemberImage:upload:complete'
+    ]);
   }
 
   setActiveNavElement(menuItems) {
@@ -111,6 +125,26 @@ export class SidebarComponent {
     reader.onload = (_event) => {
       this.url = reader.result;
     };
+  }
+
+  setupImageUploadEvents() {
+    this.events.on(`MemberImage:upload:start`, () => this.imageUploadProgress = 1);
+    this.events.on(`MemberImage:upload:progress`, (value) => this.imageUploadProgress = value);
+    this.events.on('MemberImage:upload:complete', () => {
+      this.imageUploadProgress = 0;
+      this.authService.me().subscribe();
+    });
+  }
+
+  onCroppedImageSaved(image) {
+    this.profileImageUrl = image;
+
+    const memberImage = new MemberImage({
+      member_id: this.authService.userData.member_id,
+      image_base64: image
+    });
+
+    this.memberImageService.createWithUpload(memberImage);
   }
 
 }

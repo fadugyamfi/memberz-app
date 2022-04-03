@@ -26,7 +26,6 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     public notificationService: NotificationService,
     public router: Router,
     public organisationService: OrganisationService,
-    private translate: TranslateService,
     public authService: AuthService,
     public memberAccountService: MemberAccountService,
     public orgAccountService: OrganisationAccountService

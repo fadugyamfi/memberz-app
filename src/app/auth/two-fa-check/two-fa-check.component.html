@@ -9,43 +9,25 @@
           <div>
             <h4 class="text-center">{{ "Security Verification" | translate }}</h4>
             <h6>
-              {{
-                "To secure your account, please complete the following verification."
-                  | translate
-              }}
+              {{ "To secure your account, please complete the following verification." | translate }}
             </h6>
           </div>
-          <form
-            class="theme-form"
-            [formGroup]="twoFaCheckForm"
-          >
+          <form class="theme-form" [formGroup]="twoFaCheckForm">
             <div class="form-group">
-              <label class="col-form-label pt-0">{{
-                "E-Mail verification code." | translate
-              }}</label>
+              <label class="col-form-label pt-0">{{ "E-Mail verification code." | translate }}</label>
               <input class="form-control" formControlName="code" type="code" />
-              <p><small>Enter the 6-digit code sent to {{email}}</small></p>
-              <div
-                *ngIf="
+              <p><small>{{ 'Enter the 6-digit code sent to' | translate }} {{email}}</small></p>
+              <div *ngIf="
                   twoFaCheckForm.controls.code.touched &&
                   twoFaCheckForm.controls.code.errors?.required
-                "
-                class="text text-danger mt-1"
-              >
+                " class="text text-danger mt-1">
                 {{ "2FA Code Required" | translate }}
               </div>
             </div>
             <div class="form-group">
-              <button
-                class="btn btn-primary btn-block btn-lg"
-                [class.loader--text]="authService.showLoader"
-                [disabled]="!twoFaCheckForm.valid || authService.showLoader"
-                (click)="validate()"
-                type="submit"
-              >
-                <span>{{
-                  authService.showLoader ? "" : ("Submit" | translate)
-                }}</span>
+              <button class="btn btn-primary btn-block btn-lg" [class.loader--text]="authService.showLoader"
+                      [disabled]="!twoFaCheckForm.valid || authService.showLoader" (click)="validate()" type="submit">
+                <span>{{ authService.showLoader ? "" : ("Submit" | translate) }}</span>
               </button>
             </div>
           </form>
