@@ -454,7 +454,7 @@ export class APIService<T extends AppModel> {
    * @param model AppModel
    * @param qparams Query parameters
    */
-  createWithUpload(model: AppModel, qparams: any = null) {
+  createWithUpload(model: AppModel, qparams: any = null, url: string = null) {
     const hd = Object.assign({}, this.getUserAuthorization());
 
     const headers = new HttpHeaders(hd);
@@ -467,7 +467,11 @@ export class APIService<T extends AppModel> {
       }
     }
 
-    return this.http.post(this.BASE_URL + this.url, formData, {
+    if( !url ) {
+      url = this.BASE_URL + this.url;
+    }
+
+    return this.http.post(url, formData, {
       reportProgress: true, params, headers, observe: 'events'
     })
       .subscribe({
@@ -494,7 +498,7 @@ export class APIService<T extends AppModel> {
    * @param model Model to work on
    * @param qparams Query params
    */
-  updateWithUpload(model: AppModel, qparams: any = null) {
+  updateWithUpload(model: AppModel, qparams: any = null, url: string = null) {
     const hd = Object.assign({}, this.getUserAuthorization());
 
     const headers = new HttpHeaders(hd);
@@ -507,7 +511,11 @@ export class APIService<T extends AppModel> {
       }
     }
 
-    return this.http.post(this.BASE_URL + this.url + `/${model.id}`, formData, {
+    if( !url ) {
+      url = this.BASE_URL + this.url + `/${model.id}`;
+    }
+
+    return this.http.post(url, formData, {
       reportProgress: true, params, headers, observe: 'events'
     })
       .subscribe({

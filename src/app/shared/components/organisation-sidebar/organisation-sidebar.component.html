@@ -3,14 +3,16 @@
 </div>
 <div class="sidebar custom-scrollbar">
 
-  <div class="sidebar-user text-center" *ngIf="organisationService.getActiveOrganisation() as organisation">
+  <div class="sidebar-user text-center" *ngIf="organisation">
     <div class="d-flex justify-content-center">
-      <ngx-avatar [src]="organisation?.logo" [name]="organisation?.name" [size]="100"></ngx-avatar>
-      <!-- <div class="profile-edit">
+      <ngx-avatar [src]="organisation?.logo" [name]="organisation?.name" [size]="120"></ngx-avatar>
+      <div class="profile-edit">
         <a>
-          <i class="icofont icofont-pencil-alt-5"><input class="upload" type="file" (change)="readUrl($event)" /></i>
+          <i class="icofont icofont-pencil-alt-5" (click)="imageCropper.show()"></i>
+          <!-- <input class="upload" type="file" (change)="readUrl($event)" /> -->
         </a>
-      </div> -->
+      </div>
+      <app-image-cropper #imageCropper (save)="onCroppedImageSaved($event)"></app-image-cropper>
     </div>
     <h6 class="mt-3 f-14">{{ organisation?.name }}</h6>
     <p>{{ organisation?.email }}</p>

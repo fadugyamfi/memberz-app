@@ -78,4 +78,10 @@ export class OrganisationService extends APIService<Organisation> {
         return response['data'];
       }));
   }
+
+  uploadLogo(organisation: Organisation, params = {}) {
+    const url = `${this.BASE_URL}/organisations/${organisation.id}/logo`;
+
+    return this.updateWithUpload(organisation, params, url);
+  }
 }

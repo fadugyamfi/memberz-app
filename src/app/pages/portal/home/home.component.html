@@ -35,10 +35,11 @@
     <table class="table table-borderless table-hover table-striped" *ngIf="dataAvailable()">
       <thead>
         <tr>
-          <th>{{'Name' | translate}}</th>
-          <th>{{'Subscription' | translate}}</th>
-          <th>{{'Expires' | translate}}</th>
-          <th class="text-center">{{'Actions' | translate}}</th>
+          <th>{{ 'Name' | translate }}</th>
+          <th class="text-center">{{ 'Memberships' | translate }}</th>
+          <th>{{ 'Subscription' | translate }}</th>
+          <th>{{ 'Expires' | translate }}</th>
+          <th class="text-center">{{ 'Actions' | translate}}</th>
         </tr>
       </thead>
 
@@ -58,6 +59,7 @@
               </div>
             </div>
           </td>
+          <td class="text-center">{{ (organisation.organisation_members_count || 0) | number }}</td>
           <td>
             {{ organisation?.active_subscription?.subscription_type?.description }}
           </td>
@@ -81,6 +83,7 @@
                 <button class="dropdown-item" (click)="editorModal.show(organisation)">
                   <i class="fa fa-fw fa-pencil"></i> {{'Edit' | translate}}
                 </button>
+                <div class="dropdown-divider"></div>
                 <button class="dropdown-item" (click)="deleteOrganisation(organisation)">
                   <i class="fa fa-fw fa-trash-o"></i> {{'Delete' | translate}}
                 </button>

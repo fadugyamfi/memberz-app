@@ -43,7 +43,8 @@ export class MemberAccountService extends APIService<MemberAccount> {
   organisations(memberAccountId: number, page = 1, limit = 15) {
     const params = {
       page,
-      limit
+      limit,
+      count: ['organisation_members'].join(',')
     };
 
     return this.get(`${this.url}/${memberAccountId}/organisations`, params).pipe(map(res => {

@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NavService, Menu } from '../../services/nav.service';
 import { AuthService } from '../../services/api/auth.service';
@@ -7,6 +7,7 @@ import { EventsService } from '../../services/events.service';
 import { StorageService } from '../../services/storage.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { MemberImageService } from '../../services/api/member-image.service';
+import { Organisation } from '../../model/api/organisation';
 
 @Component({
   selector: 'app-organisation-sidebar',
@@ -14,11 +15,12 @@ import { MemberImageService } from '../../services/api/member-image.service';
   styleUrls: ['./organisation-sidebar.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class OrganisationSidebarComponent {
+export class OrganisationSidebarComponent implements OnInit {
 
   public menuItems: Menu[];
   public url: any;
   public fileurl: any;
+  public organisation: Organisation;
 
   constructor(
     public router: Router,
@@ -30,6 +32,10 @@ export class OrganisationSidebarComponent {
   ) {
     this.setupEvents();
     this.enableOrganisationMenuItems();
+  }
+
+  ngOnInit(): void {
+    this.organisation = this.organisationService.getActiveOrganisation();
   }
 
   setActiveNavElement(menuItems) {
@@ -110,5 +116,14 @@ export class OrganisationSidebarComponent {
     this.organisationService.clearActiveOrganisation();
     this.storage.clearAll(['auth', 'user']);
     this.router.navigate(['/portal/home']);
+  }
+
+  onCroppedImageSaved(image) {
+    this.organisation = Object.assign(this.organisation, {
+      logo: image,
+      image_base64: image
+    });
+
+    this.organisationService.uploadLogo(this.organisation);
   }
 }
