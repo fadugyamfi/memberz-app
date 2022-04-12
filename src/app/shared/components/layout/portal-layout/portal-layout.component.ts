@@ -6,6 +6,7 @@ import { CustomizerService } from "../../../services/customizer.service";
 import * as feather from "feather-icons";
 import { ToastrService } from "ngx-toastr";
 import { EventsService } from "../../../services/events.service";
+import { environment } from "../../../../../environments/environment";
 
 @Component({
   selector: "app-portal-layout",
@@ -25,6 +26,7 @@ import { EventsService } from "../../../services/events.service";
 })
 export class PortalLayoutComponent implements OnInit, AfterViewInit {
   public right_side_bar: boolean;
+  public _environment = environment;
 
   constructor(
     public navServices: NavService,

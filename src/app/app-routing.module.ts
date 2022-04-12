@@ -27,27 +27,42 @@ const routes: Routes = [
   {
     path: 'auth/login',
     component: LoginComponent,
-    canActivate: [LoggedInGuard]
+    canActivate: [LoggedInGuard],
+    data: {
+      title: "Login"
+    }
   },
   {
     path: 'auth/2fa',
     component: TwoFaCheckComponent,
-    canActivate: [LoggedInGuard]
+    canActivate: [LoggedInGuard],
+    data: {
+      title: "Two Factor Auth"
+    }
   },
   {
     path: 'auth/register',
     component: RegisterComponent,
-    canActivate: [LoggedInGuard]
+    canActivate: [LoggedInGuard],
+    data: {
+      title: "Register Account"
+    }
   },
   {
     path: 'auth/forgot-password',
     component: ForgotPasswordComponent,
-    canActivate: [LoggedInGuard]
+    canActivate: [LoggedInGuard],
+    data: {
+      title: "Reset Your Password"
+    }
   },
   {
     path: 'password-reset',
     component: ResetPasswordComponent,
-    canActivate: [LoggedInGuard]
+    canActivate: [LoggedInGuard],
+    data: {
+      title: "Complete Password Reset"
+    }
   },
   {
     path: '',

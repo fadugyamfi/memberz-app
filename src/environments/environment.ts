@@ -21,9 +21,12 @@ export const environment = {
     url: 'http://localhost:8000/api'
   },
   slydepay: {
+    mode: 'mock',
     emailOrMobileNumber: 'info@matrixdesignsgh.com',
-    merchantKey: '1429300048036',
-    mode: 'dev'
+    merchantKey: '1429300048036'
+  },
+  tawkto: {
+    id: '5649aa64f3f36c356bb98bd4'
   }
 };
 /*

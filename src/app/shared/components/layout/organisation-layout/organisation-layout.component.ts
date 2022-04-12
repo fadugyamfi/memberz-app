@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { OrganisationMemberService } from '../../../services/api/organisation-member.service';
 import { ProfileViewComponent } from '../../profile-view/profile-view.component';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-organisation-layout',
@@ -29,6 +30,7 @@ export class OrganisationLayoutComponent implements OnInit, OnDestroy, AfterView
   public right_side_bar: boolean;
   public flyoutOpen = false;
   public membership: OrganisationMember;
+  public _environment = environment;
 
   constructor(
     public navServices: NavService,

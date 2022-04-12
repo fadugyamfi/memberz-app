@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../shared/services/api/auth.service';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { environment } from '../../../environments/environment';
 
 type UserFields = 'username' | 'password';
 type FormErrors = { [u in UserFields]: string };
@@ -14,6 +15,7 @@ type FormErrors = { [u in UserFields]: string };
 })
 export class LoginComponent implements OnInit {
 
+  public _environment = environment;
   public newUser = false;
   public loginForm: FormGroup;
   public formErrors: FormErrors = {

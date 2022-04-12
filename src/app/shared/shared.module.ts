@@ -83,6 +83,7 @@ import { SmsTemplateTagControlComponent } from './components/forms/sms-template-
 import { CustomFieldComponent } from './components/forms/custom-field/custom-field.component';
 import { AdminHasPermissionDirective } from './directives/admin-has-permission.directive';
 import { AvatarModule, AvatarSource } from 'ngx-avatar';
+import { TawkChatComponent } from './components/tawk-chat/tawk-chat.component';
 
 const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
@@ -143,7 +144,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     MakeAdminComponent,
     SmsTemplateTagControlComponent,
     CustomFieldComponent,
-    AdminHasPermissionDirective
+    AdminHasPermissionDirective,
+    TawkChatComponent
   ],
   imports: [
     CommonModule,
@@ -204,7 +206,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     SmsTemplateTagControlComponent,
     CustomFieldComponent,
     AdminHasPermissionDirective,
-    AvatarModule
+    AvatarModule,
+    TawkChatComponent
   ],
   providers: [
     NavService,

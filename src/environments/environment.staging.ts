@@ -19,5 +19,8 @@ export const environment = {
     mode: 'live',
     emailOrMobileNumber: 'info@matrixdesignsgh.com',
     merchantKey: '1429300048036'
+  },
+  tawkto: {
+    id: '5649aa64f3f36c356bb98bd4'
   }
 };

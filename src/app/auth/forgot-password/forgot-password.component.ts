@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../../shared/services/api/auth.service';
 import { ToastrService } from "ngx-toastr";
 import { EventsService } from "../../shared/services/events.service";
+import { Router } from '@angular/router';
 
 type UserFields = 'email';
 type FormErrors = { [u in UserFields]: string };
@@ -23,7 +24,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     public authService: AuthService,
     private fb: FormBuilder,
     public toastrService: ToastrService,
-    public events: EventsService
+    public events: EventsService,
+    public router: Router
   ) {
     this.forgotPasswordForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -57,4 +59,7 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     this.authService.forgotPassword(input.email);
   }
 
+  cancel() {
+    this.router.navigate(['/auth/login']);
+  }
 }
