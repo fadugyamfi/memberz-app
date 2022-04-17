@@ -1,0 +1,41 @@
+<div class="row">
+
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>{{ 'Upcoming Events' | translate }}</h5>
+      </div>
+
+      <div class="card-body">
+        <ng-template #loading>
+          <app-loading-rotate-dashed></app-loading-rotate-dashed>
+        </ng-template>
+
+        <div *ngIf="($upcomingEvents | async) as upcomingEvents;  else loading;">
+          <ng-container *ngIf="upcomingEvents.length; else noItems">
+            <ul class="crm-activity">
+              <li class="media" *ngFor="let event of upcomingEvents">
+                <div class="media-left mr-3">
+                  <ngx-avatar [name]="event.event_name" initialsSize="2" size="48"></ngx-avatar>
+                </div>
+                <div class="media-body">
+                  <h6 class="font-weight-bold">{{ event.event_name }}</h6>
+                  <ul class="dates">
+                    <li class="digits">{{ event.dates }}</li>
+                    <li class="digits">{{ event.times }}</li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </ng-container>
+
+          <ng-template #noItems>
+            <h6 class="text-center">{{ 'No upcoming events scheduled' | translate }}</h6>
+          </ng-template>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -22,5 +22,8 @@ export const environment = {
   },
   tawkto: {
     id: '5649aa64f3f36c356bb98bd4'
+  },
+  tinymce: {
+    apiKey: "f421hc0i4wju0e1hq26rppbvgw6b1oqfqqc7nfnvb9hmugib"
   }
 };

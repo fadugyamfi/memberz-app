@@ -44,6 +44,13 @@ const routes: Routes = [
         data: {
           breadcrumb: 'Finance'
         }
+      },
+      {
+        path: 'events',
+        loadChildren: () => import('./events/events.module').then(m => m.EventsModule),
+        data: {
+          breadcrumb: 'Events'
+        }
       }
     ]
   }
