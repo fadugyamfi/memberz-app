@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ManagerComponent } from './manager/manager.component';
+import { EventListComponent } from './event-list/event-list.component';
 
 const routes: Routes = [
   {
@@ -30,11 +30,11 @@ const routes: Routes = [
     }
   },
   {
-    path: 'manage',
-    component: ManagerComponent,
+    path: 'list',
+    component: EventListComponent,
     data: {
-      breadcrumb: "Manager",
-      title: "Manager"
+      breadcrumb: "Event List",
+      title: "Event List"
     }
   }
 ];

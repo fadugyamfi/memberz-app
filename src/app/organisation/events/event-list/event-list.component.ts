@@ -12,16 +12,18 @@ import { OrganisationCalendarService } from '../../../shared/services/api/organi
 import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationCalendar } from '../../../shared/model/api/organisation-calendar';
 import * as moment from 'moment';
+import { SessionsComponent } from '../sessions/sessions.component';
 
 @Component({
-  selector: 'app-manager',
-  templateUrl: './manager.component.html',
-  styleUrls: ['./manager.component.scss']
+  selector: 'app-event-list',
+  templateUrl: './event-list.component.html',
+  styleUrls: ['./event-list.component.scss']
 })
-export class ManagerComponent implements OnInit {
+export class EventListComponent implements OnInit {
 
   @ViewChild('searchModal', { static: true }) searchModal: any;
   @ViewChild('editorModal', { static: true }) editorModal: any;
+  @ViewChild('sessions', { static: true }) sessions: SessionsComponent;
 
   public _environment = environment;
 
@@ -232,4 +234,8 @@ export class ManagerComponent implements OnInit {
     });
   }
 
+  viewSessions(event: OrganisationEvent) {
+    this.sessions.event = event;
+    this.sessions.show();
+  }
 }

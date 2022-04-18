@@ -57,7 +57,7 @@
             <td class="text-center">{{ event.session_count || 1 }}</td>
 
             <td class="text-center">
-              <button class="btn btn-xs btn-info m-r-10" adminHasPermission="events:manage:edit">
+              <button class="btn btn-xs btn-info m-r-10" adminHasPermission="events:manage:edit" (click)="viewSessions(event)">
                 <i class="fa fa-list"></i> {{'Sessions' | translate}}
               </button>
 
@@ -252,3 +252,5 @@
     </div>
   </form>
 </ng-template>
+
+<app-sessions #sessions></app-sessions>

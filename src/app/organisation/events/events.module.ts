@@ -6,14 +6,16 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 import { EventsRoutingModule } from './events-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CalendarComponent } from './calendar/calendar.component';
-import { ManagerComponent } from './manager/manager.component';
+import { EventListComponent } from './event-list/event-list.component';
+import { SessionsComponent } from './sessions/sessions.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     CalendarComponent,
-    ManagerComponent
+    EventListComponent,
+    SessionsComponent
   ],
   imports: [
     CommonModule,
