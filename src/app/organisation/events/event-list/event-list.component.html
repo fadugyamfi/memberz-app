@@ -49,12 +49,12 @@
           <tr *ngFor="let event of events; let row = index">
             <td class="text-right">{{ row + eventService?.pagingMeta?.from }}.</td>
             <td>{{ event.event_name }}</td>
-            <td class="text-center">{{ event.dates }}</td>
-            <td class="text-center">{{ event.times }}</td>
+            <td class="text-center" [noWrap]="true">{{ event.dates }}</td>
+            <td class="text-center" [noWrap]="true">{{ event.times }}</td>
             <td class="text-center">{{ event.session_count || 1 }}</td>
             <td class="text-center">{{ event.attendee_count || 0 }}</td>
 
-            <td class="text-center">
+            <td class="text-center" [noWrap]="true">
               <button class="btn btn-xs btn-info m-r-10" adminHasPermission="events:manage:edit" (click)="viewSessions(event)">
                 <i class="fa fa-list"></i> {{'Sessions' | translate}}
               </button>

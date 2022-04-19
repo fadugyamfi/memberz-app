@@ -52,7 +52,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
     this._event = event;
   }
 
-  get event() {
+  get event(): OrganisationEvent {
     return this._event;
   }
 
