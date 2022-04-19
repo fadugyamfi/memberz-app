@@ -118,7 +118,8 @@ export class SessionsComponent implements OnInit, OnDestroy {
 
   fetchSessions() {
     const params = {
-      organisation_event_id: this.event?.id
+      organisation_event_id: this.event?.id,
+      count: 'attendees'
     }
 
     const sub = this.sessionService.getAll(params).subscribe();

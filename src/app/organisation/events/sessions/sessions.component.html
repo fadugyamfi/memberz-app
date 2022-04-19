@@ -58,6 +58,7 @@
           <th>{{ 'Date' | translate }}</th>
           <th>{{ 'Time' | translate }}</th>
           <th>{{ 'Reg. Code' | translate }}</th>
+          <th>{{ 'Attendees' | translate }}</th>
           <th class="text-center">{{ 'Actions' | translate }}</th>
         </tr>
       </thead>
@@ -68,6 +69,7 @@
           <td>{{ session.session_dt | date : 'MMM dd, YYYY' }}</td>
           <td>{{ session.session_dt | date : 'shortTime' }}</td>
           <td>{{ session.registration_code || 'N/A'}}</td>
+          <td>{{ session.attendees_count || 0 }}</td>
           <td class="text-center">
             <button class="btn btn-xs btn-info m-r-15" (click)="edit(session)">
               <i class="fa fa-pencil"></i> {{ 'Edit' | translate }}

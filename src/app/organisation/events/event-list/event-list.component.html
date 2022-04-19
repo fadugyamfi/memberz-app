@@ -38,9 +38,8 @@
             <th colspan="2">{{'Name' | translate}}</th>
             <th class="text-center">{{'Date(s)' | translate}}</th>
             <th class="text-center">{{'Times' | translate}}</th>
-            <!-- <th class="text-center">{{'Start Date' | translate}}</th>
-            <th class="text-center">{{'End Date' | translate}}</th> -->
             <th class="text-center">{{'Sessions' | translate}}</th>
+            <th class="text-center">{{'Attendees' | translate}}</th>
             <th class="text-center">{{'Actions' | translate}}</th>
           </tr>
         </thead>
@@ -52,9 +51,8 @@
             <td>{{ event.event_name }}</td>
             <td class="text-center">{{ event.dates }}</td>
             <td class="text-center">{{ event.times }}</td>
-            <!-- <td class="text-center">{{ event.start_dt | date: 'short' }}</td>
-            <td class="text-center">{{ event.end_dt | date: 'short' }}</td> -->
             <td class="text-center">{{ event.session_count || 1 }}</td>
+            <td class="text-center">{{ event.attendee_count || 0 }}</td>
 
             <td class="text-center">
               <button class="btn btn-xs btn-info m-r-10" adminHasPermission="events:manage:edit" (click)="viewSessions(event)">
