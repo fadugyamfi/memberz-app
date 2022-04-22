@@ -1,11 +1,9 @@
 import { StorageService } from '../storage.service';
-import { map, switchMap } from 'rxjs/operators';
 import { MemberAccount } from '../../model/api/member-account';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { OrganisationService } from './organisation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { RegisterUserContract } from '../../contracts/register-user-contract';
 import { TranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -36,11 +34,14 @@ export class TwoFactorAuthService extends APIService<MemberAccount> {
 
   }
 
-  send2FACode() {
-    return this.get('/2fa/send-code');
+  sendTwoFactorAuthCode(verification_type: string) {
+     const param = {verification_type};
+
+    return this.post('/2fa/send-code', param);
+
   }
 
-  public enableEmailVerification(code: string) {
+  public enableVerification(code: string) {
     const param = { code };
     Swal.fire(
       this.translate.instant('Enabling Login Verification'),
@@ -72,7 +73,7 @@ export class TwoFactorAuthService extends APIService<MemberAccount> {
     });
   }
 
-  public disable2FAByEmail() {
+  public disableTwoFactorAuth() {
     Swal.fire(
       this.translate.instant('Disabling Two Factor Authentication'),
       this.translate.instant('Please wait'),

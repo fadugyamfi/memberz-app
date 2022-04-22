@@ -14,9 +14,9 @@
           </div>
           <form class="theme-form" [formGroup]="twoFaCheckForm">
             <div class="form-group">
-              <label class="col-form-label pt-0">{{ "E-Mail verification code." | translate }}</label>
+              <label class="col-form-label pt-0">{{ "Verification code." | translate }}</label>
               <input class="form-control" formControlName="code" type="code" />
-              <p><small>{{ 'Enter the 6-digit code sent to' | translate }} {{email}}</small></p>
+              <p><small>{{ 'Enter the 6-digit code sent to your email or mobile number.' | translate }}</small></p>
               <div *ngIf="
                   twoFaCheckForm.controls.code.touched &&
                   twoFaCheckForm.controls.code.errors?.required
