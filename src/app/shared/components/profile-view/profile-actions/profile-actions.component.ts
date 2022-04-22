@@ -1,10 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/operators';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { OrganisationMemberService } from '../../../../shared/services/api/organisation-member.service';
 import { EventsService } from '../../../../shared/services/events.service';
+import { MembershipCardModalComponent } from '../membership-card-modal/membership-card-modal.component';
 
 @Component({
   selector: 'app-profile-actions',
@@ -13,6 +14,7 @@ import { EventsService } from '../../../../shared/services/events.service';
 })
 export class ProfileActionsComponent implements OnInit {
 
+  @ViewChild('membershipCardModal', { static: true }) membershipCard: MembershipCardModalComponent;
   @Input() membership: OrganisationMember;
 
   private _messages = new Subject<string>();
@@ -33,6 +35,10 @@ export class ProfileActionsComponent implements OnInit {
   editProfile() {
     this.membershipService.setSelectedModel(this.membership);
     this.router.navigate(['/organisation/memberships/edit', this.membership.id]);
+  }
+
+  viewMembershipCard() {
+    this.membershipCard.show();
   }
 
   setupEvents() {

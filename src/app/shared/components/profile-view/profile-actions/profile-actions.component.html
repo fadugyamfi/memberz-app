@@ -14,8 +14,12 @@
       <i class="fa fa-thumbs-down"></i> {{'Reject' | translate}}
     </button>
 
-    <button class="btn btn-info btn-sm" *ngIf="membership?.approved" (click)="editProfile()">
+    <button class="btn btn-info btn-sm m-r-10" *ngIf="membership?.approved" (click)="editProfile()">
       <i class="fa fa-pencil"></i> {{'Edit Profile' | translate}}
+    </button>
+
+    <button class="btn btn-outline-primary btn-sm" *ngIf="membership?.approved" (click)="viewMembershipCard()">
+      <i class="fa fa-credit-card-alt"></i> {{'View Card' | translate}}
     </button>
   </div>
 
@@ -23,3 +27,5 @@
     <app-make-admin [membership]="membership"></app-make-admin>
   </div>
 </div>
+
+<app-membership-card-modal #membershipCardModal [membership]="membership"></app-membership-card-modal>

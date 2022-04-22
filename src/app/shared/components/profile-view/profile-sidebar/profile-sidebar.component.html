@@ -34,6 +34,7 @@
             <span>{{ membership?.organisation_member_category?.name }}</span>
           </p>
 
+          <qr-code [value]="membership?.uuid" size="64" errorCorrectionLevel="M"></qr-code>
         </div>
       </div>
     </div>

@@ -2,49 +2,40 @@
   <div class="card-header">
     <div class="row">
       <div class="col-md-6">
-        <div ngbDropdown class="d-inline-block" placement="bottom-left">
-          <button
-            class="btn btn-sm btn-outline-primary"
-            id="withSelectedMenu"
-            ngbDropdownToggle
-            [disabled]="!itemSelected()"
-          >
+        <div ngbDropdown class="d-inline-block m-r-15" placement="bottom-left">
+          <button class="btn btn-sm btn-outline-primary" id="withSelectedMenu" ngbDropdownToggle
+                  [disabled]="!itemSelected()">
             {{ "With Selected" | translate }}
           </button>
-          <div
-            class="dropdown-menu"
-            ngbDropdownMenu
-            aria-labelledby="withSelectedMenu"
-          >
+          <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="withSelectedMenu">
             <button class="dropdown-item" (click)="showChangeCategoryModal()">
               <i class="fa fa-fw fa-repeat"></i>
               {{ "Change Category" | translate }}
             </button>
             <span class="dropdown-divider"></span>
-            <button
-              class="dropdown-item text-danger"
-              (click)="deleteSelected()"
-            >
+            <button class="dropdown-item text-danger" (click)="deleteSelected()">
               <i class="fa fa-fw fa-trash-o"></i> {{ "Delete" | translate }}
             </button>
           </div>
         </div>
+
+        <div class="btn-group">
+          <button class="btn btn-sm btn-outline-info" [ngClass]="{ active: !showCards }" (click)="showCards = false">
+            <i class="fa fa-list"></i> {{ 'List View' | translate }}
+          </button>
+          <button class="btn btn-sm btn-outline-success" [ngClass]="{ active: showCards }" (click)="showCards = true">
+            <i class="fa fa-th-large"></i> {{ 'Card View' | translate }}
+          </button>
+        </div>
       </div>
 
       <div class="col-md-6 text-right">
-        <button
-          class="btn btn-primary btn-sm m-r-10"
-          (click)="showSearchModal()"
-        >
+        <button class="btn btn-primary btn-sm m-r-10" (click)="showSearchModal()">
           <i class="fa fa-search"></i> {{ "Find Members" | translate }}
         </button>
 
-        <div ngbDropdown class="d-inline-block" placement="bottom">
-          <button
-            class="btn btn-outline-primary"
-            id="exportDropdown"
-            ngbDropdownToggle
-          >
+        <div ngbDropdown class="d-inline-block m-r-10" placement="bottom">
+          <button class="btn btn-outline-primary btn-sm" id="exportDropdown" ngbDropdownToggle>
             <i class="fa fa-file-excel-o"></i> Export
           </button>
           <div ngbDropdownMenu aria-labelledby="exportDropdown">
@@ -57,19 +48,16 @@
           </div>
         </div>
 
-        <!-- <button class="btn btn-sm btn-outline-dark" (click)="print()">
+        <button class="btn btn-sm btn-outline-dark" ngxPrint printSectionId="content" [useExistingCss]="true"
+                printTitle="Memberships">
           <i class="fa fa-print"></i> Print
-        </button> -->
+        </button>
       </div>
     </div>
   </div>
 
   <div class="m-t-30 m-b-30 text-center" *ngIf="emptyDataset()">
-    <img
-      src="/assets/images/icons/circle-search.svg"
-      height="180"
-      class="m-b-30"
-    />
+    <img src="/assets/images/icons/circle-search.svg" height="180" class="m-b-30" />
     <h4 class="font-weight-bold">
       {{ "No Search Results Found" | translate }}
     </h4>
@@ -82,102 +70,94 @@
     <span class="rotate dashed colored"></span>
   </div>
 
-  <table
-    class="table table-bordered table-hover table-striped"
-    *ngIf="dataAvailable()"
-  >
-    <thead>
-      <tr>
-        <th class="text-center">
-          <input
-            type="checkbox"
-            class="checkbox"
-            [checked]="allSelected"
-            (change)="toggleAllSelected()"
-          />
-        </th>
-        <th>{{ "No" | translate }}.</th>
-        <th>{{ "Member Name" | translate }}</th>
-        <th>{{ "Membership Category" | translate }}</th>
-        <th>{{ "Phone Number" | translate }}</th>
-        <th>{{ "Email" | translate }}</th>
-        <th class="text-center">{{ "Actions" | translate }}</th>
-      </tr>
-    </thead>
+  <div id="content">
+    <div *ngIf="dataAvailable() && showCards">
+      <div class="card-body">
+        <table class="table">
+          <ng-container *ngFor="let profile of members; let i = index">
+            <tr *ngIf="i % 2 == 0">
+              <td width="50%" *ngIf="members[i]">
+                <app-membership-card [membership]="members[i]"></app-membership-card>
+              </td>
+              <td width="50%" *ngIf="members[i + 1]">
+                <app-membership-card [membership]="members[i + 1]"></app-membership-card>
+              </td>
+            </tr>
+          </ng-container>
 
-    <tbody>
-      <tr *ngFor="let profile of members">
-        <td class="text-center">
-          <input
-            type="checkbox"
-            class="checkbox"
-            [checked]="profile.selected"
-            (change)="toggleSelected(profile)"
-          />
-        </td>
-        <td>{{ profile.organisation_no }}</td>
-        <td>
-          <a href="javascript:void(0)" (click)="viewProfile(profile)"> <!--  -->
-            {{ profile.member?.last_name }} {{ profile.member?.first_name }}
-          </a>
-        </td>
-        <td>{{ profile.organisation_member_category?.name }}</td>
-        <td>
-          <a href="tel:{{ profile.member?.mobile_number }}">{{ profile.member?.mobile_number }}</a>
-        </td>
-        <td>
-          <a href="mailto:{{ profile.member?.email }}">{{ profile.member?.email }}</a>
-        </td>
+        </table>
+      </div>
 
-        <!-- Actions -->
-        <td class="text-center">
-          <button class="btn btn-xs btn-primary m-r-15" (click)="viewProfile(profile)">
-            <i class="fa fa-user"></i> {{'View' | translate}}
-          </button>
+    </div>
 
-          <button
-            class="btn btn-xs btn-info m-r-15"
-            (click)="editProfile(profile)"
-          >
-            <i class="fa fa-pencil"></i> {{ "Edit" | translate }}
-          </button>
+    <table class="table table-bordered table-hover table-striped" *ngIf="dataAvailable() && !showCards">
+      <thead>
+        <tr>
+          <th class="text-center d-print-none">
+            <input type="checkbox" class="checkbox" [checked]="allSelected" (change)="toggleAllSelected()" />
+          </th>
+          <th>{{ "No" | translate }}.</th>
+          <th>{{ "Member Name" | translate }}</th>
+          <th>{{ "Membership Category" | translate }}</th>
+          <th>{{ "Phone Number" | translate }}</th>
+          <th>{{ "Email" | translate }}</th>
+          <th class="text-center d-print-none">{{ "Actions" | translate }}</th>
+        </tr>
+      </thead>
 
-          <button
-            class="btn btn-xs btn-danger"
-            (click)="deleteProfile(profile)"
-          >
-            <i class="fa fa-trash-o"></i> {{ "Delete" | translate }}
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      <tbody>
+        <tr *ngFor="let profile of members">
+          <td class="text-center d-print-none">
+            <input type="checkbox" class="checkbox" [checked]="profile.selected" (change)="toggleSelected(profile)" />
+          </td>
+          <td>{{ profile.organisation_no }}</td>
+          <td>
+            <a href="javascript:void(0)" (click)="viewProfile(profile)">
+              <!--  -->
+              {{ profile.member?.last_name }} {{ profile.member?.first_name }}
+            </a>
+          </td>
+          <td>{{ profile.organisation_member_category?.name }}</td>
+          <td>
+            <a href="tel:{{ profile.member?.mobile_number }}">{{ profile.member?.mobile_number }}</a>
+          </td>
+          <td>
+            <a href="mailto:{{ profile.member?.email }}">{{ profile.member?.email }}</a>
+          </td>
+
+          <!-- Actions -->
+          <td class="text-center d-print-none">
+            <button class="btn btn-xs btn-primary m-r-15" (click)="viewProfile(profile)">
+              <i class="fa fa-user"></i> {{'View' | translate}}
+            </button>
+
+            <button class="btn btn-xs btn-info m-r-15" (click)="editProfile(profile)">
+              <i class="fa fa-pencil"></i> {{ "Edit" | translate }}
+            </button>
+
+            <button class="btn btn-xs btn-danger" (click)="deleteProfile(profile)">
+              <i class="fa fa-trash-o"></i> {{ "Delete" | translate }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 
   <div class="card-footer">
-    <app-pagination
-      [service]="organisationMemberService"
-      (paginate)="onPaginate($event)"
-    ></app-pagination>
+    <app-pagination [service]="organisationMemberService" (paginate)="onPaginate($event)"></app-pagination>
   </div>
 </div>
 
 <ng-template #searchModal let-modal>
-  <form
-    (submit)="onSearch($event)"
-    class="form form-horizontal theme-form"
-    [formGroup]="searchForm"
-  >
+  <form (submit)="onSearch($event)" class="form form-horizontal theme-form" [formGroup]="searchForm">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">
         {{ "Find Members" | translate }}
       </h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button
-        type="button"
-        class="close"
-        aria-label="Close"
-        (click)="modal.dismiss('Cross click')"
-      >
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -187,10 +167,7 @@
           "Member Category" | translate
         }}</label>
         <div class="col-sm-8">
-          <select
-            class="form-control"
-            formControlName="organisation_member_category_id"
-          >
+          <select class="form-control" formControlName="organisation_member_category_id">
             <option value="">{{ "Select Category" | translate }}</option>
             <option *ngFor="let category of categories" [value]="category.id">
               {{ category.name }}
@@ -204,12 +181,7 @@
           "Membership No" | translate
         }}</label>
         <div class="col-sm-8">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="e.g. A/195"
-            formControlName="organisation_no"
-          />
+          <input type="text" class="form-control" placeholder="e.g. A/195" formControlName="organisation_no" />
         </div>
       </div>
 
@@ -218,12 +190,7 @@
           "First Name" | translate
         }}</label>
         <div class="col-sm-8">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="e.g. Frank"
-            formControlName="first_name_like"
-          />
+          <input type="text" class="form-control" placeholder="e.g. Frank" formControlName="first_name_like" />
         </div>
       </div>
 
@@ -232,24 +199,14 @@
           "Last Name" | translate
         }}</label>
         <div class="col-sm-8">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="e.g. Jones"
-            formControlName="last_name_like"
-          />
+          <input type="text" class="form-control" placeholder="e.g. Jones" formControlName="last_name_like" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-4 col-form-label">{{ "Email" | translate }}</label>
         <div class="col-sm-8">
-          <input
-            type="email"
-            class="form-control"
-            placeholder="e.g. joe@mail.com"
-            formControlName="email_like"
-          />
+          <input type="email" class="form-control" placeholder="e.g. joe@mail.com" formControlName="email_like" />
         </div>
       </div>
 
@@ -258,12 +215,7 @@
           "Mobile Number" | translate
         }}</label>
         <div class="col-sm-8">
-          <input
-            type="email"
-            class="form-control"
-            placeholder="e.g. 0245000000"
-            formControlName="mobile_number_like"
-          />
+          <input type="email" class="form-control" placeholder="e.g. 0245000000" formControlName="mobile_number_like" />
         </div>
       </div>
 
@@ -272,29 +224,16 @@
           "Added Between" | translate
         }}</label>
         <div class="col-sm-4">
-          <input
-            type="date"
-            class="form-control"
-            placeholder="Start Date"
-            title="Start Date"
-            formControlName="created_gte"
-          />
+          <input type="date" class="form-control" placeholder="Start Date" title="Start Date"
+                 formControlName="created_gte" />
         </div>
         <div class="col-sm-4">
-          <input
-            type="date"
-            class="form-control"
-            placeholder="End Date"
-            title="End Date"
-            formControlName="created_lte"
-          />
+          <input type="date" class="form-control" placeholder="End Date" title="End Date"
+                 formControlName="created_lte" />
         </div>
       </div>
 
-      <section
-        class="advanced-search animated fadeIn"
-        [ngClass]="{ hidden: !showAdvanced }"
-      >
+      <section class="advanced-search animated fadeIn" [ngClass]="{ hidden: !showAdvanced }">
         <hr />
 
         <div class="form-group row">
@@ -302,14 +241,8 @@
             "Birth Date Between" | translate
           }}</label>
           <div class="col-sm-3">
-            <input
-              type="date"
-              min="0"
-              max="130"
-              class="form-control"
-              formControlName="dob_gte"
-              placeholder="{{ 'Min' | translate }}"
-            />
+            <input type="date" min="0" max="130" class="form-control" formControlName="dob_gte"
+                   placeholder="{{ 'Min' | translate }}" />
           </div>
           <div class="col-sm-2">
             <span class="form-control border-0 text-center">{{
@@ -317,14 +250,8 @@
             }}</span>
           </div>
           <div class="col-sm-3">
-            <input
-              type="date"
-              min="0"
-              max="130"
-              class="form-control"
-              formControlName="dob_lte"
-              placeholder="{{ 'Max' | translate }}"
-            />
+            <input type="date" min="0" max="130" class="form-control" formControlName="dob_lte"
+                   placeholder="{{ 'Max' | translate }}" />
           </div>
         </div>
 
@@ -374,14 +301,8 @@
             "Age Between" | translate
           }}</label>
           <div class="col-sm-3">
-            <input
-              type="number"
-              min="0"
-              max="130"
-              class="form-control"
-              formControlName="age_gte"
-              placeholder="{{ 'Min' | translate }}"
-            />
+            <input type="number" min="0" max="130" class="form-control" formControlName="age_gte"
+                   placeholder="{{ 'Min' | translate }}" />
           </div>
           <div class="col-sm-2">
             <span class="form-control border-0 text-center">{{
@@ -389,14 +310,8 @@
             }}</span>
           </div>
           <div class="col-sm-3">
-            <input
-              type="number"
-              min="0"
-              max="130"
-              class="form-control"
-              formControlName="age_lte"
-              placeholder="{{ 'Max' | translate }}"
-            />
+            <input type="number" min="0" max="130" class="form-control" formControlName="age_lte"
+                   placeholder="{{ 'Max' | translate }}" />
           </div>
         </div>
 
@@ -436,12 +351,7 @@
             "Occupation" | translate
           }}</label>
           <div class="col-sm-8">
-            <input
-              type="text"
-              class="form-control"
-              formControlName="occupation_like"
-              placeholder="e.g. Trader"
-            />
+            <input type="text" class="form-control" formControlName="occupation_like" placeholder="e.g. Trader" />
           </div>
         </div>
 
@@ -450,12 +360,7 @@
             "Place of Work" | translate
           }}</label>
           <div class="col-sm-8">
-            <input
-              type="text"
-              class="form-control"
-              formControlName="business_name_like"
-              placeholder="e.g. Job Name"
-            />
+            <input type="text" class="form-control" formControlName="business_name_like" placeholder="e.g. Job Name" />
           </div>
         </div>
 
@@ -465,30 +370,18 @@
             "Belongs To Group" | translate
           }}</label>
           <div class="col-sm-4">
-            <select
-              class="form-control"
-              formControlName="organisation_group_type_id"
-            >
+            <select class="form-control" formControlName="organisation_group_type_id">
               <option value="">{{ "Select Group Type" | translate }}</option>
-              <option
-                *ngFor="let type of groupTypeService.getItems()"
-                [value]="type.id"
-              >
+              <option *ngFor="let type of groupTypeService.getItems()" [value]="type.id">
                 {{ type.name }}
               </option>
             </select>
           </div>
 
           <div class="col-sm-4">
-            <select
-              class="form-control"
-              formControlName="organisation_group_id"
-            >
+            <select class="form-control" formControlName="organisation_group_id">
               <option value="">{{ "Select Group" | translate }}</option>
-              <option
-                *ngFor="let group of selectedGroupType?.organisation_groups"
-                [value]="group.id"
-              >
+              <option *ngFor="let group of selectedGroupType?.organisation_groups" [value]="group.id">
                 {{ group.name }}
               </option>
             </select>
@@ -501,28 +394,17 @@
             "Has Anniversary" | translate
           }}</label>
           <div class="col-sm-8 m-b-10">
-            <select
-              class="form-control"
-              formControlName="organisation_anniversary_id"
-              (change)="setSelectedGroupType($event)"
-            >
+            <select class="form-control" formControlName="organisation_anniversary_id"
+                    (change)="setSelectedGroupType($event)">
               <option value="">{{ "Select Anniversary" | translate }}</option>
-              <option
-                *ngFor="let type of anniversaryService.getItems()"
-                [value]="type.id"
-              >
+              <option *ngFor="let type of anniversaryService.getItems()" [value]="type.id">
                 {{ type.name }}
               </option>
             </select>
           </div>
 
           <div class="col-sm-3 offset-sm-4">
-            <input
-              type="date"
-              class="form-control"
-              formControlName="anniversary_start_date"
-              placeholder="YYYY-MM-DD"
-            />
+            <input type="date" class="form-control" formControlName="anniversary_start_date" placeholder="YYYY-MM-DD" />
           </div>
 
           <div class="col-sm-2">
@@ -532,22 +414,13 @@
           </div>
 
           <div class="col-sm-3">
-            <input
-              type="date"
-              class="form-control"
-              formControlName="anniversary_end_date"
-              placeholder="YYYY-MM-DD"
-            />
+            <input type="date" class="form-control" formControlName="anniversary_end_date" placeholder="YYYY-MM-DD" />
           </div>
         </div>
       </section>
     </div>
     <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-outline-secondary"
-        (click)="toggleAdvanced()"
-      >
+      <button type="button" class="btn btn-outline-secondary" (click)="toggleAdvanced()">
         <i class="fa fa-list"></i> {{ "Advanced" | translate }}
       </button>
       <div class="flex-grow-1"></div>
@@ -557,11 +430,7 @@
       <button type="reset" class="btn btn-outline-info">
         {{ "Clear" | translate }}
       </button>
-      <button
-        type="button"
-        class="btn btn-outline-danger"
-        (click)="modal.close('Save click')"
-      >
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">
         {{ "Cancel" | translate }}
       </button>
     </div>
@@ -569,22 +438,13 @@
 </ng-template>
 
 <ng-template #changeCategoryModal let-modal>
-  <form
-    (submit)="onChangeCategory($event)"
-    class="form theme-form"
-    [formGroup]="changeCategoryForm"
-  >
+  <form (submit)="onChangeCategory($event)" class="form theme-form" [formGroup]="changeCategoryForm">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">
         {{ "Change Member Category" | translate }}
       </h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button
-        type="button"
-        class="close"
-        aria-label="Close"
-        (click)="modal.dismiss('Cross click')"
-      >
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -594,10 +454,7 @@
           "New Member Category" | translate
         }}</label>
         <div class="col-12">
-          <select
-            class="form-control"
-            formControlName="organisation_member_category_id"
-          >
+          <select class="form-control" formControlName="organisation_member_category_id">
             <option value="">{{ "Select Category" | translate }}</option>
             <option *ngFor="let category of categories" [value]="category.id">
               {{ category.name }}
@@ -610,11 +467,7 @@
       <button type="submit" class="btn btn-primary">
         {{ "Change Category" | translate }}
       </button>
-      <button
-        type="button"
-        class="btn btn-outline-danger"
-        (click)="modal.close('Save click')"
-      >
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">
         {{ "Cancel" | translate }}
       </button>
     </div>

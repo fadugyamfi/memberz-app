@@ -34,6 +34,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   public searchForm: FormGroup;
   public changeCategoryForm: FormGroup;
   public allSelected = false;
+  public showCards = false;
 
   public cacheDataKey = 'searched_members';
   public cachePagingKey = 'searched_members_paging';

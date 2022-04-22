@@ -7,6 +7,7 @@ import { OrganisationRegistrationForm } from './organisation-registration-form';
 export class OrganisationMember extends AppModel {
 
   public id: any;
+  public uuid: string;
   public selected = false;
   public _member: Member;
   public organisation_no: string;
@@ -27,6 +28,10 @@ export class OrganisationMember extends AppModel {
 
   nameLastFirst() {
     return this.member && this.member.lastThenFirstName();
+  }
+
+  fullname() {
+    return this.member && this.member.fullname();
   }
 
   set member(value) {
