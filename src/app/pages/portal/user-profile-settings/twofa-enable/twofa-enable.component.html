@@ -19,13 +19,13 @@
       </div>
 
       <div class="col-sm-3 text-right">
-        <span *ngIf="!memberAccount.is2FAEnabled()">
+        <span *ngIf="!memberAccount.isTwoFactorAuthEnabled()">
           <button type="button" class="btn btn-primary" (click)="showEnableTwoFactorAuthModal()">
             {{ "Enable" | translate }}
           </button>
         </span>
 
-        <span *ngIf="memberAccount.is2FAEnabled()">
+        <span *ngIf="memberAccount.isTwoFactorAuthEnabled()">
           <button type="button" class="btn btn-danger" (click)="disableTwoFactorAuth()">
             {{ "Disable" | translate }}
           </button>

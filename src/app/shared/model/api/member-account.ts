@@ -58,7 +58,7 @@ export class MemberAccount extends AppModel {
            null;
   }
 
-  is2FAEnabled() {
+  isTwoFactorAuthEnabled() {
     return this.email_2fa === 1;
   }
 }
