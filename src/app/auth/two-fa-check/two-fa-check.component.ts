@@ -40,11 +40,6 @@ export class TwoFaCheckComponent implements OnInit {
   ngOnInit() {
     this.authService.requesting = false;
     this.doNewExperienceSetup();
-    const login = this.storage.get('loginUser');
-
-    if( login ) {
-      this.email = this.concealEmail(login.username);
-    }
   }
 
   doNewExperienceSetup() {
@@ -63,14 +58,6 @@ export class TwoFaCheckComponent implements OnInit {
     this.storage.set('loginUser', { username, password });
   }
 
-  concealEmail(email) {
-    return email.replace(/(.{3})(.*)(?=@)/,
-      function(gp1, gp2, gp3) {
-        for(let i = 0; i < gp3.length; i++) {
-          gp2+= "*";
-        } return gp2;
-      });
-  };
 
   validate() {
     const twoFaForm = this.twoFaCheckForm.value;

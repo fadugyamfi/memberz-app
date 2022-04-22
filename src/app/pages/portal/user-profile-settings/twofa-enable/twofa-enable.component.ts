@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Validators, FormGroup, FormControl } from "@angular/forms";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MemberAccount } from 'src/app/shared/model/api/member-account';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
@@ -15,11 +16,11 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./twofa-enable.component.scss']
 })
 export class TwofaEnableComponent implements OnInit {
-  @ViewChild('enableEmailTwofaModal', { static: true }) enableEmailTwofaModal: any;
+  @ViewChild('enableTwofaModal', { static: true }) enableTwofaModal: any;
+
+  public twoFAForm: FormGroup;
 
   public memberAccount: MemberAccount;
-  public email: string = "";
-  public code = "";
   public subscriptions: Subscription[] = [];
 
   constructor(
@@ -34,11 +35,15 @@ export class TwofaEnableComponent implements OnInit {
   ngOnInit(): void {
     this.setupEvents();
     this.initializeMemberAccount();
+
+    this.twoFAForm = new FormGroup({
+      verificationType: new FormControl("email", [Validators.required]),
+      code: new FormControl('', [Validators.required])
+    });
   }
 
   initializeMemberAccount() {
     this.memberAccount = this.authService.getLoggedInUser();
-    this.email = this.concealEmail(this.memberAccount.username);
   }
 
   setupEvents() {
@@ -47,18 +52,18 @@ export class TwofaEnableComponent implements OnInit {
     });
   }
 
-  submitEmailVerification() {
-    if(!this.code){
+  submitVerification() {
+    if(!this.twoFAForm.value.code){
       return;
     }
 
-    this.twoFaService.enableEmailVerification(this.code);
+    this.twoFaService.enableVerification(this.twoFAForm.value.code);
 
     this.modalService.dismissAll();
   }
 
-  getEmailVerificationCode() {
-    const sub = this.twoFaService.send2FACode().subscribe({
+  getVerificationCode() {
+    const sub = this.twoFaService.send2FACode(this.twoFAForm.value.verificationType).subscribe({
       next: (data: any) => {
         if (data.status == "success"){
           this.events.trigger("toast", this.getSuccess(data.message));
@@ -82,23 +87,13 @@ export class TwofaEnableComponent implements OnInit {
     };
   }
 
-  concealEmail(email) {
-    return email.replace(/(.{3})(.*)(?=@)/,
-      function(gp1, gp2, gp3) {
-        for(let i = 0; i < gp3.length; i++) {
-          gp2+= "*";
-        } return gp2;
-      });
-  };
-
-  showEnableEmailTwofaModal() {
-    this.modalService.open(this.enableEmailTwofaModal, { size: 'lg' });
-    this.getEmailVerificationCode();
+  showEnableTwofaModal() {
+    this.modalService.open(this.enableTwofaModal, { size: 'lg' });
   }
 
-  disable2FAByEmail() {
+  disable2FA() {
     Swal.fire({
-      title: this.translate.instant('Disabling Two Factor Authentication By Email'),
+      title: this.translate.instant('Disabling Two Factor Authentication'),
       text: this.translate.instant("Are you sure you want to disable 2FA? It will make your account less secure"),
       confirmButtonText: this.translate.instant("Disable"),
       cancelButtonText: this.translate.instant('Cancel'),
@@ -107,7 +102,7 @@ export class TwofaEnableComponent implements OnInit {
     }).then((result) => {
       if( result.isConfirmed ) {
         Swal.close();
-        this.twoFaService.disable2FAByEmail();
+        this.twoFaService.disable2FA();
       }
     });
   }
