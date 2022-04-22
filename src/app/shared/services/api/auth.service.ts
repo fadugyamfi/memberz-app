@@ -81,7 +81,7 @@ export class AuthService extends APIService<MemberAccount> {
   }
 
 
-  public validateTwoFaLogin(username: string, password: string, remember_me: boolean = false, code: string) {
+  public validateTwoFactorAuthLogin(username: string, password: string, remember_me: boolean = false, code: string) {
     const DURATION = remember_me ? this.DAYS_TO_REMEMBER_USER : 1;
     const params = { username, password, code };
 

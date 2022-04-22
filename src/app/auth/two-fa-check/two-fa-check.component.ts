@@ -60,7 +60,7 @@ export class TwoFaCheckComponent implements OnInit {
 
 
   validate() {
-    const twoFaForm = this.twoFaCheckForm.value;
+    const twoFactorAuthForm = this.twoFaCheckForm.value;
     const login = this.storage.get('loginUser');
     const remember_me = this.storage.get('remember_me');
 
@@ -74,6 +74,6 @@ export class TwoFaCheckComponent implements OnInit {
       })
     }
 
-    this.authService.validateTwoFaLogin(login.username, login.password, remember_me, twoFaForm['code']);
+    this.authService.validateTwoFactorAuthLogin(login.username, login.password, remember_me, twoFactorAuthForm['code']);
   }
 }

@@ -20,13 +20,13 @@
 
       <div class="col-sm-3 text-right">
         <span *ngIf="!memberAccount.is2FAEnabled()">
-          <button type="button" class="btn btn-primary" (click)="showEnableTwofaModal()">
+          <button type="button" class="btn btn-primary" (click)="showEnableTwoFactorAuthModal()">
             {{ "Enable" | translate }}
           </button>
         </span>
 
         <span *ngIf="memberAccount.is2FAEnabled()">
-          <button type="button" class="btn btn-danger" (click)="disable2FA()">
+          <button type="button" class="btn btn-danger" (click)="disableTwoFactorAuth()">
             {{ "Disable" | translate }}
           </button>
         </span>
@@ -37,8 +37,8 @@
 </div>
 <!-- end of card -->
 
-<ng-template #enableTwofaModal let-modal>
-  <form class="form form-horizontal theme-form" [formGroup]="twoFAForm">
+<ng-template #enableTwoFactorAuthModal let-modal>
+  <form class="form form-horizontal theme-form" [formGroup]="twoFactorAuthForm">
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">
         {{ "Enable 2FA Authentication" | translate }}
@@ -58,15 +58,15 @@
             <option value="email">{{ "E-Mail" | translate }}</option>
             <option value="mobile_number">{{ "Mobile Number" | translate }}</option>
           </select>
-          <div *ngIf="twoFAForm.controls.verificationType.errors?.required" class="text-danger">
+          <div *ngIf="twoFactorAuthForm.controls.verificationType.errors?.required" class="text-danger">
             {{ "Account Type Required" | translate }}
           </div>
         </div>
         <div class="col-sm">
-          <button class="btn btn-primary btn-sm w-70" [disabled]="twoFaService.requesting"
+          <button class="btn btn-primary btn-sm w-70" [disabled]="twoFactorAuthService.requesting"
                   (click)="getVerificationCode()">
             {{ "Request Code" | translate }}
-            <span *ngIf="twoFaService.requesting" class="fa fa-spinner fa-spin"></span>
+            <span *ngIf="twoFactorAuthService.requesting" class="fa fa-spinner fa-spin"></span>
           </button>
         </div>
       </div>
@@ -78,7 +78,7 @@
         </label>
         <div class="col-sm-5">
           <input type="text" class="form-control" formControlName="code" placeholder="e.g. 014821" />
-          <div *ngIf="twoFAForm.controls.code.errors?.required" class="text-danger">
+          <div *ngIf="twoFactorAuthForm.controls.code.errors?.required" class="text-danger">
             {{ "Verfication Code Required" | translate }}
           </div>
         </div>

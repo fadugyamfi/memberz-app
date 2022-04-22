@@ -34,11 +34,11 @@ export class TwoFactorAuthService extends APIService<MemberAccount> {
 
   }
 
-  send2FACode(verification_type: string) {
+  sendTwoFactorAuthCode(verification_type: string) {
      const param = {verification_type};
 
     return this.post('/2fa/send-code', param);
-    
+
   }
 
   public enableVerification(code: string) {
@@ -73,7 +73,7 @@ export class TwoFactorAuthService extends APIService<MemberAccount> {
     });
   }
 
-  public disable2FA() {
+  public disableTwoFactorAuth() {
     Swal.fire(
       this.translate.instant('Disabling Two Factor Authentication'),
       this.translate.instant('Please wait'),

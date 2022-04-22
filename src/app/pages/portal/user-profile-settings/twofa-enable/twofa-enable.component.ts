@@ -16,9 +16,9 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./twofa-enable.component.scss']
 })
 export class TwofaEnableComponent implements OnInit {
-  @ViewChild('enableTwofaModal', { static: true }) enableTwofaModal: any;
+  @ViewChild('enableTwoFactorAuthModal', { static: true }) enableTwoFactorAuthModal: any;
 
-  public twoFAForm: FormGroup;
+  public twoFactorAuthForm: FormGroup;
 
   public memberAccount: MemberAccount;
   public subscriptions: Subscription[] = [];
@@ -28,7 +28,7 @@ export class TwofaEnableComponent implements OnInit {
     public authService: AuthService,
     public events: EventsService,
     public memberAccountService: MemberAccountService,
-    public twoFaService: TwoFactorAuthService,
+    public twoFactorAuthService: TwoFactorAuthService,
     public translate: TranslateService
   ) { }
 
@@ -36,7 +36,7 @@ export class TwofaEnableComponent implements OnInit {
     this.setupEvents();
     this.initializeMemberAccount();
 
-    this.twoFAForm = new FormGroup({
+    this.twoFactorAuthForm = new FormGroup({
       verificationType: new FormControl("email", [Validators.required]),
       code: new FormControl('', [Validators.required])
     });
@@ -53,24 +53,24 @@ export class TwofaEnableComponent implements OnInit {
   }
 
   submitVerification() {
-    if(!this.twoFAForm.value.code){
+    if(!this.twoFactorAuthForm.value.code){
       return;
     }
 
-    this.twoFaService.enableVerification(this.twoFAForm.value.code);
+    this.twoFactorAuthService.enableVerification(this.twoFactorAuthForm.value.code);
 
     this.modalService.dismissAll();
   }
 
   getVerificationCode() {
-    const sub = this.twoFaService.send2FACode(this.twoFAForm.value.verificationType).subscribe({
+    const sub = this.twoFactorAuthService.sendTwoFactorAuthCode(this.twoFactorAuthForm.value.verificationType).subscribe({
       next: (data: any) => {
         if (data.status == "success"){
           this.events.trigger("toast", this.getSuccess(data.message));
         }
       },
       error: (error) => {
-        this.twoFaService.requesting = false;
+        this.twoFactorAuthService.requesting = false;
         this.events.trigger('toast', { title: 'Send Error', msg: 'Error requesting code', type: 'error'});
       }
     });
@@ -87,11 +87,11 @@ export class TwofaEnableComponent implements OnInit {
     };
   }
 
-  showEnableTwofaModal() {
-    this.modalService.open(this.enableTwofaModal, { size: 'lg' });
+  showEnableTwoFactorAuthModal() {
+    this.modalService.open(this.enableTwoFactorAuthModal, { size: 'lg' });
   }
 
-  disable2FA() {
+  disableTwoFactorAuth() {
     Swal.fire({
       title: this.translate.instant('Disabling Two Factor Authentication'),
       text: this.translate.instant("Are you sure you want to disable 2FA? It will make your account less secure"),
@@ -102,7 +102,7 @@ export class TwofaEnableComponent implements OnInit {
     }).then((result) => {
       if( result.isConfirmed ) {
         Swal.close();
-        this.twoFaService.disable2FA();
+        this.twoFactorAuthService.disableTwoFactorAuth();
       }
     });
   }
