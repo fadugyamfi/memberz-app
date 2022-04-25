@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { SessionsComponent } from './sessions/sessions.component';
+import { RecordAttendanceComponent } from './record-attendance/record-attendance.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { SessionsComponent } from './sessions/sessions.component';
     DashboardComponent,
     CalendarComponent,
     EventListComponent,
-    SessionsComponent
+    SessionsComponent,
+    RecordAttendanceComponent
   ],
   imports: [
     CommonModule,

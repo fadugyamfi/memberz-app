@@ -13,7 +13,8 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         data: {
-          breadcrumb: 'Dashboard'
+          breadcrumb: 'Dashboard',
+          title: "Organisation Dashboard"
         }
       },
       {

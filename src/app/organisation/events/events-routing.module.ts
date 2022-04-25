@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EventListComponent } from './event-list/event-list.component';
+import { RecordAttendanceComponent } from './record-attendance/record-attendance.component';
 
 const routes: Routes = [
   {
@@ -10,7 +11,7 @@ const routes: Routes = [
     component: DashboardComponent,
     data: {
       breadcrumb: "Dashboard",
-      title: "Dashboard"
+      title: "Events Dashboard"
     }
   },
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
     component: DashboardComponent,
     data: {
       breadcrumb: "Dashboard",
-      title: "Dashboard"
+      title: "Events Dashboard"
     }
   },
   {
@@ -35,6 +36,14 @@ const routes: Routes = [
     data: {
       breadcrumb: "Event List",
       title: "Event List"
+    }
+  },
+  {
+    path: 'record-attendance/:event_id',
+    component: RecordAttendanceComponent,
+    data: {
+      breadcrumb: "Record Attendance",
+      title: "Record Event Attendance"
     }
   }
 ];

@@ -13,7 +13,7 @@ const routes: Routes = [
     path: 'settings',
     component: SettingsComponent,
     data: {
-      title: 'Settings',
+      title: 'Messaging Settings',
       breadcrumb: 'Settings'
     }
   },
@@ -21,7 +21,7 @@ const routes: Routes = [
     path: 'history',
     component: HistoryComponent,
     data: {
-      title: 'History',
+      title: 'Messaging History',
       breadcrumb: 'History'
     }
   },
@@ -29,7 +29,7 @@ const routes: Routes = [
     path: 'broadcast',
     component: BroadcastComponent,
     data: {
-      title: 'Broadcast',
+      title: 'Message Broadcasts',
       breadcrumb: 'Broadcast'
     }
   },
