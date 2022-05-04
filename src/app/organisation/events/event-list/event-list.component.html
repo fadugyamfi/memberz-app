@@ -64,19 +64,20 @@
                   <i class="fa fa-check-square"></i> {{ 'Attendance' | translate }}
                 </button>
                 <ul ngbDropdownMenu>
-                  <a href="javascript:void(0)" ngbDropdownItem>
+                  <a href="javascript:void(0)" ngbDropdownItem [routerLink]="['/organisation/events/record-attendance', event.id]">
                     <i class="fa fa-fw fa-pencil"></i> {{ 'Record Attendance' | translate }}
                   </a>
-                  <a href="javascript:void(0)" ngbDropdownItem>
-                    <i class="fa fa-fw fa-mobile"></i> {{ 'Mobile Attendance' | translate }}
-                  </a>
-                  <li class="dropdown-divider"></li>
                   <a href="javascript:void(0)" ngbDropdownItem>
                     <i class="fa fa-fw fa-list-alt"></i> {{ 'Attendance List' | translate }}
                   </a>
                   <a href="javascript:void(0)" ngbDropdownItem>
                     <i class="fa fa-fw fa-bar-chart"></i> {{ 'Report' | translate }}
                   </a>
+                  <!-- <li class="dropdown-divider"></li>
+                  <a href="javascript:void(0)" ngbDropdownItem>
+                    <i class="fa fa-fw fa-mobile"></i> {{ 'Mobile Attendance' | translate }}
+                  </a> -->
+
                 </ul>
               </span>
 

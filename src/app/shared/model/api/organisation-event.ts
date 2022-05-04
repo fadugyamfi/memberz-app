@@ -13,6 +13,7 @@ export class OrganisationEvent extends AppModel {
   public end_dt: any;
   public _organisation_calendar;
   public all_day: boolean;
+  public sessions: any;
 
   constructor(data) {
     super(data);

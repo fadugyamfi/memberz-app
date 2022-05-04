@@ -1,12 +1,14 @@
 
 import { AppModel } from './app.model';
 import { Member } from './member';
+import { OrganisationEventAttendee } from './organisation-event-attendee';
 import { OrganisationMemberCategory } from './organisation-member-category';
 import { OrganisationRegistrationForm } from './organisation-registration-form';
 
 export class OrganisationMember extends AppModel {
 
   public id: any;
+  public uuid: string;
   public selected = false;
   public _member: Member;
   public organisation_no: string;
@@ -16,6 +18,7 @@ export class OrganisationMember extends AppModel {
   public member_id: number;
   public _organisation_member_category: OrganisationMemberCategory;
   public _organisation_registration_form: OrganisationRegistrationForm;
+  public event_attendee: OrganisationEventAttendee;
 
   constructor(data) {
     super(data);
@@ -27,6 +30,10 @@ export class OrganisationMember extends AppModel {
 
   nameLastFirst() {
     return this.member && this.member.lastThenFirstName();
+  }
+
+  fullname() {
+    return this.member && this.member.fullname();
   }
 
   set member(value) {

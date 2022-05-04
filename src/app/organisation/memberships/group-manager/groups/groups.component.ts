@@ -5,8 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
-import { OrganisationGroupType } from '../../../../shared/model/api/orgainsation-group-type';
 import { OrganisationGroup } from '../../../../shared/model/api/organisation-group';
+import { OrganisationGroupType } from '../../../../shared/model/api/organisation-group-type';
 import { CurrencyService } from '../../../../shared/services/api/currency.service';
 import { OrganisationGroupTypeService } from '../../../../shared/services/api/organisation-group-type.service';
 import { OrganisationGroupService } from '../../../../shared/services/api/organisation-group.service';
@@ -195,7 +195,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
           'error'
         );
         Swal.showLoading();
-        this.groupTypeService.remove(group);
+        this.groupService.remove(group);
       }
     });
   }

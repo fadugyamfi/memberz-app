@@ -12,11 +12,11 @@ import Swal from 'sweetalert2';
 import { StorageService } from '../../../shared/services/storage.service';
 import { Subscription } from 'rxjs';
 import { OrganisationGroupTypeService } from '../../../shared/services/api/organisation-group-type.service';
-import { OrganisationGroupType } from '../../../shared/model/api/orgainsation-group-type';
 import { OrganisationAnniversaryService } from '../../../shared/services/api/organisation-anniversary.service';
 import { ExcelService } from 'src/app/shared/services/excel.service';
 import { TranslateService } from '@ngx-translate/core';
 import { PrintService } from 'src/app/shared/services/print.service';
+import { OrganisationGroupType } from '../../../shared/model/api/organisation-group-type';
 
 @Component({
   selector: 'app-profiles',
@@ -34,6 +34,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   public searchForm: FormGroup;
   public changeCategoryForm: FormGroup;
   public allSelected = false;
+  public showCards = false;
 
   public cacheDataKey = 'searched_members';
   public cachePagingKey = 'searched_members_paging';

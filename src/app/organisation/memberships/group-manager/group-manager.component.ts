@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { OrganisationGroupType } from '../../../shared/model/api/orgainsation-group-type';
 import { OrganisationGroup } from '../../../shared/model/api/organisation-group';
+import { OrganisationGroupType } from '../../../shared/model/api/organisation-group-type';
 
 @Component({
   selector: 'app-group-manager',

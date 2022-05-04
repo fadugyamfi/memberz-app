@@ -25,6 +25,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ArchwizardModule } from 'angular-archwizard';
+import { QrCodeModule } from 'ng-qrcode';
 
 // services
 import { NavService } from './services/nav.service';
@@ -84,6 +85,8 @@ import { CustomFieldComponent } from './components/forms/custom-field/custom-fie
 import { AdminHasPermissionDirective } from './directives/admin-has-permission.directive';
 import { AvatarModule, AvatarSource } from 'ngx-avatar';
 import { TawkChatComponent } from './components/tawk-chat/tawk-chat.component';
+import { MembershipCardComponent } from './components/profile-view/membership-card/membership-card.component';
+import { MembershipCardModalComponent } from './components/profile-view/membership-card-modal/membership-card-modal.component';
 
 const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
@@ -145,7 +148,9 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     SmsTemplateTagControlComponent,
     CustomFieldComponent,
     AdminHasPermissionDirective,
-    TawkChatComponent
+    TawkChatComponent,
+    MembershipCardComponent,
+    MembershipCardModalComponent
   ],
   imports: [
     CommonModule,
@@ -164,7 +169,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     ArchwizardModule,
     AvatarModule.forRoot({
       sourcePriorityOrder: avatarSourcesOrder
-    })
+    }),
+    QrCodeModule
   ],
   exports: [
     LoaderComponent,
@@ -207,7 +213,9 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     CustomFieldComponent,
     AdminHasPermissionDirective,
     AvatarModule,
-    TawkChatComponent
+    TawkChatComponent,
+    QrCodeModule,
+    MembershipCardComponent
   ],
   providers: [
     NavService,

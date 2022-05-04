@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { OrganisationGroupType } from '../../../../shared/model/api/orgainsation-group-type';
+import { OrganisationGroupType } from '../../../../shared/model/api/organisation-group-type';
 import { CurrencyService } from '../../../../shared/services/api/currency.service';
 import { OrganisationGroupTypeService } from '../../../../shared/services/api/organisation-group-type.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
