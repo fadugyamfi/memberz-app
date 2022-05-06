@@ -36,16 +36,17 @@ export class TopContributorsComponent implements OnInit {
       year: new FormControl(moment().year()),
       currency_id: new FormControl(this.default_currency)
     });
-
-    this.searchForm.valueChanges.subscribe(values => {
-      this.fetchReportData(values.year, values.currency_id);
-    });
   }
 
-  fetchReportData(year = null, currencyId = null){
+  fetchReportData(event){
+    event.preventDefault();
+
     this.showData = false;
 
-    const sub = this.reportingService.getTopContributors(year, currencyId).subscribe((data: any[]) => {
+    const sub = this.reportingService.getTopContributors(
+      this.searchForm.value.year,
+      this.searchForm.value.currency_id
+    ).subscribe((data: any[]) => {
       this.showData = true;
       this.reportData = data;
     });
@@ -56,8 +57,7 @@ export class TopContributorsComponent implements OnInit {
   fetchReceiptSettings() {
     const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {
       this.default_currency = settings.default_currency;
-      this.setupSearchForm();
-      this.fetchReportData(moment().year(), this.default_currency);
+      // this.fetchReportData(moment().year(), this.default_currency);
     });
 
     this.subscriptions.push(sub);

@@ -3,31 +3,32 @@
   <div class="row">
     <div class="col">
       <div class="card">
-        <div class="card-header b-l-secondary" [formGroup]="searchForm">
-          <div class="row">
-
-            <div class="col-1">
-              <h6 class="title">{{ "Year" | translate }}</h6>
+        <div class="card-header b-l-secondary d-flex justify-content-between align-items-center">
+          <form class="form form-inline" [formGroup]="searchForm" (submit)="fetchReportData($event)">
+            <div class="form-group mb-2">
+              <label class="mr-2 title"> {{ "Year" | translate }}</label>
+              <app-select-year-control formControlName="year" class="w-50" classes="form-control-sm"></app-select-year-control>
             </div>
 
-            <!-- end of col -->
-            <div class="col-2">
-              <app-select-year-control formControlName="year"></app-select-year-control>
+            <div class="form-group mb-2">
+              <label class="mr-2 title">{{ "Currency" | translate }}</label>
+              <app-select-currency-control class="w-50" formControlName="currency_id" classes="form-control-sm"></app-select-currency-control>
             </div>
 
-            <!-- end of col -->
-            <div class="col-1">
-              <h6 class="title">{{ "Currency" | translate }}</h6>
+            <div class="form-group mb-2">
+              <button type="submit" class="btn btn-sm btn-outline-primary">{{ 'Run Report' | translate }}</button>
             </div>
+          </form>
 
-            <!-- end of col -->
-            <div class="col-2">
-              <app-select-currency-control formControlName="currency_id"></app-select-currency-control>
-            </div>
-          </div>
+          <section>
+            <button class="btn btn-sm btn-pill btn-outline-dark" ngxPrint printSectionId="report_content" [useExistingCss]="true">
+              <i class="fa fa-print"></i> {{ 'Print' | translate }}
+            </button>
+          </section>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block">
+
+        <div class="card-body chart-block" id="report_content">
           <app-loading-rotate-dashed *ngIf="!showData"></app-loading-rotate-dashed>
           <app-no-data-available *ngIf="showData && !hasDataAvailable()"></app-no-data-available>
 
@@ -48,9 +49,11 @@
               <tr *ngFor="let data of reportData; let row = index">
                 <td>{{ row + 1 }}.</td>
                 <td>
-                  <a href="javascript:void(0)" viewProfile [membershipId]="data.organisation_member_id">
+                  <a class="d-print-none" href="javascript:void(0)" viewProfile [membershipId]="data.organisation_member_id">
                     {{ data.member_name }}
                   </a>
+
+                  <span class="d-none d-print-block">{{ data.member_name }}</span>
                 </td>
                 <td>{{ data.mobile_number }}</td>
                 <td class="text-center">{{ data.age }}</td>

@@ -22,8 +22,14 @@
   }
 }
 
-#consolidated-table {
+// #consolidated-table {
+//   td, th {
+//     text-align: right;
+//   }
+// }
+.table {
   td, th {
-    text-align: right;
+    padding: 0.75rem 0.5rem;
+    font-size: 13px;
   }
 }
