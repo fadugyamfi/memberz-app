@@ -111,9 +111,11 @@ export class RecordAttendanceComponent implements OnInit {
   }
 
   get attendingMemberships() {
-    return this.memberships && this.memberships.map(membership => {
-      const record = this.attendees.find(attendee => attendee.member_id == membership.member_id);
-      membership.event_attendee = record;
+    return this.memberships?.map(membership => {
+      if( this.attendees ) {
+        const record = this.attendees.find(attendee => attendee.member_id == membership.member_id);
+        membership.event_attendee = record;
+      }
 
       return membership;
     })

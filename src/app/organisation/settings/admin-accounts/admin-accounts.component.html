@@ -43,7 +43,9 @@
         <td class="d-flex align-items-center">
           <ngx-avatar [src]="account.member_account?.member?.thumbnail()" [name]="account.member_account?.member?.lastThenFirstName()" initialsSize="2" size="40" class="m-r-15 pull-left"></ngx-avatar>
 
-          {{ account.member_account?.member?.lastThenFirstName() }}
+          <a href="javascript:void(0)" viewProfile [membership]="account.membership">
+            {{ account.member_account?.member?.lastThenFirstName() }}
+          </a>
         </td>
 
         <td>{{ account.organisation_role?.name }}</td>
