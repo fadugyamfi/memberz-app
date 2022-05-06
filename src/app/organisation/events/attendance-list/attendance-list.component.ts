@@ -125,7 +125,8 @@ export class AttendanceListComponent implements OnInit, OnDestroy {
         Name: attendee.member?.lastThenFirstName(),
         Category: attendee.category?.name,
         'Mobile Number': attendee.member?.mobile_number || '',
-        Email: attendee.member?.email || ''
+        Email: attendee.member?.email || '',
+        Address: attendee.member?.residential_address || ''
       }
     })
   }

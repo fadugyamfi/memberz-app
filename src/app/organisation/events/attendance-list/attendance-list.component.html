@@ -26,18 +26,19 @@
   <app-loading-rotate-dashed *ngIf="eventService.fetching"></app-loading-rotate-dashed>
 
   <section id="attendeesList" *ngIf="!eventService.fetching">
-    <div class="d-print-block d-none text-center">
+    <div class="d-print-block d-none text-center py-3">
       <h5>{{ event?.event_name }}</h5>
-      <h6>{{ 'Attendance List' | translate }}</h6>
+      <h6 class="font-weight-bold">{{ 'Attendance List' | translate }} | {{ event?.dates }} | {{ event?.times }}</h6>
     </div>
 
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
           <th colspan="2">{{ 'Name' | translate }}</th>
-          <th>{{ 'Category' | translate }}</th>
+          <th class="d-print-none">{{ 'Category' | translate }}</th>
           <th>{{ 'Mobile Number' | translate }}</th>
-          <th>{{ 'Email' | translate }}</th>
+          <th class="d-print-none">{{ 'Email' | translate }}</th>
+          <th>{{ 'Address' | translate }}</th>
           <th class="text-center d-print-none">{{ 'Actions' | translate }}</th>
         </tr>
       </thead>
@@ -55,16 +56,18 @@
                  class="d-print-none">{{ attendee.member.lastThenFirstName() }}</a>
               <span class="d-print-inline-block d-none">{{ attendee.member.lastThenFirstName() }}</span>
             </td>
-            <td>{{ attendee.category?.name }}</td>
+            <td class="d-print-none">{{ attendee.category?.name }}</td>
             <td>{{ attendee.member.mobile_number }}</td>
-            <td>
+            <td class="d-print-none">
               <a href="mailto:{{ attendee.member.email}}" *ngIf="attendee.member.email"
                  class="d-print-none">{{ attendee.member.email }}</a>
               <span class="d-print-inline-block d-none">{{ attendee.member.email }}</span>
             </td>
+            <td>{{ attendee.member.residential_address }}</td>
             <td class="text-center d-print-none">
-              <button class="btn btn-danger btn-xs"
-                      (click)="deleteAttendee(attendee)">{{ 'Remove' | translate }}</button>
+              <button class="btn btn-danger btn-xs" (click)="deleteAttendee(attendee)">
+                {{ 'Remove' | translate }}
+              </button>
             </td>
           </tr>
         </ng-container>
