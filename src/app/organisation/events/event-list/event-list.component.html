@@ -67,7 +67,7 @@
                   <a href="javascript:void(0)" ngbDropdownItem [routerLink]="['/organisation/events/record-attendance', event.id]">
                     <i class="fa fa-fw fa-pencil"></i> {{ 'Record Attendance' | translate }}
                   </a>
-                  <a href="javascript:void(0)" ngbDropdownItem>
+                  <a href="javascript:void(0)" ngbDropdownItem [routerLink]="['/organisation/events/attendance-list', event.id]">
                     <i class="fa fa-fw fa-list-alt"></i> {{ 'Attendance List' | translate }}
                   </a>
                   <a href="javascript:void(0)" ngbDropdownItem>

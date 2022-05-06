@@ -1,0 +1,80 @@
+<div class="card">
+  <div class="card-header d-flex align-items-center justify-content-between">
+    <section class="d-flex align-items-center">
+      <button class="btn btn-outline-primary btn-pill btn-sm m-r-15" [routerLink]="['/organisation/events/list']">
+        <i class="fa fa-arrow-left"></i> {{ 'Back To Events' | translate }}
+      </button>
+
+      <h5>{{ event?.event_name }}</h5>
+    </section>
+
+
+    <section>
+      <button class="btn btn-sm btn-outline-dark btn-pill m-r-10" ngxPrint printSectionId="attendeesList"
+              [useExistingCss]="true" [printTitle]="printTitle">
+        <i class="fa fa-print"></i> {{ 'Print' | translate }}
+
+      </button>
+
+      <button class="btn btn-sm btn-outline-success btn-pill" (click)="exportToExcel()">
+        <i class="fa fa-file-excel-o"></i> {{ 'Export' | translate }}
+      </button>
+    </section>
+
+  </div>
+
+  <app-loading-rotate-dashed *ngIf="eventService.fetching"></app-loading-rotate-dashed>
+
+  <section id="attendeesList" *ngIf="!eventService.fetching">
+    <div class="d-print-block d-none text-center">
+      <h5>{{ event?.event_name }}</h5>
+      <h6>{{ 'Attendance List' | translate }}</h6>
+    </div>
+
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th colspan="2">{{ 'Name' | translate }}</th>
+          <th>{{ 'Category' | translate }}</th>
+          <th>{{ 'Mobile Number' | translate }}</th>
+          <th>{{ 'Email' | translate }}</th>
+          <th class="text-center d-print-none">{{ 'Actions' | translate }}</th>
+        </tr>
+      </thead>
+
+      <tbody *ngFor="let session of event.sessions">
+        <tr>
+          <th colspan="7">{{ session.session_name | uppercase }}</th>
+        </tr>
+
+        <ng-container *ngFor="let attendee of attendees; let row = index">
+          <tr *ngIf="attendee.organisation_event_session_id == session.id">
+            <td class="text-right">{{ row + attendeeService?.pagingMeta?.from }}.</td>
+            <td>
+              <a href="javascript:void(0)" viewProfile [membershipId]="attendee.membership?.id"
+                 class="d-print-none">{{ attendee.member.lastThenFirstName() }}</a>
+              <span class="d-print-inline-block d-none">{{ attendee.member.lastThenFirstName() }}</span>
+            </td>
+            <td>{{ attendee.category?.name }}</td>
+            <td>{{ attendee.member.mobile_number }}</td>
+            <td>
+              <a href="mailto:{{ attendee.member.email}}" *ngIf="attendee.member.email"
+                 class="d-print-none">{{ attendee.member.email }}</a>
+              <span class="d-print-inline-block d-none">{{ attendee.member.email }}</span>
+            </td>
+            <td class="text-center d-print-none">
+              <button class="btn btn-danger btn-xs"
+                      (click)="deleteAttendee(attendee)">{{ 'Remove' | translate }}</button>
+            </td>
+          </tr>
+        </ng-container>
+
+      </tbody>
+    </table>
+  </section>
+
+
+  <!-- <div class="card-footer">
+    <app-pagination [service]="eventService" (paginate)="onPaginate($event)"></app-pagination>
+  </div> -->
+</div>
