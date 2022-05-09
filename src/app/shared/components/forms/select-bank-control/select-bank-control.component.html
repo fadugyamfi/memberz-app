@@ -1,4 +1,4 @@
-<select class="form-control" [(ngModel)]="value">
+<select class="form-control {{ controlClass }}" [(ngModel)]="value">
   <option value="">{{ 'Select Bank' | translate }}</option>
   <option *ngFor="let bank of bankService.getItems()" [value]="bank.id">
     {{ bank.short_code }} - {{ bank.name }}

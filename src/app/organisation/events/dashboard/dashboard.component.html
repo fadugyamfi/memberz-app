@@ -1,4 +1,81 @@
 <div class="row">
+  <ng-template #zero><h3>0</h3></ng-template>
+
+  <div class="col-lg-4">
+    <div class="card shadow shadow-sm">
+      <div class="card-header bg-info py-3 pb-0 border-bottom-0">
+        <h6 class="text-uppercase d-flex justify-content-between mb-0">
+          <span class="font-weight-bold">{{ 'Events' | translate }}</span>
+        </h6>
+      </div>
+      <div class="card-body">
+        <div class="d-flex text-center justify-content-between" *ngIf="(upcomingEventCount$ | async) as response; else zero">
+          <section>
+            <h4>{{ response.count | number: '1.0-0' }}</h4>
+            <h6 class="f-12 mb-0 text-uppercase">{{ 'Upcoming' | translate}}</h6>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card shadow shadow-sm">
+      <div class="card-header bg-primary py-3 pb-0 border-bottom-0">
+        <h6 class="text-uppercase d-flex justify-content-between mb-0">
+          <span class="font-weight-bold">{{ 'Attendance' | translate }}</span>
+          <i class="fa fa-info-circle f-20" ngbTooltip="{{ 'Covers the last 365 days' | translate }}"></i>
+        </h6>
+      </div>
+      <div class="card-body">
+        <div class="d-flex text-center justify-content-between" *ngIf="(eventStatistics$ | async) as statistics; else zero">
+          <section>
+            <h4>{{ statistics.highest | number: '1.0-0' }}</h4>
+            <h6 class="f-12 mb-0 text-uppercase">{{ 'Highest' | translate}}</h6>
+          </section>
+
+          <section>
+            <h4>{{ statistics.lowest | number: '1.0-0' }}</h4>
+            <h6 class="f-12 mb-0 text-uppercase">{{ 'Lowest' | translate}}</h6>
+          </section>
+
+          <section>
+            <h4>{{ statistics.average | number: '1.0-0' }}</h4>
+            <h6 class="f-12 mb-0 text-uppercase">{{ 'Average' | translate}}</h6>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="card shadow shadow-sm">
+      <div class="card-header bg-info py-3 pb-0 border-bottom-0">
+        <h6 class="text-uppercase font-weight-bold mb-0">{{ 'Birthdays' | translate }}</h6>
+      </div>
+      <div class="card-body">
+        <div class="d-flex text-center justify-content-between" *ngIf="(birthdaySummary$ | async) as response; else zero">
+          <section>
+            <h4>{{ response.today | number: '1.0-0' }}</h4>
+            <h6 class="f-12 mb-0 text-uppercase">{{ 'Today' | translate}}</h6>
+          </section>
+
+          <section>
+            <h4>{{ response.tomorrow | number: '1.0-0' }}</h4>
+            <h6 class="f-12 mb-0 text-uppercase">{{ 'Tomorrow' | translate}}</h6>
+          </section>
+
+          <section>
+            <h4>{{ response.this_week | number: '1.0-0' }}</h4>
+            <h6 class="f-12 mb-0 text-uppercase">{{ 'This Week' | translate}}</h6>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
 
   <div class="col-lg-6">
     <div class="card">
@@ -31,6 +108,45 @@
 
           <ng-template #noItems>
             <h6 class="text-center">{{ 'No upcoming events scheduled' | translate }}</h6>
+          </ng-template>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="card">
+      <div class="card-header">
+        <h5>{{ 'Birthdays' | translate }}</h5>
+      </div>
+
+      <div class="card-body">
+        <ng-template #loading>
+          <app-loading-rotate-dashed></app-loading-rotate-dashed>
+        </ng-template>
+
+        <div *ngIf="(todaysBirthdays$ | async) as birthdays;  else loading;">
+          <ng-container *ngIf="birthdays.length; else noItems">
+            <ul class="crm-activity">
+              <li class="media" *ngFor="let membership of birthdays">
+                <div class="media-left mr-3">
+                  <ngx-avatar [name]="membership.name()" [src]="membership.member.profile_photo?.thumb_url" initialsSize="2" size="48"></ngx-avatar>
+                </div>
+                <div class="media-body">
+                  <h6 class="font-weight-bold">{{ membership.name() }}</h6>
+                  <ul class="dates">
+                    <li class="digits">{{ 'Turns' | translate }} <b>{{ membership.member.age }}</b> {{ 'today' | translate }}</li>
+                    <li class="digits">{{ 'Born' | translate }} {{ membership.member.dob | date: 'mediumDate' }}</li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </ng-container>
+
+          <ng-template #noItems>
+            <h6 class="text-center">{{ 'No birthdays today' | translate }}</h6>
           </ng-template>
 
         </div>

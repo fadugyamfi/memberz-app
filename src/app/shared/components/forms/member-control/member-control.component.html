@@ -10,10 +10,10 @@
            [readonly]="readonly" />
 
     <ng-template #rt let-r="result" let-t="term">
-      <!-- <img [src]="r.member?.thumbnail()" default='assets/images/user/user.png'
-           class="img-thumbnail rounded-circle img-40 m-r-10"> -->
-      <ngx-avatar [src]="r.member?.thumbnail()" [name]="r.member?.firstThenLastName()" class="m-r-10" size="40"></ngx-avatar>
-      <ngb-highlight [result]="r.member?.firstThenLastName()" [term]="t"></ngb-highlight>
+      <div class="d-flex align-items-center">
+        <ngx-avatar [src]="r.member?.thumbnail()" [name]="r.member?.firstThenLastName()" class="m-r-10" size="40"></ngx-avatar>
+        <ngb-highlight [result]="r.member?.firstThenLastName()" [term]="t"></ngb-highlight>
+      </div>
     </ng-template>
   </div>
 </div>

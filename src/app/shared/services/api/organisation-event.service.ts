@@ -27,4 +27,8 @@ export class OrganisationEventService extends APIService<OrganisationEvent> {
       })
     );
   }
+
+  statistics() {
+    return this.get(`${this.url}/statistics`);
+  }
 }

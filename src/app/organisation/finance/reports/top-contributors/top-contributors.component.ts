@@ -57,7 +57,6 @@ export class TopContributorsComponent implements OnInit {
   fetchReceiptSettings() {
     const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {
       this.default_currency = settings.default_currency;
-      // this.fetchReportData(moment().year(), this.default_currency);
     });
 
     this.subscriptions.push(sub);

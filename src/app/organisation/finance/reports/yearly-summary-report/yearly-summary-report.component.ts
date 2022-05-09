@@ -119,9 +119,7 @@ export class YearlySummaryReportComponent implements OnInit {
   }
 
   getTotalContributionByTypeName(typeName: string) {
-    const records = this.getContributionsByTypeName(typeName);
-
-    return (records.reduce((acc, record) => acc + record.amount, 0)) || 0;
+    return this.getContributionsByTypeName(typeName).reduce((acc, record) => acc + record.amount, 0);
   }
 
   getTotalContributionByMonth(month: string) {

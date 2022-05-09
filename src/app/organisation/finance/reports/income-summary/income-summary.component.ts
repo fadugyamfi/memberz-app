@@ -15,6 +15,7 @@ import * as moment from 'moment';
 export class IncomeSummaryComponent implements OnInit {
 
   public reportData = [];
+  public rawData = [];
   public subscriptions: Subscription[] = [];
   public showData = false;
   public settings: ContributionReceiptSetting;
@@ -44,6 +45,7 @@ export class IncomeSummaryComponent implements OnInit {
     const sub = this.reportingService.getIncomeSummary(this.searchForm.value).subscribe((data: any[]) => {
       this.showData = true;
       this.reportData = data;
+      this.rawData = data;
       if (data.length > 0) {
         this.processData(data);
       }
@@ -104,4 +106,19 @@ export class IncomeSummaryComponent implements OnInit {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
+  get totalCash() {
+    return this.rawData
+      .filter(record => record.payment_type_name == 'Cash')
+      .reduce((acc, record) => acc + record.amount, 0);
+  }
+
+  get totalCheques() {
+    return this.rawData
+      .filter(record => record.payment_type_name == 'Cheque')
+      .reduce((acc, record) => acc + record.amount, 0);
+  }
+
+  get grandTotal() {
+    return this.rawData.reduce((acc, record) => acc + record.amount, 0);
+  }
 }
