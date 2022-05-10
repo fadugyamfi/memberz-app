@@ -32,9 +32,9 @@ export class ReceiptsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.setupSettingsForm();
     this.fetchCurrencies();
     this.fetchReceiptSettings();
-    this.setupSettingsForm();
     this.setupEvents();
   }
 
@@ -52,7 +52,7 @@ export class ReceiptsComponent implements OnInit, OnDestroy {
     const sub = this.receiptSettingService.fetchSettings().subscribe({
       next: settings => {
         this.settings = settings;
-        this.setupSettingsForm();
+        this.settingsForm.patchValue(this.settings);
       },
       error: err => {
         const organisation = this.organisationService.getActiveOrganisation();
@@ -66,7 +66,7 @@ export class ReceiptsComponent implements OnInit, OnDestroy {
           receipt_counter: 1
         });
 
-        this.setupSettingsForm();
+        this.settingsForm.patchValue(this.settings);
       }
     });
 

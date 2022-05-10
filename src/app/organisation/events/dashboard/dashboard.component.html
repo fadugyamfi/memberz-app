@@ -96,7 +96,7 @@
                   <ngx-avatar [name]="event.event_name" initialsSize="2" size="48"></ngx-avatar>
                 </div>
                 <div class="media-body">
-                  <h5 class="font-weight-bold">{{ event.event_name }}</h5>
+                  <h5 class="font-weight-bold f-18">{{ event.event_name }}</h5>
                   <ul class="dates">
                     <li class="digits">{{ event.dates }}</li>
                     <li class="digits">{{ event.times }}</li>
@@ -135,7 +135,7 @@
                   <ngx-avatar [name]="membership.name()" [src]="membership.member.profile_photo?.thumb_url" initialsSize="2" size="48"></ngx-avatar>
                 </div>
                 <div class="media-body">
-                  <h5 class="font-weight-bold">{{ membership.name() }}</h5>
+                  <h5 class="font-weight-bold f-18"><a href="javascript:void(0)" viewProfile [membership]="membership">{{ membership.name() }}</a></h5>
                   <ul class="dates">
                     <li class="digits">{{ 'Turns' | translate }} <b>{{ membership.member.age }}</b> {{ 'today' | translate }}</li>
                     <li class="digits">{{ 'Born' | translate }} {{ membership.member.dob | date: 'mediumDate' }}</li>

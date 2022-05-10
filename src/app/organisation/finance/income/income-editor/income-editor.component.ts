@@ -261,4 +261,22 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  enableSmsNotification() {
+    const smsAccountCreated = this.smsAccountService.hasOrganisationAccount();
+
+    if( !smsAccountCreated ) {
+      Swal.fire(
+        this.translate.instant('SMS Account Not Setup'),
+        this.translate.instant('Please setup SMS account to enable is feature'),
+        'error'
+      );
+      return;
+    }
+
+    if( this.receiptSettings ) {
+      this.receiptSettings.sms_notify = true;
+      this.receiptSettingService.update(this.receiptSettings);
+    }
+  }
 }
