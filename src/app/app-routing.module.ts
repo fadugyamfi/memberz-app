@@ -21,8 +21,13 @@ import { TwoFaCheckComponent } from './auth/two-fa-check/two-fa-check.component'
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'portal/home',
-    pathMatch: 'full'
+    children: [{
+      path: '',
+      loadChildren: () => import('./pages/about/about.module').then(m => m.AboutModule),
+      data: {
+        title: 'Pages'
+      }
+    }]
   },
   {
     path: 'auth/login',
@@ -64,18 +69,18 @@ const routes: Routes = [
       title: "Complete Password Reset"
     }
   },
-  {
-    path: '',
-    component: ContentLayoutComponent,
-    canActivate: [AdminGuard],
-    children: content
-  },
-  {
-    path: '',
-    component: FullLayoutComponent,
-    canActivate: [AdminGuard],
-    children: full
-  },
+  // {
+  //   path: '',
+  //   component: ContentLayoutComponent,
+  //   canActivate: [AdminGuard],
+  //   children: content
+  // },
+  // {
+  //   path: '',
+  //   component: FullLayoutComponent,
+  //   canActivate: [AdminGuard],
+  //   children: full
+  // },
   {
     path: 'slydepay-mock',
     component: SlydepayMockComponent,

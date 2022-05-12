@@ -18,7 +18,7 @@ export class LoggedInGuard implements CanActivate {
     ): Observable<boolean> | Promise<boolean> | boolean {
 
         if (this.authService.isLoggedIn) {
-            this.router.navigate(['/']);
+            this.router.navigate(['/portal/home']);
         }
 
         return true;
