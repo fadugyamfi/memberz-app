@@ -18,10 +18,6 @@ Run `ng build slydepay-angular` to build the dependent library for handling requ
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-Run `npm run scully` to generate a static version of the site that ensures SEO friendly content is available to deploy.
-
-Run `npm run scully:serve` locally view the prerendered static site in comparison with the Angular dynamic version
-
 ## Slydepay Integration Testing
 Update the `environment.ts` file and set the `slydepay.mode` to `mock` to enable a mock payment flow. Payments initiated through Slydepay will land on a Mock page where you can `Complete`, `Cancel` or `Error` out the transaction for testing
 

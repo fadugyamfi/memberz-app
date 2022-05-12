@@ -1,5 +1,5 @@
 {
-  "name": "endless",
+  "name": "memberz-org",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -11,9 +11,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "i18n:extract": "ngx-translate-extract --input ./src --output ./src/assets/i18n/en.json ./src/assets/i18n/fr.json ./src/assets/i18n/ak.json --sort --key-as-default-value --format namespaced-json --marker _",
-    "scully": "npx scully --",
-    "scully:serve": "npx scully serve --"
+    "i18n:extract": "ngx-translate-extract --input ./src --output ./src/assets/i18n/en.json ./src/assets/i18n/fr.json ./src/assets/i18n/ak.json --sort --key-as-default-value --format namespaced-json --marker _"
   },
   "private": true,
   "dependencies": {
@@ -40,11 +38,6 @@
     "@ngx-translate/http-loader": "^4.0.0",
     "@schematics/angular": "^9.0.1",
     "@schematics/update": "^0.1102.15",
-    "@scullyio/init": "^2.1.32",
-    "@scullyio/ng-lib": "^2.1.0",
-    "@scullyio/platform-server": "^2.1.0",
-    "@scullyio/scully": "^2.1.0",
-    "@scullyio/scully-plugin-puppeteer": "^2.1.32",
     "@swimlane/ngx-charts": "^19.1.0",
     "@swimlane/ngx-datatable": "^20.0.0",
     "@tinymce/tinymce-angular": "^6.0.1",

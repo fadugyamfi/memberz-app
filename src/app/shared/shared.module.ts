@@ -87,6 +87,8 @@ import { AvatarModule, AvatarSource } from 'ngx-avatar';
 import { TawkChatComponent } from './components/tawk-chat/tawk-chat.component';
 import { MembershipCardComponent } from './components/profile-view/membership-card/membership-card.component';
 import { MembershipCardModalComponent } from './components/profile-view/membership-card-modal/membership-card-modal.component';
+import { ContributionService } from './services/api/contribution.service';
+import { FinanceDashboardService } from './services/api/finance-dashboard.service';
 
 const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
@@ -222,6 +224,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     ChatService,
     CustomizerService,
     ExcelService,
+    ContributionService,
+    FinanceDashboardService,
 
     // error handling
     RequestErrorHandler,
