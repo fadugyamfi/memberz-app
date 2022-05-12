@@ -21,6 +21,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
 import { TwoFaCheckComponent } from './auth/two-fa-check/two-fa-check.component';
+import { ScullyLibModule } from '@scullyio/ng-lib';
 
 
 // AoT requires an exported function for factories
@@ -57,7 +58,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       },
     }),
-    SlydepayModule.forRoot( environment.slydepay )
+    SlydepayModule.forRoot( environment.slydepay ),
+    ScullyLibModule
   ],
   providers: [AdminGuard, SecureInnerPagesGuard],
   bootstrap: [AppComponent]
