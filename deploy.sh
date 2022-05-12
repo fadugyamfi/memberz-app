@@ -3,6 +3,7 @@ git pull
 npm install
 npm run build-slydepay
 npm run build-staging
+npm run scully
 rm -rf live-bak
 mv live live-bak
 rm -rf live
