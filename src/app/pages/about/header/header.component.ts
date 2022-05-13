@@ -12,4 +12,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openNav() {
+    document.getElementsByClassName("nav-section")[0].classList.add('open')
+  }
+
+  closeNav() {
+    document.getElementsByClassName("nav-section")[0].classList.remove('open')
+  }
 }

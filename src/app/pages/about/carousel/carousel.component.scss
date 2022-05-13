@@ -1,0 +1,53 @@
+@import "../../../../assets/scss/theme/variables";
+
+.carousel {
+  padding: 50px;
+}
+
+h1 {
+  font-size: 4em;
+  font-weight: 600;
+  // text-shadow: 1px 1px 2px #434343;
+}
+
+h6 {
+  // text-shadow: 1px 1px 2px #434343;
+  font-weight: bold;
+}
+
+.cta-area {
+  padding: 50px;
+
+  .cta {
+    font-size: 1.8em;
+    color: white;
+    border: solid 1px white;
+    background-color: white;
+    color: rgba(30,108,168,1);
+    font-weight: bold;
+
+    &:hover {
+      background-color: $light-semi-gray;
+    }
+  }
+}
+
+
+.carousel-caption {
+  h3, p { display: none; }
+}
+
+@media only screen and (max-width: 600px) {
+  .carousel {
+    padding: 20px;
+
+    .cta-area {
+      padding: 20px;
+      text-align: center;
+
+      h1 {
+        font-size: 3em;
+      }
+    }
+  }
+}

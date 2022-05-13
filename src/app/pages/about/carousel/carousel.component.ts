@@ -7,13 +7,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarouselComponent implements OnInit {
 
-  public images: string[];
+  public images = [];
 
   constructor() { }
 
   ngOnInit(): void {
-    this.images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
-    console.log(this.images);
+    this.images = [
+      {
+        src: '/assets/images/page_images/carousel/dashboard.png',
+        title: 'Powerful Dashboards',
+        description: 'All Your Data At Glance'
+      },
+      // {
+      //   src: '/assets/images/page_images/carousel/noticeboard.png',
+      //   title: 'Stay Informed',
+      //   description: 'Keep your members informed'
+      // },
+      // {
+      //   src: '/assets/images/page_images/carousel/sms_receipts.png',
+      //   title: 'SMS Receipts',
+      //   description: 'Keep your members informed'
+      // },
+      // {
+      //   src: '/assets/images/page_images/carousel/payments.png',
+      //   title: 'Track Payments Made',
+      //   description: 'Keep your members informed'
+      // }
+    ];
   }
 
 }
