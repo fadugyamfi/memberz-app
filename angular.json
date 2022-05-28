@@ -52,7 +52,8 @@
               "angular-calendar/date-adapters/date-fns",
               "xlsx",
               "clone-deep",
-              "qrcode"
+              "qrcode",
+              "moment-timezone"
             ],
             "outputPath": "dist/memberz-org",
             "index": "src/index.html",
