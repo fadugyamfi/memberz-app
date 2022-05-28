@@ -1,6 +1,7 @@
 import {Component, Inject, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
+
 
 @Component({
   selector: 'app-tawk-chat',

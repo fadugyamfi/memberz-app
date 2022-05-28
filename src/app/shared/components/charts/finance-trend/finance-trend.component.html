@@ -1,14 +1,17 @@
 <div class="card">
   <div class="card-header b-l-primary">
-    <div class="row">
+    <div class="row align-items-center" [formGroup]="chartForm">
       <div class="col">
         <h5 class="font-weight-bold">{{ title | translate}}</h5>
       </div>
       <!-- end of col -->
 
+      <div class="col-4">
+        <app-select-contribution-type-control formControlName="contribution_type_id"></app-select-contribution-type-control>
+      </div>
+
       <div class="col-3">
-        <app-select-year-control [(ngModel)]="yearValue" (selectedYearEvent)="searchByYear($event)">
-        </app-select-year-control>
+        <app-select-year-control formControlName="year"></app-select-year-control>
       </div>
       <!-- end of col -->
     </div>

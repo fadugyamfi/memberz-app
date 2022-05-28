@@ -8,8 +8,7 @@ import { HeaderComponent } from './header/header.component';
 import { FeaturesComponent } from './features/features.component';
 import { FooterComponent } from './footer/footer.component';
 import { CarouselComponent } from './carousel/carousel.component';
-import { NgbCarouselModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SharedModule } from '../../shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -24,7 +23,6 @@ import { SharedModule } from '../../shared/shared.module';
   imports: [
     CommonModule,
     AboutRoutingModule,
-    SharedModule,
     NgbModule
   ],
   exports: [

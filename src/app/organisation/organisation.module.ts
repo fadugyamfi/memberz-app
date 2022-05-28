@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { OrganisationRoutingModule } from './organisation-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SmsAccountService } from '../shared/services/api/sms-account.service';
 import { MembershipOverviewComponent } from './dashboard/membership-overview/membership-overview.component';
@@ -17,8 +16,7 @@ import { MembershipOverviewComponent } from './dashboard/membership-overview/mem
   imports: [
     CommonModule,
     SharedModule,
-    OrganisationRoutingModule,
-    NgbModule
+    OrganisationRoutingModule
   ]
 })
 export class OrganisationModule {

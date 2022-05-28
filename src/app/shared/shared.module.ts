@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoaderComponent } from './components/loader/loader.component';
+// import { LoaderComponent } from './components/loader/loader.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HeaderNotificationsComponent } from './components/header/header-notifications.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -16,7 +16,7 @@ import { RightSidebarComponent } from './components/right-sidebar/right-sidebar.
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { CustomizerComponent } from './components/customizer/customizer.component';
-import { DragulaModule } from 'ng2-dragula';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
@@ -54,6 +54,7 @@ import { SelectBankControlComponent } from './components/forms/select-bank-contr
 import { SelectCurrencyControlComponent } from './components/forms/select-currency-control/select-currency-control.component';
 import { SelectCountryControlComponent } from './components/forms/select-country-control/select-country-control.component';
 import { SelectPaymentTypeControlComponent } from './components/forms/select-payment-type-control/select-payment-type-control.component';
+import { SelectContributionTypeControlComponent } from './components/forms/select-contribution-type-control/select-contribution-type-control.component';
 import { FinanceWeeklyBreakdownComponent } from './components/charts/finance-weekly-breakdown/finance-weekly-breakdown.component';
 import { FinanceCategoryBreakdownComponent } from './components/charts/finance-category-breakdown/finance-category-breakdown.component';
 import { FinanceTrendComponent } from './components/charts/finance-trend/finance-trend.component';
@@ -84,7 +85,8 @@ import { SmsTemplateTagControlComponent } from './components/forms/sms-template-
 import { CustomFieldComponent } from './components/forms/custom-field/custom-field.component';
 import { AdminHasPermissionDirective } from './directives/admin-has-permission.directive';
 import { AvatarModule, AvatarSource } from 'ngx-avatar';
-import { TawkChatComponent } from './components/tawk-chat/tawk-chat.component';
+import { TawkChatModule } from '../components/tawk-chat/tawk-chat.module';
+
 import { MembershipCardComponent } from './components/profile-view/membership-card/membership-card.component';
 import { MembershipCardModalComponent } from './components/profile-view/membership-card-modal/membership-card-modal.component';
 import { ContributionService } from './services/api/contribution.service';
@@ -94,7 +96,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
 @NgModule({
   declarations: [
-    LoaderComponent,
+//    LoaderComponent,
     HeaderComponent,
     HeaderNotificationsComponent,
     FooterComponent,
@@ -123,6 +125,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     SelectCurrencyControlComponent,
     SelectCountryControlComponent,
     SelectPaymentTypeControlComponent,
+    SelectContributionTypeControlComponent,
     FinanceWeeklyBreakdownComponent,
     FinanceCategoryBreakdownComponent,
     FinanceTrendComponent,
@@ -150,7 +153,6 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     SmsTemplateTagControlComponent,
     CustomFieldComponent,
     AdminHasPermissionDirective,
-    TawkChatComponent,
     MembershipCardComponent,
     MembershipCardModalComponent
   ],
@@ -160,7 +162,6 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
-    DragulaModule.forRoot(),
     NgbModule,
     UiSwitchModule,
     InternationalPhoneNumberModule,
@@ -172,10 +173,11 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     AvatarModule.forRoot({
       sourcePriorityOrder: avatarSourcesOrder
     }),
-    QrCodeModule
+    QrCodeModule,
+    TawkChatModule
   ],
   exports: [
-    LoaderComponent,
+//    LoaderComponent,
     FeatherIconsComponent,
     PaginationComponent,
     TranslateModule,
@@ -199,6 +201,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     SelectCurrencyControlComponent,
     SelectCountryControlComponent,
     SelectPaymentTypeControlComponent,
+    SelectContributionTypeControlComponent,
     FinanceWeeklyBreakdownComponent,
     FinanceCategoryBreakdownComponent,
     FinanceTrendComponent,
@@ -215,9 +218,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     CustomFieldComponent,
     AdminHasPermissionDirective,
     AvatarModule,
-    TawkChatComponent,
     QrCodeModule,
-    MembershipCardComponent
+    MembershipCardComponent,
   ],
   providers: [
     NavService,

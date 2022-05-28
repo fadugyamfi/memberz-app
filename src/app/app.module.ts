@@ -2,13 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule } from './shared/shared.module';
+// import { SharedModule } from './shared/shared.module';
+import { DragulaModule } from 'ng2-dragula';
 import { AppRoutingModule } from './app-routing.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 
 import { AdminGuard } from './shared/guard/admin.guard';
@@ -16,12 +16,10 @@ import { SecureInnerPagesGuard } from './shared/guard/SecureInnerPagesGuard.guar
 
 import { environment } from '../environments/environment';
 import { SlydepayModule } from 'slydepay-angular';
-import { RegisterComponent } from './auth/register/register.component';
-import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
-import { TwoFaCheckComponent } from './auth/two-fa-check/two-fa-check.component';
+import { LoaderComponent } from './shared/components/loader/loader.component';
 
+import { AvatarModule, AvatarSource } from 'ngx-avatar';
+const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -31,21 +29,20 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    ForgotPasswordComponent,
-    ResetPasswordComponent,
-    TwoFaCheckComponent
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    SharedModule,
+    // SharedModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxIntlTelInputModule,
+    DragulaModule.forRoot(),
+    AvatarModule.forRoot({
+      sourcePriorityOrder: avatarSourcesOrder
+    }),
     ToastrModule.forRoot({
       preventDuplicates: true
     }),

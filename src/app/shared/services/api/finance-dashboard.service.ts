@@ -28,8 +28,8 @@ export class FinanceDashboardService extends APIService<MemberAccount> {
     return this.get(`${this.url}/totals_by_category`, params);
   }
 
-  getTrendReport(year = null) {
-    const params = { year };
+  getTrendReport(year = null, contribution_type_id = null) {
+    const params = { year, contribution_type_id };
     return this.get(`${this.url}/trend_report`, params);
   }
 

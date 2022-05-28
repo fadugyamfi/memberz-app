@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { FinanceDashboardService } from 'src/app/shared/services/api/finance-dashboard.service';
 import * as chartData from '../../../data/chart/chartjs';
@@ -28,21 +29,33 @@ export class FinanceTrendComponent implements OnInit {
   public showChart = true;
   public yearValue: number = null;
 
+  public chartForm: FormGroup;
+
   constructor(
     public reportService: FinanceDashboardService,
     public organisationService: OrganisationService
   ) { }
 
   ngOnInit(): void {
-    this.searchByYear(moment().year());
+    this.setupForm();
+    this.fetchData(moment().year());
   }
 
-  searchByYear(value: number) {
-    if (!this.showChart) { return }
+  setupForm() {
+    this.chartForm = new FormGroup({
+      year: new FormControl(moment().year()),
+      contribution_type_id: new FormControl()
+    });
 
+    this.chartForm.valueChanges.subscribe(values => {
+      this.fetchData(values.year, values.contribution_type_id);
+    })
+  }
+
+  fetchData(year: number, contribution_type_id: number = null) {
     this.showChart = false;
-    this.yearValue = value;
-    this.reportService.getTrendReport(this.yearValue).subscribe((data: any[]) => {
+
+    this.reportService.getTrendReport(year, contribution_type_id).subscribe((data: any[]) => {
       this.processChartData(data);
     });
   }

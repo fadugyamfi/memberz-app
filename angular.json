@@ -51,7 +51,8 @@
               "photoswipe/dist/photoswipe-ui-default",
               "angular-calendar/date-adapters/date-fns",
               "xlsx",
-              "clone-deep"
+              "clone-deep",
+              "qrcode"
             ],
             "outputPath": "dist/memberz-org",
             "index": "src/index.html",
@@ -68,7 +69,8 @@
               "src/styles.scss",
               "src/assets/scss/app.scss",
               "./node_modules/ngx-ui-switch/ui-switch.component.css",
-              "./node_modules/intl-tel-input/build/css/intlTelInput.css"
+              "./node_modules/intl-tel-input/build/css/intlTelInput.css",
+              "./node_modules/moment-timezone-picker/assets/moment-timezone-picker.theme.scss"
             ],
             "scripts": [],
             "vendorChunk": true,
@@ -96,8 +98,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "10mb"
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -123,8 +125,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "5mb",
-                  "maximumError": "10mb"
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
