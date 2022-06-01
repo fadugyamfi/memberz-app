@@ -11,7 +11,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ToastrModule } from 'ngx-toastr';
 
-import { AdminGuard } from './shared/guard/admin.guard';
+import { UserLoggedInGuard } from './shared/guard/user-logged-in.guard';
 import { SecureInnerPagesGuard } from './shared/guard/SecureInnerPagesGuard.guard';
 
 import { environment } from '../environments/environment';
@@ -56,7 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     SlydepayModule.forRoot( environment.slydepay )
   ],
-  providers: [AdminGuard, SecureInnerPagesGuard],
+  providers: [UserLoggedInGuard, SecureInnerPagesGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

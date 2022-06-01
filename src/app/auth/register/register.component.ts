@@ -42,10 +42,11 @@ export class RegisterComponent implements OnInit {
     public events: EventsService
   ) {
     this.registerForm = fb.group({
-      first_name: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-      last_name: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-      dob: new FormControl("", [Validators.required]),
-      gender: new FormControl("", [Validators.required]),
+      first_name: new FormControl("", [Validators.minLength(3), Validators.maxLength(30)]),
+      last_name: new FormControl("", [Validators.minLength(3), Validators.maxLength(30)]),
+      name: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
+      dob: new FormControl("", []),
+      gender: new FormControl("", []),
       mobile_number: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
       email: new FormControl("", [Validators.required, Validators.email]),
       password: new FormControl("", [Validators.required,  Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]),
@@ -58,7 +59,11 @@ export class RegisterComponent implements OnInit {
 
   register() {
     const input = this.registerForm.value;
+    const names: string[] = input.name.split(" ");
+    input.first_name = names[0];
+    input.last_name = names.filter((v, i) => i > 0).join(' ');
     input.mobile_number = input.mobile_number.e164Number;
+
     this.authService.register(input);
   }
 }

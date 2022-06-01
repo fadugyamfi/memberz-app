@@ -6,7 +6,7 @@ import { AuthService } from '../services/api/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard implements CanActivate {
+export class UserLoggedInGuard implements CanActivate {
 
   constructor(
     public authService: AuthService,
@@ -15,11 +15,12 @@ export class AdminGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     // Guard for user is login or not
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user) {
-      this.router.navigate(['/auth/login']);
+
+    if( this.authService.isLoggedIn ) {
       return true;
     }
-    return true;
+
+    this.router.navigate(['/auth/login']);
+    return false;
   }
 }

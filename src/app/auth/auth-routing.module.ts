@@ -6,13 +6,13 @@ import { RegisterComponent } from './register/register.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { TwoFaCheckComponent } from './two-fa-check/two-fa-check.component';
 
-import { LoggedInGuard } from '../shared/guard/logged-in.guard';
+import { UserNotLoggedInGuard } from '../shared/guard/user-not-logged-in.guard';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
-    canActivate: [LoggedInGuard],
+    canActivate: [UserNotLoggedInGuard],
     data: {
       title: "Login"
     }
@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: '2fa',
     component: TwoFaCheckComponent,
-    canActivate: [LoggedInGuard],
+    canActivate: [UserNotLoggedInGuard],
     data: {
       title: "Two Factor Auth"
     }
@@ -28,7 +28,7 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
-    canActivate: [LoggedInGuard],
+    canActivate: [UserNotLoggedInGuard],
     data: {
       title: "Register Account"
     }
@@ -36,7 +36,7 @@ const routes: Routes = [
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent,
-    canActivate: [LoggedInGuard],
+    canActivate: [UserNotLoggedInGuard],
     data: {
       title: "Reset Your Password"
     }
@@ -44,7 +44,7 @@ const routes: Routes = [
   {
     path: 'password-reset',
     component: ResetPasswordComponent,
-    canActivate: [LoggedInGuard],
+    canActivate: [UserNotLoggedInGuard],
     data: {
       title: "Complete Password Reset"
     }

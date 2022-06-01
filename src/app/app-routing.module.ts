@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FullLayoutComponent } from './shared/components/layout/full-layout/full-layout.component';
 import { full } from './shared/routes/full.routes';
-import { AdminGuard } from './shared/guard/admin.guard';
+import { UserLoggedInGuard } from './shared/guard/user-logged-in.guard';
 import { OrganisationPublicPageGuard } from './shared/guard/organisation-public-page.guard';
 import { PortalLayoutComponent } from './shared/components/layout/portal-layout/portal-layout.component';
 import { OrganisationLayoutComponent } from './shared/components/layout/organisation-layout/organisation-layout.component';
@@ -62,7 +62,7 @@ const routes: Routes = [
   {
     path: 'portal',
     component: PortalLayoutComponent,
-    canActivate: [AdminGuard],
+    canActivate: [UserLoggedInGuard],
     children: [{
       path: '',
       loadChildren: () => import('./pages/portal/portal.module').then(m => m.PortalModule),

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-// import { LoaderComponent } from './components/loader/loader.component';
+
 import { HeaderComponent } from './components/header/header.component';
 import { HeaderNotificationsComponent } from './components/header/header-notifications.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -96,7 +96,6 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
 @NgModule({
   declarations: [
-//    LoaderComponent,
     HeaderComponent,
     HeaderNotificationsComponent,
     FooterComponent,
@@ -177,7 +176,6 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     TawkChatModule
   ],
   exports: [
-//    LoaderComponent,
     FeatherIconsComponent,
     PaginationComponent,
     TranslateModule,

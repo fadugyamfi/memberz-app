@@ -50,7 +50,7 @@ export class UserDetailsEditComponent implements OnInit, OnDestroy {
   initializeProfileData() {
     let data = this.authService.userStorageData();
     this.memberData = data._member;
-    this.memberData.dob = data.member.dob.split('T')[0];
+    this.memberData.dob = data.member.dob?.split('T')[0];
 
     this.profileForm.patchValue(this.memberData);
   }

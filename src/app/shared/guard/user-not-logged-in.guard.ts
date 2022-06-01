@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
     providedIn: 'root'
 })
 
-export class LoggedInGuard implements CanActivate {
+export class UserNotLoggedInGuard implements CanActivate {
 
     constructor(private authService: AuthService, private router: Router) { }
 
@@ -17,10 +17,11 @@ export class LoggedInGuard implements CanActivate {
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
 
-        if (this.authService.isLoggedIn) {
-            this.router.navigate(['/portal/home']);
+        if (!this.authService.isLoggedIn) {
+          return true;
         }
 
-        return true;
+        this.router.navigate(['/portal/home']);
+        return false;
     }
 }

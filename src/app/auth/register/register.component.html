@@ -13,55 +13,35 @@
             <h6>{{'Enter Your Information For Signup' | translate}}.</h6>
           </div>
           <form class="theme-form" [formGroup]="registerForm">
+
+            <!-- Name  -->
             <div class="form-group">
-              <label class="col-form-label pt-0">{{'First Name' | translate}}</label>
-              <input class="form-control" formControlName="first_name" type="text" required />
+              <label class="col-form-label pt-0">{{'Name' | translate}}</label>
+              <input class="form-control" formControlName="name" type="text" required placeholder="e.g. Joe Smith" />
               <div *ngIf="
-                  registerForm.controls.first_name.touched &&
-                  registerForm.controls.first_name.errors?.required
+                  registerForm.controls.name.touched &&
+                  registerForm.controls.name.errors?.required
                 " class="text text-danger mt-1">
-                {{'First Name Required' | translate}}
+                {{'Name Required' | translate}}
               </div>
               <div *ngIf="
-                  registerForm.controls.first_name.touched &&
-                  registerForm.controls.first_name.errors?.minlength
+                  registerForm.controls.name.touched &&
+                  registerForm.controls.name.errors?.minlength
                 " class="text text-danger mt-1">
-                {{'First Name must be at least 3 characters long' | translate}}.
+                {{'Name must be at least 3 characters long' | translate}}.
               </div>
               <div *ngIf="
-                  registerForm.controls.first_name.touched &&
-                  registerForm.controls.first_name.errors?.maxlength
+                  registerForm.controls.name.touched &&
+                  registerForm.controls.name.errors?.maxlength
                 " class="text text-danger mt-1">
-                {{'First Name must be at most 30 characters long' | translate}}.
+                {{'Name must be at most 30 characters long' | translate}}.
               </div>
             </div>
 
-            <div class="form-group">
-              <label class="col-form-label pt-0">{{'Last Name' | translate}}</label>
-              <input class="form-control" formControlName="last_name" type="text" required />
-              <div *ngIf="
-                  registerForm.controls.last_name.touched &&
-                  registerForm.controls.last_name.errors?.required
-                " class="text text-danger mt-1">
-                {{'Last Name Required' | translate}}
-              </div>
-              <div *ngIf="
-                  registerForm.controls.last_name.touched &&
-                  registerForm.controls.last_name.errors?.minlength
-                " class="text text-danger mt-1">
-                {{'Last Name must be at least 3 characters long' | translate}}.
-              </div>
-              <div *ngIf="
-                  registerForm.controls.last_name.touched &&
-                  registerForm.controls.last_name.errors?.maxlength
-                " class="text text-danger mt-1">
-                {{'Last Name must be at most 30 characters long' | translate}}.
-              </div>
-            </div>
-
+            <!-- Email -->
             <div class="form-group">
               <label class="col-form-label pt-0">{{'Email' | translate}}</label>
-              <input class="form-control" formControlName="email" type="email" required="" />
+              <input class="form-control" formControlName="email" type="email" required="" placeholder="e.g. you@example.com" />
               <div *ngIf="
                   registerForm.controls.email.touched &&
                   registerForm.controls.email.errors?.required
@@ -75,6 +55,8 @@
                 {{'Invalid Email' | translate}}
               </div>
             </div>
+
+            <!-- Phone Number -->
             <div class="form-group">
               <label class="col-form-label pt-0 d-block">{{'Mobile Number' | translate}}</label>
               <ngx-intl-tel-input [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
@@ -111,30 +93,8 @@
                 {{'Mobile Number Not Valid For Selected Country' | translate}}
               </div>
             </div><!-- end of form group -->
-            <div class="form-group">
-              <label class="col-form-label pt-0">{{'Gender' | translate}}</label>
-              <select class="form-control mb-1" formControlName="gender">
-                <option value="">{{'Select Gender' | translate}}</option>
-                <option value="male">{{'Male' | translate}}</option>
-                <option value="female">{{'Female' | translate}}</option>
-              </select>
-              <div *ngIf="
-                  registerForm.controls.gender.touched &&
-                  registerForm.controls.gender.errors?.required
-                " class="text text-danger mt-1">
-                {{'Gender Required' | translate}}
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-form-label pt-0">{{'Date of Birth' | translate}}</label>
-              <input class="form-control" formControlName="dob" type="date" required />
-              <div *ngIf="
-                  registerForm.controls.dob.touched &&
-                  registerForm.controls.dob.errors?.required
-                " class="text text-danger mt-1">
-                {{'Date of Birth Required' | translate}}
-              </div>
-            </div>
+
+            <!-- Password -->
             <div class="form-group">
               <label class="d-flex justify-content-between">
                 <div>{{'Password' | translate}}</div>
@@ -156,6 +116,89 @@
                 {{ 'Password must be min(8), mixed case (letters, numbers & symbols)' | translate }}
               </div>
             </div>
+
+
+
+            <!-- First Name -->
+            <!-- <div class="form-group">
+              <label class="col-form-label pt-0">{{'First Name' | translate}}</label>
+              <input class="form-control" formControlName="first_name" type="text" required />
+              <div *ngIf="
+                  registerForm.controls.first_name.touched &&
+                  registerForm.controls.first_name.errors?.required
+                " class="text text-danger mt-1">
+                {{'First Name Required' | translate}}
+              </div>
+              <div *ngIf="
+                  registerForm.controls.first_name.touched &&
+                  registerForm.controls.first_name.errors?.minlength
+                " class="text text-danger mt-1">
+                {{'First Name must be at least 3 characters long' | translate}}.
+              </div>
+              <div *ngIf="
+                  registerForm.controls.first_name.touched &&
+                  registerForm.controls.first_name.errors?.maxlength
+                " class="text text-danger mt-1">
+                {{'First Name must be at most 30 characters long' | translate}}.
+              </div>
+            </div> -->
+
+            <!-- Last Name -->
+            <!-- <div class="form-group">
+              <label class="col-form-label pt-0">{{'Last Name' | translate}}</label>
+              <input class="form-control" formControlName="last_name" type="text" required />
+              <div *ngIf="
+                  registerForm.controls.last_name.touched &&
+                  registerForm.controls.last_name.errors?.required
+                " class="text text-danger mt-1">
+                {{'Last Name Required' | translate}}
+              </div>
+              <div *ngIf="
+                  registerForm.controls.last_name.touched &&
+                  registerForm.controls.last_name.errors?.minlength
+                " class="text text-danger mt-1">
+                {{'Last Name must be at least 3 characters long' | translate}}.
+              </div>
+              <div *ngIf="
+                  registerForm.controls.last_name.touched &&
+                  registerForm.controls.last_name.errors?.maxlength
+                " class="text text-danger mt-1">
+                {{'Last Name must be at most 30 characters long' | translate}}.
+              </div>
+            </div> -->
+
+
+
+            <!-- Gender -->
+            <!-- <div class="form-group">
+              <label class="col-form-label pt-0">{{'Gender' | translate}}</label>
+              <select class="form-control mb-1" formControlName="gender">
+                <option value="">{{'Select Gender' | translate}}</option>
+                <option value="male">{{'Male' | translate}}</option>
+                <option value="female">{{'Female' | translate}}</option>
+              </select>
+              <div *ngIf="
+                  registerForm.controls.gender.touched &&
+                  registerForm.controls.gender.errors?.required
+                " class="text text-danger mt-1">
+                {{'Gender Required' | translate}}
+              </div>
+            </div> -->
+
+            <!-- Date of Birth -->
+            <!-- <div class="form-group">
+              <label class="col-form-label pt-0">{{'Date of Birth' | translate}}</label>
+              <input class="form-control" formControlName="dob" type="date" required />
+              <div *ngIf="
+                  registerForm.controls.dob.touched &&
+                  registerForm.controls.dob.errors?.required
+                " class="text text-danger mt-1">
+                {{'Date of Birth Required' | translate}}
+              </div>
+            </div> -->
+
+
+
             <div class="form-group">
               <button class="btn btn-primary btn-block btn-lg" [class.loader--text]="authService.showLoader"
                       [disabled]="!registerForm.valid || authService.showLoader" (click)="register()" type="submit">
