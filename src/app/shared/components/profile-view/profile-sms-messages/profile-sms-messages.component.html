@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div class="col-4 text-right">
+      <div class="col-4 text-end">
         <button class="btn btn-sm btn-primary"(click)="smsMessenger.show()">
           {{ 'Send Message' | translate }}
         </button>
@@ -61,7 +61,7 @@
 
     <tbody>
       <tr *ngFor="let message of messageService.getItems(); let row = index">
-        <td class="text-right">{{ messageService.pagingMeta.from + row }}.</td>
+        <td class="text-end">{{ messageService.pagingMeta.from + row }}.</td>
         <td [noWrap]='true'>{{ message.sent_at | date: shortdate }}</td>
         <td>{{ message.message }}</td>
         <td [noWrap]='true' [class]="message.textStatusIndicators()">{{ message.sent_status }}</td>

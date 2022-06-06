@@ -17,7 +17,7 @@
 
     <tbody>
       <tr *ngFor="let role of roles; let row = index">
-        <td class="text-right">{{ row + 1 }}.</td>
+        <td class="text-end">{{ row + 1 }}.</td>
         <td>
           <div>{{ role.name }}</div>
           <div class="text-muted small">{{ role.description }}</div>
@@ -33,7 +33,7 @@
             <i class="fa fa-lock fa-fw"></i> {{ 'Permissions' | translate }}
           </button>
 
-          <button class="btn btn-xs btn-info m-r-5" (click)="showEditor($event, role)">
+          <button class="btn btn-xs btn-primary m-r-5" (click)="showEditor($event, role)">
             <i class="fa fa-pencil fa-fw"></i> {{ 'Edit' | translate }}
           </button>
 
@@ -62,7 +62,7 @@
     <div class="modal-header">
       <h4 class="modal-title">{{modalTitle}}</h4>
       <button type="button" class="close basic-close" (click)="hideModal()">
-        <span aria-hidden="true">&times;</span>
+
       </button>
     </div>
 
@@ -94,7 +94,7 @@
 
     </div>
 
-    <div class="modal-footer flex-grow-1 text-right">
+    <div class="modal-footer flex-grow-1 text-end">
       <span class="m-r-15" *ngIf="saving && roleService.requesting">
         <i class="fa fa-spin fa-circle-o-notch"></i> {{ 'Saving' | translate }}
       </span>

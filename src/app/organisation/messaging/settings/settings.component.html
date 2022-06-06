@@ -11,7 +11,7 @@
                 <i class="fa fa-refresh"></i>
               </button>
 
-              <button class="btn btn-xs btn-info m-r-10 pull-right" title="Edit Account Info"
+              <button class="btn btn-xs btn-primary m-r-10 pull-right" title="Edit Account Info"
                       (click)="editSmsAccount()">
                 <i class="fa fa-pencil"></i> {{ 'Edit' | translate }}
               </button>
@@ -20,7 +20,7 @@
             </div>
 
             <div class="text-center" *ngIf="!smsAccount">
-              <button class="btn btn-sm btn-info" (click)="editSmsAccount()">
+              <button class="btn btn-sm btn-primary" (click)="editSmsAccount()">
                 <i class="fa fa-cogs"></i> {{ 'Setup SMS Account' | translate }}
               </button>
             </div>
@@ -92,7 +92,7 @@
 
         </div>
 
-        <div class="card-footer text-right">
+        <div class="card-footer text-end">
           <span class="m-r-15" *ngIf="smsAccountService.requesting">
             <i class="fa fa-spin fa-circle-o-notch"></i> {{'Saving Changes' | translate}}
           </span>

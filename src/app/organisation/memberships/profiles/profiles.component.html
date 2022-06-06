@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 text-end">
         <button class="btn btn-primary btn-sm m-r-10" (click)="showSearchModal()">
           <i class="fa fa-search"></i> {{ "Find Members" | translate }}
         </button>
@@ -131,7 +131,7 @@
               <i class="fa fa-user"></i> {{'View' | translate}}
             </button>
 
-            <button class="btn btn-xs btn-info m-r-15" (click)="editProfile(profile)">
+            <button class="btn btn-xs btn-primary m-r-15" (click)="editProfile(profile)">
               <i class="fa fa-pencil"></i> {{ "Edit" | translate }}
             </button>
 
@@ -157,8 +157,8 @@
         {{ "Find Members" | translate }}
       </h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
@@ -444,8 +444,8 @@
         {{ "Change Member Category" | translate }}
       </h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">

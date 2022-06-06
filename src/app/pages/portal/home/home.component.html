@@ -11,7 +11,7 @@
         </div>
       </div>
 
-      <div class="col-sm-6 text-right">
+      <div class="col-sm-6 text-end">
         <button class="btn btn-primary btn-sm" (click)="editorModal.show()" > <!-- [routerLink]="['/portal/create-organisation']" -->
           <i class="fa fa-plus"></i> {{'Create Organisation' | translate}}
         </button>
@@ -47,11 +47,11 @@
         <tr *ngFor="let organisation of organisations">
           <td>
             <div class="media">
-              <div class="media-left p-r-20">
+              <div class="flex-shrink-0 p-r-20">
                 <ngx-avatar [src]="organisation?.logo" class="img-30" [name]="organisation?.name"></ngx-avatar>
               </div>
 
-              <div class="media-body">
+              <div class="flex-grow-1">
                 <div>
                   <a href="javascript:void(0)" (click)="loadOrganisation(organisation)">{{ organisation.name }}</a>
                 </div>

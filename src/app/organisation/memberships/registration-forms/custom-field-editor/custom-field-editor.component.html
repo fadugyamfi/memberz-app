@@ -2,8 +2,8 @@
   <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="customFieldForm">
     <div class="modal-header">
       <h5 class="modal-title" id="modal-basic-title">{{ 'Custom Field Editor' | translate }}</h5>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
 
@@ -115,7 +115,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2 text-right">
+        <div class="col-sm-2 text-end">
           <button type="button" class="btn btn-sm btn-primary" title="{{ 'Add Option' | translate }}" (click)="addFieldOptionGroup()">
             <i class="fa fa-plus"></i>
           </button>

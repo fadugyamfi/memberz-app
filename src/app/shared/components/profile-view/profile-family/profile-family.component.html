@@ -21,11 +21,11 @@
       <div class="row">
         <!-- Left Column -->
         <div class="col-sm-8">
-          <div class="media">
-            <div class="media-left">
+          <div class="d-flex">
+            <div class="flex-shrink-0">
               <ngx-avatar [src]="relation.profilePhoto()" [name]="relation.name" initialsSize="2" size="40" class="m-r-15 pull-left"></ngx-avatar>
             </div>
-            <div class="media-body">
+            <div class="flex-grow-1">
               <h6 class="m-b-0">
                 <a *ngIf="relation.relation_member_id" href="javascript:void(0)" viewProfile [membershipId]="relation.relative_organisation_member_id">
                   {{ relation.name }}

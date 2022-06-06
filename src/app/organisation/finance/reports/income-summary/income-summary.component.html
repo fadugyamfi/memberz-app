@@ -61,9 +61,9 @@
               <tr>
                 <th>#</th>
                 <th>{{ "Contribution Types" | translate }}</th>
-                <th class="text-right">{{ "Cash" | translate }}</th>
-                <th class="text-right">{{ "Cheque" | translate }}</th>
-                <th class="text-right font-weight-bold">{{ "Total" | translate }}</th>
+                <th class="text-end">{{ "Cash" | translate }}</th>
+                <th class="text-end">{{ "Cheque" | translate }}</th>
+                <th class="text-end font-weight-bold">{{ "Total" | translate }}</th>
               </tr>
             </thead>
 
@@ -71,9 +71,9 @@
               <tr *ngFor="let data of reportData; let row = index">
                 <td>{{ row + 1 }}.</td>
                 <td>{{ data[0] }}</td>
-                <td class="text-right">{{ data[1] | currency: currency_code + ' ' }}</td>
-                <td class="text-right">{{ data[2] | currency: currency_code + ' ' }}</td>
-                <td class="text-right font-weight-bold">{{ data[3] | currency: currency_code + ' ' }}</td>
+                <td class="text-end">{{ data[1] | currency: currency_code + ' ' }}</td>
+                <td class="text-end">{{ data[2] | currency: currency_code + ' ' }}</td>
+                <td class="text-end font-weight-bold">{{ data[3] | currency: currency_code + ' ' }}</td>
               </tr>
             </tbody>
 
@@ -81,9 +81,9 @@
               <tr>
                 <td></td>
                 <td>{{ 'Total' | translate }}</td>
-                <td class="text-right">{{ totalCash | currency: currency_code + ' ' }}</td>
-                <td class="text-right">{{ totalCheques | currency: currency_code + ' ' }}</td>
-                <td class="text-right">{{ grandTotal | currency: currency_code + ' ' }}</td>
+                <td class="text-end">{{ totalCash | currency: currency_code + ' ' }}</td>
+                <td class="text-end">{{ totalCheques | currency: currency_code + ' ' }}</td>
+                <td class="text-end">{{ grandTotal | currency: currency_code + ' ' }}</td>
               </tr>
             </tfoot>
           </table>

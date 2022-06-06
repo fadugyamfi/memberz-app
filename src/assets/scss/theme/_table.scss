@@ -40,8 +40,9 @@
 }
 .table-hover {
 	tbody {
-		tr:hover {
+		tr:hover > * {
 			background-color: $table-hover-color;
+      --bs-table-accent-bg: $table-hover-color;
 		}
 	}
 }
@@ -123,8 +124,9 @@
 .table-striped{
 	tbody{
 		tr{
-			&:nth-of-type(odd){
+			&:nth-of-type(odd) > * {
 				background-color: rgba(245, 247, 250, 0.5);
+        --bs-table-accent-bg: rgba(245, 247, 250, 0.5);
 			}
 		}
 	}

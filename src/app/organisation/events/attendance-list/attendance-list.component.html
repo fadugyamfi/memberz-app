@@ -50,7 +50,7 @@
 
         <ng-container *ngFor="let attendee of attendees; let row = index">
           <tr *ngIf="attendee.organisation_event_session_id == session.id">
-            <td class="text-right">{{ row + attendeeService?.pagingMeta?.from }}.</td>
+            <td class="text-end">{{ row + attendeeService?.pagingMeta?.from }}.</td>
             <td>
               <a href="javascript:void(0)" viewProfile [membershipId]="attendee.membership?.id"
                  class="d-print-none">{{ attendee.member.lastThenFirstName() }}</a>

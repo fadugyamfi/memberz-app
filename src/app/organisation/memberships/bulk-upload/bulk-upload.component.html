@@ -2,8 +2,8 @@
   <div class="card-header">
     <div class="row">
       <div class="col-md-6">&nbsp;</div>
-      <div class="col-md-6 text-right">
-        <a href="assets/templates/membership_import_template.xlsx" download="" class="btn btn-outline-success mr-3">
+      <div class="col-md-6 text-end">
+        <a href="assets/templates/membership_import_template.xlsx" download="" class="btn btn-outline-success me-3">
           <i class="fa fa-download"></i> {{ 'Download Template' | translate }}
         </a>
 
@@ -59,7 +59,7 @@
         <td class="text-center">{{ fileImport.records_existing || 0 }}</td>
 
         <td class="text-center">
-          <button class="btn btn-xs btn-info m-r-10" (click)="reviewImport(fileImport)">
+          <button class="btn btn-xs btn-primary m-r-10" (click)="reviewImport(fileImport)">
             <i class="fa fa-file"></i> {{ 'Review' | translate }}
           </button>
 
@@ -82,8 +82,8 @@
   <form (submit)="onSubmit($event)" class="form form-horizontal" [formGroup]="uploadForm">
     <div class="modal-header">
       <h5 class="modal-title" id="modal-basic-title">{{ 'Import Membership Data' | translate }}</h5>
-      <button type="button" class="close" aria-label="Close" (click)="resetModal(); modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="resetModal(); modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body border-bottom">

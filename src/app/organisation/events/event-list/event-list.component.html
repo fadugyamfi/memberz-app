@@ -8,7 +8,7 @@
         </button>
       </div>
 
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 text-end">
         <button class="btn btn-outline-info btn-sm m-r-10" (click)="showSearchModal()">
           <i class="fa fa-search"></i> {{'Find Events' | translate}}
         </button>
@@ -47,7 +47,7 @@
 
         <tbody>
           <tr *ngFor="let event of events; let row = index">
-            <td class="text-right">{{ row + eventService?.pagingMeta?.from }}.</td>
+            <td class="text-end">{{ row + eventService?.pagingMeta?.from }}.</td>
             <td>{{ event.event_name }}</td>
             <td class="text-center" [noWrap]="true">{{ event.dates }}</td>
             <td class="text-center" [noWrap]="true">{{ event.times }}</td>
@@ -55,7 +55,7 @@
             <td class="text-center">{{ event.attendee_count || 0 }}</td>
 
             <td class="text-center" [noWrap]="true">
-              <button class="btn btn-xs btn-info m-r-10" adminHasPermission="events:manage:edit" (click)="viewSessions(event)">
+              <button class="btn btn-xs btn-primary m-r-10" adminHasPermission="events:manage:edit" (click)="viewSessions(event)">
                 <i class="fa fa-list"></i> {{'Sessions' | translate}}
               </button>
 
@@ -122,8 +122,8 @@
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">{{'Find Events' | translate}}</h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
@@ -165,8 +165,8 @@
     <div class="modal-header">
       <h5 class="modal-title" id="modal-basic-title">{{'Event Editor' | translate}}</h5>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">

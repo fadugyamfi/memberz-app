@@ -1,14 +1,15 @@
 <ng-template #messageModal let-modal>
   <form (submit)="onMessage($event)" class="form form-horizontal theme-form" [formGroup]="messageForm">
-    <div class="modal-header d-block w-100">
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <h4 class="modal-title" id="modal-basic-title">
-        <i class="fa fa-envelope"></i> {{ 'Send SMS Message' | translate }}
-      </h4>
-      <p class="m-b-0">
-        {{ 'Find contacts to send your message to and enter your message to send (up to 480 characters / 3 pages)' | translate }}</p>
+    <div class="modal-header w-100">
+      <section>
+        <h4 class="modal-title" id="modal-basic-title">
+          <i class="fa fa-envelope"></i> {{ 'Send SMS Message' | translate }}
+        </h4>
+        <p class="m-b-0">
+          {{ 'Find contacts to send your message to and enter your message to send (up to 480 characters / 3 pages)' | translate }}</p>
+      </section>
+
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
 
@@ -63,7 +64,7 @@
       </div>
 
     </div>
-    <div class="modal-footer d-block w-100 text-right">
+    <div class="modal-footer d-block w-100 text-end">
       <div class="account-info badge badge-success pull-left p-2 f-14">
         <i class="fa fa-mobile fa-fw"></i> {{ orgSmsAccount?.balance || 0 }} {{ 'Credits Available' | translate }}
       </div>
