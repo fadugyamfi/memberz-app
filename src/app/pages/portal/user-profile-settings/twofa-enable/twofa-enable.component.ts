@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Validators, FormGroup, FormControl } from "@angular/forms";
+import { Validators, UntypedFormGroup, UntypedFormControl } from "@angular/forms";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MemberAccount } from 'src/app/shared/model/api/member-account';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
@@ -18,7 +18,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class TwofaEnableComponent implements OnInit {
   @ViewChild('enableTwoFactorAuthModal', { static: true }) enableTwoFactorAuthModal: any;
 
-  public twoFactorAuthForm: FormGroup;
+  public twoFactorAuthForm: UntypedFormGroup;
 
   public memberAccount: MemberAccount;
   public subscriptions: Subscription[] = [];
@@ -36,9 +36,9 @@ export class TwofaEnableComponent implements OnInit {
     this.setupEvents();
     this.initializeMemberAccount();
 
-    this.twoFactorAuthForm = new FormGroup({
-      verificationType: new FormControl("email", [Validators.required]),
-      code: new FormControl('', [Validators.required])
+    this.twoFactorAuthForm = new UntypedFormGroup({
+      verificationType: new UntypedFormControl("email", [Validators.required]),
+      code: new UntypedFormControl('', [Validators.required])
     });
   }
 

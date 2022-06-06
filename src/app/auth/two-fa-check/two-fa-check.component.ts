@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { StorageService } from 'src/app/shared/services/storage.service';
@@ -17,7 +17,7 @@ type FormErrors = { [u in Field]: string };
 })
 export class TwoFaCheckComponent implements OnInit {
 
-  public twoFaCheckForm: FormGroup;
+  public twoFaCheckForm: UntypedFormGroup;
   public formErrors: FormErrors = {
     'code': ''
   };
@@ -26,7 +26,7 @@ export class TwoFaCheckComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private storage: StorageService,
     private route: ActivatedRoute,
     private router: Router,

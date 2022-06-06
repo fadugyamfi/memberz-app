@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -20,7 +20,7 @@ import Swal from 'sweetalert2';
 export class PaymentPlatformsComponent implements OnInit, OnDestroy {
 
   @ViewChild('editorModal', { static: true }) editorModal: any;
-  public editorForm: FormGroup;
+  public editorForm: UntypedFormGroup;
   public orgPaymentPlatforms: OrganisationPaymentPlatform[];
   public subscriptions: Subscription[] = [];
   public paymentPlatforms: PaymentPlatform[];
@@ -72,8 +72,8 @@ export class PaymentPlatformsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(sub);
   }
 
-  get configKeysGroup(): FormGroup {
-    return this.editorForm?.controls.config as FormGroup;
+  get configKeysGroup(): UntypedFormGroup {
+    return this.editorForm?.controls.config as UntypedFormGroup;
   }
 
   get configKeyNames() {
@@ -92,25 +92,25 @@ export class PaymentPlatformsComponent implements OnInit, OnDestroy {
   setupEditorForm() {
     const organisation = this.organisationService.getActiveOrganisation();
 
-    this.editorForm = new FormGroup({
-      id: new FormControl(),
-      organisation_id: new FormControl(organisation.id),
-      payment_platform_id: new FormControl('', [Validators.required]),
-      config: new FormGroup({}, [Validators.required]),
-      currency_id: new FormControl(organisation.currency_id, [Validators.required]),
-      country_id: new FormControl(organisation.country_id, [Validators.required]),
-      platform_mode: new FormControl('sandbox', [Validators.required]),
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      organisation_id: new UntypedFormControl(organisation.id),
+      payment_platform_id: new UntypedFormControl('', [Validators.required]),
+      config: new UntypedFormGroup({}, [Validators.required]),
+      currency_id: new UntypedFormControl(organisation.currency_id, [Validators.required]),
+      country_id: new UntypedFormControl(organisation.country_id, [Validators.required]),
+      platform_mode: new UntypedFormControl('sandbox', [Validators.required]),
     });
 
     this.editorForm.controls.payment_platform_id.valueChanges.subscribe(value => {
-      const configGroup = this.editorForm.controls.config as FormGroup;
+      const configGroup = this.editorForm.controls.config as UntypedFormGroup;
       for (let name in configGroup.controls) {
         configGroup.removeControl(name);
       }
 
       const paymentPlatform = this.paymentPlatforms.find(platform => platform.id == value);
       paymentPlatform.config_keys.forEach(key => {
-        configGroup.addControl(key, new FormControl('', Validators.required));
+        configGroup.addControl(key, new UntypedFormControl('', Validators.required));
       });
     });
   }

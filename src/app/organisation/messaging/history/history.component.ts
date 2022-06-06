@@ -3,7 +3,7 @@ import { EventsService } from '../../../shared/services/events.service';
 import { SmsAccountMessageService } from '../../../shared/services/api/sms-account-message.service';
 import { SmsAccountMessage } from '../../../shared/model/api/sms-account-message';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
@@ -25,7 +25,7 @@ export class HistoryComponent implements OnInit {
 
   public messages: SmsAccountMessage[] = [];
   public filtered = 'all';
-  public searchForm: FormGroup;
+  public searchForm: UntypedFormGroup;
   public orgSmsAccount: SmsAccount;
 
   constructor(
@@ -69,12 +69,12 @@ export class HistoryComponent implements OnInit {
    * Sets up the search form group and validations
    */
   setupSearchForm() {
-    this.searchForm = new FormGroup({
-      to: new FormControl(''),
-      member_id: new FormControl(''),
-      message_like: new FormControl(),
-      sent_at_gt: new FormControl(),
-      sent_at_lt: new FormControl()
+    this.searchForm = new UntypedFormGroup({
+      to: new UntypedFormControl(''),
+      member_id: new UntypedFormControl(''),
+      message_like: new UntypedFormControl(),
+      sent_at_gt: new UntypedFormControl(),
+      sent_at_lt: new UntypedFormControl()
     });
   }
 

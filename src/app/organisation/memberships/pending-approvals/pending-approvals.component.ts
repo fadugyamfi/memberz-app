@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +23,7 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
 
   public members: OrganisationMember[] = [];
   public categories: OrganisationMemberCategory[];
-  public searchForm: FormGroup;
+  public searchForm: UntypedFormGroup;
   public allSelected = false;
   public registrationFormId: number;
 
@@ -128,13 +128,13 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
    * Sets up the search form group and validations
    */
   setupSearchForm() {
-    this.searchForm = new FormGroup({
-      organisation_member_category_id: new FormControl(''),
-      organisation_no: new FormControl(''),
-      first_name_like: new FormControl(),
-      last_name_like: new FormControl(),
-      email_like: new FormControl(),
-      mobile_number_like: new FormControl()
+    this.searchForm = new UntypedFormGroup({
+      organisation_member_category_id: new UntypedFormControl(''),
+      organisation_no: new UntypedFormControl(''),
+      first_name_like: new UntypedFormControl(),
+      last_name_like: new UntypedFormControl(),
+      email_like: new UntypedFormControl(),
+      mobile_number_like: new UntypedFormControl()
     });
   }
 

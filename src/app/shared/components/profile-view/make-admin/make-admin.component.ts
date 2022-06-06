@@ -7,7 +7,7 @@ import { Subscription, Observable } from 'rxjs';
 import { OrganisationRoleService } from '../../../services/api/organisation-role.service';
 import { OrganisationRole } from '../../../model/api/organisation-role';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { OrganisationAccount } from '../../../model/api/organisation-account';
 import { OrganisationAccountService } from '../../../services/api/organisation-account.service';
 import { EventsService } from '../../../services/events.service';
@@ -27,7 +27,7 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
   public account: MemberAccount;
   public subscriptions: Subscription[] = [];
   public roles$: Observable<OrganisationRole[]>;
-  public makeAdminForm: FormGroup;
+  public makeAdminForm: UntypedFormGroup;
 
   constructor(
     public accountService: MemberAccountService,
@@ -76,12 +76,12 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
   setupForm() {
     const organisation = this.organisationService.getActiveOrganisation();
 
-    this.makeAdminForm = new FormGroup({
-      member_id: new FormControl(this.membership ? this.membership.member_id : null, Validators.required),
-      email: new FormControl(this.membership ? this.membership.member.email : null, Validators.required),
-      organisation_id: new FormControl(organisation.id, Validators.required),
-      member_account_id: new FormControl(this.account ? this.account.id : null),
-      organisation_role_id: new FormControl('', Validators.required),
+    this.makeAdminForm = new UntypedFormGroup({
+      member_id: new UntypedFormControl(this.membership ? this.membership.member_id : null, Validators.required),
+      email: new UntypedFormControl(this.membership ? this.membership.member.email : null, Validators.required),
+      organisation_id: new UntypedFormControl(organisation.id, Validators.required),
+      member_account_id: new UntypedFormControl(this.account ? this.account.id : null),
+      organisation_role_id: new UntypedFormControl('', Validators.required),
     });
   }
 

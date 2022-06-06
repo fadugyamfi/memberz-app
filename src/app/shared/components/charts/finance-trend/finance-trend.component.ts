@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { FinanceDashboardService } from 'src/app/shared/services/api/finance-dashboard.service';
 import * as chartData from '../../../data/chart/chartjs';
@@ -29,7 +29,7 @@ export class FinanceTrendComponent implements OnInit {
   public showChart = true;
   public yearValue: number = null;
 
-  public chartForm: FormGroup;
+  public chartForm: UntypedFormGroup;
 
   constructor(
     public reportService: FinanceDashboardService,
@@ -42,9 +42,9 @@ export class FinanceTrendComponent implements OnInit {
   }
 
   setupForm() {
-    this.chartForm = new FormGroup({
-      year: new FormControl(moment().year()),
-      contribution_type_id: new FormControl()
+    this.chartForm = new UntypedFormGroup({
+      year: new UntypedFormControl(moment().year()),
+      contribution_type_id: new UntypedFormControl()
     });
 
     this.chartForm.valueChanges.subscribe(values => {

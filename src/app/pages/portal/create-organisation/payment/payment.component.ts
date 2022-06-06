@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, Input, EventEmitter, Output } from '@
 import { EventsService } from '../../../../shared/services/events.service';
 import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { Organisation } from '../../../../shared/model/api/organisation';
@@ -15,7 +15,7 @@ import { Organisation } from '../../../../shared/model/api/organisation';
 export class PaymentComponent implements OnInit, AfterViewInit {
 
   public subscriptionType: SubscriptionType;
-  public paymentForm: FormGroup;
+  public paymentForm: UntypedFormGroup;
   private _organisation: Organisation;
 
   @Output() savePayment = new EventEmitter();
@@ -48,10 +48,10 @@ export class PaymentComponent implements OnInit, AfterViewInit {
   }
 
   setupPaymentForm() {
-    this.paymentForm = new FormGroup({
-      subscription_length: new FormControl('', [Validators.required]),
-      plan_cost: new FormControl(0),
-      plan_expiration: new FormControl('1970-01-01')
+    this.paymentForm = new UntypedFormGroup({
+      subscription_length: new UntypedFormControl('', [Validators.required]),
+      plan_cost: new UntypedFormControl(0),
+      plan_expiration: new UntypedFormControl('1970-01-01')
     });
 
     this.paymentForm.controls.subscription_length.valueChanges.subscribe(value => {

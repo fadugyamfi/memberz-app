@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { OrganisationAnniversaryService } from '../../../shared/services/api/organisation-anniversary.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { Subscription } from 'rxjs';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 import Swal from 'sweetalert2';
@@ -42,9 +42,9 @@ export class AnniversariesComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription[] = [];
   public anniversaries: OrganisationAnniversary[] = [];
-  public searchForm: FormGroup;
+  public searchForm: UntypedFormGroup;
   public anniversaryMessage: string = "";
-  public editorForm: FormGroup;
+  public editorForm: UntypedFormGroup;
 
   constructor(
     public anniversaryService: OrganisationAnniversaryService,
@@ -81,8 +81,8 @@ export class AnniversariesComponent implements OnInit, OnDestroy {
    * Sets up the search form group and validations
    */
   setupSearchForm() {
-    this.searchForm = new FormGroup({
-      name_like: new FormControl(''),
+    this.searchForm = new UntypedFormGroup({
+      name_like: new UntypedFormControl(''),
     });
   }
 
@@ -120,16 +120,16 @@ export class AnniversariesComponent implements OnInit, OnDestroy {
    *
    */
   setupEditorForm() {
-    this.editorForm = new FormGroup({
-      id: new FormControl(),
-      name: new FormControl('', [Validators.required]),
-      description: new FormControl('', []),
-      show_on_reg_forms: new FormControl(false),
-      send_anniversary_message: new FormControl(false),
-      notify_on_anniversary: new FormControl(false),
-      message: new FormControl('', []),
-      organisation_id: new FormControl(this.orgService.activeOrganisation.id),
-      active: new FormControl(true)
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      name: new UntypedFormControl('', [Validators.required]),
+      description: new UntypedFormControl('', []),
+      show_on_reg_forms: new UntypedFormControl(false),
+      send_anniversary_message: new UntypedFormControl(false),
+      notify_on_anniversary: new UntypedFormControl(false),
+      message: new UntypedFormControl('', []),
+      organisation_id: new UntypedFormControl(this.orgService.activeOrganisation.id),
+      active: new UntypedFormControl(true)
     });
   }
 

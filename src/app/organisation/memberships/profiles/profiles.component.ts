@@ -3,7 +3,7 @@ import { OrganisationMemberService } from '../../../shared/services/api/organisa
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
@@ -31,8 +31,8 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public members: OrganisationMember[] = [];
   public categories: OrganisationMemberCategory[];
-  public searchForm: FormGroup;
-  public changeCategoryForm: FormGroup;
+  public searchForm: UntypedFormGroup;
+  public changeCategoryForm: UntypedFormGroup;
   public allSelected = false;
   public showCards = false;
 
@@ -204,32 +204,32 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    * Sets up the search form group and validations
    */
   setupSearchForm() {
-    this.searchForm = new FormGroup({
-      organisation_member_category_id: new FormControl(''),
-      organisation_no: new FormControl(''),
-      first_name_like: new FormControl(),
-      last_name_like: new FormControl(),
-      email_like: new FormControl(),
-      mobile_number_like: new FormControl(),
-      created_gte: new FormControl(),
-      created_lte: new FormControl(),
+    this.searchForm = new UntypedFormGroup({
+      organisation_member_category_id: new UntypedFormControl(''),
+      organisation_no: new UntypedFormControl(''),
+      first_name_like: new UntypedFormControl(),
+      last_name_like: new UntypedFormControl(),
+      email_like: new UntypedFormControl(),
+      mobile_number_like: new UntypedFormControl(),
+      created_gte: new UntypedFormControl(),
+      created_lte: new UntypedFormControl(),
 
       // advanced options
-      dob_gte: new FormControl(''),
-      dob_lte: new FormControl(''),
-      gender: new FormControl(''),
-      marital_status: new FormControl(''),
-      dayname: new FormControl(''),
-      monthname: new FormControl(''),
-      age_gte: new FormControl('', [Validators.min(0), Validators.max(150)]),
-      age_lte: new FormControl('', [Validators.min(0), Validators.max(150)]),
-      occupation_like: new FormControl(''),
-      business_name_like: new FormControl(''),
-      organisation_group_type_id: new FormControl(''),
-      organisation_group_id: new FormControl(''),
-      organisation_anniversary_id: new FormControl(''),
-      anniversary_start_date: new FormControl(''),
-      anniversary_end_date: new FormControl('')
+      dob_gte: new UntypedFormControl(''),
+      dob_lte: new UntypedFormControl(''),
+      gender: new UntypedFormControl(''),
+      marital_status: new UntypedFormControl(''),
+      dayname: new UntypedFormControl(''),
+      monthname: new UntypedFormControl(''),
+      age_gte: new UntypedFormControl('', [Validators.min(0), Validators.max(150)]),
+      age_lte: new UntypedFormControl('', [Validators.min(0), Validators.max(150)]),
+      occupation_like: new UntypedFormControl(''),
+      business_name_like: new UntypedFormControl(''),
+      organisation_group_type_id: new UntypedFormControl(''),
+      organisation_group_id: new UntypedFormControl(''),
+      organisation_anniversary_id: new UntypedFormControl(''),
+      anniversary_start_date: new UntypedFormControl(''),
+      anniversary_end_date: new UntypedFormControl('')
     });
 
     this.searchForm.valueChanges.subscribe(values => {
@@ -359,8 +359,8 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   setupChangeCategoryForm() {
-    this.changeCategoryForm = new FormGroup({
-      organisation_member_category_id: new FormControl('', [Validators.required])
+    this.changeCategoryForm = new UntypedFormGroup({
+      organisation_member_category_id: new UntypedFormControl('', [Validators.required])
     });
   }
 

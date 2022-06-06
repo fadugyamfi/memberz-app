@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FinanceReportingService } from 'src/app/shared/services/api/finance-reporting.services';
 import { ContributionReceiptSettingService } from 'src/app/shared/services/api/contribution-receipt-setting.service';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { ContributionReceiptSetting } from 'src/app/shared/model/api/contribution-receipt-setting';
 import { filter, Subscription } from 'rxjs';
 import * as moment from 'moment';
@@ -35,13 +35,13 @@ export class YearlySummaryReportComponent implements OnInit {
     'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  public searchForm: FormGroup;
+  public searchForm: UntypedFormGroup;
 
 
   constructor(
     public reportingService: FinanceReportingService,
     public receiptSettingService: ContributionReceiptSettingService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public currencyService: CurrencyService
   ) {
 
@@ -54,8 +54,8 @@ export class YearlySummaryReportComponent implements OnInit {
 
   setupSearchForm() {
     this.searchForm = this.fb.group({
-      year: new FormControl(moment().year()),
-      currency_id: new FormControl(this.default_currency)
+      year: new UntypedFormControl(moment().year()),
+      currency_id: new UntypedFormControl(this.default_currency)
     });
 
     this.searchForm.valueChanges.subscribe(values => {

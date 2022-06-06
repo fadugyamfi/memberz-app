@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -18,7 +18,7 @@ import { EventsService } from '../../../../shared/services/events.service';
 export class GroupTypesComponent implements OnInit, OnDestroy {
 
   @Output() selectGroupType = new EventEmitter();
-  public editorForm: FormGroup;
+  public editorForm: UntypedFormGroup;
   @ViewChild('editorModal', { static: true }) editorModal: any;
 
   public selectedGroupType: OrganisationGroupType;
@@ -54,11 +54,11 @@ export class GroupTypesComponent implements OnInit, OnDestroy {
   }
 
   setupEditorForm() {
-    this.editorForm = new FormGroup({
-      id: new FormControl(),
-      organisation_id: new FormControl(this.organisationService.getActiveOrganisation().id),
-      name: new FormControl('', Validators.required),
-      description: new FormControl('')
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      organisation_id: new UntypedFormControl(this.organisationService.getActiveOrganisation().id),
+      name: new UntypedFormControl('', Validators.required),
+      description: new UntypedFormControl('')
     });
   }
 

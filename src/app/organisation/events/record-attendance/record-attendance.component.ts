@@ -7,7 +7,7 @@ import { OrganisationService } from '../../../shared/services/api/organisation.s
 import { OrganisationEvent } from '../../../shared/model/api/organisation-event';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { OrganisationEventAttendee } from '../../../shared/model/api/organisation-event-attendee';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
@@ -27,7 +27,7 @@ export class RecordAttendanceComponent implements OnInit {
   public groupTypes: OrganisationGroupType[];
   public memberships: OrganisationMember[] = [];
 
-  public filterForm: FormGroup;
+  public filterForm: UntypedFormGroup;
   public attendees: OrganisationEventAttendee[];
   public subscriptions: Subscription[] = [];
 
@@ -80,13 +80,13 @@ export class RecordAttendanceComponent implements OnInit {
   setupFilterForm() {
     const organisation = this.organisationService.getActiveOrganisation();
 
-    this.filterForm = new FormGroup({
-      organisation_id: new FormControl(organisation.id),
-      organisation_member_category_id: new FormControl('', Validators.required),
-      organisation_event_session_id: new FormControl('', Validators.required),
-      organisation_group_id: new FormControl(''),
-      last_name_like: new FormControl(''),
-      first_name_like: new FormControl(''),
+    this.filterForm = new UntypedFormGroup({
+      organisation_id: new UntypedFormControl(organisation.id),
+      organisation_member_category_id: new UntypedFormControl('', Validators.required),
+      organisation_event_session_id: new UntypedFormControl('', Validators.required),
+      organisation_group_id: new UntypedFormControl(''),
+      last_name_like: new UntypedFormControl(''),
+      first_name_like: new UntypedFormControl(''),
     });
   }
 
