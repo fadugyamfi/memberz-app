@@ -17,8 +17,8 @@
       <tr>
         <th>{{ 'Date' | translate }}</th>
         <th>{{ 'Description' | translate }}</th>
-        <th class="text-right">{{ 'Credits' | translate }}</th>
-        <th class="text-right">{{ 'Cost' | translate }}</th>
+        <th class="text-end">{{ 'Credits' | translate }}</th>
+        <th class="text-end">{{ 'Cost' | translate }}</th>
         <th class="text-center">{{ 'Status' | translate }}</th>
         <th class="text-center">{{ 'Actions' | translate }}</th>
       </tr>
@@ -31,14 +31,14 @@
           {{ topup.lastModified() }}
         </td>
         <td>{{ topup.invoice_description }}</td>
-        <td class="text-right">{{ topup.credit_amount | number }}</td>
-        <td class="text-right">{{ topup.cost | currency : topup.currency?.currency_code }}</td>
+        <td class="text-end">{{ topup.credit_amount | number }}</td>
+        <td class="text-end">{{ topup.cost | currency : topup.currency?.currency_code }}</td>
         <td class="text-center">
           <span class="badge badge-success" *ngIf="topup.credited">{{ 'Credited' | translate }}</span>
           <span class="badge badge-warning" *ngIf="!topup.credited">{{ 'Pending' | translate }}</span>
         </td>
         <td class="text-center">
-          <button class="btn btn-xs btn-info" (click)="invoiceModal.showInvoice(topup.organisation_invoice_id)">
+          <button class="btn btn-xs btn-primary" (click)="invoiceModal.showInvoice(topup.organisation_invoice_id)">
             <i class="fa fa-file-text"></i> {{ 'View Invoice' | translate }}
           </button>
         </td>

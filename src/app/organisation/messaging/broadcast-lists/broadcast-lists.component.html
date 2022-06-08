@@ -7,7 +7,7 @@
         </button>
       </div>
 
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 text-end">
         <button type="button" class="btn btn-outline-info btn-sm m-r-10" (click)="showSearchModal()">
           <i class="fa fa-search"></i> {{'Find Broadcast Lists' | translate}}
         </button>
@@ -32,7 +32,7 @@
         <th colspan="2">{{'Name' | translate}}</th>
         <th class="text-left">{{'Sender ID' | translate}}</th>
         <th class="text-center">{{'Contacts In List' | translate}}</th>
-        <th class="text-right">{{ 'Created' | translate }}</th>
+        <th class="text-end">{{ 'Created' | translate }}</th>
         <th class="text-center">{{'Actions' | translate}}</th>
       </tr>
     </thead>
@@ -40,16 +40,16 @@
 
     <tbody>
       <tr *ngFor="let broadcastList of broadcastLists; let row = index">
-        <td class="text-right">{{ row + broadcastListService?.pagingMeta?.from }}.</td>
+        <td class="text-end">{{ row + broadcastListService?.pagingMeta?.from }}.</td>
         <td>{{ broadcastList.name }}</td>
         <td class="text-left">{{ broadcastList.sender_id }}</td>
         <td class="text-center">{{ broadcastList.size | number }}</td>
 
-        <td class="text-right">{{ broadcastList.whenCreated() }}</td>
+        <td class="text-end">{{ broadcastList.whenCreated() }}</td>
 
         <td class="text-center">
           <a [routerLink]="['/organisation/messaging/broadcast-lists', broadcastList.id, 'contacts']" type="button"
-             class="btn btn-xs btn-info m-r-10">
+             class="btn btn-xs btn-primary m-r-10">
             <i class="fa fa-file"></i> {{ 'Preview' | translate }}
           </a>
 
@@ -76,8 +76,8 @@
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">{{'Find Broadcast Lists' | translate}}</h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
@@ -112,8 +112,8 @@
     <div class="modal-header">
       <h5 class="modal-title" id="modal-basic-title">{{'Broadcast List Editor' | translate}}</h5>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
@@ -180,7 +180,7 @@
 
         <div class="col-sm-2 text-center">
           <div ngbDropdown placement="bottom-right">
-            <button type="button" class="btn btn-info btn-sm add-filter-btn" title="{{ 'Add Filter' | translate }}"
+            <button type="button" class="btn btn-primary btn-sm add-filter-btn" title="{{ 'Add Filter' | translate }}"
                     ngbDropdownToggle>
               <i class="fa fa-plus"></i> {{ 'Add' | translate }}
             </button>

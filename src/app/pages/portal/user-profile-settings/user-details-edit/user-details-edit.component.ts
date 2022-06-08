@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Validators, FormGroup, FormControl } from "@angular/forms";
+import { Validators, UntypedFormGroup, UntypedFormControl } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs';
 })
 export class UserDetailsEditComponent implements OnInit, OnDestroy {
 
-  public profileForm: FormGroup;
+  public profileForm: UntypedFormGroup;
 
   separateDialCode = true;
   SearchCountryField = SearchCountryField;
@@ -74,15 +74,15 @@ export class UserDetailsEditComponent implements OnInit, OnDestroy {
 
 
   setupProfileForm() {
-    this.profileForm = new FormGroup({
-      first_name: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-      last_name: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-      dob: new FormControl("", [Validators.required]),
-      gender: new FormControl("", [Validators.required]),
-      mobile_number: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
-      email: new FormControl("", [Validators.required, Validators.email]),
-      occupation: new FormControl(""),
-      business_name: new FormControl("")
+    this.profileForm = new UntypedFormGroup({
+      first_name: new UntypedFormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      last_name: new UntypedFormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
+      dob: new UntypedFormControl("", [Validators.required]),
+      gender: new UntypedFormControl("", [Validators.required]),
+      mobile_number: new UntypedFormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+      email: new UntypedFormControl("", [Validators.required, Validators.email]),
+      occupation: new UntypedFormControl(""),
+      business_name: new UntypedFormControl("")
     });
   }
 

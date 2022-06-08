@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular
 import { FinanceReportingService } from 'src/app/shared/services/api/finance-reporting.services';
 import { ContributionReceiptSettingService } from 'src/app/shared/services/api/contribution-receipt-setting.service';
 import { ContributionReceiptSetting } from 'src/app/shared/model/api/contribution-receipt-setting';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 
@@ -20,19 +20,19 @@ export class IncomeSummaryComponent implements OnInit {
   public showData = false;
   public settings: ContributionReceiptSetting;
   public default_currency;
-  public searchForm: FormGroup;
+  public searchForm: UntypedFormGroup;
   public currency_code: string;
 
 
   constructor(
     public reportingService: FinanceReportingService,
     public receiptSettingService: ContributionReceiptSettingService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
   ) {
     this.searchForm = fb.group({
-      start_date: new FormControl(moment().format('YYYY-MM-DD')),
-      end_date: new FormControl(moment().format('YYYY-MM-DD')),
-      currency_id: new FormControl(this.default_currency)
+      start_date: new UntypedFormControl(moment().format('YYYY-MM-DD')),
+      end_date: new UntypedFormControl(moment().format('YYYY-MM-DD')),
+      currency_id: new UntypedFormControl(this.default_currency)
     });
   }
 

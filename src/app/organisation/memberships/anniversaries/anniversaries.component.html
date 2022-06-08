@@ -5,7 +5,7 @@
 
       </div>
 
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 text-end">
         <button class="btn btn-primary btn-sm m-r-10" (click)="showEditorModal()">
           <i class="fa fa-plus"></i> {{ "Add Anniversary Type" | translate }}
         </button>
@@ -45,7 +45,7 @@
 
     <tbody>
       <tr *ngFor="let anniverary of anniversaries; let row = index">
-        <td class="text-right">
+        <td class="text-end">
           {{ row + anniversaryService?.pagingMeta?.from }}.
         </td>
         <td>
@@ -93,8 +93,8 @@
       <h4 class="modal-title" id="modal-basic-title">
         {{ "Find Anniversary Type" | translate }}
       </h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
@@ -125,8 +125,8 @@
     <h4 class="modal-title" id="modal-basic-title">
       {{ "Anniversary Message" | translate }}
     </h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
     </button>
   </div>
   <div class="modal-body">
@@ -140,8 +140,8 @@
       <h5 class="modal-title" id="modal-basic-title">
         {{ "Anniversary Type Editor" | translate }}
       </h5>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">

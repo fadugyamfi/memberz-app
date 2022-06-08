@@ -7,7 +7,7 @@
         </button>
       </div>
 
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 text-end">
         <button class="btn btn-outline-info btn-sm m-r-10" (click)="showSearchModal()">
           <i class="fa fa-search"></i> {{'Search Records' | translate}}
         </button>
@@ -38,7 +38,7 @@
         <th class="text-center">{{'Month' | translate}}</th>
         <th class="text-center">{{'Year' | translate}}</th>
         <th>{{'Payment Type' | translate}}</th>
-        <th class="text-right font-weight-bold">{{'Amount' | translate}}</th>
+        <th class="text-end font-weight-bold">{{'Amount' | translate}}</th>
         <th class="text-center">{{'Actions' | translate}}</th>
       </tr>
     </thead>
@@ -46,7 +46,7 @@
 
     <tbody>
       <tr *ngFor="let contribution of contributions; let row = index">
-        <td class="text-right">{{ row + contributionService?.pagingMeta?.from }}.</td>
+        <td class="text-end">{{ row + contributionService?.pagingMeta?.from }}.</td>
         <td [noWrap]="true">{{ contribution.receipt_dt | date : short }}</td>
         <td [noWrap]="true">{{ contribution.receipt_no }}</td>
         <td>{{ contribution.contribution_type.name }}</td>
@@ -68,7 +68,7 @@
             {{ contribution.bank?.short_code }} {{ contribution.cheque_number }}</span>
           <span *ngIf="contribution.payment_type != 'Cheque'">{{ contribution.payment_type }}</span>
         </td>
-        <td [noWrap]="true" class="text-right font-weight-bold">{{ contribution.amount | currency : contribution.currency_code }}</td>
+        <td [noWrap]="true" class="text-end font-weight-bold">{{ contribution.amount | currency : contribution.currency_code }}</td>
 
         <td class="text-center" [noWrap]="true">
           <button class="btn btn-xs btn-primary m-r-10" (click)="incomeEditor.show(contribution)">
@@ -95,8 +95,8 @@
       <h4 class="modal-title" id="modal-basic-title">{{'Find Records' | translate}}</h4>
       <!-- <p>{{ 'Search your records for entries t' | translate }}</p> -->
 
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">

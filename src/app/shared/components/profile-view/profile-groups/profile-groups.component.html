@@ -31,7 +31,7 @@
     <tbody>
       <!--  -->
       <tr *ngFor="let memberGroup of getMemberGroups(); let row = index">
-        <td class="text-right">{{ memberGroupService.pagingMeta.from + row }}.</td>
+        <td class="text-end">{{ memberGroupService.pagingMeta.from + row }}.</td>
         <td>{{ memberGroup.organisation_group?.organisation_group_type?.name }}</td>
         <td>{{ memberGroup.organisation_group?.name }}</td>
         <td>{{ memberGroup.lastModified() }}</td>
@@ -54,8 +54,8 @@
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">{{'Group Assignment' | translate}}</h4>
 
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">

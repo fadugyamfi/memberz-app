@@ -4,7 +4,7 @@
       <div class="col-md-6">
         <h6 class="m-b-0"><i class="fa fa-list"></i> {{'Broadcast History' | translate}}</h6>
       </div>
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 text-end">
         <button class="btn btn-primary m-r-15" (click)="showComposer()">
           <i class="fa fa-envelope"></i> {{'New Broadcast' | translate}}
         </button>
@@ -29,7 +29,7 @@
 
     <tbody>
       <tr *ngFor="let broadcast of broadcasts; let row = index">
-        <td class="text-right">{{ row + smsBroadcastService?.pagingMeta?.from }}.</td>
+        <td class="text-end">{{ row + smsBroadcastService?.pagingMeta?.from }}.</td>
         <td [noWrap]="true">{{ broadcast.whenCreated() }}</td>
         <td [noWrap]="true">{{ broadcast.sentTo }}</td>
         <td class="pre-message">{{ broadcast.message }}</td>
@@ -52,7 +52,7 @@
 
         <td [noWrap]="true" class="text-center">
           <button
-            class="btn btn-info btn-xs m-r-15"
+            class="btn btn-primary btn-xs m-r-15"
             (click)="editSmsBroadcast(broadcast)"
             [disabled]="broadcast.sent"
           >{{ 'Edit' | translate }}</button>

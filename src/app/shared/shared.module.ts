@@ -226,13 +226,6 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     ExcelService,
     ContributionService,
     FinanceDashboardService,
-
-    // error handling
-    RequestErrorHandler,
-    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
-
-    // appending organisation_id to requests
-    { provide: HTTP_INTERCEPTORS, useClass: OrganisationInterceptor, multi: true },
   ]
 })
 export class SharedModule { }

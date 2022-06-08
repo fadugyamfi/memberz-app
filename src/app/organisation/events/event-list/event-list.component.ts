@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription, tap } from 'rxjs';
@@ -31,8 +31,8 @@ export class EventListComponent implements OnInit {
   public calendars: OrganisationCalendar[];
 
   public subscriptions: Subscription[] = [];
-  public searchForm: FormGroup;
-  public editorForm: FormGroup;
+  public searchForm: UntypedFormGroup;
+  public editorForm: UntypedFormGroup;
 
   public defaultCalendar: OrganisationCalendar;
 
@@ -100,10 +100,10 @@ export class EventListComponent implements OnInit {
    * Sets up the search form group and validations
    */
   setupSearchForm() {
-    this.searchForm = new FormGroup({
-      name_like: new FormControl(''),
-      start_dt: new FormControl(''),
-      end_dt: new FormControl(''),
+    this.searchForm = new UntypedFormGroup({
+      name_like: new UntypedFormControl(''),
+      start_dt: new UntypedFormControl(''),
+      end_dt: new UntypedFormControl(''),
     });
   }
 
@@ -141,18 +141,18 @@ export class EventListComponent implements OnInit {
    *
    */
   setupEditorForm() {
-    this.editorForm = new FormGroup({
-      id: new FormControl(),
-      organisation_id: new FormControl(),
-      organisation_calendar_id: new FormControl(this.defaultCalendar ? this.defaultCalendar.id : '', Validators.required),
-      event_name: new FormControl('', [Validators.required]),
-      short_description: new FormControl('', []),
-      long_description: new FormControl('', []),
-      start_dt: new FormControl('', [Validators.required]),
-      end_dt: new FormControl('', [Validators.required]),
-      venue: new FormControl(''),
-      all_day: new FormControl(false),
-      sessions: new FormArray([])
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      organisation_id: new UntypedFormControl(),
+      organisation_calendar_id: new UntypedFormControl(this.defaultCalendar ? this.defaultCalendar.id : '', Validators.required),
+      event_name: new UntypedFormControl('', [Validators.required]),
+      short_description: new UntypedFormControl('', []),
+      long_description: new UntypedFormControl('', []),
+      start_dt: new UntypedFormControl('', [Validators.required]),
+      end_dt: new UntypedFormControl('', [Validators.required]),
+      venue: new UntypedFormControl(''),
+      all_day: new UntypedFormControl(false),
+      sessions: new UntypedFormArray([])
     });
   }
 

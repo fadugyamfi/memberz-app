@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -28,9 +28,9 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
 
   @ViewChild('editor', { static: true }) editor: any;
 
-  public selectOptionForm: FormGroup;
-  public newProfileForm: FormGroup;
-  public existingProfileForm: FormGroup;
+  public selectOptionForm: UntypedFormGroup;
+  public newProfileForm: UntypedFormGroup;
+  public existingProfileForm: UntypedFormGroup;
 
   public mbshp: OrganisationMember;
   public rel: MemberRelation;
@@ -129,21 +129,21 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
   }
 
   setupSelectOptionForm() {
-    this.selectOptionForm = new FormGroup({
-      source: new FormControl(ADD_EXISTING, Validators.required)
+    this.selectOptionForm = new UntypedFormGroup({
+      source: new UntypedFormControl(ADD_EXISTING, Validators.required)
     });
   }
 
   setupForms() {
-    this.newProfileForm = this.existingProfileForm = new FormGroup({
-      id: new FormControl(),
-      member_id: new FormControl(this.membership.member_id),
-      member_relation_type_id: new FormControl('', Validators.required),
-      name: new FormControl('', Validators.required),
-      gender: new FormControl('', Validators.required),
-      dob: new FormControl(''),
-      is_alive: new FormControl(1),
-      relation_member_id: new FormControl()
+    this.newProfileForm = this.existingProfileForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      member_id: new UntypedFormControl(this.membership.member_id),
+      member_relation_type_id: new UntypedFormControl('', Validators.required),
+      name: new UntypedFormControl('', Validators.required),
+      gender: new UntypedFormControl('', Validators.required),
+      dob: new UntypedFormControl(''),
+      is_alive: new UntypedFormControl(1),
+      relation_member_id: new UntypedFormControl()
     });
   }
 

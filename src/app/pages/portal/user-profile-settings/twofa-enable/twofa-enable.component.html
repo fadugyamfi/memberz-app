@@ -6,7 +6,7 @@
     <div class="row">
       <div class="col-sm-9">
         <div class="row">
-          <div class="col-sm-2 text-right">
+          <div class="col-sm-2 text-end">
             <i class="fa fa-envelope-square fa-3x text-warning"></i>
           </div>
           <div class="col-sm">
@@ -18,7 +18,7 @@
         </div>
       </div>
 
-      <div class="col-sm-3 text-right">
+      <div class="col-sm-3 text-end">
         <span *ngIf="!memberAccount.is2FAEnabled()">
           <button type="button" class="btn btn-primary" (click)="showEnableTwoFactorAuthModal()">
             {{ "Enable" | translate }}
@@ -44,8 +44,8 @@
         {{ "Enable 2FA Authentication" | translate }}
       </h4>
 
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">

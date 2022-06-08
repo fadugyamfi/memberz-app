@@ -38,8 +38,8 @@
                 <th class="text-lg-left" [noWrap]="true">
                   {{ "Contribution Type" | translate }}
                 </th>
-                <th *ngFor="let month of months" class="text-right">{{ month.substring(0 ,3) | translate }}</th>
-                <th class="text-right ">{{ "Total" | translate }}</th>
+                <th *ngFor="let month of months" class="text-end">{{ month.substring(0 ,3) | translate }}</th>
+                <th class="text-end ">{{ "Total" | translate }}</th>
               </tr>
             </thead>
 
@@ -49,24 +49,24 @@
 
                 <ng-container *ngFor="let month of months">
                   <ng-container *ngIf="getContributionByTypeNameAndMonth(typeName, month) as record; else noValue">
-                    <td class="text-right">{{ record.amount | number : '1.2-2' }}</td>
+                    <td class="text-end">{{ record.amount | number : '1.2-2' }}</td>
                   </ng-container>
 
                   <ng-template #noValue>
-                    <td class="text-right">{{ 0 | number : '1.2-2' }}</td>
+                    <td class="text-end">{{ 0 | number : '1.2-2' }}</td>
                   </ng-template>
                 </ng-container>
 
-                <td class="text-right font-weight-bold">
+                <td class="text-end font-weight-bold">
                   {{ getTotalContributionByTypeName(typeName) | number : '1.2-2' }}
                 </td>
               </tr>
               <tr>
                 <td class="font-weight-bold">{{ 'Total' | translate }}</td>
-                <td class="font-weight-bold text-right" *ngFor="let month of months">
+                <td class="font-weight-bold text-end" *ngFor="let month of months">
                   {{ getTotalContributionByMonth(month) | number : '1.2-2' }}
                 </td>
-                <td class="font-weight-bold text-right">
+                <td class="font-weight-bold text-end">
                   {{ getTotalContribution() | number : '1.2-2' }}
                 </td>
               </tr>
@@ -85,25 +85,25 @@
 
                 <ng-container *ngFor="let month of months; index as i">
                   <ng-container *ngIf="getPaymentsTypeNameAndMonth(typeName, i + 1) as record; else noValue">
-                    <td class="text-right">{{ record.amount | number : '1.2-2' }}</td>
+                    <td class="text-end">{{ record.amount | number : '1.2-2' }}</td>
                   </ng-container>
 
                   <ng-template #noValue>
-                    <td class="text-right">{{ 0 | number : '1.2-2' }}</td>
+                    <td class="text-end">{{ 0 | number : '1.2-2' }}</td>
                   </ng-template>
                 </ng-container>
 
-                <td class="text-right font-weight-bold">
+                <td class="text-end font-weight-bold">
                   {{ getTotalByPaymentType(typeName) | number : '1.2-2' }}
                 </td>
               </tr>
 
               <tr>
                 <td class="font-weight-bold">{{ 'Total' | translate }}</td>
-                <td class="font-weight-bold text-right" *ngFor="let month of months; index as i">
+                <td class="font-weight-bold text-end" *ngFor="let month of months; index as i">
                   {{ getTotalPaymentByMonth(i + 1) | number : '1.2-2' }}
                 </td>
-                <td class="font-weight-bold text-right">
+                <td class="font-weight-bold text-end">
                   {{ getTotalPayments() | number : '1.2-2' }}
                 </td>
               </tr>

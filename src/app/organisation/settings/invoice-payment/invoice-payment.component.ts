@@ -3,7 +3,7 @@ import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { OrganisationSubscriptionService } from '../../../shared/services/api/organisation-subscription.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { OrganisationSubscription } from '../../../shared/model/api/organisation-subscription';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -18,7 +18,7 @@ import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrappe
 })
 export class InvoicePaymentComponent implements OnInit {
 
-  public subscriptionForm: FormGroup;
+  public subscriptionForm: UntypedFormGroup;
   public activeSubscription: OrganisationSubscription;
   public subs: Subscription[] = [];
   private invoice_id: number;
@@ -43,11 +43,11 @@ export class InvoicePaymentComponent implements OnInit {
     const organisation = this.organisationService.getActiveOrganisation();
     this.activeSubscription = organisation.active_subscription;
 
-    this.subscriptionForm = new FormGroup({
-      transaction_type_name: new FormControl(),
-      invoice_no: new FormControl('', [Validators.required]),
-      total_due: new FormControl(),
-      payment_method: new FormControl('slydepay', [Validators.required])
+    this.subscriptionForm = new UntypedFormGroup({
+      transaction_type_name: new UntypedFormControl(),
+      invoice_no: new UntypedFormControl('', [Validators.required]),
+      total_due: new UntypedFormControl(),
+      payment_method: new UntypedFormControl('slydepay', [Validators.required])
     });
   }
 

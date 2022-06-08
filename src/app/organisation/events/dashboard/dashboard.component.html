@@ -91,11 +91,11 @@
         <div *ngIf="($upcomingEvents | async) as upcomingEvents;  else loading;">
           <ng-container *ngIf="upcomingEvents.length; else noItems">
             <ul class="crm-activity">
-              <li class="media" *ngFor="let event of upcomingEvents">
-                <div class="media-left mr-3">
+              <li class="d-flex" *ngFor="let event of upcomingEvents">
+                <div class="flex-shrink-0 me-3">
                   <ngx-avatar [name]="event.event_name" initialsSize="2" size="48"></ngx-avatar>
                 </div>
-                <div class="media-body">
+                <div class="flex-grow-1">
                   <h5 class="font-weight-bold f-18">{{ event.event_name }}</h5>
                   <ul class="dates">
                     <li class="digits">{{ event.dates }}</li>
@@ -130,11 +130,11 @@
         <div *ngIf="(todaysBirthdays$ | async) as birthdays;  else loading;">
           <ng-container *ngIf="birthdays.length; else noItems">
             <ul class="crm-activity">
-              <li class="media" *ngFor="let membership of birthdays">
-                <div class="media-left mr-3">
+              <li class="d-flex" *ngFor="let membership of birthdays">
+                <div class="flex-shrink-0 me-3">
                   <ngx-avatar [name]="membership.name()" [src]="membership.member.profile_photo?.thumb_url" initialsSize="2" size="48"></ngx-avatar>
                 </div>
-                <div class="media-body">
+                <div class="flex-grow-1">
                   <h5 class="font-weight-bold f-18"><a href="javascript:void(0)" viewProfile [membership]="membership">{{ membership.name() }}</a></h5>
                   <ul class="dates">
                     <li class="digits">{{ 'Turns' | translate }} <b>{{ membership.member.age }}</b> {{ 'today' | translate }}</li>

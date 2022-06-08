@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core';
 import { PermissionGroup } from './permission-group.model';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { EventsService } from '../../../shared/services/events.service';
@@ -23,7 +23,7 @@ export class PermissionsComponent implements OnInit, OnDestroy {
 
   @ViewChild('editorModal', { static: true }) modal;
 
-  public editorForm: FormGroup;
+  public editorForm: UntypedFormGroup;
   public modalRef: NgbModalRef;
 
   public _permissions = [];
@@ -37,7 +37,7 @@ export class PermissionsComponent implements OnInit, OnDestroy {
   constructor(
     public events: EventsService,
     public permissionService: PermissionService,
-    public fb: FormBuilder,
+    public fb: UntypedFormBuilder,
     public roleService: OrganisationRoleService,
     public storage: StorageService,
     public modalService: NgbModal,

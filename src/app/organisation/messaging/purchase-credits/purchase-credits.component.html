@@ -18,7 +18,7 @@
             <td>{{ bundle.credit_amount | number }}</td>
             <td>{{ bundle.cost | currency : (bundle?.currency?.currency_code + ' ') }}</td>
             <td class="text-center">
-              <button *ngIf="!isSelectedBundle(bundle)" type="button" class="btn btn-xs btn-info"
+              <button *ngIf="!isSelectedBundle(bundle)" type="button" class="btn btn-xs btn-primary"
                       (click)="selectBundle(bundle)">
                 <i class="fa fa-circle-o"></i> {{ 'Select' | translate }}
               </button>
@@ -42,7 +42,7 @@
 
           <div class="form-group row">
             <div class="col-sm-4">{{ 'Quantity' | translate }}</div>
-            <div class="col-sm-8"><input type="number" class="form-control text-right" value="1" formControlName="quantity"></div>
+            <div class="col-sm-8"><input type="number" class="form-control text-end" value="1" formControlName="quantity"></div>
           </div>
           <div class="form-group row">
             <div class="col-sm-4">{{'Total Credit' | translate}}</div>
@@ -51,7 +51,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">{{'SMS' | translate}}</span>
                 </div>
-                <input type="text" placeholder="0" class="form-control text-right" formControlName="credit_amount" readonly>
+                <input type="text" placeholder="0" class="form-control text-end" formControlName="credit_amount" readonly>
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">{{ bundles[0]?.currency?.currency_code }}</span>
                 </div>
-                <input type="text" placeholder="0.00" class="form-control text-right" formControlName="cost" readonly>
+                <input type="text" placeholder="0.00" class="form-control text-end" formControlName="cost" readonly>
               </div>
             </div>
           </div>
@@ -93,7 +93,7 @@
             </div>
           </div>
         </div>
-        <div class="card-footer text-right">
+        <div class="card-footer text-end">
           <button class="btn btn-primary m-r-15" [disabled]="!selectedBundle">
             <i class="fa fa-shopping-cart"></i> {{ 'Purchase' | translate }}
           </button>

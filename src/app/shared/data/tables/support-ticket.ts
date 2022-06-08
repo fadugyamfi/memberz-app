@@ -1,7 +1,7 @@
 export class supportDB {
     static ticket = [
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/1.jpg'><div class='media-body align-self-center'> <div>Tiger</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/1.jpg'><div class='flex-grow-1 align-self-center'> <div>Tiger</div></div></div>",
             position: "System Architect",
             salary: "$320,800",
             office: "Edinburgh",
@@ -11,7 +11,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/2.png'><div class='media-body align-self-center'> <div>Tiger</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/2.png'><div class='flex-grow-1 align-self-center'> <div>Tiger</div></div></div>",
             position: "System Architect",
             salary: "$320,800",
             office: "Edinburgh",
@@ -21,7 +21,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/3.jpg'><div class='media-body align-self-center'> <div>Garrett Winters</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/3.jpg'><div class='flex-grow-1 align-self-center'> <div>Garrett Winters</div></div></div>",
             position: "Accountant",
             salary: "$170,750",
             office: "Tokyo",
@@ -31,7 +31,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/4.jpg'><div class='media-body align-self-center'> <div>Garrett Winters</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/4.jpg'><div class='flex-grow-1 align-self-center'> <div>Garrett Winters</div></div></div>",
             position: "Accountant",
             salary: "$170,750",
             office: "Tokyo",
@@ -41,7 +41,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/5.jpg'><div class='media-body align-self-center'> <div>Garrett Winters</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/5.jpg'><div class='flex-grow-1 align-self-center'> <div>Garrett Winters</div></div></div>",
             position: "Accountant",
             salary: "$170,750",
             office: "Tokyo",
@@ -51,7 +51,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/6.jpg'><div class='media-body align-self-center'> <div>Ashton Cox</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/6.jpg'><div class='flex-grow-1 align-self-center'> <div>Ashton Cox</div></div></div>",
             position: "Junior Technical Author",
             salary: "$86,000",
             office: "San Francisco",
@@ -61,7 +61,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/7.jpg'><div class='media-body align-self-center'> <div>Cedric Kelly</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/7.jpg'><div class='flex-grow-1 align-self-center'> <div>Cedric Kelly</div></div></div>",
             position: "Senior Javascript Developer",
             salary: "$433,060",
             office: "San Francisco",
@@ -71,7 +71,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/8.jpg'><div class='media-body align-self-center'> <div>Cedric Kelly</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/8.jpg'><div class='flex-grow-1 align-self-center'> <div>Cedric Kelly</div></div></div>",
             position: "Senior Javascript Developer",
             salary: "$433,060",
             office: "San Francisco",
@@ -80,7 +80,7 @@ export class supportDB {
             email: "c.kelly@datatables.net"
         },
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/9.jpg'><div class='media-body align-self-center'> <div>Airi Satou</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/9.jpg'><div class='flex-grow-1 align-self-center'> <div>Airi Satou</div></div></div>",
             position: "Accountant",
             salary: "$162,700",
             office: "Tokyo",
@@ -90,7 +90,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/10.jpg'><div class='media-body align-self-center'> <div>Brielle Williamson</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/10.jpg'><div class='flex-grow-1 align-self-center'> <div>Brielle Williamson</div></div></div>",
             position: "Integration Specialist",
             salary: "$372,000",
             office: "New York",
@@ -100,7 +100,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/1.jpg'><div class='media-body align-self-center'> <div>Herrod Chandler</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/1.jpg'><div class='flex-grow-1 align-self-center'> <div>Herrod Chandler</div></div></div>",
             position: "Sales Assistant",
             salary: "$137,500",
             office: "San Francisco",
@@ -110,7 +110,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/5.jpg'><div class='media-body align-self-center'> <div>Rhona Davidson</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/5.jpg'><div class='flex-grow-1 align-self-center'> <div>Rhona Davidson</div></div></div>",
             position: "Integration Specialist",
             salary: "$327,900",
             office: "Tokyo",
@@ -120,7 +120,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/1.jpg'><div class='media-body align-self-center'> <div>Colleen Hurst</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/1.jpg'><div class='flex-grow-1 align-self-center'> <div>Colleen Hurst</div></div></div>",
             position: "Javascript Developer",
             salary: "$205,500",
             office: "San Francisco",
@@ -130,7 +130,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/2.png'><div class='media-body align-self-center'> <div>Sonya Frost</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/2.png'><div class='flex-grow-1 align-self-center'> <div>Sonya Frost</div></div></div>",
             position: "Software Engineer",
             salary: "$103,600",
             office: "Edinburgh",
@@ -140,7 +140,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/3.jpg'><div class='media-body align-self-center'> <div>Jena Gaines</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/3.jpg'><div class='flex-grow-1 align-self-center'> <div>Jena Gaines</div></div></div>",
             position: "Office Manager",
             salary: "$90,560",
             office: "London",
@@ -150,7 +150,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/4.jpg'><div class='media-body align-self-center'> <div>Quinn Flynn</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/4.jpg'><div class='flex-grow-1 align-self-center'> <div>Quinn Flynn</div></div></div>",
             position: "Support Lead",
             salary: "$342,000",
             office: "Edinburgh",
@@ -160,7 +160,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/5.jpg'><div class='media-body align-self-center'> <div>Charde Marshall</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/5.jpg'><div class='flex-grow-1 align-self-center'> <div>Charde Marshall</div></div></div>",
             position: "Regional Director",
             salary: "$470,600",
             office: "San Francisco",
@@ -170,7 +170,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/6.jpg'><div class='media-body align-self-center'> <div>Haley Kennedy</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/6.jpg'><div class='flex-grow-1 align-self-center'> <div>Haley Kennedy</div></div></div>",
             position: "Senior Marketing Designer",
             salary: "$313,500",
             office: "London",
@@ -180,7 +180,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/7.jpg'><div class='media-body align-self-center'> <div>Tatyana Fitzpatrick</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/7.jpg'><div class='flex-grow-1 align-self-center'> <div>Tatyana Fitzpatrick</div></div></div>",
             position: "Regional Director",
             salary: "$385,750",
             office: "London",
@@ -190,7 +190,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/8.jpg'><div class='media-body align-self-center'> <div>Michael Silva</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/8.jpg'><div class='flex-grow-1 align-self-center'> <div>Michael Silva</div></div></div>",
             position: "Marketing Designer",
             salary: "$198,500",
             office: "London",
@@ -200,7 +200,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/9.jpg'><div class='media-body align-self-center'> <div>Michael Silva</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/9.jpg'><div class='flex-grow-1 align-self-center'> <div>Michael Silva</div></div></div>",
             position: "Paul Byrd",
             salary: "Chief Financial Officer (CFO)",
             office: "$725,000",
@@ -210,7 +210,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/10.jpg'><div class='media-body align-self-center'> <div>Gloria Little</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/10.jpg'><div class='flex-grow-1 align-self-center'> <div>Gloria Little</div></div></div>",
             position: "Systems Administrator",
             salary: "$237,500",
             office: "New York",
@@ -220,7 +220,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/2.png'><div class='media-body align-self-center'> <div>Bradley Greer</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/2.png'><div class='flex-grow-1 align-self-center'> <div>Bradley Greer</div></div></div>",
             position: "Software Engineer",
             salary: "$132,000",
             office: "London",
@@ -230,7 +230,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/5.jpg'><div class='media-body align-self-center'> <div>Michael Silva</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/5.jpg'><div class='flex-grow-1 align-self-center'> <div>Michael Silva</div></div></div>",
             position: "Dai Rios",
             salary: "Personnel Lead",
             office: "$217,500",
@@ -240,7 +240,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/1.jpg'><div class='media-body align-self-center'> <div>Jenette Caldwell</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/1.jpg'><div class='flex-grow-1 align-self-center'> <div>Jenette Caldwell</div></div></div>",
             position: "Development Lead",
             salary: "$345,000",
             office: "New York",
@@ -250,7 +250,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/2.png'><div class='media-body align-self-center'> <div>Yuri Berry</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/2.png'><div class='flex-grow-1 align-self-center'> <div>Yuri Berry</div></div></div>",
             position: "Chief Marketing Officer (CMO)",
             salary: "$675,000",
             office: "New York",
@@ -260,7 +260,7 @@ export class supportDB {
         },
 
         {
-            img: "<div class='media'><img class='rounded-circle img-30 mr-3' src='assets/images/user/3.jpg'><div class='media-body align-self-center'> <div>C</div></div></div>",
+            img: "<div class='media'><img class='rounded-circle img-30 me-3' src='assets/images/user/3.jpg'><div class='flex-grow-1 align-self-center'> <div>C</div></div></div>",
             position: "Pre-Sales Support",
             salary: "$106,450",
             office: "New York",

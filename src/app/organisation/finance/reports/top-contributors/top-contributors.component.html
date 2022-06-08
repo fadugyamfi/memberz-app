@@ -39,9 +39,9 @@
                 <th>{{ "Member Name" | translate }}</th>
                 <th>{{ "Mobile Number" | translate }}</th>
                 <th class="text-center">{{ "Age" | translate }}</th>
-                <th class="text-right">{{ "Last Contribution Date" | translate }}</th>
-                <th class="text-right">{{ "Avg. Amount" | translate }}</th>
-                <th class="text-right">{{ "Total Amount" | translate }}</th>
+                <th class="text-end">{{ "Last Contribution Date" | translate }}</th>
+                <th class="text-end">{{ "Avg. Amount" | translate }}</th>
+                <th class="text-end">{{ "Total Amount" | translate }}</th>
               </tr>
             </thead>
 
@@ -57,9 +57,9 @@
                 </td>
                 <td>{{ data.mobile_number }}</td>
                 <td class="text-center">{{ data.age }}</td>
-                <td class="text-right">{{ data.last_contribution_date | date }}</td>
-                <td class="text-right">{{ data.avg_amount | currency: data.currency_code }}</td>
-                <td class="text-right font-weight-bold">{{ data.total_amount | currency: data.currency_code }}</td>
+                <td class="text-end">{{ data.last_contribution_date | date }}</td>
+                <td class="text-end">{{ data.avg_amount | currency: data.currency_code }}</td>
+                <td class="text-end font-weight-bold">{{ data.total_amount | currency: data.currency_code }}</td>
               </tr>
             </tbody>
           </table>

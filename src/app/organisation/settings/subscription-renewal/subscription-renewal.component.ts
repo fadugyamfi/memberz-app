@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { OrganisationSubscriptionService } from '../../../shared/services/api/organisation-subscription.service';
@@ -16,7 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./subscription-renewal.component.scss']
 })
 export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
-  public subscriptionForm: FormGroup;
+  public subscriptionForm: UntypedFormGroup;
   public activeSubscription: OrganisationSubscription;
   public subs: Subscription[] = [];
 
@@ -41,20 +41,20 @@ export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
     const organisation = this.organisationService.getActiveOrganisation();
     this.activeSubscription = organisation.active_subscription;
 
-    this.subscriptionForm = new FormGroup({
-      organisation_id: new FormControl( organisation.id),
-      subscription_type_name: new FormControl(
+    this.subscriptionForm = new UntypedFormGroup({
+      organisation_id: new UntypedFormControl( organisation.id),
+      subscription_type_name: new UntypedFormControl(
         this.activeSubscription.subscription_type.description
       ),
-      subscription_type_id: new FormControl(
+      subscription_type_id: new UntypedFormControl(
         this.activeSubscription.subscription_type_id,
         [Validators.required]
       ),
-      organisation_subscription_id: new FormControl(this.activeSubscription.id),
-      length: new FormControl('', [Validators.required]),
-      next_renewal_date: new FormControl(),
-      subscription_cost: new FormControl(),
-      payment_method: new FormControl('slydepay', [Validators.required])
+      organisation_subscription_id: new UntypedFormControl(this.activeSubscription.id),
+      length: new UntypedFormControl('', [Validators.required]),
+      next_renewal_date: new UntypedFormControl(),
+      subscription_cost: new UntypedFormControl(),
+      payment_method: new UntypedFormControl('slydepay', [Validators.required])
     });
 
     this.subscriptionForm.controls.length.valueChanges.subscribe(value => {

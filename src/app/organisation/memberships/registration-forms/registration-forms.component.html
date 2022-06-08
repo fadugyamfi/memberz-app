@@ -4,7 +4,7 @@
       <div class="col-sm-6">
         <app-loading-rotate-dashed *ngIf="registrationFormService.fetching"></app-loading-rotate-dashed>
       </div>
-      <div class="col-sm-6 text-right">
+      <div class="col-sm-6 text-end">
         <button class="btn btn-sm btn-primary" [routerLink]="['/organisation/memberships/registration-forms/add']" > <!-- (click)="showEditorModal()"-->
           <i class="fa fa-plus"></i> {{ 'Add Form' | translate }}
         </button>
@@ -31,7 +31,7 @@
         <th class="text-center font-weight-bold">{{ 'Total' | translate }}</th>
         <th class="text-center text-success font-weight-bold">{{ 'Approved' | translate }}</th>
         <th class="text-center text-warning font-weight-bold">{{ 'Unapproved' | translate }}</th>
-        <th class="text-right">{{ 'Modified' | translate }}</th>
+        <th class="text-end">{{ 'Modified' | translate }}</th>
         <th class="text-center">{{ 'Actions' | translate }}</th>
       </tr>
 
@@ -45,7 +45,7 @@
         <td class="text-center">{{ (form.registrants_count || 0) | number }}</td>
         <td class="text-center">{{ (form.approved_registrants_count || 0) | number }}</td>
         <td class="text-center">{{ (form.unapproved_registrants_count || 0) | number }}</td>
-        <td class="text-right">{{ form.lastModified() }}</td>
+        <td class="text-end">{{ form.lastModified() }}</td>
         <td class="text-center">
           <a class="btn btn-xs btn-primary m-r-10" [routerLink]="['/', organisation.slug, 'register', form.slug]" target="_blank">
             <i class="fa fa-pencil"></i> {{ 'Register' | translate }}
@@ -55,7 +55,7 @@
             <i class="fa fa-eye"></i> {{ 'View Registrants' | translate }}
           </a>
 
-          <button class="btn btn-xs btn-info m-r-10" (click)="editForm(form)">
+          <button class="btn btn-xs btn-primary m-r-10" (click)="editForm(form)">
             <i class="fa fa-edit"></i> {{ 'Edit' | translate }}
           </button>
           <button class="btn btn-xs btn-danger" (click)="deleteForm(form)">
@@ -66,7 +66,7 @@
     </tbody>
   </table>
 
-  <div class="card-footer text-right">
+  <div class="card-footer text-end">
     <app-pagination [service]="registrationFormService" (paginate)="onPaginate($event)"></app-pagination>
   </div>
 </div>

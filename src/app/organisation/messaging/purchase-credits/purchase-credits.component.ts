@@ -1,6 +1,6 @@
 import { formatNumber } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SmsCredit } from '../../../shared/model/api/sms-credit';
@@ -24,7 +24,7 @@ export class PurchaseCreditsComponent implements OnInit, OnDestroy {
   public bundles: SmsCredit[] = [];
   public subscriptions: Subscription[] = [];
   public selectedBundle: SmsCredit;
-  public purchaseForm: FormGroup;
+  public purchaseForm: UntypedFormGroup;
 
   constructor(
     public smsAccountService: SmsAccountService,
@@ -72,15 +72,15 @@ export class PurchaseCreditsComponent implements OnInit, OnDestroy {
   setupPurchaseForm() {
     const smsAccount = this.smsAccountService.getOrganisationAccount();
 
-    this.purchaseForm = new FormGroup({
-      organisation_id: new FormControl(smsAccount.organisation_id),
-      module_sms_account_id: new FormControl(smsAccount.id),
-      module_sms_credit_id: new FormControl(this.selectedBundle?.id),
-      credit_amount: new FormControl(formatNumber(this.selectedBundle?.credit_amount, 'en', '1.0-0')),
-      quantity: new FormControl('1'),
-      cost: new FormControl(formatNumber(this.selectedBundle?.cost, 'en', '1.2-2')),
-      currency_id: new FormControl(this.selectedBundle?.currency.id),
-      payment_method: new FormControl('slydepay')
+    this.purchaseForm = new UntypedFormGroup({
+      organisation_id: new UntypedFormControl(smsAccount.organisation_id),
+      module_sms_account_id: new UntypedFormControl(smsAccount.id),
+      module_sms_credit_id: new UntypedFormControl(this.selectedBundle?.id),
+      credit_amount: new UntypedFormControl(formatNumber(this.selectedBundle?.credit_amount, 'en', '1.0-0')),
+      quantity: new UntypedFormControl('1'),
+      cost: new UntypedFormControl(formatNumber(this.selectedBundle?.cost, 'en', '1.2-2')),
+      currency_id: new UntypedFormControl(this.selectedBundle?.currency.id),
+      payment_method: new UntypedFormControl('slydepay')
     });
 
     this.purchaseForm.controls.quantity.valueChanges.subscribe((quantity) => {

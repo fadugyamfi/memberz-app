@@ -3,7 +3,7 @@ import { UserActivityService } from '../../../shared/services/api/user-activitie
 import { Subscription } from 'rxjs';
 import { UserActivity } from '../../../shared/model/api/user-activity';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { EventsService } from '../../../shared/services/events.service';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 import { MemberAccount } from 'src/app/shared/model/api/member-account';
@@ -23,7 +23,7 @@ export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy
 
   public activities: UserActivity[];
   public subscriptions: Subscription[] = [];
-  public searchForm: FormGroup;
+  public searchForm: UntypedFormGroup;
   public memberAccounts: MemberAccount[] = [];
   public orgAccounts: OrganisationAccount[] = [];
   public cacheDataKey = 'searched_activities';
@@ -127,12 +127,12 @@ export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy
   setupSearchForm() {
     const organisation = this.organisationService.getActiveOrganisation();
 
-    this.searchForm = new FormGroup({
-      organisation_id: new FormControl(organisation.id),
-      causer_id: new FormControl(''),
-      log_name: new FormControl(''),
-      created_at_gte: new FormControl(),
-      created_at_lte: new FormControl()
+    this.searchForm = new UntypedFormGroup({
+      organisation_id: new UntypedFormControl(organisation.id),
+      causer_id: new UntypedFormControl(''),
+      log_name: new UntypedFormControl(''),
+      created_at_gte: new UntypedFormControl(),
+      created_at_lte: new UntypedFormControl()
     });
   }
 

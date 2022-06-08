@@ -1,9 +1,9 @@
-<div class="media">
-  <div class="media-left m-r-10">
+<div class="d-flex align-items-center">
+  <div class="flex-shrink-0 m-r-10">
     <img [src]="membership?.member?.thumbnail()" default='assets/images/user/user.png'
          class="img-thumbnail rounded-circle img-40" />
   </div>
-  <div class="media-body">
+  <div class="flex-grow-1">
     <input type="text" class="form-control" [ngbTypeahead]="searchMember" [resultTemplate]="rt"
            [value]="membership?.member?.firstThenLastName()" [inputFormatter]="formatter"
            placeholder="Enter Member Name" #input (selectItem)="setSelectedMember($event, input)"

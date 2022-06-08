@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { OrganisationRegistrationFormService } from '../../../../shared/services/api/organisation-registration-form.service';
 import { EventsService } from '../../../../shared/services/events.service';
@@ -13,7 +13,7 @@ export class CustomFieldEditorComponent implements OnInit {
 
   @ViewChild('customFieldModal', { static: true }) customFieldModal: any;
 
-  public customFieldForm: FormGroup;
+  public customFieldForm: UntypedFormGroup;
   public modal: NgbModalRef;
   public editing = false;
   public editIndex = 0;
@@ -47,19 +47,19 @@ export class CustomFieldEditorComponent implements OnInit {
   }
 
   setupForm() {
-    this.customFieldForm = new FormGroup({
-      id: new FormControl(this.generateGuid()),
-      name: new FormControl('', Validators.required),
-      type: new FormControl('text', [Validators.required]),
-      label: new FormControl('', [Validators.required]),
-      placeholder: new FormControl(''),
-      required: new FormControl(false),
-      options: new FormArray([ this.createFieldOptionGroup() ])
+    this.customFieldForm = new UntypedFormGroup({
+      id: new UntypedFormControl(this.generateGuid()),
+      name: new UntypedFormControl('', Validators.required),
+      type: new UntypedFormControl('text', [Validators.required]),
+      label: new UntypedFormControl('', [Validators.required]),
+      placeholder: new UntypedFormControl(''),
+      required: new UntypedFormControl(false),
+      options: new UntypedFormArray([ this.createFieldOptionGroup() ])
     })
 
     this.customFieldForm.valueChanges.subscribe(values => {
       if( values.type != 'select' ) {
-        this.customFieldForm.controls.options = new FormArray([ this.createFieldOptionGroup() ]);
+        this.customFieldForm.controls.options = new UntypedFormArray([ this.createFieldOptionGroup() ]);
       }
     });
   }
@@ -69,14 +69,14 @@ export class CustomFieldEditorComponent implements OnInit {
   }
 
   createFieldOptionGroup() {
-    return new FormGroup({
-      label: new FormControl(''),
-      value: new FormControl('')
+    return new UntypedFormGroup({
+      label: new UntypedFormControl(''),
+      value: new UntypedFormControl('')
     });
   }
 
-  get optionGroups(): FormArray {
-    return this.customFieldForm.controls.options as FormArray;
+  get optionGroups(): UntypedFormArray {
+    return this.customFieldForm.controls.options as UntypedFormArray;
   }
 
   addFieldOptionGroup() {

@@ -1,13 +1,13 @@
 <!-- Page Header Start-->
 <div class="page-main-header" [ngClass]="{ open: navServices.collapseSidebar }" id="page-main-header">
-  <div class="main-header-right row">
+  <div class="main-header-right">
     <div class="main-header-left d-lg-none">
       <div class="logo-wrapper">
         <a href="javascript:void(0)"><img src="assets/images/logo_150.png" alt="" /></a>
       </div>
     </div>
     <div class="mobile-sidebar">
-      <div class="media-body text-right switch-sm">
+      <div class="flex-grow-1 text-end switch-sm">
         <label class="switch">
           <a href="javascript:void(0)" (click)="collapseSidebar()">
             <app-feather-icons id="sidebar-toggle" [icon]="'align-left'"></app-feather-icons>
@@ -89,7 +89,7 @@
         </li> -->
 
         <li class="onhover-dropdown">
-          <div class="media align-items-center" *ngIf="!authService.userData as user">
+          <div class="d-flex align-items-center" *ngIf="!authService.userData as user">
             <img class="align-self-center pull-right img-50 rounded-circle" src="assets/images/dashboard/user.png"
                  alt="header-user" />
             <div class="dotted-animation">
@@ -98,7 +98,7 @@
             </div>
           </div>
 
-          <div class="media align-items-center" *ngIf="authService.userData as user">
+          <div class="d-flex align-items-center" *ngIf="authService.userData as user">
             <ngx-avatar [src]="user?.member?.thumbnail()" [name]="user?.member?.name()" initialsSize="2"></ngx-avatar>
             <!-- <div class="dotted-animation">
               <span class="animate-circle"></span>

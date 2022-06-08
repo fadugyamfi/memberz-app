@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
@@ -22,7 +22,7 @@ export class IncomeComponent implements OnInit, OnDestroy {
   @ViewChild('incomeEditorModal', { static: true }) editorModal: any;
 
   private subscriptions: Subscription[] = [];
-  public searchForm: FormGroup;
+  public searchForm: UntypedFormGroup;
   public contributions: Contribution[] = [];
 
   public years = null;
@@ -70,23 +70,23 @@ export class IncomeComponent implements OnInit, OnDestroy {
    * Sets up the search form group and validations
    */
   setupSearchForm() {
-    this.searchForm = new FormGroup({
-      receipt_dt: new FormControl(''),
-      receipt_no: new FormControl(''),
-      description_like: new FormControl(''),
-      organisation_member_id: new FormControl(''),
-      module_contribution_type_id: new FormControl(''),
-      module_contribution_payment_type_id: new FormControl(''),
-      week: new FormControl(''),
-      month: new FormControl(''),
-      year: new FormControl(''),
-      currency_id: new FormControl(''),
-      bank_id: new FormControl(''),
-      cheque_number_like: new FormControl(),
-      cheque_status: new FormControl(''),
-      amount: new FormControl(),
-      created_gte: new FormControl(),
-      created_lte: new FormControl()
+    this.searchForm = new UntypedFormGroup({
+      receipt_dt: new UntypedFormControl(''),
+      receipt_no: new UntypedFormControl(''),
+      description_like: new UntypedFormControl(''),
+      organisation_member_id: new UntypedFormControl(''),
+      module_contribution_type_id: new UntypedFormControl(''),
+      module_contribution_payment_type_id: new UntypedFormControl(''),
+      week: new UntypedFormControl(''),
+      month: new UntypedFormControl(''),
+      year: new UntypedFormControl(''),
+      currency_id: new UntypedFormControl(''),
+      bank_id: new UntypedFormControl(''),
+      cheque_number_like: new UntypedFormControl(),
+      cheque_status: new UntypedFormControl(''),
+      amount: new UntypedFormControl(),
+      created_gte: new UntypedFormControl(),
+      created_lte: new UntypedFormControl()
     });
   }
 

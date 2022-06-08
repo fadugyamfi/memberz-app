@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -24,7 +24,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   private _groupType: OrganisationGroupType;
   public groups: OrganisationGroup[] = [];
 
-  public editorForm: FormGroup;
+  public editorForm: UntypedFormGroup;
   @ViewChild('editorModal', { static: true }) editorModal: any;
   @Output() viewGroupMembers = new EventEmitter();
 
@@ -81,8 +81,8 @@ export class GroupsComponent implements OnInit, OnDestroy {
     return this._groupType;
   }
 
-  get leadersArray(): FormArray {
-    return (this.editorForm.controls.organisation_group_leaders as FormArray);
+  get leadersArray(): UntypedFormArray {
+    return (this.editorForm.controls.organisation_group_leaders as UntypedFormArray);
   }
 
   onPaginate(event: PageEvent) {
@@ -90,21 +90,21 @@ export class GroupsComponent implements OnInit, OnDestroy {
   }
 
   setupEditorForm() {
-    this.editorForm = new FormGroup({
-      id: new FormControl(),
-      organisation_id: new FormControl(this.organisationService.getActiveOrganisation().id),
-      organisation_group_type_id: new FormControl(this.groupType?.id, [Validators.required]),
-      name: new FormControl('', Validators.required),
-      organisation_group_leaders: new FormArray([this.createLeaderFormGroup()])
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      organisation_id: new UntypedFormControl(this.organisationService.getActiveOrganisation().id),
+      organisation_group_type_id: new UntypedFormControl(this.groupType?.id, [Validators.required]),
+      name: new UntypedFormControl('', Validators.required),
+      organisation_group_leaders: new UntypedFormArray([this.createLeaderFormGroup()])
     });
   }
 
   createLeaderFormGroup() {
-    return new FormGroup({
-      id: new FormControl(''),
-      organisation_id: new FormControl(this.organisationService.getActiveOrganisation().id),
-      organisation_member_id: new FormControl(''),
-      role: new FormControl('')
+    return new UntypedFormGroup({
+      id: new UntypedFormControl(''),
+      organisation_id: new UntypedFormControl(this.organisationService.getActiveOrganisation().id),
+      organisation_member_id: new UntypedFormControl(''),
+      role: new UntypedFormControl('')
     });
   }
 

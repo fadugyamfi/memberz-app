@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 text-end">
         <button class="btn btn-primary btn-sm m-r-10" (click)="showSearchModal()">
           <i class="fa fa-search"></i> {{ "Find Members" | translate }}
         </button>
@@ -100,7 +100,9 @@
           <th>{{ "Member Name" | translate }}</th>
           <th>{{ "Membership Category" | translate }}</th>
           <th>{{ "Phone Number" | translate }}</th>
-          <th>{{ "Email" | translate }}</th>
+          <!-- <th>{{ "Email" | translate }}</th> -->
+          <th>{{ "Last Attendance" | translate }}</th>
+          <th>{{ "Last Payment Date" | translate }}</th>
           <th class="text-center d-print-none">{{ "Actions" | translate }}</th>
         </tr>
       </thead>
@@ -121,9 +123,18 @@
           <td>
             <a href="tel:{{ profile.member?.mobile_number }}">{{ profile.member?.mobile_number }}</a>
           </td>
-          <td>
+          <!-- <td>
             <a href="mailto:{{ profile.member?.email }}">{{ profile.member?.email }}</a>
+          </td> -->
+          <td>
+            {{ profile.last_attendance?.created | date : 'mediumDate' }}
           </td>
+          <td *ngIf="profile.last_contribution; else noContribution">
+            <span ngbTooltip="{{ profile.last_contribution?.amount | currency: 'GHS ' }}">
+              {{ profile.last_contribution?.created | date: 'mediumDate' }}
+            </span>
+          </td>
+          <ng-template #noContribution><td>N/A</td></ng-template>
 
           <!-- Actions -->
           <td class="text-center d-print-none">
@@ -131,7 +142,7 @@
               <i class="fa fa-user"></i> {{'View' | translate}}
             </button>
 
-            <button class="btn btn-xs btn-info m-r-15" (click)="editProfile(profile)">
+            <button class="btn btn-xs btn-primary m-r-15" (click)="editProfile(profile)">
               <i class="fa fa-pencil"></i> {{ "Edit" | translate }}
             </button>
 
@@ -157,15 +168,15 @@
         {{ "Find Members" | translate }}
       </h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">{{
-          "Member Category" | translate
-        }}</label>
+        <label class="col-sm-4 col-form-label">
+          {{ "Member Category" | translate }}
+        </label>
         <div class="col-sm-8">
           <select class="form-control" formControlName="organisation_member_category_id">
             <option value="">{{ "Select Category" | translate }}</option>
@@ -444,8 +455,8 @@
         {{ "Change Member Category" | translate }}
       </h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">

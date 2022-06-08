@@ -9,7 +9,7 @@ import { OrganisationMemberAnniversaryService } from '../../../../shared/service
 import { OrganisationAnniversaryService } from '../../../../shared/services/api/organisation-anniversary.service';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { OrganisationMemberAnniversary } from 'src/app/shared/model/api/organisation-member-anniversary';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-anniversaries',
@@ -23,7 +23,7 @@ export class ProfileAnniversariesComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[] = [];
   public mbsp: OrganisationMember;
   public selectedAnniversary: OrganisationMemberAnniversary;
-  public editorForm: FormGroup;
+  public editorForm: UntypedFormGroup;
 
   constructor(
     public modalService: NgbModal,
@@ -98,12 +98,12 @@ export class ProfileAnniversariesComponent implements OnInit, OnDestroy {
   }
 
   setupEditorForm() {
-    this.editorForm = new FormGroup({
-      id: new FormControl(),
-      organisation_id: new FormControl(this.membership.organisation_id),
-      organisation_anniversary_id: new FormControl('', Validators.required),
-      organisation_member_id: new FormControl(this.membership.id, Validators.required),
-      value: new FormControl('', Validators.required),
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      organisation_id: new UntypedFormControl(this.membership.organisation_id),
+      organisation_anniversary_id: new UntypedFormControl('', Validators.required),
+      organisation_member_id: new UntypedFormControl(this.membership.id, Validators.required),
+      value: new UntypedFormControl('', Validators.required),
     });
   }
 

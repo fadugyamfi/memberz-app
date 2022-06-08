@@ -229,7 +229,6 @@
       }
     }
   },
-  "defaultProject": "memberz-org",
   "cli": {
     "analytics": false
   }

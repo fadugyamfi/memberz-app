@@ -4,7 +4,7 @@
       <h5 class="modal-title">{{'Set Permissions For Role' | translate}}: <b class="text-primary">{{ role?.name | titlecase }}</b></h5>
 
       <button type="button" class="close basic-close" (click)="hide()">
-        <span aria-hidden="true">&times;</span>
+
       </button>
     </div>
     <div class="modal-body">
@@ -30,7 +30,7 @@
             </span>
           </div>
 
-          <div class="col-sm-4 text-right p-r-30">
+          <div class="col-sm-4 text-end p-r-30">
             <button type='button' class="btn btn-xs btn-primary" (click)="refreshPermissionCache()">
               <i class="fa fa-refresh"></i> {{'Refresh Permission Cache' | translate}}
             </button>
@@ -69,7 +69,7 @@
                   </i>
                 </div>
 
-                <div class="col-1 font-weight-bold text-right">
+                <div class="col-1 font-weight-bold text-end">
                   <a class="btn btn-xs btn-outline-secondary" (click)="toggleGroupCollapsed(permGroup)">
                     <i class="fa fa-caret-down" *ngIf="!permGroup.collapsed"></i>
                     <i class="fa fa-caret-right" *ngIf="permGroup.collapsed"></i>
@@ -115,7 +115,7 @@
     </div>
 
     <div class="modal-footer flex-grow-1">
-      <div class="text-right">
+      <div class="text-end">
         <span class="m-r-15" *ngIf="roleService?.requesting">
           <i class="fa fa-spin fa-circle-o-notch"></i> {{'Saving' | translate}}
         </span>

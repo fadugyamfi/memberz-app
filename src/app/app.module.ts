@@ -7,7 +7,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { AppRoutingModule } from './app-routing.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -19,6 +19,9 @@ import { SlydepayModule } from 'slydepay-angular';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 
 import { AvatarModule, AvatarSource } from 'ngx-avatar';
+import { OrganisationInterceptor } from './shared/services/interceptors/organisation-interceptor.service';
+import { RequestErrorHandler } from './shared/services/interceptors/request-error-handler.service';
+import { RequestInterceptor } from './shared/services/interceptors/request-interceptor.service';
 const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
 // AoT requires an exported function for factories
@@ -56,7 +59,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     SlydepayModule.forRoot( environment.slydepay )
   ],
-  providers: [UserLoggedInGuard, SecureInnerPagesGuard],
+  providers: [
+    UserLoggedInGuard,
+    SecureInnerPagesGuard,
+    // error handling
+    RequestErrorHandler,
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+
+    // appending organisation_id to requests
+    { provide: HTTP_INTERCEPTORS, useClass: OrganisationInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
