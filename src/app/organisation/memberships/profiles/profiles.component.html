@@ -100,7 +100,9 @@
           <th>{{ "Member Name" | translate }}</th>
           <th>{{ "Membership Category" | translate }}</th>
           <th>{{ "Phone Number" | translate }}</th>
-          <th>{{ "Email" | translate }}</th>
+          <!-- <th>{{ "Email" | translate }}</th> -->
+          <th>{{ "Last Attendance" | translate }}</th>
+          <th>{{ "Last Payment Date" | translate }}</th>
           <th class="text-center d-print-none">{{ "Actions" | translate }}</th>
         </tr>
       </thead>
@@ -121,9 +123,18 @@
           <td>
             <a href="tel:{{ profile.member?.mobile_number }}">{{ profile.member?.mobile_number }}</a>
           </td>
-          <td>
+          <!-- <td>
             <a href="mailto:{{ profile.member?.email }}">{{ profile.member?.email }}</a>
+          </td> -->
+          <td>
+            {{ profile.last_attendance?.created | date : 'mediumDate' }}
           </td>
+          <td *ngIf="profile.last_contribution; else noContribution">
+            <span ngbTooltip="{{ profile.last_contribution?.amount | currency: 'GHS ' }}">
+              {{ profile.last_contribution?.created | date: 'mediumDate' }}
+            </span>
+          </td>
+          <ng-template #noContribution><td>N/A</td></ng-template>
 
           <!-- Actions -->
           <td class="text-center d-print-none">
@@ -163,9 +174,9 @@
     </div>
     <div class="modal-body">
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">{{
-          "Member Category" | translate
-        }}</label>
+        <label class="col-sm-4 col-form-label">
+          {{ "Member Category" | translate }}
+        </label>
         <div class="col-sm-8">
           <select class="form-control" formControlName="organisation_member_category_id">
             <option value="">{{ "Select Category" | translate }}</option>
