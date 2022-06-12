@@ -91,6 +91,7 @@ import { MembershipCardComponent } from './components/profile-view/membership-ca
 import { MembershipCardModalComponent } from './components/profile-view/membership-card-modal/membership-card-modal.component';
 import { ContributionService } from './services/api/contribution.service';
 import { FinanceDashboardService } from './services/api/finance-dashboard.service';
+import { CountToDirective } from './directives/count-to.directive';
 
 const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
@@ -153,7 +154,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     CustomFieldComponent,
     AdminHasPermissionDirective,
     MembershipCardComponent,
-    MembershipCardModalComponent
+    MembershipCardModalComponent,
+    CountToDirective
   ],
   imports: [
     CommonModule,
@@ -218,6 +220,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     AvatarModule,
     QrCodeModule,
     MembershipCardComponent,
+    CountToDirective
   ],
   providers: [
     NavService,
