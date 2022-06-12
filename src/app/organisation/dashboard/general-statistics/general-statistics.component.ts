@@ -45,8 +45,7 @@ export class GeneralStatisticsComponent implements OnInit {
 
   fetchUnapprovedMemberships() {
     this.unapprovedMemberships$ = this.membershipService.count({
-      approved: 0,
-      active: 1
+      approved: 0
     });
   }
 

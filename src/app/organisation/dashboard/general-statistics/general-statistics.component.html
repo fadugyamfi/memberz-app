@@ -88,10 +88,16 @@
       <div class="card-body">
         <div class="d-flex chart-university">
           <div class="flex-grow-1">
-            <h3 class="mb-0" *ngIf="(unapprovedMemberships$ | async) as response">
+            <h3 class="mb-0" *ngIf="(unapprovedMemberships$ | async) as response; else noAppData">
               <app-feather-icons [icon]="'edit-3'" class="me-2"></app-feather-icons>
               <span class="counter" [CountTo]="response?.count" [from]="0" [duration]="2"></span>
             </h3>
+            <ng-template #noAppData>
+              <h3 class="mb-0">
+                <app-feather-icons [icon]="'edit-3'" class="me-2"></app-feather-icons>
+                <span class="counter ms-2" [CountTo]="0" [from]="0" [duration]="2"></span>
+              </h3>
+            </ng-template>
             <p>{{ 'Pending Approvals' | translate }}</p>
           </div>
           <div class="flex-shrink-0 small-bar">
