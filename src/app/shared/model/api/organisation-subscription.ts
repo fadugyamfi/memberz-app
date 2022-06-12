@@ -20,15 +20,25 @@ export class OrganisationSubscription extends AppModel {
   }
 
   expiresIn(): string {
-    return this.subscription_type && this.subscription_type.validity !== 'forever' ? 'Expires ' + moment(this.end_dt).fromNow() : 'Never Expires';
+    if( this.validForever() ) {
+      return 'Never Expires';
+    }
+
+    const daysRemaining = moment(this.end_dt).fromNow();
+
+    return this.isExpired() ? `Expired ${daysRemaining}` : `Expires ${daysRemaining}`;
+  }
+
+  validForever() {
+    return this.subscription_type && this.subscription_type.validity == 'forever';
   }
 
   isExpired(): boolean {
-    return this.subscription_type && this.subscription_type.validity !== 'forever' && moment(this.end_dt).isBefore(moment());
+    return !this.validForever() && moment(this.end_dt).isBefore(moment());
   }
 
   isExpiring() {
-    return this.subscription_type?.validity !== 'forever' && moment(this.end_dt).subtract(60, 'days').isBefore(moment());
+    return !this.isExpired() && !this.validForever() && moment(this.end_dt).subtract(60, 'days').isBefore(moment());
   }
 
   invoicePaid(): boolean {

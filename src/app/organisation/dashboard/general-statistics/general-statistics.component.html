@@ -1,0 +1,107 @@
+<div class="row">
+
+  <div class="col-lg-3">
+    <div class="card" [ngClass]="planStatusIndicator()">
+      <div class="card-body">
+        <div class="d-flex chart-university">
+          <div class="flex-grow-1">
+            <h3 class="mb-0">
+              <app-feather-icons [icon]="'credit-card'" class="me-2"></app-feather-icons>
+              {{ organisation.active_subscription.subscription_type.description }}
+            </h3>
+
+            <div class="f-12 mt-1 d-flex justify-content-between">
+              <span [ngClass]="planStatusTextIndicator()" class="me-4">{{ organisation.active_subscription.expiresIn() }}</span>
+
+              <div class="btn-group">
+                <button class="btn btn-air-success btn-success btn-xs" *ngIf="hasValidInvoice() && !subscriptionPaid()" (click)="paySubscription()">
+                  <i class="fa fa-credit-card"></i> {{'Pay Now' | translate}}
+                </button>
+
+                <button class="btn btn-air-success btn-success btn-xs" *ngIf="subscriptionPaid() && (subscriptionExpired() || subscriptionExpiring())" (click)="renewSubscription()">
+                  <i class="fa fa-recycle"></i> {{'Renew' | translate}}
+                </button>
+
+                <button class="btn btn-secondary btn-air-secondary btn-xs" *ngIf="canUpgrade()" (click)="upgradeSubscription()">
+                  <i class="fa fa-upload"></i> {{'Upgrade' | translate}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex chart-university">
+          <div class="flex-grow-1">
+            <h3 class="mb-0">
+              <app-feather-icons [icon]="'smartphone'" class="me-2"></app-feather-icons>
+              <span class="counter ml-4" [CountTo]="smsAccount?.balance" [from]="0" [duration]="2"></span>
+            </h3>
+            <p>{{ 'SMS Credit Balance' | translate }}</p>
+          </div>
+          <div class="flex-shrink-0 small-bar">
+            <x-chartist class="ct-small-left flot-chart-container" [data]="chart4.data" [type]="chart4.type"
+                        [options]="chart4.options" [events]="chart4.events">
+            </x-chartist>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex chart-university">
+          <div class="flex-grow-1">
+            <h3 class="mb-0" *ngIf="(contributionSummary$ | async) as response; else noContData">
+              <app-feather-icons [icon]="'activity'" class="me-2"></app-feather-icons>
+              <span>{{ response.currency.currency_code }}</span>
+              <span class="counter ms-2" [CountTo]="response?.year" [from]="0" [duration]="2"></span>
+            </h3>
+            <ng-template #noContData>
+              <h3 class="mb-0">
+                <app-feather-icons [icon]="'activity'" class="me-2"></app-feather-icons>
+                <span>GHS</span>
+                <span class="counter ms-2" [CountTo]="0" [from]="0" [duration]="2"></span>
+              </h3>
+            </ng-template>
+            <p>{{ 'Total Income' | translate }} {{ currentYear }}</p>
+          </div>
+          <div class="flex-shrink-0 small-bar">
+            <x-chartist class="ct-small-left flot-chart-container" [data]="chart4.data" [type]="chart4.type"
+                        [options]="chart4.options" [events]="chart4.events">
+            </x-chartist>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex chart-university">
+          <div class="flex-grow-1">
+            <h3 class="mb-0" *ngIf="(unapprovedMemberships$ | async) as response">
+              <app-feather-icons [icon]="'edit-3'" class="me-2"></app-feather-icons>
+              <span class="counter" [CountTo]="response?.count" [from]="0" [duration]="2"></span>
+            </h3>
+            <p>{{ 'Pending Approvals' | translate }}</p>
+          </div>
+          <div class="flex-shrink-0 small-bar">
+            <x-chartist class="ct-small-left flot-chart-container" [data]="chart4.data" [type]="chart4.type"
+                        [options]="chart4.options" [events]="chart4.events">
+            </x-chartist>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
