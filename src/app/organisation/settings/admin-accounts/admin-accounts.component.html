@@ -131,7 +131,7 @@
       <div class="form-group row">
         <label class="col-4 col-form-label">{{'Role' | translate}}</label>
         <div class="col-8">
-          <select class="form-control" formControlName="organisation_role_id">
+          <select class="form-select" formControlName="organisation_role_id">
             <option value="">{{'Select Role' | translate}}</option>
             <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
           </select>

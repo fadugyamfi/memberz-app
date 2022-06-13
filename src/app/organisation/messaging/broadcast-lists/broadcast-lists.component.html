@@ -18,7 +18,7 @@
 
   <div class="m-t-30 m-b-30 text-center" *ngIf="broadcastLists && broadcastLists.length == 0">
     <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-    <h4 class="font-weight-bold">{{'No Broadcast Lists Found' | translate}}</h4>
+    <h4 class="fw-bold">{{'No Broadcast Lists Found' | translate}}</h4>
     <h6>{{'Please search for broadcast lists or add a new one to display results here' | translate}}</h6>
   </div>
 
@@ -152,7 +152,7 @@
         <div class="col-sm-8" formArrayName="filters">
 
           <div class="required">
-            <p class="text-uppercase font-weight-bold">{{ 'Required' | translate }}</p>
+            <p class="text-uppercase fw-bold">{{ 'Required' | translate }}</p>
             <div>
               <ng-container *ngFor="let filterGroup of filterControls.controls; let i = index">
                 <app-list-filter [filterGroup]="filterGroup" [listFilters]="listFilterService.listFilters"
@@ -165,7 +165,7 @@
           <hr />
 
           <div class="optional">
-            <p class="text-uppercase font-weight-bold">{{ 'Optional' | translate }}</p>
+            <p class="text-uppercase fw-bold">{{ 'Optional' | translate }}</p>
 
             <div>
               <ng-container *ngFor="let filterGroup of filterControls.controls; let i = index">

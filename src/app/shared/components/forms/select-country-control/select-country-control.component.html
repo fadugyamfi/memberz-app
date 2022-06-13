@@ -1,4 +1,4 @@
-<select class="form-control {{ controlClass }}" [(ngModel)]="value">
+<select class="form-select {{ controlClass }}" [(ngModel)]="value">
   <option value="">{{ 'Select Country' | translate }}</option>
   <option *ngFor="let country of countryService.getItems()" [value]="country.id">{{ country.name }}</option>
 </select>

@@ -16,7 +16,7 @@
 
   <div class="m-t-30 m-b-30 text-center" *ngIf="fileImportService.hasZeroItems() && !fileImportService.fetching">
     <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-    <h4 class="font-weight-bold">{{ 'No bulk uploads file available' | translate }}</h4>
+    <h4 class="fw-bold">{{ 'No bulk uploads file available' | translate }}</h4>
     <h6>{{'Please click on Import Data button to upload content' | translate}}</h6>
   </div>
 
@@ -89,7 +89,7 @@
     <div class="modal-body border-bottom">
 
       <div class="row form-group">
-        <label class="col-sm-3 col-form-label font-weight-bold">
+        <label class="col-sm-3 col-form-label fw-bold">
           {{ 'Select File To Import' | translate }}
         </label>
 
@@ -104,12 +104,12 @@
       </div>
 
       <div class="row form-group">
-        <label class="col-sm-3 col-form-label font-weight-bold">
+        <label class="col-sm-3 col-form-label fw-bold">
           {{ 'Member Category' | translate }}
         </label>
 
         <div class="col-sm-9">
-          <select class="form-control" formControlName="import_to_id">
+          <select class="form-select" formControlName="import_to_id">
             <option value=''>{{ 'Select Category' | translate }}</option>
             <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
           </select>

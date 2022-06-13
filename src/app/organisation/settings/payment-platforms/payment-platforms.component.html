@@ -52,7 +52,7 @@
       <div class="form-group row">
         <label class="col-sm-3 col-form-label">{{ 'Payment Platform' | translate}}</label>
         <div class="col-sm-9">
-          <select class="form-control" formControlName="payment_platform_id">
+          <select class="form-select" formControlName="payment_platform_id">
             <option value="">{{ 'Select Platform' | translate }}</option>
             <option *ngFor="let platform of paymentPlatforms" [value]="platform.id">{{ platform.name }}</option>
           </select>

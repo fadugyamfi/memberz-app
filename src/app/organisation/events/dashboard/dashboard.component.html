@@ -5,7 +5,7 @@
     <div class="card shadow shadow-sm">
       <div class="card-header pt-3 pb-0 border-bottom-0">
         <h6 class="text-uppercase d-flex justify-content-between mb-0">
-          <span class="font-weight-bold">{{ 'Events' | translate }}</span>
+          <span class="fw-bold">{{ 'Events' | translate }}</span>
         </h6>
       </div>
       <div class="card-body">
@@ -23,7 +23,7 @@
     <div class="card shadow shadow-sm">
       <div class="card-header pt-3 pb-0 border-bottom-0">
         <h6 class="text-uppercase d-flex justify-content-between mb-0">
-          <span class="font-weight-bold">{{ 'Attendance' | translate }}</span>
+          <span class="fw-bold">{{ 'Attendance' | translate }}</span>
           <i class="fa fa-info-circle f-20" ngbTooltip="{{ 'Covers the last 365 days' | translate }}"></i>
         </h6>
       </div>
@@ -51,7 +51,7 @@
   <div class="col-lg-4">
     <div class="card shadow shadow-sm">
       <div class="card-header pt-3 pb-0 border-bottom-0">
-        <h6 class="text-uppercase font-weight-bold mb-0">{{ 'Birthdays' | translate }}</h6>
+        <h6 class="text-uppercase fw-bold mb-0">{{ 'Birthdays' | translate }}</h6>
       </div>
       <div class="card-body">
         <div class="d-flex text-center justify-content-between" *ngIf="(birthdaySummary$ | async) as response; else zero">
@@ -96,7 +96,7 @@
                   <ngx-avatar [name]="event.event_name" initialsSize="2" size="48"></ngx-avatar>
                 </div>
                 <div class="flex-grow-1">
-                  <h5 class="font-weight-bold f-18">{{ event.event_name }}</h5>
+                  <h5 class="fw-bold f-18">{{ event.event_name }}</h5>
                   <ul class="dates">
                     <li class="digits">{{ event.dates }}</li>
                     <li class="digits">{{ event.times }}</li>
@@ -135,7 +135,7 @@
                   <ngx-avatar [name]="membership.name()" [src]="membership.member.profile_photo?.thumb_url" initialsSize="2" size="48"></ngx-avatar>
                 </div>
                 <div class="flex-grow-1">
-                  <h5 class="font-weight-bold f-18"><a href="javascript:void(0)" viewProfile [membership]="membership">{{ membership.name() }}</a></h5>
+                  <h5 class="fw-bold f-18"><a href="javascript:void(0)" viewProfile [membership]="membership">{{ membership.name() }}</a></h5>
                   <ul class="dates">
                     <li class="digits">{{ 'Turns' | translate }} <b>{{ membership.member.age }}</b> {{ 'today' | translate }}</li>
                     <li class="digits">{{ 'Born' | translate }} {{ membership.member.dob | date: 'mediumDate' }}</li>

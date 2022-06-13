@@ -16,7 +16,7 @@
               <input type="radio" id="existing" name="source" value="add-existing" class="radio_animated" checked
                      formControlName="source" />
               <label for="existing">
-                <span class="font-weight-bold block m-b-5">{{ 'Add Existing Member' | translate }}</span>
+                <span class="fw-bold block m-b-5">{{ 'Add Existing Member' | translate }}</span>
                 <p>{{ 'Add an existing member as a family member' | translate }}</p>
               </label>
             </div>
@@ -29,7 +29,7 @@
               <input type="radio" id="new" name="source" value="add-new" class="radio_animated"
                      formControlName="source" />
               <label for="new">
-                <span class="font-weight-bold block m-b-5">{{ 'Create New Profile' | translate }}</span>
+                <span class="fw-bold block m-b-5">{{ 'Create New Profile' | translate }}</span>
                 <p>{{ 'Add a family by entering new data for the membership' | translate }}</p>
               </label>
             </div>
@@ -43,7 +43,7 @@
           <label class="col-form-label col-sm-3">{{ 'Relation Type' | translate }}</label>
 
           <div class="col-sm-9">
-            <select class="form-control" formControlName="member_relation_type_id">
+            <select class="form-select" formControlName="member_relation_type_id">
               <option value="">Select Option</option>
               <option *ngFor="let type of relationTypes" [value]="type.id">
                 {{ type.name | translate }}
@@ -116,7 +116,7 @@
           <label class="col-form-label col-sm-3">{{ 'Relation Type' | translate }}</label>
 
           <div class="col-sm-9">
-            <select class="form-control" formControlName="member_relation_type_id">
+            <select class="form-select" formControlName="member_relation_type_id">
               <option value="">Select Option</option>
               <option *ngFor="let type of relationTypes" [value]="type.id">
                 {{ type.name | translate }}

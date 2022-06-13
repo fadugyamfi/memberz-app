@@ -14,7 +14,7 @@
 
   <div class="m-t-30 m-b-30 text-center" *ngIf="registrationFormService.hasZeroItems() && !registrationFormService.fetching">
     <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-    <h4 class="font-weight-bold">{{ 'No Registration Forms Available' | translate }}</h4>
+    <h4 class="fw-bold">{{ 'No Registration Forms Available' | translate }}</h4>
     <h6>{{'Create some registration forms to have them show up here' | translate}}</h6>
   </div>
 
@@ -28,9 +28,9 @@
       <tr>
         <th colspan="2">{{ 'Name' | translate }}</th>
         <th>{{ 'Registration Closes' | translate }}</th>
-        <th class="text-center font-weight-bold">{{ 'Total' | translate }}</th>
-        <th class="text-center text-success font-weight-bold">{{ 'Approved' | translate }}</th>
-        <th class="text-center text-warning font-weight-bold">{{ 'Unapproved' | translate }}</th>
+        <th class="text-center fw-bold">{{ 'Total' | translate }}</th>
+        <th class="text-center text-success fw-bold">{{ 'Approved' | translate }}</th>
+        <th class="text-center text-warning fw-bold">{{ 'Unapproved' | translate }}</th>
         <th class="text-end">{{ 'Modified' | translate }}</th>
         <th class="text-center">{{ 'Actions' | translate }}</th>
       </tr>

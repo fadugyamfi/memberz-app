@@ -43,7 +43,7 @@
     <div *ngIf="!imageChangedEvent" class="text-center d-flex align-items-center justify-content-center">
       <div>
         <img src="/assets/images/icons/circle-picture.svg" class="m-t-30 m-b-30" /> <br />
-        <h5 class="font-weight-bold">{{ 'Select Image To Upload' | translate }}</h5>
+        <h5 class="fw-bold">{{ 'Select Image To Upload' | translate }}</h5>
         <label for="image-file-picker-alt" class="btn btn-lg btn-primary btn-pill">
           <span><i class="fa fa-upload"></i> {{ 'Select File' | translate }}</span>
           <input type="file" name="image" id="image-file-picker-alt" (change)="fileChangeEvent($event)"

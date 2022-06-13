@@ -42,7 +42,7 @@
       <li class="list-group-item" *ngFor="let message of messages">
         <div class="row">
           <div class="col-sm-9">
-            <div class="media">
+            <div class="d-flex">
               <div class="flex-shrink-0">
                 <ngx-avatar class="pull-left m-r-15" [src]="message.member?.profile_photo?.thumb_url"
                             name="{{ message.member?.last_name }} {{ message.member?.first_name }}"
@@ -62,7 +62,7 @@
 
           <div class="col-sm-3">
             <label>{{ message.sent_at | date : 'medium' }}</label>
-            <p class="f-12 font-weight-bold" [ngClass]="sentStatusClasses(message)">{{ message.sent_status | translate
+            <p class="f-12 fw-bold" [ngClass]="sentStatusClasses(message)">{{ message.sent_status | translate
               }}</p>
           </div>
         </div>

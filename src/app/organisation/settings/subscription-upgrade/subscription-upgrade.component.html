@@ -12,7 +12,7 @@
           <div class='form-group row'>
             <label class='col-sm-3 control-label'>{{'New Plan' | translate}}:</label>
             <div class='col-sm-9'>
-              <select class="form-control" formControlName="subscription_type_id">
+              <select class="form-select" formControlName="subscription_type_id">
                 <option value=''>{{'Select New Plan' | translate}}</option>
                 <option *ngFor="let subType of subscriptionTypes" [value]="subType.id">{{ subType.description }}</option>
               </select>

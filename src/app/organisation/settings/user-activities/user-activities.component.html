@@ -81,7 +81,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label">{{'User' | translate}}</label>
           <div class="col-sm-8">
-            <select class="form-control" formControlName="causer_id">
+            <select class="form-select" formControlName="causer_id">
               <option value="">{{'Select User' | translate}}</option>
               <option *ngFor="let user of orgAccounts" [value]="user.member_account_id">{{ user.name }}</option>
             </select>
@@ -91,7 +91,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label">{{'Log Group' | translate}}</label>
           <div class="col-sm-8">
-            <select class="form-control" formControlName="log_name">
+            <select class="form-select" formControlName="log_name">
               <option value="">{{'Select Log Group' | translate}}</option>
               <option *ngFor="let group of logGroups" [value]="group.log_name">{{ group.log_display_name | titlecase }}</option>
             </select>

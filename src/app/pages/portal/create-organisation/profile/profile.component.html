@@ -6,7 +6,7 @@
           <div class="form-group row">
             <div class="col-form-label col-sm-3">*  {{ "Type of Organisation" | translate }}</div>
             <div class="col-sm-9">
-              <select class="form-control" formControlName="organisation_type_id">
+              <select class="form-select" formControlName="organisation_type_id">
                 <option value="">Select Type</option>
                 <option *ngFor="let type of orgTypes" [value]="type.id">{{ type.name }}</option>
               </select>
@@ -62,7 +62,7 @@
           <div class="form-group row">
             <div class="col-form-label col-sm-3">* {{ "Country" | translate }}</div>
             <div class="col-sm-9">
-              <select class="form-control" formControlName="country_id">
+              <select class="form-select" formControlName="country_id">
                 <option value="">{{ "Select Country" | translate }}</option>
                 <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
               </select>
