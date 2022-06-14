@@ -4,18 +4,26 @@
     <div class="col">
       <div class="card">
         <div class="card-header b-l-secondary d-flex justify-content-between align-items-center">
-          <form class="form form-inline" [formGroup]="searchForm" (submit)="fetchReportData($event)">
-            <div class="form-group mb-2">
-              <label class="mr-2 title"> {{ "Year" | translate }}</label>
-              <app-select-year-control formControlName="year" class="w-50" classes="form-control-sm"></app-select-year-control>
+          <form class="form row w-75" [formGroup]="searchForm" (submit)="fetchReportData($event)">
+            <div class="col mb-2">
+              <div class="row">
+                <label class="col-auto title"> {{ "Year" | translate }}</label>
+                <div class="col">
+                  <app-select-year-control formControlName="year" classes="form-select-sm"></app-select-year-control>
+                </div>
+              </div>
             </div>
 
-            <div class="form-group mb-2">
-              <label class="mr-2 title">{{ "Currency" | translate }}</label>
-              <app-select-currency-control class="w-50" formControlName="currency_id" classes="form-control-sm"></app-select-currency-control>
+            <div class="col mb-2">
+              <div class="row">
+                <label class="col-auto title">{{ "Currency" | translate }}</label>
+                <div class="col">
+                  <app-select-currency-control formControlName="currency_id" classes="form-select-sm"></app-select-currency-control>
+                </div>
+              </div>
             </div>
 
-            <div class="form-group mb-2">
+            <div class="col mb-2">
               <button type="submit" class="btn btn-sm btn-outline-primary">{{ 'Run Report' | translate }}</button>
             </div>
           </form>

@@ -4,26 +4,39 @@
     <div class="col">
       <div class="card">
         <div class="card-header b-l-primary d-flex align-items-center justify-content-between">
-          <form [formGroup]="searchForm" class="row w-100">
-            <div class="mb-2 col">
-              <input type="date" formControlName="start_date" class="form-control" placeholder="YYYY-MM-DD" />
-              <span class="fw-bold text-uppercase f-12 mt-1">{{ "Start Date" | translate }}</span>
-            </div>
-            <!-- end of col -->
-            <div class="col mb-2">
-              <input type="date" formControlName="end_date" class="form-control" placeholder="YYYY-MM-DD" />
-              <span class="fw-bold text-uppercase f-12 mt-1">{{ "End Date" | translate }}</span>
-            </div>
-            <!-- end of col -->
-            <div class="col mb-2">
-              <app-select-currency-control class="w-50" formControlName="currency_id" classes="">
-              </app-select-currency-control>
-              <span class="fw-bold text-uppercase f-12 mt-1">{{ "Currency" | translate }}</span>
+          <form [formGroup]="searchForm" class="row w-75">
+            <div class="mb-2 col-3">
+              <div class="row align-items-center">
+                <span class="col-auto">{{ "Start Date" | translate }}</span>
+                <input type="date" formControlName="start_date" class="col form-control form-control-sm"
+                       placeholder="YYYY-MM-DD" />
+              </div>
             </div>
 
-            <div class="col mb-2">
-              <button type="button" class="btn btn-sm btn-outline-primary"
-                      (click)="fetchReportData()">{{ 'Run Report' | translate }}</button>
+            <!-- end of col -->
+            <div class="col-3 mb-2">
+              <div class="row align-items-center">
+                <span class="col-auto">{{ "End Date" | translate }}</span>
+                <input type="date" formControlName="end_date" class="col form-control form-control-sm"
+                       placeholder="YYYY-MM-DD" />
+              </div>
+            </div>
+
+            <!-- end of col -->
+            <div class="col-4 mb-2">
+              <div class="row align-items-center">
+                <span class="col-auto">{{ "Currency" | translate }}</span>
+                <div class="col">
+                  <app-select-currency-control formControlName="currency_id" classes="form-select-sm">
+                  </app-select-currency-control>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-2 mb-2">
+              <button type="button" class="btn btn-sm btn-outline-primary" (click)="fetchReportData()">
+                {{ 'Run Report' | translate }}
+              </button>
             </div>
           </form>
 

@@ -12,7 +12,8 @@
       </div>
 
       <div class="col-sm-6 text-end">
-        <button class="btn btn-primary btn-sm" (click)="editorModal.show()" > <!-- [routerLink]="['/portal/create-organisation']" -->
+        <button class="btn btn-primary btn-sm" (click)="editorModal.show()">
+          <!-- [routerLink]="['/portal/create-organisation']" -->
           <i class="fa fa-plus"></i> {{'Create Organisation' | translate}}
         </button>
       </div>
@@ -32,67 +33,71 @@
       <span class="rotate dashed colored"></span>
     </div>
 
-    <table class="table table-borderless table-hover table-striped" *ngIf="dataAvailable()">
-      <thead>
-        <tr>
-          <th>{{ 'Name' | translate }}</th>
-          <th class="text-center">{{ 'Memberships' | translate }}</th>
-          <th>{{ 'Subscription' | translate }}</th>
-          <th>{{ 'Expires' | translate }}</th>
-          <th class="text-center">{{ 'Actions' | translate}}</th>
-        </tr>
-      </thead>
+    <div class="table-responsive">
+      <table class="table table-borderless table-hover table-striped" *ngIf="dataAvailable()">
+        <thead>
+          <tr>
+            <th>{{ 'Name' | translate }}</th>
+            <th class="text-center">{{ 'Memberships' | translate }}</th>
+            <th>{{ 'Subscription' | translate }}</th>
+            <th>{{ 'Expires' | translate }}</th>
+            <th class="text-center">{{ 'Actions' | translate}}</th>
+          </tr>
+        </thead>
 
-      <tbody>
-        <tr *ngFor="let organisation of organisations">
-          <td>
-            <div class="d-flex">
-              <div class="flex-shrink-0 p-r-20">
-                <ngx-avatar [src]="organisation?.logo" class="img-30" [name]="organisation?.name"></ngx-avatar>
-              </div>
-
-              <div class="flex-grow-1">
-                <div>
-                  <a href="javascript:void(0)" (click)="loadOrganisation(organisation)">{{ organisation.name }}</a>
+        <tbody>
+          <tr *ngFor="let organisation of organisations">
+            <td>
+              <div class="d-flex">
+                <div class="flex-shrink-0 p-r-20">
+                  <ngx-avatar [src]="organisation?.logo" class="img-30" [name]="organisation?.name"></ngx-avatar>
                 </div>
-                <small>{{ organisation?.organisation_type?.name }}</small>
+
+                <div class="flex-grow-1">
+                  <div>
+                    <a href="javascript:void(0)" (click)="loadOrganisation(organisation)">{{ organisation.name }}</a>
+                  </div>
+                  <small>{{ organisation?.organisation_type?.name }}</small>
+                </div>
               </div>
-            </div>
-          </td>
-          <td class="text-center">{{ (organisation.organisation_members_count || 0) | number }}</td>
-          <td>
-            {{ organisation?.active_subscription?.subscription_type?.description }}
-          </td>
-          <td>
-            <span *ngIf="organisation?.active_subscription?.isExpired()" class="text-danger">{{'Expired' | translate}}</span>
-            <span *ngIf="!organisation?.active_subscription?.isExpired()">
-              {{ organisation?.active_subscription?.expiresIn() }}
-            </span>
+            </td>
+            <td class="text-center">{{ (organisation.organisation_members_count || 0) | number }}</td>
+            <td>
+              {{ organisation?.active_subscription?.subscription_type?.description }}
+            </td>
+            <td>
+              <span *ngIf="organisation?.active_subscription?.isExpired()"
+                    class="text-danger">{{'Expired' | translate}}</span>
+              <span *ngIf="!organisation?.active_subscription?.isExpired()">
+                {{ organisation?.active_subscription?.expiresIn() }}
+              </span>
 
-          </td>
-          <td class="text-center">
-            <button class="btn btn-primary btn-sm m-r-5" (click)="loadOrganisation(organisation)">
-              <i class="fa fa-sign-in"></i> {{'Manage' | translate}}
-            </button>
-
-            <div ngbDropdown class="d-inline-block" placement="bottom-right">
-              <button class="btn btn-outline-primary btn-round" id="editMenu" ngbDropdownToggle >
-                <!--  -->
+            </td>
+            <td class="text-center" [noWrap]="true">
+              <button class="btn btn-primary btn-sm m-r-5" (click)="loadOrganisation(organisation)">
+                <i class="fa fa-sign-in"></i> {{'Manage' | translate}}
               </button>
-              <div ngbDropdownMenu aria-labelledby="editMenu">
-                <button class="dropdown-item" (click)="editorModal.show(organisation)">
-                  <i class="fa fa-fw fa-pencil"></i> {{'Edit' | translate}}
+
+              <div ngbDropdown class="d-inline-block" placement="bottom-right">
+                <button class="btn btn-outline-primary btn-sm ps-2 pe-2" id="editMenu" ngbDropdownToggle>
+                  <!--  -->
                 </button>
-                <div class="dropdown-divider"></div>
-                <button class="dropdown-item" (click)="deleteOrganisation(organisation)">
-                  <i class="fa fa-fw fa-trash-o"></i> {{'Delete' | translate}}
-                </button>
+                <div ngbDropdownMenu aria-labelledby="editMenu">
+                  <button class="dropdown-item" (click)="editorModal.show(organisation)">
+                    <i class="fa fa-fw fa-pencil"></i> {{'Edit' | translate}}
+                  </button>
+                  <div class="dropdown-divider"></div>
+                  <button class="dropdown-item" (click)="deleteOrganisation(organisation)">
+                    <i class="fa fa-fw fa-trash-o"></i> {{'Delete' | translate}}
+                  </button>
+                </div>
               </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
 
   </div>
 

@@ -20,14 +20,22 @@
             <h6>{{ platform?.currency?.currency_name | translate }} ({{ platform?.currency?.currency_code }})</h6>
           </div>
           <div class="card-footer d-flex justify-content-between">
-            <button class="btn btn-outline-info btn-sm" (click)="showEditorModal(platform)" *ngIf="!platform.system_generated">
-              <i class='fa fa-pencil'></i> {{ 'Edit' | translate }}
-            </button>
-            <button class="btn btn-danger btn-sm" (click)="deletePlatform(platform)" *ngIf="!platform.system_generated">
-              <i class='fa fa-trash-o'></i>
-            </button>
+            <section>
+              <button class="btn btn-outline-info btn-xs me-2" (click)="showEditorModal(platform)"
+                      *ngIf="!platform.system_generated">
+                <i class='fa fa-pencil'></i> {{ 'Edit' | translate }}
+              </button>
+              <button class="btn btn-danger btn-xs" (click)="deletePlatform(platform)"
+                      *ngIf="!platform.system_generated">
+                <i class='fa fa-trash-o'></i>
+              </button>
+            </section>
 
-            <label class="badge badge-primary m-auto">{{ 'System Generated' | translate }}. {{ 'Not Editable' | translate }}</label>
+            <section>
+              <label class="badge badge-primary m-auto" *ngIf="platform.system_generated">
+                {{ 'System Generated' | translate }}. {{ 'Not Editable' | translate }}
+              </label>
+            </section>
           </div>
         </div>
       </div>

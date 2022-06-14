@@ -4,24 +4,36 @@
     <div class="col">
       <div class="card">
         <div class="card-header b-l-info d-flex justify-content-between">
-          <form [formGroup]="searchForm" class="form-inline">
-            <div class="form-group mb-2">
-              <label class="mr-2 title"> {{ "Year" | translate }}</label>
-              <app-select-year-control formControlName="year" class="w-50" classes="form-control-sm"></app-select-year-control>
-            </div>
-            <!-- end of col -->
-            <div class="form-group mb-2">
-              <label class="mr-2 title">{{ "Currency" | translate }}</label>
-              <app-select-currency-control class="w-50" formControlName="currency_id" classes="form-control-sm"></app-select-currency-control>
+          <form [formGroup]="searchForm" class="theme-form w-50">
+            <div class="row">
+              <div class="col-3 mb-2">
+                <div class="d-flex align-items-center">
+                  <label class="me-2">{{ "Year" | translate }}</label>
+                  <app-select-year-control formControlName="year" classes="form-select-sm">
+                  </app-select-year-control>
+                </div>
+              </div>
+              <!-- end of col -->
+              <div class="col-6 mb-2">
+                <div class="d-flex align-items-center">
+                  <label class="me-2 title">{{ "Currency" | translate }}</label>
+                  <app-select-currency-control formControlName="currency_id" classes="form-select-sm">
+                  </app-select-currency-control>
+                </div>
+              </div>
+
+              <div class="col-3 mb-2">
+                <button type="button" class="btn btn-sm btn-outline-primary" (click)="fetchReportData()">
+                  {{ 'Run Report' | translate }}
+                </button>
+              </div>
             </div>
 
-            <div class="form-group mb-2">
-              <button type="button" class="btn btn-sm btn-outline-primary" (click)="fetchReportData()">{{ 'Run Report' | translate }}</button>
-            </div>
           </form>
 
           <section>
-            <button class="btn btn-sm btn-pill btn-outline-dark" ngxPrint printSectionId="report_content" [useExistingCss]="true">
+            <button class="btn btn-sm btn-pill btn-outline-dark" ngxPrint printSectionId="report_content"
+                    [useExistingCss]="true">
               <i class="fa fa-print"></i> {{ 'Print' | translate }}
             </button>
           </section>
