@@ -22,6 +22,10 @@ export class HomeComponent implements OnInit {
         }
       }
     });
+
+    console.log(window.location);
+    console.log(window.parent.location);
+    console.log(document.location)
   }
 
 }

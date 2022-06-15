@@ -1,6 +1,6 @@
 <div class="card">
   <div class="card-header b-l-warning">
-    {{ "Enable Two-Factor Authentication(2FA)" | translate }}
+    <h5>{{ "Enable Two-Factor Authentication (2FA)" | translate }}</h5>
   </div>
   <div class="card-body">
     <div class="row">
@@ -19,17 +19,17 @@
       </div>
 
       <div class="col-sm-3 text-end">
-        <span *ngIf="!memberAccount.is2FAEnabled()">
+        <span *ngIf="!memberAccount?.is2FAEnabled(); else disableBtn">
           <button type="button" class="btn btn-primary" (click)="showEnableTwoFactorAuthModal()">
             {{ "Enable" | translate }}
           </button>
         </span>
 
-        <span *ngIf="memberAccount.is2FAEnabled()">
+        <ng-template #disableBtn>
           <button type="button" class="btn btn-danger" (click)="disableTwoFactorAuth()">
             {{ "Disable" | translate }}
           </button>
-        </span>
+        </ng-template>
       </div>
     </div>
     <!-- end of row -->
@@ -83,7 +83,7 @@
           </div>
         </div>
         <div class="col-sm">
-          <button type="submit" class="btn btn-warning btn-sm mr-2" (click)="submitVerification()">
+          <button type="submit" class="btn btn-warning btn-sm me-2" (click)="submitVerification()">
             {{ "Submit Code" | translate }}
           </button>
           <button type="button" class="btn btn-outline-danger btn-sm" (click)="modal.close('Save click')">
