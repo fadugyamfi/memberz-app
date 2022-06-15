@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BirthdayComponent } from './birthday/birthday.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EventListComponent } from './event-list/event-list.component';
@@ -28,6 +29,14 @@ const routes: Routes = [
     data: {
       breadcrumb: "Calendar",
       title: "Calendar"
+    }
+  },
+  {
+    path: 'birthday',
+    component: BirthdayComponent,
+    data: {
+      breadcrumb: "Birthday",
+      title: "Birthday"
     }
   },
   {

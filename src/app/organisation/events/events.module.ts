@@ -9,6 +9,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { SessionsComponent } from './sessions/sessions.component';
 import { RecordAttendanceComponent } from './record-attendance/record-attendance.component';
+import { BirthdayComponent } from './birthday/birthday.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { RecordAttendanceComponent } from './record-attendance/record-attendance
     CalendarComponent,
     EventListComponent,
     SessionsComponent,
-    RecordAttendanceComponent
+    RecordAttendanceComponent,
+    BirthdayComponent
   ],
   imports: [
     CommonModule,
