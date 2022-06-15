@@ -6,7 +6,7 @@ import { map, debounceTime, distinctUntilChanged, tap, switchMap, catchError } f
 import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
 import { OrganisationRole } from '../../../shared/model/api/organisation-role';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
@@ -29,7 +29,7 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
 
   public editorModalRef: NgbModalRef;
   public modalTitle = 'Add New Account';
-  public editorForm: FormGroup;
+  public editorForm: UntypedFormGroup;
   public editingAccount: OrganisationAccount;
 
   public subscriptions: Subscription[] = [];
@@ -94,13 +94,13 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
 
   setupEditorForm() {
     const organisation = this.organisationService.getActiveOrganisation();
-    this.editorForm = new FormGroup({
-      id: new FormControl(),
-      member_id: new FormControl('', Validators.required),
-      member_account_id: new FormControl('', Validators.required),
-      organisation_id: new FormControl(organisation.id),
-      organisation_role_id: new FormControl('', Validators.required),
-      active: new FormControl(0)
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      member_id: new UntypedFormControl('', Validators.required),
+      member_account_id: new UntypedFormControl('', Validators.required),
+      organisation_id: new UntypedFormControl(organisation.id),
+      organisation_role_id: new UntypedFormControl('', Validators.required),
+      active: new UntypedFormControl(0)
     });
   }
 

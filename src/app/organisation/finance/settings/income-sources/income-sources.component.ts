@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -18,7 +18,7 @@ import { EventsService } from '../../../../shared/services/events.service';
 export class IncomeSourcesComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
-  public editorForm: FormGroup;
+  public editorForm: UntypedFormGroup;
   @ViewChild('editorModal', { static: true }) editorModal: any;
 
   public configuringFixedAmount = false;
@@ -77,15 +77,15 @@ export class IncomeSourcesComponent implements OnInit, OnDestroy {
   }
 
   setupEditorForm() {
-    this.editorForm = new FormGroup({
-      id: new FormControl(),
-      organisation_id: new FormControl( this.organisationService.getActiveOrganisation().id ),
-      name: new FormControl('', Validators.required),
-      description: new FormControl(),
-      member_required: new FormControl(),
-      fix_amount_per_period: new FormControl(),
-      fixed_amount: new FormControl(),
-      currency_id: new FormControl('')
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      organisation_id: new UntypedFormControl( this.organisationService.getActiveOrganisation().id ),
+      name: new UntypedFormControl('', Validators.required),
+      description: new UntypedFormControl(),
+      member_required: new UntypedFormControl(),
+      fix_amount_per_period: new UntypedFormControl(),
+      fixed_amount: new UntypedFormControl(),
+      currency_id: new UntypedFormControl('')
     });
 
     this.editorForm.valueChanges.subscribe(value => {

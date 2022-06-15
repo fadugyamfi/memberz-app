@@ -11,7 +11,7 @@
           <div class="card-header p-3 bg-primary ">
             <div class="row align-items-center">
               <div class="col-lg-8 d-flex align-items-center">
-                <section class="rounded-circle py-2 px-3 mr-3 bg-white" style="width: 64px;">
+                <section class="rounded-circle py-2 px-3 me-3 bg-white" style="width: 64px;">
                   <img [src]="organisation?.logo" class="w-100" alt="Organisation Logo" />
                 </section>
 
@@ -63,7 +63,7 @@
               <div class="form-group row" *ngIf="!registrationFormConfig?.excludesGender()">
                 <label class="col-form-label col-md-3">{{'Gender' | translate}}</label>
                 <div class="col-md-4">
-                  <select class="form-control" formControlName="gender">
+                  <select class="form-select" formControlName="gender">
                     <option value="">{{'Select' | translate}}</option>
                     <option value="male">{{'Male' | translate}}</option>
                     <option value="female">{{'Female' | translate}}</option>

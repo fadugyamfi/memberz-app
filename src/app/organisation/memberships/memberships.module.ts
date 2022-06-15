@@ -6,7 +6,6 @@ import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
 import { ReportsComponent } from './reports/reports.component';
 import { MembershipsRoutingModule } from './memberships-routing.module';
 import { SharedModule } from '../../shared/shared.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
 import { PendingApprovalsComponent } from './pending-approvals/pending-approvals.component';
 import { GroupsComponent } from './group-manager/groups/groups.component';
@@ -46,8 +45,7 @@ import { CustomFieldEditorComponent } from './registration-forms/custom-field-ed
   imports: [
     CommonModule,
     SharedModule,
-    MembershipsRoutingModule,
-    NgbModule
+    MembershipsRoutingModule
   ]
 })
 export class MembershipsModule { }

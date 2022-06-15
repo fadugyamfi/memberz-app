@@ -19,6 +19,7 @@ export const CURRENCY_CONTROL_ACCESSOR: any = {
 export class SelectCurrencyControlComponent implements OnInit, OnDestroy {
 
   @Input() showCurrencyName = true;
+  @Input() classes: string = "";
 
   private currencySub: Subscription;
 

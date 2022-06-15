@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CountryService } from '../../../services/api/country.service';
@@ -17,6 +17,9 @@ export const COUNTRY_CONTROL_ACCESSOR: any = {
   providers: [COUNTRY_CONTROL_ACCESSOR]
 })
 export class SelectCountryControlComponent implements OnInit, OnDestroy {
+
+  @Input()
+  public controlClass = '';
 
   private countrySub: Subscription;
 

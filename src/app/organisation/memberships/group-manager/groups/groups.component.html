@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
     <div class="d-flex justify-content-between align-items-center">
-      <h6 class="font-weight-bold mb-0">{{ 'Groups In' | translate }}
+      <h6 class="fw-bold mb-0">{{ 'Groups In' | translate }}
         {{ groupType?.name || ('None Selected' | translate) }}</h6>
       <button type="button" class="btn btn-primary btn-sm" (click)="showEditorModal()" [disabled]="!groupType">
         <i class="fa fa-plus"></i> {{'Add Group' | translate}}
@@ -25,7 +25,7 @@
 
     <tbody>
       <tr *ngFor="let group of groups; let row = index">
-        <td class="text-right">{{ row + 1 }}.</td>
+        <td class="text-end">{{ row + 1 }}.</td>
         <td>{{ group.name }}</td>
         <td class="text-center">{{ group.organisation_group_members_count | number }}</td>
         <td>
@@ -40,7 +40,7 @@
         </td>
         <td class="text-center">
           <button class="btn btn-primary btn-xs m-r-15" (click)="viewMembers(group)">{{ 'View Members' | translate }}</button>
-          <button class="btn btn-info btn-xs m-r-15" (click)="showEditorModal(group)">{{ 'Edit' | translate }}</button>
+          <button class="btn btn-primary btn-xs m-r-15" (click)="showEditorModal(group)">{{ 'Edit' | translate }}</button>
           <button class="btn btn-danger btn-xs" (click)="deleteGroup(group)">{{ 'Delete' | translate }}</button>
         </td>
       </tr>
@@ -57,8 +57,8 @@
     <div class="modal-header">
       <h5 class="modal-title" id="modal-basic-title">{{'Group Editor' | translate}}</h5>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
@@ -66,7 +66,7 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">{{ 'Group Type' | translate}}</label>
         <div class="col-sm-10">
-          <select class="form-control" formControlName="organisation_group_type_id">
+          <select class="form-select" formControlName="organisation_group_type_id">
             <option value="">{{ 'Select Group Type' | translate }}</option>
             <option *ngFor="let groupType of groupTypeService.getItems()" [value]="groupType.id">{{ groupType.name }}
             </option>
@@ -108,7 +108,7 @@
           </ng-container>
 
         </div>
-        <div class="col-sm-1 text-right">
+        <div class="col-sm-1 text-end">
           <button type="button" class="btn btn-primary btn-sm add-leader-btn pr-3 pl-3" (click)="addLeaderGroup()">
             <i class="fa fa-plus mr-0"></i>
           </button>

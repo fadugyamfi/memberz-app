@@ -28,7 +28,7 @@
       <a href="javascript:void(0)" class="sidebar-header" *ngIf="menuItem.type === 'sub'"
          (click)="toggletNavActive(menuItem)">
         <app-feather-icons [icon]="menuItem.icon"></app-feather-icons><span>{{menuItem.title| translate}}<span
-                class="badge badge-{{menuItem.badgeType}} ml-3"
+                class="badge badge-{{menuItem.badgeType}} ms-3"
                 *ngIf="menuItem.badgeType">{{menuItem.badgeValue}}</span></span>
         <i class="fa fa-angle-right pull-right" *ngIf="menuItem.children"></i>
       </a>
@@ -36,14 +36,14 @@
       <a [routerLink]="!menuItem.type ? null : [menuItem.path]" routerLinkActive="active" class="sidebar-header"
          *ngIf="menuItem.type === 'link'">
         <app-feather-icons [icon]="menuItem.icon"></app-feather-icons><span>{{menuItem.title| translate}}<span
-                class="badge badge-{{menuItem.badgeType}} ml-3"
+                class="badge badge-{{menuItem.badgeType}} ms-3"
                 *ngIf="menuItem.badgeType">{{menuItem.badgeValue}}</span></span>
         <i class="fa fa-angle-right pull-right" *ngIf="menuItem.children"></i>
       </a>
       <!-- External Link -->
       <a href="{{ !menuItem.type ? null : menuItem.path }}" class="sidebar-header" *ngIf="menuItem.type === 'extLink'">
         <app-feather-icons [icon]="menuItem.icon"></app-feather-icons><span>{{menuItem.title| translate}}<span
-                class="badge badge-{{menuItem.badgeType}} ml-3"
+                class="badge badge-{{menuItem.badgeType}} ms-3"
                 *ngIf="menuItem.badgeType">{{menuItem.badgeValue}}</span></span>
         <i class="fa fa-angle-right pull-right" *ngIf="menuItem.children"></i>
       </a>
@@ -51,7 +51,7 @@
       <a href="{{ !menuItem.type ? null : menuItem.path }}" target="_blank" class="sidebar-header"
          *ngIf="menuItem.type === 'extTabLink'">
         <app-feather-icons [icon]="menuItem.icon"></app-feather-icons><span>{{menuItem.title| translate}}<span
-                class="badge badge-{{menuItem.badgeType}} ml-3"
+                class="badge badge-{{menuItem.badgeType}} ms-3"
                 *ngIf="menuItem.badgeType">{{menuItem.badgeValue}}</span></span>
         <i class="fa fa-angle-right pull-right" *ngIf="menuItem.children"></i>
       </a>

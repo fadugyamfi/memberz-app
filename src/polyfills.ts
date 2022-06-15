@@ -54,3 +54,9 @@ import 'zone.js';  // Included with Angular CLI.
 (window as any)['global'] = window;
 
 import '@angular/localize/init';
+
+/***************************************************************************************************
+* SCULLY IMPORTS
+*/
+// tslint:disable-next-line: align
+import 'zone.js/dist/task-tracking';

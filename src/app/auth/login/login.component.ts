@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../shared/services/api/auth.service';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   public _environment = environment;
   public newUser = false;
-  public loginForm: FormGroup;
+  public loginForm: UntypedFormGroup;
   public formErrors: FormErrors = {
     'username': '',
     'password': '',
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public route: ActivatedRoute
   ) {
     this.loginForm = fb.group({

@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 text-end">
       </div>
     </div>
 
@@ -25,7 +25,7 @@
 
   <div class="m-t-30 m-b-30 text-center" *ngIf="emptyDataset()">
     <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-    <h4 class="font-weight-bold">{{'No Registrations Pending Approval Found' | translate}}</h4>
+    <h4 class="fw-bold">{{'No Registrations Pending Approval Found' | translate}}</h4>
     <h6>{{'Create and share some registration forms to start get data into this view' | translate}}</h6>
   </div>
 
@@ -44,7 +44,7 @@
         <th>{{ 'Registered With' | translate }}</th>
         <th>{{'Membership Category' | translate}}</th>
         <th>{{'Mobile Number' | translate}}</th>
-        <th class="text-right">{{'Registered' | translate}}</th>
+        <th class="text-end">{{'Registered' | translate}}</th>
         <th class="text-center">{{'Actions' | translate}}</th>
       </tr>
     </thead>
@@ -55,7 +55,7 @@
         <td class="text-center">
           <input type="checkbox" class="checkbox" [checked]="profile.selected" (change)="toggleSelected(profile)" />
         </td>
-        <td class="text-right">{{ membershipService.pagingMeta.from + row }}.</td>
+        <td class="text-end">{{ membershipService.pagingMeta.from + row }}.</td>
         <td>
           <a viewProfile [membership]="profile" href="javascript:void(0)">
             {{ profile.member?.last_name }} {{ profile.member?.first_name }}
@@ -66,7 +66,7 @@
         <td>
           <a href="tel:{{ profile.member?.mobile_number }}">{{ profile.member?.mobile_number || 'N/A' }}</a>
         </td>
-        <td class="text-right">{{ profile.whenCreated() }}</td>
+        <td class="text-end">{{ profile.whenCreated() }}</td>
 
         <td class="text-center">
           <button class="btn btn-xs btn-primary m-r-15" (click)="viewProfile(profile)">

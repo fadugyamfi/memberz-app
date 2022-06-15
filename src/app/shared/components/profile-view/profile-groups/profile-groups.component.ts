@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
@@ -20,7 +20,7 @@ export class ProfileGroupsComponent implements OnInit, OnDestroy {
   @ViewChild('assignmentModal', { static: true }) assignmentModal: any;
 
   public mbsp: OrganisationMember;
-  public assignmentForm: FormGroup;
+  public assignmentForm: UntypedFormGroup;
   public selectedGroupType;
 
   constructor(
@@ -69,12 +69,12 @@ export class ProfileGroupsComponent implements OnInit, OnDestroy {
   }
 
   setupAssignmentForm() {
-    this.assignmentForm = new FormGroup({
-      id: new FormControl(),
-      organisation_id: new FormControl(this.membership.organisation_id),
-      organisation_member_id: new FormControl(this.membership.id, Validators.required),
-      organisation_group_id: new FormControl('', Validators.required),
-      organisation_group_type_id: new FormControl('', Validators.required),
+    this.assignmentForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      organisation_id: new UntypedFormControl(this.membership.organisation_id),
+      organisation_member_id: new UntypedFormControl(this.membership.id, Validators.required),
+      organisation_group_id: new UntypedFormControl('', Validators.required),
+      organisation_group_type_id: new UntypedFormControl('', Validators.required),
     });
   }
 

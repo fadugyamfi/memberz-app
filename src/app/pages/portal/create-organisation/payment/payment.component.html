@@ -16,7 +16,7 @@
                 <div class="form-group row">
                   <div class="col-form-label col-sm-3 pt-0">Selected Package</div>
                   <div class="col-sm-9">
-                    <div class="form-control-static font-weight-bold">
+                    <div class="form-control-static fw-bold">
                       {{ subTypeService?.getSelectedModel()?.description | uppercase }}
                     </div>
                   </div>
@@ -63,7 +63,7 @@
                         <span
                               class="input-group-text">{{ subTypeService?.getSelectedModel()?.currency?.currency_code }}</span>
                       </div>
-                      <input type="text" class="form-control text-right" placeholder="0.00" aria-label="Plan Cost"
+                      <input type="text" class="form-control text-end" placeholder="0.00" aria-label="Plan Cost"
                              formControlName="plan_cost">
                     </div>
                   </div>
@@ -72,7 +72,7 @@
                 <div class="form-group row">
                   <div class="col-form-label col-sm-3">Plan Expires</div>
                   <div class="col-sm-3">
-                    <input type="text" class="form-control text-right" readonly placeholder="Jan 19, 1970"
+                    <input type="text" class="form-control text-end" readonly placeholder="Jan 19, 1970"
                            aria-label="Plan Expiration" formControlName="plan_expiration">
                   </div>
                 </div>

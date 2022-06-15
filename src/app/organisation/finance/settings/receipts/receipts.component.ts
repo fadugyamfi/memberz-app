@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -17,7 +17,7 @@ import { EventsService } from '../../../../shared/services/events.service';
 })
 export class ReceiptsComponent implements OnInit, OnDestroy {
 
-  public settingsForm: FormGroup;
+  public settingsForm: UntypedFormGroup;
   public settings: ContributionReceiptSetting;
   private subscriptions: Subscription[] = [];
   public newReceiptSetup = false;
@@ -32,9 +32,9 @@ export class ReceiptsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.setupSettingsForm();
     this.fetchCurrencies();
     this.fetchReceiptSettings();
-    this.setupSettingsForm();
     this.setupEvents();
   }
 
@@ -52,7 +52,7 @@ export class ReceiptsComponent implements OnInit, OnDestroy {
     const sub = this.receiptSettingService.fetchSettings().subscribe({
       next: settings => {
         this.settings = settings;
-        this.setupSettingsForm();
+        this.settingsForm.patchValue(this.settings);
       },
       error: err => {
         const organisation = this.organisationService.getActiveOrganisation();
@@ -66,7 +66,7 @@ export class ReceiptsComponent implements OnInit, OnDestroy {
           receipt_counter: 1
         });
 
-        this.setupSettingsForm();
+        this.settingsForm.patchValue(this.settings);
       }
     });
 
@@ -74,15 +74,15 @@ export class ReceiptsComponent implements OnInit, OnDestroy {
   }
 
   setupSettingsForm() {
-    this.settingsForm = new FormGroup({
-      id: new FormControl( this.settings?.id ),
-      organisation_id: new FormControl( this.settings?.organisation_id ),
-      default_currency: new FormControl( this.settings?.default_currency ),
-      receipt_mode: new FormControl( this.settings?.receipt_mode || 'auto' ),
-      receipt_prefix: new FormControl( this.settings?.receipt_prefix ),
-      receipt_postfix: new FormControl( this.settings?.receipt_postfix ),
-      receipt_counter: new FormControl( this.settings?.receipt_counter ),
-      sms_notify: new FormControl( this.settings?.sms_notify ),
+    this.settingsForm = new UntypedFormGroup({
+      id: new UntypedFormControl( this.settings?.id ),
+      organisation_id: new UntypedFormControl( this.settings?.organisation_id ),
+      default_currency: new UntypedFormControl( this.settings?.default_currency ),
+      receipt_mode: new UntypedFormControl( this.settings?.receipt_mode || 'auto' ),
+      receipt_prefix: new UntypedFormControl( this.settings?.receipt_prefix ),
+      receipt_postfix: new UntypedFormControl( this.settings?.receipt_postfix ),
+      receipt_counter: new UntypedFormControl( this.settings?.receipt_counter ),
+      sms_notify: new UntypedFormControl( this.settings?.sms_notify ),
     });
 
     const smsAccountCreated = this.smsAccountService.hasOrganisationAccount();

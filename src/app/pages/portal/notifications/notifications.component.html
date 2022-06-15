@@ -23,7 +23,7 @@
       <ng-container *ngIf="!fetching">
         <li class="list-group-item notification-item" *ngFor="let notification of notifications; let row = index" [ngClass]="{ 'active' : !notification.read_at}">
           <div class="media">
-            <div class="media-body" (click)="onNotificationClicked(notification)">
+            <div class="flex-grow-1" (click)="onNotificationClicked(notification)">
               <h6 class="mt-0 mb-1">
                 <span>
                   <app-feather-icons class="shopping-color" style="vertical-align: middle" [icon]="notification.icon"></app-feather-icons>

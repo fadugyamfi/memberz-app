@@ -3,7 +3,7 @@
 
     <div class="card" *ngIf="newReceiptSetup">
       <div class="card-body">
-        <h5 class="font-weight-bold">{{ 'New Settings Setup' | translate }}</h5>
+        <h5 class="fw-bold">{{ 'New Settings Setup' | translate }}</h5>
         <p class="f-14">{{ 'Update the settings below to enable taking / recording payments' | translate }} <b class="text-success"><u>{{ 'then SAVE CHANGES' | translate }}</u></b></p>
       </div>
     </div>
@@ -17,7 +17,7 @@
               {{ 'Default Currency' | translate }}
             </div>
             <div class="col-9">
-              <select class="form-control" formControlName="default_currency">
+              <select class="form-select" formControlName="default_currency">
                 <option value="">{{ 'Select Currency' | translate }}</option>
                 <option *ngFor="let currency of currencyService.getItems()" [value]="currency.id">
                   {{ currency.currency_code }}
@@ -31,7 +31,7 @@
               {{ 'Receipt Generation' | translate }}
             </div>
             <div class="col-9">
-              <select class="form-control" formControlName="receipt_mode">
+              <select class="form-select" formControlName="receipt_mode">
                 <option value="">{{ 'Select Mode' | translate }}</option>
                 <option value="auto">{{ 'Auto' | translate }}</option>
                 <option value="manual">{{ 'Manual' | translate }}</option>
@@ -91,7 +91,7 @@
           </div>
         </div>
 
-        <div class="card-footer text-right">
+        <div class="card-footer text-end">
           <span *ngIf="receiptSettingService.updating" class="m-r-15">
             <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> {{ 'Saving' | translate }}
           </span>

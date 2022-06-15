@@ -3,6 +3,7 @@ import { AppModel } from './app.model';
 import { OrganisationEvent } from './organisation-event';
 import { OrganisationEventSession } from './organisation-event-session';
 import { Member } from './member';
+import { OrganisationMemberCategory } from './organisation-member-category';
 
 
 export class OrganisationEventAttendee extends AppModel {
@@ -15,6 +16,8 @@ export class OrganisationEventAttendee extends AppModel {
   public organisation_event_session_id: number;
   public interested: boolean;
   public attended: boolean;
+  public _category: OrganisationMemberCategory;
+  public _session: OrganisationEventSession;
 
   constructor(data) {
     super(data);
@@ -42,5 +45,21 @@ export class OrganisationEventAttendee extends AppModel {
 
   get member() {
     return this._member;
+  }
+
+  set category(value) {
+    this._category = value ? new OrganisationMemberCategory(value) : null;
+  }
+
+  get category() {
+    return this._category;
+  }
+
+  get session() {
+    return this._session;
+  }
+
+  set session(value) {
+    this._session = value ? new OrganisationEventSession(value) : null;
   }
 }

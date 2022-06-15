@@ -2,6 +2,9 @@
      01. General CSS Start
 ==========================**/
 //Custom css Start
+html {
+  scroll-behavior: smooth;
+}
 body {
     background-color: $body-bg-color;
     font-size: $body-font-size;
@@ -378,7 +381,7 @@ image-cropper {
         .mark-all-tasks {
             display: flex;
             align-items: center;
-        } 
+        }
     }
     .action-box {
         &.large {

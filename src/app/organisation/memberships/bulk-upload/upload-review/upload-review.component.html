@@ -8,11 +8,11 @@
           <i class="fa fa-chevron-left"></i> {{ 'Back' | translate }}
         </button>
 
-        <span class="h5 font-weight-bold">{{ 'Membership Import Review' | translate }}</span>
+        <span class="h5 fw-bold">{{ 'Membership Import Review' | translate }}</span>
       </div>
 
       <!-- right column -->
-      <div class="col-lg-6 text-right">
+      <div class="col-lg-6 text-end">
         <span class="badge" [class]="organisationFileImport.badgeClasses()">
           {{ organisationFileImport.import_status | translate }}
         </span>
@@ -39,7 +39,7 @@
 
       <tbody>
         <tr *ngFor="let importRecord of memberImportService.getItems(); let row = index">
-          <td class="text-right" width="50">{{ row + memberImportService.pagingMeta.from }}</td>
+          <td class="text-end" width="50">{{ row + memberImportService.pagingMeta.from }}</td>
           <td>
             <a [routerLink]="['/organisation/memberships/view', importRecord.organisation_member.id]" target="profiles">
               {{ importRecord.organisation_member?.member.name() }}

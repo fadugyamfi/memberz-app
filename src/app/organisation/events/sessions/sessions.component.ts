@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
@@ -26,7 +26,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
 
   private _event: OrganisationEvent;
   public showEditor = false;
-  public editorForm: FormGroup;
+  public editorForm: UntypedFormGroup;
 
   constructor(
     public eventService: OrganisationEventService,
@@ -57,12 +57,12 @@ export class SessionsComponent implements OnInit, OnDestroy {
   }
 
   setupEditorForm() {
-    this.editorForm = new FormGroup({
-      id: new FormControl(''),
-      session_name: new FormControl('', Validators.required),
-      session_dt_date: new FormControl('', Validators.required),
-      session_dt_time: new FormControl('', Validators.required),
-      registration_code: new FormControl(''),
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(''),
+      session_name: new UntypedFormControl('', Validators.required),
+      session_dt_date: new UntypedFormControl('', Validators.required),
+      session_dt_time: new UntypedFormControl('', Validators.required),
+      registration_code: new UntypedFormControl(''),
     });
   }
 

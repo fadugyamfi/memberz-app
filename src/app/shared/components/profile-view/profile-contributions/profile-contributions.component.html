@@ -23,18 +23,18 @@
         <th>{{ 'Receipt No' | translate }}</th>
         <th>{{ 'Contribution Type' | translate }}</th>
         <th>{{ 'Period' | translate }}</th>
-        <th class="text-right">{{ 'Amount' | translate }}</th>
+        <th class="text-end">{{ 'Amount' | translate }}</th>
       </tr>
     </thead>
 
     <tbody>
       <tr *ngFor="let contribution of contributions; let row = index">
-        <td class="text-right">{{ contributionService.pagingMeta.from + row }}.</td>
+        <td class="text-end">{{ contributionService.pagingMeta.from + row }}.</td>
         <td>{{ contribution.contribution_receipt.receipt_dt | date : mediumDate }}</td>
         <td>{{ contribution.contribution_receipt.receipt_no }}</td>
         <td>{{ contribution.contribution_type.name }}</td>
         <td>{{ contribution.period() }}</td>
-        <td class="text-right font-weight-bold">{{ contribution.amount | currency : contribution.currency.currency_code }}</td>
+        <td class="text-end fw-bold">{{ contribution.amount | currency : contribution.currency.currency_code }}</td>
       </tr>
     </tbody>
   </table>

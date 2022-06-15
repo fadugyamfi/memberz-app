@@ -17,6 +17,7 @@ export class Member extends AppModel {
   public nationality: string;
   public place_of_birth: string;
   public gender: string;
+  public residential_address: string;
 
   constructor(data) {
     super(data);

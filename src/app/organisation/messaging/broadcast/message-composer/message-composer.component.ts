@@ -1,5 +1,5 @@
 import { AfterContentChecked, AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
@@ -26,7 +26,7 @@ export class MessageComposerComponent implements OnInit, OnDestroy {
   @ViewChild('messageField', { static: true }) messageField;
   @ViewChild('composerModal', { static: true }) composerModal: any;
 
-  public broadcastForm: FormGroup;
+  public broadcastForm: UntypedFormGroup;
   public broadcastLists: SmsBroadcastList[];
   public broadcast: SmsBroadcast;
   public subscriptions: Subscription[] = [];
@@ -66,15 +66,15 @@ export class MessageComposerComponent implements OnInit, OnDestroy {
     const organisation = this.organisationService.getActiveOrganisation();
     const smsAccount = this.smsAccountService.getOrganisationAccount();
 
-    this.broadcastForm = new FormGroup({
-      id: new FormControl(),
-      module_sms_account_id: new FormControl(smsAccount.id, Validators.required),
-      module_sms_broadcast_list_id: new FormControl(''),
-      organisation_member_category_id: new FormControl(''),
-      message: new FormControl('', Validators.required),
-      send_at_date: new FormControl('', [Validators.required]),
-      send_at_time: new FormControl('', [Validators.required]),
-      send_at: new FormControl(),
+    this.broadcastForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      module_sms_account_id: new UntypedFormControl(smsAccount.id, Validators.required),
+      module_sms_broadcast_list_id: new UntypedFormControl(''),
+      organisation_member_category_id: new UntypedFormControl(''),
+      message: new UntypedFormControl('', Validators.required),
+      send_at_date: new UntypedFormControl('', [Validators.required]),
+      send_at_time: new UntypedFormControl('', [Validators.required]),
+      send_at: new UntypedFormControl(),
     });
 
     this.broadcastForm.valueChanges.subscribe(values => {

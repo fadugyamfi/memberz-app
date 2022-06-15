@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms";
+import { UntypedFormBuilder, Validators, UntypedFormGroup, UntypedFormControl } from "@angular/forms";
 import { AuthService } from "../../shared/services/api/auth.service";
 import { ActivatedRoute} from "@angular/router";
 import { ToastrService } from "ngx-toastr";
@@ -16,7 +16,7 @@ type FormErrors = { [u in UserFields]: string };
 export class ResetPasswordComponent implements OnInit, OnDestroy {
   public passwordMismatch: boolean = false;
   private token: string = "";
-  public resetPasswordForm: FormGroup;
+  public resetPasswordForm: UntypedFormGroup;
   public formErrors: FormErrors = {
     email: "",
     password: "",
@@ -25,7 +25,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 
   constructor(
     public authService: AuthService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private route: ActivatedRoute,
     public toastrService: ToastrService,
     public events: EventsService
@@ -33,7 +33,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     this.resetPasswordForm = fb.group({
       email: ["", [Validators.required, Validators.email]],
       password: ["", Validators.required],
-      confirm_password: new FormControl("", [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]),
+      confirm_password: new UntypedFormControl("", [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]),
     });
   }
 

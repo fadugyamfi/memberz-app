@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
+import { OrganisationService } from './shared/services/api/organisation.service';
 import { SystemThemeService } from './shared/services/system-theme.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
   constructor(
     public systemThemeService: SystemThemeService,
     public router: Router,
-    public titleService: Title
+    public titleService: Title,
+    public organisationService: OrganisationService
   ) {}
 
   ngOnInit(): void {
@@ -35,9 +37,18 @@ export class AppComponent implements OnInit {
       })
     )
     .subscribe((title: string) => {
-      if (title) {
-        this.titleService.setTitle(`${title} - Memberz.Org`);
+      const organisation = this.organisationService.getActiveOrganisation();
+
+      if (!title) {
+        this.titleService.setTitle(`Memberz.Org`);
+        return;
       }
+
+      if( organisation ) {
+        title = `${title} - ${organisation.name}`;
+      }
+
+      this.titleService.setTitle(`${title} - Memberz.Org`);
     });
   }
 }

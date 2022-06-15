@@ -3,31 +3,40 @@
   <div class="row">
     <div class="col">
       <div class="card">
-        <div class="card-header b-l-secondary" [formGroup]="searchForm">
-          <div class="row">
-
-            <div class="col-1">
-              <h6 class="title">{{ "Year" | translate }}</h6>
+        <div class="card-header b-l-secondary d-flex justify-content-between align-items-center">
+          <form class="form row w-75" [formGroup]="searchForm" (submit)="fetchReportData($event)">
+            <div class="col mb-2">
+              <div class="row">
+                <label class="col-auto title"> {{ "Year" | translate }}</label>
+                <div class="col">
+                  <app-select-year-control formControlName="year" classes="form-select-sm"></app-select-year-control>
+                </div>
+              </div>
             </div>
 
-            <!-- end of col -->
-            <div class="col-2">
-              <app-select-year-control formControlName="year"></app-select-year-control>
+            <div class="col mb-2">
+              <div class="row">
+                <label class="col-auto title">{{ "Currency" | translate }}</label>
+                <div class="col">
+                  <app-select-currency-control formControlName="currency_id" classes="form-select-sm"></app-select-currency-control>
+                </div>
+              </div>
             </div>
 
-            <!-- end of col -->
-            <div class="col-1">
-              <h6 class="title">{{ "Currency" | translate }}</h6>
+            <div class="col mb-2">
+              <button type="submit" class="btn btn-sm btn-outline-primary">{{ 'Run Report' | translate }}</button>
             </div>
+          </form>
 
-            <!-- end of col -->
-            <div class="col-2">
-              <app-select-currency-control formControlName="currency_id"></app-select-currency-control>
-            </div>
-          </div>
+          <section>
+            <button class="btn btn-sm btn-pill btn-outline-dark" ngxPrint printSectionId="report_content" [useExistingCss]="true">
+              <i class="fa fa-print"></i> {{ 'Print' | translate }}
+            </button>
+          </section>
           <!-- end of row -->
         </div>
-        <div class="card-body chart-block">
+
+        <div class="card-body chart-block" id="report_content">
           <app-loading-rotate-dashed *ngIf="!showData"></app-loading-rotate-dashed>
           <app-no-data-available *ngIf="showData && !hasDataAvailable()"></app-no-data-available>
 
@@ -38,9 +47,9 @@
                 <th>{{ "Member Name" | translate }}</th>
                 <th>{{ "Mobile Number" | translate }}</th>
                 <th class="text-center">{{ "Age" | translate }}</th>
-                <th class="text-right">{{ "Last Contribution Date" | translate }}</th>
-                <th class="text-right">{{ "Avg. Amount" | translate }}</th>
-                <th class="text-right">{{ "Total Amount" | translate }}</th>
+                <th class="text-end">{{ "Last Contribution Date" | translate }}</th>
+                <th class="text-end">{{ "Avg. Amount" | translate }}</th>
+                <th class="text-end">{{ "Total Amount" | translate }}</th>
               </tr>
             </thead>
 
@@ -48,15 +57,17 @@
               <tr *ngFor="let data of reportData; let row = index">
                 <td>{{ row + 1 }}.</td>
                 <td>
-                  <a href="javascript:void(0)" viewProfile [membershipId]="data.organisation_member_id">
+                  <a class="d-print-none" href="javascript:void(0)" viewProfile [membershipId]="data.organisation_member_id">
                     {{ data.member_name }}
                   </a>
+
+                  <span class="d-none d-print-block">{{ data.member_name }}</span>
                 </td>
                 <td>{{ data.mobile_number }}</td>
                 <td class="text-center">{{ data.age }}</td>
-                <td class="text-right">{{ data.last_contribution_date | date }}</td>
-                <td class="text-right">{{ data.avg_amount | currency: data.currency_code }}</td>
-                <td class="text-right font-weight-bold">{{ data.total_amount | currency: data.currency_code }}</td>
+                <td class="text-end">{{ data.last_contribution_date | date }}</td>
+                <td class="text-end">{{ data.avg_amount | currency: data.currency_code }}</td>
+                <td class="text-end fw-bold">{{ data.total_amount | currency: data.currency_code }}</td>
               </tr>
             </tbody>
           </table>

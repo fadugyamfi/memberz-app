@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 text-end">
         <button class="btn btn-primary btn-sm m-r-10" (click)="showSearchModal()">
           <i class="fa fa-search"></i> {{ "Find Members" | translate }}
         </button>
@@ -58,7 +58,7 @@
 
   <div class="m-t-30 m-b-30 text-center" *ngIf="emptyDataset()">
     <img src="/assets/images/icons/circle-search.svg" height="180" class="m-b-30" />
-    <h4 class="font-weight-bold">
+    <h4 class="fw-bold">
       {{ "No Search Results Found" | translate }}
     </h4>
     <h6>
@@ -100,7 +100,9 @@
           <th>{{ "Member Name" | translate }}</th>
           <th>{{ "Membership Category" | translate }}</th>
           <th>{{ "Phone Number" | translate }}</th>
-          <th>{{ "Email" | translate }}</th>
+          <!-- <th>{{ "Email" | translate }}</th> -->
+          <th>{{ "Last Attendance" | translate }}</th>
+          <th>{{ "Last Payment Date" | translate }}</th>
           <th class="text-center d-print-none">{{ "Actions" | translate }}</th>
         </tr>
       </thead>
@@ -121,9 +123,18 @@
           <td>
             <a href="tel:{{ profile.member?.mobile_number }}">{{ profile.member?.mobile_number }}</a>
           </td>
-          <td>
+          <!-- <td>
             <a href="mailto:{{ profile.member?.email }}">{{ profile.member?.email }}</a>
+          </td> -->
+          <td>
+            {{ profile.last_attendance?.created | date : 'mediumDate' }}
           </td>
+          <td *ngIf="profile.last_contribution; else noContribution">
+            <span ngbTooltip="{{ profile.last_contribution?.amount | currency: 'GHS ' }}">
+              {{ profile.last_contribution?.created | date: 'mediumDate' }}
+            </span>
+          </td>
+          <ng-template #noContribution><td>N/A</td></ng-template>
 
           <!-- Actions -->
           <td class="text-center d-print-none">
@@ -131,7 +142,7 @@
               <i class="fa fa-user"></i> {{'View' | translate}}
             </button>
 
-            <button class="btn btn-xs btn-info m-r-15" (click)="editProfile(profile)">
+            <button class="btn btn-xs btn-primary m-r-15" (click)="editProfile(profile)">
               <i class="fa fa-pencil"></i> {{ "Edit" | translate }}
             </button>
 
@@ -157,17 +168,17 @@
         {{ "Find Members" | translate }}
       </h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">{{
-          "Member Category" | translate
-        }}</label>
+        <label class="col-sm-4 col-form-label">
+          {{ "Member Category" | translate }}
+        </label>
         <div class="col-sm-8">
-          <select class="form-control" formControlName="organisation_member_category_id">
+          <select class="form-select" formControlName="organisation_member_category_id">
             <option value="">{{ "Select Category" | translate }}</option>
             <option *ngFor="let category of categories" [value]="category.id">
               {{ category.name }}
@@ -260,7 +271,7 @@
             "Birth Day Of Week" | translate
           }}</label>
           <div class="col-sm-8">
-            <select class="form-control" formControlName="dayname">
+            <select class="form-select" formControlName="dayname">
               <option value="">{{ "Select Day of Week" | translate }}</option>
               <option value="Monday">{{ "Monday" | translate }}</option>
               <option value="Tuesday">{{ "Tuesday" | translate }}</option>
@@ -278,7 +289,7 @@
             "Birth Month" | translate
           }}</label>
           <div class="col-sm-8">
-            <select class="form-control" formControlName="monthname">
+            <select class="form-select" formControlName="monthname">
               <option value="">{{ "Select Month" | translate }}</option>
               <option value="January">{{ "January" | translate }}</option>
               <option value="February">{{ "February" | translate }}</option>
@@ -320,7 +331,7 @@
             "Gender" | translate
           }}</label>
           <div class="col-sm-8">
-            <select class="form-control" formControlName="gender">
+            <select class="form-select" formControlName="gender">
               <option value="">{{ "Select Gender" | translate }}</option>
               <option value="Male">{{ "Male" | translate }}</option>
               <option value="Female">{{ "Female" | translate }}</option>
@@ -333,7 +344,7 @@
             "Marital Status" | translate
           }}</label>
           <div class="col-sm-8">
-            <select class="form-control" formControlName="marital_status">
+            <select class="form-select" formControlName="marital_status">
               <option value="">{{ "Select Status" | translate }}</option>
               <option value="single">{{ "Single" | translate }}</option>
               <option value="married">{{ "Married" | translate }}</option>
@@ -370,7 +381,7 @@
             "Belongs To Group" | translate
           }}</label>
           <div class="col-sm-4">
-            <select class="form-control" formControlName="organisation_group_type_id">
+            <select class="form-select" formControlName="organisation_group_type_id">
               <option value="">{{ "Select Group Type" | translate }}</option>
               <option *ngFor="let type of groupTypeService.getItems()" [value]="type.id">
                 {{ type.name }}
@@ -379,7 +390,7 @@
           </div>
 
           <div class="col-sm-4">
-            <select class="form-control" formControlName="organisation_group_id">
+            <select class="form-select" formControlName="organisation_group_id">
               <option value="">{{ "Select Group" | translate }}</option>
               <option *ngFor="let group of selectedGroupType?.organisation_groups" [value]="group.id">
                 {{ group.name }}
@@ -394,7 +405,7 @@
             "Has Anniversary" | translate
           }}</label>
           <div class="col-sm-8 m-b-10">
-            <select class="form-control" formControlName="organisation_anniversary_id"
+            <select class="form-select" formControlName="organisation_anniversary_id"
                     (change)="setSelectedGroupType($event)">
               <option value="">{{ "Select Anniversary" | translate }}</option>
               <option *ngFor="let type of anniversaryService.getItems()" [value]="type.id">
@@ -444,8 +455,8 @@
         {{ "Change Member Category" | translate }}
       </h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
@@ -454,7 +465,7 @@
           "New Member Category" | translate
         }}</label>
         <div class="col-12">
-          <select class="form-control" formControlName="organisation_member_category_id">
+          <select class="form-select" formControlName="organisation_member_category_id">
             <option value="">{{ "Select Category" | translate }}</option>
             <option *ngFor="let category of categories" [value]="category.id">
               {{ category.name }}

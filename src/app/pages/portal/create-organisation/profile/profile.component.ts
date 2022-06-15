@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { OrganisationTypeService } from '../../../../shared/services/api/organisation-type.service';
 import { OrganisationType } from '../../../../shared/model/api/organisation-type';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
@@ -14,7 +14,7 @@ import { Organisation } from '../../../../shared/model/api/organisation';
 })
 export class ProfileComponent implements OnInit {
 
-  public profileForm: FormGroup;
+  public profileForm: UntypedFormGroup;
   public orgTypes: OrganisationType[];
   public countries: Country[];
   private organisation: Organisation;
@@ -34,19 +34,19 @@ export class ProfileComponent implements OnInit {
   }
 
   setupProfileForm() {
-    this.profileForm = new FormGroup({
-      organisation_type_id: new FormControl('', [Validators.required]),
-      name: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      phone: new FormControl('', [Validators.required]),
-      country_id: new FormControl(80, [Validators.required]),
-      address: new FormControl(''),
-      city: new FormControl(''),
-      state: new FormControl(''),
-      post_code: new FormControl(''),
-      website: new FormControl(''),
-      subscription_type_id: new FormControl(),
-      subscription_length: new FormControl()
+    this.profileForm = new UntypedFormGroup({
+      organisation_type_id: new UntypedFormControl('', [Validators.required]),
+      name: new UntypedFormControl('', [Validators.required]),
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      phone: new UntypedFormControl('', [Validators.required]),
+      country_id: new UntypedFormControl(80, [Validators.required]),
+      address: new UntypedFormControl(''),
+      city: new UntypedFormControl(''),
+      state: new UntypedFormControl(''),
+      post_code: new UntypedFormControl(''),
+      website: new UntypedFormControl(''),
+      subscription_type_id: new UntypedFormControl(),
+      subscription_length: new UntypedFormControl()
     });
   }
 

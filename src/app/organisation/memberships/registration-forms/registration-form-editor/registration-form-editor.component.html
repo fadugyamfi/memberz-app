@@ -9,7 +9,7 @@
         <div class="card-body border-bottom">
 
           <div class="row form-group">
-            <label class="col-sm-3 col-form-label font-weight-bold">
+            <label class="col-sm-3 col-form-label fw-bold">
               {{ 'Name' | translate }}
             </label>
 
@@ -24,12 +24,12 @@
           </div>
 
           <div class="row form-group">
-            <label class="col-sm-3 col-form-label font-weight-bold">
+            <label class="col-sm-3 col-form-label fw-bold">
               {{ 'Membership Category To Assign' | translate }}
             </label>
 
             <div class="col-sm-9">
-              <select class="form-control" formControlName="organisation_member_category_id">
+              <select class="form-select" formControlName="organisation_member_category_id">
                 <option value="">{{ 'Select Category' | translate }}</option>
                 <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
               </select>
@@ -41,7 +41,7 @@
           </div>
 
           <!-- <div class="row form-group">
-            <label class="col-sm-3 col-form-label font-weight-bold">
+            <label class="col-sm-3 col-form-label fw-bold">
               {{ 'Description' | translate }}
             </label>
 
@@ -52,7 +52,7 @@
           </div> -->
 
           <div class="row form-group">
-            <label class="col-sm-3 col-form-label font-weight-bold">
+            <label class="col-sm-3 col-form-label fw-bold">
               {{ 'Registration Close Date' | translate }}
             </label>
 
@@ -62,7 +62,7 @@
           </div>
 
           <div class="row form-group">
-            <label class="col-sm-3 col-form-label font-weight-bold">
+            <label class="col-sm-3 col-form-label fw-bold">
               {{ 'Exclude Fields' | translate }}
 
               <span class="pull-right">
@@ -90,7 +90,7 @@
           </div>
 
           <div class="row form-group" formArrayName="custom_fields">
-            <label class="col-sm-3 col-form-label font-weight-bold">
+            <label class="col-sm-3 col-form-label fw-bold">
               {{ 'Custom Fields' | translate }}
             </label>
 
@@ -108,11 +108,11 @@
                         }"></i>
                       </span>
                       <div class="flex-grow-1">
-                        <p class="font-weight-bold">{{ group.value.label }}</p>
+                        <p class="fw-bold">{{ group.value.label }}</p>
                       </div>
 
                       <div class="">
-                        <button type="button" class="btn btn-xs btn-info m-r-15" (click)="editCustomField(group.value, i)"><i
+                        <button type="button" class="btn btn-xs btn-primary m-r-15" (click)="editCustomField(group.value, i)"><i
                              class='fa fa-pencil fa-fw m-0'></i></button>
                         <button type="button" class="btn btn-xs btn-danger" (click)="removeCustomFieldGroup(i)"><i
                              class='fa fa-trash-o fa-fw m-0'></i></button>
@@ -127,7 +127,7 @@
               </div>
             </div>
 
-            <div class="col-sm-2 text-right">
+            <div class="col-sm-2 text-end">
               <button type="button" class="btn btn-primary btn-sm pr-3 pl-3" (click)="addCustomField()">
                 <i class="fa fa-plus"></i> {{ 'Add Field' | translate }}
               </button>

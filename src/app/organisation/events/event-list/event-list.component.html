@@ -8,7 +8,7 @@
         </button>
       </div>
 
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 text-end">
         <button class="btn btn-outline-info btn-sm m-r-10" (click)="showSearchModal()">
           <i class="fa fa-search"></i> {{'Find Events' | translate}}
         </button>
@@ -26,7 +26,7 @@
     <ng-template #noItems>
       <div class="m-t-30 m-b-30 text-center" *ngIf="!eventService.fetching">
         <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-        <h4 class="font-weight-bold">{{'No Events Found' | translate}}</h4>
+        <h4 class="fw-bold">{{'No Events Found' | translate}}</h4>
         <h6>{{'Please search for events or add a new one to display results here' | translate}}</h6>
       </div>
     </ng-template>
@@ -47,7 +47,7 @@
 
         <tbody>
           <tr *ngFor="let event of events; let row = index">
-            <td class="text-right">{{ row + eventService?.pagingMeta?.from }}.</td>
+            <td class="text-end">{{ row + eventService?.pagingMeta?.from }}.</td>
             <td>{{ event.event_name }}</td>
             <td class="text-center" [noWrap]="true">{{ event.dates }}</td>
             <td class="text-center" [noWrap]="true">{{ event.times }}</td>
@@ -55,7 +55,7 @@
             <td class="text-center">{{ event.attendee_count || 0 }}</td>
 
             <td class="text-center" [noWrap]="true">
-              <button class="btn btn-xs btn-info m-r-10" adminHasPermission="events:manage:edit" (click)="viewSessions(event)">
+              <button class="btn btn-xs btn-primary m-r-10" adminHasPermission="events:manage:edit" (click)="viewSessions(event)">
                 <i class="fa fa-list"></i> {{'Sessions' | translate}}
               </button>
 
@@ -67,13 +67,13 @@
                   <a href="javascript:void(0)" ngbDropdownItem [routerLink]="['/organisation/events/record-attendance', event.id]">
                     <i class="fa fa-fw fa-pencil"></i> {{ 'Record Attendance' | translate }}
                   </a>
-                  <a href="javascript:void(0)" ngbDropdownItem>
+                  <a href="javascript:void(0)" ngbDropdownItem [routerLink]="['/organisation/events/attendance-list', event.id]">
                     <i class="fa fa-fw fa-list-alt"></i> {{ 'Attendance List' | translate }}
                   </a>
-                  <a href="javascript:void(0)" ngbDropdownItem>
+                  <!--<a href="javascript:void(0)" ngbDropdownItem>
                     <i class="fa fa-fw fa-bar-chart"></i> {{ 'Report' | translate }}
                   </a>
-                  <!-- <li class="dropdown-divider"></li>
+                   <li class="dropdown-divider"></li>
                   <a href="javascript:void(0)" ngbDropdownItem>
                     <i class="fa fa-fw fa-mobile"></i> {{ 'Mobile Attendance' | translate }}
                   </a> -->
@@ -122,8 +122,8 @@
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">{{'Find Events' | translate}}</h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
@@ -165,8 +165,8 @@
     <div class="modal-header">
       <h5 class="modal-title" id="modal-basic-title">{{'Event Editor' | translate}}</h5>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
@@ -174,7 +174,7 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">{{'Calendar' | translate}}</label>
         <div class="col-sm-10">
-          <select class="form-control" formControlName="organisation_calendar_id">
+          <select class="form-select" formControlName="organisation_calendar_id">
             <option value="">{{ 'Select Calendar' | translate }}</option>
             <option *ngFor="let calendar of calendars" [value]="calendar.id">{{ calendar.name }}</option>
           </select>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PortalRoutingModule } from './portal-routing.module';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../../shared/shared.module';
-import { CreateOrganisationModule } from './create-organisation/create-organisation.module';
+// import { CreateOrganisationModule } from './create-organisation/create-organisation.module';
 import { OrganisationEditorComponent } from './home/organisation-editor/organisation-editor.component';
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
 import { UserDetailsEditComponent } from './user-profile-settings/user-details-edit/user-details-edit.component';
@@ -32,7 +32,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
     PortalRoutingModule,
     SharedModule,
     NgxIntlTelInputModule,
-    CreateOrganisationModule,
+    // CreateOrganisationModule,
     MomentTimezonePickerModule
   ]
 })

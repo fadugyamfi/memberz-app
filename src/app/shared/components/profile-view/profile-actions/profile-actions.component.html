@@ -14,7 +14,7 @@
       <i class="fa fa-thumbs-down"></i> {{'Reject' | translate}}
     </button>
 
-    <button class="btn btn-info btn-sm m-r-10" *ngIf="membership?.approved" (click)="editProfile()">
+    <button class="btn btn-primary btn-sm m-r-10" *ngIf="membership?.approved" (click)="editProfile()">
       <i class="fa fa-pencil"></i> {{'Edit Profile' | translate}}
     </button>
 
@@ -23,7 +23,7 @@
     </button>
   </div>
 
-  <div class="col-sm-4 text-right">
+  <div class="col-sm-4 text-end">
     <app-make-admin [membership]="membership"></app-make-admin>
   </div>
 </div>

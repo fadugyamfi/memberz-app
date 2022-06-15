@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { Contribution } from '../../../../shared/model/api/contribution';
@@ -29,8 +29,8 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
 
   @ViewChild('editorModal', { static: true }) editorModal: any;
 
-  public editorForm: FormGroup;
-  public periods: FormArray;
+  public editorForm: UntypedFormGroup;
+  public periods: UntypedFormArray;
   private subscriptions: Subscription[] = [];
   public selectedContributionType: ContributionType;
   public selectedContribution: Contribution;
@@ -68,18 +68,18 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
    *
    */
   setupEditorForm(contribution: Contribution = null) {
-    this.editorForm = new FormGroup({
-      id: new FormControl(),
-      receipt_dt: new FormControl(moment().format('YYYY-MM-DD'), [Validators.required]),
-      receipt_no: new FormControl(''),
-      description: new FormControl(''),
-      organisation_member_id: new FormControl(''),
-      module_contribution_type_id: new FormControl('', [Validators.required]),
-      module_contribution_payment_type_id: new FormControl('', [Validators.required]),
-      bank_id: new FormControl(''),
-      cheque_number: new FormControl(''),
-      cheque_status: new FormControl('Not Cleared'),
-      periods: new FormArray([ this.createPeriodItem(contribution) ])
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      receipt_dt: new UntypedFormControl(moment().format('YYYY-MM-DD'), [Validators.required]),
+      receipt_no: new UntypedFormControl(''),
+      description: new UntypedFormControl(''),
+      organisation_member_id: new UntypedFormControl(''),
+      module_contribution_type_id: new UntypedFormControl('', [Validators.required]),
+      module_contribution_payment_type_id: new UntypedFormControl('', [Validators.required]),
+      bank_id: new UntypedFormControl(''),
+      cheque_number: new UntypedFormControl(''),
+      cheque_status: new UntypedFormControl('Not Cleared'),
+      periods: new UntypedFormArray([ this.createPeriodItem(contribution) ])
     });
 
     this.editorForm.valueChanges.subscribe(value => {
@@ -104,14 +104,14 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.periods = this.editorForm.get('periods') as FormArray;
+    this.periods = this.editorForm.get('periods') as UntypedFormArray;
 
     if ( !this.receiptSettings.isReceiptModeAuto() ) {
       this.editorForm.controls.receipt_no.addValidators(Validators.required);
     }
   }
 
-  createPeriodItem(contribution: Contribution = null): FormGroup {
+  createPeriodItem(contribution: Contribution = null): UntypedFormGroup {
     const weekOfMonth = (input = moment()) => {
       const firstDayOfMonth = input.clone().startOf('month');
       const firstDayOfWeek = firstDayOfMonth.clone().startOf('week');
@@ -123,12 +123,12 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
 
     const currentDate = moment();
 
-    return new FormGroup({
-      week: new FormControl( contribution?.week || weekOfMonth(currentDate) ),
-      month: new FormControl( contribution?.month || currentDate.month() + 1, [Validators.required]),
-      year: new FormControl( contribution?.year || currentDate.year(), [Validators.required]),
-      currency_id: new FormControl( contribution ? contribution.currency_id : this.receiptSettings.default_currency, [Validators.required]),
-      amount: new FormControl( contribution?.amount || '', [Validators.required]),
+    return new UntypedFormGroup({
+      week: new UntypedFormControl( contribution?.week || weekOfMonth(currentDate) ),
+      month: new UntypedFormControl( contribution?.month || currentDate.month() + 1, [Validators.required]),
+      year: new UntypedFormControl( contribution?.year || currentDate.year(), [Validators.required]),
+      currency_id: new UntypedFormControl( contribution ? contribution.currency_id : this.receiptSettings.default_currency, [Validators.required]),
+      amount: new UntypedFormControl( contribution?.amount || '', [Validators.required]),
     });
   }
 
@@ -260,5 +260,23 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
         this.contributionService.create(contribution);
       }
     });
+  }
+
+  enableSmsNotification() {
+    const smsAccountCreated = this.smsAccountService.hasOrganisationAccount();
+
+    if( !smsAccountCreated ) {
+      Swal.fire(
+        this.translate.instant('SMS Account Not Setup'),
+        this.translate.instant('Please setup SMS account to enable is feature'),
+        'error'
+      );
+      return;
+    }
+
+    if( this.receiptSettings ) {
+      this.receiptSettings.sms_notify = true;
+      this.receiptSettingService.update(this.receiptSettings);
+    }
   }
 }

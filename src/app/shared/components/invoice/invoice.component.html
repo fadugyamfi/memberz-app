@@ -6,10 +6,10 @@
           <div>
             <div class="row">
               <div class="col-sm-6">
-                <div class="media">
-                  <div class="media-left"><img class="media-object img-60" src="/assets/images/logo/logo-96x96.png"
+                <div class="d-flex">
+                  <div class="flex-shrink-0"><img class="media-object img-60" src="/assets/images/logo/logo-96x96.png"
                          alt=""></div>
-                  <div class="media-body m-l-20">
+                  <div class="flex-grow-1 m-l-20">
                     <h4 class="media-heading">Memberz.Org</h4>
                     <p>
                       sales@memberz.org<br>
@@ -35,12 +35,12 @@
           <!-- End InvoiceTop-->
           <div class="row m-b-25">
             <div class="col-md-10">
-              <div class="media">
-                <div class="media-left">
+              <div class="d-flex">
+                <div class="flex-shrink-0">
                   <img class="media-object rounded-circle img-60"
                        src="{{ organisation.logo || 'assets/images/user/1.jpg' }}" alt="">
                 </div>
-                <div class="media-body m-l-20">
+                <div class="flex-grow-1 m-l-20">
                   <h4 class="media-heading">{{ organisation?.name }}</h4>
                   <p>
                     {{ organisation?.email }}<br>
@@ -72,10 +72,10 @@
                     <td class="Hours text-center">
                       <h6 class="p-t-5 p-b-5 mb-0">Quantity</h6>
                     </td>
-                    <td class="Rate text-right">
+                    <td class="Rate text-end">
                       <h6 class="p-t-5 p-b-5 mb-0">Price</h6>
                     </td>
-                    <td class="subtotal text-right">
+                    <td class="subtotal text-end">
                       <h6 class="p-t-5 p-b-5 mb-0">Sub Total</h6>
                     </td>
                   </tr>
@@ -86,21 +86,21 @@
                       <label>{{item.description}}</label>
                     </td>
                     <td class="text-center"> {{item.qty}}</td>
-                    <td class="text-right">
+                    <td class="text-end">
                       {{ item.unit_price | currency: invoice?.currency.currency_code :'symbol' }}
                     </td>
-                    <td class="text-right">
+                    <td class="text-end">
                       {{ item.total | currency: invoice?.currency.currency_code :'symbol' }}
                     </td>
                   </tr>
                   <tr>
                     <td></td>
                     <td></td>
-                    <td class="Rate text-right">
-                      <h6 class="mb-0 p-t-2 font-weight-bold">Total</h6>
+                    <td class="Rate text-end">
+                      <h6 class="mb-0 p-t-2 fw-bold">Total</h6>
                     </td>
-                    <td class="payment digits text-right">
-                      <h6 class="mb-0 p-t-2 font-weight-bold">
+                    <td class="payment digits text-end">
+                      <h6 class="mb-0 p-t-2 fw-bold">
                         {{ invoice.total_due | currency: invoice?.currency.currency_code :'symbol' }}
                       </h6>
                     </td>
@@ -112,13 +112,13 @@
             <div class="row">
               <div class="col-md-7">
                 <p class="legal">
-                  <strong>Thank you for your business!</strong> 
+                  <strong>Thank you for your business!</strong>
                   <span [innerHTML]="invoice.notes"></span>
 
                 </p>
               </div>
 
-              <div class="col-md-5 text-right">
+              <div class="col-md-5 text-end">
                 <table class='table text-sm table-condensed table-borderless' width='100%' cellspacing='0'
                        cellpadding='5' border='0'>
                   <tr>
@@ -153,7 +153,7 @@
       </div>
     </div>
 
-    <div class="card-footer text-right">
+    <div class="card-footer text-end">
       <button class="btn btn btn-primary m-r-25" [useExistingCss]="true" printSectionId="print-section"
               ngxPrint>
         <i class="fa fa-print"></i> Print Invoice

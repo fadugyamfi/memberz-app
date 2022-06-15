@@ -50,4 +50,7 @@ export class ContributionService extends APIService<Contribution> {
     );
   }
 
+  getSummary(options = {}) {
+    return this.get(`/contribution_summaries`, options);
+  }
 }

@@ -72,4 +72,11 @@ export class OrganisationMemberService extends APIService<OrganisationMember> {
     }));
   }
 
+  birthdays(options = {}) {
+    return this.get(`${this.url}/birthdays`, options);
+  }
+
+  birthdaySummary(options = {}) {
+    return this.get(`${this.url}/birthdays/summary`, options);
+  }
 }

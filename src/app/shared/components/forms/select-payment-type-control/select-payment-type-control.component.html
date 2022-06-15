@@ -1,4 +1,4 @@
-<select class="form-control" [(ngModel)]="value">
+<select class="form-select" [(ngModel)]="value">
   <option value="">{{ 'Select Payment Method' | translate }}</option>
   <option *ngFor="let type of paymentTypeService.getItems()" [value]="type.id">
     {{ type.name | translate }}

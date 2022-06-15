@@ -1,8 +1,8 @@
 <ng-template #editorModal let-modal>
   <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="profileForm">
     <div class="modal-header bg-dark d-block">
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
 
       <h4 class="modal-title d-block f-none" id="modal-basic-title">
@@ -19,7 +19,7 @@
           * {{ "Type of Organisation" | translate }}
         </div>
         <div class="col-sm-9">
-          <select class="form-control" formControlName="organisation_type_id">
+          <select class="form-select" formControlName="organisation_type_id">
             <option value="">{{ "Select Type" | translate }}</option>
             <option *ngFor="let type of orgTypes" [value]="type.id">
               {{ type.name }}
@@ -87,7 +87,7 @@
       <div class="form-group row">
         <div class="col-form-label col-sm-3">* {{ "Country" | translate }}</div>
         <div class="col-sm-9">
-          <select class="form-control" formControlName="country_id">
+          <select class="form-select" formControlName="country_id">
             <option value="">{{ "Select Country" | translate }}</option>
             <option *ngFor="let country of countries" [value]="country.id">
               {{ country.name }}

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OrganisationRegistrationFormService } from '../../../../shared/services/api/organisation-registration-form.service';
 import { EventsService } from '../../../../shared/services/events.service';
@@ -18,9 +18,9 @@ import { OrganisationMemberCategory } from '../../../../shared/model/api/organis
 export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
 
   @ViewChild('customFieldEditor', { static: true }) customFieldEditor: any;
-  public editorForm: FormGroup;
+  public editorForm: UntypedFormGroup;
 
-  public selectedCustomFieldGroup: FormGroup
+  public selectedCustomFieldGroup: UntypedFormGroup
   public categories: OrganisationMemberCategory[] = [];
 
   public standardFields = [
@@ -75,8 +75,8 @@ export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  get customFields(): FormArray {
-    return this.editorForm.controls.custom_fields as FormArray;
+  get customFields(): UntypedFormArray {
+    return this.editorForm.controls.custom_fields as UntypedFormArray;
   }
 
   setupEditorForm() {
@@ -84,14 +84,14 @@ export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
       return this.createStandardFieldGroup( item.field );
     });
 
-    this.editorForm = new FormGroup({
-      id: new FormControl(''),
-      organisation_id: new FormControl( this.organisationService.getActiveOrganisation().id ),
-      organisation_member_category_id: new FormControl('', Validators.required),
-      name: new FormControl('', [Validators.required]),
-      expiration_dt: new FormControl(''),
-      excluded_standard_fields: new FormArray([ ...standardFieldGroups ]),
-      custom_fields: new FormArray([])
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(''),
+      organisation_id: new UntypedFormControl( this.organisationService.getActiveOrganisation().id ),
+      organisation_member_category_id: new UntypedFormControl('', Validators.required),
+      name: new UntypedFormControl('', [Validators.required]),
+      expiration_dt: new UntypedFormControl(''),
+      excluded_standard_fields: new UntypedFormArray([ ...standardFieldGroups ]),
+      custom_fields: new UntypedFormArray([])
     });
   }
 
@@ -117,28 +117,28 @@ export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
   }
 
   createStandardFieldGroup(fieldName) {
-    return new FormGroup({
-      field: new FormControl(fieldName),
-      excluded: new FormControl('')
+    return new UntypedFormGroup({
+      field: new UntypedFormControl(fieldName),
+      excluded: new UntypedFormControl('')
     });
   }
 
   createCustomFieldGroup(values = null) {
-    const group = new FormGroup({
-      id: new FormControl(),
-      name: new FormControl(''),
-      type: new FormControl(''),
-      label: new FormControl(''),
-      placeholder: new FormControl(''),
-      required: new FormControl(''),
-      options: new FormArray([])
+    const group = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      name: new UntypedFormControl(''),
+      type: new UntypedFormControl(''),
+      label: new UntypedFormControl(''),
+      placeholder: new UntypedFormControl(''),
+      required: new UntypedFormControl(''),
+      options: new UntypedFormArray([])
     })
 
     if( values?.options?.length > 0 ) {
       values.options.forEach(() => {
-        (group.controls.options as FormArray).push(new FormGroup({
-          label: new FormControl(''),
-          value: new FormControl('')
+        (group.controls.options as UntypedFormArray).push(new UntypedFormGroup({
+          label: new UntypedFormControl(''),
+          value: new UntypedFormControl('')
         }))
       });
     }

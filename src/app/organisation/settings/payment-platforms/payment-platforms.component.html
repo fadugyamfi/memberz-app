@@ -20,14 +20,22 @@
             <h6>{{ platform?.currency?.currency_name | translate }} ({{ platform?.currency?.currency_code }})</h6>
           </div>
           <div class="card-footer d-flex justify-content-between">
-            <button class="btn btn-outline-info btn-sm" (click)="showEditorModal(platform)" *ngIf="!platform.system_generated">
-              <i class='fa fa-pencil'></i> {{ 'Edit' | translate }}
-            </button>
-            <button class="btn btn-danger btn-sm" (click)="deletePlatform(platform)" *ngIf="!platform.system_generated">
-              <i class='fa fa-trash-o'></i>
-            </button>
+            <section>
+              <button class="btn btn-outline-info btn-xs me-2" (click)="showEditorModal(platform)"
+                      *ngIf="!platform.system_generated">
+                <i class='fa fa-pencil'></i> {{ 'Edit' | translate }}
+              </button>
+              <button class="btn btn-danger btn-xs" (click)="deletePlatform(platform)"
+                      *ngIf="!platform.system_generated">
+                <i class='fa fa-trash-o'></i>
+              </button>
+            </section>
 
-            <label class="badge badge-primary m-auto">{{ 'System Generated' | translate }}. {{ 'Not Editable' | translate }}</label>
+            <section>
+              <label class="badge badge-primary m-auto" *ngIf="platform.system_generated">
+                {{ 'System Generated' | translate }}. {{ 'Not Editable' | translate }}
+              </label>
+            </section>
           </div>
         </div>
       </div>
@@ -43,8 +51,8 @@
         <h5 class="modal-title" id="modal-basic-title">{{'Payment Platform Editor' | translate}}</h5>
       </div>
 
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
@@ -52,7 +60,7 @@
       <div class="form-group row">
         <label class="col-sm-3 col-form-label">{{ 'Payment Platform' | translate}}</label>
         <div class="col-sm-9">
-          <select class="form-control" formControlName="payment_platform_id">
+          <select class="form-select" formControlName="payment_platform_id">
             <option value="">{{ 'Select Platform' | translate }}</option>
             <option *ngFor="let platform of paymentPlatforms" [value]="platform.id">{{ platform.name }}</option>
           </select>

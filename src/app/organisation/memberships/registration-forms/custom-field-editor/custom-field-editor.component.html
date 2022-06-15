@@ -2,15 +2,15 @@
   <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="customFieldForm">
     <div class="modal-header">
       <h5 class="modal-title" id="modal-basic-title">{{ 'Custom Field Editor' | translate }}</h5>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
 
     <div class="modal-body border-bottom">
 
       <div class="row form-group">
-        <label class="col-sm-3 col-form-label font-weight-bold">
+        <label class="col-sm-3 col-form-label fw-bold">
           {{ 'Name' | translate }}
 
           <span class="pull-right">
@@ -30,7 +30,7 @@
       </div>
 
       <div class="row form-group">
-        <label class="col-sm-3 col-form-label font-weight-bold">
+        <label class="col-sm-3 col-form-label fw-bold">
           {{ 'Type' | translate }}
         </label>
 
@@ -72,7 +72,7 @@
       </div>
 
       <div class="row form-group">
-        <label class="col-sm-3 col-form-label font-weight-bold">{{ 'Field Label' | translate }}</label>
+        <label class="col-sm-3 col-form-label fw-bold">{{ 'Field Label' | translate }}</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" placeholder="e.g. {{ 'Recent Job' | translate }}" formControlName="label" />
 
@@ -83,21 +83,21 @@
       </div>
 
       <div class="row form-group animated fadeIn" *ngIf="!selectTypeSelected()">
-        <label class="col-sm-3 col-form-label font-weight-bold">{{ 'Placeholder Text' | translate }}</label>
+        <label class="col-sm-3 col-form-label fw-bold">{{ 'Placeholder Text' | translate }}</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" placeholder="e.g. {{ 'Enter Job Name Here' | translate }}" formControlName="placeholder" />
         </div>
       </div>
 
       <div class="row form-group animated fadeIn">
-        <label class="col-sm-3 col-form-label font-weight-bold">{{ 'Field Is Mandatory' | translate }}</label>
+        <label class="col-sm-3 col-form-label fw-bold">{{ 'Field Is Mandatory' | translate }}</label>
         <div class="col-sm-9">
           <ui-switch formControlName="required" checkedLabel="Yes" uncheckedLabel="No" checkedTextColor="white"></ui-switch>
         </div>
       </div>
 
       <div class="row form-group animated fadeIn" formArrayName="options" *ngIf="selectTypeSelected()">
-        <label class="col-sm-3 col-form-label font-weight-bold">{{ 'Options' | translate }}</label>
+        <label class="col-sm-3 col-form-label fw-bold">{{ 'Options' | translate }}</label>
         <div class="col-sm-7">
           <div class="row form-group" *ngFor="let option of optionGroups?.controls; let i = index" [formGroup]="option">
             <div class="col-sm-5">
@@ -115,7 +115,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-2 text-right">
+        <div class="col-sm-2 text-end">
           <button type="button" class="btn btn-sm btn-primary" title="{{ 'Add Option' | translate }}" (click)="addFieldOptionGroup()">
             <i class="fa fa-plus"></i>
           </button>

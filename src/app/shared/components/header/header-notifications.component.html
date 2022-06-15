@@ -14,8 +14,8 @@
     {{ "No new notifications" | translate }}
   </li>
   <li *ngFor="let notification of unreadNotifications; let row = index">
-    <div class="media">
-      <div class="media-body" (click)="onNotificationClicked(notification)">
+    <div class="d-flex">
+      <div class="flex-grow-1" (click)="onNotificationClicked(notification)">
         <h6 class="mt-0">
           <span>
             <!-- <app-feather-icons class="shopping-color" [icon]="'shopping-bag'"></app-feather-icons> -->

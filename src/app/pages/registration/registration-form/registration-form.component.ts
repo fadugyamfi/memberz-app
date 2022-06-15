@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
@@ -28,9 +28,9 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   public registrationFormConfig: OrganisationRegistrationForm;
   public subscriptions: Subscription[] = [];
 
-  public membershipForm: FormGroup;
-  public profileForm: FormGroup;
-  public accountForm: FormGroup;
+  public membershipForm: UntypedFormGroup;
+  public profileForm: UntypedFormGroup;
+  public accountForm: UntypedFormGroup;
   public tenantHeaders = {};
 
   separateDialCode = true;
@@ -148,38 +148,38 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   }
 
   setupRegistrationForm() {
-    this.membershipForm = new FormGroup({
-      organisation_registration_form_id: new FormControl(this.registrationFormConfig?.id, Validators.required),
-      organisation_member_category_id: new FormControl(this.registrationFormConfig?.organisation_member_category_id),
-      organisation_id: new FormControl(this.organisation?.id, Validators.required),
-      member_id: new FormControl(''),
-      approved: new FormControl(0),
-      custom_attributes: new FormGroup({}),
-      source: new FormControl('registration')
+    this.membershipForm = new UntypedFormGroup({
+      organisation_registration_form_id: new UntypedFormControl(this.registrationFormConfig?.id, Validators.required),
+      organisation_member_category_id: new UntypedFormControl(this.registrationFormConfig?.organisation_member_category_id),
+      organisation_id: new UntypedFormControl(this.organisation?.id, Validators.required),
+      member_id: new UntypedFormControl(''),
+      approved: new UntypedFormControl(0),
+      custom_attributes: new UntypedFormGroup({}),
+      source: new UntypedFormControl('registration')
     });
 
     this.registrationFormConfig?.decoded_custom_fields.forEach(field => {
-      const control = new FormControl('');
+      const control = new UntypedFormControl('');
 
       if( field.required ) {
         control.addValidators([Validators.required]);
       }
 
-      (this.membershipForm.controls.custom_attributes as FormGroup).addControl(field.name, control);
+      (this.membershipForm.controls.custom_attributes as UntypedFormGroup).addControl(field.name, control);
     });
 
-    this.profileForm = new FormGroup({
-      title: new FormControl(),
-      first_name: new FormControl('', [Validators.required]),
-      last_name: new FormControl('', [Validators.required]),
-      middle_name: new FormControl(''),
-      mobile_number: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
-      dob: new FormControl(''),
-      gender: new FormControl(''),
-      occupation: new FormControl(),
-      business_name: new FormControl(),
-      email: new FormControl('', [Validators.email]),
-      active: new FormControl(1)
+    this.profileForm = new UntypedFormGroup({
+      title: new UntypedFormControl(),
+      first_name: new UntypedFormControl('', [Validators.required]),
+      last_name: new UntypedFormControl('', [Validators.required]),
+      middle_name: new UntypedFormControl(''),
+      mobile_number: new UntypedFormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+      dob: new UntypedFormControl(''),
+      gender: new UntypedFormControl(''),
+      occupation: new UntypedFormControl(),
+      business_name: new UntypedFormControl(),
+      email: new UntypedFormControl('', [Validators.email]),
+      active: new UntypedFormControl(1)
     });
 
     if( !this.registrationFormConfig?.excludesGender() ) {
@@ -190,12 +190,12 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
       this.profileForm.controls.email.addValidators([Validators.required]);
     }
 
-    this.accountForm = new FormGroup({
-      agree_to_terms: new FormControl(false, Validators.required),
-      create_account: new FormControl( !this.registrationFormConfig?.excludesEmail() ),
-      member_id: new FormControl('', [Validators.required]),
-      username: new FormControl('', Validators.required),
-      password: new FormControl(this.makeRandom(20))
+    this.accountForm = new UntypedFormGroup({
+      agree_to_terms: new UntypedFormControl(false, Validators.required),
+      create_account: new UntypedFormControl( !this.registrationFormConfig?.excludesEmail() ),
+      member_id: new UntypedFormControl('', [Validators.required]),
+      username: new UntypedFormControl('', Validators.required),
+      password: new UntypedFormControl(this.makeRandom(20))
     });
   }
 
