@@ -1,0 +1,63 @@
+<div class="card">
+  <div class="card-header b-l-primary">
+    <div class="row">
+      <div class="col-sm-6">
+        <h6 class="font-weight-bold">
+          {{ "Birthday Celebrant(s)" | translate }}
+        </h6>
+      </div>
+      <!-- end of col -->
+      <div class="col-sm-6">
+        <form [formGroup]="selectForm">
+          <select
+            class="form-select"
+            #birthdayForSelect
+            formControlName="birthday_for"
+            (change)="fetchBirthdays(birthdayForSelect.value)"
+          >
+            <option value="today">{{ "Today" | translate }}</option>
+            <option value="tomorrow">{{ "Tomorrow" | translate }}</option>
+            <option value="thisWeek">{{ "This Week" | translate }}</option>
+            <option value="nextWeek">{{ "Next Week" | translate }}</option>
+            <option value="thisMonth">{{ "This Month" | translate }}</option>
+          </select>
+        </form>
+      </div>
+    </div>
+    <!-- end of row -->
+  </div>
+  <div class="card-body chart-block">
+    <app-loading-rotate-dashed *ngIf="fetching"></app-loading-rotate-dashed>
+    <app-no-data-available
+      *ngIf="!fetching && !hasDataAvailable()"
+    ></app-no-data-available>
+
+    <table
+      class="table table-bordered table-hover"
+      *ngIf="!fetching && hasDataAvailable()"
+    >
+      <thead>
+        <tr>
+          <th colspan="2">{{ "Name" | translate }}</th>
+          <th class="text-center">{{ "Email" | translate }}</th>
+          <th class="text-center">{{ "Phone Number" | translate }}</th>
+          <th class="text-center">{{ "Send SMS" | translate }}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let event of birthdays; let row = index">
+          <td class="text-end">
+            {{ row + organisationMemberService?.pagingMeta?.from }}.
+          </td>
+          <!-- <td>{{ event.event_name }}</td>
+                  <td class="text-center" [noWrap]="true">{{ event.dates }}</td>
+                  <td class="text-center" [noWrap]="true">{{ event.times }}</td>
+                  <td class="text-center">{{ event.session_count || 1 }}</td>
+                  <td class="text-center">{{ event.attendee_count || 0 }}</td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- end of card -->

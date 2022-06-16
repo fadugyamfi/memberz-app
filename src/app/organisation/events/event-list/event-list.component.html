@@ -17,8 +17,6 @@
 
   </div>
 
-
-
   <app-loading-rotate-dashed *ngIf="eventService.fetching"></app-loading-rotate-dashed>
 
   <div *ngIf="eventService.getItems() as events">
@@ -43,7 +41,6 @@
             <th class="text-center">{{'Actions' | translate}}</th>
           </tr>
         </thead>
-
 
         <tbody>
           <tr *ngFor="let event of events; let row = index">
@@ -97,10 +94,6 @@
                   </a>
                 </ul>
               </span>
-
-
-
-
             </td>
           </tr>
         </tbody>
@@ -109,13 +102,10 @@
 
   </div>
 
-
-
   <div class="card-footer">
     <app-pagination [service]="eventService" (paginate)="onPaginate($event)"></app-pagination>
   </div>
 </div>
-
 
 <ng-template #searchModal let-modal>
   <form (submit)="onSearch($event)" class="form form-horizontal theme-form" [formGroup]="searchForm">

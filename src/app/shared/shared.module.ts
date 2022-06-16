@@ -89,6 +89,8 @@ import { TawkChatModule } from '../components/tawk-chat/tawk-chat.module';
 
 import { MembershipCardComponent } from './components/profile-view/membership-card/membership-card.component';
 import { MembershipCardModalComponent } from './components/profile-view/membership-card-modal/membership-card-modal.component';
+import { ViewBirthdaysComponent } from './components/birthday/view-birthdays/view-birthdays.component';
+import { ConfigureAutomatedMessagesComponent } from './components/birthday/configure-automated-messages/configure-automated-messages.component';
 import { ContributionService } from './services/api/contribution.service';
 import { FinanceDashboardService } from './services/api/finance-dashboard.service';
 import { CountToDirective } from './directives/count-to.directive';
@@ -155,6 +157,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     AdminHasPermissionDirective,
     MembershipCardComponent,
     MembershipCardModalComponent,
+    ViewBirthdaysComponent,
+    ConfigureAutomatedMessagesComponent,
     CountToDirective
   ],
   imports: [
@@ -220,6 +224,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     AvatarModule,
     QrCodeModule,
     MembershipCardComponent,
+    ViewBirthdaysComponent,
+    ConfigureAutomatedMessagesComponent,
     CountToDirective
   ],
   providers: [

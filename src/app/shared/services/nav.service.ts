@@ -140,7 +140,7 @@ export class NavService {
         { path: '/organisation/events/dashboard', title: 'Dashboard', type: 'link', permission: 'events:dashboard:view' },
         { path: '/organisation/events/list', title: 'Event List', type: 'link', permission: 'events:manage:add' },
         { path: '/organisation/events/calendar', title: 'Calendar', type: 'link', permission: 'events:calendar:view' },
-        // { path: '/organisation/events/calendar', title: 'Birthdays', type: 'link', permission: 'events:birthdays:view' },
+        { path: '/organisation/events/birthday', title: 'Birthdays', type: 'link', permission: 'events:birthdays:view' },
       ]
     },
     {
