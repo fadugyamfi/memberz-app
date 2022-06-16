@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { Component, OnInit } from '@angular/core';
 import { Observable, Subscription, tap } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
@@ -17,6 +18,16 @@ export class ViewBirthdaysComponent implements OnInit {
   public selectForm: UntypedFormGroup;
   public birthdays: any[] = [];
 
+  private searchParam = {
+    day: null,
+    week: null,
+    month: null,
+    page: null,
+    limit: null
+  };
+
+  public fetching = false;
+
   constructor(
     public organisationMemberService: OrganisationMemberService,
     public events: EventsService,
@@ -32,15 +43,51 @@ export class ViewBirthdaysComponent implements OnInit {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  fetchBirthdays(birthday_for = 'today', page = 1, limit = 30){
-    console.log(birthday_for)
-    return [];
+  fetchBirthdays(birthdayFor = 'today', page = 1, limit = 30) {
+    this.fetching = true;
+    this.birthdays = null;
+    this.getBirthDayParam(birthdayFor);
+    this.searchParam.page = page;
+    this.searchParam.limit = limit;
+
+
+    return this.organisationMemberService.birthdays(this.searchParam).subscribe((data: any[]) => {
+      this.fetching = false;
+
+      if (data.length == 0) { return }
+      this.birthdays = data;
+    });
+
+  }
+
+  getBirthDayParam(value: string){
+    switch(value){
+      case 'today':
+        this.searchParam.day = moment().day();
+        break;
+      case 'tomorrow':
+        this.searchParam.day = moment().day() + 1;
+        break;
+      case 'thisWeek':
+        this.searchParam.week = moment().week();
+        break;
+      case 'nextWeek':
+        this.searchParam.week = moment().week() + 1;
+        break;
+      case 'thisMonth':
+        this.searchParam.month = moment().month();
+        break;
+    }
+  }
+
+  hasDataAvailable() {
+    return this.birthdays && this.birthdays.length > 0;
   }
 
   /**
    * Sets up the select form
    */
-   setupSelectForm() {
+  setupSelectForm() {
     this.selectForm = new UntypedFormGroup({
       birthday_for: new UntypedFormControl('today')
     });
@@ -51,7 +98,7 @@ export class ViewBirthdaysComponent implements OnInit {
    *
    * @param event PageEvent
    */
-   onPaginate(event: PageEvent) {
+  onPaginate(event: PageEvent) {
     this.fetchBirthdays(this.selectForm.value, event.page, event.limit);
   }
 }
