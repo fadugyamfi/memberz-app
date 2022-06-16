@@ -134,7 +134,9 @@ export class FinanceTrendComponent implements OnInit {
   }
 
   canAccessFinance() {
-    const activeSubscription = this.organisationService.getActiveOrganisation().active_subscription;
-    return activeSubscription.canAccessFinance();
+    const org = this.organisationService.getActiveOrganisation();
+    if( !org ) return false;
+
+    return org.active_subscription?.canAccessFinance();
   }
 }

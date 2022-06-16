@@ -4,7 +4,7 @@
 <ul class="notification-dropdown onhover-show-div">
   <li>
     {{ "Notification" | translate }}
-    <span class="badge badge-pill badge-primary ml-1">{{ unreadNotifications.length }}</span>
+    <span class="badge badge-pill badge-primary ms-1">{{ unreadNotifications.length }}</span>
     <a href="javascript:;" class="text-primary pull-right" (click)="markAllRead($event)">
       <span class="f-12">{{ "Clear All" | translate }}</span>
     </a>
