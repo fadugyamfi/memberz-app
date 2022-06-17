@@ -54,7 +54,7 @@
         <label class="col-sm-3 col-form-label">{{ 'Message' | translate }}</label>
         <div class="col-sm-9">
           <textarea rows="7" class="form-control" maxlength="480" placeholder="Enter message here"
-                    formControlName="message" (keyup)="trackChars($event)"></textarea>
+                    formControlName="message" (keyup)="trackChars($event)" spellcheck="true"></textarea>
 
           <p class="m-t-10 small m-b-0">
             <span>{{ messages }} / 3 ({{ 480 - chars }} {{ 'Left' | translate }})</span>
