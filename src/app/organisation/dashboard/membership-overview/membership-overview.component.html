@@ -1,6 +1,6 @@
 <div class="donut-chart-widget">
   <div class="card">
-    <div class="card-header">
+    <div class="card-header b-l-danger">
       <h5>{{'Membership Overview' | translate}}</h5>
     </div>
     <div class="card-body">
@@ -10,7 +10,7 @@
             <span class="rotate dashed colored"></span>
           </div>
 
-          <div class="chart-container">
+          <div class="col-sm-12">
             <canvas baseChart *ngIf="renderChart" class="chart" [data]="chartData" [labels]="chartLabels"
                     [chartType]="chartType" [options]="chartOptions"></canvas>
           </div>
