@@ -5,7 +5,11 @@ import { AuthService } from '../../services/api/auth.service';
 import { StorageService } from '../../services/storage.service';
 import { EventsService } from '../../services/events.service';
 import { NotificationService } from '../../services/api/notification.service';
-import { Notification } from '../../model/api/notification';
+import { Router } from '@angular/router';
+import { OrganisationService } from '../../services/api/organisation.service';
+import { OrganisationAccountService } from '../../services/api/organisation-account.service';
+import { MemberAccountService } from '../../services/api/member-account.service';
+import Swal from 'sweetalert2';
 
 const body = document.getElementsByTagName('body')[0];
 
@@ -24,7 +28,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public right_sidebar = false;
   public text: string;
   public isOpenMobile = false;
-  public unreadNotifications = [];
   public currentLang = 'EN';
 
   @Output() rightSidebarEvent = new EventEmitter<boolean>();
@@ -36,6 +39,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     protected storage: StorageService,
     public events: EventsService,
     public notificationService: NotificationService,
+    public router: Router,
+    public organisationService: OrganisationService,
+    public memberAccountService: MemberAccountService,
+    public orgAccountService: OrganisationAccountService
   ) {
     translate.setDefaultLang('en');
 
@@ -43,6 +50,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.currentLang = this.storage.get('current_lang');
       translate.use(this.currentLang);
     }
+  }
+
+  ngOnInit() {
+    this.navServices.organisationMenuItems.subscribe(menuItems => {
+      this.items = menuItems;
+    });
+
+
   }
 
   ngOnDestroy() {
@@ -117,56 +132,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     body.classList.remove('offcanvas');
     this.text = ''
       ;
-  }
-
-  /**
-   * Connect to the backend service and wait for SSEs
-   */
-   subscribeToNotifications() {
-    this.notificationService.connectToServer().subscribe((notifications: Notification[]) => {
-      this.unreadNotifications.unshift(...notifications);
-
-      notifications.forEach(notification => {
-        this.events.trigger('toast', {
-          title: notification.user.name,
-          msg: notification.message,
-          type: 'info',
-          onClick: () => this.performAction(notification)
-        });
-      });
-
-    });
-  }
-
-  performAction(notification: Notification) {
-    if (!notification.read_at) {
-      this.notificationService.markRead(notification);
-    }
-  }
-
-  markAllRead(e: Event) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    this.notificationService.markAllRead().subscribe(() => this.unreadNotifications = []);
-  }
-
-  public fetchUnreadNotifications() {
-    this.notificationService.getUnreadNotifications().subscribe(notifications => this.unreadNotifications = notifications);
-  }
-
-  ngOnInit() {
-    this.navServices.organisationMenuItems.subscribe(menuItems => {
-      this.items = menuItems;
-    });
-
-    this.fetchUnreadNotifications();
-
-    // connect to backend for user notifications
-    setTimeout(() => {
-      this.subscribeToNotifications();
-    }, 1000);
-
   }
 
 }

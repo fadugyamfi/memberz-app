@@ -40,14 +40,17 @@ export class MemberAccountService extends APIService<MemberAccount> {
    *
    * @param memberAccountId Id of user account
    */
-  organisations(memberAccountId: number, page = 1, limit = 10) {
+  organisations(memberAccountId: number, page = 1, limit = 15) {
     const params = {
       page,
-      limit
+      limit,
+      count: ['organisation_members'].join(',')
     };
 
     return this.get(`${this.url}/${memberAccountId}/organisations`, params).pipe(map(res => {
-      return res['data'].map((data: object) => new Organisation(data));
+      const userOrgs = res['data'].map((data: object) => new Organisation(data));
+      this.storeUserOrganisations(userOrgs);
+      return userOrgs;
     }));
   }
 
@@ -60,5 +63,13 @@ export class MemberAccountService extends APIService<MemberAccount> {
     return this.get(`${this.url}`, params).pipe(map(res => {
       return res['data'][0] ? new MemberAccount(res['data'][0]) : null;
     }));
+  }
+
+  storeUserOrganisations(userOrgs: Organisation[]) {
+    this.storage.set('auth_user_organisations', userOrgs);
+  }
+
+  getUserOrganisations(): Organisation[] {
+    return this.storage.get('auth_user_organisations').map(org => new Organisation(org));
   }
 }

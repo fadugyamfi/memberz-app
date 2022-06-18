@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 import { SmsAccount } from '../../../shared/model/api/sms-account';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -13,13 +14,14 @@ import { EventsService } from '../../../shared/services/events.service';
 export class SettingsComponent implements OnInit {
 
   public smsAccount: SmsAccount;
-  public accountForm: FormGroup;
+  public accountForm: UntypedFormGroup;
   public editingAccount = false;
 
   constructor(
     public events: EventsService,
     public smsAccountService: SmsAccountService,
-    public organisationService: OrganisationService
+    public organisationService: OrganisationService,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -56,11 +58,11 @@ export class SettingsComponent implements OnInit {
   setupForm() {
     const organisation = this.organisationService.getActiveOrganisation();
 
-    this.accountForm = new FormGroup({
-      id: new FormControl(),
-      organisation_id: new FormControl(organisation.id),
-      sender_id: new FormControl('', [Validators.required, Validators.maxLength(11)]),
-      active: new FormControl(1)
+    this.accountForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      organisation_id: new UntypedFormControl(organisation.id),
+      sender_id: new UntypedFormControl('', [Validators.required, Validators.maxLength(11)]),
+      active: new UntypedFormControl(1)
     });
   }
 
@@ -79,5 +81,6 @@ export class SettingsComponent implements OnInit {
   }
 
   purchaseSmsCredit() {
+    this.router.navigate(['/organisation/messaging/purchase-credits']);
   }
 }

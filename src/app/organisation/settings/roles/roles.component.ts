@@ -4,7 +4,7 @@ import { OrganisationRoleService } from '../../../shared/services/api/organisati
 import { OrganisationRole } from '../../../shared/model/api/organisation-role';
 import { Subscription } from 'rxjs';
 import { PermissionsComponent } from '../permissions/permissions.component';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 
@@ -24,7 +24,7 @@ export class RolesComponent implements OnInit, OnDestroy {
 
   public modalTitle = 'Add Organisation Role';
   public editorModalRef: NgbModalRef;
-  public editorForm: FormGroup;
+  public editorForm: UntypedFormGroup;
   public saving = false;
 
   constructor(
@@ -67,11 +67,11 @@ export class RolesComponent implements OnInit, OnDestroy {
    * Sets up the form for creating a role
    */
   setupForm() {
-    this.editorForm = new FormGroup({
-      id: new FormControl(''),
-      name: new FormControl('', Validators.required),
-      description: new FormControl(''),
-      guard_name: new FormControl('api')
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(''),
+      name: new UntypedFormControl('', Validators.required),
+      description: new UntypedFormControl(''),
+      guard_name: new UntypedFormControl('api')
     });
   }
 

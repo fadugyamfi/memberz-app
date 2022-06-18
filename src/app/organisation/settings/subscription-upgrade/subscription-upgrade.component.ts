@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { OrganisationSubscription } from '../../../shared/model/api/organisation-subscription';
 import { Subscription, Observable } from 'rxjs';
 import { EventsService } from '../../../shared/services/events.service';
@@ -19,7 +19,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
 
-  public subscriptionForm: FormGroup;
+  public subscriptionForm: UntypedFormGroup;
   public activeSubscription: OrganisationSubscription;
   public subs: Subscription[] = [];
   public subscriptionTypes: SubscriptionType[];
@@ -37,10 +37,12 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadSubscriptionTypes();
     this.setupForm();
+    this.setupSlydepayEventListeners();
   }
 
   ngOnDestroy() {
     this.subs.forEach(sub => sub.unsubscribe());
+    this.removeSlydepayEventListeners();
   }
 
   loadSubscriptionTypes() {
@@ -57,17 +59,17 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
     const organisation = this.organisationService.getActiveOrganisation();
     this.activeSubscription = organisation.active_subscription;
 
-    this.subscriptionForm = new FormGroup({
-      organisation_id: new FormControl( organisation.id ),
-      subscription_type_name: new FormControl(
+    this.subscriptionForm = new UntypedFormGroup({
+      organisation_id: new UntypedFormControl( organisation.id ),
+      subscription_type_name: new UntypedFormControl(
         this.activeSubscription.subscription_type.description
       ),
-      subscription_type_id: new FormControl('', [Validators.required]),
-      organisation_subscription_id: new FormControl(this.activeSubscription.id),
-      length: new FormControl('', [Validators.required]),
-      next_upgrade_date: new FormControl(),
-      subscription_cost: new FormControl(),
-      payment_method: new FormControl('slydepay', [Validators.required])
+      subscription_type_id: new UntypedFormControl('', [Validators.required]),
+      organisation_subscription_id: new UntypedFormControl(this.activeSubscription.id),
+      length: new UntypedFormControl('', [Validators.required]),
+      next_upgrade_date: new UntypedFormControl(),
+      subscription_cost: new UntypedFormControl(),
+      payment_method: new UntypedFormControl('slydepay', [Validators.required])
     });
 
     this.subscriptionForm.controls.length.valueChanges.subscribe(value => {
@@ -105,6 +107,20 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
       next_upgrade_date: nextUpgradeDate.format('MMM DD, YYYY'),
       subscription_cost: upgradeCost.toFixed(2)
     });
+  }
+
+  setupSlydepayEventListeners() {
+    this.events.on('slydepay:payment:completion:success',   () => this.redirectToSubscriptions() );
+    this.events.on('slydepay:payment:completion:failed',    () => this.redirectToSubscriptions() );
+    this.events.on('slydepay:payment:cancellation:success', () => this.redirectToSubscriptions() );
+    this.events.on('slydepay:payment:cancellation:failed',  () => this.redirectToSubscriptions() );
+  }
+
+  removeSlydepayEventListeners() {
+    this.events.off('slydepay:payment:completion:success');
+    this.events.off('slydepay:payment:completion:failed');
+    this.events.off('slydepay:payment:cancellation:success');
+    this.events.off('slydepay:payment:cancellation:failed');
   }
 
   /**
@@ -176,4 +192,7 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
     this.router.navigate(['/organisation/settings/subscription']);
   }
 
+  redirectToSubscriptions() {
+    this.router.navigate(['/organisation/settings/subscription']);
+  }
 }

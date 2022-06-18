@@ -5,8 +5,8 @@
     <!-- Page Body Start-->
     <div class="page-body-wrapper" [ngClass]="customizer.data.settings.sidebar.body_type">
       <div class="page-sidebar" id="pages-sidebar" [class.open]="navServices.collapseSidebar"
-        [ngClass]="customizer.data.organisation_settings.sidebar_backround"
-        [attr.sidebar-layout]="this.customizer.data.organisation_settings.sidebar_setting">
+           [ngClass]="customizer.data.organisation_settings.sidebar_backround"
+           [attr.sidebar-layout]="this.customizer.data.organisation_settings.sidebar_setting">
         <app-organisation-sidebar></app-organisation-sidebar>
       </div>
       <div class="right-sidebar" [class.show]="right_side_bar" id="right_side_bar">
@@ -28,4 +28,14 @@
   </div>
   <!-- page-wrapper End-->
 </div>
-<app-customizer></app-customizer>
+<!-- <app-customizer></app-customizer> -->
+<div class="flyout animated slideInRight" [ngClass]="{open: flyoutOpen}">
+  <header class="text-end">
+    <button class="btn btn-xs btn-secondary btn-round" (click)="toggleFlyout()"><i class="fa fa-times"></i></button>
+  </header>
+  <div class="content">
+    <app-profile-view #profileView [membership]="membership" [layout]="'flyout'"></app-profile-view>
+  </div>
+</div>
+
+<app-tawk-chat [id]="_environment.tawkto.id"></app-tawk-chat>

@@ -15,9 +15,7 @@ export class ListFilterService {
   }
 
   fetchFilters() {
-    this.broadcastListService.getFilters().subscribe(filters => {
-      this.listFilters = filters;
-    });
+    this.broadcastListService.getFilters().subscribe(filters => this.listFilters = filters);
   }
 
   getQueryParts(filters: any[] = []) {

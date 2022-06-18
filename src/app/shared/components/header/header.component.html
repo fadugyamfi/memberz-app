@@ -1,13 +1,13 @@
 <!-- Page Header Start-->
 <div class="page-main-header" [ngClass]="{ open: navServices.collapseSidebar }" id="page-main-header">
-  <div class="main-header-right row">
+  <div class="main-header-right">
     <div class="main-header-left d-lg-none">
       <div class="logo-wrapper">
         <a href="javascript:void(0)"><img src="assets/images/logo_150.png" alt="" /></a>
       </div>
     </div>
     <div class="mobile-sidebar">
-      <div class="media-body text-right switch-sm">
+      <div class="flex-grow-1 text-end switch-sm">
         <label class="switch">
           <a href="javascript:void(0)" (click)="collapseSidebar()">
             <app-feather-icons id="sidebar-toggle" [icon]="'align-left'"></app-feather-icons>
@@ -41,7 +41,7 @@
               <div class="Typeahead-menu" [class.is-open]="searchResultEmpty">
                 <div class="tt-dataset tt-dataset-0">
                   <div class="EmptyMessage">
-                    Opps!! There are no result found.
+                   {{"Opps!! There are no result found." | translate}}
                   </div>
                 </div>
               </div>
@@ -70,50 +70,26 @@
               <a href="javascript:void(0)" data-lng="fr" (click)="changeLanguage('fr')"><i
                    class="flag-icon flag-icon-nz"></i> {{'French' | translate}}</a>
             </li>
+
+            <li>
+              <a href="javascript:void(0)" data-lng="ak" (click)="changeLanguage('ak')"><i
+                   class="flag-icon flag-icon-gh"></i> {{'Akan (Twi)' | translate}}</a>
+            </li>
           </ul>
         </li>
         <li class="onhover-dropdown">
-          <app-feather-icons [icon]="'bell'"></app-feather-icons><span class="dot"></span>
-          <ul class="notification-dropdown onhover-show-div">
-            <li>
-              {{ "Notification" | translate }}
-              <span class="badge badge-pill badge-primary ml-1">{{ unreadNotifications.length }}</span>
-              <a href="javascript:;" class="text-primary pull-right" (click)="markAllRead($event)"><span
-                      class="f-12">{{ "Clear All" | translate }}</span></a>
-            </li>
-            <li class="text-center" *ngIf="unreadNotifications.length == 0">
-              <app-feather-icons [icon]="'bell'"></app-feather-icons><span class="dot"></span> <br />
-              {{ "No new notifications" | translate }}
-            </li>
-            <li *ngFor="let notification of unreadNotifications; let row = index">
-              <div class="media">
-                <div class="media-body">
-                  <h6 class="mt-0">
-                    <span>
-                      <!-- <app-feather-icons class="shopping-color" [icon]="'shopping-bag'"></app-feather-icons> -->
-                    </span>
-                    {{ notification.title }}
-                    <small class="pull-right">{{ notification.timeAgo() }}</small>
-                  </h6>
-                  <p class="m-0">{{ notification.message }}</p>
-                </div>
-              </div>
-            </li>
-            <li class="bg-light txt-dark text-center">
-              <a href="javascript:void(0)">{{ "All" | translate }}</a>
-              {{ "notifications" | translate }}
-            </li>
-          </ul>
+          <app-header-notifications></app-header-notifications>
         </li>
-        <li>
+        <!-- HIDDEN CHAT TOGGLE -->
+        <!-- <li>
           <a>
             <app-feather-icons class="right_side_toggle" [icon]="'message-circle'" (click)="right_side_bar()">
             </app-feather-icons><span class="dot"></span>
           </a>
-        </li>
+        </li> -->
 
         <li class="onhover-dropdown">
-          <div class="media align-items-center" *ngIf="!authService.userData as user">
+          <div class="d-flex align-items-center" *ngIf="!authService.userData as user">
             <img class="align-self-center pull-right img-50 rounded-circle" src="assets/images/dashboard/user.png"
                  alt="header-user" />
             <div class="dotted-animation">
@@ -122,9 +98,8 @@
             </div>
           </div>
 
-          <div class="media align-items-center" *ngIf="authService.userData as user">
-            <img class="align-self-center pull-right img-50 rounded-circle"
-                 [src]="user?.member?.thumbnail() || 'assets/images/user/1.jpg'" alt="header-user" />
+          <div class="d-flex align-items-center" *ngIf="authService.userData as user">
+            <ngx-avatar [src]="user?.member?.thumbnail()" [name]="user?.member?.name()" initialsSize="2"></ngx-avatar>
             <!-- <div class="dotted-animation">
               <span class="animate-circle"></span>
               <span class="main-circle"></span>
@@ -133,11 +108,11 @@
 
           <ul class="profile-dropdown onhover-show-div p-20">
             <li>
-              <a href="javascript:void(0)">
+              <a routerLink="/portal/profile">
                 <app-feather-icons [icon]="'user'"></app-feather-icons> {{'Edit Profile' | translate }}
               </a>
             </li>
-            <li>
+            <!-- <li>
               <a href="javascript:void(0)">
                 <app-feather-icons [icon]="'mail'"></app-feather-icons> {{'Inbox' | translate }}
               </a>
@@ -151,7 +126,7 @@
               <a href="javascript:void(0)">
                 <app-feather-icons [icon]="'settings'"></app-feather-icons> {{'Settings' | translate }}
               </a>
-            </li>
+            </li> -->
             <li *ngIf="authService.userData as user">
               <a href="javascript:void(0)" (click)="authService.logout()">
                 <app-feather-icons [icon]="'log-out'"></app-feather-icons>{{'Logout' | translate }}

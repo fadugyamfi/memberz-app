@@ -10,6 +10,11 @@ import { StorageService } from '../../../shared/services/storage.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
+import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
+import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
+import { SystemSettingService } from '../../../shared/services/api/system-setting.service';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +32,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     public organisationService: OrganisationService,
     public storage: StorageService,
     public events: EventsService,
-    public smsAccountService: SmsAccountService
+    public smsAccountService: SmsAccountService,
+    public orgAccountService: OrganisationAccountService,
+    public translate: TranslateService,
+    public systemSettingService: SystemSettingService
   ) { }
 
   ngOnInit() {
@@ -83,7 +91,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     return this.organisations && this.organisations.length > 0;
   }
 
-  fetchUserOrganisations(page = 1, limit = 10) {
+  fetchUserOrganisations(page = 1, limit = 15) {
     this.organisations = null;
     const user = this.authService.userData;
     this.memberAccountService.organisations(user.id, page, limit).subscribe(organisations => this.organisations = organisations);
@@ -96,9 +104,23 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.events.trigger('switching_organisation');
     this.organisationService.setActiveOrganisation(org);
     this.smsAccountService.refreshAccount();
-    this.router.navigate(['/organisation/dashboard']);
+    const user = this.authService.userData;
 
-    setTimeout(() => Swal.close(), 1000);
+    this.orgAccountService.fetchAdminAccount(org.id, user.id).subscribe({
+      next: () => {
+        this.router.navigate(['/organisation/dashboard']).then(() => {
+          setTimeout(() => Swal.close(), 500);
+        });
+      },
+      error: () => {
+        Swal.fire(
+          this.translate.instant('Invalid Access'),
+          this.translate.instant('Could not retrieve a valid account to access this organisation\'s data'),
+          'error'
+        );
+        Swal.hideLoading();
+      }
+    })
   }
 
   deleteOrganisation(organisation: Organisation) {
@@ -127,5 +149,22 @@ export class HomeComponent implements OnInit, OnDestroy {
    */
   onPaginate(event: PageEvent) {
     this.fetchUserOrganisations(event.page, event.limit);
+  }
+
+  revertExperience(e) {
+    e.preventDefault();
+
+    Swal.fire({
+      title: this.translate.instant('Revert Experience'),
+      text: this.translate.instant('This will revert you to the old Memberz\.Org Web Experience on this device') + '.'
+      + this.translate.instant('You can re-activate the experience at any time'),
+      icon: 'info',
+      showCancelButton: true,
+    }).then((action) => {
+      if( action.isConfirmed ) {
+        window.location.href = `${environment.cakeapp.url}/new_experience/reset`;
+      }
+    })
+
   }
 }

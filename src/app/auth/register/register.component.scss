@@ -1,3 +1,7 @@
-.iti {
-    display: block !important;
+::ng-deep .iti {
+  width: 100%;
+}
+
+.authentication-box .theme-form .form-group .col-form-label {
+  color: #333;
 }

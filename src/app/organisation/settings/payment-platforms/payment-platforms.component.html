@@ -1,1 +1,148 @@
-<p>payment-platforms works!</p>
+<main class="row">
+  <section class="col-lg-10 offset-lg-1">
+
+    <div class="card">
+      <div class="card-body">
+        <button class="btn btn-sm btn-primary" (click)="showEditorModal()">
+          <i class="fa fa-plus-circle"></i> {{ 'Add Payment Platform' | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4" *ngFor="let platform of orgPlatformService.getItems()">
+        <div class="card">
+          <div class="card-header text-center">
+            <img src="/assets/images/{{ platform.payment_platform?.logo }}" height="60" />
+          </div>
+          <div class="card-body">
+            <h5>{{ platform.payment_platform?.name | translate }}</h5>
+            <h6>{{ platform?.currency?.currency_name | translate }} ({{ platform?.currency?.currency_code }})</h6>
+          </div>
+          <div class="card-footer d-flex justify-content-between">
+            <section>
+              <button class="btn btn-outline-info btn-xs me-2" (click)="showEditorModal(platform)"
+                      *ngIf="!platform.system_generated">
+                <i class='fa fa-pencil'></i> {{ 'Edit' | translate }}
+              </button>
+              <button class="btn btn-danger btn-xs" (click)="deletePlatform(platform)"
+                      *ngIf="!platform.system_generated">
+                <i class='fa fa-trash-o'></i>
+              </button>
+            </section>
+
+            <section>
+              <label class="badge badge-primary m-auto" *ngIf="platform.system_generated">
+                {{ 'System Generated' | translate }}. {{ 'Not Editable' | translate }}
+              </label>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+<ng-template #editorModal let-modal>
+  <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="editorForm">
+    <div class="modal-header">
+      <div>
+        <h5 class="modal-title" id="modal-basic-title">{{'Payment Platform Editor' | translate}}</h5>
+      </div>
+
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">{{ 'Payment Platform' | translate}}</label>
+        <div class="col-sm-9">
+          <select class="form-select" formControlName="payment_platform_id">
+            <option value="">{{ 'Select Platform' | translate }}</option>
+            <option *ngFor="let platform of paymentPlatforms" [value]="platform.id">{{ platform.name }}</option>
+          </select>
+
+          <div class="messages text-danger" *ngIf="editorForm.controls.payment_platform_id?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Payment Platform Required' | translate}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="configKeyNames.length > 0" class="animated fadeInDown">
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">{{ 'Connection Mode' | translate}}</label>
+
+          <div class="col-sm-9">
+            <div class="m-checkbox-inline">
+              <div class="radio">
+                <input id="sandbox" type="radio" formControlName="platform_mode" value="sandbox" />
+                <label for="sandbox">{{ 'Sandbox' | translate }}</label>
+              </div>
+
+              <div class="radio">
+                <input id="live" type="radio" formControlName="platform_mode" value="live" />
+                <label for="live">{{ 'LIVE' | translate }}</label>
+              </div>
+            </div>
+
+
+            <div class="messages text-danger" *ngIf="editorForm.controls.platform_mode?.errors?.required">
+              <p class="m-b-0 m-t-5">{{ 'Connection Mode Required' | translate}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div [formGroup]="configKeysGroup">
+          <div class="form-group row" *ngFor="let key of configKeyNames">
+            <label class="col-sm-3 col-form-label">{{ key | translate}}</label>
+
+            <div class="col-sm-9">
+              <input type="text" class="form-control" [formControlName]="key" placeholder="" />
+
+              <div class="messages text-danger" *ngIf="configKeysGroup.controls[key]?.errors?.required">
+                <p class="m-b-0 m-t-5">{{ key | titlecase | translate }} {{ 'Required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">{{ 'Default Currency' | translate}}</label>
+        <div class="col-sm-9">
+          <app-select-currency-control formControlName="currency_id"></app-select-currency-control>
+
+          <div class="messages text-danger" *ngIf="editorForm.controls.currency_id?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Currency Required' | translate}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label">{{ 'Default Country' | translate}}</label>
+        <div class="col-sm-9">
+          <app-select-country-control formControlName="country_id"></app-select-country-control>
+
+          <div class="messages text-danger" *ngIf="editorForm.controls.country_id?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Country Required' | translate}}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <span *ngIf="orgPlatformService?.saving" class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i>
+        {{'Saving' | translate}}...
+      </span>
+
+      <button type="submit" class="btn btn-primary">{{'Save Changes' | translate}}</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' |
+        translate}}</button>
+    </div>
+  </form>
+</ng-template>

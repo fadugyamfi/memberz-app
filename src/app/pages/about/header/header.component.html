@@ -1,0 +1,29 @@
+<div class="header bg-primary">
+  <div class="row">
+    <div class="col-lg-6 col-8">
+      <section class="brand">
+        <a href="#">
+          <img src="/assets/images/logo_500_lc.png" width="200" />
+        </a>
+      </section>
+    </div>
+
+    <div class="col-lg-6 col-4 text-end nav-section">
+      <a href="javascript:void(0)" class="menu-icon opener" (click)="openNav()">
+        <i class="fa fa-bars fa-2x text-white"></i>
+      </a>
+      <a href="javascript:void(0)" class="menu-icon closer" (click)="closeNav()">
+        <i class="fa fa-times fa-2x text-primary"></i>
+      </a>
+
+      <nav class="">
+        <a routerLink="/" fragment="about" (click)="closeNav()">About</a>
+        <a routerLink="/" fragment="pricing" (click)="closeNav()">Pricing</a>
+        <a routerLink="/auth/login">Sign In</a>
+      </nav>
+    </div>
+  </div>
+
+
+
+</div>

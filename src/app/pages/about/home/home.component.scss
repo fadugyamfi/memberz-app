@@ -1,0 +1,27 @@
+
+.hero {
+  min-height: 300px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  width: 100%;
+  padding: 30px;
+  margin-top: 20px;
+}
+
+.auth-bg {
+  padding: 25px 50px;
+}
+
+.page-wrapper {
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .auth-bg {
+    padding: 0px;
+    width: 100%;
+  }
+}

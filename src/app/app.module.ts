@@ -2,25 +2,27 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule } from './shared/shared.module';
+// import { SharedModule } from './shared/shared.module';
+import { DragulaModule } from 'ng2-dragula';
 import { AppRoutingModule } from './app-routing.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
 import { ToastrModule } from 'ngx-toastr';
 
-import { AdminGuard } from './shared/guard/admin.guard';
+import { UserLoggedInGuard } from './shared/guard/user-logged-in.guard';
 import { SecureInnerPagesGuard } from './shared/guard/SecureInnerPagesGuard.guard';
 
 import { environment } from '../environments/environment';
 import { SlydepayModule } from 'slydepay-angular';
-import { RegisterComponent } from './auth/register/register.component';
-import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
+import { LoaderComponent } from './shared/components/loader/loader.component';
 
+import { AvatarModule, AvatarSource } from 'ngx-avatar';
+import { OrganisationInterceptor } from './shared/services/interceptors/organisation-interceptor.service';
+import { RequestErrorHandler } from './shared/services/interceptors/request-error-handler.service';
+import { RequestInterceptor } from './shared/services/interceptors/request-interceptor.service';
+const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -30,20 +32,20 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    ForgotPasswordComponent,
-    ResetPasswordComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    SharedModule,
+    // SharedModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxIntlTelInputModule,
+    DragulaModule.forRoot(),
+    AvatarModule.forRoot({
+      sourcePriorityOrder: avatarSourcesOrder
+    }),
     ToastrModule.forRoot({
       preventDuplicates: true
     }),
@@ -57,7 +59,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     SlydepayModule.forRoot( environment.slydepay )
   ],
-  providers: [AdminGuard, SecureInnerPagesGuard],
+  providers: [
+    UserLoggedInGuard,
+    SecureInnerPagesGuard,
+    // error handling
+    RequestErrorHandler,
+    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+
+    // appending organisation_id to requests
+    { provide: HTTP_INTERCEPTORS, useClass: OrganisationInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

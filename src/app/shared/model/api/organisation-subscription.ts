@@ -20,15 +20,45 @@ export class OrganisationSubscription extends AppModel {
   }
 
   expiresIn(): string {
-    return this.subscription_type && this.subscription_type.validity !== 'forever' ? 'Expires ' + moment(this.end_dt).fromNow() : 'Never Expires';
+    if( this.validForever() ) {
+      return 'Never Expires';
+    }
+
+    const daysRemaining = moment(this.end_dt).fromNow();
+
+    return this.isExpired() ? `Expired ${daysRemaining}` : `Expires ${daysRemaining}`;
+  }
+
+  validForever() {
+    return this.subscription_type && this.subscription_type.validity == 'forever';
   }
 
   isExpired(): boolean {
-    return this.subscription_type && this.subscription_type.validity !== 'forever' && moment(this.end_dt).isBefore(moment());
+    return !this.validForever() && moment(this.end_dt).isBefore(moment());
+  }
+
+  isExpiring() {
+    return !this.isExpired() && !this.validForever() && moment(this.end_dt).subtract(60, 'days').isBefore(moment());
   }
 
   invoicePaid(): boolean {
     return this.organisation_invoice != null && this.organisation_invoice.paid;
+  }
+
+  isFreePlan() {
+    return this.subscription_type?.description == 'Free Plan';
+  }
+
+  isBasicPlan() {
+    return this.subscription_type?.description == 'Basic Plan';
+  }
+
+  isProPlan() {
+    return this.subscription_type?.description == 'Pro Plan';
+  }
+
+  canAccessFinance() {
+    return this.subscription_type?.revenue_tracking == 1;
   }
 
   set subscription_type(value) {

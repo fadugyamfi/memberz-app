@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { Member } from '../../../shared/model/api/member';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
@@ -21,8 +21,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class ProfileEditorComponent implements OnInit, OnDestroy {
 
   public categories: OrganisationMemberCategory[];
-  public profileForm: FormGroup;
-  public membershipForm: FormGroup;
+  public profileForm: UntypedFormGroup;
+  public membershipForm: UntypedFormGroup;
 
   public mbshp: OrganisationMember;
   public subscriptions: Subscription[] = [];
@@ -117,29 +117,30 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   setupEditorForm() {
     const activeOrganisation = this.organisationService.getActiveOrganisation();
 
-    this.membershipForm = new FormGroup({
-      id: new FormControl(),
-      organisation_id: new FormControl(activeOrganisation.id),
-      member_id: new FormControl(),
-      organisation_no: new FormControl({ value: '', disabled: true }),
-      organisation_member_category_id: new FormControl('', [Validators.required]),
-      active: new FormControl(1),
-      approved: new FormControl(1)
+    this.membershipForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      organisation_id: new UntypedFormControl(activeOrganisation.id),
+      member_id: new UntypedFormControl(),
+      organisation_no: new UntypedFormControl({ value: '', disabled: true }),
+      organisation_member_category_id: new UntypedFormControl('', [Validators.required]),
+      active: new UntypedFormControl(1),
+      approved: new UntypedFormControl(1)
     });
 
-    this.profileForm = new FormGroup({
-      id: new FormControl(),
-      title: new FormControl(),
-      first_name: new FormControl('', [Validators.required]),
-      last_name: new FormControl('', [Validators.required]),
-      middle_name: new FormControl(''),
-      dob: new FormControl(''),
-      gender: new FormControl('', [Validators.required]),
-      occupation: new FormControl(),
-      business_name: new FormControl(),
-      email: new FormControl('', [Validators.email]),
-      mobile_number: new FormControl(''),
-      active: new FormControl(1)
+    this.profileForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      title: new UntypedFormControl(),
+      first_name: new UntypedFormControl('', [Validators.required]),
+      last_name: new UntypedFormControl('', [Validators.required]),
+      middle_name: new UntypedFormControl(''),
+      dob: new UntypedFormControl(''),
+      gender: new UntypedFormControl('', [Validators.required]),
+      occupation: new UntypedFormControl(),
+      business_name: new UntypedFormControl(),
+      nationality: new UntypedFormControl(''),
+      email: new UntypedFormControl('', [Validators.email]),
+      mobile_number: new UntypedFormControl(''),
+      active: new UntypedFormControl(1)
     });
   }
 

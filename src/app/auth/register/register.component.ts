@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormBuilder, Validators, FormGroup, FormControl } from "@angular/forms";
+import { Component, OnInit } from "@angular/core";
+import { UntypedFormBuilder, Validators, UntypedFormGroup, UntypedFormControl } from "@angular/forms";
 import { AuthService } from "../../shared/services/api/auth.service";
-import { ToastrService } from "ngx-toastr";
 import { EventsService } from "../../shared/services/events.service";
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
@@ -19,8 +18,8 @@ type FormErrors = { [u in UserFields]: string };
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
 })
-export class RegisterComponent implements OnInit, OnDestroy {
-  public registerForm: FormGroup;
+export class RegisterComponent implements OnInit {
+  public registerForm: UntypedFormGroup;
   public formErrors: FormErrors = {
     first_name: "",
     last_name: "",
@@ -39,48 +38,32 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   constructor(
     public authService: AuthService,
-    private fb: FormBuilder,
-    public toastrService: ToastrService,
+    private fb: UntypedFormBuilder,
     public events: EventsService
   ) {
     this.registerForm = fb.group({
-      first_name: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-      last_name: new FormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(30)]),
-      dob: new FormControl("", [Validators.required]),
-      gender: new FormControl("", [Validators.required]),
-      mobile_number: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
-      email: new FormControl("", [Validators.required, Validators.email]),
-      password: new FormControl("", [Validators.required,  Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]),
+      first_name: new UntypedFormControl("", [Validators.minLength(3), Validators.maxLength(30)]),
+      last_name: new UntypedFormControl("", [Validators.minLength(3), Validators.maxLength(30)]),
+      name: new UntypedFormControl("", [Validators.required, Validators.minLength(3), Validators.maxLength(100)]),
+      dob: new UntypedFormControl("", []),
+      gender: new UntypedFormControl("", []),
+      mobile_number: new UntypedFormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+      email: new UntypedFormControl("", [Validators.required, Validators.email]),
+      password: new UntypedFormControl("", [Validators.required,  Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]),
     });
   }
 
   ngOnInit() {
-
     this.authService.requesting = false;
-
-    this.events.on("toast", (toast) => {
-      switch (toast.type) {
-        case "error":
-          this.toastrService.error(toast.msg, toast.title);
-          break;
-
-        case "success":
-          this.toastrService.success(toast.msg, toast.title);
-          break;
-
-        default:
-          this.toastrService.info(toast.msg, toast.title);
-      }
-    });
-  }
-
-  ngOnDestroy() {
-    this.events.off("toast");
   }
 
   register() {
     const input = this.registerForm.value;
+    const names: string[] = input.name.split(" ");
+    input.first_name = names[0];
+    input.last_name = names.filter((v, i) => i > 0).join(' ');
     input.mobile_number = input.mobile_number.e164Number;
+
     this.authService.register(input);
   }
 }

@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import * as moment from 'moment';
 import { FinanceDashboardService } from 'src/app/shared/services/api/finance-dashboard.service';
 import * as chartData from '../../../data/chart/chartjs';
+import { OrganisationService } from '../../../services/api/organisation.service';
 
 @Component({
   selector: 'app-finance-trend',
@@ -9,6 +11,9 @@ import * as chartData from '../../../data/chart/chartjs';
   styleUrls: ['./finance-trend.component.scss']
 })
 export class FinanceTrendComponent implements OnInit {
+
+
+  @Input() title = 'Income Trend';
 
   private monthObjLabels = chartData.monthObjLabels;
   public labels = [];
@@ -24,20 +29,33 @@ export class FinanceTrendComponent implements OnInit {
   public showChart = true;
   public yearValue: number = null;
 
+  public chartForm: UntypedFormGroup;
+
   constructor(
-    public reportService: FinanceDashboardService
+    public reportService: FinanceDashboardService,
+    public organisationService: OrganisationService
   ) { }
 
   ngOnInit(): void {
-    this.searchByYear(moment().year());
+    this.setupForm();
+    this.fetchData(moment().year());
   }
 
-  searchByYear(value: number) {
-    if (!this.showChart) { return }
+  setupForm() {
+    this.chartForm = new UntypedFormGroup({
+      year: new UntypedFormControl(moment().year()),
+      contribution_type_id: new UntypedFormControl()
+    });
 
+    this.chartForm.valueChanges.subscribe(values => {
+      this.fetchData(values.year, values.contribution_type_id);
+    })
+  }
+
+  fetchData(year: number, contribution_type_id: number = null) {
     this.showChart = false;
-    this.yearValue = value;
-    this.reportService.getTrendReport(this.yearValue).subscribe((data: any[]) => {
+
+    this.reportService.getTrendReport(year, contribution_type_id).subscribe((data: any[]) => {
       this.processChartData(data);
     });
   }
@@ -111,4 +129,14 @@ export class FinanceTrendComponent implements OnInit {
     return this.chartData && this.chartData.length > 0;
   }
 
+  canShowWidgetData() {
+    return this.showChart && this.hasDataAvailable() && this.canAccessFinance();
+  }
+
+  canAccessFinance() {
+    const org = this.organisationService.getActiveOrganisation();
+    if( !org ) return false;
+
+    return org.active_subscription?.canAccessFinance();
+  }
 }

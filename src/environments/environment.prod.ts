@@ -9,14 +9,21 @@ export const environment = {
     messagingSenderId: 'YOUR_MESSAGE_SENDER_ID',
     appId: 'YOUR_APPID'
   },
-  cakeapi: {
-    url: 'https://memberz.org/api'
+  cakeapp: {
+    url: 'https://memberz.org'
   },
   api: {
-    url: 'http://api-beta.memberz.org/api'
+    url: 'https://api.memberz.org/api'
   },
   slydepay: {
+    mode: 'live',
     emailOrMobileNumber: 'info@matrixdesignsgh.com',
     merchantKey: '1429300048036'
+  },
+  tawkto: {
+    id: '5649aa64f3f36c356bb98bd4'
+  },
+  tinymce: {
+    apiKey: "f421hc0i4wju0e1hq26rppbvgw6b1oqfqqc7nfnvb9hmugib"
   }
 };

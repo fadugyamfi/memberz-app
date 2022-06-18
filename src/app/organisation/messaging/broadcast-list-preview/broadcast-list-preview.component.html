@@ -24,7 +24,7 @@
       <tr *ngFor="let contact of listContacts; let row = index">
         <td>{{ row + 1 }}.</td>
         <td>
-          <a [routerLink]="['/organisation/memberships/view', contact.membership_id]" target="profile">
+          <a href="javascript:void(0)" viewProfile [membershipId]="contact.membership_id">
             {{ contact.last_name }} {{ contact.first_name }}
           </a>
         </td>

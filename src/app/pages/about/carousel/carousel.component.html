@@ -1,0 +1,30 @@
+<div class="bg-primary w-100 carousel">
+
+  <div class="row">
+    <div class="col-xl-6 cta-area">
+      <h1>Membership Management Made Easy</h1>
+      <h6>Get the multi-purpose membership management platform to track your numerical, financial and social growth</h6>
+
+      <button class="btn btn-lg btn-pill m-t-30 cta" routerLink="/auth/register">
+        Get Started
+      </button>
+    </div>
+    <div class="col-xl-6">
+      <section class="d-flex align-items-center h-100">
+        <ngb-carousel>
+          <ng-template ngbSlide *ngFor="let image of images">
+            <div class="picsum-img-wrapper">
+              <img [src]="image.src" alt="Random first slide" class="w-100">
+            </div>
+            <div class="carousel-caption">
+              <h3>{{ image.title }}</h3>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </div>
+          </ng-template>
+        </ngb-carousel>
+      </section>
+    </div>
+  </div>
+
+
+</div>

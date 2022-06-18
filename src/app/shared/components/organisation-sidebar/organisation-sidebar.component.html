@@ -3,28 +3,30 @@
 </div>
 <div class="sidebar custom-scrollbar">
 
-  <div class="sidebar-user text-center" *ngIf="organisationService.getActiveOrganisation() as organisation">
-    <div>
-      <img class="img-60 rounded-circle shadow-0" [src]="organisation?.logo || 'assets/images/user/1.jpg'" alt="#">
-      <!-- <div class="profile-edit">
+  <div class="sidebar-user text-center" *ngIf="organisation">
+    <div class="d-flex justify-content-center">
+      <ngx-avatar [src]="organisation?.logo" [name]="organisation?.name" [size]="120"></ngx-avatar>
+      <div class="profile-edit">
         <a>
-          <i class="icofont icofont-pencil-alt-5"><input class="upload" type="file" (change)="readUrl($event)" /></i>
+          <i class="icofont icofont-pencil-alt-5" (click)="imageCropper.show()"></i>
+          <!-- <input class="upload" type="file" (change)="readUrl($event)" /> -->
         </a>
-      </div> -->
+      </div>
+      <app-image-cropper #imageCropper (save)="onCroppedImageSaved($event)"></app-image-cropper>
     </div>
     <h6 class="mt-3 f-14">{{ organisation?.name }}</h6>
     <p>{{ organisation?.email }}</p>
 
-    <button class="btn btn-warning btn-xs m-t-15" (click)="switchOrganisation()">Switch Organisation</button>
+    <button class="btn btn-warning btn-xs m-t-15" (click)="switchOrganisation()">{{'Switch Organisation' | translate}}</button>
   </div>
 
   <ul class="sidebar-menu">
-    <li *ngFor="let menuItem of menuItems" [ngClass]="{active: menuItem.active}">
+    <li *ngFor="let menuItem of menuItems" [ngClass]="{active: menuItem.active}" [adminHasPermission]="menuItem.permission">
       <!-- Sub -->
       <a href="javascript:void(0)" class="sidebar-header" *ngIf="menuItem.type === 'sub'"
          (click)="toggletNavActive(menuItem)">
         <app-feather-icons [icon]="menuItem.icon"></app-feather-icons><span>{{menuItem.title| translate}}<span
-                class="badge badge-{{menuItem.badgeType}} ml-3"
+                class="badge badge-{{menuItem.badgeType}} ms-3"
                 *ngIf="menuItem.badgeType">{{menuItem.badgeValue}}</span></span>
         <i class="fa fa-angle-right pull-right" *ngIf="menuItem.children"></i>
       </a>
@@ -32,14 +34,14 @@
       <a [routerLink]="!menuItem.type ? null : [menuItem.path]" routerLinkActive="active" class="sidebar-header"
          *ngIf="menuItem.type === 'link'">
         <app-feather-icons [icon]="menuItem.icon"></app-feather-icons><span>{{menuItem.title| translate}}<span
-                class="badge badge-{{menuItem.badgeType}} ml-3"
+                class="badge badge-{{menuItem.badgeType}} ms-3"
                 *ngIf="menuItem.badgeType">{{menuItem.badgeValue}}</span></span>
         <i class="fa fa-angle-right pull-right" *ngIf="menuItem.children"></i>
       </a>
       <!-- External Link -->
       <a href="{{ !menuItem.type ? null : menuItem.path }}" class="sidebar-header" *ngIf="menuItem.type === 'extLink'">
         <app-feather-icons [icon]="menuItem.icon"></app-feather-icons><span>{{menuItem.title| translate}}<span
-                class="badge badge-{{menuItem.badgeType}} ml-3"
+                class="badge badge-{{menuItem.badgeType}} ms-3"
                 *ngIf="menuItem.badgeType">{{menuItem.badgeValue}}</span></span>
         <i class="fa fa-angle-right pull-right" *ngIf="menuItem.children"></i>
       </a>
@@ -47,14 +49,14 @@
       <a href="{{ !menuItem.type ? null : menuItem.path }}" target="_blank" class="sidebar-header"
          *ngIf="menuItem.type === 'extTabLink'">
         <app-feather-icons [icon]="menuItem.icon"></app-feather-icons><span>{{menuItem.title| translate}}<span
-                class="badge badge-{{menuItem.badgeType}} ml-3"
+                class="badge badge-{{menuItem.badgeType}} ms-3"
                 *ngIf="menuItem.badgeType">{{menuItem.badgeValue}}</span></span>
         <i class="fa fa-angle-right pull-right" *ngIf="menuItem.children"></i>
       </a>
       <!-- 2nd Level Menu -->
       <ul class="sidebar-submenu" [ngClass]="{'menu-open': menuItem.active, 'menu-close': !menuItem.active }"
           *ngIf="menuItem.children">
-        <li *ngFor="let childrenItem of menuItem.children" [ngClass]="{active: childrenItem.active}">
+        <li *ngFor="let childrenItem of menuItem.children" [ngClass]="{active: childrenItem.active}" [adminHasPermission]="childrenItem.permission">
           <!-- Sub -->
           <a href="javascript:void(0)" *ngIf="childrenItem.type === 'sub'" (click)="toggletNavActive(childrenItem)">
             <i class="fa fa-circle"></i><span> {{childrenItem.title| translate}} <span

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpInterceptor, HttpHandler } from '@angular/common/http';
 import { OrganisationService } from '../api/organisation.service';
+import { environment } from '../../../../environments/environment';
 
 @Injectable()
 export class OrganisationInterceptor implements HttpInterceptor {
@@ -9,7 +10,8 @@ export class OrganisationInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         const organisation = this.organisationService.getActiveOrganisation();
-        if (organisation) {
+
+        if (organisation && req.url.includes(environment.api.url) && !req.headers.has('X-Tenant-Id')) {
             const cloneReq = req.clone({
                 setHeaders: {
                   'X-Tenant-Id': organisation.uuid

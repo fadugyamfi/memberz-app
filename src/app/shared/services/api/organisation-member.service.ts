@@ -66,10 +66,17 @@ export class OrganisationMemberService extends APIService<OrganisationMember> {
     }));
   }
 
-  unapproved() {
-    return this.get(`${this.url}/unapproved`).pipe(map(response => {
+  unapproved(options = {}) {
+    return this.get(`${this.url}/unapproved`, options).pipe(map(response => {
       return response['data'].map(result => new OrganisationMember(result));
     }));
   }
 
+  birthdays(options = {}) {
+    return this.get(`${this.url}/birthdays`, options);
+  }
+
+  birthdaySummary(options = {}) {
+    return this.get(`${this.url}/birthdays/summary`, options);
+  }
 }

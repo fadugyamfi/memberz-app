@@ -1,10 +1,10 @@
 <div class="m-t-20 m-b-20"> <!-- fixed-top -->
-    <div class="media">
-      <div class="media-left">
+    <div class="d-flex">
+      <div class="flex-shrink-0">
         <img class="img-80" src="{{ org?.logo || 'assets/images/logo_150.png' }}" alt="Memberz.org Logo">
       </div>
-  
-      <div class="media-body">
+
+      <div class="flex-grow-1">
         <h5>{{ org.name | titlecase }}</h5>
         <p class="mb-0">{{ org.address }}</p>
         <p class="mb-0">
@@ -14,4 +14,3 @@
       </div>
     </div>
   </div>
-  

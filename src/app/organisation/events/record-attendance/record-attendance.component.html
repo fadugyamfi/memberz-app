@@ -1,0 +1,90 @@
+<div class="card">
+  <div class="card-header d-flex align-items-center">
+    <button class="btn btn-outline-primary btn-pill btn-sm m-r-15" [routerLink]="['/organisation/events/list']">
+      <i class="fa fa-arrow-left"></i> {{ 'Back To Events' | translate }}
+    </button>
+    <h5>{{ event?.event_name }}</h5>
+  </div>
+
+  <div class="card-body">
+    <form class="form form-inline align-items-start justify-content-center" [formGroup]="filterForm" (submit)="onFilter($event)">
+      <div class="row">
+        <div class="col d-flex flex-column align-items-start">
+          <select class="form-select form-select-sm" formControlName="organisation_event_session_id">
+            <option value="">{{ 'Select Session' | translate }}</option>
+            <option *ngFor="let session of event?.sessions" [value]="session.id">{{ session.session_name }}</option>
+          </select>
+          <div class="messages text-danger" *ngIf="filterForm.controls.organisation_event_session_id?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Session Required' | translate}}</p>
+          </div>
+        </div>
+
+        <div class="col d-flex flex-column  align-items-star">
+          <select class="form-select form-select-sm" formControlName="organisation_member_category_id">
+            <option value="">{{ 'Select Category' | translate }}</option>
+            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+          </select>
+
+          <div class="messages text-danger" *ngIf="filterForm.controls.organisation_member_category_id?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Category Required' | translate}}</p>
+          </div>
+        </div>
+
+        <div class="col">
+          <input type="text" class="form-control form-control-sm" formControlName="last_name_like" placeholder="{{ 'Last Name' }}" />
+        </div>
+
+        <div class="col">
+          <input type="text" class="form-control form-control-sm" formControlName="first_name_like" placeholder="{{ 'First Name' }}" />
+        </div>
+
+        <div class="col">
+          <button type="submit" class="btn btn-sm btn-outline-primary">{{ 'Fetch Members' | translate }}</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <app-loading-rotate-dashed *ngIf="membershipService.fetching"></app-loading-rotate-dashed>
+
+  <div class="card-body" *ngIf="!membershipService.fetching && memberships?.length > 0">
+    <ul>
+      <li *ngFor="let membership of attendingMemberships" class="w-33 d-inline-block p-2">
+        <div class="card border border-secondary mb-0">
+          <div class="card-body d-flex align-items-center justify-content-between w-100 p-3">
+            <section class="w-25 text-center">
+              <ngx-avatar [src]="membership.member.image()" [name]="membership.name()" initialsSize="2" [size]="60"></ngx-avatar>
+            </section>
+
+            <section class="flex-grow-1">
+              <p class="text-uppercase text-truncate fw-bold mb-1">
+                <a href="javascript:void(0)" viewProfile [membership]="membership">{{ membership.nameLastFirst() }}</a>
+              </p>
+              <div class="text-uppercase text-muted">{{ membership.organisation_no }}</div>
+            </section>
+            <section class="">
+              <button class="btn btn-sm btn-light btn-round" *ngIf="!membership.event_attendee" (click)="markPresent(membership)">
+                <i class="fa fa-fw fa-check"></i>
+              </button>
+              <button class="btn btn-sm btn-success btn-round" *ngIf="membership.event_attendee" (click)="unmarkPresent(membership)">
+                <i class="fa fa-fw fa-check"></i>
+              </button>
+            </section>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="m-t-30 m-b-30 text-center" *ngIf="memberships && memberships.length == 0">
+    <img src="/assets/images/icons/circle-search.svg" height="180" class="m-b-30" />
+    <h4 class="fw-bold">{{'No Memberships Found' | translate}}</h4>
+    <h6>{{'Search for membership to mark as present for the selected session of this event' | translate}}</h6>
+  </div>
+
+
+  <div class="card-footer">
+    <app-pagination [service]="membershipService" (paginate)="onPaginate($event)"></app-pagination>
+  </div>
+</div>

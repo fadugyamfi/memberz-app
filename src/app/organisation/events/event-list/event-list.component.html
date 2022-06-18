@@ -1,0 +1,245 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <button class="btn btn-primary btn-sm m-r-10" adminHasPermission="events:manage:add"
+                (click)="showEditorModal()">
+          <i class="fa fa-plus"></i> {{'Add Event' | translate}}
+        </button>
+      </div>
+
+      <div class="col-md-6 text-end">
+        <button class="btn btn-outline-info btn-sm m-r-10" (click)="showSearchModal()">
+          <i class="fa fa-search"></i> {{'Find Events' | translate}}
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <app-loading-rotate-dashed *ngIf="eventService.fetching"></app-loading-rotate-dashed>
+
+  <div *ngIf="eventService.getItems() as events">
+
+    <ng-template #noItems>
+      <div class="m-t-30 m-b-30 text-center" *ngIf="!eventService.fetching">
+        <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
+        <h4 class="fw-bold">{{'No Events Found' | translate}}</h4>
+        <h6>{{'Please search for events or add a new one to display results here' | translate}}</h6>
+      </div>
+    </ng-template>
+
+    <ng-container *ngIf="events.length; else noItems">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th colspan="2">{{'Name' | translate}}</th>
+            <th class="text-center">{{'Date(s)' | translate}}</th>
+            <th class="text-center">{{'Times' | translate}}</th>
+            <th class="text-center">{{'Sessions' | translate}}</th>
+            <th class="text-center">{{'Attendees' | translate}}</th>
+            <th class="text-center">{{'Actions' | translate}}</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let event of events; let row = index">
+            <td class="text-end">{{ row + eventService?.pagingMeta?.from }}.</td>
+            <td>{{ event.event_name }}</td>
+            <td class="text-center" [noWrap]="true">{{ event.dates }}</td>
+            <td class="text-center" [noWrap]="true">{{ event.times }}</td>
+            <td class="text-center">{{ event.session_count || 1 }}</td>
+            <td class="text-center">{{ event.attendee_count || 0 }}</td>
+
+            <td class="text-center" [noWrap]="true">
+              <button class="btn btn-xs btn-primary m-r-10" adminHasPermission="events:manage:edit" (click)="viewSessions(event)">
+                <i class="fa fa-list"></i> {{'Sessions' | translate}}
+              </button>
+
+              <span class="m-r-10" ngbDropdown>
+                <button class="btn btn-xs btn-outline-primary" ngbDropdownToggle>
+                  <i class="fa fa-check-square"></i> {{ 'Attendance' | translate }}
+                </button>
+                <ul ngbDropdownMenu>
+                  <a href="javascript:void(0)" ngbDropdownItem [routerLink]="['/organisation/events/record-attendance', event.id]">
+                    <i class="fa fa-fw fa-pencil"></i> {{ 'Record Attendance' | translate }}
+                  </a>
+                  <a href="javascript:void(0)" ngbDropdownItem [routerLink]="['/organisation/events/attendance-list', event.id]">
+                    <i class="fa fa-fw fa-list-alt"></i> {{ 'Attendance List' | translate }}
+                  </a>
+                  <!--<a href="javascript:void(0)" ngbDropdownItem>
+                    <i class="fa fa-fw fa-bar-chart"></i> {{ 'Report' | translate }}
+                  </a>
+                   <li class="dropdown-divider"></li>
+                  <a href="javascript:void(0)" ngbDropdownItem>
+                    <i class="fa fa-fw fa-mobile"></i> {{ 'Mobile Attendance' | translate }}
+                  </a> -->
+
+                </ul>
+              </span>
+
+              <span class="m-r-10" ngbDropdown placement="bottom-right">
+                <button class="btn btn-xs btn-primary" ngbDropdownToggle>
+                  <i class="fa fa-cog"></i> {{ 'Actions' | translate }}
+                </button>
+                <ul ngbDropdownMenu>
+                  <a href="javascript:void(0)" ngbDropdownItem adminHasPermission="events:manage:edit" (click)="showEditorModal(event)">
+                    <i class="fa fa-pencil"></i> {{'Edit' | translate}}
+                  </a>
+
+                  <li class="dropdown-divider"></li>
+
+                  <a href="javascript:void(0)" ngbDropdownItem adminHasPermission="events:manage:delete" (click)="deleteEvent(event)">
+                    <i class="fa fa-trash-o"></i> {{'Delete' | translate}}
+                  </a>
+                </ul>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+
+  </div>
+
+  <div class="card-footer">
+    <app-pagination [service]="eventService" (paginate)="onPaginate($event)"></app-pagination>
+  </div>
+</div>
+
+<ng-template #searchModal let-modal>
+  <form (submit)="onSearch($event)" class="form form-horizontal theme-form" [formGroup]="searchForm">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{'Find Events' | translate}}</h4>
+      <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Name' | translate}}</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" placeholder="e.g. Default" formControlName="name_like" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Start Date' | translate}}</label>
+        <div class="col-sm-8">
+          <input type="date" class="form-control" placeholder="YYYY-MM-DD" formControlName="start_dt" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">{{'Last Date' | translate}}</label>
+        <div class="col-sm-8">
+          <input type="date" class="form-control" placeholder="YYYY-MM-DD" formControlName="end_dt" />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary">{{'Search' | translate}}</button>
+      <button type="reset" class="btn btn-outline-info">{{'Clear' | translate}}</button>
+      <button type="button" class="btn btn-outline-danger"
+              (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #editorModal let-modal>
+  <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="editorForm">
+    <div class="modal-header">
+      <h5 class="modal-title" id="modal-basic-title">{{'Event Editor' | translate}}</h5>
+      <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{'Calendar' | translate}}</label>
+        <div class="col-sm-10">
+          <select class="form-select" formControlName="organisation_calendar_id">
+            <option value="">{{ 'Select Calendar' | translate }}</option>
+            <option *ngFor="let calendar of calendars" [value]="calendar.id">{{ calendar.name }}</option>
+          </select>
+          <div class="messages text-danger" *ngIf="editorForm.controls.organisation_calendar_id?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Event Calendar Required' | translate}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{'Name' | translate}}</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" placeholder="e.g. Meeting" formControlName="event_name" />
+          <div class="messages text-danger" *ngIf="editorForm.controls.event_name?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Name Required' | translate}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{'Start Date' | translate}}</label>
+        <div class="col-sm-4">
+          <input type="datetime-local" formControlName="start_dt" class="form-control">
+          <div class="messages text-danger" *ngIf="editorForm.controls.start_dt?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Required' | translate}}</p>
+          </div>
+        </div>
+
+        <label class="col-sm-2 col-form-label">{{'End Date' | translate}}</label>
+        <div class="col-sm-4">
+          <input type="datetime-local" formControlName="end_dt" class="form-control">
+          <div class="messages text-danger" *ngIf="editorForm.controls.end_dt?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Required' | translate}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{'All Day Event' | translate}}</label>
+        <div class="col-sm-10">
+          <ui-switch formControlName="all_day" class="align-middle m-r-10"></ui-switch>
+          <span class='text-muted small align-middle'>
+            {{'An All Day Event' | translate}}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">{{'Description' | translate}}</label>
+        <div class="col-sm-10">
+          <editor [apiKey]="_environment.tinymce.apiKey" [init]="editorConfig()" formControlName="long_description">
+          </editor>
+          <!-- <textarea formControlName="long_description" class="form-control" rows="8" ></textarea> -->
+
+          <div class="messages text-danger" *ngIf="editorForm.controls.long_description?.errors?.required">
+            <p class="m-b-0 m-t-5">{{'Description Required' | translate}}</p>
+          </div>
+        </div>
+      </div>
+
+
+
+
+    </div>
+
+    <div class="modal-footer">
+      <span *ngIf="eventService?.requesting" class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i>
+        {{'Saving' | translate}}...
+      </span>
+
+      <button type="submit" class="btn btn-primary">{{'Save Changes' | translate}}</button>
+      <button type="button" class="btn btn-outline-danger"
+              (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
+    </div>
+  </form>
+</ng-template>
+
+<app-sessions #sessions></app-sessions>

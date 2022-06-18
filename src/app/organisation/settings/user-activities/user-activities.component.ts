@@ -3,13 +3,14 @@ import { UserActivityService } from '../../../shared/services/api/user-activitie
 import { Subscription } from 'rxjs';
 import { UserActivity } from '../../../shared/model/api/user-activity';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { EventsService } from '../../../shared/services/events.service';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 import { MemberAccount } from 'src/app/shared/model/api/member-account';
 import { MemberAccountService } from 'src/app/shared/services/api/member-account.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { OrganisationAccount } from '../../../shared/model/api/organisation-account';
 
 @Component({
@@ -22,7 +23,7 @@ export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy
 
   public activities: UserActivity[];
   public subscriptions: Subscription[] = [];
-  public searchForm: FormGroup;
+  public searchForm: UntypedFormGroup;
   public memberAccounts: MemberAccount[] = [];
   public orgAccounts: OrganisationAccount[] = [];
   public cacheDataKey = 'searched_activities';
@@ -36,6 +37,7 @@ export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy
     public modalService: NgbModal,
     public memberAccountService: MemberAccountService,
     public orgAccountService: OrganisationAccountService,
+    public organisationService: OrganisationService,
     public events: EventsService,
     public storage: StorageService,
   ) { }
@@ -80,7 +82,7 @@ export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy
   fetchLogGroups() {
     const sub = this.userActivitiesService.getLogGroups().subscribe((groups: any[]) => {
       this.logGroups = groups.map(group => {
-        // group.log_display_name = group.log_name.replace(/_/g, ' ');
+        group.log_display_name = group.log_name.replace(/_/g, ' ');
         return group;
       });
     });
@@ -123,11 +125,14 @@ export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy
    * Sets up the search form group and validations
    */
   setupSearchForm() {
-    this.searchForm = new FormGroup({
-      causer_id: new FormControl(''),
-      log_name: new FormControl(''),
-      created_at_gte: new FormControl(),
-      created_at_lte: new FormControl()
+    const organisation = this.organisationService.getActiveOrganisation();
+
+    this.searchForm = new UntypedFormGroup({
+      organisation_id: new UntypedFormControl(organisation.id),
+      causer_id: new UntypedFormControl(''),
+      log_name: new UntypedFormControl(''),
+      created_at_gte: new UntypedFormControl(),
+      created_at_lte: new UntypedFormControl()
     });
   }
 

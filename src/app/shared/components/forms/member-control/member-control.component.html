@@ -1,18 +1,19 @@
-<div class="media">
-  <div class="media-left m-r-10">
+<div class="d-flex align-items-center">
+  <div class="flex-shrink-0 m-r-10">
     <img [src]="membership?.member?.thumbnail()" default='assets/images/user/user.png'
          class="img-thumbnail rounded-circle img-40" />
   </div>
-  <div class="media-body">
+  <div class="flex-grow-1">
     <input type="text" class="form-control" [ngbTypeahead]="searchMember" [resultTemplate]="rt"
            [value]="membership?.member?.firstThenLastName()" [inputFormatter]="formatter"
            placeholder="Enter Member Name" #input (selectItem)="setSelectedMember($event, input)"
            [readonly]="readonly" />
 
     <ng-template #rt let-r="result" let-t="term">
-      <img [src]="r.member?.thumbnail()" default='assets/images/user/user.png'
-           class="img-thumbnail rounded-circle img-40 m-r-10">
-      <ngb-highlight [result]="r.member?.firstThenLastName()" [term]="t"></ngb-highlight>
+      <div class="d-flex align-items-center">
+        <ngx-avatar [src]="r.member?.thumbnail()" [name]="r.member?.firstThenLastName()" class="m-r-10" size="40"></ngx-avatar>
+        <ngb-highlight [result]="r.member?.firstThenLastName()" [term]="t"></ngb-highlight>
+      </div>
     </ng-template>
   </div>
 </div>

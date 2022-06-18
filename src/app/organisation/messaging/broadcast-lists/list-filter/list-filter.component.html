@@ -1,6 +1,6 @@
 <div class="form-group row" [formGroup]="filterGroup" *ngIf="showOptional()">
   <div class="col-4">
-    <select class="form-control" formControlName="field" (change)="setSelectedFilterField($event.target.value)">
+    <select class="form-select" formControlName="field" (change)="setSelectedFilterField($event.target.value)">
       <option value="">{{ 'Select Field' | translate }}</option>
       <optgroup *ngFor="let group of listFilters" [label]="group.name">
         <option *ngFor="let field of group.fields" [value]="field.id">{{ field.name | translate }}</option>
@@ -13,7 +13,7 @@
   </div>
 
   <div class="col-3">
-    <select class="form-control" formControlName="condition">
+    <select class="form-select" formControlName="condition">
       <option value="">{{ 'Select Condition' | translate }}</option>
       <option *ngFor="let field of selectedFilterField?.conditions" [value]="field.value">{{ field.label | translate }}</option>
     </select>

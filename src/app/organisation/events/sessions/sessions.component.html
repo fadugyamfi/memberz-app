@@ -1,0 +1,92 @@
+<ng-template #sessionsModal let-modal>
+
+  <div class="modal-header">
+    <section>
+      <h5 class="modal-title" id="modal-basic-title">{{'Sessions' | translate}}</h5>
+      <p class="f-12 mb-0">
+        <i class="fa fa-info-circle"></i>
+        {{ 'Sessions are time blocks within a given event' | translate}}.
+        {{ 'Event attendance is be recorded per sessions' | translate }}
+      </p>
+    </section>
+
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+    </button>
+  </div>
+  <div class="modal-body d-flex justify-content-between align-center">
+    <h6 class="fw-bold mb-0">{{ event?.event_name }}</h6>
+    <button class="btn btn-sm btn-primary" (click)="add()"><i class="fa fa-plus"></i>
+      {{ 'Add Session' | translate }}</button>
+  </div>
+
+  <div class="modal-body" *ngIf="showEditor">
+    <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="editorForm">
+      <div class="form-group row">
+        <div class="col-lg-3">
+          <input type="text" class="form-control" formControlName="session_name"
+                 placeholder="{{'Session Name' | translate }}" />
+        </div>
+        <div class="col-lg-2">
+          <input type="date" class="form-control" formControlName="session_dt_date"
+                 placeholder="{{'Date' | translate }}" />
+        </div>
+        <div class="col-lg-2">
+          <input type="time" class="form-control" formControlName="session_dt_time"
+                 placeholder="{{'Time' | translate }}" />
+        </div>
+        <div class="col-lg-2">
+          <input type="text" class="form-control" formControlName="registration_code"
+                 placeholder="{{'Reg. Code' | translate }}" />
+        </div>
+        <div class="col-lg-3 text-end">
+          <span *ngIf="sessionService?.saving" class="m-r-10"><i class="fa fa-spin fa-circle-o-notch"></i></span>
+
+          <button class="btn btn-sm btn-primary m-r-10" type="submit">{{ 'Save' | translate }}</button>
+          <button class="btn btn-sm btn-danger" type="button" (click)="hideEditor()">{{ 'Cancel' | translate }}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-body">
+
+    <app-loading-rotate-dashed *ngIf="sessionService.fetching && sessionService.hasZeroItems()"></app-loading-rotate-dashed>
+
+    <table class="table table-borderless table-striped" *ngIf="!sessionService.fetching && !sessionService.hasZeroItems()">
+      <thead>
+        <tr>
+          <th style="min-width: 250px;">{{ 'Title' | translate }}</th>
+          <th>{{ 'Day' | translate }}</th>
+          <th>{{ 'Date' | translate }}</th>
+          <th>{{ 'Time' | translate }}</th>
+          <th>{{ 'Reg. Code' | translate }}</th>
+          <th>{{ 'Attendees' | translate }}</th>
+          <th class="text-center">{{ 'Actions' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let session of sessionService.getItems()">
+          <td>{{ session.name }}</td>
+          <td>{{ session.session_dt | date : 'EEEE' }}</td>
+          <td>{{ session.session_dt | date : 'MMM dd, YYYY' }}</td>
+          <td>{{ session.session_dt | date : 'shortTime' }}</td>
+          <td>{{ session.registration_code || 'N/A'}}</td>
+          <td>{{ session.attendees_count || 0 }}</td>
+          <td class="text-center">
+            <button class="btn btn-xs btn-primary m-r-15" (click)="edit(session)">
+              <i class="fa fa-pencil"></i> {{ 'Edit' | translate }}
+            </button>
+            <button class="btn btn-xs btn-danger" (click)="delete(session)">
+              <i class="fa fa-trash-o"></i> {{ 'Delete' | translate }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Close' | translate}}</button>
+  </div>
+</ng-template>

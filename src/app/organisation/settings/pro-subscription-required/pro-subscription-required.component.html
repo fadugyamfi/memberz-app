@@ -1,0 +1,37 @@
+
+<div class="row subscription-required">
+  <div class="col-lg-10 offset-lg-1 col-sm-12 offset-sm-0">
+
+    <div class="card">
+      <div class="card-body position-relative">
+
+        <img src="/assets/images/illustrations/finance-features.svg" />
+
+        <main class="py-5">
+          <h4 class="fw-bold">{{ 'Upgrade To Pro Plan' | translate }}</h4>
+        <p>{{ 'Receive access to additional features for revenue tracking and reporting when you upgrade' | translate}}</p>
+
+        <div class="py-3">
+          <h6 class="fw-bold">{{ 'Additional Finance Features' | translate }}</h6>
+
+          <ul>
+            <li><i class="fa fa-fw fa-star text-warning"></i> {{ 'Configure Income Sources' | translate }}</li>
+            <li><i class="fa fa-fw fa-star text-warning"></i> {{ 'Track Contributions Received' | translate }}</li>
+            <li><i class="fa fa-fw fa-star text-warning"></i> {{ 'Generate Reports' | translate }}</li>
+            <li><i class="fa fa-fw fa-star text-warning"></i> {{ 'See Top Contributors' | translate }}</li>
+          </ul>
+        </div>
+
+        <div class="py-3">
+
+          <a class="btn btn-primary m-r-15" [routerLink]="['/organisation/settings/subscription-upgrade']">{{ 'Upgrade Now' | translate }}</a>
+          <a class="btn btn-outline-primary-2x" [routerLink]="['/organisation/dashboard']">{{ 'Go To Home' | translate }}</a>
+
+        </div>
+        </main>
+
+      </div>
+    </div>
+
+  </div>
+</div>

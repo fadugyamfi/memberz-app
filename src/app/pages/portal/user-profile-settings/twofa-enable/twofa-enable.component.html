@@ -1,0 +1,146 @@
+<div class="card">
+  <div class="card-header b-l-warning">
+    <h5>{{ "Enable Two-Factor Authentication (2FA)" | translate }}</h5>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-sm-2 text-end">
+            <i class="fa fa-envelope-square fa-3x text-warning"></i>
+          </div>
+          <div class="col-sm">
+            <p class="m-b-0">
+              {{ "Verification By Email OR SMS" | translate }}
+            </p>
+            <p class="small">
+              {{
+                "Enable to prevent unauthorized access to your account"
+                  | translate
+              }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3 text-end">
+        <span *ngIf="!memberAccount.isTwoFactorAuthEnabled()">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="showEnableTwoFactorAuthModal()"
+          >
+            {{ "Enable" | translate }}
+          </button>
+        </span>
+
+        <span *ngIf="memberAccount.isTwoFactorAuthEnabled()">
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="disableTwoFactorAuth()"
+          >
+            {{ "Disable" | translate }}
+          </button>
+        </span>
+      </div>
+      <!-- end of row -->
+    </div>
+  </div>
+  <!-- end of card -->
+
+  <ng-template #enableTwoFactorAuthModal let-modal>
+    <form
+      class="form form-horizontal theme-form"
+      [formGroup]="twoFactorAuthForm"
+    >
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">
+          {{ "Enable 2FA Authentication" | translate }}
+        </h4>
+
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">
+            {{ "Send verification code to" | translate }}
+          </label>
+          <div class="col-sm-5">
+            <select class="form-select mb-1" formControlName="verificationType">
+              <option value="email">{{ "E-Mail" | translate }}</option>
+              <option value="mobile_number">
+                {{ "Mobile Number" | translate }}
+              </option>
+            </select>
+            <div
+              *ngIf="
+                twoFactorAuthForm.controls.verificationType.errors?.required
+              "
+              class="text-danger"
+            >
+              {{ "Account Type Required" | translate }}
+            </div>
+          </div>
+          <div class="col-sm">
+            <button
+              class="btn btn-primary btn-sm w-70"
+              [disabled]="twoFactorAuthService.requesting"
+              (click)="getVerificationCode()"
+            >
+              {{ "Request Code" | translate }}
+              <span
+                *ngIf="twoFactorAuthService.requesting"
+                class="fa fa-spinner fa-spin"
+              ></span>
+            </button>
+          </div>
+        </div>
+        <!-- end of form-group -->
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">
+            {{ "Verification code" | translate }}
+          </label>
+          <div class="col-sm-5">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="code"
+              placeholder="e.g. 014821"
+            />
+            <div
+              *ngIf="twoFactorAuthForm.controls.code.errors?.required"
+              class="text-danger"
+            >
+              {{ "Verfication Code Required" | translate }}
+            </div>
+          </div>
+          <div class="col-sm">
+            <button
+              type="submit"
+              class="btn btn-warning btn-sm me-2"
+              (click)="submitVerification()"
+            >
+              {{ "Submit Code" | translate }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger btn-sm"
+              (click)="modal.close('Save click')"
+            >
+              {{ "Cancel" | translate }}
+            </button>
+          </div>
+        </div>
+        <!-- end of form-group -->
+      </div>
+      <!-- end of modal-body -->
+    </form>
+  </ng-template>
+</div>

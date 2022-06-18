@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { APIService } from './api.service';
 import { EventsService } from '../events.service';
 import { HttpClient } from '@angular/common/http';
- import { OrganisationGroupType } from '../../model/api/orgainsation-group-type';
 import { StorageService } from '../storage.service';
+import { OrganisationGroupType } from '../../model/api/organisation-group-type';
 
 @Injectable({
   providedIn: 'root'

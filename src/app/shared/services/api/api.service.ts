@@ -1,12 +1,23 @@
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams, HttpEventType } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { EventsService } from '../events.service';
 import { AppModel } from '../../model/api/app.model';
 import { environment } from '../../../../environments/environment';
 import { StorageService } from '../storage.service';
 import { AuthService } from './auth.service';
+
+export interface PagingMeta {
+  from: number;
+  to?: number;
+  total?: number;
+  current_page?: number;
+  per_page?: number;
+  last_page?: 3;
+  links?: Array<{url: string, label: string, active: boolean}>;
+  path?: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +32,7 @@ export class APIService<T extends AppModel> {
 
   private _requesting = false;
   public uploadedPercentage = 0;
-  public pagingMeta: any = {
+  public pagingMeta: PagingMeta = {
     from: 1,
     total: 1
   };
@@ -32,7 +43,9 @@ export class APIService<T extends AppModel> {
   public creating = false;
   public updating = false;
   public deleting = false;
+  public saving = false;
   public prependItems = false;
+  public pagination = new Subject();
 
   public batchRequests = [];
 
@@ -66,18 +79,6 @@ export class APIService<T extends AppModel> {
   get model_name() {
     return this._model_name;
   }
-
-  // getApiCredentials() {
-  //   const loginUser = this.authData.getUserAuthData();
-  //   let token = btoa(`${''}:${''}`);
-  //   if (loginUser) {
-  //     const app = loginUser.data.app_client;
-  //     token = btoa(`${app.client_id}:${app.client_secret}`);
-  //   }
-  //   return {
-  //     'Authorization': `Basic ${token}`
-  //   }
-  // }
 
   getUserAuthorization() {
     const auth = this.storage.get('auth');
@@ -164,6 +165,7 @@ export class APIService<T extends AppModel> {
     if (response.meta) {
       this.pagingMeta = response.meta;
       setTimeout(() => this.events.trigger(`${this.model_name}:paging`, this.pagingMeta), 100);
+      setTimeout(() => this.pagination.next(this.pagingMeta));
     }
   }
 
@@ -302,6 +304,8 @@ export class APIService<T extends AppModel> {
 
   public setPrepredItems(status: boolean) {
     this.prependItems = status;
+
+    return this;
   }
 
   /**
@@ -326,7 +330,7 @@ export class APIService<T extends AppModel> {
       }
 
       this.results = res['data'].map(data => new this.model(data));
-      return this.results;
+      return [...this.results];
     }));
   }
 
@@ -345,7 +349,7 @@ export class APIService<T extends AppModel> {
    * @param model Model data to pass
    */
   create(model: T, qparams: object = null) {
-    this.creating = true;
+    this.creating = this.saving = true;
 
     return this.post(`${this.url}`, model, qparams).pipe(
       map((response) => new this.model(response['data'])))
@@ -368,7 +372,7 @@ export class APIService<T extends AppModel> {
           this.triggerError(error);
         },
         complete: () => {
-          this.creating = false;
+          this.creating = this.saving = false;
         }
       });
   }
@@ -379,7 +383,7 @@ export class APIService<T extends AppModel> {
    * @param model Model data to pass
    */
   update(model: T, qparams: object = null) {
-    this.updating = true;
+    this.updating = this.saving = true;
 
     return this.put(`${this.url}/${model.id}`, model, qparams).pipe(
       map((response) => new this.model(response['data'])))
@@ -396,7 +400,7 @@ export class APIService<T extends AppModel> {
           this.triggerError(error);
         },
         complete: () => {
-          this.updating = false;
+          this.updating = this.saving = false;
         }
       });
   }
@@ -450,7 +454,7 @@ export class APIService<T extends AppModel> {
    * @param model AppModel
    * @param qparams Query parameters
    */
-  createWithUpload(model: AppModel, qparams: any = null) {
+  createWithUpload(model: AppModel, qparams: any = null, url: string = null) {
     const hd = Object.assign({}, this.getUserAuthorization());
 
     const headers = new HttpHeaders(hd);
@@ -463,7 +467,11 @@ export class APIService<T extends AppModel> {
       }
     }
 
-    return this.http.post(this.BASE_URL + this.url, formData, {
+    if( !url ) {
+      url = this.BASE_URL + this.url;
+    }
+
+    return this.http.post(url, formData, {
       reportProgress: true, params, headers, observe: 'events'
     })
       .subscribe({
@@ -479,6 +487,7 @@ export class APIService<T extends AppModel> {
         error: (error) => {
           this.requesting = false;
           this.triggerError(error);
+          this.events.trigger(`${this.model_name}:create:error`, error);
         }
       });
   }
@@ -489,7 +498,7 @@ export class APIService<T extends AppModel> {
    * @param model Model to work on
    * @param qparams Query params
    */
-  updateWithUpload(model: AppModel, qparams: any = null) {
+  updateWithUpload(model: AppModel, qparams: any = null, url: string = null) {
     const hd = Object.assign({}, this.getUserAuthorization());
 
     const headers = new HttpHeaders(hd);
@@ -502,7 +511,11 @@ export class APIService<T extends AppModel> {
       }
     }
 
-    return this.http.post(this.BASE_URL + this.url + `/${model.id}`, formData, {
+    if( !url ) {
+      url = this.BASE_URL + this.url + `/${model.id}`;
+    }
+
+    return this.http.post(url, formData, {
       reportProgress: true, params, headers, observe: 'events'
     })
       .subscribe({
@@ -517,6 +530,7 @@ export class APIService<T extends AppModel> {
         error: (error) => {
           this.requesting = false;
           this.triggerError(error);
+          this.events.trigger(`${this.model_name}:update:error`, error);
         }
       });
   }

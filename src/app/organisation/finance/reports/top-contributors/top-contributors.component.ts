@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { ContributionReceiptSettingService } from 'src/app/shared/services/api/contribution-receipt-setting.service';
 import { ContributionReceiptSetting } from 'src/app/shared/model/api/contribution-receipt-setting';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-top-contributors',
@@ -19,7 +19,7 @@ export class TopContributorsComponent implements OnInit {
   public showData = false;
   public settings: ContributionReceiptSetting;
   public default_currency = 80;
-  public searchForm: FormGroup;
+  public searchForm: UntypedFormGroup;
 
   constructor(
     public reportingService: FinanceReportingService,
@@ -32,20 +32,21 @@ export class TopContributorsComponent implements OnInit {
   }
 
   setupSearchForm() {
-    this.searchForm = new FormGroup({
-      year: new FormControl(moment().year()),
-      currency_id: new FormControl(this.default_currency)
-    });
-
-    this.searchForm.valueChanges.subscribe(values => {
-      this.fetchReportData(values.year, values.currency_id);
+    this.searchForm = new UntypedFormGroup({
+      year: new UntypedFormControl(moment().year()),
+      currency_id: new UntypedFormControl(this.default_currency)
     });
   }
 
-  fetchReportData(year = null, currencyId = null){
+  fetchReportData(event){
+    event.preventDefault();
+
     this.showData = false;
 
-    const sub = this.reportingService.getTopContributors(year, currencyId).subscribe((data: any[]) => {
+    const sub = this.reportingService.getTopContributors(
+      this.searchForm.value.year,
+      this.searchForm.value.currency_id
+    ).subscribe((data: any[]) => {
       this.showData = true;
       this.reportData = data;
     });
@@ -56,8 +57,6 @@ export class TopContributorsComponent implements OnInit {
   fetchReceiptSettings() {
     const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {
       this.default_currency = settings.default_currency;
-      this.setupSearchForm();
-      this.fetchReportData(moment().year(), this.default_currency);
     });
 
     this.subscriptions.push(sub);

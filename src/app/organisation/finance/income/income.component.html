@@ -7,7 +7,7 @@
         </button>
       </div>
 
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 text-end">
         <button class="btn btn-outline-info btn-sm m-r-10" (click)="showSearchModal()">
           <i class="fa fa-search"></i> {{'Search Records' | translate}}
         </button>
@@ -18,7 +18,7 @@
 
   <div class="m-t-30 m-b-30 text-center" *ngIf="contributionService.hasZeroItems() && !contributionService.fetching">
     <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-    <h4 class="font-weight-bold">{{'No Income Records Found' | translate}}</h4>
+    <h4 class="fw-bold">{{'No Income Records Found' | translate}}</h4>
     <h6>{{'Please search for record or add a new one to display results here' | translate}}</h6>
   </div>
 
@@ -38,21 +38,21 @@
         <th class="text-center">{{'Month' | translate}}</th>
         <th class="text-center">{{'Year' | translate}}</th>
         <th>{{'Payment Type' | translate}}</th>
-        <th class="text-right font-weight-bold">{{'Amount' | translate}}</th>
+        <th class="text-end fw-bold">{{'Amount' | translate}}</th>
         <th class="text-center">{{'Actions' | translate}}</th>
       </tr>
     </thead>
 
 
     <tbody>
-      <tr *ngFor="let contribution of contributionService.getItems(); let row = index">
-        <td class="text-right">{{ row + contributionService?.pagingMeta?.from }}.</td>
+      <tr *ngFor="let contribution of contributions; let row = index">
+        <td class="text-end">{{ row + contributionService?.pagingMeta?.from }}.</td>
         <td [noWrap]="true">{{ contribution.receipt_dt | date : short }}</td>
         <td [noWrap]="true">{{ contribution.receipt_no }}</td>
         <td>{{ contribution.contribution_type.name }}</td>
         <td>
           <div *ngIf="contribution.member_name">
-            <a target="profile" [routerLink]="['/organisation/memberships/view', contribution.organisation_member_id]">
+            <a href="javascript:void(0)" viewProfile [membership]="contribution.organisation_member" > <!-- [routerLink]="['/organisation/memberships/view', contribution.organisation_member_id]" -->
               {{ contribution.member_name }}
             </a>
           </div>
@@ -68,7 +68,7 @@
             {{ contribution.bank?.short_code }} {{ contribution.cheque_number }}</span>
           <span *ngIf="contribution.payment_type != 'Cheque'">{{ contribution.payment_type }}</span>
         </td>
-        <td [noWrap]="true" class="text-right font-weight-bold">{{ contribution.amount | currency : contribution.currency_code }}</td>
+        <td [noWrap]="true" class="text-end fw-bold">{{ contribution.amount | currency : contribution.currency_code }}</td>
 
         <td class="text-center" [noWrap]="true">
           <button class="btn btn-xs btn-primary m-r-10" (click)="incomeEditor.show(contribution)">
@@ -95,8 +95,8 @@
       <h4 class="modal-title" id="modal-basic-title">{{'Find Records' | translate}}</h4>
       <!-- <p>{{ 'Search your records for entries t' | translate }}</p> -->
 
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
@@ -118,7 +118,7 @@
       <div class="form-group row">
         <label class="col-sm-4 col-form-label">{{'Contribution Type' | translate}}</label>
         <div class="col-sm-8">
-          <select class="form-control" formControlName="module_contribution_type_id">
+          <select class="form-select" formControlName="module_contribution_type_id">
             <option value="">{{ 'Select Type' | translate }}</option>
             <option *ngFor="let type of contributionTypeService.getItems()" [value]="type.id">{{ type.name }}</option>
           </select>
@@ -149,7 +149,7 @@
       <div class="form-group row">
         <label class="col-sm-4 col-form-label">{{'Week' | translate}}</label>
         <div class="col-sm-8">
-          <select class="form-control" formControlName="week">
+          <select class="form-select" formControlName="week">
             <option value="">{{ 'Select Week' | translate }}</option>
             <option value="1">{{ 'Week' | translate }} 1</option>
             <option value="2">{{ 'Week' | translate }} 2</option>
@@ -198,7 +198,7 @@
         </div>
 
         <div class="col-sm-4">
-          <select class="form-control" formControlName="cheque_status">
+          <select class="form-select" formControlName="cheque_status">
             <option value="">{{ 'Cheque Status' | translate }}</option>\
             <option value="Cleared">{{ 'Cleared' | translate }}</option>\
             <option value="Not Cleared">{{ 'Not Cleared' | translate }}</option>\

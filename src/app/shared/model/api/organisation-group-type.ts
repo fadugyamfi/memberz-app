@@ -6,7 +6,7 @@ export class OrganisationGroupType extends AppModel {
 
   public id: any;
   public name: string;
-  private orgGroups: OrganisationGroup[];
+  public orgGroups: OrganisationGroup[];
 
   constructor(data) {
     super(data);

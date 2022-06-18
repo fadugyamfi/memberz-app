@@ -37,7 +37,7 @@ export class BroadcastHistoryViewComponent implements OnInit, OnDestroy {
     const params = { page, limit, sort: 'id:desc' };
 
     this.smsBroadcastService.getAll(params).subscribe(broadcasts => {
-      this.broadcasts = broadcasts;
+      this.broadcasts = this.smsBroadcastService.getItems();
     });
   }
 

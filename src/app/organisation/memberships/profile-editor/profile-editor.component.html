@@ -15,7 +15,7 @@
               <label class="col-form-label col-sm-3">{{'Membership Category' | translate}}</label>
 
               <div class="col-sm-9">
-                <select class="form-control" formControlName="organisation_member_category_id">
+                <select class="form-select" formControlName="organisation_member_category_id">
                   <option value="">{{'Select Category' | translate}}</option>
                   <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
                 </select>
@@ -73,7 +73,7 @@
             <div class="form-group row">
               <label class="col-form-label col-sm-3">{{'Gender' | translate}}</label>
               <div class="col-sm-4">
-                <select class="form-control" formControlName="gender">
+                <select class="form-select" formControlName="gender">
                   <option value="">{{'Select' | translate}}</option>
                   <option value="male">{{'Male' | translate}}</option>
                   <option value="female">{{'Female' | translate}}</option>
@@ -141,11 +141,20 @@
               </div>
             </div>
 
+            <div class="form-group row">
+              <label class="col-form-label col-sm-3">{{'Nationality' | translate}}</label>
+
+              <div class="col-sm-9">
+                <input type="text" class="form-control" placeholder="e.g. Ghanaian"
+                       formControlName="nationality" />
+              </div>
+            </div>
+
           </div>
         </div>
 
 
-        <div class="card-footer text-right">
+        <div class="card-footer text-end">
           <button type="submit" class="btn btn-primary m-r-15"><i class="fa fa-save"></i> {{'Save Changes' | translate}}</button>
           <button type="button" class="btn btn-danger" (click)="cancel()">{{'Cancel' | translate}}</button>
         </div>

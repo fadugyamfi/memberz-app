@@ -5,6 +5,7 @@ import { HistoryComponent } from './history/history.component';
 import { BroadcastComponent } from './broadcast/broadcast.component';
 import { BroadcastListsComponent } from './broadcast-lists/broadcast-lists.component';
 import { BroadcastListPreviewComponent } from './broadcast-list-preview/broadcast-list-preview.component';
+import { PurchaseCreditsComponent } from './purchase-credits/purchase-credits.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,7 @@ const routes: Routes = [
     path: 'settings',
     component: SettingsComponent,
     data: {
-      title: 'Settings',
+      title: 'Messaging Settings',
       breadcrumb: 'Settings'
     }
   },
@@ -20,7 +21,7 @@ const routes: Routes = [
     path: 'history',
     component: HistoryComponent,
     data: {
-      title: 'History',
+      title: 'Messaging History',
       breadcrumb: 'History'
     }
   },
@@ -28,7 +29,7 @@ const routes: Routes = [
     path: 'broadcast',
     component: BroadcastComponent,
     data: {
-      title: 'Broadcast',
+      title: 'Message Broadcasts',
       breadcrumb: 'Broadcast'
     }
   },
@@ -46,6 +47,14 @@ const routes: Routes = [
     data: {
       title: 'Broadcast List Contacts',
       breadcrumb: 'Broadcast List Contacts'
+    }
+  },
+  {
+    path: 'purchase-credits',
+    component: PurchaseCreditsComponent,
+    data: {
+      title: 'Purchase SMS Credits',
+      breadcrumb: 'Purchase Credits'
     }
   }
 ];

@@ -4,6 +4,8 @@ import { EventsService } from '../events.service';
 import { HttpClient } from '@angular/common/http';
 import { Organisation } from '../../model/api/organisation';
 import { StorageService } from '../storage.service';
+import { map, Observable, of, tap } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -52,5 +54,34 @@ export class OrganisationService extends APIService<Organisation> {
   refreshActiveOrganisation() {
     const id = this.getActiveOrganisation().id;
     this.getById(id).subscribe((org: Organisation) => this.setActiveOrganisation(org));
+  }
+
+  getBySlug(slug: string, params = {}): Observable<Organisation> {
+    const url = `/organisations/${slug}`;
+
+    return this.get(url, params).pipe(map(res => new this.model(res['data'])));
+  }
+
+  getAllSlugs(params = {}): Observable<string[]> {
+    if( this.storage.has('org_slugs') ) {
+      return of( this.storage.get('org_slugs') );
+    }
+
+    const url = "/organisations/slugs";
+
+    return this.get(url, params).pipe(
+      tap((response) => {
+        const slugs = response['data'];
+        this.storage.set('org_slugs', slugs, 1, 'hours');
+      }),
+      map((response) => {
+        return response['data'];
+      }));
+  }
+
+  uploadLogo(organisation: Organisation, params = {}) {
+    const url = `${this.BASE_URL}/organisations/${organisation.id}/logo`;
+
+    return this.updateWithUpload(organisation, params, url);
   }
 }

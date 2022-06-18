@@ -1,0 +1,109 @@
+<section class="profile-groups w-100">
+
+  <div class="m-b-15">
+    <button class="btn btn-sm btn-outline-primary" (click)="showEditor()">
+      <i class="fa fa-plus-circle fa-2x m-r-10 middle"></i>
+      <span>{{ 'Assign Group' | translate }}</span>
+    </button>
+  </div>
+  <!--  -->
+  <div class="m-t-50 text-center" *ngIf="memberGroupService.hasZeroItems() && !memberGroupService.fetching">
+    <h3>{{'Not assigned to any groups' | translate}}</h3>
+    <p>{{'Assign member to a group to load them here' | translate}}</p>
+  </div>
+
+  <!--  -->
+  <div class="loader-box m-auto" *ngIf="memberGroupService.fetching">
+    <span class="rotate dashed colored"></span>
+  </div>
+
+  <!--  -->
+  <table class="table table-bordered table-striped" *ngIf="!memberGroupService.fetching && memberGroupService.hasItems()">
+    <thead>
+      <tr>
+        <th colspan="2">{{ 'Group Type' | translate }}</th>
+        <th>{{ 'Group Name' | translate }}</th>
+        <th>{{ 'Assigned' | translate }}</th>
+        <th class="text-center">{{ 'Actions' | translate }}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <!--  -->
+      <tr *ngFor="let memberGroup of getMemberGroups(); let row = index">
+        <td class="text-end">{{ memberGroupService.pagingMeta.from + row }}.</td>
+        <td>{{ memberGroup.organisation_group?.organisation_group_type?.name }}</td>
+        <td>{{ memberGroup.organisation_group?.name }}</td>
+        <td>{{ memberGroup.lastModified() }}</td>
+        <td class="text-center">
+          <button class="btn btn-sm btn-outline-primary m-r-15" (click)="editAssignment(memberGroup)">
+            <i class="fa fa-pencil fa-fw"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteAssignment(memberGroup)">
+            <i class="fa fa-trash-o fa-fw"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>
+
+<ng-template #assignmentModal let-modal>
+  <form (submit)="onSubmit($event)" class="form theme-form" [formGroup]="assignmentForm">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{'Group Assignment' | translate}}</h4>
+
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+      </button>
+    </div>
+    <div class="modal-body">
+
+      <div class="form-group">
+        <label class="col-form-label">{{'Group Type' | translate}}</label>
+        <div class="">
+          <select class="form-select" formControlName="organisation_group_type_id" (change)="onSelectGroupType($event)">
+            <option value="">{{ 'Select Option' | translate }}</option>
+            <option *ngFor="let groupType of orgGroupTypes.getItems()" [value]="groupType.id">
+              {{ groupType.name }}
+            </option>
+          </select>
+
+          <div class="text-danger" *ngIf="assignmentForm.controls.organisation_group_type_id?.errors?.required">
+            <p>{{'Group type required' | translate}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-form-label">{{'Group' | translate}}</label>
+        <div class="">
+          <select class="form-select" formControlName="organisation_group_id">
+            <option value="">{{ 'Select Option' | translate }}</option>
+            <option
+                *ngFor="let group of (selectedGroupType ? selectedGroupType.organisation_groups : [])"
+                [value]="group.id"
+              >
+                {{ group.name }}
+              </option>
+          </select>
+
+          <div class="text-danger" *ngIf="assignmentForm.controls.organisation_group_id?.errors?.required">
+            <p>{{'Group to assign required' | translate}}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <span *ngIf="memberGroupService?.creating || memberGroupService?.updating" class="m-r-20">
+        <i class="fa fa-spin fa-circle-o-notch"></i>
+        {{'Saving' | translate}}...
+      </span>
+
+      <button type="submit" class="btn btn-primary" [disabled]="!assignmentForm.valid">{{ 'Assign Group' | translate }}</button>
+      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{ 'Cancel' | translate }}</button>
+    </div>
+  </form>
+</ng-template>

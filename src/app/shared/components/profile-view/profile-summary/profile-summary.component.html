@@ -1,0 +1,90 @@
+<div class="p-30 profile-overview">
+  <div class="row m-b-30 p-b-30 b-b-light" *ngIf="hasWorkInformation()">
+    <div class="col-sm-3 text-end">
+      <h6 class="text-muted">{{'Work Information' | translate}}</h6>
+    </div>
+
+    <div class="col-sm-8 offset-sm-1">
+      <div class="row">
+        <div class="col-sm-12">
+          <h5>{{ membership?.member?.occupation || 'N/A' }}</h5>
+          <small class='text-muted text-uppercase'>
+            {{ membership?.member?.business_name || 'N/A' }}
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row m-b-30 b-b-light p-b-30" *ngIf="hasContactInformation()">
+    <div class="col-sm-3 text-end">
+      <h6 class="text-muted">{{'Contact Information' | translate}}</h6>
+    </div>
+
+    <div class="col-sm-8 offset-sm-1">
+      <div class="row">
+        <div class="col-sm-6">
+          <small class='text-muted text-uppercase'>{{'Email' | translate}}</small>
+          <p>
+            <a href="mailto:{{ membership?.member?.email }}">
+              {{ membership?.member?.email || 'N/A'}}
+            </a>
+          </p>
+        </div>
+
+        <div class="col-sm-6">
+          <small class='text-muted text-uppercase'>{{'Phone Number' | translate}}</small>
+          <p>
+            <a href="tel:{{ membership?.member?.mobile_number }}">
+              {{ membership?.member?.mobile_number || 'N/A' }}
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row m-b-30 b-b-light p-b-30">
+    <div class="col-sm-3 text-end">
+      <h6 class="text-muted">{{'Personal Information' | translate}}</h6>
+    </div>
+
+    <div class="col-sm-8 offset-sm-1">
+      <div class="row m-b-25">
+        <div class="col-sm-6">
+          <small class='text-muted text-uppercase'>{{'Date of Birth' | translate}}</small>
+          <p>{{ (membership?.member?.dob | date: 'mediumDate') || 'N/A' }}</p>
+        </div>
+
+        <div class="col-sm-6">
+          <small class='text-muted text-uppercase'>{{'Age' | translate}}</small>
+          <p>{{ membership?.member?.age || 'N/A' }}</p>
+        </div>
+      </div>
+
+      <div class="row m-b-25">
+        <div class="col-sm-6">
+          <small class='text-muted text-uppercase'>{{'Marital Status' | translate}}</small>
+          <p>{{ (membership?.member?.marital_status | titlecase) || 'N/A' }}</p>
+        </div>
+
+        <div class="col-sm-6">
+          <small class='text-muted text-uppercase'>{{'Gender' | translate}}</small>
+          <p>{{ (membership?.member?.gender | titlecase) || 'N/A' }}</p>
+        </div>
+      </div>
+
+      <div class="row m-b-25">
+        <div class="col-sm-6">
+          <small class='text-muted text-uppercase'>{{'Nationality' | translate}}</small>
+          <p>{{ membership?.member?.nationality || 'N/A' }}</p>
+        </div>
+
+        <div class="col-sm-6">
+          <small class='text-muted text-uppercase'>{{'Place of Birth' | translate}}</small>
+          <p>{{ membership?.member?.place_of_birth || 'N/A' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

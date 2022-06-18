@@ -3,59 +3,62 @@
   <div class="row">
     <div class="col">
       <div class="card">
-        <div class="card-header b-l-primary">
-          <form [formGroup]="searchForm" class="form-inline">
-            <div class="form-group mb-2">
-              <label class="mr-2 title"> {{ "Start Date" | translate }}</label>
-              <input
-                type="date"
-                formControlName="start_date"
-                (change)="fetchReportData()"
-                class="form-control"
-                placeholder="YYYY-MM-DD"
-              />
+        <div class="card-header b-l-primary d-flex align-items-center justify-content-between">
+          <form [formGroup]="searchForm" class="row w-75">
+            <div class="mb-2 col-3">
+              <div class="row align-items-center">
+                <span class="col-auto">{{ "Start Date" | translate }}</span>
+                <input type="date" formControlName="start_date" class="col form-control form-control-sm"
+                       placeholder="YYYY-MM-DD" />
+              </div>
             </div>
+
             <!-- end of col -->
-            <div class="form-group mb-2">
-              <label class="mr-2 title"> {{ "End Date" | translate }}</label>
-              <input
-                type="date"
-                formControlName="end_date"
-                (change)="fetchReportData()"
-                class="form-control"
-                placeholder="YYYY-MM-DD"
-              />
+            <div class="col-3 mb-2">
+              <div class="row align-items-center">
+                <span class="col-auto">{{ "End Date" | translate }}</span>
+                <input type="date" formControlName="end_date" class="col form-control form-control-sm"
+                       placeholder="YYYY-MM-DD" />
+              </div>
             </div>
+
             <!-- end of col -->
-            <div class="form-group mb-2">
-              <label class="mr-2 title">{{ "Currency" | translate }}</label>
-              <app-select-currency-control
-                class="w-50"
-                formControlName="currency_id"
-                (change)="fetchReportData()"
-              ></app-select-currency-control>
+            <div class="col-4 mb-2">
+              <div class="row align-items-center">
+                <span class="col-auto">{{ "Currency" | translate }}</span>
+                <div class="col">
+                  <app-select-currency-control formControlName="currency_id" classes="form-select-sm">
+                  </app-select-currency-control>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-2 mb-2">
+              <button type="button" class="btn btn-sm btn-outline-primary" (click)="fetchReportData()">
+                {{ 'Run Report' | translate }}
+              </button>
             </div>
           </form>
-        </div>
-        <div class="card-body chart-block">
-          <app-loading-rotate-dashed
-            *ngIf="!showData"
-          ></app-loading-rotate-dashed>
-          <app-no-data-available
-            *ngIf="showData && !hasDataAvailable()"
-          ></app-no-data-available>
 
-          <table
-            class="table table-striped table-bordered"
-            *ngIf="showData && hasDataAvailable()"
-          >
+          <section>
+            <button class="btn btn-sm btn-outline-dark btn-pill" ngxPrint printSectionId="report"
+                    [useExistingCss]="true">
+              <i class="fa fa-print"></i> {{ 'Print' | translate }}
+            </button>
+          </section>
+        </div>
+        <div class="card-body chart-block" id="report">
+          <app-loading-rotate-dashed *ngIf="!showData"></app-loading-rotate-dashed>
+          <app-no-data-available *ngIf="showData && !hasDataAvailable()"></app-no-data-available>
+
+          <table class="table table-striped table-bordered" *ngIf="showData && hasDataAvailable()">
             <thead>
               <tr>
                 <th>#</th>
                 <th>{{ "Contribution Types" | translate }}</th>
-                <th class="text-right">{{ "Cash" | translate }}</th>
-                <th class="text-right">{{ "Cheque" | translate }}</th>
-                <th class="text-right font-weight-bold">{{ "Total" | translate }}</th>
+                <th class="text-end">{{ "Cash" | translate }}</th>
+                <th class="text-end">{{ "Cheque" | translate }}</th>
+                <th class="text-end fw-bold">{{ "Total" | translate }}</th>
               </tr>
             </thead>
 
@@ -63,11 +66,21 @@
               <tr *ngFor="let data of reportData; let row = index">
                 <td>{{ row + 1 }}.</td>
                 <td>{{ data[0] }}</td>
-                <td class="text-right">{{ data[1] | currency: currency_code + ' ' }}</td>
-                <td class="text-right">{{ data[2] | currency: currency_code + ' ' }}</td>
-                <td class="text-right font-weight-bold">{{ data[3] | currency: currency_code + ' ' }}</td>
+                <td class="text-end">{{ data[1] | currency: currency_code + ' ' }}</td>
+                <td class="text-end">{{ data[2] | currency: currency_code + ' ' }}</td>
+                <td class="text-end fw-bold">{{ data[3] | currency: currency_code + ' ' }}</td>
               </tr>
             </tbody>
+
+            <tfoot>
+              <tr>
+                <td></td>
+                <td>{{ 'Total' | translate }}</td>
+                <td class="text-end">{{ totalCash | currency: currency_code + ' ' }}</td>
+                <td class="text-end">{{ totalCheques | currency: currency_code + ' ' }}</td>
+                <td class="text-end">{{ grandTotal | currency: currency_code + ' ' }}</td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>

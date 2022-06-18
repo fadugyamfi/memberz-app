@@ -7,6 +7,7 @@ import swal from 'sweetalert2';
 import { StorageService } from './storage.service';
 import { Subject } from 'rxjs';
 import { OrganisationService } from './api/organisation.service';
+import { TranslateService } from '@ngx-translate/core';
 
 type AOA = any[][];
 type ExcelImport = {
@@ -28,7 +29,8 @@ export class ExcelService {
 
   constructor(
     public storage: StorageService,
-    public orgService: OrganisationService
+    public orgService: OrganisationService,
+    public translate: TranslateService
   ) { }
 
   import(file, headers): Subject<ExcelImport> {
@@ -137,7 +139,7 @@ export class ExcelService {
     });
     this.saveAsExcelFile(excelBuffer, name);
     swal.fire({
-      title: 'Excel Exported',
+      title: this.translate.instant('Excel Exported'),
       showConfirmButton: false,
       timer: 1500,
       icon: 'success',
@@ -151,8 +153,8 @@ export class ExcelService {
 
   private showLoader(type = 'Export') {
     swal.fire(
-      `${type === 'Import' ? type : 'Export'}ing Excel`,
-      'Please wait as content is loaded and prepared...',
+      type === 'Import' ? this.translate.instant("Importing") : this.translate.instant("Exporting"),
+      this.translate.instant('Please wait as content is loaded and prepared') + '...',
       'info'
     );
     swal.showLoading();

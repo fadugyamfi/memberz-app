@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -25,8 +25,8 @@ export class BroadcastListsComponent implements OnInit {
   public subscriptions: Subscription[] = [];
   public broadcastLists: SmsBroadcastList[] = [];
   public selectedBroadcastList: SmsBroadcastList;
-  public searchForm: FormGroup;
-  public editorForm: FormGroup;
+  public searchForm: UntypedFormGroup;
+  public editorForm: UntypedFormGroup;
   public selectedFilterFields = [];
   public queryExample = '';
 
@@ -68,9 +68,9 @@ export class BroadcastListsComponent implements OnInit {
    * Sets up the search form group and validations
    */
   setupSearchForm() {
-    this.searchForm = new FormGroup({
-      name_like: new FormControl(''),
-      sender_id_like: new FormControl('')
+    this.searchForm = new UntypedFormGroup({
+      name_like: new UntypedFormControl(''),
+      sender_id_like: new UntypedFormControl('')
     });
   }
 
@@ -110,36 +110,34 @@ export class BroadcastListsComponent implements OnInit {
   setupEditorForm() {
     const smsAccount: SmsAccount = this.smsAccountService.getOrganisationAccount();
 
-    this.editorForm = new FormGroup({
-      id: new FormControl(),
-      name: new FormControl('', [Validators.required]),
-      sender_id: new FormControl(smsAccount.sender_id, [Validators.required]),
-      module_sms_account_id: new FormControl(smsAccount.id),
-      size: new FormControl(0),
-      filters: new FormArray([ this.createFilterGroup() ])
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      name: new UntypedFormControl('', [Validators.required]),
+      sender_id: new UntypedFormControl(smsAccount?.sender_id, [Validators.required]),
+      module_sms_account_id: new UntypedFormControl(smsAccount?.id),
+      size: new UntypedFormControl(0),
+      filters: new UntypedFormArray([ this.createFilterGroup() ])
     });
 
     this.editorForm.valueChanges.subscribe(values => {
-      this.queryExample = this.listFilterService.getQueryExample(values);
+      this.queryExample = this.listFilterService.getQueryExample(values.filters);
     });
   }
 
   get filterControls() {
-    return (this.editorForm.controls.filters as FormArray);
+    return (this.editorForm.controls.filters as UntypedFormArray);
   }
 
   createFilterGroup(options = { optional: false }) {
-    const group = new FormGroup({
-      field: new FormControl('', Validators.required),
-      condition: new FormControl('', Validators.required),
-      value: new FormControl('', Validators.required),
-      optional: new FormControl(options.optional ? 1 : 0)
+    const group = new UntypedFormGroup({
+      field: new UntypedFormControl('', Validators.required),
+      condition: new UntypedFormControl('', Validators.required),
+      value: new UntypedFormControl('', Validators.required),
+      optional: new UntypedFormControl(options.optional ? 1 : 0)
     });
 
     group.valueChanges.subscribe(values => {
-      setTimeout(() => {
-        this.queryExample = this.listFilterService.getQueryExample(this.editorForm.value.filters);
-      })
+      this.queryExample = this.listFilterService.getQueryExample(this.editorForm.value.filters);
     });
 
     return group;
@@ -163,19 +161,20 @@ export class BroadcastListsComponent implements OnInit {
   }
 
   resetFilterGroups() {
-    this.editorForm.controls.filters = new FormArray([ this.createFilterGroup() ]);
+    this.clearFilterGroups();
+    this.addFilterGroup();
   }
 
   clearFilterGroups() {
-    this.editorForm.controls.filters = new FormArray([]);
+    this.filterControls.clear();
   }
 
   /**
    *
    */
   showEditorModal(broadcastList: SmsBroadcastList = null) {
-    this.setupEditorForm();
     this.selectedBroadcastList = broadcastList;
+    this.setupEditorForm();
 
     if (broadcastList) {
       if( broadcastList.filters?.length > 0 ) {
@@ -220,18 +219,27 @@ export class BroadcastListsComponent implements OnInit {
    * Setup listeners for model changes
    */
   setupEvents() {
-    this.events.on('SmsBroadcastList:created', () => this.modalService.dismissAll());
-    this.events.on('SmsBroadcastList:updated', () => this.modalService.dismissAll());
-    this.events.on('SmsBroadcastList:deleted', () => Swal.close());
+    this.events.on('SmsBroadcastList:created', () => {
+      this.modalService.dismissAll();
+      this.broadcastLists = this.broadcastListService.getItems();
+    });
+
+    this.events.on('SmsBroadcastList:updated', () => {
+      this.modalService.dismissAll();
+      this.broadcastLists = this.broadcastListService.getItems();
+    });
+
+    this.events.on('SmsBroadcastList:deleted', () => {
+      Swal.close()
+      this.broadcastLists = this.broadcastListService.getItems();
+    });
   }
 
   /**
    * Removes event listeners
    */
   removeEvents() {
-    this.events.off('SmsBroadcastList:created');
-    this.events.off('SmsBroadcastList:updated');
-    this.events.off('SmsBroadcastList:deleted');
+    this.events.off(['SmsBroadcastList:created', 'SmsBroadcastList:updated', 'SmsBroadcastList:deleted']);
   }
 
   /**

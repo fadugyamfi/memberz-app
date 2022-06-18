@@ -1,6 +1,10 @@
 <div class="card">
   <div class="card-header b-l-info">
     <div class="row">
+      <div class="col">
+        <h5 class="chart-title">{{ "Category Breakdown" | translate }}</h5>
+      </div>
+      <!-- end of col -->
       <div class="col-auto">
         <app-select-year-control
           [(ngModel)]="yearValue"
@@ -15,10 +19,7 @@
         ></app-select-month-control>
       </div>
       <!-- end of col -->
-      <div class="col">
-        <h6 class="chart-title">{{ "Category Breakdown" | translate }}</h6>
-      </div>
-      <!-- end of col -->
+
     </div>
     <!-- end of row -->
   </div>

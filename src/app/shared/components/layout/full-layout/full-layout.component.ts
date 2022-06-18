@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from "ngx-toastr";
+import { environment } from '../../../../../environments/environment';
 import { EventsService } from "../../../services/events.service";
 
 @Component({
@@ -8,6 +9,8 @@ import { EventsService } from "../../../services/events.service";
   styleUrls: ['./full-layout.component.scss']
 })
 export class FullLayoutComponent implements OnInit {
+
+  public _environment = environment;
 
   constructor(
     public toastrService: ToastrService,

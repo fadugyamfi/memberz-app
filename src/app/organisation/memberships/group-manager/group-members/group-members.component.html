@@ -1,0 +1,45 @@
+<div class="card">
+
+  <div class="card-header">
+    <button class="btn btn-outline-primary btn-sm m-r-45" (click)="goBack()">
+      <i class="fa fa-chevron-left"></i> {{ 'Back To Groups' | translate }}
+    </button>
+
+    <h6 class="fw-bold d-inline-block">{{ group?.name }} - {{ 'Members' | translate }}</h6>
+  </div>
+
+  <app-loading-rotate-dashed *ngIf="groupMemberService.fetching"></app-loading-rotate-dashed>
+
+  <table class="table table-bordered table-striped" *ngIf="!groupMemberService.fetching">
+    <thead>
+      <tr>
+        <th colspan="2">{{ 'Name' | translate }}</th>
+        <th>{{ 'Membership Category' | translate }}</th>
+        <th>{{ 'Mobile Number' | translate }}</th>
+        <th class="text-center">{{ 'Actions' | translate }}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let groupMember of groupMemberService.getItems(); let i = index">
+        <td>{{ i + groupMemberService.pagingMeta.from }}.</td>
+        <td>
+          <a [routerLink]="['/organisation/memberships/view', groupMember.organisation_member_id]" target="profile">
+            {{ groupMember.organisation_member?.nameLastFirst() }}
+          </a>
+        </td>
+        <td>{{ groupMember.organisation_member?.organisation_member_category?.name }}</td>
+        <td>{{ groupMember.organisation_member?.member?.mobile_number }}</td>
+        <td class="text-center">
+          <button class="btn btn-xs btn-danger" (click)="removeMember(groupMember)">
+            <i class="fa fa-trash-o"></i> {{ 'Remove' | translate }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card-footer">
+    <app-pagination [service]="groupMemberService" (paginate)="onPaginate($event)"></app-pagination>
+  </div>
+</div>

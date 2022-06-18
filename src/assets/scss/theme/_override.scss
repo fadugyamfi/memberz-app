@@ -19,10 +19,18 @@ international-phone-number {
 div.messages.text-danger {
   p {
     margin-bottom: 0px;
-    font-size: 12px;
+    font-size: 1em;
   }
 }
 
 .swal2-popup .swal2-actions .swal2-styled.swal2-cancel {
   background-color: #d42929 !important;
+}
+
+// ngb-modal-backdrop {
+//   z-index: 1050 !important;
+// }
+
+a {
+  text-decoration: none;
 }

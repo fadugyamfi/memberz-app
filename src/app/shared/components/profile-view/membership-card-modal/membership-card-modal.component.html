@@ -1,0 +1,23 @@
+<ng-template #cardModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">{{'Membership Card' | translate}}</h4>
+
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <section id="membership-card">
+      <app-membership-card [membership]="membership"></app-membership-card>
+    </section>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-primary m-r-15" [useExistingCss]="true"
+            printSectionId="membership-card" ngxPrint>
+      <i class="fa fa-print"></i> {{ 'Print Card' | translate }}
+    </button>
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Close</button>
+  </div>
+</ng-template>

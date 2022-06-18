@@ -1,0 +1,7 @@
+.notification-item {
+  cursor: pointer;
+
+  &:not(.active):hover {
+    background-color: rgb(224, 236, 240);
+  }
+}

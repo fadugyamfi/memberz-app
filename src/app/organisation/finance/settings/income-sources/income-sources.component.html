@@ -9,7 +9,7 @@
               <i class="fa fa-plus-circle"></i> {{ 'Add Source' | translate }}
             </button>
           </div>
-          <div class="col-7 text-right">
+          <div class="col-7 text-end">
 
           </div>
         </div>
@@ -17,7 +17,7 @@
 
       <div class="m-t-30 m-b-30 text-center" *ngIf="!contributionTypeService.fetching && !contributionTypeService.hasItems()">
         <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-        <h4 class="font-weight-bold">{{'No Income Sources Defined' | translate}}</h4>
+        <h4 class="fw-bold">{{'No Income Sources Defined' | translate}}</h4>
         <h6>{{'Please create income sources to display them here' | translate}}</h6>
       </div>
 
@@ -44,7 +44,7 @@
             <td>{{ type.fix_amount_per_period ? ( type.fixed_amount | currency : type.currency.currency_code ) : 'N/A' }}</td>
             <td>{{ type.contribution_count | number }}</td>
             <td class="text-center">
-              <button type="button" class="btn btn-xs btn-info m-r-10" (click)="showEditorModal(type)">
+              <button type="button" class="btn btn-xs btn-primary m-r-10" (click)="showEditorModal(type)">
                 <i class="fa fa-pencil"></i> {{ 'Edit' | translate }}
               </button>
               <button type="button" class="btn btn-xs btn-danger" (click)="deleteType(type)">
@@ -68,8 +68,8 @@
     <div class="modal-header">
       <h5 class="modal-title" id="modal-basic-title">{{'Income Source Editor' | translate}}</h5>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
@@ -119,7 +119,7 @@
       <div class="form-group row animate fadeIn" [class]="{'hidden': !configuringFixedAmount}">
         <label class="col-sm-3 col-form-label">{{'Fixed Amount' | translate}}</label>
         <div class="col-sm-3">
-          <select class="form-control" formControlName="currency_id">
+          <select class="form-select" formControlName="currency_id">
             <option value="">{{ 'Select Currency' | translate }}</option>
             <option *ngFor="let currency of currencyService.getItems()" [value]="currency.id">
               {{ currency.currency_code }}

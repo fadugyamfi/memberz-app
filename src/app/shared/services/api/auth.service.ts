@@ -16,8 +16,10 @@ import { TranslateService } from '@ngx-translate/core';
   providedIn: 'root',
 })
 export class AuthService extends APIService<MemberAccount> {
-  public userData;
-  public _sessionId;
+  public userData: MemberAccount;
+  public _sessionId: MemberAccount;
+  public currentLang: string;
+  public DAYS_TO_REMEMBER_USER = 30;
 
   constructor(
     public http: HttpClient,
@@ -33,40 +35,88 @@ export class AuthService extends APIService<MemberAccount> {
     this.url = '/auth';
     this.model_name = 'Auth';
 
+    translate.setDefaultLang('en');
+
+    if (this.storage.has('current_lang')) {
+      this.currentLang = this.storage.get('current_lang');
+      translate.use(this.currentLang);
+    }
+
     this.setupEvents();
     this.loadUserData();
   }
 
   public setupEvents() {
-    this.events.on('api:authentication:required', () => this.logout());
+    this.events.on('api:authentication:required', () => this.logout({ force: true }));
+    this.events.on('api:authentication:clear', () => this.clearAndRedirect());
+    this.events.on('auth:logout', () => this.logout());
+    this.events.on('auth:refresh', () => this.me(true).subscribe());
   }
 
   public login(username: string, password: string, remember_me: boolean = false) {
-    const DURATION = remember_me ? 30 : 1;
+    const DURATION = remember_me ? this.DAYS_TO_REMEMBER_USER : 1;
     const params = { username, password };
 
-    return this.post(`${this.url}/login`, params)
-      .pipe(
-        map((response) => {
-          this.storage.set('auth', response, DURATION, 'day');
-          return response;
-        }),
-        switchMap(() => this.me(remember_me))
-      )
-      .subscribe(
-        () => this.router.navigate(['/portal/home']),
-        () => {
-          Swal.fire(
-            this.translate.instant('Login Failed'),
-            this.translate.instant('Username or Password may be incorrect') + '.' + this.translate.instant('Please try again'),
-            'error'
-          );
-          this.requesting = false;
-        },
-        () => {
-          Swal.close();
+    this.storage.set('loginUser', params);
+    this.storage.set('remember_me', remember_me);
+
+    return this.post(`${this.url}/login`, params).subscribe({
+      next: (res) => {
+        if (res['status'] == '2fa') {
+          this.router.navigate(['/auth/2fa']);
+        } else {
+          this.performLogin(res, DURATION, remember_me);
         }
-      );
+      },
+      error: () => {
+        Swal.fire(
+          this.translate.instant('Login Failed'),
+          this.translate.instant('Username or Password may be incorrect') + '.' + this.translate.instant('Please try again'),
+          'error'
+        );
+        this.requesting = false;
+      },
+      complete: () => Swal.close()
+    });
+  }
+
+
+  public validateTwoFactorAuthLogin(username: string, password: string, remember_me: boolean = false, code: string) {
+    const DURATION = remember_me ? this.DAYS_TO_REMEMBER_USER : 1;
+    const params = { username, password, code };
+
+    return this.post(`${this.url}/2fa-validate`, params).subscribe({
+      next: (res) => {
+        this.performLogin(res, DURATION, remember_me);
+      },
+      error: () => {
+        Swal.fire(
+          this.translate.instant('Login Failed'),
+          this.translate.instant('Username or Password may be incorrect') + '.' + this.translate.instant('Please try again'),
+          'error'
+        );
+        this.requesting = false;
+      }
+    });
+  }
+
+  public performLogin(res, DURATION, remember_me) {
+    this.storage.remove('loginUser');
+    this.storage.remove('remember_me');
+    this.storage.set('auth', res, DURATION, 'day');
+
+    this.me(remember_me).subscribe({
+      next: () => this.router.navigate(['/portal/home']),
+      error: () => {
+        Swal.fire(
+          this.translate.instant('Account Info Not Found'),
+          this.translate.instant('Please attempt login again'),
+          'info'
+        ).then(() => {
+          this.router.navigate(['/auth/login'])
+        });
+      }
+    });
   }
 
   public register(data: RegisterUserContract) {
@@ -77,8 +127,8 @@ export class AuthService extends APIService<MemberAccount> {
     );
     Swal.showLoading();
 
-    return this.post(`${this.url}/register`, data).subscribe(
-      () => {
+    return this.post(`${this.url}/register`, data).subscribe({
+      next: () => {
         this.login(data.email, data.password);
         Swal.fire(
           this.translate.instant('Registration Successful'),
@@ -87,22 +137,24 @@ export class AuthService extends APIService<MemberAccount> {
         );
         Swal.showLoading();
       },
-      () => {
+      error: () => {
         Swal.fire(
           this.translate.instant('Registration Failed'),
           this.translate.instant('Please try again'),
           'error'
         );
         Swal.hideLoading();
-      }
-    );
+        this.requesting = false;
+      },
+      complete: () => Swal.close()
+    });
   }
 
   public forgotPassword(email: string) {
     return this.post(`${this.url}/forgot-password`, {
       username: email,
-    }).subscribe(
-      () => {
+    }).subscribe({
+      next: () => {
         Swal.fire(
           this.translate.instant('Request Successful'),
           this.translate.instant('A password reset link has been sent to your email') + '.' +
@@ -111,48 +163,48 @@ export class AuthService extends APIService<MemberAccount> {
         );
         this.router.navigate(['/auth/login']);
       },
-      () => (this.requesting = false)
-    );
+      error: () => (this.requesting = false)
+    });
   }
 
   public resetPassword(username: string, password: string, token: string) {
     const params = { username, password, token };
 
-    return this.post(`${this.url}/reset-password`, params).subscribe(
-      () => this.router.navigate(['/auth/login']),
-      () => (this.requesting = false)
-    );
+    return this.post(`${this.url}/reset-password`, params).subscribe({
+      next: () => this.router.navigate(['/auth/login']),
+      error: () => (this.requesting = false)
+    });
   }
 
   public me(remember_user: boolean = false) {
-    const DURATION = remember_user ? 14 : 1;
+    const DURATION = remember_user ? this.DAYS_TO_REMEMBER_USER : 1;
 
     return this.get(`${this.url}/me`).pipe(
       map((response) => {
         const user = new MemberAccount(response);
         this.storage.set('user', user, DURATION, 'day');
         this.loadUserData();
+        this.events.trigger('auth:refreshed');
         return user;
       })
     );
   }
 
   // Sign out
-  public logout() {
+  public logout(options = { force: false }) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => {
       return false;
     };
 
-    if (!this.storage.isValid('auth')) {
-      this.clearSession();
-      this.router.navigate(['/auth/login']);
+    if (!this.storage.isValid('auth') || options.force) {
+      this.clearAndRedirect();
       return;
     }
 
-    this.post(`${this.url}/logout`, {}).subscribe(
-      () => this.clearAndRedirect(), // on success
-      () => this.clearAndRedirect() // on error
-    );
+    this.post(`${this.url}/logout`, {}).subscribe({
+      next: () => this.clearAndRedirect(), // on success
+      error: () => this.clearAndRedirect() // on error
+    });
   }
 
   public clearAndRedirect() {
@@ -170,9 +222,17 @@ export class AuthService extends APIService<MemberAccount> {
 
   loadUserData() {
     if (this.storage.has('user')) {
-      this.userData = new MemberAccount(this.storage.get('user'));
+      this.userData = this.userStorageData();
       this._sessionId = this.userData;
     }
+  }
+
+  getLoggedInUser() {
+    return this.userData;
+  }
+
+  public userStorageData() {
+    return new MemberAccount(this.storage.get('user'));
   }
 
   get isLoggedIn(): boolean {

@@ -17,18 +17,7 @@
         </div>
       </div>
 
-      <div class="col-md-6 text-right">
-        <!-- <button class="btn btn-primary btn-sm m-r-10" (click)="showSearchModal()">
-          <i class="fa fa-search"></i> Find Members
-        </button> -->
-
-        <!-- <button class="btn btn-sm btn-outline-info m-r-10">
-                <i class="fa fa-file-excel-o"></i> Export
-              </button>
-
-              <button class="btn btn-sm btn-outline-dark">
-                <i class="fa fa-print"></i> Print
-              </button> -->
+      <div class="col-md-6 text-end">
       </div>
     </div>
 
@@ -36,11 +25,11 @@
 
   <div class="m-t-30 m-b-30 text-center" *ngIf="emptyDataset()">
     <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-    <h4 class="font-weight-bold">{{'No Registrations Pending Approval Found' | translate}}</h4>
+    <h4 class="fw-bold">{{'No Registrations Pending Approval Found' | translate}}</h4>
     <h6>{{'Create and share some registration forms to start get data into this view' | translate}}</h6>
   </div>
 
-  <div class="loader-box m-auto" *ngIf="membershipService.requesting">
+  <div class="loader-box m-auto" *ngIf="membershipService.fetching">
     <span class="rotate dashed colored"></span>
   </div>
 
@@ -50,35 +39,47 @@
         <th class="text-center">
           <input type="checkbox" class="checkbox" [checked]="allSelected" (change)="toggleAllSelected()">
         </th>
-        <th>{{'No' | translate}}.</th>
-        <th>{{'Member Name' | translate}}</th>
+        <!-- <th>{{'No' | translate}}.</th> -->
+        <th colspan="2">{{'Member Name' | translate}}</th>
+        <th>{{ 'Registered With' | translate }}</th>
         <th>{{'Membership Category' | translate}}</th>
-        <th class="text-right">{{'Registered' | translate}}</th>
+        <th>{{'Mobile Number' | translate}}</th>
+        <th class="text-end">{{'Registered' | translate}}</th>
         <th class="text-center">{{'Actions' | translate}}</th>
       </tr>
     </thead>
 
 
     <tbody>
-      <tr *ngFor="let profile of members">
+      <tr *ngFor="let profile of members; let row = index">
         <td class="text-center">
           <input type="checkbox" class="checkbox" [checked]="profile.selected" (change)="toggleSelected(profile)" />
         </td>
-        <td>{{ profile.organisation_no }}</td>
-        <td>{{ profile.member?.last_name }} {{ profile.member?.first_name }} </td>
+        <td class="text-end">{{ membershipService.pagingMeta.from + row }}.</td>
+        <td>
+          <a viewProfile [membership]="profile" href="javascript:void(0)">
+            {{ profile.member?.last_name }} {{ profile.member?.first_name }}
+          </a>
+        </td>
+        <td>{{ profile.organisation_registration_form?.name }}</td>
         <td>{{ profile.organisation_member_category?.name }}</td>
-        <td class="text-right">{{ profile.whenCreated() }}</td>
+        <td>
+          <a href="tel:{{ profile.member?.mobile_number }}">{{ profile.member?.mobile_number || 'N/A' }}</a>
+        </td>
+        <td class="text-end">{{ profile.whenCreated() }}</td>
 
         <td class="text-center">
           <button class="btn btn-xs btn-primary m-r-15" (click)="viewProfile(profile)">
             <i class="fa fa-user"></i> {{'View' | translate}}
           </button>
 
-          <button class="btn btn-xs btn-success m-r-15" *ngIf="profile.pendingApproval()" (click)="membershipService.approveRegistration(profile)">
+          <button class="btn btn-xs btn-success m-r-15" *ngIf="profile.pendingApproval()"
+                  (click)="membershipService.approveRegistration(profile)">
             <i class="fa fa-check"></i> {{'Approve' | translate}}
           </button>
 
-          <button class="btn btn-xs btn-danger" *ngIf="profile.pendingApproval()" (click)="membershipService.rejectRegistration(profile)">
+          <button class="btn btn-xs btn-danger" *ngIf="profile.pendingApproval()"
+                  (click)="membershipService.rejectRegistration(profile)">
             <i class="fa fa-thumbs-down"></i> {{'Reject' | translate}}
           </button>
         </td>
@@ -90,69 +91,3 @@
     <app-pagination [service]="membershipService" (paginate)="onPaginate($event)"></app-pagination>
   </div>
 </div>
-
-
-<!-- <ng-template #searchModal let-modal>
-  <form (submit)="onSearch($event)" class="form form-horizontal theme-form" [formGroup]="searchForm">
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Find Members</h4>
-      <!-- <p>Search your membership database and find members by any of the parameters below</p> --
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Member Category</label>
-        <div class="col-sm-8">
-          <select class="form-control" formControlName="organisation_member_category_id">
-            <option value="">Select Category</option>
-            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Membership No</label>
-        <div class="col-sm-8">
-          <input type="text" class="form-control" placeholder="e.g. A/195" formControlName="organisation_no" />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">First Name</label>
-        <div class="col-sm-8">
-          <input type="text" class="form-control" placeholder="e.g. Frank" formControlName="first_name_like" />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Last Name</label>
-        <div class="col-sm-8">
-          <input type="text" class="form-control" placeholder="e.g. Jones" formControlName="last_name_like" />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Email</label>
-        <div class="col-sm-8">
-          <input type="email" class="form-control" placeholder="e.g. joe@mail.com" formControlName="email_like" />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-4 col-form-label">Mobile Number</label>
-        <div class="col-sm-8">
-          <input type="email" class="form-control" placeholder="e.g. 0245000000" formControlName="mobile_number_like" />
-        </div>
-      </div>
-
-    </div>
-    <div class="modal-footer">
-      <button type="submit" class="btn btn-primary">Search</button>
-      <button type="reset" class="btn btn-outline-info">Clear</button>
-      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">Cancel</button>
-    </div>
-  </form>
-</ng-template> -->

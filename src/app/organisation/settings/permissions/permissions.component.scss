@@ -15,3 +15,7 @@
 .table tbody + tbody {
   border-top: none;
 }
+
+::ng-deep .switch {
+    width: auto;
+}

@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoaderComponent } from './components/loader/loader.component';
+
 import { HeaderComponent } from './components/header/header.component';
+import { HeaderNotificationsComponent } from './components/header/header-notifications.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ContentLayoutComponent } from './components/layout/content-layout/content-layout.component';
@@ -15,7 +16,7 @@ import { RightSidebarComponent } from './components/right-sidebar/right-sidebar.
 import { BookmarkComponent } from './components/bookmark/bookmark.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { CustomizerComponent } from './components/customizer/customizer.component';
-import { DragulaModule } from 'ng2-dragula';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
@@ -23,6 +24,8 @@ import { NgxPrintModule } from 'ngx-print';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { ArchwizardModule } from 'angular-archwizard';
+import { QrCodeModule } from 'ng-qrcode';
 
 // services
 import { NavService } from './services/nav.service';
@@ -49,7 +52,9 @@ import { SelectMonthControlComponent } from './components/forms/select-month-con
 import { SelectYearControlComponent } from './components/forms/select-year-control/select-year-control.component';
 import { SelectBankControlComponent } from './components/forms/select-bank-control/select-bank-control.component';
 import { SelectCurrencyControlComponent } from './components/forms/select-currency-control/select-currency-control.component';
+import { SelectCountryControlComponent } from './components/forms/select-country-control/select-country-control.component';
 import { SelectPaymentTypeControlComponent } from './components/forms/select-payment-type-control/select-payment-type-control.component';
+import { SelectContributionTypeControlComponent } from './components/forms/select-contribution-type-control/select-contribution-type-control.component';
 import { FinanceWeeklyBreakdownComponent } from './components/charts/finance-weekly-breakdown/finance-weekly-breakdown.component';
 import { FinanceCategoryBreakdownComponent } from './components/charts/finance-category-breakdown/finance-category-breakdown.component';
 import { FinanceTrendComponent } from './components/charts/finance-trend/finance-trend.component';
@@ -61,11 +66,41 @@ import { PrintLayoutComponent } from './components/layout/print-layout/print-lay
 import { PrintFooterComponent } from './components/layout/print-layout/print-footer/print-footer.component';
 import { PrintHeaderComponent } from './components/layout/print-layout/print-header/print-header.component';
 import { TitleComponent } from './components/title/title.component';
+import { SmsSummaryComponent } from './components/charts/sms-summary/sms-summary.component';
+import { ViewProfileDirective } from './directives/view-profile.directive';
+
+import { ProfileViewComponent } from './components/profile-view/profile-view.component';
+import { ProfileSummaryComponent } from './components/profile-view/profile-summary/profile-summary.component';
+import { ProfileFamilyComponent } from './components/profile-view/profile-family/profile-family.component';
+import { FamilyMemberEditorComponent } from './components/profile-view/profile-family/family-member-editor/family-member-editor.component';
+import { ProfileContributionsComponent } from './components/profile-view/profile-contributions/profile-contributions.component';
+import { ProfileGroupsComponent } from './components/profile-view/profile-groups/profile-groups.component';
+import { ProfileSmsMessagesComponent } from './components/profile-view/profile-sms-messages/profile-sms-messages.component';
+import { ProfileSidebarComponent } from './components/profile-view/profile-sidebar/profile-sidebar.component';
+import { ProfileHeaderComponent } from './components/profile-view/profile-header/profile-header.component';
+import { ProfileAnniversariesComponent } from './components/profile-view/profile-anniversaries/profile-anniversaries.component';
+import { ProfileActionsComponent } from './components/profile-view/profile-actions/profile-actions.component';
+import { MakeAdminComponent } from './components/profile-view/make-admin/make-admin.component';
+import { SmsTemplateTagControlComponent } from './components/forms/sms-template-tag-control/sms-template-tag-control.component';
+import { CustomFieldComponent } from './components/forms/custom-field/custom-field.component';
+import { AdminHasPermissionDirective } from './directives/admin-has-permission.directive';
+import { AvatarModule, AvatarSource } from 'ngx-avatar';
+import { TawkChatModule } from '../components/tawk-chat/tawk-chat.module';
+
+import { MembershipCardComponent } from './components/profile-view/membership-card/membership-card.component';
+import { MembershipCardModalComponent } from './components/profile-view/membership-card-modal/membership-card-modal.component';
+import { ViewBirthdaysComponent } from './components/birthday/view-birthdays/view-birthdays.component';
+import { ConfigureAutomatedMessagesComponent } from './components/birthday/configure-automated-messages/configure-automated-messages.component';
+import { ContributionService } from './services/api/contribution.service';
+import { FinanceDashboardService } from './services/api/finance-dashboard.service';
+import { CountToDirective } from './directives/count-to.directive';
+
+const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
 @NgModule({
   declarations: [
-    LoaderComponent,
     HeaderComponent,
+    HeaderNotificationsComponent,
     FooterComponent,
     SidebarComponent,
     BookmarkComponent,
@@ -90,7 +125,9 @@ import { TitleComponent } from './components/title/title.component';
     SelectYearControlComponent,
     SelectBankControlComponent,
     SelectCurrencyControlComponent,
+    SelectCountryControlComponent,
     SelectPaymentTypeControlComponent,
+    SelectContributionTypeControlComponent,
     FinanceWeeklyBreakdownComponent,
     FinanceCategoryBreakdownComponent,
     FinanceTrendComponent,
@@ -100,7 +137,29 @@ import { TitleComponent } from './components/title/title.component';
     PrintLayoutComponent,
     PrintFooterComponent,
     PrintHeaderComponent,
-    TitleComponent
+    TitleComponent,
+    SmsSummaryComponent,
+    ViewProfileDirective,
+    ProfileViewComponent,
+    ProfileSummaryComponent,
+    ProfileFamilyComponent,
+    FamilyMemberEditorComponent,
+    ProfileContributionsComponent,
+    ProfileGroupsComponent,
+    ProfileSmsMessagesComponent,
+    ProfileSidebarComponent,
+    ProfileHeaderComponent,
+    ProfileAnniversariesComponent,
+    ProfileActionsComponent,
+    MakeAdminComponent,
+    SmsTemplateTagControlComponent,
+    CustomFieldComponent,
+    AdminHasPermissionDirective,
+    MembershipCardComponent,
+    MembershipCardModalComponent,
+    ViewBirthdaysComponent,
+    ConfigureAutomatedMessagesComponent,
+    CountToDirective
   ],
   imports: [
     CommonModule,
@@ -108,17 +167,21 @@ import { TitleComponent } from './components/title/title.component';
     FormsModule,
     ReactiveFormsModule,
     TranslateModule,
-    DragulaModule.forRoot(),
     NgbModule,
     UiSwitchModule,
     InternationalPhoneNumberModule,
     NgxPrintModule,
     NgxChartsModule,
     ImageCropperModule,
-    ChartsModule
+    ChartsModule,
+    ArchwizardModule,
+    AvatarModule.forRoot({
+      sourcePriorityOrder: avatarSourcesOrder
+    }),
+    QrCodeModule,
+    TawkChatModule
   ],
   exports: [
-    LoaderComponent,
     FeatherIconsComponent,
     PaginationComponent,
     TranslateModule,
@@ -140,26 +203,38 @@ import { TitleComponent } from './components/title/title.component';
     SelectYearControlComponent,
     SelectBankControlComponent,
     SelectCurrencyControlComponent,
+    SelectCountryControlComponent,
     SelectPaymentTypeControlComponent,
+    SelectContributionTypeControlComponent,
     FinanceWeeklyBreakdownComponent,
     FinanceCategoryBreakdownComponent,
     FinanceTrendComponent,
     FinanceTotalsByCategoryComponent,
     NoDataAvailableComponent,
-    LoadingRotateDashedComponent
+    LoadingRotateDashedComponent,
+    ArchwizardModule,
+    SmsSummaryComponent,
+    ChartsModule,
+    ViewProfileDirective,
+    ProfileViewComponent,
+    MakeAdminComponent,
+    SmsTemplateTagControlComponent,
+    CustomFieldComponent,
+    AdminHasPermissionDirective,
+    AvatarModule,
+    QrCodeModule,
+    MembershipCardComponent,
+    ViewBirthdaysComponent,
+    ConfigureAutomatedMessagesComponent,
+    CountToDirective
   ],
   providers: [
     NavService,
     ChatService,
     CustomizerService,
     ExcelService,
-
-    // error handling
-    RequestErrorHandler,
-    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
-
-    // appending organisation_id to requests
-    { provide: HTTP_INTERCEPTORS, useClass: OrganisationInterceptor, multi: true },
+    ContributionService,
+    FinanceDashboardService,
   ]
 })
 export class SharedModule { }

@@ -6,6 +6,7 @@ export class Member extends AppModel {
   public id: any;
   public first_name: string;
   public last_name: string;
+  public middle_name: string;
   public member_image: any[];
   public profile_photo: any;
   public email: string;
@@ -16,6 +17,7 @@ export class Member extends AppModel {
   public nationality: string;
   public place_of_birth: string;
   public gender: string;
+  public residential_address: string;
 
   constructor(data) {
     super(data);
@@ -31,6 +33,10 @@ export class Member extends AppModel {
 
   lastThenFirstName() {
     return `${this.last_name} ${this.first_name}`;
+  }
+
+  fullname() {
+    return `${this.first_name} ${this.middle_name || ''} ${this.last_name}`;
   }
 
   thumbnail() {

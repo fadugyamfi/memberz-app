@@ -1,0 +1,52 @@
+<div class="card profile-header">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-auto text-center">
+        <ngx-avatar [src]="profileImageUrl" [name]="membership?.name()" size="120" initialsSize="2"></ngx-avatar>
+        <!-- <div class="p-b-15 image-cropper">
+
+          <img [src]="profileImageUrl" class="profile-img" default="/assets/images/user/no-photo-icon.jpg" />
+        </div> -->
+
+        <div class="p-t-15">
+          <div class="m-b-25" *ngIf="imageUploadProgress">
+            <ngb-progressbar type="success" [value]="imageUploadProgress" height="5px" [striped]="true">
+            </ngb-progressbar>
+          </div>
+
+          <button class="btn btn-success btn-sm btn-pill" (click)="imageCropper.show()">
+            {{ 'Change Photo' | translate }}
+          </button>
+
+          <app-image-cropper #imageCropper (save)="onCroppedImageSaved($event)"></app-image-cropper>
+        </div>
+      </div>
+
+      <div class="col-lg-9 text-left">
+        <div class="p-t-5">
+          <div class="d-flex justify-content-between">
+            <section>
+              <h3>{{ membership?.name() }}</h3>
+
+              <p class="f-12">
+                <span>{{ membership?.organisation_no }}</span>
+                &nbsp; &bull; &nbsp;
+                <span>{{ membership?.organisation_member_category?.name }}</span>
+              </p>
+            </section>
+
+            <aside>
+              <qr-code [value]="membership?.uuid" size="125" errorCorrectionLevel="M"></qr-code>
+            </aside>
+          </div>
+
+
+          <app-profile-actions [membership]="membership"></app-profile-actions>
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { Contribution } from '../../../../shared/model/api/contribution';
@@ -14,6 +14,10 @@ import { ContributionReceiptSettingService} from '../../../../shared/services/ap
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../../shared/services/events.service';
 import { ContributionPaymentType } from '../../../../shared/model/api/contribution-payment-type';
+import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { SmsAccountService } from '../../../../shared/services/api/sms-account.service';
 
 
 @Component({
@@ -25,8 +29,8 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
 
   @ViewChild('editorModal', { static: true }) editorModal: any;
 
-  public editorForm: FormGroup;
-  public periods: FormArray;
+  public editorForm: UntypedFormGroup;
+  public periods: UntypedFormArray;
   private subscriptions: Subscription[] = [];
   public selectedContributionType: ContributionType;
   public selectedContribution: Contribution;
@@ -43,10 +47,14 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
     public modalService: NgbModal,
     public receiptSettingService: ContributionReceiptSettingService,
     public orgService: OrganisationService,
-    public events: EventsService
+    public events: EventsService,
+    public translate: TranslateService,
+    public router: Router,
+    public smsAccountService: SmsAccountService
   ) { }
 
   ngOnInit(): void {
+    this.fetchContributionTypes();
     this.fetchReceiptSettings();
     this.setupEvents();
   }
@@ -60,18 +68,18 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
    *
    */
   setupEditorForm(contribution: Contribution = null) {
-    this.editorForm = new FormGroup({
-      id: new FormControl(),
-      receipt_dt: new FormControl(moment().format('YYYY-MM-DD'), [Validators.required]),
-      receipt_no: new FormControl(''),
-      description: new FormControl(''),
-      organisation_member_id: new FormControl(''),
-      module_contribution_type_id: new FormControl('', [Validators.required]),
-      module_contribution_payment_type_id: new FormControl('', [Validators.required]),
-      bank_id: new FormControl(''),
-      cheque_number: new FormControl(''),
-      cheque_status: new FormControl('Not Cleared'),
-      periods: new FormArray([ this.createPeriodItem(contribution) ])
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      receipt_dt: new UntypedFormControl(moment().format('YYYY-MM-DD'), [Validators.required]),
+      receipt_no: new UntypedFormControl(''),
+      description: new UntypedFormControl(''),
+      organisation_member_id: new UntypedFormControl(''),
+      module_contribution_type_id: new UntypedFormControl('', [Validators.required]),
+      module_contribution_payment_type_id: new UntypedFormControl('', [Validators.required]),
+      bank_id: new UntypedFormControl(''),
+      cheque_number: new UntypedFormControl(''),
+      cheque_status: new UntypedFormControl('Not Cleared'),
+      periods: new UntypedFormArray([ this.createPeriodItem(contribution) ])
     });
 
     this.editorForm.valueChanges.subscribe(value => {
@@ -96,14 +104,14 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.periods = this.editorForm.get('periods') as FormArray;
+    this.periods = this.editorForm.get('periods') as UntypedFormArray;
 
     if ( !this.receiptSettings.isReceiptModeAuto() ) {
       this.editorForm.controls.receipt_no.addValidators(Validators.required);
     }
   }
 
-  createPeriodItem(contribution: Contribution = null): FormGroup {
+  createPeriodItem(contribution: Contribution = null): UntypedFormGroup {
     const weekOfMonth = (input = moment()) => {
       const firstDayOfMonth = input.clone().startOf('month');
       const firstDayOfWeek = firstDayOfMonth.clone().startOf('week');
@@ -115,12 +123,12 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
 
     const currentDate = moment();
 
-    return new FormGroup({
-      week: new FormControl( contribution?.week || weekOfMonth(currentDate) ),
-      month: new FormControl( contribution?.month || currentDate.month() + 1, [Validators.required]),
-      year: new FormControl( contribution?.year || currentDate.year(), [Validators.required]),
-      currency_id: new FormControl( contribution ? contribution.currency_id : this.receiptSettings.default_currency, [Validators.required]),
-      amount: new FormControl( contribution?.amount || '', [Validators.required]),
+    return new UntypedFormGroup({
+      week: new UntypedFormControl( contribution?.week || weekOfMonth(currentDate) ),
+      month: new UntypedFormControl( contribution?.month || currentDate.month() + 1, [Validators.required]),
+      year: new UntypedFormControl( contribution?.year || currentDate.year(), [Validators.required]),
+      currency_id: new UntypedFormControl( contribution ? contribution.currency_id : this.receiptSettings.default_currency, [Validators.required]),
+      amount: new UntypedFormControl( contribution?.amount || '', [Validators.required]),
     });
   }
 
@@ -152,16 +160,50 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
   }
 
   fetchReceiptSettings() {
-    const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {
-      this.receiptSettings = settings;
-      this.setupEditorForm();
+    const sub = this.receiptSettingService.fetchSettings().subscribe({
+      next: settings => {
+        this.receiptSettings = settings;
+        this.setupEditorForm();
+      },
+      error: (err) => {
+        Swal.fire({
+          title: this.translate.instant('Receipts Not Configured'),
+          text: this.translate.instant('Configure your receipt settings in order to add transactions'),
+          icon: 'error',
+          showCancelButton: true,
+          confirmButtonText: this.translate.instant('Configure Now')
+        }).then(action => {
+          if( action.isConfirmed ) {
+            this.router.navigate(['/organisation/finance/settings/receipts']);
+          }
+        });
+      }
     });
 
     this.subscriptions.push(sub);
   }
 
   fetchContributionTypes() {
-    const sub = this.contributionTypeService.getAll({ sort: 'name:asc' }).subscribe();
+    const sub = this.contributionTypeService.getAll({ sort: 'name:asc' }).subscribe({
+      next: (sources) => {
+        if( !sources || sources.length == 0 ) {
+          Swal.fire({
+            title: this.translate.instant('Income Sources Not Configured'),
+            text: this.translate.instant('Configure your income sources in order to add transactions'),
+            icon: 'error',
+            showCancelButton: true,
+            confirmButtonText: this.translate.instant('Configure Now')
+          }).then(action => {
+            if( action.isConfirmed ) {
+              this.router.navigate(['/organisation/finance/settings/income-sources']);
+            }
+          });
+        }
+      },
+      error: (err) => {
+
+      }
+    });
     this.subscriptions.push(sub);
   }
 
@@ -187,7 +229,6 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
     e.preventDefault();
 
     if ( !this.editorForm.valid ) {
-      console.log(this.editorForm.value);
       return;
     }
 
@@ -219,5 +260,23 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
         this.contributionService.create(contribution);
       }
     });
+  }
+
+  enableSmsNotification() {
+    const smsAccountCreated = this.smsAccountService.hasOrganisationAccount();
+
+    if( !smsAccountCreated ) {
+      Swal.fire(
+        this.translate.instant('SMS Account Not Setup'),
+        this.translate.instant('Please setup SMS account to enable is feature'),
+        'error'
+      );
+      return;
+    }
+
+    if( this.receiptSettings ) {
+      this.receiptSettings.sms_notify = true;
+      this.receiptSettingService.update(this.receiptSettings);
+    }
   }
 }

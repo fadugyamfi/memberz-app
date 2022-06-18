@@ -1,0 +1,72 @@
+<section class="profile-family">
+
+  <div class="m-b-15">
+    <button class="btn btn-sm btn-outline-primary" (click)="addFamilyMember()">
+      <i class="fa fa-plus-circle fa-2x m-r-10 middle"></i>
+      <span>{{ 'Add Family Member' | translate }}</span>
+    </button>
+  </div>
+
+  <div class="m-t-50 text-center" *ngIf="relationService.hasZeroItems() && !relationService.fetching">
+    <h3>{{'No Family Members Added' | translate}}</h3>
+    <p>{{'Add a family member to get started' | translate}}</p>
+  </div>
+
+  <div class="loader-box m-auto" *ngIf="relationService.fetching">
+    <span class="rotate dashed colored"></span>
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item p-t-15 p-b-15" *ngFor="let relation of $relations | async">
+      <div class="row">
+        <!-- Left Column -->
+        <div class="col-sm-8">
+          <div class="d-flex">
+            <div class="flex-shrink-0">
+              <ngx-avatar [src]="relation.profilePhoto()" [name]="relation.name" initialsSize="2" size="40" class="m-r-15 pull-left"></ngx-avatar>
+            </div>
+            <div class="flex-grow-1">
+              <h6 class="m-b-0">
+                <a *ngIf="relation.relation_member_id" href="javascript:void(0)" viewProfile [membershipId]="relation.relative_organisation_member_id">
+                  {{ relation.name }}
+                </a>
+                <span *ngIf="!relation.relation_member_id">{{ relation.name }}</span>
+                <span class="m-l-30" *ngIf="!relation.is_alive">
+                  <i class="fa fa-times text-danger"></i>
+                </span>
+              </h6>
+              <p class="text-capitalize text-muted">
+                <span class="fw-bold">{{ relation.member_relation_type?.name | translate }}</span>
+                <span *ngIf="relation.gender">&nbsp; &bull; &nbsp; {{ relation.gender }}</span>
+                <span *ngIf="relation.dob">
+                  &nbsp; &bull; &nbsp;
+                  <i class="fa fa-fw fa-calendar"></i> {{ relation.dob | date: mediumdate }}
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column-->
+        <div class="col-sm-4 text-center">
+          <button href="#" class="btn btn-outline-info m-r-15" (click)="editFamilyMember(relation)">
+            <i class="fa fa-pencil"></i>
+          </button>
+
+          <button href="#" class="btn btn-outline-danger" (click)="deleteRelation(relation)">
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </div>
+      </div>
+
+    </li>
+  </ul>
+
+</section>
+
+<app-family-member-editor
+  #familyMemberEditor
+  [membership]="membership"
+  [relation]="selectedRelation"
+>
+</app-family-member-editor>

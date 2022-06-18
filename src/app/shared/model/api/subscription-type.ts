@@ -10,6 +10,8 @@ export class SubscriptionType extends AppModel {
   public renewal_price: number;
   public validity: string;
   public currency_id: number;
+  public revenue_tracking: number;
+  public expenditure_tracking: number;
 
   constructor(data) {
     super(data);

@@ -3,7 +3,7 @@ import { OrganisationMemberCategoryService } from '../../../shared/services/api/
 import { EventsService } from '../../../shared/services/events.service';
 import { Subscription } from 'rxjs';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 import Swal from 'sweetalert2';
@@ -40,8 +40,8 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   public subscriptions: Subscription[] = [];
   public categories: OrganisationMemberCategory[] = [];
-  public searchForm: FormGroup;
-  public editorForm: FormGroup;
+  public searchForm: UntypedFormGroup;
+  public editorForm: UntypedFormGroup;
 
   constructor(
     public categoryService: OrganisationMemberCategoryService,
@@ -77,8 +77,8 @@ export class CategoriesComponent implements OnInit, OnDestroy {
    * Sets up the search form group and validations
    */
   setupSearchForm() {
-    this.searchForm = new FormGroup({
-      name_like: new FormControl(''),
+    this.searchForm = new UntypedFormGroup({
+      name_like: new UntypedFormControl(''),
     });
   }
 
@@ -116,15 +116,15 @@ export class CategoriesComponent implements OnInit, OnDestroy {
    *
    */
   setupEditorForm() {
-    this.editorForm = new FormGroup({
-      id: new FormControl(),
-      name: new FormControl('', [Validators.required]),
-      description: new FormControl('', []),
-      default: new FormControl(''),
-      auto_gen_ids: new FormControl(),
-      id_prefix: new FormControl(),
-      id_next_increment: new FormControl(1, [Validators.pattern('[0-9]*')]),
-      id_suffix: new FormControl('')
+    this.editorForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      name: new UntypedFormControl('', [Validators.required]),
+      description: new UntypedFormControl('', []),
+      default: new UntypedFormControl(''),
+      auto_gen_ids: new UntypedFormControl(),
+      id_prefix: new UntypedFormControl(),
+      id_next_increment: new UntypedFormControl(1, [Validators.pattern('[0-9]*')]),
+      id_suffix: new UntypedFormControl('')
     });
   }
 
@@ -182,9 +182,6 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Sets up event listeners
-   */
-  /**
    * Setup listeners for model changes
    */
   setupEvents() {
@@ -208,7 +205,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   deleteCategory(category: OrganisationMemberCategory) {
     Swal.fire({
       title: this.translate.instant('Confirm Deletion'),
-      text: this.translate.instant(`This action will delete :name from the database. This action currently cannot be reverted`, { name: category.name }),
+      text: this.translate.instant(`This action will delete record from the database. This action currently cannot be reverted`, { name: category.name }),
       icon: 'warning',
       showCancelButton: true,
     }).then((action) => {

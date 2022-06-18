@@ -6,6 +6,10 @@ export class AppModel {
   public created: string;
   public modified: string;
 
+  public deleted_at: string;
+  public created_at: string;
+  public updated_at: string;
+
   constructor(data: object) {
     this.update(data);
   }
@@ -15,11 +19,11 @@ export class AppModel {
   }
 
   whenCreated() {
-    return moment(this.created).fromNow();
+    return moment(this.created || this.created_at).fromNow();
   }
 
   lastModified() {
-    return moment(this.modified).fromNow();
+    return moment(this.modified || this.updated_at).fromNow();
   }
 
   toJSON() {

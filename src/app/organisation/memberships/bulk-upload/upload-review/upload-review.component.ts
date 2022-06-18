@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
 import { OrganisationFileImport } from '../../../../shared/model/api/organisation-file-import';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
-import { OrganisationMemberImport } from '../../../../shared/model/api/organisation-Member-import';
 import { OrganisationMemberImportService } from '../../../../shared/services/api/organisation-member-import.service';
 import { EventsService } from '../../../../shared/services/events.service';
 

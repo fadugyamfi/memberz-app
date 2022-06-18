@@ -1,0 +1,77 @@
+<section *ngIf="!isDefaultLayout()">
+  <app-profile-header [membership]="membership"></app-profile-header>
+</section>
+
+<div class="row">
+  <!-- SIDEBAR -->
+  <aside class="col-lg-3" *ngIf="isDefaultLayout()">
+    <app-profile-sidebar [membership]="membership"></app-profile-sidebar>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="" [ngClass]="{'col-lg-9': isDefaultLayout(), 'col-lg-12': !isDefaultLayout()}">
+    <div class="card">
+      <div class="card-header" *ngIf="isDefaultLayout()">
+        <app-profile-actions [membership]="membership"></app-profile-actions>
+      </div>
+      <div class="card-body">
+        <ul ngbNav #nav="ngbNav" [(activeId)]="activeTabId" class="nav-pills">
+
+          <!-- Profile Summary Tab -->
+          <li [ngbNavItem]="1">
+            <a ngbNavLink><i class="fa fa-globe"></i> {{'Overview' | translate}}</a>
+            <ng-template ngbNavContent>
+              <app-profile-summary [membership]="membership"></app-profile-summary>
+            </ng-template>
+          </li>
+
+          <!-- Groups Tab -->
+          <li [ngbNavItem]="2">
+            <a ngbNavLink><i class="fa fa-users"></i> {{ 'Groups' | translate }}</a>
+            <ng-template ngbNavContent>
+              <app-profile-groups [membership]="membership"></app-profile-groups>
+            </ng-template>
+          </li>
+
+          <!-- Family -->
+          <li [ngbNavItem]="3">
+            <a ngbNavLink><i class="fa fa-link"></i> {{ 'Family' | translate }}</a>
+            <ng-template ngbNavContent>
+              <app-profile-family [membership]="membership"></app-profile-family>
+            </ng-template>
+          </li>
+
+          <!-- Anniversaries -->
+          <li [ngbNavItem]="6">
+            <a ngbNavLink><i class="fa fa-birthday-cake"></i> {{ 'Anniversaries' | translate }}</a>
+            <ng-template ngbNavContent>
+              <app-profile-anniversaries [membership]="membership"></app-profile-anniversaries>
+            </ng-template>
+          </li>
+
+          <!-- Messages -->
+          <li [ngbNavItem]="4">
+            <a ngbNavLink><i class="fa fa-envelope"></i> {{ 'Messages' | translate }}</a>
+            <ng-template ngbNavContent>
+              <app-profile-sms-messages [membership]="membership"></app-profile-sms-messages>
+            </ng-template>
+          </li>
+
+          <!-- Contributions -->
+          <li [ngbNavItem]="5">
+            <a ngbNavLink><i class="fa fa-money"></i> {{ 'Contributions' | translate }}</a>
+            <ng-template ngbNavContent>
+              <app-profile-contributions [membership]="membership"></app-profile-contributions>
+            </ng-template>
+          </li>
+
+
+
+        </ul>
+
+        <!-- Outlet for the Tab Set above -->
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+      </div>
+    </div>
+  </main>
+</div>

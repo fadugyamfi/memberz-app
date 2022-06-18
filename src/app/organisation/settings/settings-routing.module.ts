@@ -9,6 +9,7 @@ import { SubscriptionUpgradeComponent } from './subscription-upgrade/subscriptio
 import { InvoicePaymentComponent } from './invoice-payment/invoice-payment.component';
 import { PaymentProcessorComponent } from './payment-processor/payment-processor.component';
 import { UserActivitiesComponent } from './user-activities/user-activities.component';
+import { ProSubscriptionRequiredComponent } from './pro-subscription-required/pro-subscription-required.component';
 
 
 const routes: Routes = [
@@ -82,6 +83,14 @@ const routes: Routes = [
     data: {
       title: 'User Activities',
       breadcrumb: 'User Activities'
+    }
+  },
+  {
+    path: 'pro-subscription-required',
+    component: ProSubscriptionRequiredComponent,
+    data: {
+      title: 'Pro Plan Subscription Required',
+      breadcrumb: 'Pro Plan Subscription Required'
     }
   },
 ];

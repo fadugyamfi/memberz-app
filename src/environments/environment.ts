@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
+  production: false,
   firebase: {
     apiKey: 'ENTER_YOUR_API_KEY',
     authDomain: 'ENTER_YOUR_AUTH_DOMAIN',
@@ -13,7 +13,7 @@ export const environment = {
     messagingSenderId: 'ENTER_YOUR_ID',
     appId: 'ENTER_YOUR_API_ID'
   },
-  cakeapi: {
+  cakeapp: {
     url: 'http://localhost/memberz/api'
   },
   api: {
@@ -21,8 +21,15 @@ export const environment = {
     url: 'http://localhost:8000/api'
   },
   slydepay: {
+    mode: 'mock',
     emailOrMobileNumber: 'info@matrixdesignsgh.com',
     merchantKey: '1429300048036'
+  },
+  tawkto: {
+    id: '5649aa64f3f36c356bb98bd4'
+  },
+  tinymce: {
+    apiKey: "f421hc0i4wju0e1hq26rppbvgw6b1oqfqqc7nfnvb9hmugib"
   }
 };
 /*

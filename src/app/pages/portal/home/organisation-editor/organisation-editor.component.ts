@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { OrganisationTypeService } from '../../../../shared/services/api/organisation-type.service';
 import { OrganisationType } from '../../../../shared/model/api/organisation-type';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
@@ -20,7 +20,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class OrganisationEditorComponent implements OnInit, OnDestroy {
 
-  public profileForm: FormGroup;
+  public profileForm: UntypedFormGroup;
   public orgTypes: OrganisationType[];
   public countries: Country[];
   private organisation: Organisation;
@@ -60,20 +60,20 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   }
 
   setupProfileForm() {
-    this.profileForm = new FormGroup({
-      id: new FormControl(),
-      organisation_type_id: new FormControl('', [Validators.required]),
-      name: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      phone: new FormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
-      country_id: new FormControl(80, [Validators.required]),
-      address: new FormControl(''),
-      city: new FormControl(''),
-      state: new FormControl(''),
-      post_code: new FormControl(''),
-      website: new FormControl(''),
-      subscription_type_id: new FormControl(this.freePlan ? this.freePlan.id : null),
-      subscription_length: new FormControl(1)
+    this.profileForm = new UntypedFormGroup({
+      id: new UntypedFormControl(),
+      organisation_type_id: new UntypedFormControl('', [Validators.required]),
+      name: new UntypedFormControl('', [Validators.required]),
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      phone_intl: new UntypedFormControl("", [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+      country_id: new UntypedFormControl(80, [Validators.required]),
+      address: new UntypedFormControl(''),
+      city: new UntypedFormControl(''),
+      state: new UntypedFormControl(''),
+      post_code: new UntypedFormControl(''),
+      website: new UntypedFormControl(''),
+      subscription_type_id: new UntypedFormControl(this.freePlan ? this.freePlan.id : null),
+      subscription_length: new UntypedFormControl(1)
     });
   }
 
@@ -110,7 +110,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
     }
 
     const input = this.profileForm.value;
-    input.phone = input.phone.e164Number;
+    input.phone = input.phone_intl.e164Number;
 
     this.organisation = new Organisation(input);
     const params = { contain: ['active_subscription.subscription_type', 'organisation_type'].join() };
@@ -130,7 +130,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
       this.modalTitle = this.translate.instant('Update Organisation Info');
       this.profileForm.patchValue(organisation);
     } else {
-      this.modalTitle = this.translate.instant('Create New Organisation - Free Plan');
+      this.modalTitle = this.translate.instant('Create New Organisation') + ' - ' + this.translate.instant('Free Plan');
     }
   }
 

@@ -2,93 +2,83 @@
   <div class="auth-bg">
     <div class="authentication-box">
       <div class="text-center">
-        <img src="assets/images/logo_150.png" alt="" />
+        <a href="#" routerLink="/">
+          <img src="assets/images/logo_500_dk_lc.png" alt="" width="250" />
+        </a>
       </div>
       <div class="card mt-4">
         <div class="card-body">
           <div class="text-center">
-            <h4>LOGIN</h4>
-            <h6>Enter your Username and Password</h6>
+            <h4>{{ "LOGIN" | translate }}</h4>
+            <h6>{{ "Enter your Username and Password" | translate }}</h6>
           </div>
           <form class="theme-form" [formGroup]="loginForm" *ngIf="!newUser">
-            <div class="form-group">
-              <label class="col-form-label pt-0">Email</label>
-              <input
-                class="form-control"
-                formControlName="email"
-                type="email"
-                required=""
-              />
-              <div
-                *ngIf="
-                  loginForm.controls.email.touched &&
-                  loginForm.controls.email.errors?.required
-                "
-                class="text text-danger mt-1"
-              >
-                Email Required
-              </div>
-              <div
-                *ngIf="
-                  loginForm.controls.email.touched &&
-                  loginForm.controls.email.errors?.email
-                "
-                class="text text-danger mt-1"
-              >
-                Invalid Email
+
+            <!-- Email Login -->
+            <div class="form-group" *ngIf="emailLogin">
+              <label class="col-form-label pt-0">{{ "E-Mail " | translate }}
+                <a (click)="toggleEmailLogin()" class="btn-link text-capitalize">
+                  {{ "Or Login With Mobile Number" | translate }}
+                </a>
+              </label>
+              <input class="form-control" formControlName="username" type="email" required="" placeholder="joe@example.com" />
+              <div *ngIf="loginForm.controls.username.touched && loginForm.controls.username.errors?.required" class="text text-danger mt-1">
+                {{ "E-Mail Required" | translate }}
               </div>
             </div>
+
+            <!-- Phone Login -->
+            <div class="form-group" *ngIf="!emailLogin">
+              <label class="col-form-label pt-0">
+                <span>{{ "Mobile Number" | translate }}</span>
+                <a (click)="toggleEmailLogin()" class="btn-link text-capitalize">
+                  {{ "Or Login With E-Mail" | translate }}
+                </a>
+              </label>
+              <ngx-intl-tel-input [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                                  [enablePlaceholder]="true" [searchCountryFlag]="true"
+                                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                  [selectFirstCountry]="true" [selectedCountryISO]="CountryISO.Ghana" [maxLength]="15"
+                                  [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                                  [numberFormat]="PhoneNumberFormat.National" name="usename" formControlName="username">
+              </ngx-intl-tel-input>
+              <div *ngIf="
+                  loginForm.controls.username.touched &&
+                  loginForm.controls.username.errors?.required
+                " class="text text-danger mt-1">
+                {{ "Mobile Number Required" | translate }}
+              </div>
+            </div>
+
+            <!-- Password -->
             <div class="form-group">
-              <label class="col-form-label">Password</label>
-              <input
-                class="form-control"
-                type="password"
-                formControlName="password"
-                required=""
-              />
-              <div
-                *ngIf="
-                  loginForm.controls.password.touched &&
-                  loginForm.controls.password.errors?.required
-                "
-                class="text text-danger mt-1"
-              >
-                Password Required
+              <label class="col-form-label">{{ "Password" | translate }}</label>
+              <input class="form-control" type="password" formControlName="password" required="" />
+              <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required" class="text text-danger mt-1">
+                {{ "Password Required" | translate }}
               </div>
             </div>
             <div class="checkbox p-0">
-              <input
-                id="checkbox1"
-                type="checkbox"
-                formControlName="remember_me"
-              />
-              <label for="checkbox1">Remember Me For 2 Weeks</label>
+              <input id="checkbox1" type="checkbox" formControlName="remember_me" />
+              <label for="checkbox1">
+                {{ "Remember Me For 1 Month" | translate }}
+              </label>
             </div>
             <div class="form-group">
-              <button
-                class="btn btn-primary btn-block btn-lg"
-                [class.loader--text]="authService.showLoader"
-                [disabled]="!loginForm.valid || authService.showLoader"
-                (click)="login()"
-                type="submit"
-              >
-                <span>{{ authService.showLoader ? "" : "Login" }}</span>
+              <button class="btn btn-primary btn-block btn-lg" [class.loader--text]="authService.showLoader"
+                      [disabled]="!loginForm.valid || authService.showLoader" (click)="login()" type="submit">
+                <span>{{ authService.showLoader ? "" : ("Login" | translate) }}</span>
               </button>
             </div>
             <div class="form-row mt-2">
               <div class="col-sm-7">
-                Not yet registered?  <a
-                  class="btn-link text-capitalize"
-                  routerLink="/auth/register"
-                  >Register</a
-                >
+                {{ "Not yet registered?" | translate }}
+                <a class="btn-link text-capitalize" routerLink="/auth/register">{{ "Register" | translate }}</a>
               </div>
-              <div class="col text-right">
-                <a
-                  class="btn-link text-capitalize"
-                  routerLink="/auth/forgot-password"
-                  >Forgot Password?</a
-                >
+              <div class="col text-end">
+                <a class="btn-link text-capitalize" routerLink="/auth/forgot-password">
+                  {{ "Forgot Password?" | translate }}
+                </a>
               </div>
             </div>
             <div class="login-divider hidden"></div>
@@ -111,3 +101,5 @@
     </div>
   </div>
 </div>
+
+<app-tawk-chat></app-tawk-chat>

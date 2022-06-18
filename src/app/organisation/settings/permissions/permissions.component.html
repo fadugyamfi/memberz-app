@@ -4,7 +4,7 @@
       <h5 class="modal-title">{{'Set Permissions For Role' | translate}}: <b class="text-primary">{{ role?.name | titlecase }}</b></h5>
 
       <button type="button" class="close basic-close" (click)="hide()">
-        <span aria-hidden="true">&times;</span>
+
       </button>
     </div>
     <div class="modal-body">
@@ -19,7 +19,7 @@
           </div>
 
           <div class="col-sm-4 text-center">
-            <span class="f-16 text-primary font-weight-bold" *ngIf="permissionService?.requesting">
+            <span class="f-16 text-primary fw-bold" *ngIf="permissionService?.requesting">
               <i class="fa fa-spin fa-circle-o-notch"></i> {{'Loading Role Permissions' | translate}} ...
             </span>
 
@@ -30,7 +30,7 @@
             </span>
           </div>
 
-          <div class="col-sm-4 text-right p-r-30">
+          <div class="col-sm-4 text-end p-r-30">
             <button type='button' class="btn btn-xs btn-primary" (click)="refreshPermissionCache()">
               <i class="fa fa-refresh"></i> {{'Refresh Permission Cache' | translate}}
             </button>
@@ -42,7 +42,7 @@
       <div class="main-content">
         <div id="accordion" class="table-responsive m-t-10 p-l-15 p-r-15">
           <div class="p-15">
-            <div class="row font-weight-bold">
+            <div class="row fw-bold">
               <div class="col-4">{{'Permission Group' | translate}}</div>
               <div class="col-8">{{'Actions' | translate}}</div>
             </div>
@@ -51,25 +51,25 @@
           <div class="card m-b-15" *ngFor="let permGroup of permissionGroups; let row = index">
             <div class="card-header p-t-10 p-b-10">
               <div class="row">
-                <div class="col-1">
-                  <ui-switch class="js-small" color="#3498DB" switchColor="#fff" size="small"
+                <div class="col-2">
+                  <ui-switch class="js-small" color="#3498DB" switchColor="#fff"
                              (change)="selectAllInGroup($event, permGroup)" [checked]="permGroup.selected"></ui-switch>
                 </div>
 
-                <div class="col-3 p-t-5 font-weight-bold">
+                <div class="col-3 p-t-5 fw-bold">
                   <a href="javascript:;" (click)="toggleGroupCollapsed(permGroup)">
                     {{ permGroup.name.replace("_", " ") | titlecase }}
                   </a>
                 </div>
 
-                <div class="col-7 p-t-5">
+                <div class="col-6 p-t-5">
                   <i class="label"
                      [ngClass]="{'label-inverse': permGroup.totalSelected() > 0, 'label-default': permGroup.totalSelected() == 0}">
                     {{'Selected' | translate}}: {{ permGroup.totalSelected() }} / {{ permGroup.totalPermissions() }}
                   </i>
                 </div>
 
-                <div class="col-1 font-weight-bold text-right">
+                <div class="col-1 fw-bold text-end">
                   <a class="btn btn-xs btn-outline-secondary" (click)="toggleGroupCollapsed(permGroup)">
                     <i class="fa fa-caret-down" *ngIf="!permGroup.collapsed"></i>
                     <i class="fa fa-caret-right" *ngIf="permGroup.collapsed"></i>
@@ -87,7 +87,7 @@
                   </div>
                   <div class="col-8">
                     <div class="d-inline-block m-r-15">
-                      <div class="d-block text-left font-weight-bold">ALL</div>
+                      <div class="d-block text-left fw-bold">ALL</div>
                       <div class="d-block text-left m-t-5">
                         <ui-switch color="#3498DB" switchColor="#fff" size="small"
                                    (change)="selectAllInGroup($event, subGroup)" [checked]="subGroup.selected">
@@ -115,7 +115,7 @@
     </div>
 
     <div class="modal-footer flex-grow-1">
-      <div class="text-right">
+      <div class="text-end">
         <span class="m-r-15" *ngIf="roleService?.requesting">
           <i class="fa fa-spin fa-circle-o-notch"></i> {{'Saving' | translate}}
         </span>

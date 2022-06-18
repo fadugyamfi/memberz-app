@@ -2,12 +2,12 @@
   <div class="card-header">
     <div class="row">
       <div class="col-md-6">
-        <button class="btn btn-primary btn-sm m-r-10" (click)="showEditorModal()">
+        <button class="btn btn-primary btn-sm m-r-10" adminHasPermission="settings:categories:manage" (click)="showEditorModal()">
           <i class="fa fa-plus"></i> {{'Add Category' | translate}}
         </button>
       </div>
 
-      <div class="col-md-6 text-right">
+      <div class="col-md-6 text-end">
         <button class="btn btn-outline-info btn-sm m-r-10" (click)="showSearchModal()">
           <i class="fa fa-search"></i> {{'Find Categories' | translate}}
         </button>
@@ -18,7 +18,7 @@
 
   <div class="m-t-30 m-b-30 text-center" *ngIf="categories && categories.length == 0">
     <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-    <h4 class="font-weight-bold">{{'No Categories Found' | translate}}</h4>
+    <h4 class="fw-bold">{{'No Categories Found' | translate}}</h4>
     <h6>{{'Please search for categories or add a new one to display results here' | translate}}</h6>
   </div>
 
@@ -39,7 +39,7 @@
 
     <tbody>
       <tr *ngFor="let category of categories; let row = index">
-        <td class="text-right">{{ row + categoryService?.pagingMeta?.from }}.</td>
+        <td class="text-end">{{ row + categoryService?.pagingMeta?.from }}.</td>
         <td>
           <div>{{ category.name }}</div>
           <small class="text-muted">{{ category.description }}</small>
@@ -50,15 +50,15 @@
         <td class="text-center">{{ category.organisation_member_count }}</td>
 
         <td class="text-center">
-          <!-- <button class="btn btn-xs btn-info m-r-10" (click)="viewCategory(category)">
+          <!-- <button class="btn btn-xs btn-primary m-r-10" (click)="viewCategory(category)">
             <i class="fa fa-file"></i> View
           </button> -->
 
-          <button class="btn btn-xs btn-primary m-r-10" (click)="showEditorModal(category)">
+          <button class="btn btn-xs btn-primary m-r-10" adminHasPermission="settings:categories:manage" (click)="showEditorModal(category)">
             <i class="fa fa-pencil"></i> {{'Edit' | translate}}
           </button>
 
-          <button class="btn btn-xs btn-danger" (click)="deleteCategory(category)">
+          <button class="btn btn-xs btn-danger" (click)="deleteCategory(category)" adminHasPermission="settings:categories:delete">
             <i class="fa fa-trash-o"></i> {{'Delete' | translate}}
           </button>
         </td>
@@ -77,8 +77,8 @@
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">{{'Find Categories' | translate}}</h4>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">
@@ -105,8 +105,8 @@
     <div class="modal-header">
       <h5 class="modal-title" id="modal-basic-title">{{'Membership Category Editor' | translate}}</h5>
       <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
       </button>
     </div>
     <div class="modal-body">

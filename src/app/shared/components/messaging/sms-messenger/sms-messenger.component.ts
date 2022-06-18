@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { SmsAccount } from '../../../model/api/sms-account';
 import { EventsService } from '../../../services/events.service';
 import { SmsAccountService } from '../../../services/api/sms-account.service';
@@ -21,7 +21,7 @@ export class SmsMessengerComponent implements OnInit {
 
   @ViewChild('messageModal', { static: true }) messageModal: any;
 
-  public messageForm: FormGroup;
+  public messageForm: UntypedFormGroup;
   public orgSmsAccount: SmsAccount;
   private _member: Member;
   private _membership: OrganisationMember;
@@ -83,12 +83,12 @@ export class SmsMessengerComponent implements OnInit {
    * Sets up the message form group and validations
    */
   setupMessageForm() {
-    this.messageForm = new FormGroup({
-      to: new FormControl('', Validators.required),
-      module_sms_account_id: new FormControl(this.orgSmsAccount ? this.orgSmsAccount.id : null, Validators.required),
-      member_id: new FormControl(this.member ? this.member.id : '', Validators.required),
-      message: new FormControl('', Validators.required),
-      sent_at: new FormControl(moment())
+    this.messageForm = new UntypedFormGroup({
+      to: new UntypedFormControl('', Validators.required),
+      module_sms_account_id: new UntypedFormControl(this.orgSmsAccount ? this.orgSmsAccount.id : null, Validators.required),
+      member_id: new UntypedFormControl(this.member ? this.member.id : '', Validators.required),
+      message: new UntypedFormControl('', Validators.required),
+      sent_at: new UntypedFormControl(moment())
     });
   }
 

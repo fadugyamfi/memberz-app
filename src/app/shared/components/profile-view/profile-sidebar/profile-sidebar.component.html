@@ -1,0 +1,44 @@
+<div class="card profile-header">
+  <div class="card-header">
+    <button class="btn btn-pill btn-outline-primary back-btn" [routerLink]="['/organisation/memberships/profiles']">
+      <i class="fa fa-long-arrow-left"></i> {{ 'Back To Profiles' | translate }}
+    </button>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="d-flex justify-content-center m-b-15">
+          <ngx-avatar [src]="profileImageUrl" [name]="membership?.name()" size="200" initialsSize="2"></ngx-avatar>
+        </div>
+
+        <div class="p-15">
+          <div class="m-b-25" *ngIf="imageUploadProgress">
+            <ngb-progressbar type="success" [value]="imageUploadProgress" height="5px" [striped]="true">
+            </ngb-progressbar>
+          </div>
+
+          <button class="btn btn-success btn-pill" (click)="imageCropper.show()">
+            {{ 'Change Photo' | translate }}
+          </button>
+
+          <app-image-cropper #imageCropper (save)="onCroppedImageSaved($event)"></app-image-cropper>
+        </div>
+
+        <div class="p-15">
+          <h4>{{ membership?.name() }}</h4>
+
+          <p class="f-12">
+            <span>{{ membership?.organisation_no }}</span>
+            &nbsp; &bull; &nbsp;
+            <span>{{ membership?.organisation_member_category?.name }}</span>
+          </p>
+
+          <qr-code [value]="membership?.uuid" size="64" errorCorrectionLevel="M"></qr-code>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

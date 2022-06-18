@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-header b-l-danger border-2">
+    <h5>{{ "Delete Account" | translate }}</h5>
+  </div>
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-start">
+      <section>
+        <p class="m-b-5">
+          {{ 'This action will delete your account and its related user data' | translate }}
+        </p>
+
+        <p class="m-b-5">
+          {{ 'Organisations you created maybe disabled and can be re-activated by other administrators' | translate }}
+        </p>
+      </section>
+
+      <section>
+        <button type="button" class="btn btn-danger" (click)="deleteAccount()">
+          <i class="fa fa-trash"></i> {{ "Delete Account" | translate }}
+        </button>
+      </section>
+    </div>
+
+
+  </div>
+</div>
+<!-- end of card -->

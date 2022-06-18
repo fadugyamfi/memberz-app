@@ -3,7 +3,7 @@ import { ExcelService } from './../../../shared/services/excel.service';
 import { BulkUploadService } from './../../../shared/services/api/bulkupload.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { OrganisationFileImportService } from '../../../shared/services/api/organisation-file-import.service';
@@ -17,8 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-bulk-upload',
   templateUrl: './bulk-upload.component.html',
-  styleUrls: ['./bulk-upload.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./bulk-upload.component.scss']
 })
 export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('uploadModal', { static: true }) uploadModal: any;
@@ -27,7 +26,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
   public isActive = false;
   public infoMessage = '';
   public bulkUploads = [];
-  public uploadForm: FormGroup;
+  public uploadForm: UntypedFormGroup;
   public uploadTypes = ['category', 'member'];
   private subscriptions: Subscription[] = [];
   public categories: OrganisationMemberCategory[] = [];
@@ -62,13 +61,16 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
       Swal.hideLoading();
     });
 
-    this.events.on('OrganisationFileImport:deleted', (fileImport: OrganisationFileImport) => {
-      Swal.close();
-    });
+    this.events.on(`OrganisationFileImport:create:error`, () => Swal.close());
+    this.events.on('OrganisationFileImport:deleted', () => Swal.close());
   }
 
   removeEvents() {
-    this.events.off('OrganisationFileImport:created');
+    this.events.off([
+      'OrganisationFileImport:created',
+      'OrganisationFileImport:create:error',
+      'OrganisationFileImport:deleted'
+    ]);
   }
 
   ngOnDestroy() {
@@ -85,7 +87,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   fetchImports(page = 1, limit = 30) {
-    const sub = this.fileImportService.getAll({
+    const sub = this.fileImportService.setPrepredItems(true).getAll({
       limit,
       page,
       sort: 'latest'
@@ -161,12 +163,12 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private setupUploadForm() {
-    this.uploadForm = new FormGroup({
-      organisation_id: new FormControl(this.organisationService.getActiveOrganisation().id),
-      import_to_id: new FormControl('', Validators.required),
-      file: new FormControl('', Validators.required),
-      import_file: new FormControl('', Validators.required),
-      import_type: new FormControl('members'),
+    this.uploadForm = new UntypedFormGroup({
+      organisation_id: new UntypedFormControl(this.organisationService.getActiveOrganisation().id),
+      import_to_id: new UntypedFormControl('', Validators.required),
+      file: new UntypedFormControl('', Validators.required),
+      import_file: new UntypedFormControl('', Validators.required),
+      import_type: new UntypedFormControl('members'),
     });
   }
 

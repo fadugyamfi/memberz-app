@@ -4,10 +4,13 @@ import { ProfilesComponent } from './profiles/profiles.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
 import { ReportsComponent } from './reports/reports.component';
-import { ProfileViewComponent } from './profile-view/profile-view.component';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
 import { PendingApprovalsComponent } from './pending-approvals/pending-approvals.component';
 import { GroupManagerComponent } from './group-manager/group-manager.component';
+import { ProfileViewComponent } from '../../shared/components/profile-view/profile-view.component';
+import { AnniversariesComponent } from './anniversaries/anniversaries.component';
+import { RegistrationFormsComponent } from './registration-forms/registration-forms.component';
+import { RegistrationFormEditorComponent } from './registration-forms/registration-form-editor/registration-form-editor.component';
 
 
 const routes: Routes = [
@@ -29,6 +32,16 @@ const routes: Routes = [
           title: 'Profile Details',
           breadcrumb: 'Profile Details'
         }
+      },
+      {
+        path: 'view/:id',
+        component: ProfileViewComponent,
+        data: {
+          title: 'Profile Details',
+          breadcrumb: 'Profile Details',
+          layout: 'flyout'
+        },
+        outlet: 'flyout'
       },
       {
         path: 'add',
@@ -87,7 +100,47 @@ const routes: Routes = [
           title: 'Organisation Groups',
           breadcrumb: 'Groups'
         }
-      }
+      },
+      {
+        path: 'anniversaries',
+        component: AnniversariesComponent,
+        data: {
+          title: 'Membership Anniversaries',
+          breadcrumb: 'Anniversaries'
+        }
+      },
+      {
+        path: 'registration-forms',
+        component: RegistrationFormsComponent,
+        data: {
+          title: 'Registration Forms',
+          breadcrumb: 'Registration Forms'
+        }
+      },
+      {
+        path: 'registration-forms/add',
+        component: RegistrationFormEditorComponent,
+        data: {
+          title: 'Add Registration Form',
+          breadcrumb: 'Add Registration Form'
+        }
+      },
+      {
+        path: 'registration-forms/edit/:id',
+        component: RegistrationFormEditorComponent,
+        data: {
+          title: 'Edit Registration Form',
+          breadcrumb: 'Edit Registration Form'
+        }
+      },
+      {
+        path: 'registration-forms/:id/pending-approvals',
+        component: PendingApprovalsComponent,
+        data: {
+          title: 'Pending Approvals',
+          breadcrumb: 'Pending Approvals'
+        }
+      },
     ]
   }
 
