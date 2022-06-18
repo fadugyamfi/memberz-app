@@ -21,6 +21,6 @@ export class RecentlyUpdatedComponent implements OnInit {
   }
 
   fetchMemberships() {
-    this.memberships$ = this.membershipService.getAll({ sort: 'latest', limit: 3 });
+    this.memberships$ = this.membershipService.getAll({ sort: 'modified:desc', limit: 3 });
   }
 }
