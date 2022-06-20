@@ -60,6 +60,10 @@ export class OrganisationMember extends AppModel {
     return this.organisation_member_category;
   }
 
+  set category(value) {
+    // noop
+  }
+
   set organisation_registration_form(value) {
     this._organisation_registration_form = value ? new OrganisationRegistrationForm(value) : null;
   }

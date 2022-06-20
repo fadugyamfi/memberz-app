@@ -58,12 +58,8 @@
 
   <div class="m-t-30 m-b-30 text-center" *ngIf="emptyDataset()">
     <img src="/assets/images/icons/circle-search.svg" height="180" class="m-b-30" />
-    <h4 class="fw-bold">
-      {{ "No Search Results Found" | translate }}
-    </h4>
-    <h6>
-      {{ "Please search for members to display results here" | translate }}
-    </h6>
+    <h4 class="fw-bold">{{ "No Search Results Found" | translate }}</h4>
+    <h6>{{ "Please search for members to display results here" | translate }}</h6>
   </div>
 
   <div class="loader-box m-auto" *ngIf="organisationMemberService.requesting">
