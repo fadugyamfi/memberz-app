@@ -51,12 +51,14 @@ export class ViewBirthdaysComponent implements OnInit {
     this.searchParam.limit = limit;
 
 
-    return this.organisationMemberService.birthdays(this.searchParam).subscribe((data: any[]) => {
+    let sub = this.organisationMemberService.birthdays(this.searchParam).subscribe((data: any[]) => {
       this.fetching = false;
 
       if (data.length == 0) { return }
       this.birthdays = data;
     });
+
+    this.subscriptions.push(sub);
 
   }
 
