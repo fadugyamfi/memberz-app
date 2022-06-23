@@ -24,7 +24,7 @@
         <thead>
           <tr>
             <th colspan="2">{{ "Type" | translate }}</th>
-            <th>{{ "Date" | translate }}</th>
+            <th width="40%">{{ "Date" | translate }}</th>
             <th>{{ 'Added' | translate }}</th>
             <th class="text-center">{{ 'Actions' | translate }}</th>
           </tr>
@@ -38,6 +38,10 @@
             <td>{{ anniv.organisation_anniversary?.name }}</td>
             <td>
               <i class="fa fa-calendar"></i> {{ anniv.value | date: shortDate }}
+              <span *ngIf="anniv.note">
+                <br>
+                {{anniv.note}}
+              </span>
             </td>
             <td>{{ anniv.whenCreated() }}</td>
             <td class="text-center">
@@ -91,6 +95,13 @@
           <div class="text-danger" *ngIf="editorForm.controls.value?.errors?.required">
             <p class="m-b-0">{{'Date of anniversary required' | translate}}</p>
           </div>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-form-label col-sm-4">{{'Note' | translate}}</label>
+        <div class="col-sm-8">
+          <textarea formControlName="note" class="form-control" spellcheck="true" rows="5"></textarea>
         </div>
       </div>
 

@@ -104,6 +104,7 @@ export class ProfileAnniversariesComponent implements OnInit, OnDestroy {
       organisation_anniversary_id: new UntypedFormControl('', Validators.required),
       organisation_member_id: new UntypedFormControl(this.membership.id, Validators.required),
       value: new UntypedFormControl('', Validators.required),
+      note: new UntypedFormControl('')
     });
   }
 
