@@ -11,6 +11,7 @@ export class OrganisationMemberAnniversary extends AppModel {
   public orgAnniv: OrganisationAnniversary;
   public orgMem: OrganisationMember;
   public value: number;
+  public note: string;
   public active: boolean;
 
   constructor(data) {
