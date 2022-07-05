@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     private fb: UntypedFormBuilder,
     public route: ActivatedRoute
   ) {
-    this.loginForm = fb.group({
+    this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', Validators.required],
       remember_me: [true]

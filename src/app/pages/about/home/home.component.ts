@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'about-home',
@@ -7,6 +8,8 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
+  public _environment = environment;
 
   constructor(
     public router: Router
@@ -22,10 +25,6 @@ export class HomeComponent implements OnInit {
         }
       }
     });
-
-    console.log(window.location);
-    console.log(window.parent.location);
-    console.log(document.location)
   }
 
 }

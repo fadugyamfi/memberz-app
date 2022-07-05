@@ -9,7 +9,7 @@ import { FeaturesComponent } from './features/features.component';
 import { FooterComponent } from './footer/footer.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { TawkChatModule } from '../../components/tawk-chat/tawk-chat.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   imports: [
     CommonModule,
     AboutRoutingModule,
-    NgbModule
+    NgbModule,
+    TawkChatModule
   ],
   exports: [
     HeaderComponent,
