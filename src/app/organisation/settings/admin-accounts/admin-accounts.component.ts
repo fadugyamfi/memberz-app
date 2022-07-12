@@ -81,8 +81,14 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
   }
 
   setupEvents() {
-    this.events.on('OrganisationAccount:created', () => this.editorModalRef.close());
-    this.events.on('OrganisationAccount:updated', () => this.editorModalRef.close());
+    this.events.on('OrganisationAccount:created', () => {
+      this.editorModalRef.close();
+      this.loadAccounts();
+    });
+    this.events.on('OrganisationAccount:updated', () => {
+      this.editorModalRef.close();
+      this.loadAccounts();
+    });
     this.events.on('OrganisationAccount:deleted', () => Swal.close());
   }
 
@@ -100,7 +106,7 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
       member_account_id: new UntypedFormControl('', Validators.required),
       organisation_id: new UntypedFormControl(organisation.id),
       organisation_role_id: new UntypedFormControl('', Validators.required),
-      active: new UntypedFormControl(0)
+      active: new UntypedFormControl(1)
     });
   }
 

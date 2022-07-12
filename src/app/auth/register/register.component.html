@@ -12,7 +12,7 @@
             <h4>{{'Create Account' | translate}}</h4>
             <h6>{{'Enter Your Information For Signup' | translate}}.</h6>
           </div>
-          <form class="theme-form" [formGroup]="registerForm">
+          <form class="theme-form" [formGroup]="registerForm" autocomplete="off">
 
             <!-- Name  -->
             <div class="form-group">
@@ -60,10 +60,9 @@
             <div class="form-group">
               <label class="col-form-label pt-0 d-block">{{'Mobile Number' | translate}}</label>
               <ngx-intl-tel-input [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
-                                  [enablePlaceholder]="true" [searchCountryFlag]="true" [searchCountryField]="[
-                  SearchCountryField.Iso2,
-                  SearchCountryField.Name
-                ]" [selectFirstCountry]="true" [selectedCountryISO]="CountryISO.Ghana" [maxLength]="15"
+                                  [enablePlaceholder]="true" [searchCountryFlag]="true"
+                                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                  [selectFirstCountry]="true" [selectedCountryISO]="CountryISO.Ghana" [maxLength]="15"
                                   [phoneValidation]="true" [separateDialCode]="separateDialCode"
                                   [numberFormat]="PhoneNumberFormat.National" name="mobile_number"
                                   formControlName="mobile_number">

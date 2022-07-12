@@ -4,6 +4,8 @@ import { AuthService } from '../../shared/services/api/auth.service';
 import { ToastrService } from "ngx-toastr";
 import { EventsService } from "../../shared/services/events.service";
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 type UserFields = 'email';
 type FormErrors = { [u in UserFields]: string };
@@ -25,7 +27,8 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
     private fb: UntypedFormBuilder,
     public toastrService: ToastrService,
     public events: EventsService,
-    public router: Router
+    public router: Router,
+    public translate: TranslateService
   ) {
     this.forgotPasswordForm = fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -57,6 +60,12 @@ export class ForgotPasswordComponent implements OnInit, OnDestroy {
   send() {
     const input = this.forgotPasswordForm.value;
     this.authService.forgotPassword(input.email);
+    Swal.fire(
+      this.translate.instant('Sending Password Reset Link'),
+      this.translate.instant("Please wait") + ' ...',
+      'info'
+    );
+    Swal.showLoading();
   }
 
   cancel() {

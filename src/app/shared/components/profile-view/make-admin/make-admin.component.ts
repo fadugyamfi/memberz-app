@@ -24,7 +24,7 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
   @ViewChild('makeAdminModal', { static: true }) makeAdminModal: any;
 
   public mbshp: OrganisationMember;
-  public account: MemberAccount;
+  public userAccount: MemberAccount;
   public subscriptions: Subscription[] = [];
   public roles$: Observable<OrganisationRole[]>;
   public makeAdminForm: UntypedFormGroup;
@@ -65,12 +65,12 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
 
   hasAdminAccount() {
     const organisation = this.organisationService.getActiveOrganisation();
-    return this.account && this.account.isOrganisationAdmin(organisation.id);
+    return this.userAccount && this.userAccount.isOrganisationAdmin(organisation.id);
   }
 
   getOrganisationAccount() {
     const organisation = this.organisationService.getActiveOrganisation();
-    return this.account ? this.account.getOrganisationAccount(organisation.id) : null;
+    return this.userAccount ? this.userAccount.getOrganisationAccount(organisation.id) : null;
   }
 
   setupForm() {
@@ -80,17 +80,17 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
       member_id: new UntypedFormControl(this.membership ? this.membership.member_id : null, Validators.required),
       email: new UntypedFormControl(this.membership ? this.membership.member.email : null, Validators.required),
       organisation_id: new UntypedFormControl(organisation.id, Validators.required),
-      member_account_id: new UntypedFormControl(this.account ? this.account.id : null),
+      member_account_id: new UntypedFormControl(this.userAccount ? this.userAccount.id : null),
       organisation_role_id: new UntypedFormControl('', Validators.required),
     });
   }
 
   loadAccount() {
     const sub = this.accountService.getAccountByMemberId(this.membership.member_id).subscribe(account => {
-      this.account = account;
+      this.userAccount = account;
 
-      if ( this.account ) {
-        this.makeAdminForm.patchValue({ member_account_id: this.account.id });
+      if ( this.userAccount ) {
+        this.makeAdminForm.patchValue({ member_account_id: this.userAccount.id });
       }
     });
 
