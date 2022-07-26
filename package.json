@@ -63,7 +63,7 @@
     "knob": "^1.1.0",
     "leaflet": "^1.6.0",
     "lodash-es": "^4.17.15",
-    "moment-timezone-picker": "^4.0.0",
+    "moment-timezone-picker": "^5.0.0",
     "ng-animate": "^0.3.4",
     "ng-chartist": "^4.1.0",
     "ng-qrcode": "^6.0.0",
