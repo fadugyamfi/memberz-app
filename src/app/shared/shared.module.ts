@@ -19,7 +19,6 @@ import { CustomizerComponent } from './components/customizer/customizer.componen
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import { InternationalPhoneNumberModule } from 'ngx-international-phone-number';
 import { NgxPrintModule } from 'ngx-print';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
@@ -168,7 +167,6 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     TranslateModule,
     NgbModule,
     UiSwitchModule,
-    InternationalPhoneNumberModule,
     NgxPrintModule,
     NgxChartsModule,
     ImageCropperModule,
@@ -191,7 +189,6 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     ReactiveFormsModule,
     UiSwitchModule,
     ImagePreloadDirective,
-    InternationalPhoneNumberModule,
     SubscriptionStatusComponent,
     NgbModule,
     NgxPrintModule,
