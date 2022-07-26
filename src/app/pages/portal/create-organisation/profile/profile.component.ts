@@ -6,6 +6,7 @@ import { OrganisationService } from '../../../../shared/services/api/organisatio
 import { Country } from '../../../../shared/model/api/country';
 import { CountryService } from '../../../../shared/services/api/country.service';
 import { Organisation } from '../../../../shared/model/api/organisation';
+import { CountryISO, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-profile-step',
@@ -20,6 +21,13 @@ export class ProfileComponent implements OnInit {
   private organisation: Organisation;
 
   @Output() saveProfile = new EventEmitter<Organisation>();
+
+
+  separateDialCode = true;
+  SearchCountryField = SearchCountryField;
+  CountryISO = CountryISO;
+  PhoneNumberFormat = PhoneNumberFormat;
+  preferredCountries: CountryISO[] = [CountryISO.Ghana, CountryISO.Nigeria, CountryISO.Togo];
 
   constructor(
     public orgTypeService: OrganisationTypeService,

@@ -83,7 +83,7 @@ import { MakeAdminComponent } from './components/profile-view/make-admin/make-ad
 import { SmsTemplateTagControlComponent } from './components/forms/sms-template-tag-control/sms-template-tag-control.component';
 import { CustomFieldComponent } from './components/forms/custom-field/custom-field.component';
 import { AdminHasPermissionDirective } from './directives/admin-has-permission.directive';
-import { AvatarModule, AvatarSource } from 'ngx-avatar';
+import { AvatarModule, AvatarSource } from 'ngx-avatars';
 import { TawkChatModule } from '../components/tawk-chat/tawk-chat.module';
 
 import { MembershipCardComponent } from './components/profile-view/membership-card/membership-card.component';

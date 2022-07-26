@@ -41,7 +41,7 @@
         <td>{{ accountService.pagingMeta?.from + row }}</td>
 
         <td class="d-flex align-items-center">
-          <ngx-avatar [src]="account.member_account?.member?.thumbnail()" [name]="account.member_account?.member?.lastThenFirstName()" initialsSize="2" size="40" class="m-r-15 pull-left"></ngx-avatar>
+          <ngx-avatars [src]="account.member_account?.member?.thumbnail()" [name]="account.member_account?.member?.lastThenFirstName()" initialsSize="2" size="40" class="m-r-15 pull-left"></ngx-avatars>
 
           <a href="javascript:void(0)" viewProfile [membership]="account.membership">
             {{ account.member_account?.member?.lastThenFirstName() }}

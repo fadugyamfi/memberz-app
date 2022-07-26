@@ -11,7 +11,7 @@
 
     <ng-template #rt let-r="result" let-t="term">
       <div class="d-flex align-items-center">
-        <ngx-avatar [src]="r.member?.thumbnail()" [name]="r.member?.firstThenLastName()" class="m-r-10" size="40"></ngx-avatar>
+        <ngx-avatars [src]="r.member?.thumbnail()" [name]="r.member?.firstThenLastName()" class="m-r-10" size="40"></ngx-avatars>
         <ngb-highlight [result]="r.member?.firstThenLastName()" [term]="t"></ngb-highlight>
       </div>
     </ng-template>

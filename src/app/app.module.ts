@@ -18,7 +18,7 @@ import { environment } from '../environments/environment';
 import { SlydepayModule } from 'slydepay-angular';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 
-import { AvatarModule, AvatarSource } from 'ngx-avatar';
+import { AvatarModule, AvatarSource } from 'ngx-avatars';
 import { OrganisationInterceptor } from './shared/services/interceptors/organisation-interceptor.service';
 import { RequestErrorHandler } from './shared/services/interceptors/request-error-handler.service';
 import { RequestInterceptor } from './shared/services/interceptors/request-interceptor.service';

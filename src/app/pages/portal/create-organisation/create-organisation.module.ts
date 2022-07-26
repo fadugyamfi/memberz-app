@@ -9,6 +9,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { PaymentComponent } from './payment/payment.component';
 import { ReviewComponent } from './review/review.component';
 import { SharedModule } from '../../../shared/shared.module';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { SharedModule } from '../../../shared/shared.module';
   imports: [
     CommonModule,
     CreateOrganisationRoutingModule,
-    SharedModule
+    SharedModule,
+    NgxIntlTelInputModule
   ]
 })
 export class CreateOrganisationModule { }

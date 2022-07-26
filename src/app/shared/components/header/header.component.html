@@ -99,7 +99,7 @@
           </div>
 
           <div class="d-flex align-items-center" *ngIf="authService.userData as user">
-            <ngx-avatar [src]="user?.member?.thumbnail()" [name]="user?.member?.name()" initialsSize="2"></ngx-avatar>
+            <ngx-avatars [src]="user?.member?.thumbnail()" [name]="user?.member?.name()" initialsSize="2"></ngx-avatars>
             <!-- <div class="dotted-animation">
               <span class="animate-circle"></span>
               <span class="main-circle"></span>

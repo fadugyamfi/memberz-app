@@ -46,8 +46,13 @@
           <div class="form-group row">
             <div class="col-form-label col-sm-3">* {{ "Phone" | translate }}</div>
             <div class="col-sm-9">
-              <international-phone-number formControlName="phone" [defaultCountry]="'gh'"
-                                          placeholder="Enter phone number"></international-phone-number>
+              <ngx-intl-tel-input [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                                  [enablePlaceholder]="true" [searchCountryFlag]="true"
+                                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                  [selectFirstCountry]="true" [selectedCountryISO]="CountryISO.Ghana" [maxLength]="15"
+                                  [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                                  [numberFormat]="PhoneNumberFormat.National" name="usename" formControlName="username">
+              </ngx-intl-tel-input>
 
               <div class="text-danger" *ngIf="profileForm.controls.phone?.errors?.required">
                  {{ "Phone Number Required" | translate }}

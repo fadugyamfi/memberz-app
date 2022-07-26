@@ -7,7 +7,7 @@
 <div class="d-flex justify-content-between">
   <div class="card w-30 cursor-hand" *ngFor="let membership of memberships$ | async" viewProfile [membership]="membership">
     <div class="card-body text-center pb-3">
-      <ngx-avatar [src]="membership.member?.image()" [name]="membership.name()" size="100" class="d-flex justify-content-center"></ngx-avatar>
+      <ngx-avatars [src]="membership.member?.image()" [name]="membership.name()" size="100" class="d-flex justify-content-center"></ngx-avatars>
     </div>
     <div class="card-body text-center pt-3">
       <h6 class="fw-bold mb-0">{{ membership.name() }}</h6>

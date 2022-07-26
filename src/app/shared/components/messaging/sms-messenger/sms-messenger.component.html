@@ -36,7 +36,7 @@
 
             <ul class="list-inline">
               <li class="list-inline-item bg-info p-1 f-12 rounded m-b-5" [title]="contact?.member?.mobile_number" *ngFor="let contact of selectedContacts">
-                <ngx-avatar [src]="contact?.member?.thumbnail()" [name]="contact?.member?.name()" class="m-r-5" size="20"></ngx-avatar>
+                <ngx-avatars [src]="contact?.member?.thumbnail()" [name]="contact?.member?.name()" class="m-r-5" size="20"></ngx-avatars>
 
                 <span class="m-r-10">{{ contact.member.name() }}</span>
 
