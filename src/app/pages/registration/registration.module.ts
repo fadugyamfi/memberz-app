@@ -7,8 +7,10 @@ import { RegistrationFormComponent } from './registration-form/registration-form
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AvatarModule, AvatarSource } from 'ngx-avatar';
+import { CustomFieldComponent } from '../../shared/components/forms/custom-field/custom-field.component';
 
-
+const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 @NgModule({
   declarations: [
     RegisterSuccessComponent,
@@ -20,6 +22,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     RegistrationRoutingModule,
     NgxIntlTelInputModule,
+    AvatarModule.forRoot({
+      sourcePriorityOrder: avatarSourcesOrder
+    }),
+    CustomFieldComponent
   ]
 })
 export class RegistrationModule { }

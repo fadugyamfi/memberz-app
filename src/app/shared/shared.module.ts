@@ -153,7 +153,6 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     ProfileActionsComponent,
     MakeAdminComponent,
     SmsTemplateTagControlComponent,
-    CustomFieldComponent,
     AdminHasPermissionDirective,
     MembershipCardComponent,
     MembershipCardModalComponent,
@@ -179,7 +178,10 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
       sourcePriorityOrder: avatarSourcesOrder
     }),
     QrCodeModule,
-    TawkChatModule
+    TawkChatModule,
+
+    // standalone components
+    CustomFieldComponent
   ],
   exports: [
     FeatherIconsComponent,
@@ -226,7 +228,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     MembershipCardComponent,
     ViewBirthdaysComponent,
     ConfigureAutomatedMessagesComponent,
-    CountToDirective
+    CountToDirective,
+    CustomFieldComponent
   ],
   providers: [
     NavService,

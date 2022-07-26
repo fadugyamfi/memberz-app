@@ -1,5 +1,5 @@
 <div>
-  <select *ngIf="config?.type == 'select'" class="form-control digits" [(ngModel)]="value">
+  <select *ngIf="config?.type == 'select'" class="form-select digits" [(ngModel)]="value">
     <option value="">{{ 'Select Option' | translate }}</option>
     <option *ngFor="let option of config.options" [value]="option.value">{{ option.label }}</option>
   </select>

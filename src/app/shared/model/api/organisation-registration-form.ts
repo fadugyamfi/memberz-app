@@ -35,7 +35,7 @@ export class OrganisationRegistrationForm extends AppModel {
     this._custom_fields = value;
 
     if( value && typeof value == 'string' ) {
-      this.decoded_custom_fields = JSON.parse(this._custom_fields);
+      this.decoded_custom_fields = JSON.parse(this.custom_fields);
     }
   }
 

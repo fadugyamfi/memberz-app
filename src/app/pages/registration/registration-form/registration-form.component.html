@@ -11,9 +11,7 @@
           <div class="card-header p-3 bg-primary ">
             <div class="row align-items-center">
               <div class="col-lg-8 d-flex align-items-center">
-                <section class="rounded-circle py-2 px-3 me-3 bg-white" style="width: 64px;">
-                  <img [src]="organisation?.logo" class="w-100" alt="Organisation Logo" />
-                </section>
+                <ngx-avatar [src]="organisation?.logo" [name]="organisation?.name" initialsSize="2" size="64" class="me-3"></ngx-avatar>
 
                 <section>
                   <h5 class="text-uppercase">{{ organisation?.name }}</h5>

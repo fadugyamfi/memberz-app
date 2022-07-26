@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
 export const CUSTOMFIELD_CONTROL_ACCESSOR: any = {
@@ -22,6 +24,8 @@ export interface CustomFieldConfig {
 }
 
 @Component({
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, TranslateModule],
   selector: 'app-custom-field',
   templateUrl: './custom-field.component.html',
   styleUrls: ['./custom-field.component.scss'],
