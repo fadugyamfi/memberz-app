@@ -22,6 +22,7 @@ export class FinanceTrendComponent implements OnInit {
   // lineGraph Chart
   public lineGraphOptions = chartData.lineGraphOptions;
   public lineGraphType = chartData.lineGraphType;
+  public lineGraphColors = chartData.lineGraphColors;
 
 
   public chartData = [];

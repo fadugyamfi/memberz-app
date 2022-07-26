@@ -10,16 +10,16 @@ import * as chartData from '../../../data/chart/chartjs';
 })
 export class FinanceCategoryBreakdownComponent implements OnInit {
    // Doughnut
-   public doughnutChartType = chartData.doughnutChartType;
-   public doughnutChartOptions = chartData.doughnutChartOptions;
+  public doughnutChartType = chartData.doughnutChartType;
+  public doughnutChartOptions = chartData.doughnutChartOptions;
+  public doughnutChartColor = chartData.doughnutChartColors;
 
-
-   public chartData = [];
-   public labels = [];
-   public currencyCodes = [];
-   public showChart = true;
-   public monthValue: number = null;
-   public yearValue: number = null;
+  public chartData = [];
+  public labels = [];
+  public currencyCodes = [];
+  public showChart = true;
+  public monthValue: number = null;
+  public yearValue: number = null;
 
   constructor(
     public reportService: FinanceDashboardService

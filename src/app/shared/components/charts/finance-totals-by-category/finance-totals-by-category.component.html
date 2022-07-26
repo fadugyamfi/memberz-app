@@ -19,7 +19,7 @@
     <app-no-data-available *ngIf="showChart && !hasDataAvailable()"></app-no-data-available>
 
     <canvas *ngIf="showChart && hasDataAvailable()" baseChart class="chart" [datasets]="chartData" [labels]="labels"
-            [options]="barChartOptions" [legend]="true" [chartType]="barChartType"></canvas>
+            [options]="barChartOptions" [legend]="true" [chartType]="barChartType" [colors]="barChartColors"></canvas>
   </div>
 </div>
 <!-- end of card -->

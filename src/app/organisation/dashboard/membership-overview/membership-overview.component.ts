@@ -18,8 +18,8 @@ export class MembershipOverviewComponent implements OnInit {
   public membershipCategoriesData;
   public categoryChartColorScheme = {
     domain: [
+      '#303', '#980', '#490', '#19c', '#a09', '#b98', '#63f', '#f90', '#ae9', '#cfc',
       '#9c3', '#099', '#39c', '#c33', '#609', '#319', '#444', '#ccc', '#909',
-      '#303', '#980', '#490', '#19c', '#a09', '#b98', '#63f', '#f90', '#ae9', '#cfc'
     ]
   };
 

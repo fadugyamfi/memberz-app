@@ -11,6 +11,7 @@ import * as chartData from '../../../data/chart/chartjs';
 export class FinanceTotalsByCategoryComponent implements OnInit {
   public barChartOptions: any = chartData.barChartOptions;
   public barChartType = chartData.barChartType;
+  public barChartColors = chartData.barChartColors;
 
   public chartData = [];
   public labels = [];

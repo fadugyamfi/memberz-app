@@ -13,6 +13,7 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
 
   public barChartOptions: any = chartData.barChartOptions;
   public barChartType = chartData.barChartType;
+  public barChartColors = chartData.barChartColors;
 
   public chartData = [];
   public labels = [];
