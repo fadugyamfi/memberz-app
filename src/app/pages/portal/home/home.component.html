@@ -48,24 +48,32 @@
         <tbody>
           <tr *ngFor="let organisation of organisations">
             <td>
-              <div class="d-flex">
+              <div class="d-flex align-items-center">
                 <div class="flex-shrink-0 p-r-20">
                   <ngx-avatars [src]="organisation?.logo" class="img-30" [name]="organisation?.name"></ngx-avatars>
                 </div>
 
                 <div class="flex-grow-1">
                   <div>
-                    <a href="javascript:void(0)" (click)="loadOrganisation(organisation)">{{ organisation.name }}</a>
+                    <a href="javascript:void(0)" class="fw-bold text-dark" (click)="loadOrganisation(organisation)">{{ organisation.name }}</a>
                   </div>
-                  <small>{{ organisation?.organisation_type?.name }}</small>
+                  <small class="text-muted">{{ organisation?.organisation_type?.name }}</small>
                 </div>
               </div>
             </td>
-            <td class="text-center">{{ (organisation.organisation_members_count || 0) | number }}</td>
-            <td>
-              {{ organisation?.active_subscription?.subscription_type?.description }}
+            <td valign="middle" class="text-center">{{ (organisation.organisation_members_count || 0) | number }}</td>
+
+            <td valign="middle">
+              <span class="badge f-12 rounded-pill" [ngClass]="{
+                'bg-primary': organisation?.active_subscription?.subscription_type?.description == 'Pro Plan',
+                'bg-info': organisation?.active_subscription?.subscription_type?.description == 'Basic Plan',
+                'bg-success': ['Basic Plan', 'Pro Plan'].indexOf(organisation?.active_subscription?.subscription_type?.description) == -1
+              }" >
+                {{ organisation?.active_subscription?.subscription_type?.description }}
+              </span>
             </td>
-            <td>
+
+            <td valign="middle">
               <span *ngIf="organisation?.active_subscription?.isExpired()"
                     class="text-danger">{{'Expired' | translate}}</span>
               <span *ngIf="!organisation?.active_subscription?.isExpired()">
@@ -73,8 +81,8 @@
               </span>
 
             </td>
-            <td class="text-center" [noWrap]="true">
-              <button class="btn btn-primary btn-sm m-r-5" (click)="loadOrganisation(organisation)">
+            <td class="text-center" valign="middle" [noWrap]="true">
+              <button class="btn btn-primary btn-pill btn-sm m-r-5" (click)="loadOrganisation(organisation)">
                 <i class="fa fa-sign-in"></i> {{'Manage' | translate}}
               </button>
 

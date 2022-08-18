@@ -38,9 +38,7 @@ export class TopContributorsComponent implements OnInit {
     });
   }
 
-  fetchReportData(event){
-    event.preventDefault();
-
+  fetchReportData(){
     this.showData = false;
 
     const sub = this.reportingService.getTopContributors(
@@ -57,6 +55,7 @@ export class TopContributorsComponent implements OnInit {
   fetchReceiptSettings() {
     const sub = this.receiptSettingService.fetchSettings().subscribe(settings => {
       this.default_currency = settings.default_currency;
+      this.fetchReportData();
     });
 
     this.subscriptions.push(sub);

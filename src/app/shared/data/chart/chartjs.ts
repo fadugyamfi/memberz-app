@@ -89,7 +89,7 @@ export var lineChartColors: Array<any> = [
 export let lineChartLegend = false;
 export let lineChartType = 'line';
 
-export let doughnutChartColors: any[] = [{ backgroundColor: ['#22af47', '#007bff', '#ff2046', '#4466f2', '#1ea6ec', '#FF5370'] }];
+export let doughnutChartColors: any[] = [{ backgroundColor: ['#4466f2', '#1ea6ec', '#FF5370', '#22af47', '#007bff', '#ff2046', ] }];
 export let doughnutChartType = 'doughnut';
 export let doughnutChartOptions: any = {
   animation: true,

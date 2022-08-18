@@ -4,7 +4,7 @@
     <div class="col">
       <div class="card">
         <div class="card-header b-l-secondary d-flex justify-content-between align-items-center">
-          <form class="form row w-75" [formGroup]="searchForm" (submit)="fetchReportData($event)">
+          <form class="form row w-75" [formGroup]="searchForm" (submit)="fetchReportData()">
             <div class="col mb-2">
               <div class="row">
                 <label class="col-auto title"> {{ "Year" | translate }}</label>
