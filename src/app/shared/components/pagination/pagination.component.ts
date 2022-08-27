@@ -12,7 +12,8 @@ export interface PageEvent {
   selector: 'app-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: true
 })
 export class PaginationComponent implements OnInit, OnDestroy {
 

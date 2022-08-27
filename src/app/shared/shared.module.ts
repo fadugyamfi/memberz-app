@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -20,10 +19,8 @@ import { CustomizerComponent } from './components/customizer/customizer.componen
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { NgxPrintModule } from 'ngx-print';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { ArchwizardModule } from 'angular-archwizard';
 import { QrCodeModule } from 'ng-qrcode';
 
 // services
@@ -36,10 +33,7 @@ import { ExcelService } from './services/excel.service';
 import { ToggleFullscreenDirective } from './directives/fullscreen.directive';
 import { PortalLayoutComponent } from './components/layout/portal-layout/portal-layout.component';
 import { OrganisationLayoutComponent } from './components/layout/organisation-layout/organisation-layout.component';
-import { RequestErrorHandler } from './services/interceptors/request-error-handler.service';
-import { RequestInterceptor } from './services/interceptors/request-interceptor.service';
 import { OrganisationSidebarComponent } from './components/organisation-sidebar/organisation-sidebar.component';
-import { OrganisationInterceptor } from './services/interceptors/organisation-interceptor.service';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { ImagePreloadDirective } from './directives/image-preload.directive';
 import { SubscriptionStatusComponent } from './components/subscription-status/subscription-status.component';
@@ -114,7 +108,6 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     PortalLayoutComponent,
     OrganisationLayoutComponent,
     OrganisationSidebarComponent,
-    PaginationComponent,
     SubscriptionStatusComponent,
     MemberControlComponent,
     SmsMessengerComponent,
@@ -168,10 +161,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     NgbModule,
     UiSwitchModule,
     NgxPrintModule,
-    NgxChartsModule,
     ImageCropperModule,
     ChartsModule,
-    ArchwizardModule,
     AvatarModule.forRoot({
       sourcePriorityOrder: avatarSourcesOrder
     }),
@@ -179,7 +170,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     TawkChatModule,
 
     // standalone components
-    CustomFieldComponent
+    CustomFieldComponent,
+    PaginationComponent
   ],
   exports: [
     FeatherIconsComponent,
@@ -195,7 +187,6 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     MemberControlComponent,
     SmsMessengerComponent,
     InvoiceComponent,
-    NgxChartsModule,
     ImageCropperModule,
     ImageCropperComponent,
     SelectMonthControlComponent,
@@ -211,7 +202,6 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     FinanceTotalsByCategoryComponent,
     NoDataAvailableComponent,
     LoadingRotateDashedComponent,
-    ArchwizardModule,
     SmsSummaryComponent,
     ChartsModule,
     ViewProfileDirective,

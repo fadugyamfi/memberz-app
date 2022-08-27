@@ -13,6 +13,10 @@ import { DeleteAccountComponent } from './user-profile-settings/delete-account/d
 import { TwofaEnableComponent } from './user-profile-settings/twofa-enable/twofa-enable.component';
 import { MomentTimezonePickerModule } from 'moment-timezone-picker';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -30,8 +34,12 @@ import { NotificationsComponent } from './notifications/notifications.component'
   imports: [
     CommonModule,
     PortalRoutingModule,
-    SharedModule,
+    TranslateModule,
+    ReactiveFormsModule,
+    FormsModule,
+    PaginationComponent,
     NgxIntlTelInputModule,
+    NgbModule,
     // CreateOrganisationModule,
     MomentTimezonePickerModule
   ]

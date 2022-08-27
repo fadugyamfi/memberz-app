@@ -11,6 +11,8 @@ import { ReviewComponent } from './review/review.component';
 import { SharedModule } from '../../../shared/shared.module';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
+import { ArchwizardModule } from 'angular-archwizard';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     CommonModule,
     CreateOrganisationRoutingModule,
     SharedModule,
-    NgxIntlTelInputModule
+    NgxIntlTelInputModule,
+    ArchwizardModule
   ]
 })
 export class CreateOrganisationModule { }
