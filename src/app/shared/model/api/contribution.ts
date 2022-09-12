@@ -48,7 +48,7 @@ export class Contribution extends AppModel {
   }
 
   period() {
-    const month = moment().month(this.month).format('MMM');
+    const month = moment().month(this.month - 1).format('MMM');
     return `Wk ${this.week}, ${month} ${this.year}`;
   }
 }
