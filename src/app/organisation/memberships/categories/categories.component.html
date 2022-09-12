@@ -41,7 +41,7 @@
       <tr *ngFor="let category of categories; let row = index">
         <td class="text-end">{{ row + categoryService?.pagingMeta?.from }}.</td>
         <td>
-          <div>{{ category.name }}</div>
+          <div class="fw-bold">{{ category.name }}</div>
           <small class="text-muted">{{ category.description }}</small>
         </td>
         <td class="text-center">
