@@ -17,8 +17,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from '../../shared/components/pagination/pagination.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AvatarModule, AvatarSource } from 'ngx-avatars';
 
-
+const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
 @NgModule({
   declarations: [
@@ -41,7 +42,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgxIntlTelInputModule,
     NgbModule,
     // CreateOrganisationModule,
-    MomentTimezonePickerModule
+    MomentTimezonePickerModule,
+    AvatarModule.forRoot({
+      sourcePriorityOrder: avatarSourcesOrder
+    }),
   ]
 })
 export class PortalModule { }
