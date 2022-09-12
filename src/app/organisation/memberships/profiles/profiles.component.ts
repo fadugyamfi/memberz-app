@@ -80,7 +80,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     if (this.storage.isValid(this.cacheDataKey)) {
-      this.loadDataFromCache();
+      setTimeout(() => this.loadDataFromCache())
     } else {
       this.showSearchModal();
     }

@@ -2,6 +2,9 @@ import { Component, OnInit, Input, ViewEncapsulation, Output, EventEmitter, OnDe
 import { EventsService } from '../../services/events.service';
 import { APIService, PagingMeta } from '../../services/api/api.service';
 import { AppModel } from '../../model/api/app.model';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export interface PageEvent {
   page: number;
@@ -13,7 +16,8 @@ export interface PageEvent {
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  standalone: true
+  standalone: true,
+  imports: [ CommonModule, TranslateModule, NgbModule ]
 })
 export class PaginationComponent implements OnInit, OnDestroy {
 

@@ -38,6 +38,7 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
   public years;
   public receiptSettings: ContributionReceiptSetting;
   private modal: NgbModalRef;
+  public periodTotals = {};
 
   constructor(
     public contributionService: ContributionService,
@@ -82,6 +83,12 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
       periods: new UntypedFormArray([ this.createPeriodItem(contribution) ])
     });
 
+    this.periods = this.editorForm.get('periods') as UntypedFormArray;
+
+    if ( !this.receiptSettings.isReceiptModeAuto() ) {
+      this.editorForm.controls.receipt_no.addValidators(Validators.required);
+    }
+
     this.editorForm.valueChanges.subscribe(value => {
       if ( value.module_contribution_type_id ) {
         this.selectedContributionType = this.contributionTypeService.getItems().find(type => {
@@ -102,13 +109,9 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
           return type.id == value.module_contribution_payment_type_id;
         });
       }
+
+      this.calculatePeriodTotals(value);
     });
-
-    this.periods = this.editorForm.get('periods') as UntypedFormArray;
-
-    if ( !this.receiptSettings.isReceiptModeAuto() ) {
-      this.editorForm.controls.receipt_no.addValidators(Validators.required);
-    }
   }
 
   createPeriodItem(contribution: Contribution = null): UntypedFormGroup {
@@ -138,6 +141,24 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
 
   removePeriodAt(index: number) {
     this.periods.removeAt(index);
+  }
+
+  calculatePeriodTotals(formValues) {
+    this.periodTotals = {};
+
+    if( formValues.periods.length == 0 ) {
+      return;
+    }
+
+    formValues.periods.forEach(element => {
+      const currency = this.currencyService.getItems().find(currency => currency.id == element.currency_id);
+
+      if( this.periodTotals[currency.currency_code] == null ) {
+        this.periodTotals[currency.currency_code] = 0;
+      }
+
+      this.periodTotals[currency.currency_code] += element.amount;
+    });
   }
 
   /**
