@@ -139,6 +139,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       occupation: new UntypedFormControl(),
       business_name: new UntypedFormControl(),
       nationality: new UntypedFormControl(''),
+      place_of_birth: new UntypedFormControl(''),
       email: new UntypedFormControl('', [Validators.email]),
       mobile_number: new UntypedFormControl(''),
       active: new UntypedFormControl(1)
