@@ -59,6 +59,8 @@ export class SessionsComponent implements OnInit, OnDestroy {
   setupEditorForm() {
     this.editorForm = new UntypedFormGroup({
       id: new UntypedFormControl(''),
+      organisation_id: new UntypedFormControl(this.event ? this.event.organisation_id : ''),
+      organisation_event_id: new UntypedFormControl(this.event ? this.event.id : ''),
       session_name: new UntypedFormControl('', Validators.required),
       session_dt_date: new UntypedFormControl('', Validators.required),
       session_dt_time: new UntypedFormControl('', Validators.required),
@@ -145,9 +147,17 @@ export class SessionsComponent implements OnInit, OnDestroy {
    * Setup listeners for model changes
    */
    setupEvents() {
-    this.events.on('OrganisationEventSession:created', () => this.hideEditor());
+    this.events.on('OrganisationEventSession:created', () => {
+      this.hideEditor();
+      this.event.session_count++;
+    });
+
     this.events.on('OrganisationEventSession:updated', () => this.hideEditor());
-    this.events.on('OrganisationEventSession:deleted', () => Swal.close());
+
+    this.events.on('OrganisationEventSession:deleted', () => {
+      Swal.close();
+      this.event.session_count--;
+    });
   }
 
   /**

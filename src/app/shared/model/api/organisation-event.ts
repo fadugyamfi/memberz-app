@@ -6,6 +6,7 @@ import { OrganisationCalendar } from './organisation-calendar';
 export class OrganisationEvent extends AppModel {
 
   public id: any;
+  public organisation_id: number;
   public event_name: string;
   public short_description: string;
   public long_description: string;
@@ -14,6 +15,8 @@ export class OrganisationEvent extends AppModel {
   public _organisation_calendar;
   public all_day: boolean;
   public sessions: any;
+  public session_count: number;
+  public attendee_count: number;
 
   constructor(data) {
     super(data);

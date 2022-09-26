@@ -218,7 +218,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
       dob_gte: new UntypedFormControl(''),
       dob_lte: new UntypedFormControl(''),
       gender: new UntypedFormControl(''),
-      marital_status: new UntypedFormControl(''),
+      marital_status_like: new UntypedFormControl(''),
       dayname: new UntypedFormControl(''),
       monthname: new UntypedFormControl(''),
       age_gte: new UntypedFormControl('', [Validators.min(0), Validators.max(150)]),
