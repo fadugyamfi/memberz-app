@@ -1,0 +1,19 @@
+
+<div>
+  <span *ngIf="marking">
+    <button class="btn btn-sm btn-light btn-round">
+      <i class="fa fa-fw fa-circle-o-notch fa-spin"></i>
+    </button>
+  </span>
+
+  <span *ngIf="!marking">
+    <button class="btn btn-sm btn-light btn-round" *ngIf="!eventAttendee" (click)="markPresent(membership)">
+      <i class="fa fa-fw fa-check"></i>
+    </button>
+
+    <button class="btn btn-sm btn-success btn-round" *ngIf="eventAttendee" (click)="unmarkPresent(membership)">
+      <i class="fa fa-fw fa-check"></i>
+    </button>
+  </span>
+
+</div>

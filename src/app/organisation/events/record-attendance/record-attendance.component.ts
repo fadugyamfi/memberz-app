@@ -14,6 +14,7 @@ import { PageEvent } from '../../../shared/components/pagination/pagination.comp
 import { OrganisationGroupTypeService } from '../../../shared/services/api/organisation-group-type.service';
 import { OrganisationGroupType } from '../../../shared/model/api/organisation-group-type';
 import { Subscription } from 'rxjs';
+import { EventsService } from '../../../shared/services/events.service';
 
 @Component({
   selector: 'app-record-attendance',
@@ -38,7 +39,8 @@ export class RecordAttendanceComponent implements OnInit {
     public attendeeService: OrganisationEventAttendeeService,
     public membershipService: OrganisationMemberService,
     public categoryService: OrganisationMemberCategoryService,
-    public groupTypeService: OrganisationGroupTypeService
+    public groupTypeService: OrganisationGroupTypeService,
+    public events: EventsService
   ) { }
 
   ngOnInit(): void {
@@ -125,25 +127,5 @@ export class RecordAttendanceComponent implements OnInit {
     const params = this.filterForm.value;
 
     this.fetchEventMemberships(params, event.page, event.limit);
-  }
-
-  markPresent(membership: OrganisationMember) {
-    const attendee = new OrganisationEventAttendee({
-      organisation_id: membership.organisation_id,
-      organisation_event_id: this.event.id,
-      organisation_event_session_id: this.filterForm.value.organisation_event_session_id,
-      member_id: membership.member_id
-    });
-
-    this.attendees.push(attendee);
-
-    this.attendeeService.create(attendee);
-  }
-
-  unmarkPresent(membership: OrganisationMember) {
-    const index = this.attendees.findIndex(attendee => attendee.id == membership.event_attendee.id);
-    this.attendees.splice(index, 1);
-
-    this.attendeeService.remove(membership.event_attendee);
   }
 }

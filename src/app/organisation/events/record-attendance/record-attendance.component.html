@@ -64,12 +64,12 @@
               <div class="text-uppercase text-muted">{{ membership.organisation_no }}</div>
             </section>
             <section class="">
-              <button class="btn btn-sm btn-light btn-round" *ngIf="!membership.event_attendee" (click)="markPresent(membership)">
-                <i class="fa fa-fw fa-check"></i>
-              </button>
-              <button class="btn btn-sm btn-success btn-round" *ngIf="membership.event_attendee" (click)="unmarkPresent(membership)">
-                <i class="fa fa-fw fa-check"></i>
-              </button>
+              <app-attendance-mark
+                [membership]="membership"
+                [event_session_id]="filterForm.value?.organisation_event_session_id"
+                [event]="event"
+              >
+              </app-attendance-mark>
             </section>
           </div>
         </div>
