@@ -184,27 +184,27 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">{{
-          "Membership No" | translate
-        }}</label>
+        <label class="col-sm-4 col-form-label">
+          {{ "Membership No" | translate }}
+        </label>
         <div class="col-sm-8">
           <input type="text" class="form-control" placeholder="e.g. A/195" formControlName="organisation_no" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">{{
-          "First Name" | translate
-        }}</label>
+        <label class="col-sm-4 col-form-label">
+          {{ "First Name" | translate }}
+        </label>
         <div class="col-sm-8">
           <input type="text" class="form-control" placeholder="e.g. Frank" formControlName="first_name_like" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">{{
-          "Last Name" | translate
-        }}</label>
+        <label class="col-sm-4 col-form-label">
+          {{ "Last Name" | translate }}
+        </label>
         <div class="col-sm-8">
           <input type="text" class="form-control" placeholder="e.g. Jones" formControlName="last_name_like" />
         </div>
@@ -218,18 +218,18 @@
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">{{
-          "Mobile Number" | translate
-        }}</label>
+        <label class="col-sm-4 col-form-label">
+          {{ "Mobile Number" | translate }}
+        </label>
         <div class="col-sm-8">
           <input type="email" class="form-control" placeholder="e.g. 0245000000" formControlName="mobile_number_like" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-sm-4 col-form-label">{{
-          "Added Between" | translate
-        }}</label>
+        <label class="col-sm-4 col-form-label">
+          {{ "Added Between" | translate }}
+        </label>
         <div class="col-sm-4">
           <input type="date" class="form-control" placeholder="Start Date" title="Start Date"
                  formControlName="created_gte" />
@@ -244,17 +244,17 @@
         <hr />
 
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">{{
-            "Birth Date Between" | translate
-          }}</label>
+          <label class="col-sm-4 col-form-label">
+            {{ "Birth Date Between" | translate }}
+          </label>
           <div class="col-sm-3">
             <input type="date" min="0" max="130" class="form-control" formControlName="dob_gte"
                    placeholder="{{ 'Min' | translate }}" />
           </div>
           <div class="col-sm-2">
-            <span class="form-control border-0 text-center">{{
-              "and" | translate
-            }}</span>
+            <span class="form-control border-0 text-center">
+              {{ "and" | translate }}
+            </span>
           </div>
           <div class="col-sm-3">
             <input type="date" min="0" max="130" class="form-control" formControlName="dob_lte"
@@ -263,9 +263,9 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">{{
-            "Birth Day Of Week" | translate
-          }}</label>
+          <label class="col-sm-4 col-form-label">
+            {{  "Birth Day Of Week" | translate }}
+          </label>
           <div class="col-sm-8">
             <select class="form-select" formControlName="dayname">
               <option value="">{{ "Select Day of Week" | translate }}</option>
@@ -281,9 +281,9 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">{{
-            "Birth Month" | translate
-          }}</label>
+          <label class="col-sm-4 col-form-label">
+            {{ "Birth Month" | translate }}
+          </label>
           <div class="col-sm-8">
             <select class="form-select" formControlName="monthname">
               <option value="">{{ "Select Month" | translate }}</option>
@@ -304,17 +304,17 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">{{
-            "Age Between" | translate
-          }}</label>
+          <label class="col-sm-4 col-form-label">
+            {{ "Age Between" | translate }}
+          </label>
           <div class="col-sm-3">
             <input type="number" min="0" max="130" class="form-control" formControlName="age_gte"
                    placeholder="{{ 'Min' | translate }}" />
           </div>
           <div class="col-sm-2">
-            <span class="form-control border-0 text-center">{{
-              "and" | translate
-            }}</span>
+            <span class="form-control border-0 text-center">
+              {{ "and" | translate }}
+            </span>
           </div>
           <div class="col-sm-3">
             <input type="number" min="0" max="130" class="form-control" formControlName="age_lte"
@@ -323,9 +323,9 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">{{
-            "Gender" | translate
-          }}</label>
+          <label class="col-sm-4 col-form-label">
+            {{ "Gender" | translate }}
+          </label>
           <div class="col-sm-8">
             <select class="form-select" formControlName="gender">
               <option value="">{{ "Select Gender" | translate }}</option>
@@ -336,9 +336,9 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">{{
-            "Marital Status" | translate
-          }}</label>
+          <label class="col-sm-4 col-form-label">
+            {{ "Marital Status" | translate  }}
+          </label>
           <div class="col-sm-8">
             <select class="form-select" formControlName="marital_status">
               <option value="">{{ "Select Status" | translate }}</option>
@@ -354,9 +354,9 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label">{{
-            "Occupation" | translate
-          }}</label>
+          <label class="col-sm-4 col-form-label">
+            {{ "Occupation" | translate }}
+          </label>
           <div class="col-sm-8">
             <input type="text" class="form-control" formControlName="occupation_like" placeholder="e.g. Trader" />
           </div>

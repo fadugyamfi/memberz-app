@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export const MONTH_CONTROL_ACCESSOR: any = {
@@ -22,6 +22,14 @@ export class SelectMonthControlComponent implements OnInit {
   public disabled = false;
   public onChange = (_: any) => { };
   public onTouched = () => { };
+
+  public months = [
+    "January", "February", "March", "April", "May", "June", "July",
+    "August", "September", "October", "November", "December"
+  ];
+
+  @Input()
+  public shortNames = false;
 
   constructor() { }
 
