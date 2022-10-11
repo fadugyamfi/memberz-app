@@ -2,7 +2,7 @@
 
 @import '~animate.css/animate.min.css';
 // @import "chartist/chartist";
-@import "~bootstrap/scss/bootstrap";
+@import "node_modules/bootstrap/scss/bootstrap";
 @import "theme/variables";
 @import "style";
 @import "theme/responsive";
@@ -16,4 +16,4 @@
 // // @import "~angular-custom-tour/styles/main.css";
 @import '~dropzone/dist/min/dropzone.min.css';
 @import '~leaflet/dist/leaflet.css';
-@import '~angular-archwizard/styles/archwizard.scss';
+@import 'node_modules/angular-archwizard/styles/archwizard.scss';

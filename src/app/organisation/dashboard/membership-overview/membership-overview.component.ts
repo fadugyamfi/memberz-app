@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartType } from 'chart.js';
-import { BaseChartDirective, Label, MultiDataSet } from 'ng2-charts';
+import { BaseChartDirective } from 'ng2-charts';
 import * as chartData from '../../../shared/data/widgets-chart/chart-widget';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
@@ -23,15 +23,15 @@ export class MembershipOverviewComponent implements OnInit {
     ]
   };
 
-  public chartLabels: Label[] = [];
-  public chartData: MultiDataSet = [];
+  public chartLabels = [];
+  public chartData = [];
   public chartType: ChartType = 'doughnut';
   public chartOptions: ChartConfiguration['options'] = {
     responsive: true,
-    legend: {
-      display: true,
-      position: 'right',
-    }
+    // legend: {
+    //   display: true,
+    //   position: 'right',
+    // }
   };
   public renderChart = false;
 

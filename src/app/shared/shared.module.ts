@@ -52,7 +52,7 @@ import { FinanceWeeklyBreakdownComponent } from './components/charts/finance-wee
 import { FinanceCategoryBreakdownComponent } from './components/charts/finance-category-breakdown/finance-category-breakdown.component';
 import { FinanceTrendComponent } from './components/charts/finance-trend/finance-trend.component';
 import { FinanceTotalsByCategoryComponent } from './components/charts/finance-totals-by-category/finance-totals-by-category.component';
-import { ChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { NoDataAvailableComponent } from './components/forms/no-data-available/no-data-available.component';
 import { LoadingRotateDashedComponent } from './components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { PrintLayoutComponent } from './components/layout/print-layout/print-layout.component';
@@ -162,7 +162,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     UiSwitchModule,
     NgxPrintModule,
     ImageCropperModule,
-    ChartsModule,
+    NgChartsModule,
     AvatarModule.forRoot({
       sourcePriorityOrder: avatarSourcesOrder
     }),
@@ -203,7 +203,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     NoDataAvailableComponent,
     LoadingRotateDashedComponent,
     SmsSummaryComponent,
-    ChartsModule,
+    NgChartsModule,
     ViewProfileDirective,
     ProfileViewComponent,
     MakeAdminComponent,
