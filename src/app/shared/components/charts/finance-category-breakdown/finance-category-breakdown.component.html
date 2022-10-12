@@ -30,16 +30,19 @@
     ></app-no-data-available>
 
     <div class="col mb-2">
-      <canvas
-        *ngIf="showChart && hasDataAvailable()"
-        baseChart
-        class="chart"
-        [data]="chartData"
-        [labels]="labels"
-        [options]="doughnutChartOptions"
-        [chartType]="doughnutChartType"
-        [colors]="doughnutChartColors"
-      ></canvas>
+      <div class="chart-container" style="height: 35vh; position: relative;">
+        <canvas
+          *ngIf="showChart && hasDataAvailable()"
+          baseChart
+          class="chart"
+          [data]="doughnutChartData"
+          [labels]="labels"
+          [options]="doughnutChartOptions"
+          [type]="doughnutChartType"
+          [colors]="doughnutChartColors"
+        ></canvas>
+      </div>
+
     </div>
     <!-- end of col -->
     <div

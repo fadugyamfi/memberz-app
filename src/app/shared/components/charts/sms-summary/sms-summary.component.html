@@ -19,7 +19,7 @@
     <app-no-data-available *ngIf="!fetching && !hasDataAvailable()"></app-no-data-available>
 
     <canvas *ngIf="!fetching && hasDataAvailable()" baseChart class="chart" [datasets]="chartData" [labels]="labels"
-            [options]="lineGraphOptions" [legend]="true" [chartType]="lineGraphType" [colors]="lineGraphColors" ></canvas>
+            [options]="lineGraphOptions" [legend]="true" [type]="lineGraphType" [colors]="lineGraphColors" ></canvas>
   </div>
 </div>
 <!-- end of card -->

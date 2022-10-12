@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChartConfiguration, ChartType } from 'chart.js';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
-import * as chartData from '../../../shared/data/widgets-chart/chart-widget';
+import * as chartData from '../../../shared/data/chart/chartjs';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 
@@ -23,16 +23,24 @@ export class MembershipOverviewComponent implements OnInit {
     ]
   };
 
-  public chartLabels = [];
-  public chartData = [];
-  public chartType: ChartType = 'doughnut';
-  public chartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    // legend: {
-    //   display: true,
-    //   position: 'right',
-    // }
+  // Doughnut
+  public doughnutChartLabels: string[] = [ 'Download Sales', 'In-Store Sales', 'Mail-Order Sales' ];
+  public doughnutChartData: ChartData<'doughnut'> = {
+    labels: this.doughnutChartLabels,
+    datasets: []
   };
+  public doughnutChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'right'
+      }
+    }
+  };
+
+  public doughnutChartType: ChartType = 'doughnut';
   public renderChart = false;
 
   constructor(
@@ -45,9 +53,15 @@ export class MembershipOverviewComponent implements OnInit {
       this.organisationMemberService.statistics().subscribe(results => {
         this.membershipCategoriesData = results;
 
-        this.chartLabels = this.membershipCategoriesData.map(item => item.name);
+        const labels = this.membershipCategoriesData.map(item => item.name);
         const dataset = this.membershipCategoriesData.map(item => item.value);
-        this.chartData = [dataset];
+
+        this.doughnutChartData.labels = labels;
+        this.doughnutChartData.datasets.push({
+          data: dataset,
+          ...chartData.doughnutChartColors[0]
+        });
+
         this.renderChart = true;
       });
     }

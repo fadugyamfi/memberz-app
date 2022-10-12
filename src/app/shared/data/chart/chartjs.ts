@@ -1,3 +1,5 @@
+import { ChartConfiguration } from "chart.js";
+
 // barChart
 export let barChartOptions: any = {
   scaleShowVerticalLines: false,
@@ -91,10 +93,9 @@ export let lineChartType = 'line';
 
 export let doughnutChartColors: any[] = [{ backgroundColor: ['#4466f2', '#1ea6ec', '#FF5370', '#22af47', '#007bff', '#ff2046', ] }];
 export let doughnutChartType = 'doughnut';
-export let doughnutChartOptions: any = {
-  animation: true,
+export let doughnutChartOptions: ChartConfiguration['options'] = {
   responsive: true,
-  maintainAspectRatio: true
+  maintainAspectRatio: false
 };
 
 // PolarArea

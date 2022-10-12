@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChartData } from 'chart.js';
 import * as moment from 'moment';
 import { FinanceDashboardService } from 'src/app/shared/services/api/finance-dashboard.service';
 import * as chartData from '../../../data/chart/chartjs';
@@ -9,17 +10,22 @@ import * as chartData from '../../../data/chart/chartjs';
   styleUrls: ['./finance-category-breakdown.component.scss']
 })
 export class FinanceCategoryBreakdownComponent implements OnInit {
-   // Doughnut
-  public doughnutChartType = chartData.doughnutChartType;
-  public doughnutChartOptions = chartData.doughnutChartOptions;
-  public doughnutChartColor = chartData.doughnutChartColors;
 
-  public chartData = [];
+  public chartData: any;
   public labels = [];
   public currencyCodes = [];
   public showChart = true;
   public monthValue: number = null;
   public yearValue: number = null;
+
+  // Doughnut
+  public doughnutChartType = chartData.doughnutChartType;
+  public doughnutChartOptions = chartData.doughnutChartOptions;
+  public doughnutChartColor = chartData.doughnutChartColors;
+  public doughnutChartData: ChartData<'doughnut'> = {
+    labels: this.labels,
+    datasets: []
+  };
 
   constructor(
     public reportService: FinanceDashboardService
@@ -37,7 +43,7 @@ export class FinanceCategoryBreakdownComponent implements OnInit {
   }
 
   hasDataAvailable() {
-    return  this.chartData && this.chartData.length > 0;
+    return  this.doughnutChartData.datasets && this.doughnutChartData.datasets.length > 0;
   }
 
   processChartData(data: any[]) {
@@ -87,13 +93,16 @@ export class FinanceCategoryBreakdownComponent implements OnInit {
         amount = 0;
       }
 
-      dataset2.push(dataset);
+      this.doughnutChartData.datasets.push({
+        data: dataset,
+        ...chartData.doughnutChartColors[0]
+      });
+
       dataset = [];
     }
 
-    this.chartData = dataset2;
+    this.doughnutChartData.labels = this.labels;
     this.showChart = true;
-
   }
 
   searchByMonth(value: number) {

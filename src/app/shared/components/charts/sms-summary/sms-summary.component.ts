@@ -56,7 +56,9 @@ export class SmsSummaryComponent implements OnInit {
 
       this.chartData = [{
         data: dataset,
-        label: this.translate.instant('Messages Sent')
+        label: this.translate.instant('Messages Sent'),
+        ...this.lineGraphColors[0],
+        tension: 0.4
       }];
 
     });

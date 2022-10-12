@@ -96,7 +96,8 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
       if ( dataset ) {
         this.chartData.push({
           data: dataset,
-          label
+          label,
+          ...this.barChartColors[0]
         });
       }
 

@@ -11,8 +11,18 @@
           </div>
 
           <div class="col-sm-12">
-            <canvas baseChart *ngIf="renderChart" class="chart" [data]="chartData" [labels]="chartLabels"
-                    [chartType]="chartType" [options]="chartOptions"></canvas>
+            <div class="chart-container" style="height: 30vh; position: relative;">
+              <canvas baseChart
+                *ngIf="renderChart"
+                class="chart"
+                [data]="doughnutChartData"
+                [options]="doughnutChartOptions"
+                [type]="doughnutChartType">
+              </canvas>
+            </div>
+
+            <!-- <canvas baseChart *ngIf="renderChart" class="chart" [data]="chartData" [labels]="chartLabels"
+                    [chartType]="chartType" [options]="chartOptions"></canvas> -->
           </div>
         </div>
 

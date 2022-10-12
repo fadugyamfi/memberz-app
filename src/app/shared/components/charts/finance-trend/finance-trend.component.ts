@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { ChartData, ChartDataset } from 'chart.js';
 import * as moment from 'moment';
 import { FinanceDashboardService } from 'src/app/shared/services/api/finance-dashboard.service';
 import * as chartData from '../../../data/chart/chartjs';
@@ -25,7 +26,7 @@ export class FinanceTrendComponent implements OnInit {
   public lineGraphColors = chartData.lineGraphColors;
 
 
-  public chartData = [];
+  public chartData: ChartDataset[] = [];
   public currencyCodes = [];
   public showChart = true;
   public yearValue: number = null;
@@ -112,7 +113,9 @@ export class FinanceTrendComponent implements OnInit {
 
       this.chartData.push({
         data: dataset,
-        label: currencyCode
+        label: currencyCode,
+        tension: 0.4
+        // ...this.lineGraphColors[0]
       });
 
       dataset = [];

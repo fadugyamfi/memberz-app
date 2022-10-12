@@ -97,7 +97,8 @@ export class FinanceTotalsByCategoryComponent implements OnInit {
       if (dataset) {
         this.chartData.push({
           data: dataset,
-          label: currencyCode
+          label: currencyCode,
+          ...this.barChartColors[0]
         });
       }
       dataset = [];
