@@ -1,4 +1,4 @@
-import { map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams, HttpEventType } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
@@ -433,6 +433,29 @@ export class APIService<T extends AppModel> {
         this.deleting = false;
       }
     });
+  }
+
+  removeWithoutSubscription(model: T, qparams: object = null) {
+
+    if (!model.id) {
+      return;
+    }
+
+    this.deleting = true;
+
+    return this.delete(`${this.url}/${model.id}`, qparams).pipe(
+      tap((data) => {
+        this.setSelectedModel(null); // clear any cached data
+        this.removeItem(model);
+        this.clearCache();
+        this.events.trigger(`${this.model_name}:deleted`, model, data);
+        this.deleting = false;
+      }),
+      catchError((error, caught) => {
+        this.triggerError(error);
+        return of(error);
+      }),
+    );
   }
 
   /**

@@ -38,8 +38,12 @@
           <span class="badge badge-warning" *ngIf="!topup.credited">{{ 'Pending' | translate }}</span>
         </td>
         <td class="text-center">
-          <button class="btn btn-xs btn-primary" (click)="invoiceModal.showInvoice(topup.organisation_invoice_id)">
-            <i class="fa fa-file-text"></i> {{ 'View Invoice' | translate }}
+          <button class="btn btn-xs btn-primary me-2" (click)="invoiceModal.showInvoice(topup.organisation_invoice_id)">
+            <i class="fa fa-file-text"></i> {{ 'View' | translate }}
+          </button>
+
+          <button class="btn btn-xs btn-danger" (click)="deleteTopup(topup)">
+            <i class="fa fa-trash-o"></i>
           </button>
         </td>
       </tr>

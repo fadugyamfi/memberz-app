@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SmsAccountTopupService } from '../../../shared/services/api/sms-account-topup.service';
 import { SmsAccountTopup } from '../../../shared/model/api/sms-account-topup';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import Swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
+import { OrganisationInvoice } from '../../../shared/model/api/organisation-invoice';
+import { EventsService } from '../../../shared/services/events.service';
 
 @Component({
   selector: 'app-sms-transaction-history',
@@ -13,7 +17,9 @@ export class SmsTransactionHistoryComponent implements OnInit {
   public topups: SmsAccountTopup[];
 
   constructor(
-    public smsAccountTopupService: SmsAccountTopupService
+    public smsAccountTopupService: SmsAccountTopupService,
+    public translate: TranslateService,
+    public events: EventsService
   ) { }
 
   ngOnInit() {
@@ -29,5 +35,32 @@ export class SmsTransactionHistoryComponent implements OnInit {
 
   onPaginate(params: PageEvent) {
     this.loadTransactions(params.page, params.limit);
+  }
+
+  /**
+  * Batch delete a select list of member records
+  */
+  deleteTopup(topup: SmsAccountTopup) {
+    Swal.fire({
+      title: this.translate.instant('Confirm Deletion'),
+      text: this.translate.instant(`This action will delete this topup request from the database. This action currently cannot be reverted`),
+      icon: 'warning',
+      showCancelButton: true,
+    }).then((action) => {
+      if (action.value) {
+        Swal.fire(
+          this.translate.instant('Deleting SMS Topup'),
+          this.translate.instant('Please wait') + ' ...',
+          'error'
+        );
+        Swal.showLoading();
+        this.smsAccountTopupService.removeWithoutSubscription(topup).subscribe({
+          next: (record) => {
+            Swal.close()
+            this.topups = this.smsAccountTopupService.getItems();
+          }
+        });
+      }
+    });
   }
 }

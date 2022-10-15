@@ -213,9 +213,6 @@ export class BroadcastListsComponent implements OnInit {
 
 
   /**
-   * Sets up event listeners
-   */
-  /**
    * Setup listeners for model changes
    */
   setupEvents() {
