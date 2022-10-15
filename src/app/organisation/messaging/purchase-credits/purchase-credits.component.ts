@@ -76,16 +76,16 @@ export class PurchaseCreditsComponent implements OnInit, OnDestroy {
       organisation_id: new UntypedFormControl(smsAccount.organisation_id),
       module_sms_account_id: new UntypedFormControl(smsAccount.id),
       module_sms_credit_id: new UntypedFormControl(this.selectedBundle?.id),
-      credit_amount: new UntypedFormControl(formatNumber(this.selectedBundle?.credit_amount, 'en', '1.0-0')),
+      credit_amount: new UntypedFormControl(this.selectedBundle?.credit_amount),
       quantity: new UntypedFormControl('1'),
-      cost: new UntypedFormControl(formatNumber(this.selectedBundle?.cost, 'en', '1.2-2')),
+      cost: new UntypedFormControl(this.selectedBundle?.cost),
       currency_id: new UntypedFormControl(this.selectedBundle?.currency.id),
       payment_method: new UntypedFormControl('slydepay')
     });
 
     this.purchaseForm.controls.quantity.valueChanges.subscribe((quantity) => {
-      this.purchaseForm.controls.cost.setValue(formatNumber(quantity * this.selectedBundle?.cost, 'en', '1.2-2'));
-      this.purchaseForm.controls.credit_amount.setValue(formatNumber((quantity * this.selectedBundle?.credit_amount), 'en', '1.0-0'));
+      this.purchaseForm.controls.cost.setValue(quantity * this.selectedBundle?.cost);
+      this.purchaseForm.controls.credit_amount.setValue((quantity * this.selectedBundle?.credit_amount));
     })
   }
 

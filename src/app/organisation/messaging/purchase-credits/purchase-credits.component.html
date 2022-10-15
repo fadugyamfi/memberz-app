@@ -49,7 +49,9 @@
             <div class="col-sm-8">
               <div class="input-group">
                 <span class="input-group-text">{{'SMS' | translate}}</span>
-                <input type="text" placeholder="0" class="form-control text-end" formControlName="credit_amount" readonly>
+                <span class="form-control text-end form-control-plaintext px-3">
+                  {{ purchaseForm.value.credit_amount | number : '1.2-2' }}
+                </span>
               </div>
             </div>
           </div>
@@ -58,7 +60,9 @@
             <div class="col-sm-8">
               <div class="input-group">
                 <span class="input-group-text">{{ bundles[0]?.currency?.currency_code }}</span>
-                <input type="text" placeholder="0.00" class="form-control text-end" formControlName="cost" readonly>
+                <span class="form-control text-end form-control-plaintext px-3">
+                  {{ purchaseForm.value.cost | number : '1.2-2' }}
+                </span>
               </div>
             </div>
           </div>
