@@ -36,7 +36,7 @@
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">{{'Contribution Type' | translate}}</label>
-        <div class="col-sm-10">
+        <div class="col-sm-7">
           <select class="form-select" formControlName="module_contribution_type_id" required="">
             <option value="">{{ 'Select Type' | translate }}</option>
             <option *ngFor="let type of contributionTypeService.getItems()" [value]="type.id">{{ type.name }}</option>
@@ -46,7 +46,7 @@
 
       <div *ngIf="!selectedContributionTypeIsMemberSpecific()" class="form-group row animated fadeInDown">
         <label class="col-sm-2 col-form-label">{{'Description' | translate}}</label>
-        <div class="col-sm-10">
+        <div class="col-sm-7">
           <input type="text" class="form-control" placeholder="e.g. From John" formControlName="description" />
         </div>
       </div>
@@ -54,7 +54,7 @@
       <div *ngIf="selectedContributionTypeIsMemberSpecific()" class="form-group row animated fadeInDown"
            style="z-index: 1; position: relative;">
         <label class="col-sm-2 col-form-label">{{'Member' | translate}}</label>
-        <div class="col-sm-10">
+        <div class="col-sm-7">
           <app-member-control formControlName="organisation_member_id" [returnMembershipId]="true"
                               [membership]="selectedContribution?.organisation_member"
                               [readonly]="selectedContribution != null">
@@ -68,7 +68,7 @@
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">{{'Payment Method' | translate}}</label>
-        <div class="col-sm-10">
+        <div class="col-sm-7">
           <app-select-payment-type-control formControlName="module_contribution_payment_type_id" required=""></app-select-payment-type-control>
         </div>
       </div>

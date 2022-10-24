@@ -88,7 +88,8 @@ export class MemberControlComponent {
       switchMap(term => {
         const params = {
           term,
-          sort: ['last_name:asc', 'first_name:asc'].join(',')
+          sort: ['last_name:asc', 'first_name:asc'].join(','),
+          limit: 50
         };
 
         if (this.withMobileNumber) {

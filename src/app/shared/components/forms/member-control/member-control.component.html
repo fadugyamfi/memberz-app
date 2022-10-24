@@ -3,11 +3,15 @@
     <img [src]="membership?.member?.thumbnail()" default='assets/images/user/user.png'
          class="img-thumbnail rounded-circle img-40" />
   </div>
-  <div class="flex-grow-1">
+  <div class="flex-grow-1 position-relative">
     <input type="text" class="form-control" [ngbTypeahead]="searchMember" [resultTemplate]="rt"
            [value]="membership?.member?.firstThenLastName()" [inputFormatter]="formatter"
-           placeholder="Enter Member Name" #input (selectItem)="setSelectedMember($event, input)"
+           placeholder="Enter Member Name, Membership No. or Mobile Number" #input (selectItem)="setSelectedMember($event, input)"
            [readonly]="readonly" />
+
+    <span class="position-absolute end-15 top-7" *ngIf="searching">
+      <i class="fa fa-spin fa-circle-o-notch text-primary"></i>
+    </span>
 
     <ng-template #rt let-r="result" let-t="term">
       <div class="d-flex align-items-center">

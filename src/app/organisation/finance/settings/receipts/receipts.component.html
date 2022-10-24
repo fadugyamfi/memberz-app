@@ -1,10 +1,13 @@
 <div class="row">
   <div class="col-10 offset-1">
 
-    <div class="card" *ngIf="newReceiptSetup">
+    <div class="card bg-success" *ngIf="newReceiptSetup">
       <div class="card-body">
         <h5 class="fw-bold">{{ 'New Settings Setup' | translate }}</h5>
-        <p class="f-14">{{ 'Update the settings below to enable taking / recording payments' | translate }} <b class="text-success"><u>{{ 'then SAVE CHANGES' | translate }}</u></b></p>
+        <p class="f-14">
+          {{ 'Update the settings below to enable taking / recording payments' | translate }}
+          <b><u>{{ 'then SAVE CHANGES' | translate }}</u></b>
+        </p>
       </div>
     </div>
 
