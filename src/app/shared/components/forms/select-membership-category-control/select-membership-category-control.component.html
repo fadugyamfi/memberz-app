@@ -1,0 +1,6 @@
+<select class="form-select" [(ngModel)]="value">
+  <option value="">{{ 'Select Category' | translate }}</option>
+  <option *ngFor="let type of categoryService.getItems()" [value]="type.id">
+    {{ type.name | translate }}
+  </option>
+</select>

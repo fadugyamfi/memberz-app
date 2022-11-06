@@ -2,62 +2,145 @@
   <div class="card-header b-l-primary">
     <div class="row">
       <div class="col-sm-6">
-        <h6 class="font-weight-bold">
-          {{ "Birthday Celebrant(s)" | translate }}
-        </h6>
+        <form [formGroup]="selectForm">
+          <div class="d-flex align-items-center">
+            <span class="fw-bold f-14">{{ 'Showing Birthdays For' | translate }}</span>
+
+            <app-select-month-control class="ms-3 form-control-sm" formControlName="month"></app-select-month-control>
+
+            <app-select-membership-category-control class="ms-3 form-control-sm" formControlName="organisation_member_category_id">
+            </app-select-membership-category-control>
+          </div>
+        </form>
       </div>
       <!-- end of col -->
-      <div class="col-sm-6">
-        <form [formGroup]="selectForm">
-          <select
-            class="form-select"
-            #birthdayForSelect
-            formControlName="birthday_for"
-            (change)="fetchBirthdays(birthdayForSelect.value)"
-          >
-            <option value="today">{{ "Today" | translate }}</option>
-            <option value="tomorrow">{{ "Tomorrow" | translate }}</option>
-            <option value="thisWeek">{{ "This Week" | translate }}</option>
-            <option value="nextWeek">{{ "Next Week" | translate }}</option>
-            <option value="thisMonth">{{ "This Month" | translate }}</option>
-          </select>
-        </form>
+      <div class="col-sm-6 text-end">
+        <div ngbDropdown class="d-inline-block m-r-10" placement="bottom">
+          <button class="btn btn-outline-primary" id="exportDropdown" ngbDropdownToggle>
+            <i class="fa fa-file-excel-o"></i> Export
+          </button>
+          <div ngbDropdownMenu aria-labelledby="exportDropdown">
+            <button class="dropdown-item" (click)="exportToExcel()">
+              <i class="fa fa-file-text-o"></i> Export Page
+            </button>
+            <button class="dropdown-item" (click)="exportToExcel('all')">
+              <i class="fa fa-files-o"></i> Export All Pages
+            </button>
+          </div>
+        </div>
+
+        <button class="btn btn-outline-dark" ngxPrint printSectionId="content" [useExistingCss]="true"
+                printTitle="Memberships">
+          <i class="fa fa-print"></i> Print
+        </button>
       </div>
     </div>
     <!-- end of row -->
   </div>
-  <div class="card-body chart-block">
-    <app-loading-rotate-dashed *ngIf="fetching"></app-loading-rotate-dashed>
-    <app-no-data-available
-      *ngIf="!fetching && !hasDataAvailable()"
-    ></app-no-data-available>
 
-    <table
-      class="table table-bordered table-hover"
-      *ngIf="!fetching && hasDataAvailable()"
-    >
-      <thead>
-        <tr>
-          <th colspan="2">{{ "Name" | translate }}</th>
-          <th class="text-center">{{ "Email" | translate }}</th>
-          <th class="text-center">{{ "Phone Number" | translate }}</th>
-          <th class="text-center">{{ "Send SMS" | translate }}</th>
-        </tr>
-      </thead>
 
-      <tbody>
-        <tr *ngFor="let event of birthdays; let row = index">
-          <td class="text-end">
-            {{ row + organisationMemberService?.pagingMeta?.from }}.
-          </td>
-          <!-- <td>{{ event.event_name }}</td>
-                  <td class="text-center" [noWrap]="true">{{ event.dates }}</td>
-                  <td class="text-center" [noWrap]="true">{{ event.times }}</td>
-                  <td class="text-center">{{ event.session_count || 1 }}</td>
-                  <td class="text-center">{{ event.attendee_count || 0 }}</td> -->
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <ng-container *ngIf="(birthdays$ | async) as birthdays; else loading">
+    <app-no-data-available [message]="'No Birthdays Found'" *ngIf="birthdays.length == 0"></app-no-data-available>
+
+    <section id="content">
+      <table class="table table-bordered table-hover" *ngIf="birthdays.length > 0">
+        <thead>
+          <tr>
+            <th colspan="2">{{ "Name" | translate }}</th>
+            <th>{{ 'Membership Category' | translate }}</th>
+            <th class="text-center">{{ "Birth Date" | translate }}</th>
+            <th class="text-center">{{ "Age" | translate }}</th>
+            <th class="text-center">{{ "Phone Number" | translate }}</th>
+            <!-- <th class="text-center">{{ "Send SMS" | translate }}</th> -->
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let membership of birthdays; let row = index">
+            <td class="text-end">
+              {{ row + organisationMemberService?.pagingMeta?.from }}.
+            </td>
+            <td>
+              <a href="javascript:void(0)" viewProfile [membership]="membership">
+                {{ membership.member.first_name }} {{ membership.member.last_name }}
+              </a>
+            </td>
+            <td>{{ membership.category.name }}</td>
+            <td class="text-center" [noWrap]="true">{{ membership.member.dob | date: 'MMM d' }}</td>
+            <td class="text-center" [noWrap]="true">{{ membership.member.age }}</td>
+            <td class="text-center" [noWrap]="true">{{ membership.member.mobile_number }}</td>
+            <!-- <td class="text-center">
+              <button class="btn btn-sm btn-outline-primary">Send SMS</button>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="card-footer">
+      <app-pagination [service]="organisationMemberService" (paginate)="onPaginate($event)"></app-pagination>
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="card-body chart-block">
+      <app-loading-rotate-dashed></app-loading-rotate-dashed>
+    </div>
+  </ng-template>
+
 </div>
 <!-- end of card -->
+
+<ng-template #searchModal let-modal>
+  <form class="form-horizontal theme-form" (ngSubmit)="onSubmit($event)" [formGroup]='editorForm'>
+
+    <div class="modal-header">
+      <h4 class="modal-title">{{ 'Find Members' | translate }}</h4>
+      <button type="button" class="close basic-close" (click)="hideModal()">
+
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="form-group">
+        <div class="col-sm-4 col-form-label">
+          <i class="fa fa-calendar"></i> {{ 'Birth Month' | translate }}
+        </div>
+        <div class="col-sm">
+          <app-select-month-control formControlName="month"></app-select-month-control>
+
+          <div class="messages text-danger" *ngIf="editorForm.controls.month.errors?.required">
+            <p>{{ 'Month required' | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-4 col-form-label">
+          <i class="fa fa-calendar"></i> {{ 'Birth Year' | translate }}
+        </div>
+        <div class="col-sm">
+          <app-select-month-control formControlName="month"></app-select-month-control>
+
+          <div class="messages text-danger" *ngIf="editorForm.controls.year.errors?.required">
+            <p>{{ 'Year required' | translate }}</p>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="modal-footer flex-grow-1 text-end">
+      <span class="m-r-15" *ngIf="saving && roleService.requesting">
+        <i class="fa fa-spin fa-circle-o-notch"></i> {{ 'Saving' | translate }}
+      </span>
+
+      <button type="submit" class="btn btn-primary ripple light">{{ 'Save Changes' | translate }}</button>
+      <button type="button" class="btn btn-outline-danger ripple"
+              (click)="hideModal()">{{ 'Close' | translate }}</button>
+    </div>
+
+  </form>
+</ng-template>

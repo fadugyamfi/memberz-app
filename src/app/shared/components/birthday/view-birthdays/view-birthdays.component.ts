@@ -1,11 +1,17 @@
 import * as moment from 'moment';
-import { Component, OnInit } from '@angular/core';
-import { Observable, Subscription, tap } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { catchError, map, Observable, Subscription, tap } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { EventsService } from '../../../../shared/services/events.service';
 import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
 import { OrganisationMemberService } from 'src/app/shared/services/api/organisation-member.service';
 import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
+import * as dayjs from 'dayjs';
+import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
+import { OrganisationMember } from '../../../model/api/organisation-member';
+import Swal from 'sweetalert2';
+import { ExcelService } from '../../../services/excel.service';
+import { PrintService } from '../../../services/print.service';
 
 @Component({
   selector: 'app-view-birthdays',
@@ -14,76 +20,63 @@ import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } fr
 })
 export class ViewBirthdaysComponent implements OnInit {
 
+  @ViewChild(DaterangepickerDirective, { static: false }) pickerDirective: DaterangepickerDirective
+
   public subscriptions: Subscription[] = [];
   public selectForm: UntypedFormGroup;
-  public birthdays: any[] = [];
+  public birthdays$;
+  public memberships: OrganisationMember[];
 
-  private searchParam = {
-    day: null,
-    week: null,
-    month: null,
-    page: null,
-    limit: null
-  };
+  public ranges: any = {
+    'Today': [dayjs(), dayjs()],
+    'Yesterday': [dayjs().subtract(1, 'days'), dayjs().subtract(1, 'days')],
+    'Last 7 Days': [dayjs().subtract(6, 'days'), dayjs()],
+    'Last 30 Days': [dayjs().subtract(29, 'days'), dayjs()],
+    'This Month': [dayjs().startOf('month'), dayjs().endOf('month')],
+    'Last Month': [dayjs().subtract(1, 'month').startOf('month'), dayjs().subtract(1, 'month').endOf('month')]
+  }
+
 
   public fetching = false;
 
   constructor(
     public organisationMemberService: OrganisationMemberService,
     public events: EventsService,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public excelService: ExcelService,
+    public printService: PrintService,
   ) { }
 
   ngOnInit(): void {
     this.setupSelectForm();
-    this.fetchBirthdays();
+    this.fetchBirthdays({ month: dayjs().month() + 1 });
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  fetchBirthdays(birthdayFor = 'today', page = 1, limit = 30) {
+  fetchBirthdays(options = {}, page = 1, limit = 50) {
     this.fetching = true;
-    this.birthdays = null;
-    this.getBirthDayParam(birthdayFor);
-    this.searchParam.page = page;
-    this.searchParam.limit = limit;
 
+    const searchParams = {
+      ...options,
+      page,
+      limit
+    };
 
-    let sub = this.organisationMemberService.birthdays(this.searchParam).subscribe((data: any[]) => {
-      this.fetching = false;
-
-      if (data.length == 0) { return }
-      this.birthdays = data;
-    });
-
-    this.subscriptions.push(sub);
-
-  }
-
-  getBirthDayParam(value: string){
-    switch(value){
-      case 'today':
-        this.searchParam.day = moment().day();
-        break;
-      case 'tomorrow':
-        this.searchParam.day = moment().day() + 1;
-        break;
-      case 'thisWeek':
-        this.searchParam.week = moment().week();
-        break;
-      case 'nextWeek':
-        this.searchParam.week = moment().week() + 1;
-        break;
-      case 'thisMonth':
-        this.searchParam.month = moment().month();
-        break;
-    }
-  }
-
-  hasDataAvailable() {
-    return this.birthdays && this.birthdays.length > 0;
+    return this.birthdays$ = this.organisationMemberService.birthdays(searchParams)
+      .pipe(
+        map(response => {
+          return response['data'].map(data => new OrganisationMember(data));
+        }),
+        tap((memberships) => {
+          this.memberships = memberships;
+        }),
+        catchError((error) => {
+          return error;
+        })
+      );
   }
 
   /**
@@ -91,8 +84,15 @@ export class ViewBirthdaysComponent implements OnInit {
    */
   setupSelectForm() {
     this.selectForm = new UntypedFormGroup({
-      birthday_for: new UntypedFormControl('today')
+      month: new UntypedFormControl(dayjs().month() + 1),
+      organisation_member_category_id: new UntypedFormControl()
     });
+
+    this.selectForm.valueChanges.subscribe({
+      next: (values) => {
+        this.fetchBirthdays(this.selectForm.value)
+      }
+    })
   }
 
   /**
@@ -103,4 +103,53 @@ export class ViewBirthdaysComponent implements OnInit {
   onPaginate(event: PageEvent) {
     this.fetchBirthdays(this.selectForm.value, event.page, event.limit);
   }
+
+  datesUpdated(dates) {
+    console.log(dates);
+  }
+
+  openDatepicker() {
+    this.pickerDirective.open();
+  }
+
+  formatMembersDataForExport(members) {
+    return members.map((m) => {
+      return {
+        membership_no: m.organisation_no,
+        name: m.member.lastThenFirstName(),
+        membership_category: m.organisation_member_category.name,
+        phone_number: m.member.mobile_number,
+        dob: m.member.dob,
+        age: m.member.age
+      }
+    });
+  }
+
+  exportToExcel(type = "page"): void {
+
+    if (type == 'page') {
+      if (this.memberships.length == 0) {
+        return;
+      }
+
+      return this.excelService.generateExcel(this.formatMembersDataForExport(this.memberships), 'birthdays');
+
+    }//end if page
+
+
+    Swal.fire(
+      this.translate.instant('Fetching all data'),
+      this.translate.instant('Please wait as organisation data is being fetched') + '...',
+      'info'
+    );
+    Swal.showLoading();
+
+    const sub = this.organisationMemberService.birthdays(this.selectForm.value).subscribe((members: OrganisationMember[]) => {
+      this.excelService.generateExcel(this.formatMembersDataForExport(members), 'birthdays');
+    });
+
+    this.subscriptions.push(sub);
+
+  }
+
 }

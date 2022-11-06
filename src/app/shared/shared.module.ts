@@ -48,6 +48,7 @@ import { SelectCurrencyControlComponent } from './components/forms/select-curren
 import { SelectCountryControlComponent } from './components/forms/select-country-control/select-country-control.component';
 import { SelectPaymentTypeControlComponent } from './components/forms/select-payment-type-control/select-payment-type-control.component';
 import { SelectContributionTypeControlComponent } from './components/forms/select-contribution-type-control/select-contribution-type-control.component';
+import { SelectMembershipCategoryControlComponent } from './components/forms/select-membership-category-control/select-membership-category-control.component';
 import { FinanceWeeklyBreakdownComponent } from './components/charts/finance-weekly-breakdown/finance-weekly-breakdown.component';
 import { FinanceCategoryBreakdownComponent } from './components/charts/finance-category-breakdown/finance-category-breakdown.component';
 import { FinanceTrendComponent } from './components/charts/finance-trend/finance-trend.component';
@@ -79,6 +80,7 @@ import { CustomFieldComponent } from './components/forms/custom-field/custom-fie
 import { AdminHasPermissionDirective } from './directives/admin-has-permission.directive';
 import { AvatarModule, AvatarSource } from 'ngx-avatars';
 import { TawkChatModule } from '../components/tawk-chat/tawk-chat.module';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 
 import { MembershipCardComponent } from './components/profile-view/membership-card/membership-card.component';
 import { MembershipCardModalComponent } from './components/profile-view/membership-card-modal/membership-card-modal.component';
@@ -120,6 +122,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     SelectCountryControlComponent,
     SelectPaymentTypeControlComponent,
     SelectContributionTypeControlComponent,
+    SelectMembershipCategoryControlComponent,
     FinanceWeeklyBreakdownComponent,
     FinanceCategoryBreakdownComponent,
     FinanceTrendComponent,
@@ -150,7 +153,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     MembershipCardModalComponent,
     ViewBirthdaysComponent,
     ConfigureAutomatedMessagesComponent,
-    CountToDirective
+    CountToDirective,
   ],
   imports: [
     CommonModule,
@@ -171,7 +174,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
     // standalone components
     CustomFieldComponent,
-    PaginationComponent
+    PaginationComponent,
+    NgxDaterangepickerMd.forRoot()
   ],
   exports: [
     FeatherIconsComponent,
@@ -196,6 +200,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     SelectCountryControlComponent,
     SelectPaymentTypeControlComponent,
     SelectContributionTypeControlComponent,
+    SelectMembershipCategoryControlComponent,
     FinanceWeeklyBreakdownComponent,
     FinanceCategoryBreakdownComponent,
     FinanceTrendComponent,
@@ -216,7 +221,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     ViewBirthdaysComponent,
     ConfigureAutomatedMessagesComponent,
     CountToDirective,
-    CustomFieldComponent
+    CustomFieldComponent,
+    NgxDaterangepickerMd
   ],
   providers: [
     NavService,

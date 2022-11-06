@@ -140,7 +140,7 @@ export class NavService {
         { path: '/organisation/events/dashboard', title: 'Dashboard', type: 'link', permission: 'events:dashboard:view' },
         { path: '/organisation/events/list', title: 'Event List', type: 'link', permission: 'events:manage:add' },
         // { path: '/organisation/events/calendar', title: 'Calendar', type: 'link', permission: 'events:calendar:view' },
-        // { path: '/organisation/events/birthday', title: 'Birthdays', type: 'link', permission: 'events:birthdays:view' },
+        { path: '/organisation/events/birthday', title: 'Birthdays', type: 'link', permission: 'events:birthdays:view' },
       ]
     },
     {
@@ -153,17 +153,7 @@ export class NavService {
       children: [
         { path: '/organisation/finance/dashboard', title: 'Dashboard', type: 'link', icon: 'dashboard', permission: 'finance:dashboard:view' },
         { path: '/organisation/finance/income', title: 'Income', type: 'link', permission: 'finance:income:view' },
-        // {
-        //   path: '/organisation/finance/settings',
-        //   title: 'Settings',
-        //   type: 'sub',
-        //   active: false,
-        //   children: [
-        //     { path: '/organisation/finance/settings/income-sources', title: 'Income Sources', type: 'link', icon: 'cash' },
-        //     { path: '/organisation/finance/settings/receipts', title: 'Receipts', type: 'link', icon: 'cogs' },
-        //   ]
-        // },
-        // { path: '/organisation/finance/expenditure', title: 'Expenditure', type: 'link' },
+        { path: '/organisation/finance/expenses', title: 'Expenditure', type: 'link' },
         {
           title: 'Reports',
           type: 'sub',
@@ -175,7 +165,17 @@ export class NavService {
             { path: '/organisation/finance/reports/top-contributors', title: 'Top Contributors', type: 'link' },
             { path: '/organisation/finance/reports/non-contributing-members', title: 'Non Contributors', type: 'link' }
           ]
-        }
+        },
+                // {
+        //   path: '/organisation/finance/settings',
+        //   title: 'Settings',
+        //   type: 'sub',
+        //   active: false,
+        //   children: [
+        //     { path: '/organisation/finance/settings/income-sources', title: 'Income Sources', type: 'link', icon: 'cash' },
+        //     { path: '/organisation/finance/settings/receipts', title: 'Receipts', type: 'link', icon: 'cogs' },
+        //   ]
+        // },
       ]
     },
     {
