@@ -7,6 +7,7 @@ import { PermissionsComponent } from '../permissions/permissions.component';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
+import { PageEvent } from '../../../shared/components/pagination/pagination.component';
 
 @Component({
   selector: 'app-roles',
@@ -43,14 +44,21 @@ export class RolesComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  loadRoles() {
+  loadRoles(page = 1, limit = 100) {
     const sub = this.roleService.getAll({
-      limit: 100, sort: 'name:asc', count: ['permissions', 'organisation_account'].join()
+      limit,
+      page,
+      sort: 'name:asc',
+      count: ['permissions', 'organisation_account'].join()
     }).subscribe(
       (roles) => this.roles = roles
     );
 
     this.subscriptions.push(sub);
+  }
+
+  onPaginate(event: PageEvent) {
+    this.loadRoles(event.page, event.limit);
   }
 
   /**
@@ -103,12 +111,14 @@ export class RolesComponent implements OnInit, OnDestroy {
 
     this.events.on('OrganisationRole:permissionSynced', (data) => {
       const role_id = data.id;
-      this.roles.forEach((item, index) => {
-          if (item.id === role_id) {
-            this.roles[index].permissions_count = data.permissions.length;
-            this.roles[index].organisation_account_count = data.organisation_account_count;
-          }
-      });
+      this.loadRoles();
+
+      // this.roles.forEach((item, index) => {
+      //     if (item.id === role_id) {
+      //       this.roles[index].permissions_count = data.permissions.length;
+      //       this.roles[index].organisation_account_count = data.organisation_account_count;
+      //     }
+      // });
 
     });
   }

@@ -24,9 +24,15 @@
   <div class="card-body">
 
     <div class="m-t-30 m-b-30 text-center" *ngIf="emptyDataset()">
-      <img src="/assets/images/icons/circle-links.svg" height="180" class="m-b-30" />
+      <img src="/assets/images/icons/circle-links.svg" height="140" class="m-b-30" />
       <h4>{{ 'No Organisations Created' | translate }}</h4>
       <h6>{{ 'Create your first organisation and get your way to managing data your way' | translate }}</h6>
+
+      <p class="mt-4">
+        <button class="btn btn-lg btn-primary" (click)="editorModal.show()">
+          <i class="fa fa-plus"></i> {{'Create Organisation' | translate}}
+        </button>
+      </p>
     </div>
 
     <div class="loader-box" *ngIf="memberAccountService.requesting">

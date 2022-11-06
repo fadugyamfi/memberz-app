@@ -16,7 +16,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let role of roles; let row = index">
+      <tr *ngFor="let role of roleService.getItems(); let row = index">
         <td class="text-end">{{ row + 1 }}.</td>
         <td>
           <div>{{ role.name }}</div>
@@ -52,6 +52,10 @@
 
   <div class="loader-box m-auto" *ngIf="roleService.fetching">
     <span class="rotate dashed colored"></span>
+  </div>
+
+  <div class="card-footer">
+    <app-pagination [service]="roleService" (paginate)="onPaginate($event)"></app-pagination>
   </div>
 </div>
 

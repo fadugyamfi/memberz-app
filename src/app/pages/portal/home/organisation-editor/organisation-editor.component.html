@@ -1,16 +1,20 @@
 <ng-template #editorModal let-modal>
   <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="profileForm">
-    <div class="modal-header bg-dark d-block">
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <div class="modal-header bg-primary align-items-start">
+      <section>
+        <h4 class="modal-title d-block f-none" id="modal-basic-title">
+          {{ modalTitle | titlecase }}
+        </h4>
+        <p class="mb-0 d-block">
+          {{ "New organisations are created with a Free Tier Plan, and you can upgrade for additional functionality" | translate }}
+        </p>
+      </section>
+
+
+      <button type="button" class="btn-close text-white" aria-label="Close" (click)="modal.dismiss('Cross click')">
 
       </button>
 
-      <h4 class="modal-title d-block f-none" id="modal-basic-title">
-        {{ modalTitle | titlecase }}
-      </h4>
-      <p class="mb-0 d-block">
-        {{ "New organisations are created with a Free Tier Plan, and you can upgrade for additional functionality" | translate }}
-      </p>
     </div>
 
     <div class="modal-body">
@@ -19,7 +23,7 @@
           * {{ "Type of Organisation" | translate }}
         </div>
         <div class="col-sm-9">
-          <select class="form-select" formControlName="organisation_type_id">
+          <select class="form-select" formControlName="organisation_type_id" required>
             <option value="">{{ "Select Type" | translate }}</option>
             <option *ngFor="let type of orgTypes" [value]="type.id">
               {{ type.name }}
@@ -35,7 +39,7 @@
       <div class="form-group row">
         <div class="col-form-label col-sm-3">* {{ "Name" | translate }}</div>
         <div class="col-sm-9">
-          <input type="text" class="form-control" placeholder="Enter Name Here" formControlName="name" />
+          <input type="text" class="form-control" placeholder="Enter Name Here" formControlName="name" required />
 
           <div class="text-danger" *ngIf="profileForm.controls.name?.errors?.required">
             {{ "Name Of Organisation Required" | translate }}
@@ -46,7 +50,7 @@
       <div class="form-group row">
         <div class="col-form-label col-sm-3">* {{ "Email" | translate }}</div>
         <div class="col-sm-9">
-          <input type="email" class="form-control" placeholder="e.g. info@example.com" formControlName="email" />
+          <input type="email" class="form-control" placeholder="e.g. info@example.com" formControlName="email" required="" />
 
           <div class="text-danger" *ngIf="profileForm.controls.email?.errors?.required">
             {{ "Email Required" | translate }}
@@ -67,18 +71,22 @@
               SearchCountryField.Name
             ]" [selectFirstCountry]="true" [selectedCountryISO]="CountryISO.Ghana" [maxLength]="15"
                               [phoneValidation]="true" [separateDialCode]="separateDialCode"
-                              [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="phone_intl">
+                              [numberFormat]="PhoneNumberFormat.National" name="phone" formControlName="phone_intl" required>
           </ngx-intl-tel-input>
-          <div *ngIf="profileForm.controls.phone_intl.touched && profileForm.controls.phone_intl.errors?.required" class="text text-danger mt-1">
+          <div *ngIf="profileForm.controls.phone_intl.touched && profileForm.controls.phone_intl.errors?.required"
+               class="text text-danger mt-1">
             {{'Phone Number Required' | translate}}
           </div>
-          <div *ngIf="profileForm.controls.phone_intl.touched && profileForm.controls.phone_intl.errors?.minlength" class="text text-danger mt-1">
+          <div *ngIf="profileForm.controls.phone_intl.touched && profileForm.controls.phone_intl.errors?.minlength"
+               class="text text-danger mt-1">
             {{'Phone Number must be at least 6 characters long' | translate}}.
           </div>
-          <div *ngIf="profileForm.controls.phone_intl.touched && profileForm.controls.phone_intl.errors?.maxlength" class="text text-danger mt-1">
+          <div *ngIf="profileForm.controls.phone_intl.touched && profileForm.controls.phone_intl.errors?.maxlength"
+               class="text text-danger mt-1">
             {{'Phone Number must be at most 15 characters long' | translate}}
           </div>
-          <div *ngIf="profileForm.controls.phone_intl.touched && profileForm.controls.phone_intl.errors?.validatePhoneNumber" class="text text-danger mt-1">
+          <div *ngIf="profileForm.controls.phone_intl.touched && profileForm.controls.phone_intl.errors?.validatePhoneNumber"
+               class="text text-danger mt-1">
             {{'Phone Number Not Valid For Selected Country' | translate}}
           </div>
         </div><!-- end of col-sm-9 -->
@@ -87,7 +95,7 @@
       <div class="form-group row">
         <div class="col-form-label col-sm-3">* {{ "Country" | translate }}</div>
         <div class="col-sm-9">
-          <select class="form-select" formControlName="country_id">
+          <select class="form-select" formControlName="country_id" required>
             <option value="">{{ "Select Country" | translate }}</option>
             <option *ngFor="let country of countries" [value]="country.id">
               {{ country.name }}
@@ -140,6 +148,11 @@
         </div>
         <div class="col-sm-9">
           <input type="url" class="form-control" placeholder="e.g. http://www.example.com" formControlName="website" />
+
+          <div *ngIf="profileForm.controls.website.errors?.invalidUrl"
+               class="text text-danger mt-1">
+            {{'Website URL not valid. Must begin with http:// or https://' | translate}}
+          </div>
         </div>
       </div>
     </div>

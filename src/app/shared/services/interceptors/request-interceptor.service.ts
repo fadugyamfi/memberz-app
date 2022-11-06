@@ -24,7 +24,7 @@ export class RequestInterceptor implements HttpInterceptor {
         if (err instanceof HttpErrorResponse) {
           this.errorHandler.handleError(err);
         }
-        return throwError(() => new Error("Request Error"));
+        return throwError(() => err);
       })
     );
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { OrganisationTypeService } from '../../../../shared/services/api/organisation-type.service';
 import { OrganisationType } from '../../../../shared/model/api/organisation-type';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
@@ -12,6 +12,25 @@ import { SubscriptionTypeService } from '../../../../shared/services/api/subscri
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
 import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 import { TranslateService } from '@ngx-translate/core';
+
+export class CustomValidators {
+  static validUrl: ValidatorFn = (control: FormControl): ValidationErrors | null  => {
+    try {
+      const regex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+      let str = control.value;
+
+      if( str != '' && regex.test(str) == false ) {
+        return { invalidUrl: true };
+      }
+
+      return null;
+
+    } catch (_) {
+      return { invalidUrl: true };
+    }
+  }
+}
+
 
 @Component({
   selector: 'app-organisation-editor-modal',
@@ -71,7 +90,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
       city: new UntypedFormControl(''),
       state: new UntypedFormControl(''),
       post_code: new UntypedFormControl(''),
-      website: new UntypedFormControl(''),
+      website: new UntypedFormControl('', [CustomValidators.validUrl]),
       subscription_type_id: new UntypedFormControl(this.freePlan ? this.freePlan.id : null),
       subscription_length: new UntypedFormControl(1)
     });

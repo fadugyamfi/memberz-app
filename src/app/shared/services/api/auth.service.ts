@@ -137,10 +137,12 @@ export class AuthService extends APIService<MemberAccount> {
         );
         Swal.showLoading();
       },
-      error: () => {
+      error: (error) => {
+        const message = error.error?.message || [];
+
         Swal.fire(
           this.translate.instant('Registration Failed'),
-          this.translate.instant('Please try again'),
+          message.join('<br />'),
           'error'
         );
         Swal.hideLoading();
