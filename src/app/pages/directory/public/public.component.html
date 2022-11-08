@@ -1,0 +1,39 @@
+<main class="container my-4" *ngIf="organisation != null">
+
+  <header class="mb-4 text-center py-3">
+    <h1>{{ organisation?.name }} - Membership Directory</h1>
+  </header>
+
+
+  <section>
+    <section class="directory-list" *ngIf="(memberships$ | async) as memberships; else loading">
+      <div class="row">
+        <div class="col-3" *ngFor="let membership of memberships$ | async">
+          <div class="card">
+            <div class="d-flex justify-content-center w-100 pb-2 pt-4">
+              <ngx-avatars [src]="membership?.member?.image()" class="avatar" [size]="150" [name]="membership?.name()"></ngx-avatars>
+            </div>
+
+            <div class="card-body p-2 pb-3 text-center">
+              <p class="name">{{ membership.member.lastThenFirstName() }}</p>
+              <p class="category">{{ membership.category?.name }}</p>
+              <p class="membership_no">Membership #: {{ membership.organisation_no }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="py-4">
+        <app-pagination [service]="membershipService" (paginate)="onPaginate($event)"></app-pagination>
+      </footer>
+    </section>
+
+
+    <ng-template #loading>
+      <h1 class="text-center text-primary">
+        <i class="fa fa-circle-o-notch fa-spin"></i> Loading
+      </h1>
+    </ng-template>
+  </section>
+
+</main>

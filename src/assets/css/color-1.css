@@ -120,7 +120,7 @@ ul {
   box-shadow: none !important; }
 
 p {
-  font-size: 13px;
+  font-size: 1em;
   line-height: 1.7;
   letter-spacing: 0.7px; }
 
@@ -137,12 +137,14 @@ blockquote {
 
 blockquote.text-center {
   border: none;
-  padding: 15px; }
+  padding: 15px;
+}
 
 blockquote.text-right {
   border-left: none;
   border-right: 4px solid #e8ebf2;
-  padding: 15px; }
+  padding: 15px;
+}
 
 :focus {
   outline-color: #0288d1; }

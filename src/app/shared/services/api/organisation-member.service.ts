@@ -79,4 +79,10 @@ export class OrganisationMemberService extends APIService<OrganisationMember> {
   birthdaySummary(options = {}) {
     return this.get(`${this.url}/birthdays/summary`, options);
   }
+
+  publicDirectory(orgSlug: string, options = {}, headers = {}) {
+    return this.get(`/organisations/${orgSlug}/organisation_members`, options, headers).pipe(map(response => {
+      return response['data'].map(result => new OrganisationMember(result));
+    }))
+  }
 }

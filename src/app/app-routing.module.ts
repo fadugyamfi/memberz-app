@@ -49,6 +49,18 @@ const routes: Routes = [
     }]
   },
   {
+    path: ':org_slug/directory',
+    component: FullLayoutComponent,
+    canActivate: [OrganisationPublicPageGuard],
+    children: [{
+      path: '',
+      loadChildren: () => import('./pages/directory/directory.module').then(m => m.DirectoryModule),
+      data: {
+        breadcrumb: 'Membership Directory'
+      }
+    }]
+  },
+  {
     path: 'legal',
     component: FullLayoutComponent,
     children: [{

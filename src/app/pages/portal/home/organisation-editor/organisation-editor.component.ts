@@ -146,6 +146,11 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.open(this.editorModal, { size: 'lg' });
 
     if (organisation) {
+      Object.assign(organisation, {
+        phone_intl: organisation.phone,
+        website: organisation.website || ''
+      });
+
       this.modalTitle = this.translate.instant('Update Organisation Info');
       this.profileForm.patchValue(organisation);
     } else {

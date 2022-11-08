@@ -19,6 +19,8 @@ export class Organisation extends AppModel {
   public address: string;
   public city: string;
   public state: string;
+  public website: string;
+  public phone_intl: string;
 
   constructor(data) {
     super(data);

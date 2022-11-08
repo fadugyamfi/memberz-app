@@ -1,0 +1,37 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://rsms.me/inter/inter.css');
+
+.container {
+  font-family: 'Inter', sans-serif;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+p {
+  font-family: 'Nunito';
+  font-size: 1.1rem;
+  margin-bottom: 0px;
+  line-height: normal;
+
+  &.name {
+    font-weight: 700;
+  }
+
+  &.category {
+    font-weight: 400;
+    color: #444;
+    font-size: 0.9rem;
+  }
+
+  &.membership_no {
+    font-weight: normal;
+    font-size: 0.9rem;
+  }
+}
+
+header {
+  height: auto;
+}
