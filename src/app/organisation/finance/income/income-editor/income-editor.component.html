@@ -44,13 +44,6 @@
         </div>
       </div>
 
-      <div *ngIf="!selectedContributionTypeIsMemberSpecific()" class="form-group row animated fadeInDown">
-        <label class="col-sm-2 col-form-label">{{'Description' | translate}}</label>
-        <div class="col-sm-7">
-          <input type="text" class="form-control" placeholder="e.g. From John" formControlName="description" />
-        </div>
-      </div>
-
       <div *ngIf="selectedContributionTypeIsMemberSpecific()" class="form-group row animated fadeInDown"
            style="z-index: 1; position: relative;">
         <label class="col-sm-2 col-form-label">{{'Member' | translate}}</label>
@@ -63,6 +56,13 @@
           <div class="messages text-danger" *ngIf="editorForm.controls.organisation_member_id?.errors?.required">
             <p class="m-b-0 m-t-5">{{ 'Member Required For This Contribution Type' | translate }}</p>
           </div>
+        </div>
+      </div>
+
+      <div class="form-group row animated fadeInDown">
+        <label class="col-sm-2 col-form-label">{{'Description' | translate}}</label>
+        <div class="col-sm-7">
+          <input type="text" class="form-control" placeholder="e.g. From John" formControlName="description" />
         </div>
       </div>
 
