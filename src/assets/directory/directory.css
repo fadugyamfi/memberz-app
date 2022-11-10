@@ -10,7 +10,7 @@
   src: url('https://rsms.me/inter/inter.css');
 }
 
-.container {
+.mbz-container {
   font-family: 'Inter', sans-serif;
   width: 90%;
   box-sizing: border-box;
@@ -22,7 +22,7 @@
   width: 100%;
 }
 
-.container p {
+.mbz-container p {
   font-size: 1rem;
   margin-bottom: 0px;
   margin-top: 0px;

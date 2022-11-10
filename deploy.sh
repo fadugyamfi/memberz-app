@@ -1,6 +1,6 @@
 #!/bin/bash
 git pull
-npm install
+npm install --legacy-peer-deps --force
 npm run build-slydepay
 npm run build-staging
 rm -rf live-bak
