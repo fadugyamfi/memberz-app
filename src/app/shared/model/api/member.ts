@@ -4,6 +4,7 @@ import { AppModel } from './app.model';
 export class Member extends AppModel {
 
   public id: any;
+  public title: string;
   public first_name: string;
   public last_name: string;
   public middle_name: string;
@@ -25,6 +26,10 @@ export class Member extends AppModel {
 
   name() {
     return this.firstThenLastName();
+  }
+
+  nameWithTitle() {
+    return `${this.title} ${this.fullname()}`;
   }
 
   firstThenLastName() {

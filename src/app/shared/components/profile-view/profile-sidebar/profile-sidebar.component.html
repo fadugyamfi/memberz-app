@@ -25,16 +25,16 @@
           <app-image-cropper #imageCropper (save)="onCroppedImageSaved($event)"></app-image-cropper>
         </div>
 
-        <div class="p-15">
-          <h4>{{ membership?.name() }}</h4>
+        <div class="py-4 px-2">
+          <h4>{{ membership?.nameWithTitle() }}</h4>
 
-          <p class="f-12">
+          <p class="">
             <span>{{ membership?.organisation_no }}</span>
             &nbsp; &bull; &nbsp;
             <span>{{ membership?.organisation_member_category?.name }}</span>
           </p>
 
-          <qr-code [value]="membership?.uuid" size="64" errorCorrectionLevel="M"></qr-code>
+          <qr-code [value]="membership?.uuid" size="100" errorCorrectionLevel="M"></qr-code>
         </div>
       </div>
     </div>

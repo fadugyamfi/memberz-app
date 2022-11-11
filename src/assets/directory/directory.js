@@ -1,7 +1,12 @@
 export class MembershipDirectory {
 
-  constructor(appKey) {
+  constructor(appKey, options = {}) {
     this.tenantId = appKey;
+    this.tenantSlug = options.slug || 'cbctaifa';
+    this.pageLimit = options.pageLimit || 50;
+    this.title = options.title || 'Membership Directory';
+    this.subtitle = options.subtitle || '';
+
     this.directorySelector = '.mbz-container #directory';
     this.paginationSelector = '.mbz-container #pagination';
 
@@ -19,13 +24,22 @@ export class MembershipDirectory {
 
     document.querySelector(selector).innerHTML = `
       <div class="mbz-container">
-          <h2 class='py-4 text-center'>Membership Directory</h2>
+        <header>
+          <h2 class='py-4 text-center'>${this.title}</h2>
+          <h4 class='py-3 text-center'>${this.subtitle}</h4>
+        </header>
+
+        <main>
           <div id="directory"></div>
+        </main>
+
+        <footer>
           <div id="pagination" class="d-flex justify-content-center py-4"></div>
+        </footer>
       </div>
       `;
 
-    this.fetchMemberships();
+    this.fetchMemberships(1, this.pageLimit);
   }
 
   renderDirectoryList(json) {
@@ -40,7 +54,7 @@ export class MembershipDirectory {
               <img src="${membership.member?.profile_photo?.url}" onerror="this.src = 'https://via.placeholder.com/300/F9F9F9?text=No+Image'" />
               <main>
                   <p class='name'>
-                      ${titlecase(membership.member.title)} ${membership.member.first_name} ${membership.member.last_name}
+                      ${membership.member.title.toLowerCase()} ${membership.member.first_name.toLowerCase()} ${membership.member.last_name.toLowerCase()}
                   </p>
                   <p class='category'>${membership.organisation_member_category?.name}</p>
                   <p class='membership_no'># ${membership.organisation_no}</p>
@@ -83,8 +97,8 @@ export class MembershipDirectory {
   }
 
   fetchMemberships(page = 1, limit = 10) {
-    const slug = 'ministers-conference-gbc';
-    const url = `${this.apiBaseURL}/api/organisations/${slug}/organisation_members?` + new URLSearchParams({
+
+    const url = `${this.apiBaseURL}/api/organisations/${this.tenantSlug}/organisation_members?` + new URLSearchParams({
       sort: 'first_name:asc',
       page,
       limit
@@ -114,5 +128,5 @@ function titlecase(str) {
 
   const firstLetter = str.substring(0, 1);
   const remaining = str.substring(1);
-  return firstLetter ? firstLetter.toUpperCase() + remaining.toLowerCase() : '';
+  return firstLetter ? firstLetter.toUpperCase() + remaining : '';
 }

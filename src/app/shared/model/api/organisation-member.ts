@@ -25,15 +25,19 @@ export class OrganisationMember extends AppModel {
   }
 
   name() {
-    return this.member && this.member.firstThenLastName();
+    return this.member?.firstThenLastName();
+  }
+
+  nameWithTitle() {
+    return this.member?.nameWithTitle();
   }
 
   nameLastFirst() {
-    return this.member && this.member.lastThenFirstName();
+    return this.member?.lastThenFirstName();
   }
 
   fullname() {
-    return this.member && this.member.fullname();
+    return this.member?.fullname();
   }
 
   set member(value) {
