@@ -24,9 +24,9 @@ export class MembershipDirectory {
 
     document.querySelector(selector).innerHTML = `
       <div class="mbz-container">
-        <header>
-          <h2 class='py-4 text-center'>${this.title}</h2>
-          <h4 class='py-3 text-center'>${this.subtitle}</h4>
+        <header class='py-4 text-center'>
+          <h2>${this.title}</h2>
+          <h4>${this.subtitle}</h4>
         </header>
 
         <main>
@@ -43,15 +43,20 @@ export class MembershipDirectory {
   }
 
   renderDirectoryList(json) {
-    let ul = document.createElement('ul');
-    ul.classList.add(['listing-group'])
+    let ul = document.createElement('div');
+    ul.classList.add(['row'])
 
     json.data.forEach(membership => {
-      let li = document.createElement('li');
-      li.classList.add(['listing-group-item']);
+      let li = document.createElement('div');
+      li.classList.add(['col-md-3']);
       li.innerHTML = `
-          <div class='card'>
-              <img src="${membership.member?.profile_photo?.url}" onerror="this.src = 'https://via.placeholder.com/300/F9F9F9?text=No+Image'" />
+          <div class='card mb-3'>
+              <img
+                src="${membership.member?.profile_photo?.url}"
+                loading="lazy"
+                onerror="this.src = 'https://via.placeholder.com/300/F9F9F9?text=No+Image'"
+              />
+
               <main>
                   <p class='name'>
                       ${membership.member.title.toLowerCase()} ${membership.member.first_name.toLowerCase()} ${membership.member.last_name.toLowerCase()}
