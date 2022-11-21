@@ -13,8 +13,7 @@ export class MembershipDirectory {
     this.directorySelector = '.mbz-container #directory';
     this.paginationSelector = '.mbz-container #pagination';
 
-    this.apiBaseURL = 'https://api-beta.memberz.org';
-    this.apiBaseURL = 'http://api.memberz.test';
+    this.apiBaseURL = options.base_url || 'https://api-beta.memberz.org';
 
     this.config = {
       base_url: this.apiBaseURL,
