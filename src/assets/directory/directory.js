@@ -1,3 +1,6 @@
+import { SearchBar } from "./components/search-bar.js";
+import { Events } from "./traits/events.js";
+
 export class MembershipDirectory {
 
   constructor(appKey, options = {}) {
@@ -11,6 +14,15 @@ export class MembershipDirectory {
     this.paginationSelector = '.mbz-container #pagination';
 
     this.apiBaseURL = 'https://api-beta.memberz.org';
+    this.apiBaseURL = 'http://api.memberz.test';
+
+    this.config = {
+      base_url: this.apiBaseURL,
+      tenant_slug: this.tenantSlug,
+      tenant_id: this.tenantId
+    }
+
+    Object.assign( this, Events );
   }
 
   importStylesheets() {
@@ -20,6 +32,7 @@ export class MembershipDirectory {
   }
 
   render(selector) {
+    this.selector = selector;
     this.importStylesheets();
 
     document.querySelector(selector).innerHTML = `
@@ -30,6 +43,7 @@ export class MembershipDirectory {
         </header>
 
         <main>
+          <div id="search-bar"></div>
           <div id="directory"></div>
         </main>
 
@@ -39,7 +53,24 @@ export class MembershipDirectory {
       </div>
       `;
 
-    this.fetchMemberships(1, this.pageLimit);
+    this.renderSearchBar();
+    this.trigger('render');
+
+    this.fetchMemberships({}, 1, this.pageLimit);
+  }
+
+  renderSearchBar() {
+    const searchBar = new SearchBar(`${this.selector} #search-bar`, this.config);
+
+    searchBar.on('search', (name) => {
+      this.fetchMemberships({ term: name }, 1, this.pageLimit);
+    });
+
+    searchBar.on('category-select', (value) => {
+      this.fetchMemberships({ organisation_member_category_id: value }, 1, this.pageLimit);
+    });
+
+    searchBar.render();
   }
 
   renderDirectoryList(json) {
@@ -101,12 +132,13 @@ export class MembershipDirectory {
     document.querySelector(this.paginationSelector).append(list);
   }
 
-  fetchMemberships(page = 1, limit = 10) {
+  fetchMemberships(options = {}, page = 1, limit = 10) {
 
     const url = `${this.apiBaseURL}/api/organisations/${this.tenantSlug}/organisation_members?` + new URLSearchParams({
       sort: 'first_name:asc',
       page,
-      limit
+      limit,
+      ...options
     });
 
     const headers = { 'X-Tenant-Id': this.tenantId };
