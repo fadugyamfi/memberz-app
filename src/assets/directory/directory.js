@@ -6,7 +6,7 @@ export class MembershipDirectory {
   constructor(appKey, options = {}) {
     this.tenantId = appKey;
     this.tenantSlug = options.slug || 'cbctaifa';
-    this.pageLimit = options.pageLimit || 50;
+    this.pageLimit = options.pageLimit || 40;
     this.title = options.title || 'Membership Directory';
     this.subtitle = options.subtitle || '';
 
@@ -120,7 +120,7 @@ export class MembershipDirectory {
       linkTag.innerHTML = link.label;
       linkTag.addEventListener('click', (event) => {
         event.preventDefault();
-        this.fetchMemberships(link.label);
+        this.fetchMemberships({}, link.label);
       });
 
       item.appendChild(linkTag);
