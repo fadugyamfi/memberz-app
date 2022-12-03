@@ -59,7 +59,7 @@ export class OrganisationMemberService extends APIService<OrganisationMember> {
   statistics() {
     const organisation = this.organisationService.getActiveOrganisation();
 
-    return this.get(`/organisations/${organisation.id}/memberships/statistics`).pipe(map(response => {
+    return this.get(`/organisation_members/statistics`).pipe(map(response => {
       return response['data'].map(result => {
         return { value: result.total, name: result.category_name };
       });
