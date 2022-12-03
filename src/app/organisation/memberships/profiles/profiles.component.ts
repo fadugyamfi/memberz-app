@@ -127,7 +127,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
   loadDataFromCache() {
     this.members = this.storage.get(this.cacheDataKey).map(data => new OrganisationMember(data));
-    this.events.trigger('OrganisationMember:paging', this.storage.get(this.cachePagingKey));
+    this.organisationMemberService.pagination.next(this.storage.get(this.cachePagingKey));
     this.searchForm.patchValue(this.storage.get(this.cacheOptionsKey));
     this.showAdvanced = this.storage.get(this.cacheAdvancedToggleKey);
   }

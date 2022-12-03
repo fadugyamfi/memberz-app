@@ -110,9 +110,11 @@
           </td>
           <td>{{ profile.organisation_no }}</td>
           <td>
-            <a href="javascript:void(0)" (click)="viewProfile(profile)">
-              <!--  -->
-              {{ profile.member?.last_name }} {{ profile.member?.first_name }}
+            <a href="javascript:void(0)" (click)="viewProfile(profile)" class="d-flex align-items-center">
+              <ngx-avatars [src]="profile.member?.image()" [name]="profile.member?.lastThenFirstName()" size="32"
+                           initialsSize="2" class="me-2"></ngx-avatars>
+
+              <span>{{ profile.member?.lastThenFirstName() }}</span>
             </a>
           </td>
           <td>{{ profile.organisation_member_category?.name }}</td>
@@ -130,7 +132,9 @@
               {{ profile.last_contribution?.created | date: 'mediumDate' }}
             </span>
           </td>
-          <ng-template #noContribution><td>N/A</td></ng-template>
+          <ng-template #noContribution>
+            <td>N/A</td>
+          </ng-template>
 
           <!-- Actions -->
           <td class="text-center d-print-none">
@@ -264,7 +268,7 @@
 
         <div class="form-group row">
           <label class="col-sm-4 col-form-label">
-            {{  "Birth Day Of Week" | translate }}
+            {{ "Birth Day Of Week" | translate }}
           </label>
           <div class="col-sm-8">
             <select class="form-select" formControlName="dayname">

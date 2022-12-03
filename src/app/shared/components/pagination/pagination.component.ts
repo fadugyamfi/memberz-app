@@ -39,12 +39,6 @@ export class PaginationComponent implements OnInit, OnDestroy {
       throw new Error('[service] input is required');
     }
 
-    // this.events.on(this.service.model_name + ':paging', (data) => {
-    //   this.collectionSize = data.total;
-    //   this.pageLimit = data.per_page;
-    //   this.currentPage = data.current_page;
-    // });
-
     this.service.pagination.subscribe({
       next: (meta: PagingMeta) => {
         this.collectionSize = meta.total;
