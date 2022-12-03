@@ -109,14 +109,15 @@
             <input type="checkbox" class="checkbox" [checked]="profile.selected" (change)="toggleSelected(profile)" />
           </td>
           <td>{{ profile.organisation_no }}</td>
-          <td>
-            <a href="javascript:void(0)" (click)="viewProfile(profile)" class="d-flex align-items-center">
-              <ngx-avatars [src]="profile.member?.image()" [name]="profile.member?.lastThenFirstName()" size="32"
-                           initialsSize="2" class="me-2"></ngx-avatars>
 
+          <td class="d-flex align-items-center">
+            <app-profile-image [membership]="profile" [size]="32" class="me-2"></app-profile-image>
+
+            <a href="javascript:void(0)" (click)="viewProfile(profile)">
               <span>{{ profile.member?.lastThenFirstName() }}</span>
             </a>
           </td>
+
           <td>{{ profile.organisation_member_category?.name }}</td>
           <td>
             <a href="tel:{{ profile.member?.mobile_number }}">{{ profile.member?.mobile_number }}</a>

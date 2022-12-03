@@ -74,6 +74,7 @@ import { ProfileSidebarComponent } from './components/profile-view/profile-sideb
 import { ProfileHeaderComponent } from './components/profile-view/profile-header/profile-header.component';
 import { ProfileAnniversariesComponent } from './components/profile-view/profile-anniversaries/profile-anniversaries.component';
 import { ProfileActionsComponent } from './components/profile-view/profile-actions/profile-actions.component';
+import { ProfileImageComponent } from './components/profile-view/profile-image/profile-image.component';
 import { MakeAdminComponent } from './components/profile-view/make-admin/make-admin.component';
 import { SmsTemplateTagControlComponent } from './components/forms/sms-template-tag-control/sms-template-tag-control.component';
 import { CustomFieldComponent } from './components/forms/custom-field/custom-field.component';
@@ -154,6 +155,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     ViewBirthdaysComponent,
     ConfigureAutomatedMessagesComponent,
     CountToDirective,
+    ProfileImageComponent,
   ],
   imports: [
     CommonModule,
@@ -222,7 +224,8 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     ConfigureAutomatedMessagesComponent,
     CountToDirective,
     CustomFieldComponent,
-    NgxDaterangepickerMd
+    NgxDaterangepickerMd,
+    ProfileImageComponent,
   ],
   providers: [
     NavService,

@@ -9,20 +9,21 @@
     <div class="row">
       <div class="col-lg-12 text-center">
         <div class="d-flex justify-content-center m-b-15">
-          <ngx-avatars [src]="profileImageUrl" [name]="membership?.name()" size="200" initialsSize="2"></ngx-avatars>
+          <app-profile-image [membership]="membership" [size]="200" #profileImage></app-profile-image>
+          <!-- <ngx-avatars [src]="profileImageUrl" [name]="membership?.name()" size="200" initialsSize="2"></ngx-avatars> -->
         </div>
 
         <div class="p-15">
-          <div class="m-b-25" *ngIf="imageUploadProgress">
+          <!-- <div class="m-b-25" *ngIf="imageUploadProgress">
             <ngb-progressbar type="success" [value]="imageUploadProgress" height="5px" [striped]="true">
             </ngb-progressbar>
-          </div>
+          </div> -->
 
-          <button class="btn btn-success btn-pill" (click)="imageCropper.show()">
+          <button class="btn btn-success btn-pill" (click)="profileImage.showImageCropper()">
             {{ 'Change Photo' | translate }}
           </button>
 
-          <app-image-cropper #imageCropper (save)="onCroppedImageSaved($event)"></app-image-cropper>
+          <!-- <app-image-cropper #imageCropper (save)="onCroppedImageSaved($event)"></app-image-cropper> -->
         </div>
 
         <div class="py-4 px-2">
