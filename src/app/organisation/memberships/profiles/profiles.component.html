@@ -111,7 +111,7 @@
           <td>{{ profile.organisation_no }}</td>
 
           <td class="d-flex align-items-center">
-            <app-profile-image [membership]="profile" [size]="32" class="me-2"></app-profile-image>
+            <app-profile-image [membership]="profile" [size]="32" [thumbnail]="true" class="me-2"></app-profile-image>
 
             <a href="javascript:void(0)" (click)="viewProfile(profile)">
               <span>{{ profile.member?.lastThenFirstName() }}</span>

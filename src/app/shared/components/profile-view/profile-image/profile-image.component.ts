@@ -20,6 +20,9 @@ export class ProfileImageComponent implements OnInit {
   @Input()
   public size: number|string = 60;
 
+  @Input()
+  public thumbnail = false;
+
   public profileImageUrl: any;
   public imageUploadProgress = 0;
   public uploading = false;
@@ -31,7 +34,9 @@ export class ProfileImageComponent implements OnInit {
 
   ngOnInit(): void {
     this.setupImageUploadEvents();
-    this.profileImageUrl = this.membership.member.image();
+    this.profileImageUrl = this.thumbnail
+      ? this.membership.member.thumbnail()
+      : this.membership.member.image();
   }
 
   setupImageUploadEvents() {
