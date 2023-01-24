@@ -3,9 +3,7 @@ import { FinanceReportingService } from 'src/app/shared/services/api/finance-rep
 import { ContributionReceiptSettingService } from 'src/app/shared/services/api/contribution-receipt-setting.service';
 import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { ContributionReceiptSetting } from 'src/app/shared/model/api/contribution-receipt-setting';
-import { filter, Subscription } from 'rxjs';
-import * as moment from 'moment';
-import * as chartData from '../../../../shared/data/chart/chartjs';
+import { Subscription } from 'rxjs';
 import { CurrencyService } from '../../../../shared/services/api/currency.service';
 
 
@@ -18,7 +16,7 @@ export class YearlySummaryReportComponent implements OnInit {
 
   public reportData = [];
   public subscriptions: Subscription[] = [];
-  public yearValue: number = moment().year();
+  public yearValue: number = new Date().getFullYear();
   public settings: ContributionReceiptSetting;
   public default_currency: number;
   public default_currency_code: string;
@@ -54,7 +52,7 @@ export class YearlySummaryReportComponent implements OnInit {
 
   setupSearchForm() {
     this.searchForm = this.fb.group({
-      year: new UntypedFormControl(moment().year()),
+      year: new UntypedFormControl( new Date().getFullYear()),
       currency_id: new UntypedFormControl(this.default_currency)
     });
 

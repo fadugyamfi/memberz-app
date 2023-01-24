@@ -1,9 +1,7 @@
 
 import { AppModel } from './app.model';
-import * as moment from 'moment';
 import { OrganisationInvoiceItem } from './organisation-invoice-item';
 import { TransactionType } from './transaction-type';
-import { CurrencyPipe } from '@angular/common';
 import { Currency } from './currency';
 
 export class OrganisationInvoice extends AppModel {

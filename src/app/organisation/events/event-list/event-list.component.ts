@@ -75,7 +75,7 @@ export class EventListComponent implements OnInit {
   }
 
   fetchEvents(options = {}, page = 1, limit = 15) {
-    const params = Object.assign({}, options, { page, limit, sort: 'id:desc', contain: "sessions" });
+    const params = Object.assign({}, options, { page, limit, sort: 'start_dt:desc', contain: "sessions" });
 
     this.eventService.setPrepredItems(true);
     const sub = this.eventService.getAll(params).subscribe();

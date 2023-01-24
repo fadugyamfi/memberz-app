@@ -29,19 +29,22 @@
             <label class='col-sm-3 control-label'>{{'Subscription Period' | translate}}:</label>
             <div class='col-sm-9'>
 
-              <div class="btn-group btn-group-toggle m-b-5" ngbRadioGroup name="radioBasic" formControlName="length">
-                <!-- formControlName="model" -->
-                <label ngbButtonLabel class="btn-outline-info">
-                  <input ngbButton type="radio" [value]="1"> 1 {{'Month' | translate}}
+              <div class="btn-group m-b-5" role="group">
+                <label class="btn-outline-primary btn d-flex align-items-center" for="length1">
+                  <input class="radio_animated" id="length1" type="radio" [value]="1" name="length" formControlName="length"
+                         autocomplete="off"> 1 {{'Month' | translate}}
                 </label>
-                <label ngbButtonLabel class="btn-outline-info">
-                  <input ngbButton type="radio" [value]="3"> 3 {{'Months' | translate}}
+                <label class="btn-outline-primary btn d-flex align-items-center" for="length3">
+                  <input class="radio_animated" id="length3" type="radio" [value]="3" name="length" formControlName="length"
+                         autocomplete="off"> 3 {{'Months' | translate}}
                 </label>
-                <label ngbButtonLabel class="btn-outline-info">
-                  <input ngbButton type="radio" [value]="6"> 6 {{'Months' | translate}}
+                <label class="btn-outline-primary btn d-flex align-items-center" for="length6">
+                  <input class="radio_animated" id="length6" type="radio" [value]="6" name="length" formControlName="length"
+                         autocomplete="off"> 6 {{'Months' | translate}}
                 </label>
-                <label ngbButtonLabel class="btn-outline-info">
-                  <input ngbButton type="radio" [value]="12"> 12 {{'Months' | translate}}
+                <label class="btn-outline-primary btn d-flex align-items-center" for="length12">
+                  <input class="radio_animated" id="length12" type="radio" [value]="12" name="length" formControlName="length"
+                         autocomplete="off"> 12 {{'Months' | translate}}
                 </label>
               </div>
 
@@ -58,12 +61,10 @@
             <label class='col-sm-3 control-label'>{{'Subscription Cost' | translate}}:</label>
             <div class='col-sm-4'>
               <div class='input-group'>
-                <div class="input-group-prepend">
-                  <span class="input-group-text">GHS</span>
-                </div>
-                <input type='hidden' id='base_price' />
+                <span class="input-group-text">GHS</span>
                 <input type='text' id='amount_due' readonly="" class='form-control'
                        formControlName="subscription_cost" />
+                <input type='hidden' id='base_price' />
               </div>
             </div>
           </div>
@@ -72,9 +73,7 @@
             <label class='col-sm-3 col-form-label'>{{'Next Renewal' | translate}}:</label>
             <div class='col-sm-4'>
               <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                </div>
+                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
 
                 <input type='text' id='end_dt_display' readonly="" class='form-control'
                        formControlName="next_upgrade_date" />

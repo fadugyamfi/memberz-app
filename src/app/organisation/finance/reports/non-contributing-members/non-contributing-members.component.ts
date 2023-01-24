@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FinanceReportingService } from 'src/app/shared/services/api/finance-reporting.services';
 import { Subscription } from 'rxjs';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-non-contributing-members',
@@ -12,7 +11,7 @@ export class NonContributingMembersComponent implements OnInit {
 
   public reportData = [];
   public subscriptions: Subscription[] = [];
-  public yearValue: number = moment().year();
+  public yearValue: number = new Date().getFullYear();
   public showData = false;
 
   constructor(
@@ -20,12 +19,12 @@ export class NonContributingMembersComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.fetchReportData(moment().year());
+    this.fetchReportData(new Date().getFullYear());
   }
 
   fetchReportData(value : number){
     this.showData = false;
-    this.yearValue = value ? value : moment().year();
+    this.yearValue = value ? value : new Date().getFullYear();
     const sub = this.reportingService.getNonContributingMembers(this.yearValue).subscribe((data: any[]) => {
       this.showData = true;
       this.reportData = data;

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartData } from 'chart.js';
-import * as moment from 'moment';
 import { FinanceDashboardService } from 'src/app/shared/services/api/finance-dashboard.service';
 import * as chartData from '../../../data/chart/chartjs';
 
@@ -32,8 +31,9 @@ export class FinanceCategoryBreakdownComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.monthValue = moment().month() + 1;
-    this.searchByYear(moment().year());
+    const now = new Date();
+    this.monthValue = now.getMonth() + 1;
+    this.searchByYear(now.getFullYear());
   }
 
   fetchCategoryBreakdown() {

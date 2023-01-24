@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FinanceReportingService } from 'src/app/shared/services/api/finance-reporting.services';
 import { Subscription } from 'rxjs';
-import * as moment from 'moment';
 import { ContributionReceiptSettingService } from 'src/app/shared/services/api/contribution-receipt-setting.service';
 import { ContributionReceiptSetting } from 'src/app/shared/model/api/contribution-receipt-setting';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
@@ -15,7 +14,7 @@ export class TopContributorsComponent implements OnInit {
 
   public reportData = [];
   public subscriptions: Subscription[] = [];
-  public yearValue: number = moment().year();
+  public yearValue: number = new Date().getFullYear();
   public showData = false;
   public settings: ContributionReceiptSetting;
   public default_currency = 80;
@@ -33,7 +32,7 @@ export class TopContributorsComponent implements OnInit {
 
   setupSearchForm() {
     this.searchForm = new UntypedFormGroup({
-      year: new UntypedFormControl(moment().year()),
+      year: new UntypedFormControl( new Date().getFullYear() ),
       currency_id: new UntypedFormControl(this.default_currency)
     });
   }

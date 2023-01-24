@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
 import { FinanceDashboardService } from 'src/app/shared/services/api/finance-dashboard.service';
 import * as chartData from '../../../data/chart/chartjs';
 
@@ -27,8 +26,9 @@ export class FinanceWeeklyBreakdownComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.monthValue = moment().month() + 1;
-    this.searchByYear( moment().year() );
+    const now = new Date();
+    this.monthValue = now.getMonth() + 1;
+    this.searchByYear( now.getFullYear() );
   }
 
   searchByMonth(value: number) {

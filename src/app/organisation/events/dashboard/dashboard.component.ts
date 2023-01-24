@@ -58,11 +58,6 @@ export class DashboardComponent implements OnInit {
       'start_dt_gte': moment().utc().format('YYYY-MM-DD')
     });
 
-    // this.birthdayCount$ = this.membershipService.birthdays({
-    //   'month': moment().utc().month() + 1,
-    //   'as_count': true
-    // });
-
     this.eventStatistics$ = this.eventService.statistics();
 
     this.birthdaySummary$ = this.membershipService.birthdaySummary();

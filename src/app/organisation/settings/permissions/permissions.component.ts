@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core';
 import { PermissionGroup } from './permission-group.model';
 import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
-import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { EventsService } from '../../../shared/services/events.service';
 import { StorageService } from '../../../shared/services/storage.service';

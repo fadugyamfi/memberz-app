@@ -1,4 +1,3 @@
-import * as moment from 'moment';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { catchError, map, Observable, Subscription, tap } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
