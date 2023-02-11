@@ -17,6 +17,7 @@ import { ExcelService } from 'src/app/shared/services/excel.service';
 import { TranslateService } from '@ngx-translate/core';
 import { PrintService } from 'src/app/shared/services/print.service';
 import { OrganisationGroupType } from '../../../shared/model/api/organisation-group-type';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-profiles',
@@ -432,14 +433,22 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
 
-  formatMembersDataForExport(members) {
+  formatMembersDataForExport(members: OrganisationMember[]) {
     return members.map((m) => {
       return {
         membership_no: m.organisation_no,
-        name: m.member.lastThenFirstName(),
-        membership_category: m.organisation_member_category.name,
-        email: m.member.email,
-        phone_number: m.member.mobile_number
+        name: m.member?.lastThenFirstName(),
+        membership_category: m.organisation_member_category?.name,
+        email: m.member?.email,
+        phone_number: m.member?.mobile_number,
+        date_of_birth: m.member?.dob,
+        gender: m.member?.gender,
+        marital_status: m.member?.marital_status,
+        occupation: m.member?.occupation,
+        place_of_work: m.member?.business_name,
+        nationality: m.member?.nationality,
+        last_attended_on: moment(m.last_attendance?.created).format('YYYY-MM-DD') || 'N/A',
+        last_payment_date: moment(m.last_contribution?.created).format('YYYY-MM-DD') || 'N/A'
       }
     });
   }

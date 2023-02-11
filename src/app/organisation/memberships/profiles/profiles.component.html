@@ -92,7 +92,7 @@
           <th class="text-center d-print-none">
             <input type="checkbox" class="checkbox" [checked]="allSelected" (change)="toggleAllSelected()" />
           </th>
-          <th>{{ "No" | translate }}.</th>
+          <th colspan="2">{{ "No" | translate }}.</th>
           <th>{{ "Member Name" | translate }}</th>
           <th>{{ "Membership Category" | translate }}</th>
           <th>{{ "Phone Number" | translate }}</th>
@@ -104,10 +104,11 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let profile of members">
+        <tr *ngFor="let profile of members; let row = index">
           <td class="text-center d-print-none">
             <input type="checkbox" class="checkbox" [checked]="profile.selected" (change)="toggleSelected(profile)" />
           </td>
+          <td>{{ row + organisationMemberService.pagingMeta.from }}</td>
           <td>{{ profile.organisation_no }}</td>
 
           <td class="d-flex align-items-center">

@@ -1,5 +1,6 @@
 
 import { AppModel } from './app.model';
+import { Contribution } from './contribution';
 import { Member } from './member';
 import { OrganisationEventAttendee } from './organisation-event-attendee';
 import { OrganisationMemberCategory } from './organisation-member-category';
@@ -19,6 +20,8 @@ export class OrganisationMember extends AppModel {
   public _organisation_member_category: OrganisationMemberCategory;
   public _organisation_registration_form: OrganisationRegistrationForm;
   public event_attendee: OrganisationEventAttendee;
+  public last_attendance: OrganisationEventAttendee;
+  public last_contribution: Contribution;
 
   constructor(data) {
     super(data);

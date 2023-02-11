@@ -24,7 +24,7 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let group of groups; let row = index">
+      <tr *ngFor="let group of groupService.getItems(); let row = index">
         <td class="text-end">{{ row + 1 }}.</td>
         <td>{{ group.name }}</td>
         <td class="text-center">{{ group.organisation_group_members_count | number }}</td>
@@ -100,7 +100,7 @@
                 <input type="text" class="form-control" formControlName="role" placeholder="{{ 'Role' | translate }}" />
               </div>
               <div class="col-2">
-                <button type="button" class="btn btn-danger btn-sm pr-3 pl-3" (click)="removeLeaderGroup(i)">
+                <button type="button" class="btn btn-danger btn-sm pe-3 ps-3" (click)="removeLeaderGroup(i)">
                   <i class="fa fa-trash-o me-0"></i>
                 </button>
               </div>
@@ -109,7 +109,7 @@
 
         </div>
         <div class="col-sm-1 text-end">
-          <button type="button" class="btn btn-primary btn-sm add-leader-btn pr-3 pl-3" (click)="addLeaderGroup()">
+          <button type="button" class="btn btn-primary btn-sm add-leader-btn pe-3 ps-1" (click)="addLeaderGroup()">
             <i class="fa fa-plus me-0"></i>
           </button>
         </div>
