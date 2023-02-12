@@ -48,8 +48,8 @@
           </div>
         </div>
 
-        <button class="btn btn-sm btn-outline-dark" ngxPrint printSectionId="content" [useExistingCss]="true"
-                printTitle="Memberships">
+        <button class="btn btn-sm btn-outline-dark" ngPrintContent printSectionId="content" [useExistingCss]="true"
+                printTitle="Memberships" printDelay="500">
           <i class="fa fa-print"></i> Print
         </button>
       </div>
@@ -69,19 +69,13 @@
   <div id="content">
     <div *ngIf="dataAvailable() && showCards">
       <div class="card-body">
-        <table class="table">
+        <div class="d-flex flex-wrap gap-1">
           <ng-container *ngFor="let profile of members; let i = index">
-            <tr *ngIf="i % 2 == 0">
-              <td width="50%" *ngIf="members[i]">
-                <app-membership-card [membership]="members[i]"></app-membership-card>
-              </td>
-              <td width="50%" *ngIf="members[i + 1]">
-                <app-membership-card [membership]="members[i + 1]"></app-membership-card>
-              </td>
-            </tr>
+            <div class="w-33 w-print-50">
+              <app-membership-card [membership]="members[i]"></app-membership-card>
+            </div>
           </ng-container>
-
-        </table>
+        </div>
       </div>
 
     </div>

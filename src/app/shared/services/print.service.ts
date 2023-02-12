@@ -92,7 +92,7 @@ export class PrintService {
       window.print();
       this.isPrinting = false;
       this.router.navigate([{ outlets: { print: null } }]);
-    }, 500);
+    }, 1500);
   }
 
   setPrintMetaData(params) {

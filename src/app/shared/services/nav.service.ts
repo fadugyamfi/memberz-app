@@ -153,7 +153,7 @@ export class NavService {
       children: [
         { path: '/organisation/finance/dashboard', title: 'Dashboard', type: 'link', icon: 'dashboard', permission: 'finance:dashboard:view' },
         { path: '/organisation/finance/income', title: 'Income', type: 'link', permission: 'finance:income:view' },
-        { path: '/organisation/finance/expenses', title: 'Expenditure', type: 'link' },
+        // { path: '/organisation/finance/expenses', title: 'Expenditure', type: 'link' },
         {
           title: 'Reports',
           type: 'sub',

@@ -17,8 +17,9 @@ export const environment = {
     url: 'http://localhost/memberz/api'
   },
   api: {
-    // url: 'http://api.memberz.test/api'
-    url: 'http://localhost:8000/api'
+    url: 'http://api.memberz.test/api',
+    // url: 'http://192.168.100.6/memberz-api/public/api'
+    // url: 'http://localhost:8000/api'
   },
   slydepay: {
     mode: 'mock',

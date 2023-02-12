@@ -1,3 +1,8 @@
+# TODO
+* Upgrade to Angular 15
+* Upgrade ng-qrcode to 8.0.1
+* Upgrade ngx-print to 1.3.1
+
 ## Creative
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli).

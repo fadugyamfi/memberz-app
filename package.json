@@ -8,6 +8,7 @@
     "build-slydepay": "node --max_old_space_size=1024 ./node_modules/@angular/cli/bin/ng build slydepay-angular",
     "build-prod": "node --max_old_space_size=1024 ./node_modules/@angular/cli/bin/ng build --configuration production",
     "build-staging": "node --max_old_space_size=1024 ./node_modules/@angular/cli/bin/ng build --configuration staging",
+    "build-staging-local": "node ./node_modules/@angular/cli/bin/ng build --configuration staging",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

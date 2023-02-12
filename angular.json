@@ -57,7 +57,9 @@
               "moment",
               "google-libphonenumber",
               "feather-icons",
-              "sweetalert2"
+              "sweetalert2",
+              "dayjs",
+              "file-saver"
             ],
             "outputPath": "dist/memberz-org",
             "index": "src/index.html",

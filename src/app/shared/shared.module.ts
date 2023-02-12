@@ -90,6 +90,7 @@ import { ConfigureAutomatedMessagesComponent } from './components/birthday/confi
 import { ContributionService } from './services/api/contribution.service';
 import { FinanceDashboardService } from './services/api/finance-dashboard.service';
 import { CountToDirective } from './directives/count-to.directive';
+import { PrintContentDirective } from './directives/print-content.directive';
 
 const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
@@ -156,6 +157,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     ConfigureAutomatedMessagesComponent,
     CountToDirective,
     ProfileImageComponent,
+    PrintContentDirective,
   ],
   imports: [
     CommonModule,
@@ -212,6 +214,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     SmsSummaryComponent,
     NgChartsModule,
     ViewProfileDirective,
+    PrintContentDirective,
     ProfileViewComponent,
     MakeAdminComponent,
     SmsTemplateTagControlComponent,

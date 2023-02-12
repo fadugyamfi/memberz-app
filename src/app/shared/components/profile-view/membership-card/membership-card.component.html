@@ -1,8 +1,8 @@
 <div class="card border-5 border border-secondary mbs-card">
   <div class="card-body">
     <div class="row m-b-15">
-      <div class="d-flex m-l-10">
-        <div class="flex-shrink-0 m-r-10">
+      <div class="d-flex">
+        <div class="flex-shrink-0">
           <ngx-avatars [src]="organisation?.logo" initialsSize="2" size="45"></ngx-avatars>
         </div>
         <div class="flex-grow-1">
@@ -13,54 +13,58 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-3 text-center">
-        <ngx-avatars class="profile-image" [round]="false" [src]="membership?.member?.image()" [name]="membership?.member.name()"
-                    initialsSize="2" size="100"></ngx-avatars>
+      <div class="col-3 d-flex align-items-center flex-column justify-content-between">
+        <ngx-avatars class="profile-image" [round]="false" [src]="membership?.member?.image()"
+                     [name]="membership?.member.name()" initialsSize="2" size="60"></ngx-avatars>
+
+        <div class="d-flex flex-column align-items-center text-center">
+          <qr-code [value]="membership?.uuid" size="60" errorCorrectionLevel="M"></qr-code>
+          <h6 class="title">{{ 'Unique Code' | translate }}</h6>
+        </div>
       </div>
 
-      <div class="col-sm-6">
+      <div class="col-9">
         <div class="row m-b-10">
-          <div class="col-sm-12">
+          <div class="col-12">
             <h6 class="title">{{ 'Name' | translate }}</h6>
             <h6 class="content">{{ membership?.fullname() }}</h6>
           </div>
         </div>
 
         <div class="row m-b-10">
-          <div class="col-sm-6">
+          <div class="col-6">
             <h6 class="title">{{ 'Membership #' | translate }}</h6>
             <h6 class="content">{{ membership?.organisation_no || 'N/A' }}</h6>
           </div>
 
-          <div class="col-sm-6">
+          <div class="col-6">
             <h6 class="title">{{ 'Member Since' | translate }}</h6>
             <h6 class="content">{{ membership?.created | date: 'yyyy-MM-dd' }}</h6>
           </div>
         </div>
 
         <div class="row m-b-10">
-          <div class="col-sm-12">
+          <div class="col-12">
             <h6 class="title">{{ 'Membership Category' | translate }}</h6>
             <h6 class="content">{{ membership?.organisation_member_category?.name || 'N/A' }}</h6>
           </div>
         </div>
 
         <div class="row m-b-10">
-          <div class="col-sm-6">
+          <div class="col-6">
             <h6 class="title">{{ 'Date of Birth' | translate }}</h6>
             <h6 class="content">{{ membership?.member?.dob | uppercase }}</h6>
           </div>
 
-          <div class="col-sm-6">
+          <div class="col-6">
             <h6 class="title">{{ 'Nationality' | translate }}</h6>
             <h6 class="content">{{ membership?.member?.nationality || 'Ghanaian' }}</h6>
           </div>
         </div>
       </div>
 
-      <div class="col-sm-3 text-center">
-        <qr-code [value]="membership?.uuid" size="100" errorCorrectionLevel="M"></qr-code>
-        <h6 class="title">{{ 'Unique Code' | translate }}</h6>
+      <div class="col-3 text-center">
+
       </div>
     </div>
   </div>

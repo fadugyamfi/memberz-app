@@ -1,0 +1,18 @@
+@page {
+  size: A4;
+}
+
+table, figure {
+  page-break-inside: avoid;
+}
+
+.w-33 {
+  min-width: 32%;
+  max-width: 49.5%;
+}
+
+@media print {
+  .w-print-50 {
+    width: 49% !important;
+  }
+}
