@@ -2,3 +2,13 @@
   padding: 5px 12px;
   border-radius: 50px;
 }
+
+.f-13 {
+  font-size: 13px;
+}
+
+.name-cell {
+  &:hover {
+    background-color: #fafafb;
+  }
+}

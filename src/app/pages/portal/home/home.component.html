@@ -1,8 +1,8 @@
-<div class="card">
-  <div class="card-header">
+<main class="px-4">
+  <div class="p-3">
     <div class="row">
-      <div class="col-sm-6">
-        <div class="p-10 bg-light text-dark" *ngIf="systemSettingService.isNewExperienceTrialEnabled()">
+      <div class="col-sm-6 ps-0">
+        <div class="p-3 bg-white rounded text-dark" *ngIf="systemSettingService.isNewExperienceTrialEnabled()">
           <span>You are trialing the New Memberz.Org Experience</span>
           <a href="#" (click)="revertExperience($event)" class="m-l-15">
             <i class="fa fa-undo text-primary m-r-5"></i>
@@ -18,107 +18,212 @@
         </button>
       </div>
     </div>
-
   </div>
 
-  <div class="card-body">
+  <div class="card" *ngIf="emptyDataset()">
+    <div class="card-body">
 
-    <div class="m-t-30 m-b-30 text-center" *ngIf="emptyDataset()">
-      <img src="/assets/images/icons/circle-links.svg" height="140" class="m-b-30" />
-      <h4>{{ 'No Organisations Created' | translate }}</h4>
-      <h6>{{ 'Create your first organisation and get your way to managing data your way' | translate }}</h6>
+      <div class="m-t-30 m-b-30 text-center">
+        <img src="/assets/images/icons/circle-links.svg" height="140" class="m-b-30" />
+        <h4>{{ 'No Organisations Created' | translate }}</h4>
+        <h6>{{ 'Create your first organisation and get your way to managing data your way' | translate }}</h6>
 
-      <p class="mt-4">
-        <button class="btn btn-lg btn-primary" (click)="editorModal.show()">
-          <i class="fa fa-plus"></i> {{'Create Organisation' | translate}}
-        </button>
-      </p>
+        <p class="mt-4">
+          <button class="btn btn-lg btn-primary" (click)="editorModal.show()">
+            <i class="fa fa-plus"></i> {{'Create Organisation' | translate}}
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="loader-box" *ngIf="memberAccountService.requesting">
+    <span class="rotate dashed colored"></span>
+  </div>
+
+  <section>
+    <div class="card mb-3">
+      <div class="card-body p-2">
+        <table class="table table-borderless" *ngIf="dataAvailable()">
+          <thead>
+            <tr class="fw-semibold">
+              <td width="50%">{{ 'Name' | translate }}</td>
+              <td width="15%" class="text-start">{{ 'Subscription' | translate }}</td>
+              <td width="15%">{{ 'Status' | translate }}</td>
+              <!-- <td width="15%">{{ 'Expires' | translate }}</td> -->
+              <td>{{ 'Actions' | translate}}</td>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </div>
 
-    <div class="loader-box" *ngIf="memberAccountService.requesting">
-      <span class="rotate dashed colored"></span>
-    </div>
-
-    <div class="table-responsive">
-      <table class="table table-borderless" *ngIf="dataAvailable()">
-        <thead>
-          <tr>
-            <th>{{ 'Name' | translate }}</th>
-            <th class="text-center">{{ 'Memberships' | translate }}</th>
-            <th>{{ 'Subscription' | translate }}</th>
-            <th>{{ 'Expires' | translate }}</th>
-            <th class="text-center">{{ 'Actions' | translate}}</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let organisation of organisations">
-            <td>
-              <div class="d-flex align-items-center">
-                <div class="flex-shrink-0 p-r-20">
-                  <ngx-avatars [src]="organisation?.logo" class="img-30" [name]="organisation?.name"></ngx-avatars>
-                </div>
-
-                <div class="flex-grow-1">
-                  <div>
-                    <a href="javascript:void(0)" class="fw-bold text-dark" (click)="loadOrganisation(organisation)">{{ organisation.name }}</a>
+    <div class="card mb-3 shadow-sm" *ngFor="let organisation of organisations">
+      <div class="card-body p-1">
+        <table class="table table-borderless" *ngIf="dataAvailable()">
+          <thead>
+            <tr>
+              <td width="50%" (click)="loadOrganisation(organisation)" class="name-cell" style="cursor: pointer;">
+                <div class="d-flex align-items-center">
+                  <div class="flex-shrink-0 p-r-20">
+                    <ngx-avatars [src]="organisation?.logo" class="img-30" [name]="organisation?.name"></ngx-avatars>
                   </div>
-                  <small class="text-muted">{{ organisation?.organisation_type?.name }}</small>
-                </div>
-              </div>
-            </td>
-            <td valign="middle" class="text-center">{{ (organisation.organisation_members_count || 0) | number }}</td>
 
-            <td valign="middle">
-              <span class="badge f-12 rounded-pill" [ngClass]="{
+                  <div class="flex-grow-1">
+                    <div>
+                      <a href="javascript:void(0)" class="fw-bold text-dark">{{ organisation.name }}</a>
+                    </div>
+                    <small class="text-muted f-13">{{ organisation?.organisation_type?.name }}</small>
+                  </div>
+                </div>
+              </td>
+              <td width="15%" valign="middle" class="text-start">
+
+                <span class="f-14 fw-semibold text-blink">
+                  {{ organisation?.active_subscription?.subscription_type?.description }}
+                </span>
+
+                <div class="text-muted f-13">{{ (organisation.organisation_members_count || 0) | number }} Members</div>
+              </td>
+
+              <td width="15%" valign="middle">
+                <span class="f-14 fw-semibold" [ngClass]="{
+                  'text-danger': organisation?.active_subscription?.isExpired(),
+                  'text-success': !organisation?.active_subscription?.isExpired()
+                }">
+                  {{ organisation?.active_subscription?.isExpired() ? 'Expired' : 'Active' }}
+                </span>
+
+                <div class="f-13">
+                  <span *ngIf="organisation?.active_subscription?.isExpired()" class="text-danger">
+                    {{ organisation?.active_subscription?.expiresOn() }}
+                  </span>
+                  <span *ngIf="!organisation?.active_subscription?.isExpired()" class="text-muted f-13">
+                    {{ organisation?.active_subscription?.expiresOn() }}
+                  </span>
+                </div>
+              </td>
+
+              <!-- <td width="15%" valign="middle">
+                <span *ngIf="organisation?.active_subscription?.isExpired()"
+                      class="text-danger">{{'Expired' | translate}}</span>
+                <span *ngIf="!organisation?.active_subscription?.isExpired()">
+                  {{ organisation?.active_subscription?.expiresIn() }}
+                </span>
+
+              </td> -->
+
+              <td valign="middle" [noWrap]="true">
+                <!-- <a href="#" class="fw-semibold text-primary" (click)="loadOrganisation(organisation)">
+                  <i class="fa fa-sign-in"></i> {{'Manage' | translate}}
+                </a>
+                <span class="px-3">|</span> -->
+
+                <a href="javascript:void(0)" class="btn btn-sm px-2 btn-outline-info fw-semibold me-3" (click)="editorModal.show(organisation)">
+                  <i class="fa fa-fw fa-pencil"></i> {{'Edit' | translate}}
+                </a>
+
+                <a href="javascript:void(0)" class="btn btn-sm px-2 btn-outline-danger fw-semibold" (click)="deleteOrganisation(organisation)">
+                  <i class="fa fa-fw fa-trash-o"></i>
+                </a>
+
+                <!-- <button class="btn btn-primary btn-pill btn-sm m-r-5" (click)="loadOrganisation(organisation)">
+                  <i class="fa fa-sign-in"></i> {{'Manage' | translate}}
+                </button>
+
+                <div ngbDropdown class="d-inline-block" placement="bottom-right">
+                  <button class="btn btn-outline-primary btn-sm ps-2 pe-2" id="editMenu" ngbDropdownToggle>
+
+                  </button>
+                  <div ngbDropdownMenu aria-labelledby="editMenu">
+                    <button class="dropdown-item" (click)="editorModal.show(organisation)">
+                      <i class="fa fa-fw fa-pencil"></i> {{'Edit' | translate}}
+                    </button>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item" (click)="deleteOrganisation(organisation)">
+                      <i class="fa fa-fw fa-trash-o"></i> {{'Delete' | translate}}
+                    </button>
+                  </div>
+                </div> -->
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="card">
+
+    <div class="card-body p-3">
+      <app-pagination [service]="memberAccountService" (paginate)="onPaginate($event)"></app-pagination>
+    </div>
+  </div>
+</main>
+
+
+<!-- <div class="table-responsive">
+  <table class="table table-borderless" *ngIf="dataAvailable()">
+    <thead>
+      <tr>
+        <th>{{ 'Name' | translate }}</th>
+        <th class="text-center">{{ 'Memberships' | translate }}</th>
+        <th>{{ 'Subscription' | translate }}</th>
+        <th>{{ 'Expires' | translate }}</th>
+        <th class="text-center">{{ 'Actions' | translate}}</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let organisation of organisations">
+
+        <td valign="middle" class="text-center">{{ (organisation.organisation_members_count || 0) | number }}</td>
+
+        <td valign="middle">
+          <span class="badge f-12 rounded-pill" [ngClass]="{
                 'bg-primary': organisation?.active_subscription?.subscription_type?.description == 'Pro Plan',
                 'bg-info': organisation?.active_subscription?.subscription_type?.description == 'Basic Plan',
                 'bg-success': ['Basic Plan', 'Pro Plan'].indexOf(organisation?.active_subscription?.subscription_type?.description) == -1
-              }" >
-                {{ organisation?.active_subscription?.subscription_type?.description }}
-              </span>
-            </td>
+              }">
+            {{ organisation?.active_subscription?.subscription_type?.description }}
+          </span>
+        </td>
 
-            <td valign="middle">
-              <span *ngIf="organisation?.active_subscription?.isExpired()"
-                    class="text-danger">{{'Expired' | translate}}</span>
-              <span *ngIf="!organisation?.active_subscription?.isExpired()">
-                {{ organisation?.active_subscription?.expiresIn() }}
-              </span>
+        <td valign="middle">
+          <span *ngIf="organisation?.active_subscription?.isExpired()"
+                class="text-danger">{{'Expired' | translate}}</span>
+          <span *ngIf="!organisation?.active_subscription?.isExpired()">
+            {{ organisation?.active_subscription?.expiresIn() }}
+          </span>
 
-            </td>
-            <td class="text-center" valign="middle" [noWrap]="true">
-              <button class="btn btn-primary btn-pill btn-sm m-r-5" (click)="loadOrganisation(organisation)">
-                <i class="fa fa-sign-in"></i> {{'Manage' | translate}}
+        </td>
+        <td class="text-center" valign="middle" [noWrap]="true">
+          <button class="btn btn-primary btn-pill btn-sm m-r-5" (click)="loadOrganisation(organisation)">
+            <i class="fa fa-sign-in"></i> {{'Manage' | translate}}
+          </button>
+
+          <div ngbDropdown class="d-inline-block" placement="bottom-right">
+            <button class="btn btn-outline-primary btn-sm ps-2 pe-2" id="editMenu" ngbDropdownToggle>
+
+            </button>
+            <div ngbDropdownMenu aria-labelledby="editMenu">
+              <button class="dropdown-item" (click)="editorModal.show(organisation)">
+                <i class="fa fa-fw fa-pencil"></i> {{'Edit' | translate}}
               </button>
-
-              <div ngbDropdown class="d-inline-block" placement="bottom-right">
-                <button class="btn btn-outline-primary btn-sm ps-2 pe-2" id="editMenu" ngbDropdownToggle>
-                  <!--  -->
-                </button>
-                <div ngbDropdownMenu aria-labelledby="editMenu">
-                  <button class="dropdown-item" (click)="editorModal.show(organisation)">
-                    <i class="fa fa-fw fa-pencil"></i> {{'Edit' | translate}}
-                  </button>
-                  <div class="dropdown-divider"></div>
-                  <button class="dropdown-item" (click)="deleteOrganisation(organisation)">
-                    <i class="fa fa-fw fa-trash-o"></i> {{'Delete' | translate}}
-                  </button>
-                </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item" (click)="deleteOrganisation(organisation)">
+                <i class="fa fa-fw fa-trash-o"></i> {{'Delete' | translate}}
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
 
 
-  </div>
 
-  <div class="card-footer">
-    <app-pagination [service]="memberAccountService" (paginate)="onPaginate($event)"></app-pagination>
-  </div>
-</div>
 
 
 <app-organisation-editor-modal #editorModal></app-organisation-editor-modal>

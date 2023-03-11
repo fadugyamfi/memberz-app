@@ -29,6 +29,16 @@ export class OrganisationSubscription extends AppModel {
     return this.isExpired() ? `Expired ${daysRemaining}` : `Expires ${daysRemaining}`;
   }
 
+  expiresOn(): string {
+    if( this.validForever() ) {
+      return 'Never Expires';
+    }
+
+    const end_dt = moment(this.end_dt).format('MMM DD, YYYY');
+
+    return this.isExpired() ? `Ended ${end_dt}` : `Ends ${end_dt}`;
+  }
+
   validForever() {
     return this.subscription_type && this.subscription_type.validity == 'forever';
   }
