@@ -13,6 +13,8 @@ import { Observable } from 'rxjs';
 })
 export class OrganisationMemberService extends APIService<OrganisationMember> {
 
+  public editing = false;
+
   constructor(
     protected http: HttpClient,
     protected events: EventsService,
@@ -24,6 +26,10 @@ export class OrganisationMemberService extends APIService<OrganisationMember> {
     this.url = '/organisation_members';
     this.model =  OrganisationMember;
     this.model_name = 'OrganisationMember';
+  }
+
+  setEditing(value) {
+    this.editing = value;
   }
 
   findMembers(options: object, page = 1, limit = 30): Observable<OrganisationMember[]> {

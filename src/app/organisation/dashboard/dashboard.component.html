@@ -35,7 +35,9 @@
                   <ngx-avatars [name]="membership.name()" [src]="membership.member.profile_photo?.thumb_url" initialsSize="2" size="48"></ngx-avatars>
                 </div>
                 <div class="flex-grow-1">
-                  <h5 class="fw-bold f-18"><a href="javascript:void(0)" viewProfile [membership]="membership">{{ membership.name() }}</a></h5>
+                  <h5 class="fw-bold f-18">
+                    <a href="javascript:void(0)" viewProfile [membership]="membership">{{ membership.name() }}</a>
+                  </h5>
                   <ul class="dates">
                     <li class="digits">{{ 'Turns' | translate }} <b>{{ membership.member.age }}</b> {{ 'today' | translate }}</li>
                     <li class="digits">{{ 'Born' | translate }} {{ membership.member.dob | date: 'mediumDate' }}</li>

@@ -247,7 +247,7 @@ export class APIService<T extends AppModel> {
   }
 
   public clearSelectedModel() {
-    this.setSelectedModel = null;
+    this.selectedModel = null;
   }
 
   public clearItems() {

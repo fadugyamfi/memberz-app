@@ -33,6 +33,10 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadProfile();
+
+    this.events.on('OrganisationMember:updated', (membership) => {
+      this.loadProfile()
+    });
   }
 
   ngOnDestroy() {
@@ -47,6 +51,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.membershipService.setEditing(false);
     const isMembershipWithoutProfile = this._membership && this._membership.id && !this._membership.name();
     if( isMembershipWithoutProfile ) {
       this.loadProfileById(this._membership.id);

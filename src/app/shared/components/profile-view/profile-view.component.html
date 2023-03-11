@@ -1,4 +1,4 @@
-<section *ngIf="!isDefaultLayout()">
+<section *ngIf="!isDefaultLayout() && !membershipService.editing">
   <app-profile-header [membership]="membership"></app-profile-header>
 </section>
 
@@ -9,10 +9,10 @@
   </aside>
 
   <!-- MAIN CONTENT -->
-  <main class="" [ngClass]="{'col-lg-9': isDefaultLayout(), 'col-lg-12': !isDefaultLayout()}">
+  <main *ngIf="!membershipService.editing" class="" [ngClass]="{'col-lg-9': isDefaultLayout(), 'col-lg-12': !isDefaultLayout()}">
     <div class="card">
       <div class="card-header" *ngIf="isDefaultLayout()">
-        <app-profile-actions [membership]="membership"></app-profile-actions>
+        <app-profile-actions [membership]="membership" (edit)="editing = true"></app-profile-actions>
       </div>
       <div class="card-body">
         <ul ngbNav #nav="ngbNav" [(activeId)]="activeTabId" class="nav-pills">
@@ -74,4 +74,9 @@
       </div>
     </div>
   </main>
+
+  <section *ngIf="membershipService.editing" class="animated fadeIn" [ngClass]="{'col-lg-9': isDefaultLayout(), 'col-lg-12': !isDefaultLayout()}">
+    <app-profile-editor></app-profile-editor>
+  </section>
+
 </div>

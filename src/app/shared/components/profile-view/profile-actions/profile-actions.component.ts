@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/operators';
@@ -16,6 +16,7 @@ export class ProfileActionsComponent implements OnInit {
 
   @ViewChild('membershipCardModal', { static: true }) membershipCard: MembershipCardModalComponent;
   @Input() membership: OrganisationMember;
+  @Output() edit = new EventEmitter();
 
   private _messages = new Subject<string>();
   public alertMessage = '';
@@ -33,8 +34,11 @@ export class ProfileActionsComponent implements OnInit {
 
 
   editProfile() {
+    console.log(this.membershipService);
     this.membershipService.setSelectedModel(this.membership);
-    this.router.navigate(['/organisation/memberships/edit', this.membership.id]);
+    this.membershipService.setEditing(true);
+    // this.router.navigate(['/organisation/memberships/edit', this.membership.id]);
+    this.edit.emit();
   }
 
   viewMembershipCard() {
