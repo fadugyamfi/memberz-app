@@ -9,6 +9,7 @@ export class ViewProfileDirective {
 
   @Input() membership: OrganisationMember;
   @Input() membershipId: number;
+  @Input() memberId: number;
 
   constructor(
     public events: EventsService
@@ -22,6 +23,11 @@ export class ViewProfileDirective {
 
     if( this.membershipId ) {
       this.events.trigger('open:membership:flyout:by:id', this.membershipId);
+      return;
+    }
+
+    if( this.memberId ) {
+      this.events.trigger('open:membership:flyout:by:member_id', this.memberId);
       return;
     }
 	}

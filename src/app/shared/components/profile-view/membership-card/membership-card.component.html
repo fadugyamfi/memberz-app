@@ -12,8 +12,8 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-3 d-flex align-items-center flex-column justify-content-between">
+    <div class="d-flex align-items-stretch">
+      <div class="me-3 d-flex align-items-center flex-column justify-content-between">
         <ngx-avatars class="profile-image" [round]="false" [src]="membership?.member?.image()"
                      [name]="membership?.member.name()" initialsSize="2" size="60"></ngx-avatars>
 
@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div class="col-9">
+      <div class="flex-grow-1">
         <div class="row m-b-10">
           <div class="col-12">
             <h6 class="title">{{ 'Name' | translate }}</h6>
@@ -61,10 +61,6 @@
             <h6 class="content">{{ membership?.member?.nationality || 'Ghanaian' }}</h6>
           </div>
         </div>
-      </div>
-
-      <div class="col-3 text-center">
-
       </div>
     </div>
   </div>

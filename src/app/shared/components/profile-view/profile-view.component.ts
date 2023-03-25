@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { EventsService } from '../../../shared/services/events.service';
 import { ImageCropperComponent } from 'ngx-image-cropper';
 import { TranslateService } from '@ngx-translate/core';
+import { OrganisationService } from '../../services/api/organisation.service';
 
 @Component({
   selector: 'app-profile-view',
@@ -25,6 +26,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
 
   constructor(
     public membershipService: OrganisationMemberService,
+    public organisationService: OrganisationService,
     public route: ActivatedRoute,
     public router: Router,
     public events: EventsService,
@@ -93,6 +95,28 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
     const ps = this.membershipService.getProfile(membership_id).subscribe((membership: OrganisationMember) => {
       this.activeTabId = 1;
       this.membership = membership;
+      // close any open loader
+      Swal.close();
+    });
+
+    this.subscriptions.push(ps);
+  }
+
+  loadProfileByMemberId(member_id) {
+    if( !member_id ) return;
+
+    Swal.fire(
+      this.translate.instant('Loading Membership Profile'),
+      this.translate.instant('Please Wait'),
+      'info'
+    );
+    Swal.showLoading();
+
+    const organisation = this.organisationService.getActiveOrganisation();
+
+    const ps = this.membershipService.getAll({ member_id, organisation_id: organisation.id, limit: 1 }).subscribe((memberships: OrganisationMember[]) => {
+      this.activeTabId = 1;
+      this.membership = memberships[0];
       // close any open loader
       Swal.close();
     });

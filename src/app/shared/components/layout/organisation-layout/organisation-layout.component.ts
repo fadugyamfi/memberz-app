@@ -100,6 +100,11 @@ export class OrganisationLayoutComponent implements OnInit, OnDestroy, AfterView
       this.profileView.loadProfileById(membershipId);
     });
 
+    this.events.on("open:membership:flyout:by:member_id", (member_id: number) => {
+      this.flyoutOpen = true;
+      this.profileView.loadProfileByMemberId(member_id);
+    });
+
     this.events.on('close:membership:flyout', () => this.flyoutOpen = false);
   }
 

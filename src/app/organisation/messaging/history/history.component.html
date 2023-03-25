@@ -52,7 +52,9 @@
 
               <div class="flex-grow-1">
                 <div>
-                  <b class="m-r-10">{{ message.member?.last_name }} {{ message.member?.first_name }}</b>
+                  <a href="javascript:void(0)" class="m-r-10 fw-semibold" viewProfile [memberId]="message.member_id">
+                    {{ message.member?.last_name }} {{ message.member?.first_name }}
+                  </a>
                   <span>({{ message.to }})</span>
                 </div>
                 <div class="message" [innerHTML]="message.message"></div>
@@ -62,8 +64,9 @@
 
           <div class="col-sm-3">
             <label>{{ message.sent_at | date : 'medium' }}</label>
-            <p class="f-12 fw-bold" [ngClass]="sentStatusClasses(message)">{{ message.sent_status | translate
-              }}</p>
+            <p class="f-12 fw-bold" [ngClass]="sentStatusClasses(message)">
+              {{ message.sent_status | translate }}
+            </p>
           </div>
         </div>
       </li>
