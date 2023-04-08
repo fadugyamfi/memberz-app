@@ -51,7 +51,7 @@ export class AttendanceListComponent implements OnInit, OnDestroy {
     }
   }
 
-  fetchAttendees(page = 1, limit = 30) {
+  fetchAttendees(page = 1, limit = 2000) {
     const params = { page, limit };
     const sub = this.eventService.getAttendees(this.event, params).subscribe(attendees => this.attendees = attendees);
     this.subscriptions.push(sub);

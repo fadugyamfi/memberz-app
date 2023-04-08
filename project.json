@@ -1,0 +1,196 @@
+{
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "name": "memberz-org",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    }
+  },
+  "sourceRoot": "src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "allowedCommonJsDependencies": [
+          "rxjs-compat",
+          "@ks89/angular-modal-gallery",
+          "mousetrap",
+          "hammerjs",
+          "firebase/app",
+          "dragula",
+          "knob",
+          "chartist",
+          "chartjs-plugin-streaming",
+          "@firebase/app",
+          "chart.js",
+          "dom-set",
+          "crossvent",
+          "contra/emitter",
+          "rxjs",
+          "ngx-masonry",
+          "@firebase/firestore",
+          "rxjs/operators",
+          "rxjs/Subject",
+          "rxjs/internal/operators",
+          "rxjs/add/operator/map",
+          "rxjs/Subscription",
+          "masonry-layout",
+          "imagesloaded",
+          "rxjs-compat/add/operator/map",
+          "@mattlewis92/dom-autoscroller",
+          "dom-plane",
+          "@mattlewis92/dom-autoscroller",
+          "@tweenjs/tween.js",
+          "photoswipe",
+          "photoswipe/dist/photoswipe-ui-default",
+          "angular-calendar/date-adapters/date-fns",
+          "xlsx",
+          "clone-deep",
+          "qrcode",
+          "moment-timezone",
+          "moment",
+          "google-libphonenumber",
+          "feather-icons",
+          "sweetalert2",
+          "dayjs",
+          "file-saver"
+        ],
+        "outputPath": "dist/memberz-org",
+        "index": "src/index.html",
+        "main": "src/main.ts",
+        "polyfills": "src/polyfills.ts",
+        "tsConfig": "tsconfig.app.json",
+        "assets": [
+          "src/favicon.ico",
+          "src/assets",
+          "src/.htaccess"
+        ],
+        "styles": [
+          "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+          "src/styles.scss",
+          "src/assets/scss/app.scss",
+          "./node_modules/ngx-ui-switch/ui-switch.component.css",
+          "./node_modules/intl-tel-input/build/css/intlTelInput.css",
+          "./node_modules/moment-timezone-picker/assets/moment-timezone-picker.theme.scss"
+        ],
+        "scripts": [],
+        "vendorChunk": true,
+        "extractLicenses": false,
+        "buildOptimizer": false,
+        "sourceMap": true,
+        "optimization": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.ts",
+              "with": "src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "3mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb"
+            }
+          ]
+        },
+        "staging": {
+          "fileReplacements": [
+            {
+              "replace": "src/environments/environment.ts",
+              "with": "src/environments/environment.staging.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "3mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb"
+            }
+          ]
+        }
+      },
+      "outputs": [
+        "{options.outputPath}"
+      ]
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "memberz-org:build"
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "memberz-org:build:production"
+        },
+        "staging": {
+          "browserTarget": "memberz-org:build:staging"
+        }
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "memberz-org:build"
+      }
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "src/test.ts",
+        "polyfills": "src/polyfills.ts",
+        "tsConfig": "tsconfig.spec.json",
+        "karmaConfig": "karma.conf.js",
+        "assets": [
+          "src/favicon.ico",
+          "src/assets"
+        ],
+        "styles": [
+          "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+          "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+          "src/styles.scss"
+        ],
+        "scripts": []
+      }
+    },
+    "e2e": {
+      "executor": "@angular-devkit/build-angular:protractor",
+      "options": {
+        "protractorConfig": "e2e/protractor.conf.js",
+        "devServerTarget": "memberz-org:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "memberz-org:serve:production"
+        }
+      }
+    }
+  }
+}

@@ -67,10 +67,10 @@
                   <a href="javascript:void(0)" ngbDropdownItem [routerLink]="['/organisation/events/attendance-list', event.id]">
                     <i class="fa fa-fw fa-list-alt"></i> {{ 'Attendance List' | translate }}
                   </a>
-                  <!--<a href="javascript:void(0)" ngbDropdownItem>
+                  <a href="javascript:void(0)" ngbDropdownItem [routerLink]="['/organisation/events/attendance-report', event.id]">
                     <i class="fa fa-fw fa-bar-chart"></i> {{ 'Report' | translate }}
                   </a>
-                   <li class="dropdown-divider"></li>
+                  <!-- <li class="dropdown-divider"></li>
                   <a href="javascript:void(0)" ngbDropdownItem>
                     <i class="fa fa-fw fa-mobile"></i> {{ 'Mobile Attendance' | translate }}
                   </a> -->

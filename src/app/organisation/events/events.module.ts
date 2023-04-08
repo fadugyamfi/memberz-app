@@ -12,6 +12,7 @@ import { RecordAttendanceComponent } from './record-attendance/record-attendance
 import { BirthdayComponent } from './birthday/birthday.component';
 import { AttendanceListComponent } from './attendance-list/attendance-list.component';
 import { MarkComponent } from './record-attendance/mark/mark.component';
+import { AttendanceReportComponent } from './attendance-report/attendance-report.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { MarkComponent } from './record-attendance/mark/mark.component';
     RecordAttendanceComponent,
     BirthdayComponent,
     AttendanceListComponent,
-    MarkComponent
+    MarkComponent,
+    AttendanceReportComponent
   ],
   imports: [
     CommonModule,

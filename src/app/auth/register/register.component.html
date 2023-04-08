@@ -41,7 +41,7 @@
             <!-- Email -->
             <div class="form-group">
               <label class="col-form-label pt-0">{{'Email' | translate}}</label>
-              <input class="form-control" formControlName="email" type="email" required="" placeholder="e.g. you@example.com" />
+              <input class="form-control" formControlName="email" type="email" required="" placeholder="e.g. you@example.com" autocomplete="off" />
               <div *ngIf="
                   registerForm.controls.email.touched &&
                   registerForm.controls.email.errors?.required
@@ -101,7 +101,7 @@
                   <i class="fa fa-info-circle text-primary"></i>
                 </div>
               </label>
-              <input class="form-control" type="password" formControlName="password" required="" />
+              <input class="form-control" type="password" formControlName="password" required="" placeholder="New Password" autocomplete="new-password" />
               <div *ngIf="
                   registerForm.controls.password.touched &&
                   registerForm.controls.password.errors?.required

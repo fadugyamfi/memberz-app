@@ -52,7 +52,7 @@ export class RecordAttendanceComponent implements OnInit {
 
   loadEvent() {
     const event_id = this.route.snapshot.paramMap.get('event_id');
-    this.event = this.eventService.getSelectedModel();
+    // this.event = this.eventService.getSelectedModel();
 
     if( !this.event ) {
       this.eventService.getById(event_id, {

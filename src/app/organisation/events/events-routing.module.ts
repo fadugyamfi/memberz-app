@@ -6,6 +6,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EventListComponent } from './event-list/event-list.component';
 import { RecordAttendanceComponent } from './record-attendance/record-attendance.component';
+import { AttendanceReportComponent } from './attendance-report/attendance-report.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,14 @@ const routes: Routes = [
     data: {
       breadcrumb: "Attendance List",
       title: "Event Attendance List"
+    }
+  },
+  {
+    path: 'attendance-report/:event_id',
+    component: AttendanceReportComponent,
+    data: {
+      breadcrumb: "Attendance Report",
+      title: "Event Attendance Report"
     }
   }
 ];

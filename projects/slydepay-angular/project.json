@@ -1,0 +1,44 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "slydepay-angular",
+  "projectType": "library",
+  "sourceRoot": "projects/slydepay-angular/src",
+  "prefix": "lib",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:ng-packagr",
+      "options": {
+        "tsConfig": "projects/slydepay-angular/tsconfig.lib.json",
+        "project": "projects/slydepay-angular/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "projects/slydepay-angular/tsconfig.lib.prod.json"
+        }
+      },
+      "outputs": [
+        "{workspaceRoot}/dist/slydepay-angular"
+      ]
+    },
+    "test": {
+      "executor": "@angular-devkit/build-angular:karma",
+      "options": {
+        "main": "projects/slydepay-angular/src/test.ts",
+        "tsConfig": "projects/slydepay-angular/tsconfig.spec.json",
+        "karmaConfig": "projects/slydepay-angular/karma.conf.js"
+      }
+    },
+    "lint": {
+      "executor": "@angular-eslint/builder:lint",
+      "options": {
+        "lintFilePatterns": [
+          "projects/slydepay-angular/**/*.ts",
+          "projects/slydepay-angular/**/*.html"
+        ]
+      },
+      "outputs": [
+        "{options.outputFile}"
+      ]
+    }
+  }
+}
