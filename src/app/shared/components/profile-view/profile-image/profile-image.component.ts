@@ -35,8 +35,8 @@ export class ProfileImageComponent implements OnInit {
   ngOnInit(): void {
     this.setupImageUploadEvents();
     this.profileImageUrl = this.thumbnail
-      ? this.membership.member.thumbnail()
-      : this.membership.member.image();
+      ? this.membership.member?.thumbnail()
+      : this.membership.member?.image();
   }
 
   setupImageUploadEvents() {

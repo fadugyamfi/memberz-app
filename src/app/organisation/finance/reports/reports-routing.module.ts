@@ -4,6 +4,7 @@ import { IncomeSummaryComponent } from './income-summary/income-summary.componen
 import { TopContributorsComponent } from './top-contributors/top-contributors.component';
 import { NonContributingMembersComponent } from './non-contributing-members/non-contributing-members.component';
 import { YearlySummaryReportComponent } from './yearly-summary-report/yearly-summary-report.component';
+import { ContributorsByTypeComponent } from './contributors-by-type/contributors-by-type.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,14 @@ const routes: Routes = [
     data: {
       title: 'Non Contributing Members',
       breadcrumb: 'Non Contributing Members'
+    }
+  },
+  {
+    path: 'contributors-by-type',
+    component: ContributorsByTypeComponent,
+    data: {
+      title: 'Contributors By Type',
+      breadcrumb: 'Contributors By Type'
     }
   },
 ];

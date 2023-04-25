@@ -11,6 +11,7 @@ import { IncomeSummaryComponent } from './reports/income-summary/income-summary.
 import { TopContributorsComponent } from './reports/top-contributors/top-contributors.component';
 import { NonContributingMembersComponent } from './reports/non-contributing-members/non-contributing-members.component';
 import { YearlySummaryReportComponent } from './reports/yearly-summary-report/yearly-summary-report.component';
+import { ContributorsByTypeComponent } from './reports/contributors-by-type/contributors-by-type.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { YearlySummaryReportComponent } from './reports/yearly-summary-report/ye
     IncomeSummaryComponent,
     TopContributorsComponent,
     NonContributingMembersComponent,
-    YearlySummaryReportComponent
+    YearlySummaryReportComponent,
+    ContributorsByTypeComponent
   ],
   imports: [
     CommonModule,

@@ -5,6 +5,8 @@ import { Organisation } from '../../model/api/organisation';
 import { OrganisationService } from '../../services/api/organisation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+// TODO: Implement HTML to PDF - https://codingdiksha.com/convert-html-table-to-pdf-using-html2pdf-angular/
+
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',

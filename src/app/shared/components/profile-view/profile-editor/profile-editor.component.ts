@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
@@ -28,6 +28,9 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   public subscriptions: Subscription[] = [];
   public editorTitle = 'Add New Member Profile';
   public editorIcon = 'fa-user-plus';
+
+  @Output()
+  public saved: EventEmitter<OrganisationMember> = new EventEmitter();
 
   constructor(
     public categoryService: OrganisationMemberCategoryService,
@@ -75,16 +78,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   }
 
   loadProfile() {
-
     this.membership = this.membershipService.getSelectedModel();
-
-      // if (!this.membership) {
-      //   const ps = this.membershipService.getProfile(membershipId).subscribe((profile: OrganisationMember) => {
-      //     this.membership = profile;
-      //   });
-
-      //   this.subscriptions.push(ps);
-      // }
   }
 
   /**
@@ -128,7 +122,11 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       place_of_birth: new UntypedFormControl(''),
       email: new UntypedFormControl('', [Validators.email]),
       mobile_number: new UntypedFormControl(''),
-      active: new UntypedFormControl(1)
+      active: new UntypedFormControl(1),
+      address: new FormControl<string>(''),
+      residential_address: new FormControl<string>(''),
+      residential_city: new FormControl<string>(''),
+      residential_region: new FormControl<string>('')
     });
   }
 
@@ -184,6 +182,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
       Swal.close();
       this.membershipService.setEditing(false);
       this.membershipService.setSelectedModel(membership);
+      this.saved.emit(membership);
     });
   }
 

@@ -162,6 +162,7 @@ export class NavService {
           children: [
             { path: '/organisation/finance/reports/income-summary', title: 'Income Summary', type: 'link' },
             { path: '/organisation/finance/reports/yearly-summary', title: 'Yearly Summary', type: 'link' },
+            { path: '/organisation/finance/reports/contributors-by-type', title: 'Contributor Summary', type: 'link' },
             { path: '/organisation/finance/reports/top-contributors', title: 'Top Contributors', type: 'link' },
             { path: '/organisation/finance/reports/non-contributing-members', title: 'Non Contributors', type: 'link' }
           ]

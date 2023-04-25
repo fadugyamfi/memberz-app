@@ -56,4 +56,13 @@ export class FinanceReportingService extends APIService<MemberAccount> {
     return this.get(`${this.url}/monthly_consolidated_report`, params);
   }
 
+  getContributorsByType(params: {
+    year?: number,
+    contribution_type_id: number,
+    currency_id: number,
+    start_date: string,
+    end_date: string
+  }) {
+    return this.get(`${this.url}/contributors_by_type`, params);
+  }
 }

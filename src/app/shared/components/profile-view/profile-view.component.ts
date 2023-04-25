@@ -127,4 +127,8 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
   isDefaultLayout() {
     return this.layout == 'default';
   }
+
+  onMembershipUpdated(membership: OrganisationMember) {
+    this.membership = membership;
+  }
 }

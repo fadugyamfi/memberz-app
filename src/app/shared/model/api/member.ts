@@ -19,6 +19,10 @@ export class Member extends AppModel {
   public place_of_birth: string;
   public gender: string;
   public residential_address: string;
+  public residential_city: string;
+  public residential_region: string;
+  public residential_district: string;
+  public residential_zip_code: string;
   public marital_status: string;
 
   constructor(data) {
@@ -51,5 +55,19 @@ export class Member extends AppModel {
 
   image() {
     return this.profile_photo ? this.profile_photo.url : null;
+  }
+
+  residentialAddress() {
+    const address = [ this.residential_address ];
+
+    if( this.residential_city ) {
+      address.push(this.residential_city);
+    }
+
+    if( this.residential_region ) {
+      address.push(this.residential_region);
+    }
+
+    return address.join(', ');
   }
 }
