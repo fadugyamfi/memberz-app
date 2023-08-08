@@ -100,6 +100,7 @@ export class IncomeSourcesComponent implements OnInit, OnDestroy {
     this.setupEditorForm();
 
     if (contributionType) {
+      contributionType.member_required = contributionType.member_required == 'Required' ? 'true' : 'false';
       this.editorForm.patchValue(contributionType);
     }
 

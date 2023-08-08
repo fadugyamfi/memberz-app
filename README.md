@@ -12,6 +12,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
     Node 14+
     Angular 14+ (For Standalone Components)
 
+## Payment Provider
+* Paystack - https://dashboard.paystack.com/#/get-started
+* Dropped Slydepay due to platform being abandoned without notice for Kowri
+
 ## Development server
 
 Run `ng build slydepay-angular` to build the dependent library for handling requests to the Slydepay payment gateway.

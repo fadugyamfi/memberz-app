@@ -1,5 +1,5 @@
-<aw-wizard [navBarLayout]="'large-filled-symbols'" #wizard>
-  <!-- [defaultStepIndex]="2" -->
+<!-- <aw-wizard [navBarLayout]="'large-filled-symbols'" #wizard>
+  [defaultStepIndex]="2"
 
   <app-profile-step #profileStep awWizardStep stepTitle="Organisation Profile" [navigationSymbol]="{ symbol: '1' }"
                     class="w-100" [canExit]="profileStep.canExit()" (saveProfile)="onSaveProfile($event)">
@@ -15,7 +15,7 @@
 
 
   <app-review-step #reviewStep awWizardStep stepTitle="Review" [navigationSymbol]="{ symbol: '4' }" class="w-100"
-                   [canEnter]="reviewStep.canEnter()" (stepEnter)="reviewStep.loadData()" 
+                   [canEnter]="reviewStep.canEnter()" (stepEnter)="reviewStep.loadData()"
                    [organisation]="organisation" (reviewCompleted)="createOrganisation()">
   </app-review-step>
 
@@ -23,4 +23,4 @@
   <aw-wizard-completion-step stepTitle="Setup Complete">
     <h5>Setup Complete</h5>
   </aw-wizard-completion-step>
-</aw-wizard>
+</aw-wizard> -->

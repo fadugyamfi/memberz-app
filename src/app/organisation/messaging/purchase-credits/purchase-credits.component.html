@@ -71,7 +71,7 @@
           <div class="form-group row">
             <div class="col-sm-4">{{'Payment Method' | translate}}</div>
             <div class="col-sm-8">
-              <label class="d-block m-b-15" for="slydepay">
+              <!-- <label class="d-block m-b-15" for="slydepay">
                 <input class="radio_animated" id="slydepay" type="radio" name="payment_method" checked=""
                        value="slydepay" formControlName="payment_method">
                 <i class="fa fa-credit-card"></i>
@@ -80,11 +80,11 @@
                 <p class="small text-muted p-l-30">
                   {{'You will be redirected to the Slydepay Payment portal to complete your payment' | translate}}
                 </p>
-              </label>
+              </label> -->
 
               <label class="d-block" for="cash">
                 <input class="radio_animated" id="cash" type="radio" name="payment_method" value="invoice"
-                       formControlName="payment_method">
+                       formControlName="payment_method" checked>
                 <i class="fa fa-money"></i>
                 {{'Cash Payment (Generates Invoice Only)' | translate}}
 
