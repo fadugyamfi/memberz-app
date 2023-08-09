@@ -54,7 +54,7 @@ export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
       length: new UntypedFormControl('', [Validators.required]),
       next_renewal_date: new UntypedFormControl(),
       subscription_cost: new UntypedFormControl(),
-      payment_method: new UntypedFormControl('slydepay', [Validators.required])
+      payment_method: new UntypedFormControl('invoice', [Validators.required])
     });
 
     this.subscriptionForm.controls.length.valueChanges.subscribe(value => {
@@ -76,41 +76,44 @@ export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
 
   renewSubscription() {
     const params = this.subscriptionForm.value;
-    let message = this.translate.instant(`This action will renew your subscription and generate an invoice for payment`);
+    // let message = this.translate.instant(`This action will renew your subscription and generate an invoice for payment`);
 
-    if ( params.payment_method !== 'invoice' ) {
-      message = this.translate.instant(`This action will renew your subscription, generate an invoice for payment and redirect you to the chosen payment gateway to complete the payment process`);
-    }
+    // if ( params.payment_method !== 'invoice' ) {
+    //   message = this.translate.instant(`This action will renew your subscription, generate an invoice for payment and redirect you to the chosen payment gateway to complete the payment process`);
+    // }
 
-    Swal.fire({
-      icon: 'warning',
-      title: this.translate.instant('Renewing Subscription'),
-      text: message,
-      showCancelButton: true,
-      cancelButtonColor: '#933'
-    }).then(action => {
-      if (action.value) {
-        Swal.fire(
-          this.translate.instant('Renewing Subscription'),
-          this.translate.instant('Please wait as subscription is renewed'),
-          'info'
-        );
-        Swal.showLoading();
+    Swal.fire(
+      this.translate.instant('Renewing Subscription'),
+      this.translate.instant('Please wait as subscription is renewed'),
+      'info'
+    );
+    Swal.showLoading();
 
-        const sub = this.subscriptionService
-          .renew(params.organisation_id, params.organisation_subscription_id, params.length)
-          .subscribe(result => {
-            this.updateOrganisationSubscription(result);
-            if ( params.payment_method === 'slydepay' ) {
-              this.createSlydepayInvoice(result);
-            } else {
-              this.notifyAndRedirect();
-            }
-          });
+    const sub = this.subscriptionService
+      .renew(params.organisation_id, params.organisation_subscription_id, params.length)
+      .subscribe(result => {
+        Swal.close();
+        this.updateOrganisationSubscription(result);
+        if ( params.payment_method === 'slydepay' ) {
+          this.createSlydepayInvoice(result);
+        } else {
+          this.notifyAndRedirect(result);
+        }
+      });
 
-        this.subs.push(sub);
-      }
-    });
+    this.subs.push(sub);
+
+    // Swal.fire({
+    //   icon: 'warning',
+    //   title: this.translate.instant('Renewing Subscription'),
+    //   text: message,
+    //   showCancelButton: true,
+    //   cancelButtonColor: '#933'
+    // }).then(action => {
+    //   if (action.value) {
+
+    //   }
+    // });
   }
 
   updateOrganisationSubscription(subscription: OrganisationSubscription) {
@@ -123,12 +126,13 @@ export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
     this.slydepayWrapper.payInvoice(subscription.organisation_invoice);
   }
 
-  notifyAndRedirect() {
-    Swal.fire(
-      this.translate.instant('Subscription Renewal Initiated'),
-      this.translate.instant('An invoice for the payment has been generated and sent to your email'),
-      'info'
-    ).then(() => this.router.navigate(['/organisation/settings/subscription']) );
+  notifyAndRedirect(subscription: OrganisationSubscription) {
+    this.router.navigate([`/organisation/settings/invoice-payment/${subscription.organisation_invoice_id}`])
+    // Swal.fire(
+    //   this.translate.instant('Subscription Renewal Initiated'),
+    //   this.translate.instant('An invoice for the payment has been generated and sent to your email'),
+    //   'info'
+    // ).then(() => this.router.navigate(['/organisation/settings/subscription']) );
   }
 
   cancelRenewal() {

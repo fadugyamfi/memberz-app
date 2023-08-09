@@ -25,5 +25,8 @@ export const environment = {
   },
   tinymce: {
     apiKey: "f421hc0i4wju0e1hq26rppbvgw6b1oqfqqc7nfnvb9hmugib"
+  },
+  paystack: {
+    key: 'pk_live_d9f578dd00072268f15da1f514ef5687b03fee87'
   }
 };

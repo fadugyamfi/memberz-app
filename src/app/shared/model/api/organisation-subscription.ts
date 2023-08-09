@@ -14,6 +14,7 @@ export class OrganisationSubscription extends AppModel {
   public _subscription_type: SubscriptionType;
   public subscription_type_id: number;
   public _organisation_invoice: any;
+  public organisation_invoice_id: number;
 
   constructor(data) {
     super(data);

@@ -15,6 +15,7 @@ import { PaymentProcessorComponent } from './payment-processor/payment-processor
 import { UserActivitiesComponent } from './user-activities/user-activities.component';
 import { ProSubscriptionRequiredComponent } from './pro-subscription-required/pro-subscription-required.component';
 
+import { Angular4PaystackModule } from 'angular4-paystack';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ProSubscriptionRequiredComponent } from './pro-subscription-required/pr
   imports: [
     CommonModule,
     SettingsRoutingModule,
-    SharedModule
+    SharedModule,
+    Angular4PaystackModule.forRoot('pk_test_f83ef7ada7fa18c2e6850a34433adc8c7291c6da'),
   ]
 })
 export class SettingsModule { }

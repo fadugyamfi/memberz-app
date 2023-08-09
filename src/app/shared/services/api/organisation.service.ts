@@ -52,8 +52,8 @@ export class OrganisationService extends APIService<Organisation> {
   }
 
   refreshActiveOrganisation() {
-    const id = this.getActiveOrganisation().id;
-    this.getById(id).subscribe((org: Organisation) => this.setActiveOrganisation(org));
+    const slug = this.getActiveOrganisation().slug;
+    this.getById(slug).subscribe((org: Organisation) => this.setActiveOrganisation(org));
   }
 
   getBySlug(slug: string, params = {}): Observable<Organisation> {
