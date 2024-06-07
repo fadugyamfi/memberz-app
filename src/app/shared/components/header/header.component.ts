@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy, ElementRef, HostListener, Renderer2 } from '@angular/core';
 import { NavService, Menu } from '../../services/nav.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../services/api/auth.service';
@@ -42,11 +42,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public router: Router,
     public organisationService: OrganisationService,
     public memberAccountService: MemberAccountService,
-    public orgAccountService: OrganisationAccountService
+    public orgAccountService: OrganisationAccountService,
+    private eRef: ElementRef, private renderer: Renderer2
   ) {
     translate.setDefaultLang('en');
 
-    if( this.storage.has('current_lang') ) {
+    if (this.storage.has('current_lang')) {
       this.currentLang = this.storage.get('current_lang');
       translate.use(this.currentLang);
     }
@@ -132,6 +133,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     body.classList.remove('offcanvas');
     this.text = ''
       ;
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickout(event: Event) {
+    if (this.eRef.nativeElement.contains(event.target)) {
+      this.addFix()
+      this.removeFix()
+      this.searchResultEmpty = false;
+    } else {
+      this.removeFix()
+      this.searchResultEmpty = false;
+
+    }
   }
 
 }
