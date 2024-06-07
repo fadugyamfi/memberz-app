@@ -13,7 +13,7 @@
   }
 
   nav {
-    a {
+    div a {
       padding: 10px 15px;
       text-decoration: none;
       font-size: 1.1em;
@@ -21,7 +21,7 @@
       color: white;
     }
 
-    a:hover {
+    div a:hover {
       background-color: #ffffff;
       border-radius: 10px;
       color: rgb(44, 44, 44);
@@ -63,7 +63,7 @@
         top: -10px;
         z-index: 0;
 
-        a {
+       div a {
           display: block;
           padding: 20px 30px;
           text-align: right;

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AboutRoutingModule } from './about-routing.module';
@@ -10,6 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TawkChatModule } from '../../components/tawk-chat/tawk-chat.module';
+import { AuthService } from 'src/app/shared/services/api/auth.service';
 
 @NgModule({
   declarations: [
@@ -31,4 +32,10 @@ import { TawkChatModule } from '../../components/tawk-chat/tawk-chat.module';
     FooterComponent
   ]
 })
-export class AboutModule { }
+export class AboutModule implements OnInit {
+
+  constructor() {}
+
+  ngOnInit(): void {
+  }
+}

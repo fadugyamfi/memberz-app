@@ -17,10 +17,20 @@
       </a>
 
       <nav class="">
-        <a routerLink="/" fragment="about" (click)="closeNav()">About</a>
-        <a routerLink="/" fragment="pricing" (click)="closeNav()">Pricing</a>
-        <a routerLink="/auth/register">Sign Up</a>
-        <a routerLink="/auth/login">Sign In</a>
+        <!-- <a routerLink="/auth/register">Sign Up</a> -->
+        <!-- <a routerLink="/auth/login">Sign In</a> -->
+        <div *ngIf="!isLoggedIn" class="text-end">
+          <a routerLink="/" fragment="about" (click)="closeNav()">About</a>
+          <a routerLink="/" fragment="pricing" (click)="closeNav()">Pricing</a>
+          <a routerLink="/auth/register">Sign Up</a>
+          <a routerLink="/auth/login">Sign In</a>
+        </div>
+
+        <div *ngIf="isLoggedIn">
+          <a routerLink="/" fragment="about" (click)="closeNav()">About</a>
+          <a routerLink="/" fragment="pricing" (click)="closeNav()">Pricing</a>
+          <a routerLink="/auth/login">Dashboard</a>
+        </div>
       </nav>
     </div>
   </div>
