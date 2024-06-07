@@ -1,0 +1,26 @@
+image: node:18
+
+pipelines:
+  branches:
+    master:
+      - step:
+          name: Installation
+          caches:
+            - node
+          script:
+            - npm install
+          artifacts:
+            - node_modules/** # Save modules for next steps
+      - step:
+          name: Build
+          script:
+            - npm run build:production
+          artifacts:
+            - dist/** # Save build for next steps
+      - step:
+          name: Deploy
+          script:
+            - echo "$(ls -la)"
+            - echo "$(ls -la dist)"
+            - ssh runcloud@memberz.org rm -rf /home/runcloud/webapps/memberz-angular/live/memberz-org
+            - scp -r dist/memberz.org runcloud@memberz.org:/home/runcloud/webapps/memberz-angular/live/memberz-org
