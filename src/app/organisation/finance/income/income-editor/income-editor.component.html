@@ -155,8 +155,15 @@
 
     <div class="modal-footer d-flex justify-content-between">
       <section>
-        <span *ngIf="receiptSettings.sms_notify" class="text-success fw-bold">
-          <i class="fa fa-envelope"></i> {{ 'SMS Receipts Enabled'}}
+        <span *ngIf="receiptSettings.sms_notify" class="text-primary ms-3 fw-bold">
+          <!-- <i class="fa fa-envelope"></i> {{ 'SMS Receipts Enabled'}} -->
+
+          <span class="checkbox">
+            <input type="checkbox" formControlName="send_sms" id="send_sms_field" />
+            <label for="send_sms_field">
+              {{ 'Send SMS Receipt' | translate }}
+            </label>
+          </span>
         </span>
 
         <span *ngIf="!receiptSettings.sms_notify">
@@ -173,7 +180,10 @@
           <i class="fa fa-spin fa-circle-o-notch"></i> {{'Saving' | translate}}...
         </span>
 
-        <button type="submit" class="btn btn-primary m-r-15">{{'Save Changes' | translate}}</button>
+        <button type="submit" class="btn btn-primary m-r-15">
+          {{'Save Changes' | translate}}
+        </button>
+
         <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">
           {{'Cancel' | translate}}
         </button>

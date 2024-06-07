@@ -31,6 +31,9 @@ export const environment = {
   },
   tinymce: {
     apiKey: "f421hc0i4wju0e1hq26rppbvgw6b1oqfqqc7nfnvb9hmugib"
+  },
+  paystack: {
+    key: 'pk_test_f83ef7ada7fa18c2e6850a34433adc8c7291c6da'
   }
 };
 /*

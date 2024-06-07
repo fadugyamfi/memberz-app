@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { WizardComponent } from 'angular-archwizard';
+// import { WizardComponent } from 'angular-archwizard';
 import { Organisation } from '../../../shared/model/api/organisation';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { SubscriptionType } from '../../../shared/model/api/subscription-type';
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class CreateOrganisationComponent implements OnInit {
 
   @ViewChild('wizard', { static: true })
-  public wizard: WizardComponent;
+  // public wizard: WizardComponent;
 
   public organisation: Organisation;
   public subscriptionType: SubscriptionType;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/api/auth.service';
 import { OrganisationService } from '../services/api/organisation.service';
@@ -7,7 +7,7 @@ import { OrganisationService } from '../services/api/organisation.service';
 @Injectable({
   providedIn: 'root'
 })
-export class OrganisationAdminGuard implements CanActivate {
+export class OrganisationAdminGuard  {
 
   constructor(
     public authService: AuthService,

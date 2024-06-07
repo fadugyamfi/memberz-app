@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/api/auth.service';
 import Swal from 'sweetalert2';
@@ -8,7 +8,7 @@ import { OrganisationService } from '../services/api/organisation.service';
 @Injectable({
     providedIn: 'root'
 })
-export class ActiveSubscriptionGuard implements CanActivate {
+export class ActiveSubscriptionGuard  {
     constructor(
       private authService: AuthService,
       private router: Router,

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormControl } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { Contribution } from '../../../../shared/model/api/contribution';
@@ -80,7 +80,8 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
       bank_id: new UntypedFormControl(''),
       cheque_number: new UntypedFormControl(''),
       cheque_status: new UntypedFormControl('Not Cleared'),
-      periods: new UntypedFormArray([ this.createPeriodItem(contribution) ])
+      periods: new UntypedFormArray([ this.createPeriodItem(contribution) ]),
+      send_sms: new FormControl<boolean>(true)
     });
 
     this.periods = this.editorForm.get('periods') as UntypedFormArray;
@@ -268,7 +269,8 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
         currency_id: period.currency_id,
         week: period.week,
         year: period.year,
-        month: period.month
+        month: period.month,
+        send_sms: formValues.send_sms
       });
     });
 

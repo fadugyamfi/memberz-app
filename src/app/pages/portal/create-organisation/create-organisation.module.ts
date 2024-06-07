@@ -11,7 +11,7 @@ import { ReviewComponent } from './review/review.component';
 import { SharedModule } from '../../../shared/shared.module';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
-import { ArchwizardModule } from 'angular-archwizard';
+// import { ArchwizardModule } from 'angular-archwizard';
 
 
 @NgModule({
@@ -27,7 +27,7 @@ import { ArchwizardModule } from 'angular-archwizard';
     CreateOrganisationRoutingModule,
     SharedModule,
     NgxIntlTelInputModule,
-    ArchwizardModule
+    // ArchwizardModule
   ]
 })
 export class CreateOrganisationModule { }

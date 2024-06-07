@@ -1,6 +1,6 @@
 <div class="bookmark pull-right">
 	<ul>
-		<li *ngFor="let item of bookmarkItems" [dragula]='"drag-icon"'>
+		<li *ngFor="let item of bookmarkItems"> <!-- [dragula]='"drag-icon"' -->
 			<a [routerLink]="item?.path" placement="top" ngbTooltip="{{ item?.title | translate }}">
 				<app-feather-icons [icon]="item?.icon"></app-feather-icons>
 			</a>

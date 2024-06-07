@@ -80,7 +80,7 @@ export class PurchaseCreditsComponent implements OnInit, OnDestroy {
       quantity: new UntypedFormControl('1'),
       cost: new UntypedFormControl(this.selectedBundle?.cost),
       currency_id: new UntypedFormControl(this.selectedBundle?.currency.id),
-      payment_method: new UntypedFormControl('slydepay')
+      payment_method: new UntypedFormControl('invoice')
     });
 
     this.purchaseForm.controls.quantity.valueChanges.subscribe((quantity) => {
@@ -106,12 +106,13 @@ export class PurchaseCreditsComponent implements OnInit, OnDestroy {
 
   setupEvents() {
     this.events.on('SmsAccountTopup:created', (topup) => {
-      if( this.purchaseForm.value.payment_method == 'slydepay' ) {
-        this.initiateSlydepayPayment(topup);
-      } else {
-        Swal.close();
-        this.router.navigate(['/organisation/messaging/settings']);
-      }
+      Swal.close();
+      this.router.navigate([`/organisation/settings/invoice-payment/${topup.organisation_invoice_id}`])
+      // if( this.purchaseForm.value.payment_method == 'slydepay' ) {
+      //   this.initiateSlydepayPayment(topup);
+      // } else {
+      //   this.router.navigate(['/organisation/messaging/settings']);
+      // }
     });
   }
 

@@ -15,6 +15,8 @@ import { PaymentProcessorComponent } from './payment-processor/payment-processor
 import { UserActivitiesComponent } from './user-activities/user-activities.component';
 import { ProSubscriptionRequiredComponent } from './pro-subscription-required/pro-subscription-required.component';
 
+import { Angular4PaystackModule } from 'angular4-paystack';
+import { environment } from '../../../environments/environment';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { ProSubscriptionRequiredComponent } from './pro-subscription-required/pr
   imports: [
     CommonModule,
     SettingsRoutingModule,
-    SharedModule
+    SharedModule,
+    Angular4PaystackModule.forRoot( environment.paystack?.key ),
   ]
 })
 export class SettingsModule { }
