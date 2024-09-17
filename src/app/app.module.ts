@@ -15,7 +15,7 @@ import { UserLoggedInGuard } from './shared/guard/user-logged-in.guard';
 import { SecureInnerPagesGuard } from './shared/guard/SecureInnerPagesGuard.guard';
 
 import { environment } from '../environments/environment';
-import { SlydepayModule } from 'slydepay-angular';
+// import { SlydepayModule } from 'slydepay-angular';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 
 import { AvatarModule, AvatarSource } from 'ngx-avatars';
@@ -57,7 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       },
     }),
-    SlydepayModule.forRoot( environment.slydepay )
+    // SlydepayModule.forRoot( environment.slydepay )
   ],
   providers: [
     UserLoggedInGuard,

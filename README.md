@@ -1,26 +1,18 @@
-# TODO
-* Upgrade to Angular 15
-* Upgrade ng-qrcode to 8.0.1
-* Upgrade ngx-print to 1.3.1
-
 ## Creative
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
 ## Requirements
 
-    Node 14+
-    Angular 14+ (For Standalone Components)
+    Node 20+
+    Angular 16+ (For Standalone Components)
 
 ## Payment Provider
 * Paystack - https://dashboard.paystack.com/#/get-started
-* Dropped Slydepay due to platform being abandoned without notice for Kowri
 
 ## Development server
 
-Run `ng build slydepay-angular` to build the dependent library for handling requests to the Slydepay payment gateway.
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
@@ -28,21 +20,14 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build
 
-Run `ng build slydepay-angular` to build the dependent library for handling requests to the Slydepay payment gateway.
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Slydepay Integration Testing
-Update the `environment.ts` file and set the `slydepay.mode` to `mock` to enable a mock payment flow. Payments initiated through Slydepay will land on a Mock page where you can `Complete`, `Cancel` or `Error` out the transaction for testing
-
-This `slydepay.mode` configuration should be set to `live` when deployed to production to enable the payment flow to succeed.
+Run `npm run build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Generate Localization Files
 Run `npm run i18n:extract` to extract the strings from the application that need to be localized, and update the content of the various localization files.
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Running end-to-end tests
 

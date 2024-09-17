@@ -4,7 +4,7 @@ import { OrganisationGroupType } from './organisation-group-type';
 
 export class OrganisationGroup extends AppModel {
 
-  public id: any;
+  
   public organisation_group_type_id: number;
   public name: string;
   private orgGroupType: OrganisationGroupType;

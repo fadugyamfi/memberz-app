@@ -5,7 +5,7 @@ import { OrganisationMember } from './organisation-member';
 
 export class OrganisationMemberGroup extends AppModel {
 
-  public id: any;
+  
   public organisation_group_id: number;
   public organisation_member_id: number;
   private orgGroup: OrganisationGroup;

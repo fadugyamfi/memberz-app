@@ -6,7 +6,7 @@ import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { OrganisationSubscriptionService } from '../../../shared/services/api/organisation-subscription.service';
 import { Router } from '@angular/router';
-import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
+// import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
 import Swal from 'sweetalert2';
 import { SubscriptionTypeService } from '../../../shared/services/api/subscription-type.service';
 import { SubscriptionType } from '../../../shared/model/api/subscription-type';
@@ -30,7 +30,7 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
     public subscriptionService: OrganisationSubscriptionService,
     public subscriptionTypeService: SubscriptionTypeService,
     public router: Router,
-    public slydepayWrapper: SlydepayWrapperService,
+    // public slydepayWrapper: SlydepayWrapperService,
     public translate: TranslateService
   ) {}
 
@@ -180,7 +180,7 @@ export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
   }
 
   createSlydepayInvoice(subscription: OrganisationSubscription) {
-    this.slydepayWrapper.payInvoice(subscription.organisation_invoice);
+    // this.slydepayWrapper.payInvoice(subscription.organisation_invoice);
   }
 
   notifyAndRedirect(subscription: OrganisationSubscription) {

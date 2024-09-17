@@ -3,7 +3,7 @@ import { AppModel } from './app.model';
 
 export class OrganisationInvoiceItem extends AppModel {
 
-  public id: any;
+  
   public organisation_id: number;
   public qty: number;
   public product_type: string;

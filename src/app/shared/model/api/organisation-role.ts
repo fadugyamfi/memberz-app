@@ -4,7 +4,7 @@ import { Permission } from './permission.model';
 
 export class OrganisationRole extends AppModel {
 
-  public id: any;
+  
   public organisation_id: number;
   public name: string;
   public description: string;

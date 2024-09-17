@@ -3,7 +3,7 @@ import { AppModel } from './app.model';
 
 export class SystemSetting extends AppModel {
 
-  public id: any;
+  
   public setting_type_id: number;
   public name: string;
   public type: string;

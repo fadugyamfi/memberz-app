@@ -5,7 +5,7 @@ import { Currency } from './currency';
 
 export class OrganisationPaymentPlatform extends AppModel {
 
-  public id: any;
+  
   public payment_platform_id: number;
   public _currency;
   public _payment_platform: PaymentPlatform;

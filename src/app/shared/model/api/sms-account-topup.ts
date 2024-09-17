@@ -5,7 +5,7 @@ import { OrganisationInvoice } from './organisation-invoice';
 
 export class SmsAccountTopup extends AppModel {
 
-  public id: any;
+  
   public invoice_description: string;
   public organisation_invoice_id: number;
   public credit_amount: number;

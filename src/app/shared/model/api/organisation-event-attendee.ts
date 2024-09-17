@@ -8,7 +8,7 @@ import { OrganisationMemberCategory } from './organisation-member-category';
 
 export class OrganisationEventAttendee extends AppModel {
 
-  public id: any;
+  
   public _member: Member;
   public _organisation_event: OrganisationEvent;
   public _organisation_session: OrganisationEventSession;

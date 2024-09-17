@@ -11,9 +11,11 @@ import { environment } from '../../../environments/environment';
 export class TawkChatComponent implements OnInit {
 
   @Input() id: string = environment.tawkto.id;
-  script = this._renderer.createElement('script');
+  public script: any;
 
-  constructor(private _renderer: Renderer2, @Inject(DOCUMENT) private _document, ) {}
+  constructor(private _renderer: Renderer2, @Inject(DOCUMENT) private _document, ) {
+    this.script = this._renderer.createElement('script');
+  }
 
   ngOnInit() {
     this.script.text = `var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();

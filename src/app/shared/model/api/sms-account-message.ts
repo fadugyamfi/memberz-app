@@ -4,7 +4,7 @@ import { Member } from './member';
 
 export class SmsAccountMessage extends AppModel {
 
-  public id: any;
+  
   private _member: Member;
   public message: string;
   public to: string;

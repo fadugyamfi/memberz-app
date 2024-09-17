@@ -3,7 +3,7 @@ import { AppModel } from './app.model';
 
 export class OrganisationAnniversary extends AppModel {
 
-  public id: any;
+  
   public organisation_id: number;
   public name: string;
   public description: string;
