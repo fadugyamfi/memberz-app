@@ -1,4 +1,4 @@
-image: node:18
+image: node:22
 
 pipelines:
   branches:
@@ -8,13 +8,13 @@ pipelines:
           caches:
             - node
           script:
-            - npm install
+            - npm install --legacy-peer-deps
           artifacts:
             - node_modules/** # Save modules for next steps
       - step:
           name: Build
           script:
-            - npm run build:production
+            - npm run build-prod
           artifacts:
             - dist/** # Save build for next steps
       - step:
