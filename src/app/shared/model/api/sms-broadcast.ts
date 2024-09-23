@@ -4,7 +4,7 @@ import { OrganisationAccount } from './organisation-account';
 
 export class SmsBroadcast extends AppModel {
 
-  public id: any;
+  
   public sms_broadcast_list: any;
   public organisation_member_category: any;
   public send_at: any;

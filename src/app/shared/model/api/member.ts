@@ -3,7 +3,7 @@ import { AppModel } from './app.model';
 
 export class Member extends AppModel {
 
-  public id: any;
+  
   public title: string;
   public first_name: string;
   public last_name: string;

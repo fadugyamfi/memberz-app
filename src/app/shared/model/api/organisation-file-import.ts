@@ -4,7 +4,7 @@ import { MemberAccount } from './member-account';
 
 export class OrganisationFileImport extends AppModel {
 
-  public id: any;
+  
   public organisation_id: number;
   public import_type: string;
   public import_to_id: number;

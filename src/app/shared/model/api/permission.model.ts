@@ -2,7 +2,6 @@ import { AppModel } from './app.model';
 
 export class Permission extends AppModel {
 
-    public id;
     public name;
     public selected = false;
 

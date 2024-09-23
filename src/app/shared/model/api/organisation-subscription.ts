@@ -6,7 +6,7 @@ import { OrganisationInvoice } from './organisation-invoice';
 
 export class OrganisationSubscription extends AppModel {
 
-  public id: any;
+  
   /* eslint-disable @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match */
   public organisation_id: number;
   public start_dt: string;

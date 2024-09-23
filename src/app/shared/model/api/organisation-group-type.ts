@@ -4,7 +4,7 @@ import { OrganisationGroup } from './organisation-group';
 
 export class OrganisationGroupType extends AppModel {
 
-  public id: any;
+  
   public name: string;
   public orgGroups: OrganisationGroup[];
 

@@ -1,11 +1,11 @@
 import * as Chartist from 'chartist';
-import { ChartEvent, ChartType } from 'ng-chartist';
+import { ChartEvent } from 'ng-chartist';
 
 var primary = localStorage.getItem('primary_color') || '#4466f2';
 var secondary = localStorage.getItem('secondary_color') || '#1ea6ec';
 
 export interface Chart {
-	type: ChartType;
+	type: any;
 	data: Chartist.IChartistData;
 	options?: any;
 	responsiveOptions?: any;
@@ -122,9 +122,9 @@ export var chart4: Chart = {
 		}
 	},
 	events: {
-		draw: (data) => {
-			if (data.type === 'bar') {
-				data.element.attr({
+		draw: (data: Object) => {
+			if (data['type'] === 'bar') {
+				data['element'].attr({
 					style: 'stroke-width: 2px'
 				});
 			}
@@ -156,9 +156,9 @@ export var chart5: Chart = {
 		}
 	},
 	events: {
-		draw: (data) => {
-			if (data.type === 'bar') {
-				data.element.attr({
+		draw: (data: Object) => {
+			if (data['type'] === 'bar') {
+				data['element'].attr({
 					style: 'stroke-width: 2px'
 				});
 			}

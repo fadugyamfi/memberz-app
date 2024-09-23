@@ -2,7 +2,7 @@ import { AppModel } from './app.model';
 
 export class ContributionType extends AppModel {
 
-  public id: any;
+  
   public name: string;
   public description: string;
   public active: boolean;

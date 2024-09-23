@@ -3,11 +3,10 @@ import * as moment from 'moment';
 
 export class Notification extends AppModel {
 
-  public id: any;
+  
   public read_at;
   public data: object;
   public sent: number;
-  public created_at;
   public _type: string;
   public organisation_id: number;
 

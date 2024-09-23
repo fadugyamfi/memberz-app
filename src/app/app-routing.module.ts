@@ -8,7 +8,7 @@ import { PortalLayoutComponent } from './shared/components/layout/portal-layout/
 import { OrganisationLayoutComponent } from './shared/components/layout/organisation-layout/organisation-layout.component';
 import { OrganisationAdminGuard } from './shared/guard/organisation-admin.guard';
 import { PrintLayoutComponent } from './shared/components/layout/print-layout/print-layout.component';
-import { SlydepayMockComponent } from 'slydepay-angular';
+// import { SlydepayMockComponent } from 'slydepay-angular';
 
 const routes: Routes = [
   {
@@ -31,11 +31,11 @@ const routes: Routes = [
       }
     }]
   },
-  {
-    path: 'slydepay-mock',
-    component: SlydepayMockComponent,
-    children: full
-  },
+  // {
+  //   path: 'slydepay-mock',
+  //   component: SlydepayMockComponent,
+  //   children: full
+  // },
   {
     path: ':org_slug/register',
     component: FullLayoutComponent,

@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ToastrModule } from 'ngx-toastr';
 
@@ -15,7 +15,7 @@ import { UserLoggedInGuard } from './shared/guard/user-logged-in.guard';
 import { SecureInnerPagesGuard } from './shared/guard/SecureInnerPagesGuard.guard';
 
 import { environment } from '../environments/environment';
-import { SlydepayModule } from 'slydepay-angular';
+// import { SlydepayModule } from 'slydepay-angular';
 import { LoaderComponent } from './shared/components/loader/loader.component';
 
 import { AvatarModule, AvatarSource } from 'ngx-avatars';
@@ -29,46 +29,38 @@ export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LoaderComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    // SharedModule,
-    AppRoutingModule,
-    HttpClientModule,
-    // DragulaModule.forRoot(),
-    AvatarModule.forRoot({
-      sourcePriorityOrder: avatarSourcesOrder
-    }),
-    ToastrModule.forRoot({
-      preventDuplicates: true
-    }),
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      },
-    }),
-    SlydepayModule.forRoot( environment.slydepay )
-  ],
-  providers: [
-    UserLoggedInGuard,
-    SecureInnerPagesGuard,
-    // error handling
-    RequestErrorHandler,
-    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
-
-    // appending organisation_id to requests
-    { provide: HTTP_INTERCEPTORS, useClass: OrganisationInterceptor, multi: true },
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        LoaderComponent,
+    ],
+    bootstrap: [AppComponent], imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        // SharedModule,
+        AppRoutingModule,
+        // DragulaModule.forRoot(),
+        AvatarModule.forRoot({
+            sourcePriorityOrder: avatarSourcesOrder
+        }),
+        ToastrModule.forRoot({
+            preventDuplicates: true
+        }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            },
+        })], providers: [
+        UserLoggedInGuard,
+        SecureInnerPagesGuard,
+        // error handling
+        RequestErrorHandler,
+        { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
+        // appending organisation_id to requests
+        { provide: HTTP_INTERCEPTORS, useClass: OrganisationInterceptor, multi: true },
+        provideHttpClient(withInterceptorsFromDi()),
+    ] })
 export class AppModule { }

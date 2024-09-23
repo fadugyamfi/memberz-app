@@ -3,7 +3,7 @@ import { AppModel } from './app.model';
 
 export class SubscriptionType extends AppModel {
 
-  public id: any;
+  
   public name: string;
   public description: string;
   public initial_price: number;

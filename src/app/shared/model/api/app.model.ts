@@ -14,7 +14,7 @@ export class AppModel {
     this.update(data);
   }
 
-  update(data) {
+  update(data: object) {
     Object.assign(this, data);
   }
 

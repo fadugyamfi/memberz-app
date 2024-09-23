@@ -6,7 +6,7 @@ import { Currency } from './currency';
 
 export class OrganisationInvoice extends AppModel {
 
-  public id: any;
+  
   public invoice_no: string;
   public total_due: number;
   public currency_id: number;

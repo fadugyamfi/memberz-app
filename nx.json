@@ -1,17 +1,4 @@
 {
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "cacheableOperations": [
-          "build",
-          "test",
-          "lint"
-        ],
-        "accessToken": "MGU3M2I2YzYtNjhkNC00NzIxLTk4ZDItODkxMjZkNGNkNDQ2fHJlYWQtd3JpdGU="
-      }
-    }
-  },
   "defaultBase": "dev",
   "namedInputs": {
     "sharedGlobals": [],
@@ -35,19 +22,22 @@
       "inputs": [
         "production",
         "^production"
-      ]
+      ],
+      "cache": true
     },
     "test": {
       "inputs": [
         "default",
         "^production",
         "{workspaceRoot}/karma.conf.js"
-      ]
+      ],
+      "cache": true
     },
     "lint": {
       "inputs": [
         "default"
-      ]
+      ],
+      "cache": true
     },
     "e2e": {
       "inputs": [
@@ -55,5 +45,7 @@
         "^production"
       ]
     }
-  }
+  },
+  "nxCloudAccessToken": "MGU3M2I2YzYtNjhkNC00NzIxLTk4ZDItODkxMjZkNGNkNDQ2fHJlYWQtd3JpdGU=",
+  "useInferencePlugins": false
 }

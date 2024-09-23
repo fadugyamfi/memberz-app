@@ -7,7 +7,7 @@ import { OrganisationSubscription } from '../../../shared/model/api/organisation
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
+// import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -25,7 +25,7 @@ export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
     public organisationService: OrganisationService,
     public subscriptionService: OrganisationSubscriptionService,
     public router: Router,
-    public slydepayWrapper: SlydepayWrapperService,
+    // public slydepayWrapper: SlydepayWrapperService,
     public translate: TranslateService
   ) {}
 
@@ -123,7 +123,7 @@ export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
   }
 
   createSlydepayInvoice(subscription: OrganisationSubscription) {
-    this.slydepayWrapper.payInvoice(subscription.organisation_invoice);
+    // this.slydepayWrapper.payInvoice(subscription.organisation_invoice);
   }
 
   notifyAndRedirect(subscription: OrganisationSubscription) {

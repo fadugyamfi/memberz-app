@@ -4,7 +4,7 @@ import { Currency } from './currency';
 
 export class SmsCredit extends AppModel {
 
-  public id: any;
+  
   public credit_amount: number;
   public cost: number;
   public unit_price: number;
