@@ -8,6 +8,7 @@ import { OrganisationSubscriptionService } from '../../../shared/services/api/or
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 import * as chartData from './../../../shared/data/dashboard/university';
+import { Configuration } from 'ng-chartist';
 
 @Component({
   selector: 'app-general-statistics',
@@ -24,6 +25,13 @@ export class GeneralStatisticsComponent implements OnInit {
 
   public unapprovedMemberships$;
   public contributionSummary$;
+
+  public configuration: Configuration = {
+    type: chartData.chart4.type,
+    data: chartData.chart4.data,
+    options: chartData.chart4.options,
+    responsiveOptions: chartData.chart4.responsiveOptions
+  };
 
   constructor(
     public organisationService: OrganisationService,

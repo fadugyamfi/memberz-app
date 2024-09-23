@@ -5,7 +5,7 @@ import { OrganisationCalendar } from './organisation-calendar';
 
 export class OrganisationEvent extends AppModel {
 
-  public id: any;
+  
   public organisation_id: number;
   public event_name: string;
   public short_description: string;

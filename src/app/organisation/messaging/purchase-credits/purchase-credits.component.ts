@@ -11,7 +11,7 @@ import { SmsAccountTopupService } from '../../../shared/services/api/sms-account
 import { EventsService } from '../../../shared/services/events.service';
 import Swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
-import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
+// import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
 import { OrganisationInvoiceService } from '../../../shared/services/api/organisation-invoice.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class PurchaseCreditsComponent implements OnInit, OnDestroy {
     public router: Router,
     public events: EventsService,
     public translate: TranslateService,
-    public slydepayWrapper: SlydepayWrapperService,
+    // public slydepayWrapper: SlydepayWrapperService,
     public invoiceService: OrganisationInvoiceService
   ) { }
 
@@ -120,9 +120,9 @@ export class PurchaseCreditsComponent implements OnInit, OnDestroy {
     this.events.off('SmsAccountTopup:created');
   }
 
-  initiateSlydepayPayment(topup: SmsAccountTopup) {
-    this.invoiceService.getById(topup.organisation_invoice_id).subscribe(invoice => {
-      this.slydepayWrapper.payInvoice(invoice);
-    })
-  }
+  // initiateSlydepayPayment(topup: SmsAccountTopup) {
+  //   this.invoiceService.getById(topup.organisation_invoice_id).subscribe(invoice => {
+  //     this.slydepayWrapper.payInvoice(invoice);
+  //   })
+  // }
 }

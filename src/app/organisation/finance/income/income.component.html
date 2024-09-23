@@ -34,9 +34,7 @@
         <th>{{'Receipt No' | translate}}</th>
         <th>{{'Type' | translate}}</th>
         <th>{{'Member / Description' | translate}}</th>
-        <th class="text-center">{{'Week' | translate}}</th>
-        <th class="text-center">{{'Month' | translate}}</th>
-        <th class="text-center">{{'Year' | translate}}</th>
+        <th class="text-start">{{ 'Period' | translate }}</th>
         <th>{{'Payment Type' | translate}}</th>
         <th class="text-end fw-bold">{{'Amount' | translate}}</th>
         <th class="text-center">{{'Actions' | translate}}</th>
@@ -60,9 +58,11 @@
             {{ contribution.description }}
           </div>
         </td>
-        <td class="text-center">{{ 'Wk' |translate }} {{ contribution.week }}</td>
-        <td class="text-center">{{ contribution.month_name.substring(0,3) }}</td>
-        <td class="text-center">{{ contribution.year }}</td>
+        <td class="text-start">
+          {{ 'Wk' | translate }} {{ contribution.week }}, 
+          {{ contribution.month_name.substring(0,3) | translate }}
+          {{ contribution.year }}
+        </td>
         <td>
           <span *ngIf="contribution.payment_type == 'Cheque'">{{ contribution.payment_type }} -
             {{ contribution.bank?.short_code }} {{ contribution.cheque_number }}</span>

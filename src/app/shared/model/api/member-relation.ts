@@ -4,7 +4,7 @@ import { MemberRelationType } from './member-relation-type';
 
 export class MemberRelation extends AppModel {
 
-  public id: any;
+  
   public member_id: number;
   public name: string;
   public gender: string;

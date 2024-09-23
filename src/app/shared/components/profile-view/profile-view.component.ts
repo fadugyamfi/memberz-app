@@ -5,7 +5,6 @@ import { OrganisationMember } from '../../../shared/model/api/organisation-membe
 import { Subscription, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { EventsService } from '../../../shared/services/events.service';
-import { ImageCropperComponent } from 'ngx-image-cropper';
 import { TranslateService } from '@ngx-translate/core';
 import { OrganisationService } from '../../services/api/organisation.service';
 
@@ -15,8 +14,6 @@ import { OrganisationService } from '../../services/api/organisation.service';
   styleUrls: ['./profile-view.component.scss']
 })
 export class ProfileViewComponent implements OnInit, OnDestroy {
-
-  @ViewChild('imageCropper') imageCropper: ImageCropperComponent;
 
   @Input() public layout = 'default';
   public activeTabId = 1;

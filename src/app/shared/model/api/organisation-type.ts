@@ -3,10 +3,11 @@ import { AppModel } from './app.model';
 
 export class OrganisationType extends AppModel {
 
-  public id: any;
-  public name: string;
+  
+  // public name: any;
 
   constructor(data) {
     super(data);
+    console.log(data);
   }
 }

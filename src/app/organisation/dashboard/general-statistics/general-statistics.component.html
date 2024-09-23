@@ -45,8 +45,7 @@
             <p>{{ 'SMS Credit Balance' | translate }}</p>
           </div>
           <div class="flex-shrink-0 small-bar">
-            <x-chartist class="ct-small-left flot-chart-container" [data]="chart4.data" [type]="chart4.type"
-                        [options]="chart4.options" [events]="chart4.events">
+            <x-chartist class="ct-small-left flot-chart-container" [configuration]="configuration" [events]="chart4.events">
             </x-chartist>
           </div>
         </div>
@@ -74,8 +73,7 @@
             <p>{{ 'Total Income' | translate }} {{ currentYear }}</p>
           </div>
           <div class="flex-shrink-0 small-bar">
-            <x-chartist class="ct-small-left flot-chart-container" [data]="chart4.data" [type]="chart4.type"
-                        [options]="chart4.options" [events]="chart4.events">
+            <x-chartist class="ct-small-left flot-chart-container" [configuration]="configuration" [events]="chart4.events">
             </x-chartist>
           </div>
         </div>
@@ -101,8 +99,7 @@
             <p>{{ 'Pending Approvals' | translate }}</p>
           </div>
           <div class="flex-shrink-0 small-bar">
-            <x-chartist class="ct-small-left flot-chart-container" [data]="chart4.data" [type]="chart4.type"
-                        [options]="chart4.options" [events]="chart4.events">
+            <x-chartist class="ct-small-left flot-chart-container" [configuration]="configuration" [events]="chart4.events">
             </x-chartist>
           </div>
         </div>

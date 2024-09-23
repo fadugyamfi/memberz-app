@@ -4,7 +4,7 @@ import { Member } from './member';
 
 export class MemberAccount extends AppModel {
 
-  public id: any;
+  
   public _member: Member;
   public username: string;
   public deleted: boolean;
@@ -28,23 +28,23 @@ export class MemberAccount extends AppModel {
   }
 
   firstName() {
-    return this.member.first_name;
+    return this.member?.first_name;
   }
 
   name() {
-    return this.member.name();
+    return this.member?.name();
   }
 
   occupation() {
-    return this.member.occupation;
+    return this.member?.occupation;
   }
 
   photoURL() {
-    return this.member.member_image && this.member.member_image[0] && this.member.member_image[0].url;
+    return this.member?.member_image && this.member?.member_image[0] && this.member?.member_image[0].url;
   }
 
   thumbPhotoURL() {
-    return this.member.member_image && this.member.member_image[0] && this.member.member_image[0].thumb_url;
+    return this.member?.member_image && this.member?.member_image[0] && this.member?.member_image[0].thumb_url;
   }
 
   isOrganisationAdmin(organisation_id: number) {

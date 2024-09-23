@@ -6,7 +6,7 @@ import { AppModel } from './app.model';
 
 export class OrganisationRegistrationForm extends AppModel {
 
-  public id: any;
+  
   public uuid: string;
   public slug: string;
   public name: string;
@@ -14,7 +14,6 @@ export class OrganisationRegistrationForm extends AppModel {
   public _expiration_dt: string;
   public excluded_standard_fields: any;
   public _custom_fields: string;
-  public deleted_at: string;
   public organisation_id: number;
   public organisation_member_category_id: number;
   public decoded_custom_fields;

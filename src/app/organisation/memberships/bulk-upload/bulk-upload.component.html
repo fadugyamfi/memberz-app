@@ -79,7 +79,7 @@
 <app-upload-review *ngIf="reviewingImport()" [organisationFileImport]="selectedFileImport" (clear)="clearImportReview()"></app-upload-review>
 
 <ng-template #uploadModal let-modal>
-  <form (submit)="onSubmit($event)" class="form form-horizontal" [formGroup]="uploadForm">
+  <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="uploadForm">
     <div class="modal-header">
       <h5 class="modal-title" id="modal-basic-title">{{ 'Import Membership Data' | translate }}</h5>
       <button type="button" class="btn-close" aria-label="Close" (click)="resetModal(); modal.dismiss('Cross click')">

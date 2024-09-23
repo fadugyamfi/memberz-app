@@ -67,11 +67,11 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.setupProfileForm();
     this.loadOrganisationTypes();
     this.loadCountries();
     this.loadSubscriptionTypes();
     this.setupEvents();
+    this.setupProfileForm();
   }
 
   ngOnDestroy() {
@@ -97,7 +97,10 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   }
 
   loadOrganisationTypes() {
-    this.orgTypeService.getAll({ sort: 'name:asc' }).subscribe((types: OrganisationType[]) => this.orgTypes = types);
+    this.orgTypeService.getAll({ sort: 'name:asc' }).subscribe((types: OrganisationType[]) => {
+      this.orgTypes = types;
+      console.log(this.orgTypes);
+  });
   }
 
   loadCountries() {
@@ -107,7 +110,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   loadSubscriptionTypes() {
     this.subTypeService.getAll({ active: 1 }).subscribe((subTypes: SubscriptionType[]) => {
       this.freePlan = subTypes.find((value) => value.name === 'free2');
-      this.profileForm.patchValue({ subscription_type_id: this.freePlan.id });
+      this.profileForm.patchValue({ subscription_type_id: this.freePlan?.id });
     });
   }
 
@@ -130,7 +133,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
 
     const input = this.profileForm.value;
     input.phone = input.phone_intl.e164Number;
-
+console.log(input);
     this.organisation = new Organisation(input);
     const params = { contain: ['active_subscription.subscription_type', 'organisation_type'].join() };
 

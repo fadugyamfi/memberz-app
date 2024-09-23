@@ -1,14 +1,14 @@
 {
-  "$schema": "node_modules/nx/schemas/project-schema.json",
   "name": "memberz-org",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
+  "sourceRoot": "src",
+  "prefix": "app",
   "generators": {
     "@schematics/angular:component": {
       "style": "scss"
     }
   },
-  "sourceRoot": "src",
-  "prefix": "app",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
@@ -60,7 +60,7 @@
         "outputPath": "dist/memberz-org",
         "index": "src/index.html",
         "main": "src/main.ts",
-        "polyfills": "src/polyfills.ts",
+        "polyfills": ["zone.js"],
         "tsConfig": "tsconfig.app.json",
         "assets": [
           "src/favicon.ico",
@@ -144,28 +144,28 @@
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "browserTarget": "memberz-org:build"
+        "buildTarget": "memberz-org:build"
       },
       "configurations": {
         "production": {
-          "browserTarget": "memberz-org:build:production"
+          "buildTarget": "memberz-org:build:production"
         },
         "staging": {
-          "browserTarget": "memberz-org:build:staging"
+          "buildTarget": "memberz-org:build:staging"
         }
       }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "memberz-org:build"
+        "buildTarget": "memberz-org:build"
       }
     },
     "test": {
       "executor": "@angular-devkit/build-angular:karma",
       "options": {
         "main": "src/test.ts",
-        "polyfills": "src/polyfills.ts",
+        "polyfills": ["zone.js"],
         "tsConfig": "tsconfig.spec.json",
         "karmaConfig": "karma.conf.js",
         "assets": [

@@ -7,7 +7,7 @@ import * as moment from 'moment';
 
 export class Contribution extends AppModel {
 
-  public id: any;
+  
   public organisation_member_id: number;
   public amount: number;
   public week: number;

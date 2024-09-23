@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { OrganisationInvoiceService } from '../../../shared/services/api/organisation-invoice.service';
 import { OrganisationInvoice } from '../../../shared/model/api/organisation-invoice';
-import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
+// import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
 import { PaystackOptions } from 'angular4-paystack';
 import { AuthService } from '../../../shared/services/api/auth.service';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
@@ -42,7 +42,7 @@ export class InvoicePaymentComponent implements OnInit {
     public subscriptionService: OrganisationSubscriptionService,
     public invoiceService: OrganisationInvoiceService,
     public router: Router,
-    public slydepayWrapper: SlydepayWrapperService,
+    // public slydepayWrapper: SlydepayWrapperService,
     public route: ActivatedRoute,
     public authService: AuthService,
     public smsAccountService: SmsAccountService,
@@ -113,9 +113,9 @@ export class InvoicePaymentComponent implements OnInit {
   /**
    * @deprecated
    */
-  paySubscription() {
-    this.slydepayWrapper.payInvoice(this.invoice);
-  }
+  // paySubscription() {
+  //   this.slydepayWrapper.payInvoice(this.invoice);
+  // }
 
   cancelPayment() {
     Swal.fire({

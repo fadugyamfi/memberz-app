@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SlydepayService } from 'slydepay-angular';
+// import { SlydepayService } from 'slydepay-angular';
 import { OrganisationInvoice } from '../model/api/organisation-invoice';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -18,16 +18,16 @@ export class SlydepayPostPaymentService {
   public invoice: OrganisationInvoice;
 
   constructor(
-    private slydepayService: SlydepayService,
+    // private slydepayService: SlydepayService,
     private router: Router,
     public translate: TranslateService,
     public events: EventsService,
     public storage: StorageService,
     public smsAccountService: SmsAccountService
   ) {
-    if( environment.slydepay.mode != 'live' ) {
-      this.slydepayService.setMockMode();
-    }
+    // if( environment.slydepay.mode != 'live' ) {
+    //   this.slydepayService.setMockMode();
+    // }
 
     this.loadCachedInvoice();
   }

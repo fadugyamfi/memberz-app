@@ -8,7 +8,7 @@ import { OrganisationRegistrationForm } from './organisation-registration-form';
 
 export class OrganisationMember extends AppModel {
 
-  public id: any;
+  
   public uuid: string;
   public selected = false;
   public _member: Member;
