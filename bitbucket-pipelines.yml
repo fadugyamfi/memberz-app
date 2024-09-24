@@ -4,16 +4,19 @@ pipelines:
   branches:
     master:
       - step:
-          name: Installation & Build App
+          name: Installation
           caches:
             - node
           script:
             - npm install --legacy-peer-deps
-            - npm run build-prod
           artifacts:
             - node_modules/** # Save modules for next steps
+      - step:
+          name: Build
+          script:
+            - npm run build-prod
+          artifacts:
             - dist/** # Save build for next steps
-
       - step:
           name: Deploy
           script:
