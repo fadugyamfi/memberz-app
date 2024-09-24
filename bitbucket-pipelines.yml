@@ -11,7 +11,7 @@ pipelines:
             - npm install --legacy-peer-deps
             - npm run build-prod
           artifacts:
-            # - node_modules/** # Save modules for next steps
+            - node_modules/** # Save modules for next steps
             - dist/** # Save build for next steps
 
       - step:
