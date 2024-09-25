@@ -4,7 +4,7 @@ import { ContributionReceiptSettingService } from 'src/app/shared/services/api/c
 import { ContributionReceiptSetting } from 'src/app/shared/model/api/contribution-receipt-setting';
 import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import * as moment from 'moment';
+import moment from 'moment';
 
 
 @Component({

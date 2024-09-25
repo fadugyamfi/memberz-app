@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import * as moment from 'moment';
+import moment from 'moment';
 import { catchError, map } from 'rxjs';
 import { OrganisationMember } from '../../shared/model/api/organisation-member';
 import { OrganisationMemberService } from '../../shared/services/api/organisation-member.service';

@@ -3,7 +3,7 @@ import { AppModel } from './app.model';
 import { OrganisationMember } from './organisation-member';
 import { ContributionReceipt } from './contribution-receipt';
 import { ContributionType } from './contribution-type';
-import * as moment from 'moment';
+import moment from 'moment';
 
 export class Contribution extends AppModel {
 

@@ -1,5 +1,5 @@
 
-import * as moment from 'moment';
+import moment from 'moment';
 import { AppModel } from './app.model';
 import { OrganisationCalendar } from './organisation-calendar';
 

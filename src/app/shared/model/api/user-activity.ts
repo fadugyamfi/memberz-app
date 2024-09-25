@@ -1,6 +1,6 @@
 import { AppModel } from './app.model';
 import { MemberAccount } from './member-account';
-import * as moment from 'moment';
+import moment from 'moment';
 
 export class UserActivity extends AppModel {
 

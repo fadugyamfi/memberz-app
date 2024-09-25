@@ -8,7 +8,7 @@ import { OrganisationService } from '../../../services/api/organisation.service'
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { OrganisationMember } from '../../../model/api/organisation-member';
-import * as moment from 'moment';
+import moment from 'moment';
 import { SmsAccountMessage } from '../../../model/api/sms-account-message';
 import { Member } from '../../../model/api/member';
 

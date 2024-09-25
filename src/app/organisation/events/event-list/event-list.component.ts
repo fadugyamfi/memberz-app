@@ -11,7 +11,7 @@ import { OrganisationEventService } from '../../../shared/services/api/organisat
 import { OrganisationCalendarService } from '../../../shared/services/api/organisation-calendar.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationCalendar } from '../../../shared/model/api/organisation-calendar';
-import * as moment from 'moment';
+import moment from 'moment';
 import { SessionsComponent } from '../sessions/sessions.component';
 
 @Component({

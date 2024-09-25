@@ -17,7 +17,7 @@ import { ExcelService } from 'src/app/shared/services/excel.service';
 import { TranslateService } from '@ngx-translate/core';
 import { PrintService } from 'src/app/shared/services/print.service';
 import { OrganisationGroupType } from '../../../shared/model/api/organisation-group-type';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
   selector: 'app-profiles',

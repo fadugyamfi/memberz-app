@@ -5,7 +5,7 @@ import { EventsService } from '../../../../shared/services/events.service';
 import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
 import { OrganisationMemberService } from 'src/app/shared/services/api/organisation-member.service';
 import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
-import * as dayjs from 'dayjs';
+import dayjs from 'dayjs';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import Swal from 'sweetalert2';

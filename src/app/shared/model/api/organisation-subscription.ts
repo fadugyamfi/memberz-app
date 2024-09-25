@@ -1,6 +1,6 @@
 
 import { AppModel } from './app.model';
-import * as moment from 'moment';
+import moment from 'moment';
 import { SubscriptionType } from './subscription-type';
 import { OrganisationInvoice } from './organisation-invoice';
 

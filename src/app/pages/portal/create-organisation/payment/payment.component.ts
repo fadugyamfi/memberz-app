@@ -3,7 +3,7 @@ import { EventsService } from '../../../../shared/services/events.service';
 import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
-import * as moment from 'moment';
+import moment from 'moment';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { Organisation } from '../../../../shared/model/api/organisation';
 

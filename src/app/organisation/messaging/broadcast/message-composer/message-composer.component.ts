@@ -11,7 +11,7 @@ import { SmsBroadcastListService } from '../../../../shared/services/api/sms-bro
 import { SmsBroadcastService } from '../../../../shared/services/api/sms-broadcast.service';
 import { EventsService } from '../../../../shared/services/events.service';
 import { SmsTemplateTagService } from '../../../../shared/services/utilities/sms-template-tag.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { OrganisationMemberCategoryService } from '../../../../shared/services/api/organisation-member-category.service';
 import { Subscription } from 'rxjs';
 

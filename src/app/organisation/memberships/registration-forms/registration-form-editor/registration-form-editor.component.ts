@@ -6,7 +6,7 @@ import { EventsService } from '../../../../shared/services/events.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { OrganisationRegistrationForm } from '../../../../shared/model/api/organisation-registration-form';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 import { OrganisationMemberCategoryService } from '../../../../shared/services/api/organisation-member-category.service';
 import { OrganisationMemberCategory } from '../../../../shared/model/api/organisation-member-category';
 

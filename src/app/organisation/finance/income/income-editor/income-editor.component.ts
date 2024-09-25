@@ -7,7 +7,7 @@ import { ContributionPaymentTypeService } from '../../../../shared/services/api/
 import { ContributionTypeService } from '../../../../shared/services/api/contribution-type.service';
 import { ContributionService } from '../../../../shared/services/api/contribution.service';
 import { CurrencyService } from '../../../../shared/services/api/currency.service';
-import * as moment from 'moment';
+import moment from 'moment';
 import { ContributionType } from '../../../../shared/model/api/contribution-type';
 import { ContributionReceiptSetting } from '../../../../shared/model/api/contribution-receipt-setting';
 import { ContributionReceiptSettingService} from '../../../../shared/services/api/contribution-receipt-setting.service';

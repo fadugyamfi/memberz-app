@@ -11,7 +11,7 @@
   },
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:browser-esbuild",
       "options": {
         "allowedCommonJsDependencies": [
           "rxjs-compat",
@@ -60,7 +60,7 @@
         "outputPath": "dist/memberz-org",
         "index": "src/index.html",
         "main": "src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": ["zone.js", "@angular/localize/init"],
         "tsConfig": "tsconfig.app.json",
         "assets": [
           "src/favicon.ico",
@@ -76,9 +76,7 @@
           "./node_modules/moment-timezone-picker/assets/moment-timezone-picker.theme.scss"
         ],
         "scripts": [],
-        "vendorChunk": true,
         "extractLicenses": false,
-        "buildOptimizer": false,
         "sourceMap": true,
         "optimization": false,
         "namedChunks": true

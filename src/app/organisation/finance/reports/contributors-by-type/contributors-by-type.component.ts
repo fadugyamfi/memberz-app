@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { ContributionReceiptSetting } from '../../../../shared/model/api/contribution-receipt-setting';
 import { ContributionReceiptSettingService } from '../../../../shared/services/api/contribution-receipt-setting.service';
 import { FinanceReportingService } from '../../../../shared/services/api/finance-reporting.services';
-import * as moment from 'moment';
+import moment from 'moment';
 import Swal from 'sweetalert2';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { TranslateService } from '@ngx-translate/core';

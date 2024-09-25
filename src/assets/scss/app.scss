@@ -1,21 +1,21 @@
 @use "sass:math";
 
-@import 'node_modules/animate.css/animate.min.css';
-// @import "chartist/chartist";
-@import "node_modules/bootstrap/scss/bootstrap";
+/**
+ * 2024-09-25 Added // to start of node_modules paths because build was failing
+ * to resolve paths to files after switching to esbuild in project.json file
+ */
+@import '//node_modules/animate.css/animate.min.css';
+@import "//node_modules/bootstrap/scss/bootstrap.scss";
 @import "theme/variables";
 @import "style";
 @import "theme/responsive";
 @import "todo/todo";
-@import 'node_modules/ngx-toastr/toastr.css';
+@import '//node_modules/ngx-toastr/toastr.css';
 @import 'sweetalert/sweetalert2.scss';
-// @import "node_modules/dragula/dist/dragula.css";
 @import "sticky/sticky.scss";
-@import "node_modules/@swimlane/ngx-datatable/index.css";
-@import "node_modules/@swimlane/ngx-datatable/themes/bootstrap.css";
-// // @import "~angular-custom-tour/styles/main.css";
-@import 'node_modules/dropzone/dist/min/dropzone.min.css';
-@import 'node_modules/leaflet/dist/leaflet.css';
-// @import 'node_modules/angular-archwizard/styles/archwizard.scss';
+@import "//node_modules/@swimlane/ngx-datatable/index.css";
+@import "//node_modules/@swimlane/ngx-datatable/themes/bootstrap.css";
+@import '//node_modules/dropzone/dist/min/dropzone.min.css';
+@import '//node_modules/leaflet/dist/leaflet.css';
 
 @import 'ngx-toastr/toastr';

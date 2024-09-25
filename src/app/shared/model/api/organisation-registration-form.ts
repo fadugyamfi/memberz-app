@@ -1,6 +1,6 @@
 
 import { Router } from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 import { CustomFieldConfig } from '../../components/forms/custom-field/custom-field.component';
 import { AppModel } from './app.model';
 
