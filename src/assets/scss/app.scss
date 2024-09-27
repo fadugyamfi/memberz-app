@@ -1,9 +1,5 @@
 @use "sass:math";
 
-/**
- * 2024-09-25 Added // to start of node_modules paths because build was failing
- * to resolve paths to files after switching to esbuild in project.json file
- */
 @import 'animate.css/animate.min.css';
 @import "bootstrap/scss/bootstrap.scss";
 @import "theme/variables";
