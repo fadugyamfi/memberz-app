@@ -1,12 +1,12 @@
 import { Directive, HostListener } from '@angular/core';
 declare var require: any
-var screenfull = require('screenfull');
+import screenfull from 'screenfull';
 @Directive({
 	selector: '[toggleFullscreen]'
 })
 export class ToggleFullscreenDirective {
 	@HostListener('click') onClick() {
-		if (screenfull.enabled) {
+		if (screenfull.isEnabled) {
 			screenfull.toggle();
 		}
 	}
