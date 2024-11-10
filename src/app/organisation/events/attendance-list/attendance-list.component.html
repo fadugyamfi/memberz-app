@@ -11,7 +11,7 @@
 
     <section>
       <button class="btn btn-sm btn-outline-dark btn-pill m-r-10" ngxPrint printSectionId="attendeesList"
-              [useExistingCss]="true" [printTitle]="printTitle">
+        [useExistingCss]="true" [printTitle]="printTitle">
         <i class="fa fa-print"></i> {{ 'Print' | translate }}
 
       </button>
@@ -52,15 +52,19 @@
           <tr *ngIf="attendee.organisation_event_session_id == session.id">
             <td class="text-end">{{ row + attendeeService?.pagingMeta?.from }}.</td>
             <td>
-              <a href="javascript:void(0)" viewProfile [membershipId]="attendee.membership?.id"
-                 class="d-print-none">{{ attendee.member.lastThenFirstName() }}</a>
+              <a href="javascript:void(0)" viewProfile [membershipId]="attendee.membership?.id" class="d-print-none d-flex align-items-center">
+                <app-profile-image [membership]="attendee.member" [size]="32" [thumbnail]="true" class="me-2"></app-profile-image>
+
+                {{ attendee.member.lastThenFirstName() }}
+              </a>
               <span class="d-print-inline-block d-none">{{ attendee.member.lastThenFirstName() }}</span>
             </td>
             <td class="d-print-none">{{ attendee.category?.name }}</td>
             <td>{{ attendee.member.mobile_number }}</td>
             <td class="d-print-none">
-              <a href="mailto:{{ attendee.member.email}}" *ngIf="attendee.member.email"
-                 class="d-print-none">{{ attendee.member.email }}</a>
+              <a href="mailto:{{ attendee.member.email}}" *ngIf="attendee.member.email" class="d-print-none">
+                {{ attendee.member.email }}
+              </a>
               <span class="d-print-inline-block d-none">{{ attendee.member.email }}</span>
             </td>
             <td>{{ attendee.member.residential_address }}</td>

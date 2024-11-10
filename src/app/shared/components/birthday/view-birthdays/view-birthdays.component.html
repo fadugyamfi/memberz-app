@@ -61,8 +61,10 @@
               {{ row + organisationMemberService?.pagingMeta?.from }}.
             </td>
             <td>
-              <a href="javascript:void(0)" viewProfile [membership]="membership">
-                {{ membership.member.first_name }} {{ membership.member.last_name }}
+              <a href="javascript:void(0)" viewProfile [membership]="membership" class="d-flex align-items-center">
+                <app-profile-image [membership]="membership.member" [size]="32" [thumbnail]="true" class="me-2"></app-profile-image>
+
+                {{ membership.member.firstThenLastName() }}
               </a>
             </td>
             <td>{{ membership.category.name }}</td>

@@ -76,7 +76,6 @@
     "ngx-ui-switch": "^14.0.3",
     "npm": "^10.8.3",
     "rxjs": "^7.4.0",
-    "rxjs-compat": "~6.5.5",
     "screenfull": "^5.0.1",
     "sweetalert2": "^9.7.2",
     "xlsx": "^0.17.4",
@@ -97,7 +96,6 @@
     "@types/leaflet": "^1.5.8",
     "@types/mousetrap": "^1.6.3",
     "@types/node": "18.16.9",
-    "codelyzer": "~5.2.1",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.3.2",
@@ -111,7 +109,6 @@
     "sass": "^1.62.1",
     "ts-node": "~8.6.2",
     "tslib": "^2.3.0",
-    "tslint": "~6.1.0",
     "typescript": "~5.4.0",
     "webpack-dev-server": "^4.5.0"
   }
