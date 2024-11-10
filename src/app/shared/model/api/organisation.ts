@@ -10,8 +10,8 @@ export class Organisation extends AppModel {
   public email: string;
   public phone: string;
   public logo: string;
-  private _activeSubscription: OrganisationSubscription;
-  private _organisationType: OrganisationType;
+  private _activeSubscription: OrganisationSubscription | null;
+  private _organisationType: OrganisationType | null;
   public country_id: number;
   public currency_id: number;
   public slug: string;
@@ -29,7 +29,7 @@ export class Organisation extends AppModel {
     this._activeSubscription = value ? new OrganisationSubscription(value) : null;
   }
 
-  get active_subscription(): OrganisationSubscription {
+  get active_subscription(): OrganisationSubscription | null {
     return this._activeSubscription;
   }
 
@@ -37,7 +37,7 @@ export class Organisation extends AppModel {
     this._organisationType = value ? new OrganisationType(value) : null;
   }
 
-  get organisation_type(): OrganisationType {
+  get organisation_type(): OrganisationType | null {
     return this._organisationType;
   }
 }
