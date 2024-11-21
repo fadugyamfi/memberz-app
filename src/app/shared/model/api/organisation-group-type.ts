@@ -6,17 +6,17 @@ export class OrganisationGroupType extends AppModel {
 
   
   public name: string;
-  public orgGroups: OrganisationGroup[];
+  public orgGroups ?: OrganisationGroup[];
 
   constructor(data) {
     super(data);
   }
 
   set organisation_groups(groups) {
-    this.orgGroups = groups ? groups.map(group => new OrganisationGroup(group)) : null;
+    this.orgGroups = groups ? groups.map(group => new OrganisationGroup(group)) : undefined;
   }
 
-  get organisation_groups(): OrganisationGroup[] {
+  get organisation_groups(): OrganisationGroup[] | undefined {
     return this.orgGroups;
   }
 }

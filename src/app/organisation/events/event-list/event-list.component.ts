@@ -34,7 +34,7 @@ export class EventListComponent implements OnInit {
   public searchForm: UntypedFormGroup;
   public editorForm: UntypedFormGroup;
 
-  public defaultCalendar: OrganisationCalendar;
+  public defaultCalendar?: OrganisationCalendar;
 
   constructor(
     public eventService: OrganisationEventService,
@@ -159,7 +159,7 @@ export class EventListComponent implements OnInit {
   /**
    *
    */
-  showEditorModal(event: OrganisationEvent = null) {
+  showEditorModal(event ?: OrganisationEvent) {
     this.setupEditorForm();
 
     if (event) {

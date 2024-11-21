@@ -23,7 +23,7 @@ export class SelectCountryControlComponent implements OnInit, OnDestroy {
 
   private countrySub: Subscription;
 
-  private _value = '';
+  private _value: string | null = '';
   public disabled = false;
   public onChange = (_: any) => { };
   public onTouched = () => { };

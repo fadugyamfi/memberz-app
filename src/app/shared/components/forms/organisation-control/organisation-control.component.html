@@ -1,0 +1,23 @@
+<div class="d-flex align-items-center">
+  <div class="flex-shrink-0 m-r-10">
+    <img [src]="organisation?.logo" default='assets/images/user/user.png'
+         class="img-thumbnail rounded-circle img-40" />
+  </div>
+  <div class="flex-grow-1 position-relative">
+    <input type="text" class="form-control" [ngbTypeahead]="searchOrganisation" [resultTemplate]="rt"
+           [value]="organisation?.name" [inputFormatter]="formatter"
+           placeholder="Enter Organisation Name" #input (selectItem)="setSelectedOrganisation($event, input)"
+           [readonly]="readonly" />
+
+    <span class="position-absolute end-15 top-7" *ngIf="searching">
+      <i class="fa fa-spin fa-circle-o-notch text-primary"></i>
+    </span>
+
+    <ng-template #rt let-r="result" let-t="term">
+      <div class="d-flex align-items-center">
+        <ngx-avatars [src]="r?.logo" [name]="r?.name" class="m-r-10" size="40"></ngx-avatars>
+        <ngb-highlight [result]="r?.name" [term]="t"></ngb-highlight>
+      </div>
+    </ng-template>
+  </div>
+</div>

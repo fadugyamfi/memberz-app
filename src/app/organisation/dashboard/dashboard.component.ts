@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import moment from 'moment';
-import { catchError, map } from 'rxjs';
+import { catchError, map, Observable } from 'rxjs';
 import { OrganisationMember } from '../../shared/model/api/organisation-member';
 import { OrganisationMemberService } from '../../shared/services/api/organisation-member.service';
 @Component({
@@ -10,7 +10,7 @@ import { OrganisationMemberService } from '../../shared/services/api/organisatio
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  public todaysBirthdays$;
+  public todaysBirthdays$: Observable<any>;
 
   constructor(
     public membershipService: OrganisationMemberService

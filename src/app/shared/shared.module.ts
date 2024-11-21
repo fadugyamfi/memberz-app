@@ -92,6 +92,7 @@ import { ContributionService } from './services/api/contribution.service';
 import { FinanceDashboardService } from './services/api/finance-dashboard.service';
 import { CountToDirective } from './directives/count-to.directive';
 import { PrintContentDirective } from './directives/print-content.directive';
+import { OrganisationControlComponent } from './components/forms/organisation-control/organisation-control.component';
 
 const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
@@ -115,6 +116,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     OrganisationSidebarComponent,
     SubscriptionStatusComponent,
     MemberControlComponent,
+    OrganisationControlComponent,
     SmsMessengerComponent,
     InvoiceComponent,
     ImageCropperComponent,
@@ -195,6 +197,7 @@ const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
     NgbModule,
     NgxPrintModule,
     MemberControlComponent,
+    OrganisationControlComponent,
     SmsMessengerComponent,
     InvoiceComponent,
     ImageCropperModule,

@@ -27,14 +27,14 @@ export class MemberControlComponent {
   @Input() readonly = false;
   @Output() selected = new EventEmitter();
 
-  private _membership: OrganisationMember;
+  private _membership?: OrganisationMember | null;
   public searching = false;
   public searchFailed = false;
 
   private value = '';
-  private inputEl = null;
+  private inputEl?: any = null;
 
-  public model = null;
+  public model?: string | null;
   public disabled = false;
   public onChange = (_: any) => { };
   public onTouched = () => { };
@@ -44,15 +44,15 @@ export class MemberControlComponent {
   ) { }
 
   @Input()
-  set membership(value: OrganisationMember) {
+  set membership(value: OrganisationMember | null) {
     this._membership = value;
 
     if ( this.membership ) {
-      this.model = this.membership.member.firstThenLastName();
+      this.model = this.membership.member?.firstThenLastName();
     }
   }
 
-  get membership(): OrganisationMember {
+  get membership(): OrganisationMember | null | undefined {
     return this._membership;
   }
 
@@ -110,7 +110,7 @@ export class MemberControlComponent {
   setSelectedMember(data, input) {
     this.inputEl = input;
     this.membership = data.item;
-    this.setValue( this.returnMembershipId ? this.membership.id : this.membership.member_id);
+    this.setValue( this.returnMembershipId ? this.membership?.id : this.membership?.member_id);
     this.selected.emit(this.membership);
   }
 

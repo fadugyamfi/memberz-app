@@ -11,7 +11,7 @@ export class OrganisationSubscription extends AppModel {
   public organisation_id: number;
   public start_dt: string;
   public end_dt: string;
-  public _subscription_type: SubscriptionType;
+  public _subscription_type: SubscriptionType | null;
   public subscription_type_id: number;
   public _organisation_invoice: any;
   public organisation_invoice_id: number;
@@ -96,7 +96,7 @@ export class OrganisationSubscription extends AppModel {
   nextRenewalCost(sub_length: number) {
     const length = sub_length === 12 ? sub_length - 2 : (sub_length === 6 ? sub_length - 1 : sub_length);
 
-    return this.subscription_type.renewal_price * length;
+    return this.subscription_type ? this.subscription_type.renewal_price * length : 0;
   }
 
   nextRenewalDate(sub_length: number) {

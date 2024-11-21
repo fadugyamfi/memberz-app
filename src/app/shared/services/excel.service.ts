@@ -23,8 +23,8 @@ export class ExcelService {
   private extension = '.xlsx';
   private moduleHeader = [];
 
-  private importedData = [];
-  private importedHeaders = [];
+  private importedData: AOA = [];
+  private importedHeaders: string[] = [];
   private importedMultiSheetData = {};
 
   constructor(
@@ -99,7 +99,7 @@ export class ExcelService {
   }
 
   private extractHeaders(sheet) {
-    const headers = [];
+    const headers: string[] = [];
     const range = XLSX.utils.decode_range(sheet['!ref']);
     let column;
     const row = range.s.r; // start in the first row

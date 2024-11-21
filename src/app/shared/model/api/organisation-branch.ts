@@ -11,7 +11,8 @@ export class OrganisationBranch extends AppModel {
   public member_id: number;
   public _organisation: Organisation | null;
   public _organisation_branch: Organisation | null;
-  public _member: Member | null;
+  public _primary_contact: Member | null;
+  public _secondary_contact: Member | null;
   public _tags: Tag[] | null;
 
   constructor(data) {
@@ -34,12 +35,20 @@ export class OrganisationBranch extends AppModel {
     this._organisation_branch = value ? new Organisation(value) : null;
   }
 
-  public get member(): Member | null {
-    return this._member;
+  public get primary_contact(): Member | null {
+    return this._primary_contact;
   }
 
-  public set member(value: any) {
-    this._member = value ? new Member(value) : null;
+  public set primary_contact(value: any) {
+    this._primary_contact = value ? new Member(value) : null;
+  }
+
+  public get secondary_contact(): Member | null {
+    return this._secondary_contact;
+  }
+
+  public set secondary_contact(value: any) {
+    this._secondary_contact = value ? new Member(value) : null;
   }
 
   public get tags(): Tag[] | null {

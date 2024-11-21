@@ -5,7 +5,7 @@ import { Member } from './member';
 export class MemberAccount extends AppModel {
 
   
-  public _member: Member;
+  public _member: Member|null;
   public username: string;
   public deleted: boolean;
   public active: boolean;

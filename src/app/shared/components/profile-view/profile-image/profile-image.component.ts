@@ -23,6 +23,10 @@ export class ProfileImageComponent implements OnInit {
   @Input()
   public thumbnail = false;
 
+  @Input()
+  public name?: string;
+
+  @Input()
   public profileImageUrl: any;
   public imageUploadProgress = 0;
   public uploading = false;
@@ -34,9 +38,16 @@ export class ProfileImageComponent implements OnInit {
 
   ngOnInit(): void {
     this.setupImageUploadEvents();
-    this.profileImageUrl = this.thumbnail
-      ? this.membership.member?.thumbnail()
-      : this.membership.member?.image();
+
+    if( !this.profileImageUrl && (this.thumbnail || this.membership) ) {
+      this.profileImageUrl = this.thumbnail
+        ? this.membership?.member?.thumbnail()
+        : this.membership?.member?.image();
+    }
+
+    if( this.membership ) {
+      this.name = this.membership.name()
+    }
   }
 
   setupImageUploadEvents() {

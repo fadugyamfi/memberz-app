@@ -1,0 +1,249 @@
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-primary btn-sm m-r-10" (click)="showEditorModal()">
+                    <i class="fa fa-plus"></i> {{'Add Branch' | translate}}
+                </button>
+            </div>
+
+            <div class="col-md-6 text-end">
+                <button class="btn btn-outline-info btn-sm m-r-10" (click)="showSearchModal()">
+                    <i class="fa fa-search"></i> {{'Find Branch' | translate}}
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+
+    @if ((branches$ | async); as branches ) {
+
+    @if( branches.length ) {
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th colspan="2">{{'Name' | translate}}</th>
+                <th>{{'Phone Number' | translate}}</th>
+                <th>{{'Primary Contact' | translate}}</th>
+                <th>{{'Secondary Contact' | translate}}</th>
+                <th class="text-center">{{'Actions' | translate}}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @for (orgBranch of branches; track $index; let row = $index) {
+            <tr>
+                <td class="text-end">{{ row + branchService?.pagingMeta?.from }}.</td>
+                <td>{{ orgBranch.branch.name }}</td>
+                <td [noWrap]="true">{{ orgBranch.branch.phone }}</td>
+                <td [noWrap]="true">
+                    @if (orgBranch.primary_contact) {
+                    <a href="javascript:void(0)" class="d-flex align-items-center">
+                        <app-profile-image [name]="orgBranch.primary_contact.name"
+                            [profileImageUrl]="orgBranch.primary_contact?.photo?.thumbnail" [size]="32"
+                            [thumbnail]="true" class="me-2">
+                        </app-profile-image>
+                        {{ orgBranch.primary_contact.name }}
+                    </a>
+                    } @else {
+                    <span>N/A</span>
+                    }
+                </td>
+                <td [noWrap]="true">
+
+                    @if ( orgBranch.secondary_contact ) {
+                    <a href="javascript:void(0)" class="d-flex align-items-center">
+                        <app-profile-image [name]="orgBranch.secondary_contact.name"
+                            [profileImageUrl]="orgBranch.secondary_contact?.photo?.thumbnail" [size]="32"
+                            [thumbnail]="true" class="me-2">
+                        </app-profile-image>
+                        {{ orgBranch.secondary_contact.name }}
+                    </a>
+                    } @else {
+                    <span>N/A</span>
+                    }
+
+                </td>
+
+                <td class="text-center" [noWrap]="true">
+
+                </td>
+            </tr>
+            }
+
+        </tbody>
+    </table>
+    } @else if( !branchService.fetching ) {
+    <div class="m-t-30 m-b-30 text-center" *ngIf="!branchService.fetching">
+        <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
+        <h4 class="fw-bold">{{'No branches Found' | translate}}</h4>
+        <h6>{{'Please search for branches or add a new one to display results here' | translate}}</h6>
+    </div>
+    }
+    } @else {
+    <app-loading-rotate-dashed></app-loading-rotate-dashed>
+    }
+
+    <div class="card-footer">
+        <app-pagination [service]="branchService" (paginate)="onPaginate($event)"></app-pagination>
+    </div>
+</div>
+
+<ng-template #searchModal let-modal>
+    <form (submit)="onSearch($event)" class="form form-horizontal theme-form" [formGroup]="searchForm">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">{{'Find branches' | translate}}</h4>
+            <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group row">
+                <label class="col-sm-4 col-form-label">{{'Name' | translate}}</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" placeholder="e.g. Default" formControlName="name_like" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">{{'Search' | translate}}</button>
+            <button type="reset" class="btn btn-outline-info">{{'Clear' | translate}}</button>
+            <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">
+                {{'Cancel' | translate }}
+            </button>
+        </div>
+    </form>
+</ng-template>
+
+<ng-template #editorModal let-modal>
+    <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="editorForm">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-basic-title">{{'Event Editor' | translate}}</h5>
+            <!-- <p>Search your membership database and find members by any of the parameters below</p> -->
+            <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group row">
+                <div class="col-sm-6 text-center">
+                    <button class="btn btn-lg btn-outline-primary py-3" (click)="setModeToConnecting()">
+                        Connect Existing Organisation
+                    </button>
+                </div>
+                <div class="col-sm-6 text-center">
+                    <button class="btn btn-lg btn-outline-success py-3" (click)="setModeToCreating()">
+                        Create New Organisation
+                    </button>
+                </div>
+            </div>
+
+            <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="editorForm">
+                @if ( isConnecting() ) {
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        {{'Find Organisation' | translate}}
+                    </label>
+                    <div class="col-sm-9">
+                        <app-organisation-control formControlName="branch_organisation_id"
+                            (selected)="setSelectedBranch($event)"></app-organisation-control>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        {{'Primary Contact' | translate}}
+                    </label>
+                    <div class="col-sm-9">
+                        <div class="row align-items-center">
+                            <div class="col-sm-10">
+                                <app-member-control [member]="branchOrganisation?.member_account?.member" [readonly]="true">
+
+                                </app-member-control>
+                                <!-- <div class="d-flex align-items-center">
+                                    <aside class="me-2" style="height: 48px;">
+                                        <ngx-avatars [name]="branchOrganisation?.member_account?.name()"
+                                             size="36"></ngx-avatars>
+                                    </aside>
+                                    <section class="border border-dotted rounded p-2 px-3 flex-grow-1">
+                                        <span class="d-block">{{ branchOrganisation?.member_account?.name() }}</span>
+                                        <span class="d-block">{{
+                                            branchOrganisation?.member_account?.member?.mobile_number }}</span>
+                                    </section>
+                                </div> -->
+                            </div>
+                            <div class="col-sm-2">
+                                <a href="#" class="text-primary">
+                                    {{ 'Change' | translate }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">
+                        {{'Secondary Contact' | translate}}
+                    </label>
+                    <div class="col-sm-9">
+                        <div class="row align-items-center">
+                            <div class="col-sm-10">
+                                <app-member-control></app-member-control>
+                                <!-- <div class="d-flex align-items-center">
+                                    <aside class="me-2" style="height: 48px;">
+                                        <ngx-avatars [name]="branchOrganisation?.member_account?.name()"
+                                             size="36"></ngx-avatars>
+                                    </aside>
+                                    <section class="border border-dotted rounded p-2 px-3 flex-grow-1">
+                                        <span class="d-block">{{ branchOrganisation?.member_account?.name() }}</span>
+                                        <span class="d-block">{{
+                                            branchOrganisation?.member_account?.member?.mobile_number }}</span>
+                                    </section>
+                                </div> -->
+                            </div>
+                            <div class="col-sm-2">
+                                <a href="#" class="text-primary">
+                                    {{ 'Change' | translate }}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+
+                @if ( isCreating() ) {
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">
+                        {{'Name' | translate}}
+                    </label>
+                    <div class="col-sm-10">
+
+                    </div>
+                </div>
+                }
+            </form>
+        </div>
+
+        <div class="modal-footer">
+            @if (branchService?.requesting) {
+            <span class="m-r-20">
+                <i class="fa fa-spin fa-circle-o-notch"></i>
+                {{'Saving' | translate}}...
+            </span>
+            }
+
+            <button type="submit" class="btn btn-primary">
+                {{'Save Changes' | translate}}
+            </button>
+            <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">
+                {{'Cancel' | translate}}
+            </button>
+        </div>
+    </form>
+</ng-template>

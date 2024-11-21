@@ -11,16 +11,16 @@ export class OrganisationMember extends AppModel {
   
   public uuid: string;
   public selected = false;
-  public _member: Member;
+  public _member: Member | null;
   public organisation_no: string;
   public organisation_id: number;
   public approved: number;
   public active: number;
   public member_id: number;
-  public _organisation_member_category: OrganisationMemberCategory;
-  public _organisation_registration_form: OrganisationRegistrationForm;
-  public event_attendee: OrganisationEventAttendee;
-  public last_attendance: OrganisationEventAttendee;
+  public _organisation_member_category: OrganisationMemberCategory | null;
+  public _organisation_registration_form: OrganisationRegistrationForm | null;
+  public event_attendee?: OrganisationEventAttendee;
+  public last_attendance?: OrganisationEventAttendee;
   public last_contribution: Contribution;
 
   constructor(data) {
@@ -47,7 +47,7 @@ export class OrganisationMember extends AppModel {
     this._member = value ? new Member(value) : null;
   }
 
-  get member(): Member {
+  get member(): Member | null {
     return this._member;
   }
 

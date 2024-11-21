@@ -51,6 +51,14 @@ const routes: Routes = [
         }
       },
       {
+        path: 'branches',
+        loadChildren: () => import('./branches/branches.module').then(m => m.BranchesModule),
+        canActivate: [ActiveSubscriptionGuard],
+        data: {
+          breadcrumb: 'Branches'
+        }
+      },
+      {
         path: 'settings',
         loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),
         data: {
