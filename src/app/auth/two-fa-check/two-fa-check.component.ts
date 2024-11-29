@@ -6,7 +6,7 @@ import { StorageService } from '../../shared/services/storage.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../shared/services/api/auth.service';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import { NgIf } from '@angular/common';
+
 import { TawkChatComponent } from '../../components/tawk-chat/tawk-chat.component';
 
 
@@ -18,7 +18,7 @@ type FormErrors = { [u in Field]: string };
     templateUrl: './two-fa-check.component.html',
     styleUrls: ['./two-fa-check.component.scss'],
     standalone: true,
-    imports: [RouterLink, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, NgIf, TawkChatComponent, TranslateModule]
+    imports: [RouterLink, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TawkChatComponent, TranslateModule]
 })
 export class TwoFaCheckComponent implements OnInit {
 

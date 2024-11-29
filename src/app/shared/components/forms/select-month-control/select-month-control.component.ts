@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
-import { NgFor, SlicePipe } from '@angular/common';
+import { SlicePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 export const MONTH_CONTROL_ACCESSOR: any = {
@@ -16,7 +16,7 @@ export const MONTH_CONTROL_ACCESSOR: any = {
     styleUrls: ['./select-month-control.component.scss'],
     providers: [MONTH_CONTROL_ACCESSOR],
     standalone: true,
-    imports: [FormsModule, NgFor, SlicePipe, TranslateModule]
+    imports: [FormsModule, SlicePipe, TranslateModule]
 })
 export class SelectMonthControlComponent implements OnInit {
 

@@ -9,7 +9,7 @@ import { OrganisationMember } from '../../../../../shared/model/api/organisation
 import { MemberRelationTypeService } from '../../../../../shared/services/api/member-relation-type.service';
 import { MemberRelationService } from '../../../../../shared/services/api/member-relation.service';
 import { EventsService } from '../../../../../shared/services/events.service';
-import { NgIf, NgFor } from '@angular/common';
+
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { MemberControlComponent } from '../../../forms/member-control/member-control.component';
 
@@ -27,7 +27,7 @@ interface RelationEditorOptions {
     templateUrl: './family-member-editor.component.html',
     styleUrls: ['./family-member-editor.component.scss'],
     standalone: true,
-    imports: [FormsModule, NgIf, ReactiveFormsModule, NgFor, UiSwitchModule, MemberControlComponent, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, MemberControlComponent, TranslateModule]
 })
 export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
 

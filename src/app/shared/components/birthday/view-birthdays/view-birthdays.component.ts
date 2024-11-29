@@ -15,7 +15,7 @@ import { SelectMonthControlComponent } from '../../forms/select-month-control/se
 import { SelectMembershipCategoryControlComponent } from '../../forms/select-membership-category-control/select-membership-category-control.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPrintDirective } from 'ngx-print';
-import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { NoDataAvailableComponent } from '../../forms/no-data-available/no-data-available.component';
 import { ViewProfileDirective } from '../../../directives/view-profile.directive';
 import { ProfileImageComponent } from '../../profile-view/profile-image/profile-image.component';
@@ -27,7 +27,7 @@ import { LoadingRotateDashedComponent } from '../../forms/loading-rotate-dashed/
     templateUrl: './view-birthdays.component.html',
     styleUrls: ['./view-birthdays.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, SelectMonthControlComponent, SelectMembershipCategoryControlComponent, NgbDropdownModule, NgxPrintDirective, NgIf, NoDataAvailableComponent, NgFor, ViewProfileDirective, ProfileImageComponent, PaginationComponent, LoadingRotateDashedComponent, AsyncPipe, DatePipe, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, SelectMonthControlComponent, SelectMembershipCategoryControlComponent, NgbDropdownModule, NgxPrintDirective, NoDataAvailableComponent, ViewProfileDirective, ProfileImageComponent, PaginationComponent, LoadingRotateDashedComponent, AsyncPipe, DatePipe, TranslateModule]
 })
 export class ViewBirthdaysComponent implements OnInit {
 

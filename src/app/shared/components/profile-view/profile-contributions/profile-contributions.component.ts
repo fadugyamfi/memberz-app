@@ -4,7 +4,7 @@ import { PageEvent } from '../../../../shared/components/pagination/pagination.c
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { ContributionService } from '../../../../shared/services/api/contribution.service';
 import { Contribution } from '../../../model/api/contribution';
-import { NgIf, NgFor, CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { PaginationComponent } from '../../pagination/pagination.component';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './profile-contributions.component.html',
     styleUrls: ['./profile-contributions.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, PaginationComponent, CurrencyPipe, DatePipe, TranslateModule]
+    imports: [PaginationComponent, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class ProfileContributionsComponent implements OnInit, OnDestroy {
 

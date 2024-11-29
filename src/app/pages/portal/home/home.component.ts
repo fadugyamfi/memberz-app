@@ -15,7 +15,7 @@ import { OrganisationAccountService } from '../../../shared/services/api/organis
 import { SystemSettingService } from '../../../shared/services/api/system-setting.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment';
-import { NgIf, NgFor, NgClass, DecimalPipe } from '@angular/common';
+import { NgClass, DecimalPipe } from '@angular/common';
 import { AvatarModule } from 'ngx-avatars';
 import { OrganisationEditorComponent } from './organisation-editor/organisation-editor.component';
 
@@ -24,7 +24,7 @@ import { OrganisationEditorComponent } from './organisation-editor/organisation-
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, AvatarModule, NgClass, PaginationComponent, OrganisationEditorComponent, DecimalPipe, TranslateModule]
+    imports: [AvatarModule, NgClass, PaginationComponent, OrganisationEditorComponent, DecimalPipe, TranslateModule]
 })
 export class HomeComponent implements OnInit, OnDestroy {
 

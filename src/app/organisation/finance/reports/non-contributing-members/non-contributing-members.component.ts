@@ -3,7 +3,7 @@ import { FinanceReportingService } from 'src/app/shared/services/api/finance-rep
 import { Subscription } from 'rxjs';
 import { SelectYearControlComponent } from '../../../../shared/components/forms/select-year-control/select-year-control.component';
 import { FormsModule } from '@angular/forms';
-import { NgIf, NgFor } from '@angular/common';
+
 import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { NoDataAvailableComponent } from '../../../../shared/components/forms/no-data-available/no-data-available.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './non-contributing-members.component.html',
     styleUrls: ['./non-contributing-members.component.scss'],
     standalone: true,
-    imports: [SelectYearControlComponent, FormsModule, NgIf, LoadingRotateDashedComponent, NoDataAvailableComponent, NgFor, TranslateModule]
+    imports: [SelectYearControlComponent, FormsModule, LoadingRotateDashedComponent, NoDataAvailableComponent, TranslateModule]
 })
 export class NonContributingMembersComponent implements OnInit {
 

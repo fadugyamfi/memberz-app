@@ -2,16 +2,18 @@
   <thead>
     <tr>
       <td>
-        <app-print-header
-          *ngIf="printService.printMetaData?.header"
-        ></app-print-header>
+        @if (printService.printMetaData?.header) {
+          <app-print-header
+          ></app-print-header>
+        }
 
-        <h5
-          class="text-center m-b-20"
-          *ngIf="printService.printMetaData?.title"
-        >
-          {{ printService.printMetaData.title | titlecase }}
-        </h5>
+        @if (printService.printMetaData?.title) {
+          <h5
+            class="text-center m-b-20"
+            >
+            {{ printService.printMetaData.title | titlecase }}
+          </h5>
+        }
       </td>
     </tr>
   </thead>
@@ -26,11 +28,15 @@
     </div>
   </tbody>
 
-  <tfoot *ngIf="printService.printMetaData?.footer">
-    <div class="footer-space"></div>
-  </tfoot>
+  @if (printService.printMetaData?.footer) {
+    <tfoot>
+      <div class="footer-space"></div>
+    </tfoot>
+  }
 </table>
 
-<div class="footer" *ngIf="printService.printMetaData?.footer">
-  <app-print-footer></app-print-footer>
-</div>
+@if (printService.printMetaData?.footer) {
+  <div class="footer">
+    <app-print-footer></app-print-footer>
+  </div>
+}

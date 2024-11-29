@@ -16,64 +16,68 @@
       </div>
     </div>
     <div class="nav-right col">
-      <ul class="nav-menus"  [ngClass]="{ open: openNav }"> 
+      <ul class="nav-menus"  [ngClass]="{ open: openNav }">
         <li>
           <form class="form-inline search-form">
             <div class="form-group">
               <input class="form-control-plaintext" [class.open]="isOpenMobile" [(ngModel)]="text"
-                     [ngModelOptions]="{ standalone: true }" (keyup)="searchTerm(text)" type="text" autocomplete="off"
-                     placeholder="Quick Menu Search.." />
-              <span class="d-sm-none mobile-search">
-                <app-feather-icons [icon]="'search'" (click)="isOpenMobile = !isOpenMobile"></app-feather-icons>
-              </span>
-              <div class="Typeahead-menu" [class.is-open]="searchResult" *ngIf="menuItems?.length" id="search-outer">
-                <div class="ProfileCard u-cf" *ngFor="let menuItem of menuItems | slice: 0:8">
-                  <div class="ProfileCard-avatar">
-                    <app-feather-icons [icon]="menuItem.icon" class="header-search"></app-feather-icons>
+                [ngModelOptions]="{ standalone: true }" (keyup)="searchTerm(text)" type="text" autocomplete="off"
+                placeholder="Quick Menu Search.." />
+                <span class="d-sm-none mobile-search">
+                  <app-feather-icons [icon]="'search'" (click)="isOpenMobile = !isOpenMobile"></app-feather-icons>
+                </span>
+                @if (menuItems?.length) {
+                  <div class="Typeahead-menu" [class.is-open]="searchResult" id="search-outer">
+                    @for (menuItem of menuItems | slice: 0:8; track menuItem) {
+                      <div class="ProfileCard u-cf">
+                        <div class="ProfileCard-avatar">
+                          <app-feather-icons [icon]="menuItem.icon" class="header-search"></app-feather-icons>
+                        </div>
+                        <div class="ProfileCard-details">
+                          <div class="ProfileCard-realName">
+                            <a [routerLink]="menuItem?.path" class="realname" (click)="removeFix()">{{ menuItem?.title }}</a>
+                          </div>
+                        </div>
+                      </div>
+                    }
                   </div>
-                  <div class="ProfileCard-details">
-                    <div class="ProfileCard-realName">
-                      <a [routerLink]="menuItem?.path" class="realname" (click)="removeFix()">{{ menuItem?.title }}</a>
+                }
+                <div class="Typeahead-menu" [class.is-open]="searchResultEmpty">
+                  <div class="tt-dataset tt-dataset-0">
+                    <div class="EmptyMessage">
+                      {{"Opps!! There are no result found." | translate}}
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="Typeahead-menu" [class.is-open]="searchResultEmpty">
-                <div class="tt-dataset tt-dataset-0">
-                  <div class="EmptyMessage">
-                   {{"Opps!! There are no result found." | translate}}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
-        </li>
-        <li>
-          <a href="javascript:void(0)" class="text-dark" toggleFullscreen>
-            <app-feather-icons [icon]="'maximize'"></app-feather-icons>
-          </a>
-        </li>
-        <li class="onhover-dropdown">
-          <a class="txt-dark" href="javascript:void(0)">
-            <h6>{{ currentLang | uppercase }}</h6>
-          </a>
-          <ul class="language-dropdown onhover-show-div p-20">
-            <li>
-              <a href="javascript:void(0)" data-lng="en" (click)="changeLanguage('en')"><i
-                   class="flag-icon flag-icon-is"></i> {{'English' | translate }}</a>
-            </li>
-            <!-- <li><a href="javascript:void(0)" data-lng="es" (click)="changeLanguage('es')"><i
-                   class="flag-icon flag-icon-um"></i> Spanish</a></li>
+            </form>
+          </li>
+          <li>
+            <a href="javascript:void(0)" class="text-dark" toggleFullscreen>
+              <app-feather-icons [icon]="'maximize'"></app-feather-icons>
+            </a>
+          </li>
+          <li class="onhover-dropdown">
+            <a class="txt-dark" href="javascript:void(0)">
+              <h6>{{ currentLang | uppercase }}</h6>
+            </a>
+            <ul class="language-dropdown onhover-show-div p-20">
+              <li>
+                <a href="javascript:void(0)" data-lng="en" (click)="changeLanguage('en')"><i
+                class="flag-icon flag-icon-is"></i> {{'English' | translate }}</a>
+              </li>
+              <!-- <li><a href="javascript:void(0)" data-lng="es" (click)="changeLanguage('es')"><i
+            class="flag-icon flag-icon-um"></i> Spanish</a></li>
             <li><a href="javascript:void(0)" data-lng="pt" (click)="changeLanguage('pt')"><i
-                   class="flag-icon flag-icon-uy"></i> Portuguese</a></li> -->
+            class="flag-icon flag-icon-uy"></i> Portuguese</a></li> -->
             <li>
               <a href="javascript:void(0)" data-lng="fr" (click)="changeLanguage('fr')"><i
-                   class="flag-icon flag-icon-nz"></i> {{'French' | translate}}</a>
+              class="flag-icon flag-icon-nz"></i> {{'French' | translate}}</a>
             </li>
 
             <li>
               <a href="javascript:void(0)" data-lng="ak" (click)="changeLanguage('ak')"><i
-                   class="flag-icon flag-icon-gh"></i> {{'Akan (Twi)' | translate}}</a>
+              class="flag-icon flag-icon-gh"></i> {{'Akan (Twi)' | translate}}</a>
             </li>
           </ul>
         </li>
@@ -82,29 +86,33 @@
         </li>
         <!-- HIDDEN CHAT TOGGLE -->
         <!-- <li>
-          <a>
-            <app-feather-icons class="right_side_toggle" [icon]="'message-circle'" (click)="right_side_bar()">
+        <a>
+          <app-feather-icons class="right_side_toggle" [icon]="'message-circle'" (click)="right_side_bar()">
             </app-feather-icons><span class="dot"></span>
           </a>
         </li> -->
 
         <li class="onhover-dropdown">
-          <div class="d-flex align-items-center" *ngIf="!authService.userData as user">
-            <img class="align-self-center pull-right img-50 rounded-circle" src="assets/images/dashboard/user.png"
-                 alt="header-user" />
-            <div class="dotted-animation">
-              <span class="animate-circle"></span>
-              <span class="main-circle"></span>
-            </div>
-          </div>
+          @if (!authService.userData; as user) {
+            <div class="d-flex align-items-center">
+              <img class="align-self-center pull-right img-50 rounded-circle" src="assets/images/dashboard/user.png"
+                alt="header-user" />
+                <div class="dotted-animation">
+                  <span class="animate-circle"></span>
+                  <span class="main-circle"></span>
+                </div>
+              </div>
+            }
 
-          <div class="d-flex align-items-center" *ngIf="authService.userData as user">
-            <ngx-avatars [src]="user?.member?.thumbnail()" [name]="user?.member?.name()" initialsSize="2"></ngx-avatars>
-            <!-- <div class="dotted-animation">
-              <span class="animate-circle"></span>
-              <span class="main-circle"></span>
-            </div> -->
-          </div>
+            @if (authService.userData; as user) {
+              <div class="d-flex align-items-center">
+                <ngx-avatars [src]="user?.member?.thumbnail()" [name]="user?.member?.name()" initialsSize="2"></ngx-avatars>
+                <!-- <div class="dotted-animation">
+                <span class="animate-circle"></span>
+                <span class="main-circle"></span>
+              </div> -->
+            </div>
+          }
 
           <ul class="profile-dropdown onhover-show-div p-20">
             <li>
@@ -113,32 +121,34 @@
               </a>
             </li>
             <!-- <li>
-              <a href="javascript:void(0)">
-                <app-feather-icons [icon]="'mail'"></app-feather-icons> {{'Inbox' | translate }}
-              </a>
-            </li>
+            <a href="javascript:void(0)">
+              <app-feather-icons [icon]="'mail'"></app-feather-icons> {{'Inbox' | translate }}
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <app-feather-icons [icon]="'lock'"></app-feather-icons> {{'Lock Screen' | translate }}
+            </a>
+          </li>
+          <li>
+            <a href="javascript:void(0)">
+              <app-feather-icons [icon]="'settings'"></app-feather-icons> {{'Settings' | translate }}
+            </a>
+          </li> -->
+          @if (authService.userData; as user) {
             <li>
-              <a href="javascript:void(0)">
-                <app-feather-icons [icon]="'lock'"></app-feather-icons> {{'Lock Screen' | translate }}
-              </a>
-            </li>
-            <li>
-              <a href="javascript:void(0)">
-                <app-feather-icons [icon]="'settings'"></app-feather-icons> {{'Settings' | translate }}
-              </a>
-            </li> -->
-            <li *ngIf="authService.userData as user">
               <a href="javascript:void(0)" (click)="authService.logout()">
                 <app-feather-icons [icon]="'log-out'"></app-feather-icons>{{'Logout' | translate }}
               </a>
             </li>
-          </ul>
-        </li>
-      </ul>
-      <div class="d-lg-none mobile-toggle pull-right" (click)="openMobileNav()">
-        <app-feather-icons [icon]="'more-horizontal'"></app-feather-icons>
-      </div>
+          }
+        </ul>
+      </li>
+    </ul>
+    <div class="d-lg-none mobile-toggle pull-right" (click)="openMobileNav()">
+      <app-feather-icons [icon]="'more-horizontal'"></app-feather-icons>
     </div>
   </div>
+</div>
 </div>
 <!-- Page Header Ends -->

@@ -9,7 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { OrganisationMemberCategoryService } from '../../../../shared/services/api/organisation-member-category.service';
 import { OrganisationMemberCategory } from '../../../../shared/model/api/organisation-member-category';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { CustomFieldEditorComponent } from '../custom-field-editor/custom-field-editor.component';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './registration-form-editor.component.html',
     styleUrls: ['./registration-form-editor.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgIf, NgFor, NgbTooltipModule, NgClass, CustomFieldEditorComponent, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, NgbTooltipModule, NgClass, CustomFieldEditorComponent, TranslateModule]
 })
 export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
 

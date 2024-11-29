@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
-import { NgIf } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -9,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './image-cropper.component.html',
     styleUrls: ['./image-cropper.component.scss'],
     standalone: true,
-    imports: [NgIf, ImageCropperModule, TranslateModule]
+    imports: [ImageCropperModule, TranslateModule]
 })
 export class ImageCropperComponent implements OnInit {
 

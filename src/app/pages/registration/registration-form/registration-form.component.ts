@@ -17,7 +17,7 @@ import { OrganisationRegistrationFormService } from '../../../shared/services/ap
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { AvatarModule } from 'ngx-avatars';
-import { NgIf, NgFor } from '@angular/common';
+
 import { CustomFieldComponent } from '../../../shared/components/forms/custom-field/custom-field.component';
 
 @Component({
@@ -25,7 +25,7 @@ import { CustomFieldComponent } from '../../../shared/components/forms/custom-fi
     templateUrl: './registration-form.component.html',
     styleUrls: ['./registration-form.component.scss'],
     standalone: true,
-    imports: [AvatarModule, NgIf, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, NgFor, CustomFieldComponent, RouterLink, TranslateModule]
+    imports: [AvatarModule, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, CustomFieldComponent, RouterLink, TranslateModule]
 })
 export class RegistrationFormComponent implements OnInit, OnDestroy {
 

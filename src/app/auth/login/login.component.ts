@@ -4,7 +4,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/services/api/auth.service';
 import { SearchCountryField, CountryISO, PhoneNumberFormat, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { environment } from '../../../environments/environment';
-import { NgIf } from '@angular/common';
+
 import { TawkChatComponent } from '../../components/tawk-chat/tawk-chat.component';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -16,7 +16,7 @@ type FormErrors = { [u in UserFields]: string };
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
     standalone: true,
-    imports: [RouterLink, NgIf, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TawkChatComponent, TranslateModule]
+    imports: [RouterLink, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TawkChatComponent, TranslateModule]
 })
 export class LoginComponent implements OnInit {
 

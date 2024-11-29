@@ -6,7 +6,7 @@ import * as chartData from '../../../data/chart/chartjs';
 import { OrganisationService } from '../../../services/api/organisation.service';
 import { SelectContributionTypeControlComponent } from '../../forms/select-contribution-type-control/select-contribution-type-control.component';
 import { SelectYearControlComponent } from '../../forms/select-year-control/select-year-control.component';
-import { NgIf } from '@angular/common';
+
 import { LoadingRotateDashedComponent } from '../../forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { NoDataAvailableComponent } from '../../forms/no-data-available/no-data-available.component';
 import { RouterLink } from '@angular/router';
@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './finance-trend.component.html',
     styleUrls: ['./finance-trend.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, SelectContributionTypeControlComponent, SelectYearControlComponent, NgIf, LoadingRotateDashedComponent, NoDataAvailableComponent, RouterLink, NgChartsModule, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, SelectContributionTypeControlComponent, SelectYearControlComponent, LoadingRotateDashedComponent, NoDataAvailableComponent, RouterLink, NgChartsModule, TranslateModule]
 })
 export class FinanceTrendComponent implements OnInit {
 

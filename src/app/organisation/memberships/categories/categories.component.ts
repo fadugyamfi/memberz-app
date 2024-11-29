@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { AdminHasPermissionDirective } from '../../../shared/directives/admin-has-permission.directive';
-import { NgIf, NgFor } from '@angular/common';
+
 import { UiSwitchModule } from 'ngx-ui-switch';
 
 @Component({
@@ -36,7 +36,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
         ]),
     ],
     standalone: true,
-    imports: [AdminHasPermissionDirective, NgIf, NgFor, PaginationComponent, FormsModule, ReactiveFormsModule, UiSwitchModule, TranslateModule]
+    imports: [AdminHasPermissionDirective, PaginationComponent, FormsModule, ReactiveFormsModule, UiSwitchModule, TranslateModule]
 })
 export class CategoriesComponent implements OnInit, OnDestroy {
 

@@ -7,7 +7,7 @@ import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import { NgIf } from '@angular/common';
+
 import { TawkChatComponent } from '../../components/tawk-chat/tawk-chat.component';
 
 type UserFields = 'email';
@@ -18,7 +18,7 @@ type FormErrors = { [u in UserFields]: string };
     templateUrl: './forgot-password.component.html',
     styleUrls: ['./forgot-password.component.scss'],
     standalone: true,
-    imports: [RouterLink, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, NgIf, TawkChatComponent, TranslateModule]
+    imports: [RouterLink, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TawkChatComponent, TranslateModule]
 })
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
 

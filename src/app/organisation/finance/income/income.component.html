@@ -16,72 +16,84 @@
 
   </div>
 
-  <div class="m-t-30 m-b-30 text-center" *ngIf="contributionService.hasZeroItems() && !contributionService.fetching">
-    <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-    <h4 class="fw-bold">{{'No Income Records Found' | translate}}</h4>
-    <h6>{{'Please search for record or add a new one to display results here' | translate}}</h6>
-  </div>
+  @if (contributionService.hasZeroItems() && !contributionService.fetching) {
+    <div class="m-t-30 m-b-30 text-center">
+      <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
+      <h4 class="fw-bold">{{'No Income Records Found' | translate}}</h4>
+      <h6>{{'Please search for record or add a new one to display results here' | translate}}</h6>
+    </div>
+  }
 
-  <div class="loader-box m-auto" *ngIf="contributionService.fetching">
-    <span class="rotate dashed colored"></span>
-  </div>
+  @if (contributionService.fetching) {
+    <div class="loader-box m-auto">
+      <span class="rotate dashed colored"></span>
+    </div>
+  }
 
-  <table class="table table-bordered table-hover"
-         *ngIf="!contributionService.fetching && contributionService.hasItems()">
-    <thead>
-      <tr>
-        <th colspan="2">{{'Receipt Date' | translate}}</th>
-        <th>{{'Receipt No' | translate}}</th>
-        <th>{{'Type' | translate}}</th>
-        <th>{{'Member / Description' | translate}}</th>
-        <th class="text-start">{{ 'Period' | translate }}</th>
-        <th>{{'Payment Type' | translate}}</th>
-        <th class="text-end fw-bold">{{'Amount' | translate}}</th>
-        <th class="text-center">{{'Actions' | translate}}</th>
-      </tr>
-    </thead>
-
-
-    <tbody>
-      <tr *ngFor="let contribution of contributions; let row = index">
-        <td class="text-end">{{ row + contributionService?.pagingMeta?.from }}.</td>
-        <td [noWrap]="true">{{ contribution.receipt_dt | date : short }}</td>
-        <td [noWrap]="true">{{ contribution.receipt_no }}</td>
-        <td>{{ contribution.contribution_type.name }}</td>
-        <td>
-          <div *ngIf="contribution.member_name">
-            <a href="javascript:void(0)" viewProfile [membership]="contribution.organisation_member" > <!-- [routerLink]="['/organisation/memberships/view', contribution.organisation_member_id]" -->
-              {{ contribution.member_name }}
-            </a>
-          </div>
-          <div *ngIf="!contribution.member_name">
-            {{ contribution.description }}
-          </div>
-        </td>
-        <td class="text-start">
-          {{ 'Wk' | translate }} {{ contribution.week }}, 
-          {{ contribution.month_name.substring(0,3) | translate }}
-          {{ contribution.year }}
-        </td>
-        <td>
-          <span *ngIf="contribution.payment_type == 'Cheque'">{{ contribution.payment_type }} -
-            {{ contribution.bank?.short_code }} {{ contribution.cheque_number }}</span>
-          <span *ngIf="contribution.payment_type != 'Cheque'">{{ contribution.payment_type }}</span>
-        </td>
-        <td [noWrap]="true" class="text-end fw-bold">{{ contribution.amount | currency : contribution.currency_code }}</td>
-
-        <td class="text-center" [noWrap]="true">
-          <button class="btn btn-xs btn-primary m-r-10" (click)="incomeEditor.show(contribution)">
-            <i class="fa fa-pencil"></i>
-          </button>
-
-          <button class="btn btn-xs btn-danger" (click)="deleteIncome(contribution)">
-            <i class="fa fa-trash-o"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  @if (!contributionService.fetching && contributionService.hasItems()) {
+    <table class="table table-bordered table-hover"
+      >
+      <thead>
+        <tr>
+          <th colspan="2">{{'Receipt Date' | translate}}</th>
+          <th>{{'Receipt No' | translate}}</th>
+          <th>{{'Type' | translate}}</th>
+          <th>{{'Member / Description' | translate}}</th>
+          <th class="text-start">{{ 'Period' | translate }}</th>
+          <th>{{'Payment Type' | translate}}</th>
+          <th class="text-end fw-bold">{{'Amount' | translate}}</th>
+          <th class="text-center">{{'Actions' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (contribution of contributions; track contribution; let row = $index) {
+          <tr>
+            <td class="text-end">{{ row + contributionService?.pagingMeta?.from }}.</td>
+            <td [noWrap]="true">{{ contribution.receipt_dt | date : short }}</td>
+            <td [noWrap]="true">{{ contribution.receipt_no }}</td>
+            <td>{{ contribution.contribution_type.name }}</td>
+            <td>
+              @if (contribution.member_name) {
+                <div>
+                  <a href="javascript:void(0)" viewProfile [membership]="contribution.organisation_member" > <!-- [routerLink]="['/organisation/memberships/view', contribution.organisation_member_id]" -->
+                    {{ contribution.member_name }}
+                  </a>
+                </div>
+              }
+              @if (!contribution.member_name) {
+                <div>
+                  {{ contribution.description }}
+                </div>
+              }
+            </td>
+            <td class="text-start">
+              {{ 'Wk' | translate }} {{ contribution.week }},
+              {{ contribution.month_name.substring(0,3) | translate }}
+              {{ contribution.year }}
+            </td>
+            <td>
+              @if (contribution.payment_type == 'Cheque') {
+                <span>{{ contribution.payment_type }} -
+                {{ contribution.bank?.short_code }} {{ contribution.cheque_number }}</span>
+              }
+              @if (contribution.payment_type != 'Cheque') {
+                <span>{{ contribution.payment_type }}</span>
+              }
+            </td>
+            <td [noWrap]="true" class="text-end fw-bold">{{ contribution.amount | currency : contribution.currency_code }}</td>
+            <td class="text-center" [noWrap]="true">
+              <button class="btn btn-xs btn-primary m-r-10" (click)="incomeEditor.show(contribution)">
+                <i class="fa fa-pencil"></i>
+              </button>
+              <button class="btn btn-xs btn-danger" (click)="deleteIncome(contribution)">
+                <i class="fa fa-trash-o"></i>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 
   <div class="card-footer">
     <app-pagination [service]="contributionService" (paginate)="onPaginate($event)"></app-pagination>
@@ -120,7 +132,9 @@
         <div class="col-sm-8">
           <select class="form-select" formControlName="module_contribution_type_id">
             <option value="">{{ 'Select Type' | translate }}</option>
-            <option *ngFor="let type of contributionTypeService.getItems()" [value]="type.id">{{ type.name }}</option>
+            @for (type of contributionTypeService.getItems(); track type) {
+              <option [value]="type.id">{{ type.name }}</option>
+            }
           </select>
         </div>
       </div>
@@ -222,7 +236,7 @@
       <button type="submit" class="btn btn-primary">{{'Search' | translate}}</button>
       <button type="reset" class="btn btn-outline-info">{{'Clear' | translate}}</button>
       <button type="button" class="btn btn-outline-danger"
-              (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
+      (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
     </div>
   </form>
 </ng-template>

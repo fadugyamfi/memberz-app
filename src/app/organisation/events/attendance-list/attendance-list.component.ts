@@ -11,7 +11,7 @@ import { OrganisationEventService } from '../../../shared/services/api/organisat
 import { EventsService } from '../../../shared/services/events.service';
 import { ExcelService } from '../../../shared/services/excel.service';
 import { NgxPrintDirective } from 'ngx-print';
-import { NgIf, NgFor, UpperCasePipe } from '@angular/common';
+import { UpperCasePipe } from '@angular/common';
 import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { ViewProfileDirective } from '../../../shared/directives/view-profile.directive';
 import { ProfileImageComponent } from '../../../shared/components/profile-view/profile-image/profile-image.component';
@@ -21,7 +21,7 @@ import { ProfileImageComponent } from '../../../shared/components/profile-view/p
     templateUrl: './attendance-list.component.html',
     styleUrls: ['./attendance-list.component.scss'],
     standalone: true,
-    imports: [RouterLink, NgxPrintDirective, NgIf, LoadingRotateDashedComponent, NgFor, ViewProfileDirective, ProfileImageComponent, UpperCasePipe, TranslateModule]
+    imports: [RouterLink, NgxPrintDirective, LoadingRotateDashedComponent, ViewProfileDirective, ProfileImageComponent, UpperCasePipe, TranslateModule]
 })
 export class AttendanceListComponent implements OnInit, OnDestroy {
 

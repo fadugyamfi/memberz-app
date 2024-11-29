@@ -4,7 +4,7 @@ import * as chartData from '../../../data/chart/chartjs';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { SelectYearControlComponent } from '../../forms/select-year-control/select-year-control.component';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+
 import { LoadingRotateDashedComponent } from '../../forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { NoDataAvailableComponent } from '../../forms/no-data-available/no-data-available.component';
 import { NgChartsModule } from 'ng2-charts';
@@ -20,7 +20,7 @@ interface MessagingStats {
     templateUrl: './sms-summary.component.html',
     styleUrls: ['./sms-summary.component.scss'],
     standalone: true,
-    imports: [SelectYearControlComponent, FormsModule, NgIf, LoadingRotateDashedComponent, NoDataAvailableComponent, NgChartsModule, TranslateModule]
+    imports: [SelectYearControlComponent, FormsModule, LoadingRotateDashedComponent, NoDataAvailableComponent, NgChartsModule, TranslateModule]
 })
 export class SmsSummaryComponent implements OnInit {
 

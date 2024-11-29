@@ -14,7 +14,7 @@ import { SmsTemplateTagService } from '../../../../shared/services/utilities/sms
 import moment from 'moment';
 import { OrganisationMemberCategoryService } from '../../../../shared/services/api/organisation-member-category.service';
 import { Subscription } from 'rxjs';
-import { NgFor, NgIf } from '@angular/common';
+
 import { SmsTemplateTagControlComponent } from '../../../../shared/components/forms/sms-template-tag-control/sms-template-tag-control.component';
 
 @Component({
@@ -22,7 +22,7 @@ import { SmsTemplateTagControlComponent } from '../../../../shared/components/fo
     templateUrl: './message-composer.component.html',
     styleUrls: ['./message-composer.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgFor, SmsTemplateTagControlComponent, NgIf, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, SmsTemplateTagControlComponent, TranslateModule]
 })
 export class MessageComposerComponent implements OnInit, OnDestroy {
 

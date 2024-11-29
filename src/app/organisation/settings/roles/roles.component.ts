@@ -8,7 +8,7 @@ import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, Reactive
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
 import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
-import { NgFor, NgIf } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -16,7 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './roles.component.html',
     styleUrls: ['./roles.component.scss'],
     standalone: true,
-    imports: [NgFor, NgIf, PaginationComponent, FormsModule, ReactiveFormsModule, PermissionsComponent, TranslateModule]
+    imports: [PaginationComponent, FormsModule, ReactiveFormsModule, PermissionsComponent, TranslateModule]
 })
 export class RolesComponent implements OnInit, OnDestroy {
 

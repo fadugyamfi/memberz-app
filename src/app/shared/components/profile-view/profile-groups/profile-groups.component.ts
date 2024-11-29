@@ -9,14 +9,14 @@ import { OrganisationMemberGroupService } from '../../../../shared/services/api/
 import { OrganisationGroupTypeService } from '../../../../shared/services/api/organisation-group-type.service';
 import { EventsService } from '../../../../shared/services/events.service';
 import { OrganisationGroupType } from '../../../../shared/model/api/organisation-group-type';
-import { NgIf, NgFor } from '@angular/common';
+
 
 @Component({
     selector: 'app-profile-groups',
     templateUrl: './profile-groups.component.html',
     styleUrls: ['./profile-groups.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, FormsModule, ReactiveFormsModule, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class ProfileGroupsComponent implements OnInit, OnDestroy {
 

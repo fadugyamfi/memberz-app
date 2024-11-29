@@ -5,7 +5,7 @@ import { MemberImageService } from '../../../services/api/member-image.service';
 import { EventsService } from '../../../services/events.service';
 import { ImageCropperComponent } from '../../image-cropper/image-cropper.component';
 import { AvatarModule } from 'ngx-avatars';
-import { NgIf } from '@angular/common';
+
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -13,7 +13,7 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
     templateUrl: './profile-image.component.html',
     styleUrls: ['./profile-image.component.scss'],
     standalone: true,
-    imports: [AvatarModule, NgIf, NgbProgressbarModule, ImageCropperComponent]
+    imports: [AvatarModule, NgbProgressbarModule, ImageCropperComponent]
 })
 export class ProfileImageComponent implements OnInit {
 

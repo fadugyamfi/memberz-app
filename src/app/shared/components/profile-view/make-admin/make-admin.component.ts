@@ -13,14 +13,14 @@ import { OrganisationAccountService } from '../../../services/api/organisation-a
 import { EventsService } from '../../../services/events.service';
 import Swal from 'sweetalert2';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
     selector: 'app-make-admin',
     templateUrl: './make-admin.component.html',
     styleUrls: ['./make-admin.component.scss'],
     standalone: true,
-    imports: [NgIf, FormsModule, ReactiveFormsModule, NgFor, AsyncPipe, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule]
 })
 export class MakeAdminComponent implements OnInit, OnDestroy {
 

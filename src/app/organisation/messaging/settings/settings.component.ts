@@ -5,7 +5,7 @@ import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, Reactive
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { Router } from '@angular/router';
-import { NgIf, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { SmsSummaryComponent } from '../../../shared/components/charts/sms-summary/sms-summary.component';
 import { SmsTransactionHistoryComponent } from '../sms-transaction-history/sms-transaction-history.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -15,7 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss'],
     standalone: true,
-    imports: [NgIf, FormsModule, ReactiveFormsModule, SmsSummaryComponent, SmsTransactionHistoryComponent, DecimalPipe, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, SmsSummaryComponent, SmsTransactionHistoryComponent, DecimalPipe, TranslateModule]
 })
 export class SettingsComponent implements OnInit {
 

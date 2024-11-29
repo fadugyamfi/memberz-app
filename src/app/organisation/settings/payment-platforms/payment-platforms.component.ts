@@ -11,7 +11,7 @@ import { EventsService } from '../../../shared/services/events.service';
 import { PaymentPlatform } from '../../../shared/model/api/payment-platform';
 import { times } from 'chartist';
 import Swal from 'sweetalert2';
-import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { SelectCurrencyControlComponent } from '../../../shared/components/forms/select-currency-control/select-currency-control.component';
 import { SelectCountryControlComponent } from '../../../shared/components/forms/select-country-control/select-country-control.component';
 
@@ -20,7 +20,7 @@ import { SelectCountryControlComponent } from '../../../shared/components/forms/
     templateUrl: './payment-platforms.component.html',
     styleUrls: ['./payment-platforms.component.scss'],
     standalone: true,
-    imports: [NgFor, NgIf, FormsModule, ReactiveFormsModule, SelectCurrencyControlComponent, SelectCountryControlComponent, TitleCasePipe, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, SelectCurrencyControlComponent, SelectCountryControlComponent, TitleCasePipe, TranslateModule]
 })
 export class PaymentPlatformsComponent implements OnInit, OnDestroy {
 

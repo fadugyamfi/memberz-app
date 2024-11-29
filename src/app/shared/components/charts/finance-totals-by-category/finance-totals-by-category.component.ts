@@ -3,7 +3,7 @@ import { FinanceDashboardService } from '../../../services/api/finance-dashboard
 import * as chartData from '../../../data/chart/chartjs';
 import { SelectYearControlComponent } from '../../forms/select-year-control/select-year-control.component';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+
 import { LoadingRotateDashedComponent } from '../../forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { NoDataAvailableComponent } from '../../forms/no-data-available/no-data-available.component';
 import { NgChartsModule } from 'ng2-charts';
@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './finance-totals-by-category.component.html',
     styleUrls: ['./finance-totals-by-category.component.scss'],
     standalone: true,
-    imports: [SelectYearControlComponent, FormsModule, NgIf, LoadingRotateDashedComponent, NoDataAvailableComponent, NgChartsModule, TranslateModule]
+    imports: [SelectYearControlComponent, FormsModule, LoadingRotateDashedComponent, NoDataAvailableComponent, NgChartsModule, TranslateModule]
 })
 export class FinanceTotalsByCategoryComponent implements OnInit {
   public barChartOptions: any = chartData.barChartOptions;

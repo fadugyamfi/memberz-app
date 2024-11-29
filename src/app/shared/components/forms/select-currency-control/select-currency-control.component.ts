@@ -2,7 +2,7 @@ import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CurrencyService } from '../../../services/api/currency.service';
-import { NgFor, NgIf } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 export const CURRENCY_CONTROL_ACCESSOR: any = {
@@ -18,7 +18,7 @@ export const CURRENCY_CONTROL_ACCESSOR: any = {
     styleUrls: ['./select-currency-control.component.scss'],
     providers: [CURRENCY_CONTROL_ACCESSOR],
     standalone: true,
-    imports: [FormsModule, NgFor, NgIf, TranslateModule]
+    imports: [FormsModule, TranslateModule]
 })
 export class SelectCurrencyControlComponent implements OnInit, OnDestroy {
 

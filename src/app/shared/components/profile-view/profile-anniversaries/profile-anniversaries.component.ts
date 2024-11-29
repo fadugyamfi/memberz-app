@@ -10,14 +10,14 @@ import { OrganisationAnniversaryService } from '../../../../shared/services/api/
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { OrganisationMemberAnniversary } from '../../../model/api/organisation-member-anniversary';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-profile-anniversaries',
     templateUrl: './profile-anniversaries.component.html',
     styleUrls: ['./profile-anniversaries.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, FormsModule, ReactiveFormsModule, DatePipe, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, DatePipe, TranslateModule]
 })
 export class ProfileAnniversariesComponent implements OnInit, OnDestroy {
 

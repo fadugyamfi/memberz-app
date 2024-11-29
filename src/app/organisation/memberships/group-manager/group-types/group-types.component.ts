@@ -9,7 +9,7 @@ import { CurrencyService } from '../../../../shared/services/api/currency.servic
 import { OrganisationGroupTypeService } from '../../../../shared/services/api/organisation-group-type.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../../shared/services/events.service';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { NoDataAvailableComponent } from '../../../../shared/components/forms/no-data-available/no-data-available.component';
 
@@ -18,7 +18,7 @@ import { NoDataAvailableComponent } from '../../../../shared/components/forms/no
     templateUrl: './group-types.component.html',
     styleUrls: ['./group-types.component.scss'],
     standalone: true,
-    imports: [NgIf, LoadingRotateDashedComponent, NoDataAvailableComponent, NgFor, NgClass, FormsModule, ReactiveFormsModule, TranslateModule]
+    imports: [LoadingRotateDashedComponent, NoDataAvailableComponent, NgClass, FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class GroupTypesComponent implements OnInit, OnDestroy {
 

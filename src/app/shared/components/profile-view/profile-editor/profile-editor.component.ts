@@ -12,14 +12,14 @@ import { OrganisationMemberCategoryService } from '../../../services/api/organis
 import { OrganisationMemberService } from '../../../services/api/organisation-member.service';
 import { OrganisationService } from '../../../services/api/organisation.service';
 import { EventsService } from '../../../services/events.service';
-import { NgFor, NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-profile-editor',
     templateUrl: './profile-editor.component.html',
     styleUrls: ['./profile-editor.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgFor, NgIf, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class ProfileEditorComponent implements OnInit, OnDestroy {
 

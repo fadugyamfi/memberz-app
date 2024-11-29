@@ -11,7 +11,7 @@ import { OrganisationMemberService } from '../../../shared/services/api/organisa
 import { OrganisationRegistrationFormService } from '../../../shared/services/api/organisation-registration-form.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { AvatarModule } from 'ngx-avatars';
 
 @Component({
@@ -19,7 +19,7 @@ import { AvatarModule } from 'ngx-avatars';
     templateUrl: './public.component.html',
     styleUrls: ['./public.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, AvatarModule, PaginationComponent, AsyncPipe]
+    imports: [AvatarModule, PaginationComponent, AsyncPipe]
 })
 export class PublicComponent implements OnInit {
 

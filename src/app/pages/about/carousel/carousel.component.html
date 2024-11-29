@@ -12,15 +12,17 @@
     <div class="col-xl-6">
       <section class="d-flex align-items-center h-100">
         <ngb-carousel>
-          <ng-template ngbSlide *ngFor="let image of images">
-            <div class="picsum-img-wrapper">
-              <img [src]="image.src" alt="Random first slide" class="w-100">
-            </div>
-            <div class="carousel-caption">
-              <h3>{{ image.title }}</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-            </div>
-          </ng-template>
+          @for (image of images; track image) {
+            <ng-template ngbSlide>
+              <div class="picsum-img-wrapper">
+                <img [src]="image.src" alt="Random first slide" class="w-100">
+              </div>
+              <div class="carousel-caption">
+                <h3>{{ image.title }}</h3>
+                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              </div>
+            </ng-template>
+          }
         </ngb-carousel>
       </section>
     </div>

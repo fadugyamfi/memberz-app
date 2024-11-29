@@ -15,45 +15,52 @@
         </div>
       </div>
 
-      <div class="m-t-30 m-b-30 text-center" *ngIf="!contributionTypeService.fetching && !contributionTypeService.hasItems()">
-        <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-        <h4 class="fw-bold">{{'No Income Sources Defined' | translate}}</h4>
-        <h6>{{'Please create income sources to display them here' | translate}}</h6>
-      </div>
+      @if (!contributionTypeService.fetching && !contributionTypeService.hasItems()) {
+        <div class="m-t-30 m-b-30 text-center">
+          <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
+          <h4 class="fw-bold">{{'No Income Sources Defined' | translate}}</h4>
+          <h6>{{'Please create income sources to display them here' | translate}}</h6>
+        </div>
+      }
 
-      <div class="loader-box m-auto" *ngIf="contributionTypeService.fetching">
-        <span class="rotate dashed colored"></span>
-      </div>
+      @if (contributionTypeService.fetching) {
+        <div class="loader-box m-auto">
+          <span class="rotate dashed colored"></span>
+        </div>
+      }
 
-      <table class="table table-striped table-bordered" *ngIf="contributionTypeService.hasItems() && !contributionTypeService.fetching">
-        <thead>
-          <tr>
-            <th colspan="2">{{ 'Name' | translate }}</th>
-            <th>{{ 'Member Specific' | translate }}</th>
-            <th>{{ 'Fixed Amount Per Period' | translate }}</th>
-            <th>{{ 'Entries' | translate }}</th>
-            <th class="text-center">{{ 'Actions' | translate }}</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let type of contributionTypeService.getItems(); let row = index">
-            <td>{{ contributionTypeService.pagingMeta.from + row }}.</td>
-            <td>{{ type.name }}</td>
-            <td>{{ type.member_required == 'Required' ? 'Yes' : 'No' | translate }}</td>
-            <td>{{ type.fix_amount_per_period ? ( type.fixed_amount | currency : type.currency.currency_code ) : 'N/A' }}</td>
-            <td>{{ type.contribution_count | number }}</td>
-            <td class="text-center">
-              <button type="button" class="btn btn-xs btn-primary m-r-10" (click)="showEditorModal(type)">
-                <i class="fa fa-pencil"></i> {{ 'Edit' | translate }}
-              </button>
-              <button type="button" class="btn btn-xs btn-danger" (click)="deleteType(type)">
-                <i class="fa fa-pencil"></i> {{ 'Delete' | translate }}
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      @if (contributionTypeService.hasItems() && !contributionTypeService.fetching) {
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th colspan="2">{{ 'Name' | translate }}</th>
+              <th>{{ 'Member Specific' | translate }}</th>
+              <th>{{ 'Fixed Amount Per Period' | translate }}</th>
+              <th>{{ 'Entries' | translate }}</th>
+              <th class="text-center">{{ 'Actions' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (type of contributionTypeService.getItems(); track type; let row = $index) {
+              <tr>
+                <td>{{ contributionTypeService.pagingMeta.from + row }}.</td>
+                <td>{{ type.name }}</td>
+                <td>{{ type.member_required == 'Required' ? 'Yes' : 'No' | translate }}</td>
+                <td>{{ type.fix_amount_per_period ? ( type.fixed_amount | currency : type.currency.currency_code ) : 'N/A' }}</td>
+                <td>{{ type.contribution_count | number }}</td>
+                <td class="text-center">
+                  <button type="button" class="btn btn-xs btn-primary m-r-10" (click)="showEditorModal(type)">
+                    <i class="fa fa-pencil"></i> {{ 'Edit' | translate }}
+                  </button>
+                  <button type="button" class="btn btn-xs btn-danger" (click)="deleteType(type)">
+                    <i class="fa fa-pencil"></i> {{ 'Delete' | translate }}
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
 
       <div class="card-footer">
         <app-pagination [service]="contributionTypeService" (paginate)="onPaginate($event)"></app-pagination>
@@ -78,9 +85,11 @@
         <label class="col-sm-3 col-form-label">{{ 'Name' | translate}}</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" placeholder="e.g. Default" formControlName="name" />
-          <div class="messages text-danger" *ngIf="editorForm.controls.name?.errors?.required">
-            <p class="m-b-0 m-t-5">{{'Name Required' | translate}}</p>
-          </div>
+          @if (editorForm.controls.name?.errors?.required) {
+            <div class="messages text-danger">
+              <p class="m-b-0 m-t-5">{{'Name Required' | translate}}</p>
+            </div>
+          }
         </div>
       </div>
 
@@ -88,57 +97,63 @@
         <label class="col-sm-3 col-form-label">{{ 'Description' | translate}}</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" placeholder="e.g. {{ 'Welfare contributions' | translate}}"
-                 formControlName="description" />
-          <div class="messages text-danger" *ngIf="editorForm.controls.description?.errors?.required">
-            <p class="m-b-0 m-t-5">{{ 'Description Required' | translate}}</p>
+            formControlName="description" />
+            @if (editorForm.controls.description?.errors?.required) {
+              <div class="messages text-danger">
+                <p class="m-b-0 m-t-5">{{ 'Description Required' | translate}}</p>
+              </div>
+            }
           </div>
         </div>
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">{{ 'Member Specific' | translate}}</label>
+          <div class="col-sm-9">
+            <ui-switch formControlName="member_required" class="align-middle m-r-10"
+              checkedLabel="Yes" uncheckedLabel="No">
+            </ui-switch>
+
+            <span class='text-muted small align-middle'>
+              {{'A member record is required for these entries' | translate}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">{{'Fixed Amount Per Period' | translate}}</label>
+          <div class="col-sm-9">
+            <ui-switch formControlName="fix_amount_per_period" class="align-middle m-r-10"></ui-switch>
+            <span class='text-muted small align-middle'>
+              {{'This will be the default category for adding and searching for members' | translate}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group row animate fadeIn" [class]="{'hidden': !configuringFixedAmount}">
+          <label class="col-sm-3 col-form-label">{{'Fixed Amount' | translate}}</label>
+          <div class="col-sm-3">
+            <select class="form-select" formControlName="currency_id">
+              <option value="">{{ 'Select Currency' | translate }}</option>
+              @for (currency of currencyService.getItems(); track currency) {
+                <option [value]="currency.id">
+                  {{ currency.currency_code }}
+                </option>
+              }
+            </select>
+          </div>
+          <div class="col-sm-3">
+            <input type="number" class="form-control" formControlName="fixed_amount" placeholder="0.00" />
+          </div>
+        </div>
+
       </div>
 
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">{{ 'Member Specific' | translate}}</label>
-        <div class="col-sm-9">
-          <ui-switch formControlName="member_required" class="align-middle m-r-10"
-            checkedLabel="Yes" uncheckedLabel="No">
-          </ui-switch>
-
-          <span class='text-muted small align-middle'>
-            {{'A member record is required for these entries' | translate}}
-          </span>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">{{'Fixed Amount Per Period' | translate}}</label>
-        <div class="col-sm-9">
-          <ui-switch formControlName="fix_amount_per_period" class="align-middle m-r-10"></ui-switch>
-          <span class='text-muted small align-middle'>
-            {{'This will be the default category for adding and searching for members' | translate}}
-          </span>
-        </div>
-      </div>
-
-      <div class="form-group row animate fadeIn" [class]="{'hidden': !configuringFixedAmount}">
-        <label class="col-sm-3 col-form-label">{{'Fixed Amount' | translate}}</label>
-        <div class="col-sm-3">
-          <select class="form-select" formControlName="currency_id">
-            <option value="">{{ 'Select Currency' | translate }}</option>
-            <option *ngFor="let currency of currencyService.getItems()" [value]="currency.id">
-              {{ currency.currency_code }}
-            </option>
-          </select>
-        </div>
-        <div class="col-sm-3">
-          <input type="number" class="form-control" formControlName="fixed_amount" placeholder="0.00" />
-        </div>
-      </div>
-
-    </div>
-
-    <div class="modal-footer">
-      <span *ngIf="contributionTypeService?.requesting" class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i>
-        {{'Saving' | translate}}...
-      </span>
+      <div class="modal-footer">
+        @if (contributionTypeService?.requesting) {
+          <span class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i>
+          {{'Saving' | translate}}...
+        </span>
+      }
 
       <button type="submit" class="btn btn-primary">{{'Save Changes' | translate}}</button>
       <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>

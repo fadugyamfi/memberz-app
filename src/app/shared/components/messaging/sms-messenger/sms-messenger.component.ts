@@ -12,7 +12,7 @@ import moment from 'moment';
 import { SmsAccountMessage } from '../../../model/api/sms-account-message';
 import { Member } from '../../../model/api/member';
 import { MemberControlComponent } from '../../forms/member-control/member-control.component';
-import { NgIf, NgFor } from '@angular/common';
+
 import { AvatarModule } from 'ngx-avatars';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -21,7 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './sms-messenger.component.html',
     styleUrls: ['./sms-messenger.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, MemberControlComponent, NgIf, NgFor, AvatarModule, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, MemberControlComponent, AvatarModule, TranslateModule]
 })
 export class SmsMessengerComponent implements OnInit {
 

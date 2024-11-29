@@ -12,22 +12,30 @@
         <div class="col d-flex flex-column align-items-start">
           <select class="form-select form-select-sm" formControlName="organisation_event_session_id">
             <option value="">{{ 'Select Session' | translate }}</option>
-            <option *ngFor="let session of event?.sessions" [value]="session.id">{{ session.session_name }}</option>
+            @for (session of event?.sessions; track session) {
+              <option [value]="session.id">{{ session.session_name }}</option>
+            }
           </select>
-          <div class="messages text-danger" *ngIf="filterForm.controls.organisation_event_session_id?.errors?.required">
-            <p class="m-b-0 m-t-5">{{'Session Required' | translate}}</p>
-          </div>
+          @if (filterForm.controls.organisation_event_session_id?.errors?.required) {
+            <div class="messages text-danger">
+              <p class="m-b-0 m-t-5">{{'Session Required' | translate}}</p>
+            </div>
+          }
         </div>
 
         <div class="col d-flex flex-column  align-items-star">
           <select class="form-select form-select-sm" formControlName="organisation_member_category_id">
             <option value="">{{ 'Select Category' | translate }}</option>
-            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+            @for (category of categories; track category) {
+              <option [value]="category.id">{{ category.name }}</option>
+            }
           </select>
 
-          <div class="messages text-danger" *ngIf="filterForm.controls.organisation_member_category_id?.errors?.required">
-            <p class="m-b-0 m-t-5">{{'Category Required' | translate}}</p>
-          </div>
+          @if (filterForm.controls.organisation_member_category_id?.errors?.required) {
+            <div class="messages text-danger">
+              <p class="m-b-0 m-t-5">{{'Category Required' | translate}}</p>
+            </div>
+          }
         </div>
 
         <div class="col">
@@ -46,42 +54,49 @@
     </form>
   </div>
 
-  <app-loading-rotate-dashed *ngIf="membershipService.fetching"></app-loading-rotate-dashed>
+  @if (membershipService.fetching) {
+    <app-loading-rotate-dashed></app-loading-rotate-dashed>
+  }
 
-  <div class="card-body" *ngIf="!membershipService.fetching && memberships?.length > 0">
-    <ul>
-      <li *ngFor="let membership of attendingMemberships" class="w-33 d-inline-block p-2">
-        <div class="card border border-secondary mb-0">
-          <div class="card-body d-flex align-items-center justify-content-between w-100 p-3">
-            <section class="w-25 text-center">
-              <ngx-avatars [src]="membership.member.image()" [name]="membership.name()" initialsSize="2" [size]="60"></ngx-avatars>
-            </section>
+  @if (!membershipService.fetching && memberships?.length > 0) {
+    <div class="card-body">
+      <ul>
+        @for (membership of attendingMemberships; track membership) {
+          <li class="w-33 d-inline-block p-2">
+            <div class="card border border-secondary mb-0">
+              <div class="card-body d-flex align-items-center justify-content-between w-100 p-3">
+                <section class="w-25 text-center">
+                  <ngx-avatars [src]="membership.member.image()" [name]="membership.name()" initialsSize="2" [size]="60"></ngx-avatars>
+                </section>
+                <section class="flex-grow-1">
+                  <p class="text-uppercase text-truncate fw-bold mb-1">
+                    <a href="javascript:void(0)" viewProfile [membership]="membership">{{ membership.nameLastFirst() }}</a>
+                  </p>
+                  <div class="text-uppercase text-muted">{{ membership.organisation_no }}</div>
+                </section>
+                <section class="">
+                  <app-attendance-mark
+                    [membership]="membership"
+                    [event_session_id]="filterForm.value?.organisation_event_session_id"
+                    [event]="event"
+                    >
+                  </app-attendance-mark>
+                </section>
+              </div>
+            </div>
+          </li>
+        }
+      </ul>
+    </div>
+  }
 
-            <section class="flex-grow-1">
-              <p class="text-uppercase text-truncate fw-bold mb-1">
-                <a href="javascript:void(0)" viewProfile [membership]="membership">{{ membership.nameLastFirst() }}</a>
-              </p>
-              <div class="text-uppercase text-muted">{{ membership.organisation_no }}</div>
-            </section>
-            <section class="">
-              <app-attendance-mark
-                [membership]="membership"
-                [event_session_id]="filterForm.value?.organisation_event_session_id"
-                [event]="event"
-              >
-              </app-attendance-mark>
-            </section>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-
-  <div class="m-t-30 m-b-30 text-center" *ngIf="memberships && memberships.length == 0">
-    <img src="/assets/images/icons/circle-search.svg" height="180" class="m-b-30" />
-    <h4 class="fw-bold">{{'No Memberships Found' | translate}}</h4>
-    <h6>{{'Search for membership to mark as present for the selected session of this event' | translate}}</h6>
-  </div>
+  @if (memberships && memberships.length == 0) {
+    <div class="m-t-30 m-b-30 text-center">
+      <img src="/assets/images/icons/circle-search.svg" height="180" class="m-b-30" />
+      <h4 class="fw-bold">{{'No Memberships Found' | translate}}</h4>
+      <h6>{{'Search for membership to mark as present for the selected session of this event' | translate}}</h6>
+    </div>
+  }
 
 
   <div class="card-footer">

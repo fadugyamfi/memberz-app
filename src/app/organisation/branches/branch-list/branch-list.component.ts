@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { CommonModule, NgIf, AsyncPipe } from '@angular/common';
+import { CommonModule, AsyncPipe } from '@angular/common';
 import { OrganisationBranchService } from '../../../shared/services/api/organisation-branch.service';
 import { Observable } from 'rxjs';
 import { OrganisationBranch } from '../../../shared/model/api/organisation-branch';
@@ -21,9 +21,16 @@ import { MemberControlComponent } from '../../../shared/components/forms/member-
     styleUrl: './branch-list.component.scss',
     standalone: true,
     imports: [
-      ProfileImageComponent, NgIf, LoadingRotateDashedComponent, PaginationComponent, FormsModule, 
-      ReactiveFormsModule, OrganisationControlComponent, MemberControlComponent, AsyncPipe, TranslateModule
-    ]
+    ProfileImageComponent,
+    LoadingRotateDashedComponent,
+    PaginationComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    OrganisationControlComponent,
+    MemberControlComponent,
+    AsyncPipe,
+    TranslateModule
+]
 })
 export class BranchListComponent {
 

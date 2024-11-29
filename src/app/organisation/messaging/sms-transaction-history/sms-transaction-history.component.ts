@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { OrganisationInvoice } from '../../../shared/model/api/organisation-invoice';
 import { EventsService } from '../../../shared/services/events.service';
-import { NgIf, NgFor, DecimalPipe, CurrencyPipe } from '@angular/common';
+import { DecimalPipe, CurrencyPipe } from '@angular/common';
 import { InvoiceComponent } from '../../../shared/components/invoice/invoice.component';
 
 @Component({
@@ -14,7 +14,7 @@ import { InvoiceComponent } from '../../../shared/components/invoice/invoice.com
     templateUrl: './sms-transaction-history.component.html',
     styleUrls: ['./sms-transaction-history.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, PaginationComponent, InvoiceComponent, DecimalPipe, CurrencyPipe, TranslateModule]
+    imports: [PaginationComponent, InvoiceComponent, DecimalPipe, CurrencyPipe, TranslateModule]
 })
 export class SmsTransactionHistoryComponent implements OnInit {
 

@@ -4,7 +4,7 @@ import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 import * as chartData from '../../../shared/data/chart/chartjs';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
-import { NgIf } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './membership-overview.component.html',
     styleUrls: ['./membership-overview.component.scss'],
     standalone: true,
-    imports: [NgIf, NgChartsModule, TranslateModule]
+    imports: [NgChartsModule, TranslateModule]
 })
 export class MembershipOverviewComponent implements OnInit {
 

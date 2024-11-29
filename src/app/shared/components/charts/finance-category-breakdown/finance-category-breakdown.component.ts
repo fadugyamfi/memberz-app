@@ -5,7 +5,7 @@ import * as chartData from '../../../data/chart/chartjs';
 import { SelectYearControlComponent } from '../../forms/select-year-control/select-year-control.component';
 import { FormsModule } from '@angular/forms';
 import { SelectMonthControlComponent } from '../../forms/select-month-control/select-month-control.component';
-import { NgIf, NgFor } from '@angular/common';
+
 import { LoadingRotateDashedComponent } from '../../forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { NoDataAvailableComponent } from '../../forms/no-data-available/no-data-available.component';
 import { NgChartsModule } from 'ng2-charts';
@@ -16,7 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './finance-category-breakdown.component.html',
     styleUrls: ['./finance-category-breakdown.component.scss'],
     standalone: true,
-    imports: [SelectYearControlComponent, FormsModule, SelectMonthControlComponent, NgIf, LoadingRotateDashedComponent, NoDataAvailableComponent, NgChartsModule, NgFor, TranslateModule]
+    imports: [SelectYearControlComponent, FormsModule, SelectMonthControlComponent, LoadingRotateDashedComponent, NoDataAvailableComponent, NgChartsModule, TranslateModule]
 })
 export class FinanceCategoryBreakdownComponent implements OnInit {
 

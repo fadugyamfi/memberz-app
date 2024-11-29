@@ -2,50 +2,62 @@
   <div class="card-header">
     <div class="d-flex justify-content-between align-items-center">
       <h6 class="fw-bold mb-0">{{ 'Groups In' | translate }}
-        {{ groupType?.name || ('None Selected' | translate) }}</h6>
+      {{ groupType?.name || ('None Selected' | translate) }}</h6>
       <button type="button" class="btn btn-primary btn-sm" (click)="showEditorModal()" [disabled]="!groupType">
         <i class="fa fa-plus"></i> {{'Add Group' | translate}}
       </button>
     </div>
   </div>
 
-  <app-loading-rotate-dashed *ngIf="groupService.fetching"></app-loading-rotate-dashed>
+  @if (groupService.fetching) {
+    <app-loading-rotate-dashed></app-loading-rotate-dashed>
+  }
 
-  <app-no-data-available *ngIf="noDataAvailable()"></app-no-data-available>
+  @if (noDataAvailable()) {
+    <app-no-data-available></app-no-data-available>
+  }
 
-  <table class="table table-bordered table-striped" *ngIf="groupDataAvailable()">
-    <thead>
-      <tr>
-        <th colspan="2">{{ 'Name' | translate }}</th>
-        <th class="text-center">{{ 'Members' | translate }}</th>
-        <th>{{ 'Group Leader' | translate }}</th>
-        <th class="text-center">{{ 'Actions' | translate }}</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let group of groupService.getItems(); let row = index">
-        <td class="text-end">{{ row + 1 }}.</td>
-        <td>{{ group.name }}</td>
-        <td class="text-center">{{ group.organisation_group_members_count | number }}</td>
-        <td>
-          <ul *ngIf="group.organisation_group_leaders?.length > 0">
-            <li *ngFor="let leader of group.organisation_group_leaders">
-              <a [routerLink]="['/organisation/memberships/view', leader.organisation_member_id]"
-                 target="profile">{{ leader.name }}</a>
-            </li>
-          </ul>
-
-          <span *ngIf="group.organisation_group_leaders?.length == 0">N/A</span>
-        </td>
-        <td class="text-center">
-          <button class="btn btn-primary btn-xs m-r-15" (click)="viewMembers(group)">{{ 'View Members' | translate }}</button>
-          <button class="btn btn-primary btn-xs m-r-15" (click)="showEditorModal(group)">{{ 'Edit' | translate }}</button>
-          <button class="btn btn-danger btn-xs" (click)="deleteGroup(group)">{{ 'Delete' | translate }}</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  @if (groupDataAvailable()) {
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th colspan="2">{{ 'Name' | translate }}</th>
+          <th class="text-center">{{ 'Members' | translate }}</th>
+          <th>{{ 'Group Leader' | translate }}</th>
+          <th class="text-center">{{ 'Actions' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (group of groupService.getItems(); track group; let row = $index) {
+          <tr>
+            <td class="text-end">{{ row + 1 }}.</td>
+            <td>{{ group.name }}</td>
+            <td class="text-center">{{ group.organisation_group_members_count | number }}</td>
+            <td>
+              @if (group.organisation_group_leaders?.length > 0) {
+                <ul>
+                  @for (leader of group.organisation_group_leaders; track leader) {
+                    <li>
+                      <a [routerLink]="['/organisation/memberships/view', leader.organisation_member_id]"
+                      target="profile">{{ leader.name }}</a>
+                    </li>
+                  }
+                </ul>
+              }
+              @if (group.organisation_group_leaders?.length == 0) {
+                <span>N/A</span>
+              }
+            </td>
+            <td class="text-center">
+              <button class="btn btn-primary btn-xs m-r-15" (click)="viewMembers(group)">{{ 'View Members' | translate }}</button>
+              <button class="btn btn-primary btn-xs m-r-15" (click)="showEditorModal(group)">{{ 'Edit' | translate }}</button>
+              <button class="btn btn-danger btn-xs" (click)="deleteGroup(group)">{{ 'Delete' | translate }}</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 
   <div class="card-footer">
     <app-pagination [service]="groupService" (paginate)="onPaginate($event)"></app-pagination>
@@ -68,13 +80,17 @@
         <div class="col-sm-10">
           <select class="form-select" formControlName="organisation_group_type_id">
             <option value="">{{ 'Select Group Type' | translate }}</option>
-            <option *ngFor="let groupType of groupTypeService.getItems()" [value]="groupType.id">{{ groupType.name }}
-            </option>
+            @for (groupType of groupTypeService.getItems(); track groupType) {
+              <option [value]="groupType.id">{{ groupType.name }}
+              </option>
+            }
           </select>
 
-          <div class="messages text-danger" *ngIf="editorForm.controls.organisation_group_type_id?.errors?.required">
-            <p class="m-b-0 m-t-5">{{'Group Type Required' | translate}}</p>
-          </div>
+          @if (editorForm.controls.organisation_group_type_id?.errors?.required) {
+            <div class="messages text-danger">
+              <p class="m-b-0 m-t-5">{{'Group Type Required' | translate}}</p>
+            </div>
+          }
         </div>
       </div>
 
@@ -82,16 +98,18 @@
         <label class="col-sm-2 col-form-label">{{ 'Name' | translate}}</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" placeholder="e.g. Default" formControlName="name" />
-          <div class="messages text-danger" *ngIf="editorForm.controls.name?.errors?.required">
-            <p class="m-b-0 m-t-5">{{'Name Required' | translate}}</p>
-          </div>
+          @if (editorForm.controls.name?.errors?.required) {
+            <div class="messages text-danger">
+              <p class="m-b-0 m-t-5">{{'Name Required' | translate}}</p>
+            </div>
+          }
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">{{ 'Leaders' | translate}}</label>
         <div class="col-sm-9" formArrayName="organisation_group_leaders">
-          <ng-container *ngFor="let leaderGroup of leadersArray.controls; let i = index">
+          @for (leaderGroup of leadersArray.controls; track leaderGroup; let i = $index) {
             <div class="form-group row" [formGroup]="leaderGroup">
               <div class="col-6">
                 <app-member-control formControlName="organisation_member_id" [returnMembershipId]="true"></app-member-control>
@@ -105,7 +123,7 @@
                 </button>
               </div>
             </div>
-          </ng-container>
+          }
 
         </div>
         <div class="col-sm-1 text-end">
@@ -118,13 +136,15 @@
     </div>
 
     <div class="modal-footer">
-      <span *ngIf="groupService?.saving" class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i>
+      @if (groupService?.saving) {
+        <span class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i>
         {{'Saving' | translate}}...
       </span>
+    }
 
-      <button type="submit" class="btn btn-primary">{{'Save Changes' | translate}}</button>
-      <button type="button" class="btn btn-outline-danger"
-              (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
-    </div>
-  </form>
+    <button type="submit" class="btn btn-primary">{{'Save Changes' | translate}}</button>
+    <button type="button" class="btn btn-outline-danger"
+    (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
+  </div>
+</form>
 </ng-template>

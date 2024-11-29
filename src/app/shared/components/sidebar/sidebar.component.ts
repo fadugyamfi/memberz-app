@@ -5,7 +5,7 @@ import { AuthService } from '../../services/api/auth.service';
 import { EventsService } from '../../services/events.service';
 import { MemberImage } from '../../model/api/member-image';
 import { MemberImageService } from '../../services/api/member-image.service';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { AvatarModule } from 'ngx-avatars';
 import { ImageCropperComponent } from '../image-cropper/image-cropper.component';
 import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     styleUrls: ['./sidebar.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgIf, AvatarModule, ImageCropperComponent, NgbProgressbarModule, NgFor, NgClass, FeatherIconsComponent, RouterLinkActive, RouterLink, TranslateModule]
+    imports: [AvatarModule, ImageCropperComponent, NgbProgressbarModule, NgClass, FeatherIconsComponent, RouterLinkActive, RouterLink, TranslateModule]
 })
 export class SidebarComponent implements OnInit, OnDestroy {
 

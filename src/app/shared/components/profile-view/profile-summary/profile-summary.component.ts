@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
-import { NgIf, TitleCasePipe, DatePipe } from '@angular/common';
+import { TitleCasePipe, DatePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './profile-summary.component.html',
     styleUrls: ['./profile-summary.component.scss'],
     standalone: true,
-    imports: [NgIf, TitleCasePipe, DatePipe, TranslateModule]
+    imports: [TitleCasePipe, DatePipe, TranslateModule]
 })
 export class ProfileSummaryComponent implements OnInit {
 

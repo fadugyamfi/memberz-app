@@ -11,7 +11,7 @@ import { StorageService } from '../../../shared/services/storage.service';
 import Swal from 'sweetalert2';
 import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { NgIf, NgFor } from '@angular/common';
+
 import { ViewProfileDirective } from '../../../shared/directives/view-profile.directive';
 
 @Component({
@@ -19,7 +19,7 @@ import { ViewProfileDirective } from '../../../shared/directives/view-profile.di
     templateUrl: './pending-approvals.component.html',
     styleUrls: ['./pending-approvals.component.scss'],
     standalone: true,
-    imports: [NgbDropdownModule, NgIf, NgFor, ViewProfileDirective, PaginationComponent, TranslateModule]
+    imports: [NgbDropdownModule, ViewProfileDirective, PaginationComponent, TranslateModule]
 })
 export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestroy {
 

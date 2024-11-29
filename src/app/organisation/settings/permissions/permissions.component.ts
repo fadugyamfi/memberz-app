@@ -13,14 +13,14 @@ import { OrganisationAccountService } from '../../../shared/services/api/organis
 import Swal from 'sweetalert2';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import { NgIf, NgFor, NgClass, TitleCasePipe } from '@angular/common';
+import { NgClass, TitleCasePipe } from '@angular/common';
 
 @Component({
     selector: 'app-permissions',
     templateUrl: './permissions.component.html',
     styleUrls: ['./permissions.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgIf, NgFor, NgClass, NgbCollapseModule, TitleCasePipe, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgClass, NgbCollapseModule, TitleCasePipe, TranslateModule]
 })
 export class PermissionsComponent implements OnInit, OnDestroy {
 

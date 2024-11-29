@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
 import moment from 'moment';
 import { SelectCurrencyControlComponent } from '../../../../shared/components/forms/select-currency-control/select-currency-control.component';
 import { NgxPrintDirective } from 'ngx-print';
-import { NgIf, NgFor, CurrencyPipe } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { NoDataAvailableComponent } from '../../../../shared/components/forms/no-data-available/no-data-available.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './income-summary.component.html',
     styleUrls: ['./income-summary.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, SelectCurrencyControlComponent, NgxPrintDirective, NgIf, LoadingRotateDashedComponent, NoDataAvailableComponent, NgFor, CurrencyPipe, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, SelectCurrencyControlComponent, NgxPrintDirective, LoadingRotateDashedComponent, NoDataAvailableComponent, CurrencyPipe, TranslateModule]
 })
 export class IncomeSummaryComponent implements OnInit {
 

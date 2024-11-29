@@ -26,7 +26,7 @@
                   <div class="col-form-label col-sm-3">Subscription Period</div>
                   <div class="col-sm-9">
                     <div class="btn-group btn-group-toggle m-b-5" ngbRadioGroup name="radioBasic"
-                         formControlName="subscription_length">
+                      formControlName="subscription_length">
                       <label ngbButtonLabel class="btn-secondary">
                         <input ngbButton type="radio" [value]="1">
                         <i class="fa fa-check text-active"></i> 1 Month
@@ -49,9 +49,11 @@
                       <small class="text-muted">Save 16% when you choose the 6 or 12 month subscription.</small>
                     </div>
 
-                    <div class="text-danger f-12" *ngIf="paymentForm.controls.subscription_length?.errors?.required">
-                      <p>Please select subscription period</p>
-                    </div>
+                    @if (paymentForm.controls.subscription_length?.errors?.required) {
+                      <div class="text-danger f-12">
+                        <p>Please select subscription period</p>
+                      </div>
+                    }
                   </div>
                 </div>
 
@@ -61,38 +63,38 @@
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span
-                              class="input-group-text">{{ subTypeService?.getSelectedModel()?.currency?.currency_code }}</span>
+                        class="input-group-text">{{ subTypeService?.getSelectedModel()?.currency?.currency_code }}</span>
                       </div>
                       <input type="text" class="form-control text-end" placeholder="0.00" aria-label="Plan Cost"
-                             formControlName="plan_cost">
+                        formControlName="plan_cost">
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div class="form-group row">
-                  <div class="col-form-label col-sm-3">Plan Expires</div>
-                  <div class="col-sm-3">
-                    <input type="text" class="form-control text-end" readonly placeholder="Jan 19, 1970"
-                           aria-label="Plan Expiration" formControlName="plan_expiration">
+                  <div class="form-group row">
+                    <div class="col-form-label col-sm-3">Plan Expires</div>
+                    <div class="col-sm-3">
+                      <input type="text" class="form-control text-end" readonly placeholder="Jan 19, 1970"
+                        aria-label="Plan Expiration" formControlName="plan_expiration">
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
               </div>
+
+              <div class="card-footer text-center">
+                <button type="button" class="btn btn-danger m-r-15" awPreviousStep>
+                  <i class="fa fa-long-arrow-left"></i> Previous Step
+                </button>
+
+                <button type="button" class="btn btn-primary m-r-15" awNextStep (click)="savePaymentInfo()">
+                  Next Step <i class="fa fa-long-arrow-right"></i>
+                </button>
+              </div>
             </div>
-
-          </div>
-
-          <div class="card-footer text-center">
-            <button type="button" class="btn btn-danger m-r-15" awPreviousStep>
-              <i class="fa fa-long-arrow-left"></i> Previous Step
-            </button>
-
-            <button type="button" class="btn btn-primary m-r-15" awNextStep (click)="savePaymentInfo()">
-              Next Step <i class="fa fa-long-arrow-right"></i>
-            </button>
-          </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
-</div>

@@ -8,7 +8,7 @@ import { StorageService } from '../../services/storage.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { MemberImageService } from '../../services/api/member-image.service';
 import { Organisation } from '../../model/api/organisation';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { AvatarModule } from 'ngx-avatars';
 import { ImageCropperComponent } from '../image-cropper/image-cropper.component';
 import { AdminHasPermissionDirective } from '../../directives/admin-has-permission.directive';
@@ -21,7 +21,7 @@ import { TranslateModule } from '@ngx-translate/core';
     styleUrls: ['./organisation-sidebar.component.scss'],
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgIf, AvatarModule, ImageCropperComponent, NgFor, NgClass, AdminHasPermissionDirective, FeatherIconsComponent, RouterLinkActive, RouterLink, TranslateModule]
+    imports: [AvatarModule, ImageCropperComponent, NgClass, AdminHasPermissionDirective, FeatherIconsComponent, RouterLinkActive, RouterLink, TranslateModule]
 })
 export class OrganisationSidebarComponent implements OnInit {
 

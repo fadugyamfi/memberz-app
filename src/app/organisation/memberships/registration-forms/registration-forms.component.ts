@@ -8,7 +8,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Router, RouterLink } from '@angular/router';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { Organisation } from '../../../shared/model/api/organisation';
-import { NgIf, NgFor, DecimalPipe, DatePipe } from '@angular/common';
+import { DecimalPipe, DatePipe } from '@angular/common';
 import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 
 
@@ -17,7 +17,7 @@ import { LoadingRotateDashedComponent } from '../../../shared/components/forms/l
     templateUrl: './registration-forms.component.html',
     styleUrls: ['./registration-forms.component.scss'],
     standalone: true,
-    imports: [NgIf, LoadingRotateDashedComponent, RouterLink, NgFor, PaginationComponent, DecimalPipe, DatePipe, TranslateModule]
+    imports: [LoadingRotateDashedComponent, RouterLink, PaginationComponent, DecimalPipe, DatePipe, TranslateModule]
 })
 export class RegistrationFormsComponent implements OnInit {
 

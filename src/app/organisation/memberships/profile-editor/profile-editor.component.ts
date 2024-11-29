@@ -12,14 +12,14 @@ import { OrganisationMemberCategory } from '../../../shared/model/api/organisati
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { Subscription } from 'rxjs';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { NgFor, NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-profile-editor',
     templateUrl: './profile-editor.component.html',
     styleUrls: ['./profile-editor.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgFor, NgIf, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class ProfileEditorComponent implements OnInit, OnDestroy {
 

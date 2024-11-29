@@ -1,15 +1,17 @@
 <div class="row">
   <div class="col-10 offset-1">
 
-    <div class="card bg-success" *ngIf="newReceiptSetup">
-      <div class="card-body">
-        <h5 class="fw-bold">{{ 'New Settings Setup' | translate }}</h5>
-        <p class="f-14">
-          {{ 'Update the settings below to enable taking / recording payments' | translate }}
-          <b><u>{{ 'then SAVE CHANGES' | translate }}</u></b>
-        </p>
+    @if (newReceiptSetup) {
+      <div class="card bg-success">
+        <div class="card-body">
+          <h5 class="fw-bold">{{ 'New Settings Setup' | translate }}</h5>
+          <p class="f-14">
+            {{ 'Update the settings below to enable taking / recording payments' | translate }}
+            <b><u>{{ 'then SAVE CHANGES' | translate }}</u></b>
+          </p>
+        </div>
       </div>
-    </div>
+    }
 
     <div class="card">
 
@@ -22,9 +24,11 @@
             <div class="col-9">
               <select class="form-select" formControlName="default_currency">
                 <option value="">{{ 'Select Currency' | translate }}</option>
-                <option *ngFor="let currency of currencyService.getItems()" [value]="currency.id">
-                  {{ currency.currency_code }}
-                </option>
+                @for (currency of currencyService.getItems(); track currency) {
+                  <option [value]="currency.id">
+                    {{ currency.currency_code }}
+                  </option>
+                }
               </select>
             </div>
           </div>
@@ -48,63 +52,65 @@
             </div>
             <div class="col-3">
               <input type="text" class="form-control" placeholder="e.g. FNO-"
-                     formControlName="receipt_prefix" [readonly]="isManual()" />
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <div class="col-3">
-              {{ 'Receipt Suffix' | translate }}
-            </div>
-            <div class="col-3">
-              <input type="text" class="form-control" placeholder="e.g. -21"
-                     formControlName="receipt_postfix" [readonly]="isManual()" />
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <div class="col-3">
-              {{ 'Next Receipt Number' | translate }}
-            </div>
-            <div class="col-3">
-              <input type="text" class="form-control" placeholder="0" formControlName="receipt_counter" [readonly]="isManual()" />
-            </div>
-            <div class="col-5">
-              <div class="form-control-plaintext">
-                <em class="text-muted">{{ 'Example Receipt Number'}}: {{ getNextReceiptNumber() }}</em>
+                formControlName="receipt_prefix" [readonly]="isManual()" />
               </div>
             </div>
-          </div>
 
-          <div class="form-group row">
-            <div class="col-3">
-              {{ 'Send SMS Notifications' | translate }}
+            <div class="form-group row">
+              <div class="col-3">
+                {{ 'Receipt Suffix' | translate }}
+              </div>
+              <div class="col-3">
+                <input type="text" class="form-control" placeholder="e.g. -21"
+                  formControlName="receipt_postfix" [readonly]="isManual()" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-3">
+                  {{ 'Next Receipt Number' | translate }}
+                </div>
+                <div class="col-3">
+                  <input type="text" class="form-control" placeholder="0" formControlName="receipt_counter" [readonly]="isManual()" />
+                </div>
+                <div class="col-5">
+                  <div class="form-control-plaintext">
+                    <em class="text-muted">{{ 'Example Receipt Number'}}: {{ getNextReceiptNumber() }}</em>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-3">
+                  {{ 'Send SMS Notifications' | translate }}
+                </div>
+                <div class="col-9">
+                  <ui-switch formControlName="sms_notify"></ui-switch>
+                  <p class="m-t-5">
+                    <i class="fa fa-info-circle"></i>
+                    {{ 'Applies to only "Member Specific" contribution entries' | translate }}
+                  </p>
+                  <p class="m-t-5">
+                    <i class="fa fa-info-circle text-info"></i>
+                    {{ 'Please setup SMS messaging account to use this setting' | translate }}
+                  </p>
+                </div>
+              </div>
             </div>
-            <div class="col-9">
-              <ui-switch formControlName="sms_notify"></ui-switch>
-              <p class="m-t-5">
-                <i class="fa fa-info-circle"></i>
-                {{ 'Applies to only "Member Specific" contribution entries' | translate }}
-              </p>
-              <p class="m-t-5">
-                <i class="fa fa-info-circle text-info"></i>
-                {{ 'Please setup SMS messaging account to use this setting' | translate }}
-              </p>
+
+            <div class="card-footer text-end">
+              @if (receiptSettingService.updating) {
+                <span class="m-r-15">
+                  <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> {{ 'Saving' | translate }}
+                </span>
+              }
+
+              <button type="submit" class="btn btn-success">
+                <i class='fa fa-save'></i> {{ 'Save Changes' | translate }}
+              </button>
             </div>
-          </div>
+          </form>
         </div>
 
-        <div class="card-footer text-end">
-          <span *ngIf="receiptSettingService.updating" class="m-r-15">
-            <i class="fa fa-circle-o-notch fa-spin fa-fw"></i> {{ 'Saving' | translate }}
-          </span>
-
-          <button type="submit" class="btn btn-success">
-            <i class='fa fa-save'></i> {{ 'Save Changes' | translate }}
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
-
-  </div>
-</div>

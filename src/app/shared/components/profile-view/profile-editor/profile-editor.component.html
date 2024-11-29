@@ -17,23 +17,28 @@
               <div class="col-sm-9">
                 <select class="form-select" formControlName="organisation_member_category_id">
                   <option value="">{{'Select Category' | translate}}</option>
-                  <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+                  @for (category of categories; track category) {
+                    <option [value]="category.id">{{ category.name }}</option>
+                  }
                 </select>
 
-                <div class="messages text-danger"
-                     *ngIf="membershipForm.controls.organisation_member_category_id.errors?.required">
-                  <p class="m-b-0">{{'Membership Category Required' | translate}}</p>
+                @if (membershipForm.controls.organisation_member_category_id.errors?.required) {
+                  <div class="messages text-danger"
+                    >
+                    <p class="m-b-0">{{'Membership Category Required' | translate}}</p>
+                  </div>
+                }
+              </div>
+            </div>
+
+            @if (membership) {
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3">{{'Membership Number' | translate}}</label>
+                <div class="col-sm-3">
+                  <input type="text" class="form-control" placeholder="e.g. 000001" formControlName="organisation_no" />
                 </div>
               </div>
-            </div>
-
-            <div class="form-group row" *ngIf="membership">
-              <label class="col-form-label col-sm-3">{{'Membership Number' | translate}}</label>
-
-              <div class="col-sm-3">
-                <input type="text" class="form-control" placeholder="e.g. 000001" formControlName="organisation_no" />
-              </div>
-            </div>
+            }
           </div>
 
           <hr class="m-t-15 m-b-15">
@@ -53,16 +58,20 @@
 
               <div class="col-sm-3">
                 <input type="text" class="form-control" placeholder="{{'Last Name' | translate }}" formControlName="last_name" />
-                <div class="messages text-danger" *ngIf="profileForm.controls.last_name.errors?.required">
-                  <p class="m-b-0">{{'Last Name Required' | translate}}</p>
-                </div>
+                @if (profileForm.controls.last_name.errors?.required) {
+                  <div class="messages text-danger">
+                    <p class="m-b-0">{{'Last Name Required' | translate}}</p>
+                  </div>
+                }
               </div>
 
               <div class="col-sm-3">
                 <input type="text" class="form-control" placeholder="{{'First Name' | translate }}" formControlName="first_name" />
-                <div class="messages text-danger" *ngIf="profileForm.controls.first_name.errors?.required">
-                  <p class="m-b-0">{{'First Name Required' | translate}}</p>
-                </div>
+                @if (profileForm.controls.first_name.errors?.required) {
+                  <div class="messages text-danger">
+                    <p class="m-b-0">{{'First Name Required' | translate}}</p>
+                  </div>
+                }
               </div>
 
               <div class="col-sm-3">
@@ -79,9 +88,11 @@
                   <option value="female">{{'Female' | translate}}</option>
                 </select>
 
-                <div class="messages text-danger" *ngIf="profileForm.controls.gender.errors?.required">
-                  <p class="m-b-0">{{'Gender Required' | translate}}</p>
-                </div>
+                @if (profileForm.controls.gender.errors?.required) {
+                  <div class="messages text-danger">
+                    <p class="m-b-0">{{'Gender Required' | translate}}</p>
+                  </div>
+                }
               </div>
             </div>
 
@@ -89,122 +100,130 @@
               <label class="col-form-label col-sm-3">{{'Mobile Number' | translate}}</label>
               <div class="col-sm-9">
                 <input type="tel" class="form-control" placeholder="e.g. +2332775000000"
-                       formControlName="mobile_number">
+                  formControlName="mobile_number">
 
-                <div class="messages text-danger" *ngIf="profileForm.controls.mobile_number.errors?.required">
-                  <p class="m-b-0">{{'Mobile Number Required' | translate}}</p>
+                  @if (profileForm.controls.mobile_number.errors?.required) {
+                    <div class="messages text-danger">
+                      <p class="m-b-0">{{'Mobile Number Required' | translate}}</p>
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3">{{'Email' | translate}}</label>
+
+                <div class="col-sm-9">
+                  <input type="email" class="form-control" placeholder="e.g. joe@mail.com" formControlName="email" />
+
+                  @if (profileForm.controls.email.errors?.required) {
+                    <div class="messages text-danger">
+                      <p class="m-b-0">{{'Email Required' | translate}}</p>
+                    </div>
+                  }
+
+                  @if (profileForm.controls.email.errors?.email) {
+                    <div class="messages text-danger">
+                      <p class="m-b-0">{{'Email Invalid' | translate}}</p>
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3">{{'Date Of Birth' | translate}}</label>
+
+                <div class="col-sm-3">
+                  <input type="date" class="form-control" formControlName="dob" />
+
+                  @if (profileForm.controls.dob.errors?.required) {
+                    <div class="messages text-danger">
+                      <p class="m-b-0">{{'Date of Birth Required' | translate}}</p>
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3">{{'Marital Status' | translate}}</label>
+                <div class="col-sm-3">
+                  <select class="form-select" formControlName="marital_status">
+                    <option value="">{{'Select' | translate}}</option>
+                    <option value="single">{{'Single' | translate}}</option>
+                    <option value="married">{{'Married' | translate}}</option>
+                    <option value="separated">{{'Separated' | translate}}</option>
+                    <option value="divorced">{{'Divorced' | translate}}</option>
+                    <option value="cohabiting">{{'Cohabiting' | translate}}</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3">{{'Post Address' | translate}}</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="e.g. GW-101-1010" formControlName="address">
+                </div>
+              </div>
+
+
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3">{{'Occupation' | translate}}</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="e.g. Tailor" formControlName="occupation">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label class="col-form-label col-sm-3">{{'Place of Work' | translate}}</label>
+
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" placeholder="e.g. Jobs Co. Ltd."
+                    formControlName="business_name" />
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-form-label col-sm-3">{{'Nationality' | translate}}</label>
+
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" placeholder="e.g. Ghanaian"
+                      formControlName="nationality" />
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label class="col-form-label col-sm-3">{{'Place of Birth' | translate}}</label>
+
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" placeholder="e.g. Accra"
+                        formControlName="place_of_birth" />
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label class="col-form-label col-sm-3">{{ 'Residential Address' | translate}}</label>
+                      <div class="col-sm-4">
+                        <input type="text" class="form-control" placeholder="Location" formControlName="residential_address">
+                      </div>
+                      <div class="col-sm-2">
+                        <input type="text" class="form-control" placeholder="City" formControlName="residential_city">
+                      </div>
+                      <div class="col-sm-3">
+                        <input type="text" class="form-control" placeholder="Region" formControlName="residential_region">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <div class="card-footer text-end">
+                  <button type="submit" class="btn btn-primary m-r-15"><i class="fa fa-save"></i> {{'Save Changes' | translate}}</button>
+                  <button type="button" class="btn btn-danger" (click)="cancel()">{{'Cancel' | translate}}</button>
                 </div>
               </div>
             </div>
-
-            <div class="form-group row">
-              <label class="col-form-label col-sm-3">{{'Email' | translate}}</label>
-
-              <div class="col-sm-9">
-                <input type="email" class="form-control" placeholder="e.g. joe@mail.com" formControlName="email" />
-
-                <div class="messages text-danger" *ngIf="profileForm.controls.email.errors?.required">
-                  <p class="m-b-0">{{'Email Required' | translate}}</p>
-                </div>
-
-                <div class="messages text-danger" *ngIf="profileForm.controls.email.errors?.email">
-                  <p class="m-b-0">{{'Email Invalid' | translate}}</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-form-label col-sm-3">{{'Date Of Birth' | translate}}</label>
-
-              <div class="col-sm-3">
-                <input type="date" class="form-control" formControlName="dob" />
-
-                <div class="messages text-danger" *ngIf="profileForm.controls.dob.errors?.required">
-                  <p class="m-b-0">{{'Date of Birth Required' | translate}}</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-form-label col-sm-3">{{'Marital Status' | translate}}</label>
-              <div class="col-sm-3">
-                <select class="form-select" formControlName="marital_status">
-                  <option value="">{{'Select' | translate}}</option>
-                  <option value="single">{{'Single' | translate}}</option>
-                  <option value="married">{{'Married' | translate}}</option>
-                  <option value="separated">{{'Separated' | translate}}</option>
-                  <option value="divorced">{{'Divorced' | translate}}</option>
-                  <option value="cohabiting">{{'Cohabiting' | translate}}</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-form-label col-sm-3">{{'Post Address' | translate}}</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" placeholder="e.g. GW-101-1010" formControlName="address">
-              </div>
-            </div>
-
-
-            <div class="form-group row">
-              <label class="col-form-label col-sm-3">{{'Occupation' | translate}}</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control" placeholder="e.g. Tailor" formControlName="occupation">
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-form-label col-sm-3">{{'Place of Work' | translate}}</label>
-
-              <div class="col-sm-9">
-                <input type="text" class="form-control" placeholder="e.g. Jobs Co. Ltd."
-                       formControlName="business_name" />
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-form-label col-sm-3">{{'Nationality' | translate}}</label>
-
-              <div class="col-sm-9">
-                <input type="text" class="form-control" placeholder="e.g. Ghanaian"
-                       formControlName="nationality" />
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-form-label col-sm-3">{{'Place of Birth' | translate}}</label>
-
-              <div class="col-sm-9">
-                <input type="text" class="form-control" placeholder="e.g. Accra"
-                       formControlName="place_of_birth" />
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label class="col-form-label col-sm-3">{{ 'Residential Address' | translate}}</label>
-              <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="Location" formControlName="residential_address">
-              </div>
-              <div class="col-sm-2">
-                <input type="text" class="form-control" placeholder="City" formControlName="residential_city">
-              </div>
-              <div class="col-sm-3">
-                <input type="text" class="form-control" placeholder="Region" formControlName="residential_region">
-              </div>
-            </div>
-
           </div>
-        </div>
 
 
-        <div class="card-footer text-end">
-          <button type="submit" class="btn btn-primary m-r-15"><i class="fa fa-save"></i> {{'Save Changes' | translate}}</button>
-          <button type="button" class="btn btn-danger" (click)="cancel()">{{'Cancel' | translate}}</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-</form>
+        </form>

@@ -9,7 +9,7 @@ import { CurrencyService} from '../../../../shared/services/api/currency.service
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { SmsAccountService } from '../../../../shared/services/api/sms-account.service';
 import { EventsService } from '../../../../shared/services/events.service';
-import { NgIf, NgFor } from '@angular/common';
+
 import { UiSwitchModule } from 'ngx-ui-switch';
 
 @Component({
@@ -17,7 +17,7 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     templateUrl: './receipts.component.html',
     styleUrls: ['./receipts.component.scss'],
     standalone: true,
-    imports: [NgIf, FormsModule, ReactiveFormsModule, NgFor, UiSwitchModule, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, TranslateModule]
 })
 export class ReceiptsComponent implements OnInit, OnDestroy {
 

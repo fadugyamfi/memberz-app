@@ -10,7 +10,7 @@ import { OrganisationMember } from '../../../../shared/model/api/organisation-me
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { ExcelService } from '../../../../shared/services/excel.service';
 import { SelectContributionTypeControlComponent } from '../../../../shared/components/forms/select-contribution-type-control/select-contribution-type-control.component';
-import { NgIf, NgFor, CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { SelectCurrencyControlComponent } from '../../../../shared/components/forms/select-currency-control/select-currency-control.component';
 import { NgxPrintDirective } from 'ngx-print';
 import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
@@ -22,7 +22,7 @@ import { ViewProfileDirective } from '../../../../shared/directives/view-profile
     templateUrl: './contributors-by-type.component.html',
     styleUrls: ['./contributors-by-type.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, SelectContributionTypeControlComponent, NgIf, SelectCurrencyControlComponent, NgxPrintDirective, LoadingRotateDashedComponent, NoDataAvailableComponent, NgFor, ViewProfileDirective, CurrencyPipe, DatePipe, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, SelectContributionTypeControlComponent, SelectCurrencyControlComponent, NgxPrintDirective, LoadingRotateDashedComponent, NoDataAvailableComponent, ViewProfileDirective, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class ContributorsByTypeComponent implements OnInit {
 

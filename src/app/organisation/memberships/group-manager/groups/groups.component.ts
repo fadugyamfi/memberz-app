@@ -12,7 +12,7 @@ import { OrganisationGroupTypeService } from '../../../../shared/services/api/or
 import { OrganisationGroupService } from '../../../../shared/services/api/organisation-group.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../../shared/services/events.service';
-import { NgIf, NgFor, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { NoDataAvailableComponent } from '../../../../shared/components/forms/no-data-available/no-data-available.component';
 import { RouterLink } from '@angular/router';
@@ -23,7 +23,7 @@ import { MemberControlComponent } from '../../../../shared/components/forms/memb
     templateUrl: './groups.component.html',
     styleUrls: ['./groups.component.scss'],
     standalone: true,
-    imports: [NgIf, LoadingRotateDashedComponent, NoDataAvailableComponent, NgFor, RouterLink, PaginationComponent, FormsModule, ReactiveFormsModule, MemberControlComponent, DecimalPipe, TranslateModule]
+    imports: [LoadingRotateDashedComponent, NoDataAvailableComponent, RouterLink, PaginationComponent, FormsModule, ReactiveFormsModule, MemberControlComponent, DecimalPipe, TranslateModule]
 })
 export class GroupsComponent implements OnInit, OnDestroy {
 

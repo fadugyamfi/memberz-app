@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { EventsService } from "../../shared/services/events.service";
 import { NgxIntlTelInputModule } from "ngx-intl-tel-input";
-import { NgIf } from "@angular/common";
+
 import { TawkChatComponent } from "../../components/tawk-chat/tawk-chat.component";
 import { TranslateModule } from "@ngx-translate/core";
 
@@ -18,14 +18,13 @@ type FormErrors = { [u in UserFields]: string };
     styleUrls: ["./reset-password.component.scss"],
     standalone: true,
     imports: [
-        RouterLink,
-        FormsModule,
-        ReactiveFormsModule,
-        NgxIntlTelInputModule,
-        NgIf,
-        TawkChatComponent,
-        TranslateModule,
-    ],
+    RouterLink,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxIntlTelInputModule,
+    TawkChatComponent,
+    TranslateModule
+],
 })
 export class ResetPasswordComponent implements OnInit, OnDestroy {
 

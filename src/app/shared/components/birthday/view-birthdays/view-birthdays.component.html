@@ -30,7 +30,7 @@
         </div>
 
         <button class="btn btn-outline-dark" ngxPrint printSectionId="content" [useExistingCss]="true"
-                printTitle="Memberships">
+          printTitle="Memberships">
           <i class="fa fa-print"></i> Print
         </button>
       </div>
@@ -39,56 +39,57 @@
   </div>
 
 
-  <ng-container *ngIf="(birthdays$ | async) as birthdays; else loading">
-    <app-no-data-available [message]="'No Birthdays Found'" *ngIf="birthdays.length == 0"></app-no-data-available>
-
+  @if ((birthdays$ | async); as birthdays) {
+    @if (birthdays.length == 0) {
+      <app-no-data-available [message]="'No Birthdays Found'"></app-no-data-available>
+    }
     <section id="content">
-      <table class="table table-bordered table-hover" *ngIf="birthdays.length > 0">
-        <thead>
-          <tr>
-            <th colspan="2">{{ "Name" | translate }}</th>
-            <th>{{ 'Membership Category' | translate }}</th>
-            <th class="text-center">{{ "Birth Date" | translate }}</th>
-            <th class="text-center">{{ "Age" | translate }}</th>
-            <th class="text-center">{{ "Phone Number" | translate }}</th>
-            <!-- <th class="text-center">{{ "Send SMS" | translate }}</th> -->
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr *ngFor="let membership of birthdays; let row = index">
-            <td class="text-end">
-              {{ row + organisationMemberService?.pagingMeta?.from }}.
-            </td>
-            <td>
-              <a href="javascript:void(0)" viewProfile [membership]="membership" class="d-flex align-items-center">
-                <app-profile-image [membership]="membership.member" [size]="32" [thumbnail]="true" class="me-2"></app-profile-image>
-
-                {{ membership.member.firstThenLastName() }}
-              </a>
-            </td>
-            <td>{{ membership.category.name }}</td>
-            <td class="text-center" [noWrap]="true">{{ membership.member.dob | date: 'MMM d' }}</td>
-            <td class="text-center" [noWrap]="true">{{ membership.member.age }}</td>
-            <td class="text-center" [noWrap]="true">{{ membership.member.mobile_number }}</td>
-            <!-- <td class="text-center">
-              <button class="btn btn-sm btn-outline-primary">Send SMS</button>
-            </td> -->
-          </tr>
+      @if (birthdays.length > 0) {
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th colspan="2">{{ "Name" | translate }}</th>
+              <th>{{ 'Membership Category' | translate }}</th>
+              <th class="text-center">{{ "Birth Date" | translate }}</th>
+              <th class="text-center">{{ "Age" | translate }}</th>
+              <th class="text-center">{{ "Phone Number" | translate }}</th>
+              <!-- <th class="text-center">{{ "Send SMS" | translate }}</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            @for (membership of birthdays; track membership; let row = $index) {
+              <tr>
+                <td class="text-end">
+                  {{ row + organisationMemberService?.pagingMeta?.from }}.
+                </td>
+                <td>
+                  <a href="javascript:void(0)" viewProfile [membership]="membership" class="d-flex align-items-center">
+                    <app-profile-image [membership]="membership.member" [size]="32" [thumbnail]="true" class="me-2"></app-profile-image>
+                    {{ membership.member.firstThenLastName() }}
+                  </a>
+                </td>
+                <td>{{ membership.category.name }}</td>
+                <td class="text-center" [noWrap]="true">{{ membership.member.dob | date: 'MMM d' }}</td>
+                <td class="text-center" [noWrap]="true">{{ membership.member.age }}</td>
+                <td class="text-center" [noWrap]="true">{{ membership.member.mobile_number }}</td>
+                <!-- <td class="text-center">
+                <button class="btn btn-sm btn-outline-primary">Send SMS</button>
+              </td> -->
+            </tr>
+          }
         </tbody>
       </table>
-    </section>
+    }
+  </section>
+  <div class="card-footer">
+    <app-pagination [service]="organisationMemberService" (paginate)="onPaginate($event)"></app-pagination>
+  </div>
+} @else {
+  <div class="card-body chart-block">
+    <app-loading-rotate-dashed></app-loading-rotate-dashed>
+  </div>
+}
 
-    <div class="card-footer">
-      <app-pagination [service]="organisationMemberService" (paginate)="onPaginate($event)"></app-pagination>
-    </div>
-  </ng-container>
-
-  <ng-template #loading>
-    <div class="card-body chart-block">
-      <app-loading-rotate-dashed></app-loading-rotate-dashed>
-    </div>
-  </ng-template>
 
 </div>
 <!-- end of card -->
@@ -112,9 +113,11 @@
         <div class="col-sm">
           <app-select-month-control formControlName="month"></app-select-month-control>
 
-          <div class="messages text-danger" *ngIf="editorForm.controls.month.errors?.required">
-            <p>{{ 'Month required' | translate }}</p>
-          </div>
+          @if (editorForm.controls.month.errors?.required) {
+            <div class="messages text-danger">
+              <p>{{ 'Month required' | translate }}</p>
+            </div>
+          }
         </div>
       </div>
 
@@ -125,9 +128,11 @@
         <div class="col-sm">
           <app-select-month-control formControlName="month"></app-select-month-control>
 
-          <div class="messages text-danger" *ngIf="editorForm.controls.year.errors?.required">
-            <p>{{ 'Year required' | translate }}</p>
-          </div>
+          @if (editorForm.controls.year.errors?.required) {
+            <div class="messages text-danger">
+              <p>{{ 'Year required' | translate }}</p>
+            </div>
+          }
         </div>
       </div>
 
@@ -135,13 +140,15 @@
     </div>
 
     <div class="modal-footer flex-grow-1 text-end">
-      <span class="m-r-15" *ngIf="saving && roleService.requesting">
-        <i class="fa fa-spin fa-circle-o-notch"></i> {{ 'Saving' | translate }}
-      </span>
+      @if (saving && roleService.requesting) {
+        <span class="m-r-15">
+          <i class="fa fa-spin fa-circle-o-notch"></i> {{ 'Saving' | translate }}
+        </span>
+      }
 
       <button type="submit" class="btn btn-primary ripple light">{{ 'Save Changes' | translate }}</button>
       <button type="button" class="btn btn-outline-danger ripple"
-              (click)="hideModal()">{{ 'Close' | translate }}</button>
+      (click)="hideModal()">{{ 'Close' | translate }}</button>
     </div>
 
   </form>

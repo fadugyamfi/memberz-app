@@ -1,38 +1,33 @@
 
-<app-loading-rotate-dashed *ngIf="eventService.fetching"></app-loading-rotate-dashed>
+@if (eventService.fetching) {
+  <app-loading-rotate-dashed></app-loading-rotate-dashed>
+}
 
-<section *ngIf="(event$ | async) as event">
-
-  <div class="card">
-    <div class="card-header d-flex align-items-center justify-content-between">
-      <section class="d-flex align-items-center">
-        <button class="btn btn-outline-primary btn-pill btn-sm m-r-15" [routerLink]="['/organisation/events/list']">
-          <i class="fa fa-arrow-left"></i> {{ 'Back To Events' | translate }}
-        </button>
-
-        <h5>{{ event?.event_name }}</h5>
-      </section>
-
-
-      <section>
-        <button class="btn btn-sm btn-outline-dark btn-pill m-r-10" ngxPrint printSectionId="reportBlock"
-                [useExistingCss]="true" [printTitle]="printTitle">
-          <i class="fa fa-print"></i> {{ 'Print' | translate }}
-
-        </button>
-
-        <!-- <button class="btn btn-sm btn-outline-success btn-pill" (click)="exportToExcel()">
+@if ((event$ | async); as event) {
+  <section>
+    <div class="card">
+      <div class="card-header d-flex align-items-center justify-content-between">
+        <section class="d-flex align-items-center">
+          <button class="btn btn-outline-primary btn-pill btn-sm m-r-15" [routerLink]="['/organisation/events/list']">
+            <i class="fa fa-arrow-left"></i> {{ 'Back To Events' | translate }}
+          </button>
+          <h5>{{ event?.event_name }}</h5>
+        </section>
+        <section>
+          <button class="btn btn-sm btn-outline-dark btn-pill m-r-10" ngxPrint printSectionId="reportBlock"
+            [useExistingCss]="true" [printTitle]="printTitle">
+            <i class="fa fa-print"></i> {{ 'Print' | translate }}
+          </button>
+          <!-- <button class="btn btn-sm btn-outline-success btn-pill" (click)="exportToExcel()">
           <i class="fa fa-file-excel-o"></i> {{ 'Export' | translate }}
         </button> -->
       </section>
-
     </div>
   </div>
-
   <main id="reportBlock">
     <div class='card'>
       <div class='card-header bg-white'>
-       <h5>Attendance By Gender</h5>
+        <h5>Attendance By Gender</h5>
       </div>
       <div class='table-responsive'>
         <table class='table table-bordered table-striped text-center'>
@@ -46,24 +41,24 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let session of event.statistics.gender">
-              <td class='text-start'>{{ session.session_name }}</td>
-              <td>{{ session.session_dt | date : 'shortTime' }}</td>
-              <td>{{ session.male_guests }}</td>
-              <td>{{ session.female_guests }}</td>
-              <td class="fw-bold">{{ session.total_guests }}</td>
-            </tr>
+            @for (session of event.statistics.gender; track session) {
+              <tr>
+                <td class='text-start'>{{ session.session_name }}</td>
+                <td>{{ session.session_dt | date : 'shortTime' }}</td>
+                <td>{{ session.male_guests }}</td>
+                <td>{{ session.female_guests }}</td>
+                <td class="fw-bold">{{ session.total_guests }}</td>
+              </tr>
+            }
           </tbody>
         </table>
       </div>
     </div>
-
     <div class='card'>
       <div class='card-header bg-white'>
         <h5>Attendance By Membership Category</h5>
       </div>
-
-      <ng-container *ngFor="let category of event.statistics?.categories | keyvalue">
+      @for (category of event.statistics?.categories | keyvalue; track category) {
         <div class='table-responsive'>
           <table class='table table-striped text-center b-b'>
             <thead>
@@ -80,24 +75,24 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let session of category.value">
-                <td class='text-start'>{{ session.category_name }}</td>
-                <td>{{ session.male_guests }}</td>
-                <td>{{ session.female_guests }}</td>
-                <td class="fw-bold">{{ session.total_guests }}</td>
-              </tr>
+              @for (session of category.value; track session) {
+                <tr>
+                  <td class='text-start'>{{ session.category_name }}</td>
+                  <td>{{ session.male_guests }}</td>
+                  <td>{{ session.female_guests }}</td>
+                  <td class="fw-bold">{{ session.total_guests }}</td>
+                </tr>
+              }
             </tbody>
           </table>
         </div>
-      </ng-container>
+      }
     </div>
-
     <div class='card'>
       <div class='card-header bg-white'>
         <h5>Attendance By Groups</h5>
       </div>
-
-      <ng-container *ngFor="let groups of event.statistics?.groups | keyvalue">
+      @for (groups of event.statistics?.groups | keyvalue; track groups) {
         <div class='table-responsive'>
           <table class='table table-striped text-center'>
             <thead>
@@ -113,29 +108,26 @@
                 <th class='text-center'>Total</th>
               </tr>
             </thead>
-
-            <tbody *ngFor="let session of groups.value | keyvalue">
-
-              <tr>
-                <td colspan="4" class='text-start font-bold'>
-                  <span class="ps-3">{{ session.key }}</span></td>
-              </tr>
-
-              <tr *ngFor="let record of session.value">
-                <td class='text-start'><span class='ps-5'>{{ record.group_name }}</span></td>
-                <td>{{ record.male_guests }}</td>
-                <td>{{ record.female_guests }}</td>
-                <td class="fw-bold">{{ record.total_guests }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </ng-container>
-    </div>
-  </main>
-
-
-
-
-
-</section>
+            @for (session of groups.value | keyvalue; track session) {
+              <tbody>
+                <tr>
+                  <td colspan="4" class='text-start font-bold'>
+                    <span class="ps-3">{{ session.key }}</span></td>
+                  </tr>
+                  @for (record of session.value; track record) {
+                    <tr>
+                      <td class='text-start'><span class='ps-5'>{{ record.group_name }}</span></td>
+                      <td>{{ record.male_guests }}</td>
+                      <td>{{ record.female_guests }}</td>
+                      <td class="fw-bold">{{ record.total_guests }}</td>
+                    </tr>
+                  }
+                </tbody>
+              }
+            </table>
+          </div>
+        }
+      </div>
+    </main>
+  </section>
+}

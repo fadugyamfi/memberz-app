@@ -18,7 +18,7 @@ import Swal from 'sweetalert2';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Router, RouterLink } from '@angular/router';
 import { SmsAccountService } from '../../../../shared/services/api/sms-account.service';
-import { NgIf, NgFor, CurrencyPipe, KeyValuePipe } from '@angular/common';
+import { CurrencyPipe, KeyValuePipe } from '@angular/common';
 import { MemberControlComponent } from '../../../../shared/components/forms/member-control/member-control.component';
 import { SelectPaymentTypeControlComponent } from '../../../../shared/components/forms/select-payment-type-control/select-payment-type-control.component';
 import { SelectBankControlComponent } from '../../../../shared/components/forms/select-bank-control/select-bank-control.component';
@@ -32,7 +32,7 @@ import { SelectCurrencyControlComponent } from '../../../../shared/components/fo
     templateUrl: './income-editor.component.html',
     styleUrls: ['./income-editor.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink, NgFor, MemberControlComponent, SelectPaymentTypeControlComponent, SelectBankControlComponent, SelectMonthControlComponent, SelectYearControlComponent, SelectCurrencyControlComponent, CurrencyPipe, KeyValuePipe, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, RouterLink, MemberControlComponent, SelectPaymentTypeControlComponent, SelectBankControlComponent, SelectMonthControlComponent, SelectYearControlComponent, SelectCurrencyControlComponent, CurrencyPipe, KeyValuePipe, TranslateModule]
 })
 export class IncomeEditorComponent implements OnInit, OnDestroy {
 

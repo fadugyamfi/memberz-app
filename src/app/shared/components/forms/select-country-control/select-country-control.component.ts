@@ -2,7 +2,7 @@ import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CountryService } from '../../../services/api/country.service';
-import { NgFor } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 export const COUNTRY_CONTROL_ACCESSOR: any = {
@@ -18,7 +18,7 @@ export const COUNTRY_CONTROL_ACCESSOR: any = {
     styleUrls: ['./select-country-control.component.scss'],
     providers: [COUNTRY_CONTROL_ACCESSOR],
     standalone: true,
-    imports: [FormsModule, NgFor, TranslateModule]
+    imports: [FormsModule, TranslateModule]
 })
 export class SelectCountryControlComponent implements OnInit, OnDestroy {
 

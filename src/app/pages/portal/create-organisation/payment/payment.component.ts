@@ -7,14 +7,14 @@ import moment from 'moment';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { Organisation } from '../../../../shared/model/api/organisation';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import { NgIf, UpperCasePipe } from '@angular/common';
+import { UpperCasePipe } from '@angular/common';
 
 @Component({
     selector: 'app-payment-step',
     templateUrl: './payment.component.html',
     styleUrls: ['./payment.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, NgIf, UpperCasePipe]
+    imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, UpperCasePipe]
 })
 export class PaymentComponent implements OnInit, AfterViewInit {
 

@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { BankService } from '../../../services/api/bank.service';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { OrganisationService } from '../../../services/api/organisation.service';
-import { NgFor } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 export const BANK_CONTROL_ACCESSOR: any = {
@@ -19,7 +19,7 @@ export const BANK_CONTROL_ACCESSOR: any = {
     styleUrls: ['./select-bank-control.component.scss'],
     providers: [BANK_CONTROL_ACCESSOR],
     standalone: true,
-    imports: [FormsModule, NgFor, TranslateModule]
+    imports: [FormsModule, TranslateModule]
 })
 export class SelectBankControlComponent implements OnInit, OnDestroy {
 

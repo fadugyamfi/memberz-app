@@ -5,7 +5,7 @@ import { PageEvent, PaginationComponent } from '../../../../shared/components/pa
 import { SmsBroadcast } from '../../../../shared/model/api/sms-broadcast';
 import { SmsBroadcastService } from '../../../../shared/services/api/sms-broadcast.service';
 import { EventsService } from '../../../../shared/services/events.service';
-import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { ViewProfileDirective } from '../../../../shared/directives/view-profile.directive';
 
@@ -14,7 +14,7 @@ import { ViewProfileDirective } from '../../../../shared/directives/view-profile
     templateUrl: './broadcast-history-view.component.html',
     styleUrls: ['./broadcast-history-view.component.scss'],
     standalone: true,
-    imports: [NgIf, LoadingRotateDashedComponent, NgFor, ViewProfileDirective, PaginationComponent, DatePipe, TranslateModule]
+    imports: [LoadingRotateDashedComponent, ViewProfileDirective, PaginationComponent, DatePipe, TranslateModule]
 })
 export class BroadcastHistoryViewComponent implements OnInit, OnDestroy {
 

@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-header">
     <button class="btn btn-sm btn-primary" (click)="showEditor($event)">
-        <i class="fa fa-plus-circle"></i> {{ 'Add New Role' | translate }}
+      <i class="fa fa-plus-circle"></i> {{ 'Add New Role' | translate }}
     </button>
   </div>
 
@@ -16,43 +16,47 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let role of roleService.getItems(); let row = index">
-        <td class="text-end">{{ row + 1 }}.</td>
-        <td>
-          <div>{{ role.name }}</div>
-          <div class="text-muted small">{{ role.description }}</div>
-        </td>
-        <td class="text-center">
-          {{ role.permissions_count }}
-        </td>
-        <td class="text-center">
-          {{ role.organisation_account_count }}
-        </td>
-        <td class="text-center">
-          <button class="btn btn-xs btn-primary m-r-5" (click)="viewPermissions(role)">
-            <i class="fa fa-lock fa-fw"></i> {{ 'Permissions' | translate }}
-          </button>
-
-          <button class="btn btn-xs btn-primary m-r-5" (click)="showEditor($event, role)">
-            <i class="fa fa-pencil fa-fw"></i> {{ 'Edit' | translate }}
-          </button>
-
-          <button class="btn btn-xs btn-danger" (click)="deleteRole(role)">
-            <i class="fa fa-trash-o fa-fw"></i> {{ 'Delete' | translate }}
-          </button>
-        </td>
-      </tr>
+      @for (role of roleService.getItems(); track role; let row = $index) {
+        <tr>
+          <td class="text-end">{{ row + 1 }}.</td>
+          <td>
+            <div>{{ role.name }}</div>
+            <div class="text-muted small">{{ role.description }}</div>
+          </td>
+          <td class="text-center">
+            {{ role.permissions_count }}
+          </td>
+          <td class="text-center">
+            {{ role.organisation_account_count }}
+          </td>
+          <td class="text-center">
+            <button class="btn btn-xs btn-primary m-r-5" (click)="viewPermissions(role)">
+              <i class="fa fa-lock fa-fw"></i> {{ 'Permissions' | translate }}
+            </button>
+            <button class="btn btn-xs btn-primary m-r-5" (click)="showEditor($event, role)">
+              <i class="fa fa-pencil fa-fw"></i> {{ 'Edit' | translate }}
+            </button>
+            <button class="btn btn-xs btn-danger" (click)="deleteRole(role)">
+              <i class="fa fa-trash-o fa-fw"></i> {{ 'Delete' | translate }}
+            </button>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
 
-  <div class="m-t-50 text-center" *ngIf="!roleService.requesting && !recordsPresent()">
-    <h3>{{ 'No Roles Found' | translate }}</h3>
-    <p>{{ 'Click the "Add New Role" button to begin' | translate }}</p>
-  </div>
+  @if (!roleService.requesting && !recordsPresent()) {
+    <div class="m-t-50 text-center">
+      <h3>{{ 'No Roles Found' | translate }}</h3>
+      <p>{{ 'Click the "Add New Role" button to begin' | translate }}</p>
+    </div>
+  }
 
-  <div class="loader-box m-auto" *ngIf="roleService.fetching">
-    <span class="rotate dashed colored"></span>
-  </div>
+  @if (roleService.fetching) {
+    <div class="loader-box m-auto">
+      <span class="rotate dashed colored"></span>
+    </div>
+  }
 
   <div class="card-footer">
     <app-pagination [service]="roleService" (paginate)="onPaginate($event)"></app-pagination>
@@ -79,9 +83,11 @@
         <div class="col-sm">
           <input type="text" class="form-control" formControlName="name" placeholder="e.g. Officer" />
 
-          <div class="messages text-danger" *ngIf="editorForm.controls.name.errors?.required">
-            <p>{{ 'Role name required' | translate }}</p>
-          </div>
+          @if (editorForm.controls.name.errors?.required) {
+            <div class="messages text-danger">
+              <p>{{ 'Role name required' | translate }}</p>
+            </div>
+          }
         </div>
       </div>
 
@@ -91,23 +97,25 @@
         </div>
         <div class="col-sm">
           <input type="text" class="form-control" formControlName="description"
-                 placeholder="e.g Something brief about this role" />
+            placeholder="e.g Something brief about this role" />
+          </div>
         </div>
+
+
       </div>
 
+      <div class="modal-footer flex-grow-1 text-end">
+        @if (saving && roleService.requesting) {
+          <span class="m-r-15">
+            <i class="fa fa-spin fa-circle-o-notch"></i> {{ 'Saving' | translate }}
+          </span>
+        }
 
-    </div>
+        <button type="submit" class="btn btn-primary ripple light">{{ 'Save Changes' | translate }}</button>
+        <button type="button" class="btn btn-outline-danger ripple" (click)="hideModal()">{{ 'Close' | translate }}</button>
+      </div>
 
-    <div class="modal-footer flex-grow-1 text-end">
-      <span class="m-r-15" *ngIf="saving && roleService.requesting">
-        <i class="fa fa-spin fa-circle-o-notch"></i> {{ 'Saving' | translate }}
-      </span>
+    </form>
+  </ng-template>
 
-      <button type="submit" class="btn btn-primary ripple light">{{ 'Save Changes' | translate }}</button>
-      <button type="button" class="btn btn-outline-danger ripple" (click)="hideModal()">{{ 'Close' | translate }}</button>
-    </div>
-
-  </form>
-</ng-template>
-
-<app-permissions #permissions [role]="selectedRole"></app-permissions>
+  <app-permissions #permissions [role]="selectedRole"></app-permissions>

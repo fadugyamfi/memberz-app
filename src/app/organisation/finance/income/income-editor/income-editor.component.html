@@ -19,13 +19,17 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">{{'Receipt No.' | translate}}</label>
         <div class="col-sm-6">
-          <div class="form-control" *ngIf="receiptSettings.isReceiptModeAuto()">
-            <i class="fa fa-magic"></i> {{ 'Auto Generated' | translate }}
-          </div>
+          @if (receiptSettings.isReceiptModeAuto()) {
+            <div class="form-control">
+              <i class="fa fa-magic"></i> {{ 'Auto Generated' | translate }}
+            </div>
+          }
 
           <div>
-            <input *ngIf="!receiptSettings.isReceiptModeAuto()" type="text" class="form-control w-50" placeholder="e.g. 000101"
-              formControlName="receipt_no" />
+            @if (!receiptSettings.isReceiptModeAuto()) {
+              <input type="text" class="form-control w-50" placeholder="e.g. 000101"
+                formControlName="receipt_no" />
+            }
             <span class="small font-italic">
               {{ 'You can enabled auto-generated receipt numbers by changing' | translate}}
               <a [routerLink]="['/organisation/finance/settings/receipts']" target="_blank">{{'receipt settings' | translate}}</a>
@@ -39,25 +43,30 @@
         <div class="col-sm-7">
           <select class="form-select" formControlName="module_contribution_type_id" required="">
             <option value="">{{ 'Select Type' | translate }}</option>
-            <option *ngFor="let type of contributionTypeService.getItems()" [value]="type.id">{{ type.name }}</option>
+            @for (type of contributionTypeService.getItems(); track type) {
+              <option [value]="type.id">{{ type.name }}</option>
+            }
           </select>
         </div>
       </div>
 
-      <div *ngIf="selectedContributionTypeIsMemberSpecific()" class="form-group row animated fadeInDown"
-           style="z-index: 1; position: relative;">
-        <label class="col-sm-2 col-form-label">{{'Member' | translate}}</label>
-        <div class="col-sm-7">
-          <app-member-control formControlName="organisation_member_id" [returnMembershipId]="true"
-                              [membership]="selectedContribution?.organisation_member"
-                              [readonly]="selectedContribution != null">
-          </app-member-control>
-
-          <div class="messages text-danger" *ngIf="editorForm.controls.organisation_member_id?.errors?.required">
-            <p class="m-b-0 m-t-5">{{ 'Member Required For This Contribution Type' | translate }}</p>
+      @if (selectedContributionTypeIsMemberSpecific()) {
+        <div class="form-group row animated fadeInDown"
+          style="z-index: 1; position: relative;">
+          <label class="col-sm-2 col-form-label">{{'Member' | translate}}</label>
+          <div class="col-sm-7">
+            <app-member-control formControlName="organisation_member_id" [returnMembershipId]="true"
+              [membership]="selectedContribution?.organisation_member"
+              [readonly]="selectedContribution != null">
+            </app-member-control>
+            @if (editorForm.controls.organisation_member_id?.errors?.required) {
+              <div class="messages text-danger">
+                <p class="m-b-0 m-t-5">{{ 'Member Required For This Contribution Type' | translate }}</p>
+              </div>
+            }
           </div>
         </div>
-      </div>
+      }
 
       <div class="form-group row animated fadeInDown">
         <label class="col-sm-2 col-form-label">{{'Description' | translate}}</label>
@@ -73,74 +82,73 @@
         </div>
       </div>
 
-      <div class="form-group row animated fadeInDown" *ngIf="paymentMethodIsCheque()">
-        <label class="col-sm-2 col-form-label">{{'Cheque Details' | translate}}</label>
-        <div class="col-sm-4">
-          <app-select-bank-control formControlName="bank_id"></app-select-bank-control>
+      @if (paymentMethodIsCheque()) {
+        <div class="form-group row animated fadeInDown">
+          <label class="col-sm-2 col-form-label">{{'Cheque Details' | translate}}</label>
+          <div class="col-sm-4">
+            <app-select-bank-control formControlName="bank_id"></app-select-bank-control>
+          </div>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" formControlName="cheque_number" placeholder="Cheque No." maxlength="20" />
+          </div>
+          <div class="col-sm-3">
+            <select class="form-select" formControlName="cheque_status">
+              <option value="">{{ 'Cheque Status' | translate }}</option>\
+              <option value="Cleared">{{ 'Cleared' | translate }}</option>\
+              <option value="Not Cleared">{{ 'Not Cleared' | translate }}</option>\
+            </select>
+          </div>
         </div>
-
-        <div class="col-sm-3">
-          <input type="text" class="form-control" formControlName="cheque_number" placeholder="Cheque No." maxlength="20" />
-        </div>
-
-        <div class="col-sm-3">
-          <select class="form-select" formControlName="cheque_status">
-            <option value="">{{ 'Cheque Status' | translate }}</option>\
-            <option value="Cleared">{{ 'Cleared' | translate }}</option>\
-            <option value="Not Cleared">{{ 'Not Cleared' | translate }}</option>\
-          </select>
-        </div>
-      </div>
+      }
 
 
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">{{'Periods & Amounts' | translate}}</label>
         <div class="col-sm-8">
-          <div formArrayName="periods" *ngFor="let period of editorForm.get('periods')['controls']; let i = index;">
-
-            <div class="row" [formGroupName]="i">
-              <div class="col">
-                <select class="form-select m-r-10" formControlName="week">
-                  <option value="">{{ 'Select Week' | translate }}</option>
-                  <option value="1">{{ 'Wk' | translate }} 1</option>
-                  <option value="2">{{ 'Wk' | translate }} 2</option>
-                  <option value="3">{{ 'Wk' | translate }} 3</option>
-                  <option value="4">{{ 'Wk' | translate }} 4</option>
-                  <option value="5">{{ 'Wk' | translate }} 5</option>
-                </select>
-              </div>
-
-              <div class="col-2">
-                <app-select-month-control class="m-r-10" formControlName="month" [shortNames]="true"></app-select-month-control>
-              </div>
-
-              <div class="col">
-                <app-select-year-control class="m-r-10" formControlName="year"></app-select-year-control>
-              </div>
-
-              <div class="col">
-                <app-select-currency-control class="m-r-10" formControlName="currency_id" [showCurrencyName]="false"></app-select-currency-control>
-              </div>
-
-              <div class="col">
-                <input type="number" class="form-control" formControlName="amount" placeholder="0.00" />
-              </div>
-
-              <div class="col">
-                <a href="javascript:void(0)" *ngIf="i > 0" class="btn btn-sm btn-danger"
-                   style="padding-left: 15px; padding-right: 15px;" (click)="removePeriodAt(i)">
-                  <i class="fa fa-trash-o"></i>
-                </a>
+          @for (period of editorForm.get('periods')['controls']; track period; let i = $index) {
+            <div formArrayName="periods">
+              <div class="row" [formGroupName]="i">
+                <div class="col">
+                  <select class="form-select m-r-10" formControlName="week">
+                    <option value="">{{ 'Select Week' | translate }}</option>
+                    <option value="1">{{ 'Wk' | translate }} 1</option>
+                    <option value="2">{{ 'Wk' | translate }} 2</option>
+                    <option value="3">{{ 'Wk' | translate }} 3</option>
+                    <option value="4">{{ 'Wk' | translate }} 4</option>
+                    <option value="5">{{ 'Wk' | translate }} 5</option>
+                  </select>
+                </div>
+                <div class="col-2">
+                  <app-select-month-control class="m-r-10" formControlName="month" [shortNames]="true"></app-select-month-control>
+                </div>
+                <div class="col">
+                  <app-select-year-control class="m-r-10" formControlName="year"></app-select-year-control>
+                </div>
+                <div class="col">
+                  <app-select-currency-control class="m-r-10" formControlName="currency_id" [showCurrencyName]="false"></app-select-currency-control>
+                </div>
+                <div class="col">
+                  <input type="number" class="form-control" formControlName="amount" placeholder="0.00" />
+                </div>
+                <div class="col">
+                  @if (i > 0) {
+                    <a href="javascript:void(0)" class="btn btn-sm btn-danger"
+                      style="padding-left: 15px; padding-right: 15px;" (click)="removePeriodAt(i)">
+                      <i class="fa fa-trash-o"></i>
+                    </a>
+                  }
+                </div>
               </div>
             </div>
-
-          </div>
+          }
 
           <div class="total row">
             <div class="col-3 offset-7 fw-bold text-end">
-              <div *ngFor="let code of periodTotals | keyvalue">
-                {{ code.value | currency : code : code.key + ' ' }}
-              </div>
+              @for (code of periodTotals | keyvalue; track code) {
+                <div>
+                  {{ code.value | currency : code : code.key + ' ' }}
+                </div>
+              }
             </div>
           </div>
         </div>
@@ -155,30 +163,35 @@
 
     <div class="modal-footer d-flex justify-content-between">
       <section>
-        <span *ngIf="receiptSettings.sms_notify" class="text-primary ms-3 fw-bold">
-          <!-- <i class="fa fa-envelope"></i> {{ 'SMS Receipts Enabled'}} -->
-
-          <span class="checkbox">
-            <input type="checkbox" formControlName="send_sms" id="send_sms_field" />
-            <label for="send_sms_field">
-              {{ 'Send SMS Receipt' | translate }}
-            </label>
+        @if (receiptSettings.sms_notify) {
+          <span class="text-primary ms-3 fw-bold">
+            <!-- <i class="fa fa-envelope"></i> {{ 'SMS Receipts Enabled'}} -->
+            <span class="checkbox">
+              <input type="checkbox" formControlName="send_sms" id="send_sms_field" />
+              <label for="send_sms_field">
+                {{ 'Send SMS Receipt' | translate }}
+              </label>
+            </span>
           </span>
-        </span>
+        }
 
-        <span *ngIf="!receiptSettings.sms_notify">
-          <span class="text-danger fw-bold">
-            <i class="fa fa-times"></i> {{ 'SMS Receipts Disabled'}}
+        @if (!receiptSettings.sms_notify) {
+          <span>
+            <span class="text-danger fw-bold">
+              <i class="fa fa-times"></i> {{ 'SMS Receipts Disabled'}}
+            </span>
+            | <a href="javascript:void(0)" (click)="enableSmsNotification()">{{ 'Enable'}}</a>
           </span>
-          | <a href="javascript:void(0)" (click)="enableSmsNotification()">{{ 'Enable'}}</a>
-        </span>
+        }
 
       </section>
 
       <section>
-        <span *ngIf="contributionService?.requesting" class="m-r-20">
-          <i class="fa fa-spin fa-circle-o-notch"></i> {{'Saving' | translate}}...
-        </span>
+        @if (contributionService?.requesting) {
+          <span class="m-r-20">
+            <i class="fa fa-spin fa-circle-o-notch"></i> {{'Saving' | translate}}...
+          </span>
+        }
 
         <button type="submit" class="btn btn-primary m-r-15">
           {{'Save Changes' | translate}}

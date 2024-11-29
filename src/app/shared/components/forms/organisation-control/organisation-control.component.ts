@@ -7,7 +7,7 @@ import { OrganisationService } from '../../../services/api/organisation.service'
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ImagePreloadDirective } from '../../../directives/image-preload.directive';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgIf } from '@angular/common';
+
 import { AvatarModule } from 'ngx-avatars';
 
 export const ORGANISATION_CONTROL_ACCESSOR: any = {
@@ -23,7 +23,7 @@ export const ORGANISATION_CONTROL_ACCESSOR: any = {
     styleUrls: ['./organisation-control.component.scss'],
     providers: [ORGANISATION_CONTROL_ACCESSOR],
     standalone: true,
-    imports: [ImagePreloadDirective, NgbTypeaheadModule, NgIf, AvatarModule]
+    imports: [ImagePreloadDirective, NgbTypeaheadModule, AvatarModule]
 })
 export class OrganisationControlComponent {
 

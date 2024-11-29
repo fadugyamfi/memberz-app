@@ -9,7 +9,7 @@ import { ContributionTypeService } from '../../../../shared/services/api/contrib
 import { CurrencyService } from '../../../../shared/services/api/currency.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../../shared/services/events.service';
-import { NgIf, NgFor, DecimalPipe, CurrencyPipe } from '@angular/common';
+import { DecimalPipe, CurrencyPipe } from '@angular/common';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './income-sources.component.html',
     styleUrls: ['./income-sources.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, PaginationComponent, FormsModule, ReactiveFormsModule, UiSwitchModule, DecimalPipe, CurrencyPipe, TranslateModule]
+    imports: [PaginationComponent, FormsModule, ReactiveFormsModule, UiSwitchModule, DecimalPipe, CurrencyPipe, TranslateModule]
 })
 export class IncomeSourcesComponent implements OnInit, OnDestroy {
 

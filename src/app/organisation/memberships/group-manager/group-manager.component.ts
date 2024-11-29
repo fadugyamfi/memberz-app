@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrganisationGroup } from '../../../shared/model/api/organisation-group';
 import { OrganisationGroupType } from '../../../shared/model/api/organisation-group-type';
 import { GroupTypesComponent } from './group-types/group-types.component';
-import { NgIf } from '@angular/common';
+
 import { GroupsComponent } from './groups/groups.component';
 import { GroupMembersComponent } from './group-members/group-members.component';
 
@@ -11,7 +11,7 @@ import { GroupMembersComponent } from './group-members/group-members.component';
     templateUrl: './group-manager.component.html',
     styleUrls: ['./group-manager.component.scss'],
     standalone: true,
-    imports: [GroupTypesComponent, NgIf, GroupsComponent, GroupMembersComponent]
+    imports: [GroupTypesComponent, GroupsComponent, GroupMembersComponent]
 })
 export class GroupManagerComponent implements OnInit {
 

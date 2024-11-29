@@ -6,7 +6,7 @@ import { OrganisationMember } from '../../../../shared/model/api/organisation-me
 import { OrganisationMemberService } from '../../../../shared/services/api/organisation-member.service';
 import { EventsService } from '../../../../shared/services/events.service';
 import { MembershipCardModalComponent } from '../membership-card-modal/membership-card-modal.component';
-import { NgIf } from '@angular/common';
+
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { MakeAdminComponent } from '../make-admin/make-admin.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,7 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './profile-actions.component.html',
     styleUrls: ['./profile-actions.component.scss'],
     standalone: true,
-    imports: [NgIf, NgbAlertModule, MakeAdminComponent, MembershipCardModalComponent, TranslateModule]
+    imports: [NgbAlertModule, MakeAdminComponent, MembershipCardModalComponent, TranslateModule]
 })
 export class ProfileActionsComponent implements OnInit {
 

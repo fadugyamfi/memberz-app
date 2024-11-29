@@ -6,7 +6,7 @@ import { OrganisationFileImport } from '../../../../shared/model/api/organisatio
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { OrganisationMemberImportService } from '../../../../shared/services/api/organisation-member-import.service';
 import { EventsService } from '../../../../shared/services/events.service';
-import { NgIf, NgFor } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './upload-review.component.html',
     styleUrls: ['./upload-review.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, RouterLink, PaginationComponent, TranslateModule]
+    imports: [RouterLink, PaginationComponent, TranslateModule]
 })
 export class UploadReviewComponent implements OnInit, OnDestroy {
 

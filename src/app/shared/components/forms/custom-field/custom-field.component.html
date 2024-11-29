@@ -1,10 +1,20 @@
 <div>
-  <select *ngIf="config?.type == 'select'" class="form-select digits" [(ngModel)]="value">
-    <option value="">{{ 'Select Option' | translate }}</option>
-    <option *ngFor="let option of config.options" [value]="option.value">{{ option.label }}</option>
-  </select>
+  @if (config?.type == 'select') {
+    <select class="form-select digits" [(ngModel)]="value">
+      <option value="">{{ 'Select Option' | translate }}</option>
+      @for (option of config.options; track option) {
+        <option [value]="option.value">{{ option.label }}</option>
+      }
+    </select>
+  }
 
-  <input *ngIf="config?.type == 'text'" type="text" class="form-control" [(ngModel)]="value" [placeholder]="config?.placeholder" />
-  <input *ngIf="config?.type == 'time'" type="time" class="form-control" [(ngModel)]="value" />
-  <input *ngIf="config?.type == 'date'" type="date" class="form-control" [(ngModel)]="value" />
+  @if (config?.type == 'text') {
+    <input type="text" class="form-control" [(ngModel)]="value" [placeholder]="config?.placeholder" />
+  }
+  @if (config?.type == 'time') {
+    <input type="time" class="form-control" [(ngModel)]="value" />
+  }
+  @if (config?.type == 'date') {
+    <input type="date" class="form-control" [(ngModel)]="value" />
+  }
 </div>

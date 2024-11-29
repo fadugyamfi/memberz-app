@@ -6,7 +6,7 @@ import { OrganisationGroup } from '../../../../shared/model/api/organisation-gro
 import { OrganisationMemberGroup } from '../../../../shared/model/api/organisation-member-group';
 import { OrganisationMemberGroupService } from '../../../../shared/services/api/organisation-member-group.service';
 import { EventsService } from '../../../../shared/services/events.service';
-import { NgIf, NgFor } from '@angular/common';
+
 import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { RouterLink } from '@angular/router';
 
@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
     templateUrl: './group-members.component.html',
     styleUrls: ['./group-members.component.scss'],
     standalone: true,
-    imports: [NgIf, LoadingRotateDashedComponent, NgFor, RouterLink, PaginationComponent, TranslateModule]
+    imports: [LoadingRotateDashedComponent, RouterLink, PaginationComponent, TranslateModule]
 })
 export class GroupMembersComponent implements OnInit, OnDestroy {
 

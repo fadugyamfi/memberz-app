@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavService, Menu } from '../../services/nav.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { OrganisationService } from '../../services/api/organisation.service';
-import { NgFor, NgIf, SlicePipe } from '@angular/common';
+import { SlicePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { FeatherIconsComponent } from '../feather-icons/feather-icons.component';
@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './bookmark.component.html',
     styleUrls: ['./bookmark.component.scss'],
     standalone: true,
-    imports: [NgFor, RouterLink, NgbTooltipModule, FeatherIconsComponent, FormsModule, NgIf, SlicePipe, TranslateModule]
+    imports: [RouterLink, NgbTooltipModule, FeatherIconsComponent, FormsModule, SlicePipe, TranslateModule]
 })
 export class BookmarkComponent implements OnInit {
 

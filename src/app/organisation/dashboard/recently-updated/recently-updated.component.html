@@ -5,13 +5,15 @@
 </div>
 
 <div class="d-flex justify-content-between">
-  <div class="card w-30 cursor-hand" *ngFor="let membership of memberships$ | async" viewProfile [membership]="membership">
-    <div class="card-body text-center pb-3">
-      <ngx-avatars [src]="membership.member?.image()" [name]="membership.name()" size="100" class="d-flex justify-content-center"></ngx-avatars>
+  @for (membership of memberships$ | async; track membership) {
+    <div class="card w-30 cursor-hand" viewProfile [membership]="membership">
+      <div class="card-body text-center pb-3">
+        <ngx-avatars [src]="membership.member?.image()" [name]="membership.name()" size="100" class="d-flex justify-content-center"></ngx-avatars>
+      </div>
+      <div class="card-body text-center pt-3">
+        <h6 class="fw-bold mb-0">{{ membership.name() }}</h6>
+        <p class="text-muted text-uppercase">{{ membership.category.name }}</p>
+      </div>
     </div>
-    <div class="card-body text-center pt-3">
-      <h6 class="fw-bold mb-0">{{ membership.name() }}</h6>
-      <p class="text-muted text-uppercase">{{ membership.category.name }}</p>
-    </div>
-  </div>
+  }
 </div>

@@ -7,7 +7,7 @@ import { Country } from '../../../../shared/model/api/country';
 import { CountryService } from '../../../../shared/services/api/country.service';
 import { Organisation } from '../../../../shared/model/api/organisation';
 import { CountryISO, PhoneNumberFormat, SearchCountryField, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import { NgFor, NgIf } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -16,7 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, NgFor, NgIf, RouterLink, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, RouterLink, TranslateModule]
 })
 export class ProfileComponent implements OnInit {
 

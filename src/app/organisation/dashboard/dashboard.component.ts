@@ -6,7 +6,7 @@ import { OrganisationMemberService } from '../../shared/services/api/organisatio
 import { GeneralStatisticsComponent } from './general-statistics/general-statistics.component';
 import { MembershipOverviewComponent } from './membership-overview/membership-overview.component';
 import { LoadingRotateDashedComponent } from '../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
-import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { AvatarModule } from 'ngx-avatars';
 import { ViewProfileDirective } from '../../shared/directives/view-profile.directive';
 import { RouterLink } from '@angular/router';
@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
     standalone: true,
-    imports: [GeneralStatisticsComponent, MembershipOverviewComponent, LoadingRotateDashedComponent, NgIf, NgFor, AvatarModule, ViewProfileDirective, RouterLink, SmsSummaryComponent, FinanceTrendComponent, AsyncPipe, DatePipe, TranslateModule]
+    imports: [GeneralStatisticsComponent, MembershipOverviewComponent, LoadingRotateDashedComponent, AvatarModule, ViewProfileDirective, RouterLink, SmsSummaryComponent, FinanceTrendComponent, AsyncPipe, DatePipe, TranslateModule]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 

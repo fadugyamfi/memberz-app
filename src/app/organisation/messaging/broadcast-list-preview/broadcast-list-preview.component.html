@@ -21,19 +21,21 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let contact of listContacts; let row = index">
-        <td>{{ row + 1 }}.</td>
-        <td>
-          <a href="javascript:void(0)" viewProfile [membershipId]="contact.membership_id">
-            {{ contact.last_name }} {{ contact.first_name }}
-          </a>
-        </td>
-        <td>{{ contact.membership_category_name }}</td>
-        <td><a href="tel:{{ contact.mobile_number }}">{{ contact.mobile_number }}</a></td>
-        <td>{{ contact.dob | date : short }}</td>
-        <td>{{ contact.occupation }}</td>
-        <td>{{ contact.gender | translate | titlecase  }}</td>
-      </tr>
+      @for (contact of listContacts; track contact; let row = $index) {
+        <tr>
+          <td>{{ row + 1 }}.</td>
+          <td>
+            <a href="javascript:void(0)" viewProfile [membershipId]="contact.membership_id">
+              {{ contact.last_name }} {{ contact.first_name }}
+            </a>
+          </td>
+          <td>{{ contact.membership_category_name }}</td>
+          <td><a href="tel:{{ contact.mobile_number }}">{{ contact.mobile_number }}</a></td>
+          <td>{{ contact.dob | date : short }}</td>
+          <td>{{ contact.occupation }}</td>
+          <td>{{ contact.gender | translate | titlecase  }}</td>
+        </tr>
+      }
     </tbody>
   </table>
 

@@ -2,7 +2,7 @@ import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@ang
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SmsTemplateTagService } from '../../../services/utilities/sms-template-tag.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgFor } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 
@@ -19,7 +19,7 @@ export const TEMPLATE_TAG_ACCESSOR: any = {
     styleUrls: ['./sms-template-tag-control.component.scss'],
     providers: [TEMPLATE_TAG_ACCESSOR],
     standalone: true,
-    imports: [NgbDropdownModule, NgFor, TranslateModule]
+    imports: [NgbDropdownModule, TranslateModule]
 })
 export class SmsTemplateTagControlComponent implements OnInit {
 

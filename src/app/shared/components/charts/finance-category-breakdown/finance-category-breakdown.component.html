@@ -24,35 +24,42 @@
     <!-- end of row -->
   </div>
   <div class="card-body chart-block">
-    <app-loading-rotate-dashed *ngIf="!showChart"></app-loading-rotate-dashed>
-    <app-no-data-available
-      *ngIf="showChart && !hasDataAvailable()"
-    ></app-no-data-available>
+    @if (!showChart) {
+      <app-loading-rotate-dashed></app-loading-rotate-dashed>
+    }
+    @if (showChart && !hasDataAvailable()) {
+      <app-no-data-available
+      ></app-no-data-available>
+    }
 
     <div class="col mb-2">
       <div class="chart-container" style="height: 35vh; position: relative;">
-        <canvas
-          *ngIf="showChart && hasDataAvailable()"
-          baseChart
-          class="chart"
-          [data]="doughnutChartData"
-          [labels]="labels"
-          [options]="doughnutChartOptions"
-          [type]="doughnutChartType"
-          [colors]="doughnutChartColors"
-        ></canvas>
+        @if (showChart && hasDataAvailable()) {
+          <canvas
+            baseChart
+            class="chart"
+            [data]="doughnutChartData"
+            [labels]="labels"
+            [options]="doughnutChartOptions"
+            [type]="doughnutChartType"
+            [colors]="doughnutChartColors"
+          ></canvas>
+        }
       </div>
 
     </div>
     <!-- end of col -->
-    <div
-      class="col d-flex justify-content-center"
-      *ngIf="currencyCodes.length > 1"
-    >
-      <span *ngFor="let code of currencyCodes; let row = index">
-        {{ "Layer" | translate }} {{ row + 1 }} => {{ code }} |
-      </span>
-    </div>
+    @if (currencyCodes.length > 1) {
+      <div
+        class="col d-flex justify-content-center"
+        >
+        @for (code of currencyCodes; track code; let row = $index) {
+          <span>
+            {{ "Layer" | translate }} {{ row + 1 }} => {{ code }} |
+          </span>
+        }
+      </div>
+    }
   </div>
 </div>
 <!-- end of card -->

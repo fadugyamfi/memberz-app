@@ -11,7 +11,7 @@ import { OrganisationCalendarService } from '../../../shared/services/api/organi
 import { OrganisationEventSessionService } from '../../../shared/services/api/organisation-event-session.service';
 import { OrganisationEventService } from '../../../shared/services/api/organisation-event.service';
 import { EventsService } from '../../../shared/services/events.service';
-import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 
 @Component({
@@ -19,7 +19,7 @@ import { LoadingRotateDashedComponent } from '../../../shared/components/forms/l
     templateUrl: './sessions.component.html',
     styleUrls: ['./sessions.component.scss'],
     standalone: true,
-    imports: [NgIf, FormsModule, ReactiveFormsModule, LoadingRotateDashedComponent, NgFor, DatePipe, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, LoadingRotateDashedComponent, DatePipe, TranslateModule]
 })
 export class SessionsComponent implements OnInit, OnDestroy {
 

@@ -2,7 +2,7 @@ import { Component, forwardRef, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ContributionPaymentTypeService } from '../../../services/api/contribution-payment-type.service';
-import { NgFor } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 export const PAYMENT_TYPE_CONTROL_ACCESSOR: any = {
@@ -18,7 +18,7 @@ export const PAYMENT_TYPE_CONTROL_ACCESSOR: any = {
     styleUrls: ['./select-payment-type-control.component.scss'],
     providers: [PAYMENT_TYPE_CONTROL_ACCESSOR],
     standalone: true,
-    imports: [FormsModule, NgFor, TranslateModule]
+    imports: [FormsModule, TranslateModule]
 })
 export class SelectPaymentTypeControlComponent implements OnInit, OnDestroy {
 

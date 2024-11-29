@@ -4,7 +4,7 @@ import { AuthService } from "../../shared/services/api/auth.service";
 import { EventsService } from "../../shared/services/events.service";
 import { SearchCountryField, CountryISO, PhoneNumberFormat, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { RouterLink } from "@angular/router";
-import { NgIf } from "@angular/common";
+
 import { TawkChatComponent } from "../../components/tawk-chat/tawk-chat.component";
 import { TranslateModule } from "@ngx-translate/core";
 
@@ -23,14 +23,13 @@ type FormErrors = { [u in UserFields]: string };
     styleUrls: ["./register.component.scss"],
     standalone: true,
     imports: [
-        RouterLink,
-        FormsModule,
-        ReactiveFormsModule,
-        NgxIntlTelInputModule,
-        NgIf,
-        TawkChatComponent,
-        TranslateModule,
-    ],
+    RouterLink,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxIntlTelInputModule,
+    TawkChatComponent,
+    TranslateModule
+],
 })
 export class RegisterComponent implements OnInit {
   public registerForm: UntypedFormGroup;

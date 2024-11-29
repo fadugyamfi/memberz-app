@@ -15,7 +15,7 @@ import { OrganisationGroupTypeService } from '../../../shared/services/api/organ
 import { OrganisationGroupType } from '../../../shared/model/api/organisation-group-type';
 import { Subscription } from 'rxjs';
 import { EventsService } from '../../../shared/services/events.service';
-import { NgFor, NgIf } from '@angular/common';
+
 import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { AvatarModule } from 'ngx-avatars';
 import { ViewProfileDirective } from '../../../shared/directives/view-profile.directive';
@@ -27,7 +27,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './record-attendance.component.html',
     styleUrls: ['./record-attendance.component.scss'],
     standalone: true,
-    imports: [RouterLink, FormsModule, ReactiveFormsModule, NgFor, NgIf, LoadingRotateDashedComponent, AvatarModule, ViewProfileDirective, MarkComponent, PaginationComponent, TranslateModule]
+    imports: [RouterLink, FormsModule, ReactiveFormsModule, LoadingRotateDashedComponent, AvatarModule, ViewProfileDirective, MarkComponent, PaginationComponent, TranslateModule]
 })
 export class RecordAttendanceComponent implements OnInit {
 

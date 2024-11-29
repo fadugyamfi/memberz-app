@@ -11,7 +11,7 @@ import { SmsAccountService } from '../../../shared/services/api/sms-account.serv
 import { SmsBroadcastListService } from '../../../shared/services/api/sms-broadcast-list.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { ListFilterService } from '../../../shared/services/utilities/list-filter.service';
-import { NgIf, NgFor, DecimalPipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ListFilterComponent } from './list-filter/list-filter.component';
 
@@ -20,7 +20,7 @@ import { ListFilterComponent } from './list-filter/list-filter.component';
     templateUrl: './broadcast-lists.component.html',
     styleUrls: ['./broadcast-lists.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, RouterLink, PaginationComponent, FormsModule, ReactiveFormsModule, ListFilterComponent, NgbDropdownModule, DecimalPipe, TranslateModule]
+    imports: [RouterLink, PaginationComponent, FormsModule, ReactiveFormsModule, ListFilterComponent, NgbDropdownModule, DecimalPipe, TranslateModule]
 })
 export class BroadcastListsComponent implements OnInit {
 

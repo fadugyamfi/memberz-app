@@ -9,7 +9,7 @@ import { EventsService } from 'src/app/shared/services/events.service';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { NgIf } from '@angular/common';
+
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 @Component({
@@ -17,7 +17,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     templateUrl: './twofa-enable.component.html',
     styleUrls: ['./twofa-enable.component.scss'],
     standalone: true,
-    imports: [NgIf, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TranslateModule]
 })
 export class TwofaEnableComponent implements OnInit {
   @ViewChild('enableTwoFactorAuthModal', { static: true }) enableTwoFactorAuthModal: any;

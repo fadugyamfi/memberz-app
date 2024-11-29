@@ -7,7 +7,7 @@ import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule 
 import { SelectYearControlComponent } from '../../../../shared/components/forms/select-year-control/select-year-control.component';
 import { SelectCurrencyControlComponent } from '../../../../shared/components/forms/select-currency-control/select-currency-control.component';
 import { NgxPrintDirective } from 'ngx-print';
-import { NgIf, NgFor, CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { NoDataAvailableComponent } from '../../../../shared/components/forms/no-data-available/no-data-available.component';
 import { ViewProfileDirective } from '../../../../shared/directives/view-profile.directive';
@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './top-contributors.component.html',
     styleUrls: ['./top-contributors.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, SelectYearControlComponent, SelectCurrencyControlComponent, NgxPrintDirective, NgIf, LoadingRotateDashedComponent, NoDataAvailableComponent, NgFor, ViewProfileDirective, CurrencyPipe, DatePipe, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, SelectYearControlComponent, SelectCurrencyControlComponent, NgxPrintDirective, LoadingRotateDashedComponent, NoDataAvailableComponent, ViewProfileDirective, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class TopContributorsComponent implements OnInit {
 

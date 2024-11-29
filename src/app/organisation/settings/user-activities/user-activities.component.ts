@@ -12,7 +12,7 @@ import { StorageService } from '../../../shared/services/storage.service';
 import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { OrganisationAccount } from '../../../shared/model/api/organisation-account';
-import { NgIf, NgFor, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -21,14 +21,12 @@ import { TranslateModule } from '@ngx-translate/core';
     styleUrls: ['./user-activities.component.scss'],
     standalone: true,
     imports: [
-        NgIf,
-        NgFor,
-        PaginationComponent,
-        FormsModule,
-        ReactiveFormsModule,
-        TitleCasePipe,
-        TranslateModule,
-    ],
+    PaginationComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    TitleCasePipe,
+    TranslateModule
+],
 })
 export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchModal', { static: true }) searchModal: any;

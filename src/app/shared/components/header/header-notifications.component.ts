@@ -10,14 +10,14 @@ import { OrganisationAccountService } from '../../services/api/organisation-acco
 import { OrganisationService } from '../../services/api/organisation.service';
 import { EventsService } from '../../services/events.service';
 import { FeatherIconsComponent } from '../feather-icons/feather-icons.component';
-import { NgIf, NgFor } from '@angular/common';
+
 
 @Component({
     selector: 'app-header-notifications',
     templateUrl: './header-notifications.component.html',
     styleUrls: ['./header-notifications.component.scss'],
     standalone: true,
-    imports: [FeatherIconsComponent, NgIf, NgFor, RouterLink, TranslateModule]
+    imports: [FeatherIconsComponent, RouterLink, TranslateModule]
 })
 export class HeaderNotificationsComponent implements OnInit {
 

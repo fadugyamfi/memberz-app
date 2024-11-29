@@ -6,10 +6,12 @@
     </button>
 
     <div ngbDropdownMenu>
-      <button *ngFor="let tag of smsTagService.getTags()" type="button" ngbDropdownItem
-              (click)="insertInTextarea(tag.template, textarea)">
-        {{ tag.title | translate }}
-      </button>
+      @for (tag of smsTagService.getTags(); track tag) {
+        <button type="button" ngbDropdownItem
+          (click)="insertInTextarea(tag.template, textarea)">
+          {{ tag.title | translate }}
+        </button>
+      }
     </div>
   </div>
 </div>

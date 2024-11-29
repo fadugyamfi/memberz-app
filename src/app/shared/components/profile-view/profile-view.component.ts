@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 import { EventsService } from '../../../shared/services/events.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { OrganisationService } from '../../services/api/organisation.service';
-import { NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { ProfileHeaderComponent } from './profile-header/profile-header.component';
 import { ProfileSidebarComponent } from './profile-sidebar/profile-sidebar.component';
 import { ProfileActionsComponent } from './profile-actions/profile-actions.component';
@@ -25,7 +25,7 @@ import { ProfileEditorComponent } from './profile-editor/profile-editor.componen
     templateUrl: './profile-view.component.html',
     styleUrls: ['./profile-view.component.scss'],
     standalone: true,
-    imports: [NgIf, ProfileHeaderComponent, ProfileSidebarComponent, NgClass, ProfileActionsComponent, NgbNavModule, ProfileSummaryComponent, ProfileGroupsComponent, ProfileFamilyComponent, ProfileAnniversariesComponent, ProfileSmsMessagesComponent, ProfileContributionsComponent, ProfileEditorComponent, TranslateModule]
+    imports: [ProfileHeaderComponent, ProfileSidebarComponent, NgClass, ProfileActionsComponent, NgbNavModule, ProfileSummaryComponent, ProfileGroupsComponent, ProfileFamilyComponent, ProfileAnniversariesComponent, ProfileSmsMessagesComponent, ProfileContributionsComponent, ProfileEditorComponent, TranslateModule]
 })
 export class ProfileViewComponent implements OnInit, OnDestroy {
 

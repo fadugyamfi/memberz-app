@@ -9,7 +9,7 @@ import { OrganisationService } from '../../../shared/services/api/organisation.s
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 import * as chartData from './../../../shared/data/dashboard/university';
 import { Configuration, ChartistModule } from 'ng-chartist';
-import { NgClass, NgIf, AsyncPipe } from '@angular/common';
+import { NgClass, AsyncPipe } from '@angular/common';
 import { FeatherIconsComponent } from '../../../shared/components/feather-icons/feather-icons.component';
 import { CountToDirective } from '../../../shared/directives/count-to.directive';
 import { TranslateModule } from '@ngx-translate/core';
@@ -20,7 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
     styleUrls: ['./general-statistics.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgClass, FeatherIconsComponent, NgIf, CountToDirective, ChartistModule, AsyncPipe, TranslateModule]
+    imports: [NgClass, FeatherIconsComponent, CountToDirective, ChartistModule, AsyncPipe, TranslateModule]
 })
 export class GeneralStatisticsComponent implements OnInit {
 

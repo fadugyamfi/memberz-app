@@ -3,7 +3,7 @@ import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators, For
 import { NgbModal, NgbModalRef, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrganisationRegistrationFormService } from '../../../../shared/services/api/organisation-registration-form.service';
 import { EventsService } from '../../../../shared/services/events.service';
-import { NgIf, NgFor } from '@angular/common';
+
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './custom-field-editor.component.html',
     styleUrls: ['./custom-field-editor.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgbTooltipModule, NgIf, UiSwitchModule, NgFor, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, NgbTooltipModule, UiSwitchModule, TranslateModule]
 })
 export class CustomFieldEditorComponent implements OnInit {
 

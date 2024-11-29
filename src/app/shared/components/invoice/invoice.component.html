@@ -8,7 +8,7 @@
               <div class="col-6">
                 <div class="d-flex">
                   <div class="flex-shrink-0"><img class="media-object img-60" src="/assets/images/logo/logo-96x96.png"
-                         alt=""></div>
+                  alt=""></div>
                   <div class="flex-grow-1 m-l-20">
                     <h4 class="media-heading">Memberz.Org</h4>
                     <p>
@@ -32,134 +32,139 @@
             </div>
           </div>
           <hr>
-          <!-- End InvoiceTop-->
-          <div class="row m-b-25">
-            <div class="col-md-10">
-              <div class="d-flex">
-                <div class="flex-shrink-0">
-                  <img class="media-object rounded-circle img-60"
-                       src="{{ organisation.logo || 'assets/images/user/1.jpg' }}" alt="">
+            <!-- End InvoiceTop-->
+            <div class="row m-b-25">
+              <div class="col-md-10">
+                <div class="d-flex">
+                  <div class="flex-shrink-0">
+                    <img class="media-object rounded-circle img-60"
+                      src="{{ organisation.logo || 'assets/images/user/1.jpg' }}" alt="">
+                    </div>
+                    <div class="flex-grow-1 m-l-20">
+                      <h4 class="media-heading">{{ organisation?.name }}</h4>
+                      <p>
+                        {{ organisation?.email }}<br>
+                        <span class="digits">{{ organisation?.phone }}</span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div class="flex-grow-1 m-l-20">
-                  <h4 class="media-heading">{{ organisation?.name }}</h4>
-                  <p>
-                    {{ organisation?.email }}<br>
-                    <span class="digits">{{ organisation?.phone }}</span>
-                  </p>
+                <div class="col-md-2">
+                  <div class="text-md-right" id="project">
+                    <!-- SPACE AVAILABLE -->
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-2">
-              <div class="text-md-right" id="project">
-                <!-- SPACE AVAILABLE -->
-              </div>
+              <!-- End Invoice Mid-->
+
+              @if (invoiceService?.requesting) {
+                <div class="loader-box">
+                  <span class="rotate dashed colored m-auto"></span>
+                </div>
+              }
+
+              @if (invoice) {
+                <div>
+                  <div class="table-responsive invoice-table m-b-40" id="table">
+                    <table class="table table-bordered table-striped">
+                      <thead>
+                        <tr>
+                          <td class="item">
+                            <h6 class="p-t-5 p-b-5 mb-0">Product Name</h6>
+                          </td>
+                          <td class="Hours text-center">
+                            <h6 class="p-t-5 p-b-5 mb-0">Quantity</h6>
+                          </td>
+                          <td class="Rate text-end">
+                            <h6 class="p-t-5 p-b-5 mb-0">Price</h6>
+                          </td>
+                          <td class="subtotal text-end">
+                            <h6 class="p-t-5 p-b-5 mb-0">Sub Total</h6>
+                          </td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @for (item of invoice.organisation_invoice_items; track item) {
+                          <tr>
+                            <td>
+                              <label>{{item.description}}</label>
+                            </td>
+                            <td class="text-center"> {{item.qty}}</td>
+                            <td class="text-end">
+                              {{ item.unit_price | currency: invoice?.currency.currency_code :'symbol' }}
+                            </td>
+                            <td class="text-end">
+                              {{ item.total | currency: invoice?.currency.currency_code :'symbol' }}
+                            </td>
+                          </tr>
+                        }
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td class="Rate text-end">
+                            <h6 class="mb-0 p-t-2 fw-bold">Total</h6>
+                          </td>
+                          <td class="payment digits text-end">
+                            <h6 class="mb-0 p-t-2 fw-bold">
+                              {{ invoice.total_due | currency: invoice?.currency.currency_code :'symbol' }}
+                            </h6>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- End Table-->
+                  <div class="row">
+                    <div class="col-6">
+                      <p class="legal">
+                        <strong>Thank you for your business!</strong>
+                      </p>
+                      <p class="legal" [innerHTML]="invoice.notes"></p>
+                    </div>
+                    <div class="col-6 text-end">
+                      <table class='table table-condensed table-borderless' width='100%' cellspacing='0'>
+                        <tr>
+                          <td colspan='2' align="right">Make cheques or cash payable to</td>
+                        </tr>
+                        <tr>
+                          <td align="right">Bank: </td>
+                          <td width="50%" class="text-left font-bold">Stanbic Bank Ghana Ltd.</td>
+                        </tr>
+                        <tr>
+                          <td align="right">Branch: </td>
+                          <td class="text-left font-bold">Spintex Road</td>
+                        </tr>
+                        <tr>
+                          <td align="right">Account Name: </td>
+                          <td class="text-left font-bold">Matrix Designs</td>
+                        </tr>
+                        <tr>
+                          <td align="right">Account Number: </td>
+                          <td class="text-left font-bold">9040003009089</td>
+                        </tr>
+                        <tr>
+                          <td align="right">Swift Code: </td>
+                          <td class="text-left font-bold">SBICGHAC</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              }
+              <!-- End InvoiceBot-->
             </div>
           </div>
-          <!-- End Invoice Mid-->
+        </div>
 
-          <div class="loader-box" *ngIf="invoiceService?.requesting">
-            <span class="rotate dashed colored m-auto"></span>
-          </div>
+        <div class="card-footer text-end">
+          <button class="btn btn btn-primary m-r-25" [useExistingCss]="true" printSectionId="print-section"
+            ngxPrint>
+            <i class="fa fa-print"></i> Print Invoice
+          </button>
 
-          <div *ngIf="invoice">
-            <div class="table-responsive invoice-table m-b-40" id="table">
-              <table class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <td class="item">
-                      <h6 class="p-t-5 p-b-5 mb-0">Product Name</h6>
-                    </td>
-                    <td class="Hours text-center">
-                      <h6 class="p-t-5 p-b-5 mb-0">Quantity</h6>
-                    </td>
-                    <td class="Rate text-end">
-                      <h6 class="p-t-5 p-b-5 mb-0">Price</h6>
-                    </td>
-                    <td class="subtotal text-end">
-                      <h6 class="p-t-5 p-b-5 mb-0">Sub Total</h6>
-                    </td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of invoice.organisation_invoice_items">
-                    <td>
-                      <label>{{item.description}}</label>
-                    </td>
-                    <td class="text-center"> {{item.qty}}</td>
-                    <td class="text-end">
-                      {{ item.unit_price | currency: invoice?.currency.currency_code :'symbol' }}
-                    </td>
-                    <td class="text-end">
-                      {{ item.total | currency: invoice?.currency.currency_code :'symbol' }}
-                    </td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td class="Rate text-end">
-                      <h6 class="mb-0 p-t-2 fw-bold">Total</h6>
-                    </td>
-                    <td class="payment digits text-end">
-                      <h6 class="mb-0 p-t-2 fw-bold">
-                        {{ invoice.total_due | currency: invoice?.currency.currency_code :'symbol' }}
-                      </h6>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <!-- End Table-->
-            <div class="row">
-              <div class="col-6">
-                <p class="legal">
-                  <strong>Thank you for your business!</strong>
-                </p>
-                <p class="legal" [innerHTML]="invoice.notes"></p>
-              </div>
-
-              <div class="col-6 text-end">
-                <table class='table table-condensed table-borderless' width='100%' cellspacing='0'>
-                  <tr>
-                    <td colspan='2' align="right">Make cheques or cash payable to</td>
-                  </tr>
-                  <tr>
-                    <td align="right">Bank: </td>
-                    <td width="50%" class="text-left font-bold">Stanbic Bank Ghana Ltd.</td>
-                  </tr>
-                  <tr>
-                    <td align="right">Branch: </td>
-                    <td class="text-left font-bold">Spintex Road</td>
-                  </tr>
-                  <tr>
-                    <td align="right">Account Name: </td>
-                    <td class="text-left font-bold">Matrix Designs</td>
-                  </tr>
-                  <tr>
-                    <td align="right">Account Number: </td>
-                    <td class="text-left font-bold">9040003009089</td>
-                  </tr>
-                  <tr>
-                    <td align="right">Swift Code: </td>
-                    <td class="text-left font-bold">SBICGHAC</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-          <!-- End InvoiceBot-->
+          <button class="btn btn-secondary" type="button" (click)="modal.close('Save click')">
+            Close
+          </button>
         </div>
       </div>
-    </div>
-
-    <div class="card-footer text-end">
-      <button class="btn btn btn-primary m-r-25" [useExistingCss]="true" printSectionId="print-section"
-              ngxPrint>
-        <i class="fa fa-print"></i> Print Invoice
-      </button>
-
-      <button class="btn btn-secondary" type="button" (click)="modal.close('Save click')">
-        Close
-      </button>
-    </div>
-  </div>
-</ng-template>
+    </ng-template>

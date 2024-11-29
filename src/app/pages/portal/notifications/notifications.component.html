@@ -11,31 +11,35 @@
         </a>
       </li>
 
-      <li class="text-center list-group-item py-5" *ngIf="notifications.length == 0">
-        <app-feather-icons [icon]="'bell'"></app-feather-icons> <br />
-        {{ "No new notifications" | translate }}
-      </li>
-
-      <ng-container *ngIf="fetching">
-        <app-loading-rotate-dashed></app-loading-rotate-dashed>
-      </ng-container>
-
-      <ng-container *ngIf="!fetching">
-        <li class="list-group-item notification-item" *ngFor="let notification of notifications; let row = index" [ngClass]="{ 'active' : !notification.read_at}">
-          <div class="media">
-            <div class="flex-grow-1" (click)="onNotificationClicked(notification)">
-              <h6 class="mt-0 mb-1">
-                <span>
-                  <app-feather-icons class="shopping-color" style="vertical-align: middle" [icon]="notification.icon"></app-feather-icons>
-                </span>
-                {{ notification.title }}
-                <span class="pull-right f-14">{{ notification.timeAgo() }}</span>
-              </h6>
-              <p class="m-0">{{ notification.message }}</p>
-            </div>
-          </div>
+      @if (notifications.length == 0) {
+        <li class="text-center list-group-item py-5">
+          <app-feather-icons [icon]="'bell'"></app-feather-icons> <br />
+          {{ "No new notifications" | translate }}
         </li>
-      </ng-container>
+      }
+
+      @if (fetching) {
+        <app-loading-rotate-dashed></app-loading-rotate-dashed>
+      }
+
+      @if (!fetching) {
+        @for (notification of notifications; track notification; let row = $index) {
+          <li class="list-group-item notification-item" [ngClass]="{ 'active' : !notification.read_at}">
+            <div class="media">
+              <div class="flex-grow-1" (click)="onNotificationClicked(notification)">
+                <h6 class="mt-0 mb-1">
+                  <span>
+                    <app-feather-icons class="shopping-color" style="vertical-align: middle" [icon]="notification.icon"></app-feather-icons>
+                  </span>
+                  {{ notification.title }}
+                  <span class="pull-right f-14">{{ notification.timeAgo() }}</span>
+                </h6>
+                <p class="m-0">{{ notification.message }}</p>
+              </div>
+            </div>
+          </li>
+        }
+      }
 
 
 

@@ -9,7 +9,7 @@ import { OrganisationMember } from '../../../../shared/model/api/organisation-me
 import { MemberRelationService } from '../../../../shared/services/api/member-relation.service';
 import { EventsService } from '../../../../shared/services/events.service';
 import { FamilyMemberEditorComponent } from './family-member-editor/family-member-editor.component';
-import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { AvatarModule } from 'ngx-avatars';
 import { ViewProfileDirective } from '../../../directives/view-profile.directive';
 
@@ -18,7 +18,7 @@ import { ViewProfileDirective } from '../../../directives/view-profile.directive
     templateUrl: './profile-family.component.html',
     styleUrls: ['./profile-family.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, AvatarModule, ViewProfileDirective, FamilyMemberEditorComponent, AsyncPipe, DatePipe, TranslateModule]
+    imports: [AvatarModule, ViewProfileDirective, FamilyMemberEditorComponent, AsyncPipe, DatePipe, TranslateModule]
 })
 export class ProfileFamilyComponent implements OnInit, OnDestroy {
 

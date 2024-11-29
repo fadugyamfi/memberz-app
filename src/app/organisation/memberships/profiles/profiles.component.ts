@@ -18,7 +18,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { PrintService } from 'src/app/shared/services/print.service';
 import { OrganisationGroupType } from '../../../shared/model/api/organisation-group-type';
 import moment from 'moment';
-import { NgClass, NgIf, NgFor, CurrencyPipe, DatePipe } from '@angular/common';
+import { NgClass, CurrencyPipe, DatePipe } from '@angular/common';
 import { PrintContentDirective } from '../../../shared/directives/print-content.directive';
 import { MembershipCardComponent } from '../../../shared/components/profile-view/membership-card/membership-card.component';
 import { ProfileImageComponent } from '../../../shared/components/profile-view/profile-image/profile-image.component';
@@ -29,7 +29,7 @@ import { ProfileImageComponent } from '../../../shared/components/profile-view/p
     styleUrls: ['./profiles.component.scss'],
     providers: [NgbDropdownConfig],
     standalone: true,
-    imports: [NgbDropdownModule, NgClass, PrintContentDirective, NgIf, NgFor, MembershipCardComponent, ProfileImageComponent, NgbTooltipModule, PaginationComponent, FormsModule, ReactiveFormsModule, CurrencyPipe, DatePipe, TranslateModule]
+    imports: [NgbDropdownModule, NgClass, PrintContentDirective, MembershipCardComponent, ProfileImageComponent, NgbTooltipModule, PaginationComponent, FormsModule, ReactiveFormsModule, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 

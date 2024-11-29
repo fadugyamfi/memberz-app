@@ -14,12 +14,16 @@
             <div class='col-sm-9'>
               <select class="form-select" formControlName="subscription_type_id">
                 <option value=''>{{'Select New Plan' | translate}}</option>
-                <option *ngFor="let subType of subscriptionTypes" [value]="subType.id">{{ subType.description }}</option>
+                @for (subType of subscriptionTypes; track subType) {
+                  <option [value]="subType.id">{{ subType.description }}</option>
+                }
               </select>
 
-              <div class="messages text-danger" *ngIf="subscriptionForm.controls.subscription_type_id.errors?.required">
-                <p>{{'New Plan Required' | translate}}</p>
-              </div>
+              @if (subscriptionForm.controls.subscription_type_id.errors?.required) {
+                <div class="messages text-danger">
+                  <p>{{'New Plan Required' | translate}}</p>
+                </div>
+              }
 
               <input type="hidden" id="base_price" />
             </div>
@@ -32,93 +36,93 @@
               <div class="btn-group m-b-5" role="group">
                 <label class="btn-outline-primary btn d-flex align-items-center" for="length1">
                   <input class="radio_animated" id="length1" type="radio" [value]="1" name="length" formControlName="length"
-                         autocomplete="off"> 1 {{'Month' | translate}}
-                </label>
-                <label class="btn-outline-primary btn d-flex align-items-center" for="length3">
-                  <input class="radio_animated" id="length3" type="radio" [value]="3" name="length" formControlName="length"
-                         autocomplete="off"> 3 {{'Months' | translate}}
-                </label>
-                <label class="btn-outline-primary btn d-flex align-items-center" for="length6">
-                  <input class="radio_animated" id="length6" type="radio" [value]="6" name="length" formControlName="length"
-                         autocomplete="off"> 6 {{'Months' | translate}}
-                </label>
-                <label class="btn-outline-primary btn d-flex align-items-center" for="length12">
-                  <input class="radio_animated" id="length12" type="radio" [value]="12" name="length" formControlName="length"
-                         autocomplete="off"> 12 {{'Months' | translate}}
-                </label>
-              </div>
+                    autocomplete="off"> 1 {{'Month' | translate}}
+                  </label>
+                  <label class="btn-outline-primary btn d-flex align-items-center" for="length3">
+                    <input class="radio_animated" id="length3" type="radio" [value]="3" name="length" formControlName="length"
+                      autocomplete="off"> 3 {{'Months' | translate}}
+                    </label>
+                    <label class="btn-outline-primary btn d-flex align-items-center" for="length6">
+                      <input class="radio_animated" id="length6" type="radio" [value]="6" name="length" formControlName="length"
+                        autocomplete="off"> 6 {{'Months' | translate}}
+                      </label>
+                      <label class="btn-outline-primary btn d-flex align-items-center" for="length12">
+                        <input class="radio_animated" id="length12" type="radio" [value]="12" name="length" formControlName="length"
+                          autocomplete="off"> 12 {{'Months' | translate}}
+                        </label>
+                      </div>
 
-              <div>
-                <small class='text-muted'>
-                  {{'Save' | translate}} <b>16%</b> {{'when you choose the 6 or 12 month subscription' | translate}}.
-                </small>
-              </div>
+                      <div>
+                        <small class='text-muted'>
+                          {{'Save' | translate}} <b>16%</b> {{'when you choose the 6 or 12 month subscription' | translate}}.
+                        </small>
+                      </div>
 
-            </div>
-          </div>
+                    </div>
+                  </div>
 
-          <div class='form-group row'>
-            <label class='col-sm-3 control-label'>{{'Subscription Cost' | translate}}:</label>
-            <div class='col-sm-4'>
-              <div class='input-group'>
-                <span class="input-group-text">GHS</span>
-                <input type='text' id='amount_due' readonly="" class='form-control'
-                       formControlName="subscription_cost" />
-                <input type='hidden' id='base_price' />
-              </div>
-            </div>
-          </div>
+                  <div class='form-group row'>
+                    <label class='col-sm-3 control-label'>{{'Subscription Cost' | translate}}:</label>
+                    <div class='col-sm-4'>
+                      <div class='input-group'>
+                        <span class="input-group-text">GHS</span>
+                        <input type='text' id='amount_due' readonly="" class='form-control'
+                          formControlName="subscription_cost" />
+                          <input type='hidden' id='base_price' />
+                        </div>
+                      </div>
+                    </div>
 
-          <div class='form-group row m-b-30'>
-            <label class='col-sm-3 col-form-label'>{{'Next Renewal' | translate}}:</label>
-            <div class='col-sm-4'>
-              <div class="input-group">
-                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                    <div class='form-group row m-b-30'>
+                      <label class='col-sm-3 col-form-label'>{{'Next Renewal' | translate}}:</label>
+                      <div class='col-sm-4'>
+                        <div class="input-group">
+                          <span class="input-group-text"><i class="fa fa-calendar"></i></span>
 
-                <input type='text' id='end_dt_display' readonly="" class='form-control'
-                       formControlName="next_upgrade_date" />
-              </div>
-            </div>
-          </div>
+                          <input type='text' id='end_dt_display' readonly="" class='form-control'
+                            formControlName="next_upgrade_date" />
+                          </div>
+                        </div>
+                      </div>
 
-          <!--<div class='form-group row'>
-            <label class='col-sm-3 col-form-label'>
-              {{'Payment Method' | translate}}:
+                      <!--<div class='form-group row'>
+                      <label class='col-sm-3 col-form-label'>
+                        {{'Payment Method' | translate}}:
 
-            </label>
-            <div class='col-sm-9'>
-              <label class="d-block m-b-15" for="slydepay">
-                <input class="radio_animated" id="slydepay" type="radio" name="payment_method" checked=""
-                       value="slydepay" formControlName="payment_method">
-                <i class="fa fa-credit-card"></i>
-                {{'Slydepay (Visa, MasterCard, Mobile Money)' | translate}}
+                      </label>
+                      <div class='col-sm-9'>
+                        <label class="d-block m-b-15" for="slydepay">
+                          <input class="radio_animated" id="slydepay" type="radio" name="payment_method" checked=""
+                            value="slydepay" formControlName="payment_method">
+                            <i class="fa fa-credit-card"></i>
+                            {{'Slydepay (Visa, MasterCard, Mobile Money)' | translate}}
 
-                <p class="small text-muted p-l-30">
-                  {{'You will be redirected to the Slydepay Payment portal to complete your payment' | translate}}
-                </p>
-              </label>
+                            <p class="small text-muted p-l-30">
+                              {{'You will be redirected to the Slydepay Payment portal to complete your payment' | translate}}
+                            </p>
+                          </label>
 
-              <label class="d-block" for="cash">
-                <input class="radio_animated" id="cash" type="radio" name="payment_method" value="invoice"
-                       formControlName="payment_method">
-                <i class="fa fa-money"></i>
-                {{'Cash Payment (Generates Invoice Only)' | translate}}
+                          <label class="d-block" for="cash">
+                            <input class="radio_animated" id="cash" type="radio" name="payment_method" value="invoice"
+                              formControlName="payment_method">
+                              <i class="fa fa-money"></i>
+                              {{'Cash Payment (Generates Invoice Only)' | translate}}
 
-                <p class="small text-muted p-l-30">
-                  {{'You will be emailed an invoice with bank details to complete payment' | translate}}
-                </p>
-              </label>
-            </div>
-          </div> -->
+                              <p class="small text-muted p-l-30">
+                                {{'You will be emailed an invoice with bank details to complete payment' | translate}}
+                              </p>
+                            </label>
+                          </div>
+                        </div> -->
 
-        </div>
+                      </div>
 
-        <div class="card-footer text-end">
-          <button type="submit" class="btn btn-primary m-r-15">{{'Upgrade Subscription' | translate}}</button>
-          <button type="button" class="btn btn-danger" (click)="cancelUpgrade()">{{'Cancel' | translate}}</button>
-        </div>
-      </div>
+                      <div class="card-footer text-end">
+                        <button type="submit" class="btn btn-primary m-r-15">{{'Upgrade Subscription' | translate}}</button>
+                        <button type="button" class="btn btn-danger" (click)="cancelUpgrade()">{{'Cancel' | translate}}</button>
+                      </div>
+                    </div>
 
-    </div>
-  </div>
-</form>
+                  </div>
+                </div>
+              </form>

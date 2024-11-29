@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -25,7 +25,7 @@ export interface CustomFieldConfig {
 
 @Component({
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, TranslateModule],
+  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
   selector: 'app-custom-field',
   templateUrl: './custom-field.component.html',
   styleUrls: ['./custom-field.component.scss'],

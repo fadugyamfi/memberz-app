@@ -11,14 +11,14 @@ import Swal from 'sweetalert2';
 import { SubscriptionTypeService } from '../../../shared/services/api/subscription-type.service';
 import { SubscriptionType } from '../../../shared/model/api/subscription-type';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { NgFor, NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-subscription-upgrade',
     templateUrl: './subscription-upgrade.component.html',
     styleUrls: ['./subscription-upgrade.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgFor, NgIf, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
 

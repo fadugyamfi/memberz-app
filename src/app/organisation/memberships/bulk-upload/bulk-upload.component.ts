@@ -13,7 +13,7 @@ import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { NgIf, NgFor } from '@angular/common';
+
 import { UploadReviewComponent } from './upload-review/upload-review.component';
 
 @Component({
@@ -21,7 +21,7 @@ import { UploadReviewComponent } from './upload-review/upload-review.component';
     templateUrl: './bulk-upload.component.html',
     styleUrls: ['./bulk-upload.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, PaginationComponent, UploadReviewComponent, FormsModule, ReactiveFormsModule, TranslateModule]
+    imports: [PaginationComponent, UploadReviewComponent, FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('uploadModal', { static: true }) uploadModal: any;

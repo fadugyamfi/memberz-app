@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, NavigationEnd, PRIMARY_OUTLET, RouterLink } fro
 import { filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { FeatherIconsComponent } from '../feather-icons/feather-icons.component';
-import { NgIf, UpperCasePipe } from '@angular/common';
+import { UpperCasePipe } from '@angular/common';
 import { BookmarkComponent } from '../bookmark/bookmark.component';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -13,7 +13,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './breadcrumb.component.html',
     styleUrls: ['./breadcrumb.component.scss'],
     standalone: true,
-    imports: [RouterLink, FeatherIconsComponent, NgIf, BookmarkComponent, UpperCasePipe, TranslateModule]
+    imports: [RouterLink, FeatherIconsComponent, BookmarkComponent, UpperCasePipe, TranslateModule]
 })
 export class BreadcrumbComponent implements OnInit {
 

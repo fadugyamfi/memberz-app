@@ -10,7 +10,7 @@ import { OrganisationService } from '../../services/api/organisation.service';
 import { OrganisationAccountService } from '../../services/api/organisation-account.service';
 import { MemberAccountService } from '../../services/api/member-account.service';
 import Swal from 'sweetalert2';
-import { NgClass, NgIf, NgFor, UpperCasePipe, SlicePipe } from '@angular/common';
+import { NgClass, UpperCasePipe, SlicePipe } from '@angular/common';
 import { FeatherIconsComponent } from '../feather-icons/feather-icons.component';
 import { FormsModule } from '@angular/forms';
 import { ToggleFullscreenDirective } from '../../directives/fullscreen.directive';
@@ -24,7 +24,7 @@ const body = document.getElementsByTagName('body')[0];
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     standalone: true,
-    imports: [NgClass, FeatherIconsComponent, FormsModule, NgIf, NgFor, RouterLink, ToggleFullscreenDirective, HeaderNotificationsComponent, AvatarModule, UpperCasePipe, SlicePipe, TranslateModule]
+    imports: [NgClass, FeatherIconsComponent, FormsModule, RouterLink, ToggleFullscreenDirective, HeaderNotificationsComponent, AvatarModule, UpperCasePipe, SlicePipe, TranslateModule]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 

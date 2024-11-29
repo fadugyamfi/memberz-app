@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { SmsBroadcastList } from '../../../shared/model/api/sms-broadcast-list';
 import { SmsBroadcastListService } from '../../../shared/services/api/sms-broadcast-list.service';
-import { NgFor, TitleCasePipe, DatePipe } from '@angular/common';
+import { TitleCasePipe, DatePipe } from '@angular/common';
 import { ViewProfileDirective } from '../../../shared/directives/view-profile.directive';
 
 @Component({
@@ -13,7 +13,7 @@ import { ViewProfileDirective } from '../../../shared/directives/view-profile.di
     templateUrl: './broadcast-list-preview.component.html',
     styleUrls: ['./broadcast-list-preview.component.scss'],
     standalone: true,
-    imports: [RouterLink, NgFor, ViewProfileDirective, TitleCasePipe, DatePipe, TranslateModule]
+    imports: [RouterLink, ViewProfileDirective, TitleCasePipe, DatePipe, TranslateModule]
 })
 export class BroadcastListPreviewComponent implements OnInit, OnDestroy {
 

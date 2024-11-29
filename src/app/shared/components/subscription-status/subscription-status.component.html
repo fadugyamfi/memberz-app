@@ -4,32 +4,44 @@
   </div>
   <div class="card-body profile-details text-center">
     <h4 class="mb-0">{{ organisation?.active_subscription?.subscription_type?.description }}</h4>
-    <h6 class="mb-0 text-danger" *ngIf="subscriptionExpired()">{{'Expired' | translate}}</h6>
+    @if (subscriptionExpired()) {
+      <h6 class="mb-0 text-danger">{{'Expired' | translate}}</h6>
+    }
 
-    <h6 class="text-muted f-14" *ngIf="!subscriptionExpired()">
-      {{ organisation?.active_subscription?.expiresIn() }}
-    </h6>
+    @if (!subscriptionExpired()) {
+      <h6 class="text-muted f-14">
+        {{ organisation?.active_subscription?.expiresIn() }}
+      </h6>
+    }
 
-    <h6 class="text-danger f-14 m-t-30" *ngIf="hasValidInvoice() && !subscriptionPaid()">
-      <b>{{'Invoice Unpaid' | translate}}</b><br />
-      {{'Pay Now To Avoid Service Disruption' | translate}}
-    </h6>
+    @if (hasValidInvoice() && !subscriptionPaid()) {
+      <h6 class="text-danger f-14 m-t-30">
+        <b>{{'Invoice Unpaid' | translate}}</b><br />
+        {{'Pay Now To Avoid Service Disruption' | translate}}
+      </h6>
+    }
 
   </div>
 
   <div class="card-footer text-center">
     <div class="btn-group">
-      <button class="btn btn-air-success btn-success m-r-5" *ngIf="hasValidInvoice() && !subscriptionPaid()" (click)="paySubscription()">
-        <i class="fa fa-credit-card"></i> {{'Pay Now' | translate}}
-      </button>
+      @if (hasValidInvoice() && !subscriptionPaid()) {
+        <button class="btn btn-air-success btn-success m-r-5" (click)="paySubscription()">
+          <i class="fa fa-credit-card"></i> {{'Pay Now' | translate}}
+        </button>
+      }
 
-      <button class="btn btn-air-success btn-success m-r-5" *ngIf="subscriptionPaid() && (subscriptionExpired() || subscriptionExpiring())" (click)="renewSubscription()">
-        <i class="fa fa-recycle"></i> {{'Renew' | translate}}
-      </button>
+      @if (shouldRenew()) {
+        <button class="btn btn-air-success btn-success m-r-5" (click)="renewSubscription()">
+          <i class="fa fa-recycle"></i> {{'Renew' | translate}}
+        </button>
+      }
 
-      <button class="btn btn-secondary btn-air-secondary" *ngIf="canUpgrade()" (click)="upgradeSubscription()">
-        <i class="fa fa-upload"></i> {{'Upgrade' | translate}}
-      </button>
+      @if (canUpgrade()) {
+        <button class="btn btn-secondary btn-air-secondary" (click)="upgradeSubscription()">
+          <i class="fa fa-upload"></i> {{'Upgrade' | translate}}
+        </button>
+      }
     </div>
 
   </div>

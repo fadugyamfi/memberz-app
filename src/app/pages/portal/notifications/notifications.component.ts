@@ -10,14 +10,14 @@ import { NotificationService } from '../../../shared/services/api/notification.s
 import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-notifications',
     templateUrl: './notifications.component.html',
     styleUrls: ['./notifications.component.scss'],
     standalone: true,
-    imports: [NgIf, NgFor, NgClass, PaginationComponent, TranslateModule]
+    imports: [NgClass, PaginationComponent, TranslateModule]
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
 

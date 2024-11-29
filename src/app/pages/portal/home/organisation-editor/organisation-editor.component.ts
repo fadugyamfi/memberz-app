@@ -12,7 +12,7 @@ import { SubscriptionTypeService } from '../../../../shared/services/api/subscri
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
 import { SearchCountryField, CountryISO, PhoneNumberFormat, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 
 export class CustomValidators {
   static validUrl: ValidatorFn = (control: FormControl): ValidationErrors | null  => {
@@ -38,7 +38,7 @@ export class CustomValidators {
     templateUrl: './organisation-editor.component.html',
     styleUrls: ['./organisation-editor.component.scss'],
     standalone: true,
-    imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, NgFor, NgIf, TitleCasePipe, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TitleCasePipe, TranslateModule]
 })
 export class OrganisationEditorComponent implements OnInit, OnDestroy {
 

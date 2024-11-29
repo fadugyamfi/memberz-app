@@ -1,4 +1,4 @@
-import { formatNumber, NgFor, NgIf, DecimalPipe, CurrencyPipe } from '@angular/common';
+import { formatNumber, DecimalPipe, CurrencyPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -19,7 +19,7 @@ import { OrganisationInvoiceService } from '../../../shared/services/api/organis
     templateUrl: './purchase-credits.component.html',
     styleUrls: ['./purchase-credits.component.scss'],
     standalone: true,
-    imports: [NgFor, NgIf, FormsModule, ReactiveFormsModule, DecimalPipe, CurrencyPipe, TranslateModule]
+    imports: [FormsModule, ReactiveFormsModule, DecimalPipe, CurrencyPipe, TranslateModule]
 })
 export class PurchaseCreditsComponent implements OnInit, OnDestroy {
 

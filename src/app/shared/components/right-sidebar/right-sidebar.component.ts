@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChatUsers } from '../../../shared/model/chat.model';
 import { ChatService } from '../../../shared/services/chat.service';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf, NgClass } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
     templateUrl: './right-sidebar.component.html',
     styleUrls: ['./right-sidebar.component.scss'],
     standalone: true,
-    imports: [FormsModule, NgFor, NgIf, RouterLink, NgClass]
+    imports: [FormsModule, RouterLink, NgClass]
 })
 export class RightSidebarComponent implements OnInit {
 

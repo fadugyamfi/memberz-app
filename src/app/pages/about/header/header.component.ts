@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
-import { NgIf } from '@angular/common';
+
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -8,7 +8,7 @@ import { RouterLink } from '@angular/router';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     standalone: true,
-    imports: [NgIf, RouterLink]
+    imports: [RouterLink]
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;

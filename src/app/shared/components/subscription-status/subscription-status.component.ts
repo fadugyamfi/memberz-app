@@ -6,7 +6,7 @@ import { OrganisationService } from '../../../shared/services/api/organisation.s
 import { OrganisationSubscriptionService } from '../../services/api/organisation-subscription.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -14,7 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './subscription-status.component.html',
     styleUrls: ['./subscription-status.component.scss'],
     standalone: true,
-    imports: [NgIf, TranslateModule]
+    imports: [TranslateModule]
 })
 export class SubscriptionStatusComponent implements OnInit, OnDestroy {
 
@@ -38,19 +38,19 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
   }
 
   subscriptionExpired() {
-    return this.organisation?.active_subscription.isExpired();
+    return this.organisation?.active_subscription?.isExpired();
   }
 
   subscriptionExpiring() {
-    return this.organisation?.active_subscription.isExpiring();
+    return this.organisation?.active_subscription?.isExpiring();
   }
 
   subscriptionPaid() {
-    return this.organisation?.active_subscription.invoicePaid();
+    return this.organisation?.active_subscription?.invoicePaid();
   }
 
   hasValidInvoice() {
-    return this.organisation?.active_subscription.organisation_invoice != null;
+    return this.organisation?.active_subscription?.organisation_invoice != null;
   }
 
   renewSubscription() {
@@ -62,7 +62,12 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
   }
 
   paySubscription() {
-    this.router.navigate(['/organisation/settings/invoice-payment', this.organisation.active_subscription.organisation_invoice.id]);
+    this.router.navigate(['/organisation/settings/invoice-payment', this.organisation.active_subscription?.organisation_invoice.id]);
+  }
+
+  
+  shouldRenew() {
+    return this.subscriptionPaid() && (this.subscriptionExpired() || this.subscriptionExpiring())
   }
 
   canUpgrade() {
@@ -70,7 +75,7 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    const subscription_type = this.organisation.active_subscription.subscription_type;
+    const subscription_type = this.organisation.active_subscription?.subscription_type;
     if ( !subscription_type ) {
       return false;
     }
