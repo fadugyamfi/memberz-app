@@ -2,15 +2,19 @@ import { Component, OnInit, AfterViewInit, Input, EventEmitter, Output } from '@
 import { EventsService } from '../../../../shared/services/events.service';
 import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import moment from 'moment';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { Organisation } from '../../../../shared/model/api/organisation';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { NgIf, UpperCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-payment-step',
-  templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss']
+    selector: 'app-payment-step',
+    templateUrl: './payment.component.html',
+    styleUrls: ['./payment.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, NgIf, UpperCasePipe]
 })
 export class PaymentComponent implements OnInit, AfterViewInit {
 

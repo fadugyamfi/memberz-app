@@ -2,13 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { OrganisationEventService } from '../../../shared/services/api/organisation-event.service';
 import { Observable, tap } from 'rxjs';
 import { OrganisationEvent } from '../../../shared/model/api/organisation-event';
-import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { NgIf, NgFor, AsyncPipe, DatePipe, KeyValuePipe } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { NgxPrintDirective } from 'ngx-print';
 
 @Component({
-  selector: 'app-attendance-report',
-  templateUrl: './attendance-report.component.html',
-  styleUrls: ['./attendance-report.component.scss']
+    selector: 'app-attendance-report',
+    templateUrl: './attendance-report.component.html',
+    styleUrls: ['./attendance-report.component.scss'],
+    standalone: true,
+    imports: [NgIf, LoadingRotateDashedComponent, RouterLink, NgxPrintDirective, NgFor, AsyncPipe, DatePipe, KeyValuePipe, TranslateModule]
 })
 export class AttendanceReportComponent implements OnInit {
 

@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { OrganisationMemberGroup } from '../../../../shared/model/api/organisation-member-group';
@@ -9,11 +9,14 @@ import { OrganisationMemberGroupService } from '../../../../shared/services/api/
 import { OrganisationGroupTypeService } from '../../../../shared/services/api/organisation-group-type.service';
 import { EventsService } from '../../../../shared/services/events.service';
 import { OrganisationGroupType } from '../../../../shared/model/api/organisation-group-type';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-profile-groups',
-  templateUrl: './profile-groups.component.html',
-  styleUrls: ['./profile-groups.component.scss']
+    selector: 'app-profile-groups',
+    templateUrl: './profile-groups.component.html',
+    styleUrls: ['./profile-groups.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class ProfileGroupsComponent implements OnInit, OnDestroy {
 

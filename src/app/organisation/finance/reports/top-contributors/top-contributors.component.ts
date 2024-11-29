@@ -3,12 +3,22 @@ import { FinanceReportingService } from 'src/app/shared/services/api/finance-rep
 import { Subscription } from 'rxjs';
 import { ContributionReceiptSettingService } from 'src/app/shared/services/api/contribution-receipt-setting.service';
 import { ContributionReceiptSetting } from 'src/app/shared/model/api/contribution-receipt-setting';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SelectYearControlComponent } from '../../../../shared/components/forms/select-year-control/select-year-control.component';
+import { SelectCurrencyControlComponent } from '../../../../shared/components/forms/select-currency-control/select-currency-control.component';
+import { NgxPrintDirective } from 'ngx-print';
+import { NgIf, NgFor, CurrencyPipe, DatePipe } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { NoDataAvailableComponent } from '../../../../shared/components/forms/no-data-available/no-data-available.component';
+import { ViewProfileDirective } from '../../../../shared/directives/view-profile.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-top-contributors',
-  templateUrl: './top-contributors.component.html',
-  styleUrls: ['./top-contributors.component.scss']
+    selector: 'app-top-contributors',
+    templateUrl: './top-contributors.component.html',
+    styleUrls: ['./top-contributors.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, SelectYearControlComponent, SelectCurrencyControlComponent, NgxPrintDirective, NgIf, LoadingRotateDashedComponent, NoDataAvailableComponent, NgFor, ViewProfileDirective, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class TopContributorsComponent implements OnInit {
 

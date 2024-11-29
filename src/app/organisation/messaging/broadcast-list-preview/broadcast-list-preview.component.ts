@@ -1,15 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { SmsBroadcastList } from '../../../shared/model/api/sms-broadcast-list';
 import { SmsBroadcastListService } from '../../../shared/services/api/sms-broadcast-list.service';
+import { NgFor, TitleCasePipe, DatePipe } from '@angular/common';
+import { ViewProfileDirective } from '../../../shared/directives/view-profile.directive';
 
 @Component({
-  selector: 'app-broadcast-list-preview',
-  templateUrl: './broadcast-list-preview.component.html',
-  styleUrls: ['./broadcast-list-preview.component.scss']
+    selector: 'app-broadcast-list-preview',
+    templateUrl: './broadcast-list-preview.component.html',
+    styleUrls: ['./broadcast-list-preview.component.scss'],
+    standalone: true,
+    imports: [RouterLink, NgFor, ViewProfileDirective, TitleCasePipe, DatePipe, TranslateModule]
 })
 export class BroadcastListPreviewComponent implements OnInit, OnDestroy {
 

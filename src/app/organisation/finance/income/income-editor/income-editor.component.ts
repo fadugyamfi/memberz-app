@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { Contribution } from '../../../../shared/model/api/contribution';
@@ -15,15 +15,24 @@ import { OrganisationService } from '../../../../shared/services/api/organisatio
 import { EventsService } from '../../../../shared/services/events.service';
 import { ContributionPaymentType } from '../../../../shared/model/api/contribution-payment-type';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { Router, RouterLink } from '@angular/router';
 import { SmsAccountService } from '../../../../shared/services/api/sms-account.service';
+import { NgIf, NgFor, CurrencyPipe, KeyValuePipe } from '@angular/common';
+import { MemberControlComponent } from '../../../../shared/components/forms/member-control/member-control.component';
+import { SelectPaymentTypeControlComponent } from '../../../../shared/components/forms/select-payment-type-control/select-payment-type-control.component';
+import { SelectBankControlComponent } from '../../../../shared/components/forms/select-bank-control/select-bank-control.component';
+import { SelectMonthControlComponent } from '../../../../shared/components/forms/select-month-control/select-month-control.component';
+import { SelectYearControlComponent } from '../../../../shared/components/forms/select-year-control/select-year-control.component';
+import { SelectCurrencyControlComponent } from '../../../../shared/components/forms/select-currency-control/select-currency-control.component';
 
 
 @Component({
-  selector: 'app-income-editor',
-  templateUrl: './income-editor.component.html',
-  styleUrls: ['./income-editor.component.scss']
+    selector: 'app-income-editor',
+    templateUrl: './income-editor.component.html',
+    styleUrls: ['./income-editor.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgIf, RouterLink, NgFor, MemberControlComponent, SelectPaymentTypeControlComponent, SelectBankControlComponent, SelectMonthControlComponent, SelectYearControlComponent, SelectCurrencyControlComponent, CurrencyPipe, KeyValuePipe, TranslateModule]
 })
 export class IncomeEditorComponent implements OnInit, OnDestroy {
 

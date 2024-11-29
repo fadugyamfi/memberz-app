@@ -5,11 +5,14 @@ import { OrganisationEventAttendee } from '../../../../shared/model/api/organisa
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { OrganisationEventAttendeeService } from '../../../../shared/services/api/organisation-event-attendee.service';
 import { EventsService } from '../../../../shared/services/events.service';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-attendance-mark',
-  templateUrl: './mark.component.html',
-  styleUrls: ['./mark.component.scss']
+    selector: 'app-attendance-mark',
+    templateUrl: './mark.component.html',
+    styleUrls: ['./mark.component.scss'],
+    standalone: true,
+    imports: [NgIf]
 })
 export class MarkComponent implements OnInit, OnDestroy {
 

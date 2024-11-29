@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd, PRIMARY_OUTLET } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd, PRIMARY_OUTLET, RouterLink } from '@angular/router';
 
 import { filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { FeatherIconsComponent } from '../feather-icons/feather-icons.component';
+import { NgIf, UpperCasePipe } from '@angular/common';
+import { BookmarkComponent } from '../bookmark/bookmark.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-breadcrumb',
-  templateUrl: './breadcrumb.component.html',
-  styleUrls: ['./breadcrumb.component.scss']
+    selector: 'app-breadcrumb',
+    templateUrl: './breadcrumb.component.html',
+    styleUrls: ['./breadcrumb.component.scss'],
+    standalone: true,
+    imports: [RouterLink, FeatherIconsComponent, NgIf, BookmarkComponent, UpperCasePipe, TranslateModule]
 })
 export class BreadcrumbComponent implements OnInit {
 

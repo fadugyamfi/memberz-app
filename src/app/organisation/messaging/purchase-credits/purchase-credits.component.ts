@@ -1,6 +1,6 @@
-import { formatNumber } from '@angular/common';
+import { formatNumber, NgFor, NgIf, DecimalPipe, CurrencyPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SmsCredit } from '../../../shared/model/api/sms-credit';
@@ -10,14 +10,16 @@ import { SmsAccountTopup } from '../../../shared/model/api/sms-account-topup';
 import { SmsAccountTopupService } from '../../../shared/services/api/sms-account-topup.service';
 import { EventsService } from '../../../shared/services/events.service';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 // import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
 import { OrganisationInvoiceService } from '../../../shared/services/api/organisation-invoice.service';
 
 @Component({
-  selector: 'app-purchase-credits',
-  templateUrl: './purchase-credits.component.html',
-  styleUrls: ['./purchase-credits.component.scss']
+    selector: 'app-purchase-credits',
+    templateUrl: './purchase-credits.component.html',
+    styleUrls: ['./purchase-credits.component.scss'],
+    standalone: true,
+    imports: [NgFor, NgIf, FormsModule, ReactiveFormsModule, DecimalPipe, CurrencyPipe, TranslateModule]
 })
 export class PurchaseCreditsComponent implements OnInit, OnDestroy {
 

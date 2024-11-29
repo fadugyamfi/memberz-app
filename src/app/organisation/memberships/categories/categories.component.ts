@@ -3,35 +3,40 @@ import { OrganisationMemberCategoryService } from '../../../shared/services/api/
 import { EventsService } from '../../../shared/services/events.service';
 import { Subscription } from 'rxjs';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import Swal from 'sweetalert2';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { AdminHasPermissionDirective } from '../../../shared/directives/admin-has-permission.directive';
+import { NgIf, NgFor } from '@angular/common';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 @Component({
-  selector: 'app-categories',
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss'],
-  animations: [
-    trigger('showFormGroup', [
-      state('open', style({
-        display: 'flex',
-        opacity: 1,
-      })),
-      state('closed', style({
-        opacity: 0,
-        display: 'none'
-      })),
-      transition('* => closed', [
-        animate('0.5s')
-      ]),
-      transition('* => open', [
-        animate('0.5s')
-      ]),
-    ]),
-  ]
+    selector: 'app-categories',
+    templateUrl: './categories.component.html',
+    styleUrls: ['./categories.component.scss'],
+    animations: [
+        trigger('showFormGroup', [
+            state('open', style({
+                display: 'flex',
+                opacity: 1,
+            })),
+            state('closed', style({
+                opacity: 0,
+                display: 'none'
+            })),
+            transition('* => closed', [
+                animate('0.5s')
+            ]),
+            transition('* => open', [
+                animate('0.5s')
+            ]),
+        ]),
+    ],
+    standalone: true,
+    imports: [AdminHasPermissionDirective, NgIf, NgFor, PaginationComponent, FormsModule, ReactiveFormsModule, UiSwitchModule, TranslateModule]
 })
 export class CategoriesComponent implements OnInit, OnDestroy {
 

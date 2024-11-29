@@ -8,8 +8,8 @@ describe('TawkChatComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TawkChatComponent ]
-    })
+    imports: [TawkChatComponent]
+})
     .compileComponents();
   });
 

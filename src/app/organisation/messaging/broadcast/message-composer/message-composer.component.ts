@@ -1,7 +1,7 @@
 import { AfterContentChecked, AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import { SmsBroadcast } from '../../../../shared/model/api/sms-broadcast';
 import { SmsBroadcastList } from '../../../../shared/model/api/sms-broadcast-list';
@@ -14,11 +14,15 @@ import { SmsTemplateTagService } from '../../../../shared/services/utilities/sms
 import moment from 'moment';
 import { OrganisationMemberCategoryService } from '../../../../shared/services/api/organisation-member-category.service';
 import { Subscription } from 'rxjs';
+import { NgFor, NgIf } from '@angular/common';
+import { SmsTemplateTagControlComponent } from '../../../../shared/components/forms/sms-template-tag-control/sms-template-tag-control.component';
 
 @Component({
-  selector: 'app-message-composer',
-  templateUrl: './message-composer.component.html',
-  styleUrls: ['./message-composer.component.scss']
+    selector: 'app-message-composer',
+    templateUrl: './message-composer.component.html',
+    styleUrls: ['./message-composer.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgFor, SmsTemplateTagControlComponent, NgIf, TranslateModule]
 })
 export class MessageComposerComponent implements OnInit, OnDestroy {
 

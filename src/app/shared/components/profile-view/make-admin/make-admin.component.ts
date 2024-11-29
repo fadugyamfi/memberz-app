@@ -7,17 +7,20 @@ import { Subscription, Observable } from 'rxjs';
 import { OrganisationRoleService } from '../../../services/api/organisation-role.service';
 import { OrganisationRole } from '../../../model/api/organisation-role';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationAccount } from '../../../model/api/organisation-account';
 import { OrganisationAccountService } from '../../../services/api/organisation-account.service';
 import { EventsService } from '../../../services/events.service';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-make-admin',
-  templateUrl: './make-admin.component.html',
-  styleUrls: ['./make-admin.component.scss']
+    selector: 'app-make-admin',
+    templateUrl: './make-admin.component.html',
+    styleUrls: ['./make-admin.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, ReactiveFormsModule, NgFor, AsyncPipe, TranslateModule]
 })
 export class MakeAdminComponent implements OnInit, OnDestroy {
 

@@ -1,7 +1,9 @@
 import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CountryService } from '../../../services/api/country.service';
+import { NgFor } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const COUNTRY_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -11,10 +13,12 @@ export const COUNTRY_CONTROL_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'app-select-country-control',
-  templateUrl: './select-country-control.component.html',
-  styleUrls: ['./select-country-control.component.scss'],
-  providers: [COUNTRY_CONTROL_ACCESSOR]
+    selector: 'app-select-country-control',
+    templateUrl: './select-country-control.component.html',
+    styleUrls: ['./select-country-control.component.scss'],
+    providers: [COUNTRY_CONTROL_ACCESSOR],
+    standalone: true,
+    imports: [FormsModule, NgFor, TranslateModule]
 })
 export class SelectCountryControlComponent implements OnInit, OnDestroy {
 

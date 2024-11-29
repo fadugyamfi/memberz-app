@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { OrganisationGroupType } from '../../../../shared/model/api/organisation-group-type';
@@ -9,11 +9,16 @@ import { CurrencyService } from '../../../../shared/services/api/currency.servic
 import { OrganisationGroupTypeService } from '../../../../shared/services/api/organisation-group-type.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../../shared/services/events.service';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { NoDataAvailableComponent } from '../../../../shared/components/forms/no-data-available/no-data-available.component';
 
 @Component({
-  selector: 'app-group-types',
-  templateUrl: './group-types.component.html',
-  styleUrls: ['./group-types.component.scss']
+    selector: 'app-group-types',
+    templateUrl: './group-types.component.html',
+    styleUrls: ['./group-types.component.scss'],
+    standalone: true,
+    imports: [NgIf, LoadingRotateDashedComponent, NoDataAvailableComponent, NgFor, NgClass, FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class GroupTypesComponent implements OnInit, OnDestroy {
 

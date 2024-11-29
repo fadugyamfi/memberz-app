@@ -16,22 +16,20 @@ import { PurchaseCreditsComponent } from './purchase-credits/purchase-credits.co
 
 
 @NgModule({
-  declarations: [
-    HistoryComponent,
-    SettingsComponent,
-    BroadcastComponent,
-    SmsTransactionHistoryComponent,
-    MessageComposerComponent,
-    BroadcastHistoryViewComponent,
-    BroadcastListsComponent,
-    BroadcastListPreviewComponent,
-    ListFilterComponent,
-    PurchaseCreditsComponent
-  ],
-  imports: [
-    CommonModule,
-    MessagingRoutingModule,
-    SharedModule
-  ]
+    imports: [
+        CommonModule,
+        MessagingRoutingModule,
+        SharedModule,
+        HistoryComponent,
+        SettingsComponent,
+        BroadcastComponent,
+        SmsTransactionHistoryComponent,
+        MessageComposerComponent,
+        BroadcastHistoryViewComponent,
+        BroadcastListsComponent,
+        BroadcastListPreviewComponent,
+        ListFilterComponent,
+        PurchaseCreditsComponent
+    ]
 })
 export class MessagingModule { }

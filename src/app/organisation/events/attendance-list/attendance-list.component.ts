@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { PageEvent } from '../../../shared/components/pagination/pagination.component';
@@ -10,11 +10,18 @@ import { OrganisationEventAttendeeService } from '../../../shared/services/api/o
 import { OrganisationEventService } from '../../../shared/services/api/organisation-event.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { ExcelService } from '../../../shared/services/excel.service';
+import { NgxPrintDirective } from 'ngx-print';
+import { NgIf, NgFor, UpperCasePipe } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { ViewProfileDirective } from '../../../shared/directives/view-profile.directive';
+import { ProfileImageComponent } from '../../../shared/components/profile-view/profile-image/profile-image.component';
 
 @Component({
-  selector: 'app-attendance-list',
-  templateUrl: './attendance-list.component.html',
-  styleUrls: ['./attendance-list.component.scss']
+    selector: 'app-attendance-list',
+    templateUrl: './attendance-list.component.html',
+    styleUrls: ['./attendance-list.component.scss'],
+    standalone: true,
+    imports: [RouterLink, NgxPrintDirective, NgIf, LoadingRotateDashedComponent, NgFor, ViewProfileDirective, ProfileImageComponent, UpperCasePipe, TranslateModule]
 })
 export class AttendanceListComponent implements OnInit, OnDestroy {
 

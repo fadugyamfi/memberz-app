@@ -6,19 +6,26 @@ import { map, debounceTime, distinctUntilChanged, tap, switchMap, catchError } f
 import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
 import { OrganisationRole } from '../../../shared/model/api/organisation-role';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import Swal from 'sweetalert2';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
-import { TranslateService } from '@ngx-translate/core';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { NgIf, NgFor } from '@angular/common';
+import { AvatarModule } from 'ngx-avatars';
+import { ViewProfileDirective } from '../../../shared/directives/view-profile.directive';
+import { ImagePreloadDirective } from '../../../shared/directives/image-preload.directive';
+import { MemberControlComponent } from '../../../shared/components/forms/member-control/member-control.component';
 
 @Component({
-  selector: 'app-admin-accounts',
-  templateUrl: './admin-accounts.component.html',
-  styleUrls: ['./admin-accounts.component.scss']
+    selector: 'app-admin-accounts',
+    templateUrl: './admin-accounts.component.html',
+    styleUrls: ['./admin-accounts.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, AvatarModule, ViewProfileDirective, PaginationComponent, FormsModule, ReactiveFormsModule, ImagePreloadDirective, MemberControlComponent, TranslateModule]
 })
 export class AdminAccountsComponent implements OnInit, OnDestroy {
 

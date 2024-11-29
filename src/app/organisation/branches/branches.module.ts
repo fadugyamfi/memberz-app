@@ -8,14 +8,12 @@ import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
-  declarations: [
-    BranchListComponent,
-    BranchEditorComponent
-  ],
-  imports: [
-    CommonModule,
-    BranchesRoutingModule,
-    SharedModule
-  ]
+    imports: [
+        CommonModule,
+        BranchesRoutingModule,
+        SharedModule,
+        BranchListComponent,
+        BranchEditorComponent
+    ]
 })
 export class BranchesModule { }

@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { Notification } from '../../../shared/model/api/notification';
 import { AuthService } from '../../../shared/services/api/auth.service';
 import { MemberAccountService } from '../../../shared/services/api/member-account.service';
@@ -10,11 +10,14 @@ import { NotificationService } from '../../../shared/services/api/notification.s
 import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
+import { NgIf, NgFor, NgClass } from '@angular/common';
 
 @Component({
-  selector: 'app-notifications',
-  templateUrl: './notifications.component.html',
-  styleUrls: ['./notifications.component.scss']
+    selector: 'app-notifications',
+    templateUrl: './notifications.component.html',
+    styleUrls: ['./notifications.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, NgClass, PaginationComponent, TranslateModule]
 })
 export class NotificationsComponent implements OnInit, OnDestroy {
 

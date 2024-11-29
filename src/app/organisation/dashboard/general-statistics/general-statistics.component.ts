@@ -8,13 +8,19 @@ import { OrganisationSubscriptionService } from '../../../shared/services/api/or
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 import * as chartData from './../../../shared/data/dashboard/university';
-import { Configuration } from 'ng-chartist';
+import { Configuration, ChartistModule } from 'ng-chartist';
+import { NgClass, NgIf, AsyncPipe } from '@angular/common';
+import { FeatherIconsComponent } from '../../../shared/components/feather-icons/feather-icons.component';
+import { CountToDirective } from '../../../shared/directives/count-to.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-general-statistics',
-  templateUrl: './general-statistics.component.html',
-  styleUrls: ['./general-statistics.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-general-statistics',
+    templateUrl: './general-statistics.component.html',
+    styleUrls: ['./general-statistics.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgClass, FeatherIconsComponent, NgIf, CountToDirective, ChartistModule, AsyncPipe, TranslateModule]
 })
 export class GeneralStatisticsComponent implements OnInit {
 

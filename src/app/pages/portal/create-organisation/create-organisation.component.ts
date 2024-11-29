@@ -8,9 +8,10 @@ import { EventsService } from '../../../shared/services/events.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-create-organisation',
-  templateUrl: './create-organisation.component.html',
-  styleUrls: ['./create-organisation.component.scss']
+    selector: 'app-create-organisation',
+    templateUrl: './create-organisation.component.html',
+    styleUrls: ['./create-organisation.component.scss'],
+    standalone: true
 })
 export class CreateOrganisationComponent implements OnInit {
 

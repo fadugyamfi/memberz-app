@@ -8,14 +8,12 @@ import { AboutModule } from '../about/about.module';
 
 
 @NgModule({
-  declarations: [
-    TermsAndConditionsComponent,
-    DataUsePolicyComponent
-  ],
-  imports: [
-    CommonModule,
-    LegalTextRoutingModule,
-    AboutModule
-  ]
+    imports: [
+        CommonModule,
+        LegalTextRoutingModule,
+        AboutModule,
+        TermsAndConditionsComponent,
+        DataUsePolicyComponent
+    ]
 })
 export class LegalTextModule { }

@@ -1,13 +1,18 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModal, NgbModalRef, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrganisationRegistrationFormService } from '../../../../shared/services/api/organisation-registration-form.service';
 import { EventsService } from '../../../../shared/services/events.service';
+import { NgIf, NgFor } from '@angular/common';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-custom-field-editor',
-  templateUrl: './custom-field-editor.component.html',
-  styleUrls: ['./custom-field-editor.component.scss']
+    selector: 'app-custom-field-editor',
+    templateUrl: './custom-field-editor.component.html',
+    styleUrls: ['./custom-field-editor.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgbTooltipModule, NgIf, UiSwitchModule, NgFor, TranslateModule]
 })
 export class CustomFieldEditorComponent implements OnInit {
 

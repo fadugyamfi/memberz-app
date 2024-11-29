@@ -6,11 +6,15 @@ import { OrganisationService } from '../../../shared/services/api/organisation.s
 import { OrganisationSubscriptionService } from '../../services/api/organisation-subscription.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-subscription-status',
-  templateUrl: './subscription-status.component.html',
-  styleUrls: ['./subscription-status.component.scss']
+    selector: 'app-subscription-status',
+    templateUrl: './subscription-status.component.html',
+    styleUrls: ['./subscription-status.component.scss'],
+    standalone: true,
+    imports: [NgIf, TranslateModule]
 })
 export class SubscriptionStatusComponent implements OnInit, OnDestroy {
 

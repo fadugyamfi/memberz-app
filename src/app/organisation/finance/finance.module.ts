@@ -14,22 +14,20 @@ import { YearlySummaryReportComponent } from './reports/yearly-summary-report/ye
 import { ContributorsByTypeComponent } from './reports/contributors-by-type/contributors-by-type.component';
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    IncomeComponent,
-    ReceiptsComponent,
-    IncomeSourcesComponent,
-    IncomeEditorComponent,
-    IncomeSummaryComponent,
-    TopContributorsComponent,
-    NonContributingMembersComponent,
-    YearlySummaryReportComponent,
-    ContributorsByTypeComponent
-  ],
-  imports: [
-    CommonModule,
-    FinanceRoutingModule,
-    SharedModule
-  ],
+    imports: [
+        CommonModule,
+        FinanceRoutingModule,
+        SharedModule,
+        DashboardComponent,
+        IncomeComponent,
+        ReceiptsComponent,
+        IncomeSourcesComponent,
+        IncomeEditorComponent,
+        IncomeSummaryComponent,
+        TopContributorsComponent,
+        NonContributingMembersComponent,
+        YearlySummaryReportComponent,
+        ContributorsByTypeComponent
+    ],
 })
 export class FinanceModule { }

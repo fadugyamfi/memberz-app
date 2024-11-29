@@ -3,25 +3,37 @@ import { UserActivityService } from '../../../shared/services/api/user-activitie
 import { Subscription } from 'rxjs';
 import { UserActivity } from '../../../shared/model/api/user-activity';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventsService } from '../../../shared/services/events.service';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
-import { MemberAccount } from 'src/app/shared/model/api/member-account';
-import { MemberAccountService } from 'src/app/shared/services/api/member-account.service';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { MemberAccount } from '../../../shared/model/api/member-account';
+import { MemberAccountService } from '../../../shared/services/api/member-account.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { OrganisationAccount } from '../../../shared/model/api/organisation-account';
+import { NgIf, NgFor, TitleCasePipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-user-activities',
-  templateUrl: './user-activities.component.html',
-  styleUrls: ['./user-activities.component.scss'],
+    selector: 'app-user-activities',
+    templateUrl: './user-activities.component.html',
+    styleUrls: ['./user-activities.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        PaginationComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        TitleCasePipe,
+        TranslateModule,
+    ],
 })
 export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchModal', { static: true }) searchModal: any;
 
-  public activities: UserActivity[];
+  public activities: UserActivity[] | null;
   public subscriptions: Subscription[] = [];
   public searchForm: UntypedFormGroup;
   public memberAccounts: MemberAccount[] = [];
@@ -29,7 +41,7 @@ export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy
   public cacheDataKey = 'searched_activities';
   public cachePagingKey = 'searched_activities_paging';
   public cacheOptionsKey = 'searched_activities_options';
-  public logGroups = [];
+  public logGroups: any[] = [];
 
   constructor(
     public eventService: EventsService,

@@ -22,30 +22,28 @@ import { AvatarModule, AvatarSource } from 'ngx-avatars';
 const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    OrganisationEditorComponent,
-    UserDetailsEditComponent,
-    UserProfileComponent,
-    TimezoneEditComponent,
-    DeleteAccountComponent,
-    TwofaEnableComponent,
-    NotificationsComponent
-  ],
-  imports: [
-    CommonModule,
-    PortalRoutingModule,
-    TranslateModule,
-    ReactiveFormsModule,
-    FormsModule,
-    PaginationComponent,
-    NgxIntlTelInputModule,
-    NgbModule,
-    // CreateOrganisationModule,
-    MomentTimezonePickerModule,
-    AvatarModule.forRoot({
-      sourcePriorityOrder: avatarSourcesOrder
-    }),
-  ]
+    imports: [
+        CommonModule,
+        PortalRoutingModule,
+        TranslateModule,
+        ReactiveFormsModule,
+        FormsModule,
+        PaginationComponent,
+        NgxIntlTelInputModule,
+        NgbModule,
+        // CreateOrganisationModule,
+        MomentTimezonePickerModule,
+        AvatarModule.forRoot({
+            sourcePriorityOrder: avatarSourcesOrder
+        }),
+        HomeComponent,
+        OrganisationEditorComponent,
+        UserDetailsEditComponent,
+        UserProfileComponent,
+        TimezoneEditComponent,
+        DeleteAccountComponent,
+        TwofaEnableComponent,
+        NotificationsComponent,
+    ]
 })
 export class PortalModule { }

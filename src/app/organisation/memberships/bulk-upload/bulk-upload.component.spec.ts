@@ -8,8 +8,8 @@ describe('BulkUploadComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BulkUploadComponent ]
-    })
+    imports: [BulkUploadComponent]
+})
     .compileComponents();
   }));
 

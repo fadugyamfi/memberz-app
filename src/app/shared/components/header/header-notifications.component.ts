@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Router, RouterLink } from '@angular/router';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import { Notification } from '../../model/api/notification';
 import { AuthService } from '../../services/api/auth.service';
@@ -9,11 +9,15 @@ import { NotificationService } from '../../services/api/notification.service';
 import { OrganisationAccountService } from '../../services/api/organisation-account.service';
 import { OrganisationService } from '../../services/api/organisation.service';
 import { EventsService } from '../../services/events.service';
+import { FeatherIconsComponent } from '../feather-icons/feather-icons.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-header-notifications',
-  templateUrl: './header-notifications.component.html',
-  styleUrls: ['./header-notifications.component.scss']
+    selector: 'app-header-notifications',
+    templateUrl: './header-notifications.component.html',
+    styleUrls: ['./header-notifications.component.scss'],
+    standalone: true,
+    imports: [FeatherIconsComponent, NgIf, NgFor, RouterLink, TranslateModule]
 })
 export class HeaderNotificationsComponent implements OnInit {
 

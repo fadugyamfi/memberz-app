@@ -5,17 +5,21 @@ import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDropdownConfig, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService } from '../../../shared/services/events.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import Swal from 'sweetalert2';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
-import { TranslateService } from '@ngx-translate/core';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { NgIf, NgFor } from '@angular/common';
+import { ViewProfileDirective } from '../../../shared/directives/view-profile.directive';
 
 @Component({
-  selector: 'app-pending-approvals',
-  templateUrl: './pending-approvals.component.html',
-  styleUrls: ['./pending-approvals.component.scss']
+    selector: 'app-pending-approvals',
+    templateUrl: './pending-approvals.component.html',
+    styleUrls: ['./pending-approvals.component.scss'],
+    standalone: true,
+    imports: [NgbDropdownModule, NgIf, NgFor, ViewProfileDirective, PaginationComponent, TranslateModule]
 })
 export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestroy {
 

@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { CustomizerService } from '../../services/customizer.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { NgClass } from '@angular/common';
 
 
 @Component({
-  selector: 'app-customizer',
-  templateUrl: './customizer.component.html',
-  styleUrls: ['./customizer.component.scss']
+    selector: 'app-customizer',
+    templateUrl: './customizer.component.html',
+    styleUrls: ['./customizer.component.scss'],
+    standalone: true,
+    imports: [NgClass]
 })
 export class CustomizerComponent implements OnInit {
 

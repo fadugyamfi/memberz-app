@@ -4,14 +4,12 @@ import { CommonModule } from '@angular/common';
 import { TawkChatComponent } from './tawk-chat.component';
 
 @NgModule({
-  declarations: [
-    TawkChatComponent
-  ],
-  imports: [
-    CommonModule
-  ],
-  exports: [
-    TawkChatComponent
-  ]
+    imports: [
+        CommonModule,
+        TawkChatComponent
+    ],
+    exports: [
+        TawkChatComponent
+    ]
 })
 export class TawkChatModule { }

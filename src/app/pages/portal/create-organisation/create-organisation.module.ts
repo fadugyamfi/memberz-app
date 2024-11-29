@@ -15,19 +15,16 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 
 @NgModule({
-  declarations: [
-    CreateOrganisationComponent,
-    SubscriptionComponent,
-    ProfileComponent,
-    PaymentComponent,
-    ReviewComponent
-  ],
-  imports: [
-    CommonModule,
-    CreateOrganisationRoutingModule,
-    SharedModule,
-    NgxIntlTelInputModule,
-    // ArchwizardModule
-  ]
+    imports: [
+        CommonModule,
+        CreateOrganisationRoutingModule,
+        SharedModule,
+        NgxIntlTelInputModule,
+        CreateOrganisationComponent,
+        SubscriptionComponent,
+        ProfileComponent,
+        PaymentComponent,
+        ReviewComponent,
+    ]
 })
 export class CreateOrganisationModule { }

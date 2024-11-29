@@ -4,16 +4,20 @@ import { environment } from '../../../environments/environment';
 
 
 @Component({
-  selector: 'app-tawk-chat',
-  templateUrl: './tawk-chat.component.html',
-  styleUrls: ['./tawk-chat.component.scss']
+    selector: 'app-tawk-chat',
+    templateUrl: './tawk-chat.component.html',
+    styleUrls: ['./tawk-chat.component.scss'],
+    standalone: true
 })
 export class TawkChatComponent implements OnInit {
 
   @Input() id: string = environment.tawkto.id;
   public script: any;
 
-  constructor(private _renderer: Renderer2, @Inject(DOCUMENT) private _document, ) {
+  constructor(
+    private _renderer: Renderer2, 
+    @Inject(DOCUMENT) private _document, 
+  ) {
     this.script = this._renderer.createElement('script');
   }
 

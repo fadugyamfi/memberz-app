@@ -24,28 +24,26 @@ import { CustomFieldEditorComponent } from './registration-forms/custom-field-ed
 
 
 @NgModule({
-  declarations: [
-    CategoriesComponent,
-    ProfilesComponent,
-    BulkUploadComponent,
-    ReportsComponent,
-    ProfileEditorComponent,
-    PendingApprovalsComponent,
-    GroupsComponent,
-    GroupManagerComponent,
-    GroupTypesComponent,
-    GroupLeadersComponent,
-    UploadReviewComponent,
-    GroupMembersComponent,
-    AnniversariesComponent,
-    RegistrationFormsComponent,
-    RegistrationFormEditorComponent,
-    CustomFieldEditorComponent,
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    MembershipsRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        MembershipsRoutingModule,
+        CategoriesComponent,
+        ProfilesComponent,
+        BulkUploadComponent,
+        ReportsComponent,
+        ProfileEditorComponent,
+        PendingApprovalsComponent,
+        GroupsComponent,
+        GroupManagerComponent,
+        GroupTypesComponent,
+        GroupLeadersComponent,
+        UploadReviewComponent,
+        GroupMembersComponent,
+        AnniversariesComponent,
+        RegistrationFormsComponent,
+        RegistrationFormEditorComponent,
+        CustomFieldEditorComponent
+    ]
 })
 export class MembershipsModule { }

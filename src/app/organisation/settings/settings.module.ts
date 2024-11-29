@@ -19,24 +19,22 @@ import { Angular4PaystackModule } from 'angular4-paystack';
 import { environment } from '../../../environments/environment';
 
 @NgModule({
-  declarations: [
-    AdminAccountsComponent,
-    RolesComponent,
-    PermissionsComponent,
-    SubscriptionComponent,
-    PaymentPlatformsComponent,
-    SubscriptionRenewalComponent,
-    SubscriptionUpgradeComponent,
-    InvoicePaymentComponent,
-    PaymentProcessorComponent,
-    UserActivitiesComponent,
-    ProSubscriptionRequiredComponent
-  ],
-  imports: [
-    CommonModule,
-    SettingsRoutingModule,
-    SharedModule,
-    Angular4PaystackModule.forRoot( environment.paystack?.key ),
-  ]
+    imports: [
+        CommonModule,
+        SettingsRoutingModule,
+        SharedModule,
+        Angular4PaystackModule.forRoot(environment.paystack?.key),
+        AdminAccountsComponent,
+        RolesComponent,
+        PermissionsComponent,
+        SubscriptionComponent,
+        PaymentPlatformsComponent,
+        SubscriptionRenewalComponent,
+        SubscriptionUpgradeComponent,
+        InvoicePaymentComponent,
+        PaymentProcessorComponent,
+        UserActivitiesComponent,
+        ProSubscriptionRequiredComponent,
+    ]
 })
 export class SettingsModule { }

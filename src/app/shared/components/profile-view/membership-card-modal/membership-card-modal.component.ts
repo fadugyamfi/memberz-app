@@ -3,11 +3,16 @@ import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Organisation } from '../../../model/api/organisation';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { OrganisationService } from '../../../services/api/organisation.service';
+import { MembershipCardComponent } from '../membership-card/membership-card.component';
+import { NgxPrintDirective } from 'ngx-print';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-membership-card-modal',
-  templateUrl: './membership-card-modal.component.html',
-  styleUrls: ['./membership-card-modal.component.scss']
+    selector: 'app-membership-card-modal',
+    templateUrl: './membership-card-modal.component.html',
+    styleUrls: ['./membership-card-modal.component.scss'],
+    standalone: true,
+    imports: [MembershipCardComponent, NgxPrintDirective, TranslateModule]
 })
 export class MembershipCardModalComponent implements OnInit {
 

@@ -8,8 +8,8 @@ describe('BroadcastListsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BroadcastListsComponent ]
-    })
+    imports: [BroadcastListsComponent]
+})
     .compileComponents();
   });
 

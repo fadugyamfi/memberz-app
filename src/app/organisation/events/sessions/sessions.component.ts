@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import moment from 'moment';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -11,11 +11,15 @@ import { OrganisationCalendarService } from '../../../shared/services/api/organi
 import { OrganisationEventSessionService } from '../../../shared/services/api/organisation-event-session.service';
 import { OrganisationEventService } from '../../../shared/services/api/organisation-event.service';
 import { EventsService } from '../../../shared/services/events.service';
+import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 
 @Component({
-  selector: 'app-sessions',
-  templateUrl: './sessions.component.html',
-  styleUrls: ['./sessions.component.scss']
+    selector: 'app-sessions',
+    templateUrl: './sessions.component.html',
+    styleUrls: ['./sessions.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, ReactiveFormsModule, LoadingRotateDashedComponent, NgFor, DatePipe, TranslateModule]
 })
 export class SessionsComponent implements OnInit, OnDestroy {
 

@@ -8,8 +8,8 @@ describe('GroupTypesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GroupTypesComponent ]
-    })
+    imports: [GroupTypesComponent]
+})
     .compileComponents();
   }));
 

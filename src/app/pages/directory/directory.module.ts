@@ -9,16 +9,14 @@ import { PaginationComponent } from '../../shared/components/pagination/paginati
 const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 
 @NgModule({
-  declarations: [
-    PublicComponent
-  ],
-  imports: [
-    CommonModule,
-    DirectoryRoutingModule,
-    PaginationComponent,
-    AvatarModule.forRoot({
-      sourcePriorityOrder: avatarSourcesOrder
-    })
-  ]
+    imports: [
+        CommonModule,
+        DirectoryRoutingModule,
+        PaginationComponent,
+        AvatarModule.forRoot({
+            sourcePriorityOrder: avatarSourcesOrder
+        }),
+        PublicComponent
+    ]
 })
 export class DirectoryModule { }

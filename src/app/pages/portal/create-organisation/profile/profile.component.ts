@@ -1,17 +1,22 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationTypeService } from '../../../../shared/services/api/organisation-type.service';
 import { OrganisationType } from '../../../../shared/model/api/organisation-type';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { Country } from '../../../../shared/model/api/country';
 import { CountryService } from '../../../../shared/services/api/country.service';
 import { Organisation } from '../../../../shared/model/api/organisation';
-import { CountryISO, PhoneNumberFormat, SearchCountryField } from 'ngx-intl-tel-input';
+import { CountryISO, PhoneNumberFormat, SearchCountryField, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { NgFor, NgIf } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-profile-step',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+    selector: 'app-profile-step',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, NgFor, NgIf, RouterLink, TranslateModule]
 })
 export class ProfileComponent implements OnInit {
 

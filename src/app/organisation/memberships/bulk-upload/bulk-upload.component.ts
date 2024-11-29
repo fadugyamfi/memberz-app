@@ -3,7 +3,7 @@ import { ExcelService } from './../../../shared/services/excel.service';
 import { BulkUploadService } from './../../../shared/services/api/bulkupload.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { OrganisationFileImportService } from '../../../shared/services/api/organisation-file-import.service';
@@ -11,13 +11,17 @@ import { OrganisationMemberCategory } from '../../../shared/model/api/organisati
 import { OrganisationFileImport } from '../../../shared/model/api/organisation-file-import';
 import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
-import { TranslateService } from '@ngx-translate/core';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { NgIf, NgFor } from '@angular/common';
+import { UploadReviewComponent } from './upload-review/upload-review.component';
 
 @Component({
-  selector: 'app-bulk-upload',
-  templateUrl: './bulk-upload.component.html',
-  styleUrls: ['./bulk-upload.component.scss']
+    selector: 'app-bulk-upload',
+    templateUrl: './bulk-upload.component.html',
+    styleUrls: ['./bulk-upload.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, PaginationComponent, UploadReviewComponent, FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('uploadModal', { static: true }) uploadModal: any;

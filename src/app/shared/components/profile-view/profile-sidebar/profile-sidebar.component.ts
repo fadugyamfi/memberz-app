@@ -4,11 +4,17 @@ import { MemberImage } from '../../../../shared/model/api/member-image';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { MemberImageService } from '../../../../shared/services/api/member-image.service';
 import { EventsService } from '../../../../shared/services/events.service';
+import { RouterLink } from '@angular/router';
+import { ProfileImageComponent } from '../profile-image/profile-image.component';
+import { QrCodeModule } from 'ng-qrcode';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-profile-sidebar',
-  templateUrl: './profile-sidebar.component.html',
-  styleUrls: ['./profile-sidebar.component.scss']
+    selector: 'app-profile-sidebar',
+    templateUrl: './profile-sidebar.component.html',
+    styleUrls: ['./profile-sidebar.component.scss'],
+    standalone: true,
+    imports: [RouterLink, ProfileImageComponent, QrCodeModule, TranslateModule]
 })
 export class ProfileSidebarComponent implements OnInit {
 

@@ -1,20 +1,29 @@
 import { Component, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf, AsyncPipe } from '@angular/common';
 import { OrganisationBranchService } from '../../../shared/services/api/organisation-branch.service';
 import { Observable } from 'rxjs';
 import { OrganisationBranch } from '../../../shared/model/api/organisation-branch';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { EventsService } from '../../../shared/services/events.service';
-import { FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormArray, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { Organisation } from '../../../shared/model/api/organisation';
+import { ProfileImageComponent } from '../../../shared/components/profile-view/profile-image/profile-image.component';
+import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { OrganisationControlComponent } from '../../../shared/components/forms/organisation-control/organisation-control.component';
+import { MemberControlComponent } from '../../../shared/components/forms/member-control/member-control.component';
 
 @Component({
-  selector: 'app-branch-list',
-  standalone: false,
-  templateUrl: './branch-list.component.html',
-  styleUrl: './branch-list.component.scss'
+    selector: 'app-branch-list',
+    templateUrl: './branch-list.component.html',
+    styleUrl: './branch-list.component.scss',
+    standalone: true,
+    imports: [
+      ProfileImageComponent, NgIf, LoadingRotateDashedComponent, PaginationComponent, FormsModule, 
+      ReactiveFormsModule, OrganisationControlComponent, MemberControlComponent, AsyncPipe, TranslateModule
+    ]
 })
 export class BranchListComponent {
 

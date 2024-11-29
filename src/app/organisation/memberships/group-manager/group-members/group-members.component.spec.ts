@@ -8,8 +8,8 @@ describe('GroupMembersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GroupMembersComponent ]
-    })
+    imports: [GroupMembersComponent]
+})
     .compileComponents();
   });
 

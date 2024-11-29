@@ -8,8 +8,8 @@ describe('SmsSummaryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SmsSummaryComponent ]
-    })
+    imports: [SmsSummaryComponent]
+})
     .compileComponents();
   });
 

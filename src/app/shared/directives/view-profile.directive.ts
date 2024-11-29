@@ -3,7 +3,8 @@ import { OrganisationMember } from '../model/api/organisation-member';
 import { EventsService } from '../services/events.service';
 
 @Directive({
-	selector: '[viewProfile]'
+    selector: '[viewProfile]',
+    standalone: true
 })
 export class ViewProfileDirective {
 

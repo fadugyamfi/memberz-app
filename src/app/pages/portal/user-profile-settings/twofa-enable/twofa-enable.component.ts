@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Validators, UntypedFormGroup, UntypedFormControl } from "@angular/forms";
+import { Validators, UntypedFormGroup, UntypedFormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MemberAccount } from 'src/app/shared/model/api/member-account';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
@@ -8,12 +8,16 @@ import { MemberAccountService } from 'src/app/shared/services/api/member-account
 import { EventsService } from 'src/app/shared/services/events.service';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { NgIf } from '@angular/common';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 @Component({
-  selector: 'app-twofa-enable',
-  templateUrl: './twofa-enable.component.html',
-  styleUrls: ['./twofa-enable.component.scss']
+    selector: 'app-twofa-enable',
+    templateUrl: './twofa-enable.component.html',
+    styleUrls: ['./twofa-enable.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TranslateModule]
 })
 export class TwofaEnableComponent implements OnInit {
   @ViewChild('enableTwoFactorAuthModal', { static: true }) enableTwoFactorAuthModal: any;

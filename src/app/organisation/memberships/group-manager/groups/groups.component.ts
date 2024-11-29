@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 import { OrganisationGroup } from '../../../../shared/model/api/organisation-group';
 import { OrganisationGroupType } from '../../../../shared/model/api/organisation-group-type';
 import { CurrencyService } from '../../../../shared/services/api/currency.service';
@@ -12,11 +12,18 @@ import { OrganisationGroupTypeService } from '../../../../shared/services/api/or
 import { OrganisationGroupService } from '../../../../shared/services/api/organisation-group.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../../shared/services/events.service';
+import { NgIf, NgFor, DecimalPipe } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { NoDataAvailableComponent } from '../../../../shared/components/forms/no-data-available/no-data-available.component';
+import { RouterLink } from '@angular/router';
+import { MemberControlComponent } from '../../../../shared/components/forms/member-control/member-control.component';
 
 @Component({
-  selector: 'app-groups',
-  templateUrl: './groups.component.html',
-  styleUrls: ['./groups.component.scss']
+    selector: 'app-groups',
+    templateUrl: './groups.component.html',
+    styleUrls: ['./groups.component.scss'],
+    standalone: true,
+    imports: [NgIf, LoadingRotateDashedComponent, NoDataAvailableComponent, NgFor, RouterLink, PaginationComponent, FormsModule, ReactiveFormsModule, MemberControlComponent, DecimalPipe, TranslateModule]
 })
 export class GroupsComponent implements OnInit, OnDestroy {
 

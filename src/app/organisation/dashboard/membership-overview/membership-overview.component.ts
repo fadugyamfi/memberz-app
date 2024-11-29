@@ -1,14 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
+import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 import * as chartData from '../../../shared/data/chart/chartjs';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
+import { NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-membership-overview',
-  templateUrl: './membership-overview.component.html',
-  styleUrls: ['./membership-overview.component.scss']
+    selector: 'app-membership-overview',
+    templateUrl: './membership-overview.component.html',
+    styleUrls: ['./membership-overview.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgChartsModule, TranslateModule]
 })
 export class MembershipOverviewComponent implements OnInit {
 

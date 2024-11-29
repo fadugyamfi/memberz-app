@@ -8,8 +8,8 @@ describe('TimezoneEditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TimezoneEditComponent ]
-    })
+    imports: [TimezoneEditComponent]
+})
     .compileComponents();
   });
 

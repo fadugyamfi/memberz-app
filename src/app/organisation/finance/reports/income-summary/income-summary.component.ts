@@ -2,15 +2,23 @@ import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular
 import { FinanceReportingService } from 'src/app/shared/services/api/finance-reporting.services';
 import { ContributionReceiptSettingService } from 'src/app/shared/services/api/contribution-receipt-setting.service';
 import { ContributionReceiptSetting } from 'src/app/shared/model/api/contribution-receipt-setting';
-import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import moment from 'moment';
+import { SelectCurrencyControlComponent } from '../../../../shared/components/forms/select-currency-control/select-currency-control.component';
+import { NgxPrintDirective } from 'ngx-print';
+import { NgIf, NgFor, CurrencyPipe } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { NoDataAvailableComponent } from '../../../../shared/components/forms/no-data-available/no-data-available.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
-  selector: 'app-income-summary',
-  templateUrl: './income-summary.component.html',
-  styleUrls: ['./income-summary.component.scss']
+    selector: 'app-income-summary',
+    templateUrl: './income-summary.component.html',
+    styleUrls: ['./income-summary.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, SelectCurrencyControlComponent, NgxPrintDirective, NgIf, LoadingRotateDashedComponent, NoDataAvailableComponent, NgFor, CurrencyPipe, TranslateModule]
 })
 export class IncomeSummaryComponent implements OnInit {
 

@@ -8,11 +8,14 @@ import { OrganisationRegistrationForm } from '../../../shared/model/api/organisa
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationRegistrationFormService } from '../../../shared/services/api/organisation-registration-form.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'membership-registration-success',
-  templateUrl: './register-success.component.html',
-  styleUrls: ['./register-success.component.scss']
+    selector: 'membership-registration-success',
+    templateUrl: './register-success.component.html',
+    styleUrls: ['./register-success.component.scss'],
+    standalone: true,
+    imports: [TranslateModule]
 })
 export class RegisterSuccessComponent implements OnInit, OnDestroy {
 

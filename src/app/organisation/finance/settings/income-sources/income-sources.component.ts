@@ -1,19 +1,24 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 import { ContributionType } from '../../../../shared/model/api/contribution-type';
 import { ContributionTypeService } from '../../../../shared/services/api/contribution-type.service';
 import { CurrencyService } from '../../../../shared/services/api/currency.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../../shared/services/events.service';
+import { NgIf, NgFor, DecimalPipe, CurrencyPipe } from '@angular/common';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-income-sources',
-  templateUrl: './income-sources.component.html',
-  styleUrls: ['./income-sources.component.scss']
+    selector: 'app-income-sources',
+    templateUrl: './income-sources.component.html',
+    styleUrls: ['./income-sources.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, PaginationComponent, FormsModule, ReactiveFormsModule, UiSwitchModule, DecimalPipe, CurrencyPipe, TranslateModule]
 })
 export class IncomeSourcesComponent implements OnInit, OnDestroy {
 

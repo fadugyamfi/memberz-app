@@ -14,21 +14,19 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    RegisterComponent,
-    ForgotPasswordComponent,
-    ResetPasswordComponent,
-    TwoFaCheckComponent
-  ],
-  imports: [
-    CommonModule,
-    NgxIntlTelInputModule,
-    AuthRoutingModule,
-    TawkChatModule,
-    TranslateModule,
-    ReactiveFormsModule
-  ]
+    imports: [
+        CommonModule,
+        NgxIntlTelInputModule,
+        AuthRoutingModule,
+        TawkChatModule,
+        TranslateModule,
+        ReactiveFormsModule,
+        LoginComponent,
+        RegisterComponent,
+        ForgotPasswordComponent,
+        ResetPasswordComponent,
+        TwoFaCheckComponent
+    ]
 })
 export class AuthModule {
 

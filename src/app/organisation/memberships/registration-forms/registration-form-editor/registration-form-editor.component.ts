@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrganisationRegistrationFormService } from '../../../../shared/services/api/organisation-registration-form.service';
 import { EventsService } from '../../../../shared/services/events.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
@@ -9,11 +9,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { OrganisationMemberCategoryService } from '../../../../shared/services/api/organisation-member-category.service';
 import { OrganisationMemberCategory } from '../../../../shared/model/api/organisation-member-category';
+import { NgIf, NgFor, NgClass } from '@angular/common';
+import { CustomFieldEditorComponent } from '../custom-field-editor/custom-field-editor.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-registration-form-editor',
-  templateUrl: './registration-form-editor.component.html',
-  styleUrls: ['./registration-form-editor.component.scss']
+    selector: 'app-registration-form-editor',
+    templateUrl: './registration-form-editor.component.html',
+    styleUrls: ['./registration-form-editor.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgIf, NgFor, NgbTooltipModule, NgClass, CustomFieldEditorComponent, TranslateModule]
 })
 export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
 

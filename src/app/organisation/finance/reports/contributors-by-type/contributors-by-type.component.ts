@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ContributionReceiptSetting } from '../../../../shared/model/api/contribution-receipt-setting';
 import { ContributionReceiptSettingService } from '../../../../shared/services/api/contribution-receipt-setting.service';
@@ -7,13 +7,22 @@ import { FinanceReportingService } from '../../../../shared/services/api/finance
 import moment from 'moment';
 import Swal from 'sweetalert2';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { ExcelService } from '../../../../shared/services/excel.service';
+import { SelectContributionTypeControlComponent } from '../../../../shared/components/forms/select-contribution-type-control/select-contribution-type-control.component';
+import { NgIf, NgFor, CurrencyPipe, DatePipe } from '@angular/common';
+import { SelectCurrencyControlComponent } from '../../../../shared/components/forms/select-currency-control/select-currency-control.component';
+import { NgxPrintDirective } from 'ngx-print';
+import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { NoDataAvailableComponent } from '../../../../shared/components/forms/no-data-available/no-data-available.component';
+import { ViewProfileDirective } from '../../../../shared/directives/view-profile.directive';
 
 @Component({
-  selector: 'app-contributors-by-type',
-  templateUrl: './contributors-by-type.component.html',
-  styleUrls: ['./contributors-by-type.component.scss']
+    selector: 'app-contributors-by-type',
+    templateUrl: './contributors-by-type.component.html',
+    styleUrls: ['./contributors-by-type.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, SelectContributionTypeControlComponent, NgIf, SelectCurrencyControlComponent, NgxPrintDirective, LoadingRotateDashedComponent, NoDataAvailableComponent, NgFor, ViewProfileDirective, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class ContributorsByTypeComponent implements OnInit {
 

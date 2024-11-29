@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SmsAccount } from '../../../model/api/sms-account';
 import { EventsService } from '../../../services/events.service';
 import { SmsAccountService } from '../../../services/api/sms-account.service';
@@ -11,11 +11,17 @@ import { OrganisationMember } from '../../../model/api/organisation-member';
 import moment from 'moment';
 import { SmsAccountMessage } from '../../../model/api/sms-account-message';
 import { Member } from '../../../model/api/member';
+import { MemberControlComponent } from '../../forms/member-control/member-control.component';
+import { NgIf, NgFor } from '@angular/common';
+import { AvatarModule } from 'ngx-avatars';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-sms-messenger',
-  templateUrl: './sms-messenger.component.html',
-  styleUrls: ['./sms-messenger.component.scss']
+    selector: 'app-sms-messenger',
+    templateUrl: './sms-messenger.component.html',
+    styleUrls: ['./sms-messenger.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, MemberControlComponent, NgIf, NgFor, AvatarModule, TranslateModule]
 })
 export class SmsMessengerComponent implements OnInit {
 

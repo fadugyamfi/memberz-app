@@ -5,11 +5,17 @@ import { MemberAccountService } from 'src/app/shared/services/api/member-account
 import { EventsService } from 'src/app/shared/services/events.service';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
+import { MomentTimezonePickerModule } from 'moment-timezone-picker';
+import { FormsModule } from '@angular/forms';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-timezone-edit',
-  templateUrl: './timezone-edit.component.html',
-  styleUrls: ['./timezone-edit.component.scss']
+    selector: 'app-timezone-edit',
+    templateUrl: './timezone-edit.component.html',
+    styleUrls: ['./timezone-edit.component.scss'],
+    standalone: true,
+    imports: [MomentTimezonePickerModule, FormsModule, NgxIntlTelInputModule, TranslateModule]
 })
 export class TimezoneEditComponent implements OnInit {
 

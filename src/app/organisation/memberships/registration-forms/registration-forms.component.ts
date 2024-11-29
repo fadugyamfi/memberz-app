@@ -1,19 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { OrganisationRegistrationForm } from '../../../shared/model/api/organisation-registration-form';
 import { OrganisationRegistrationFormService } from '../../../shared/services/api/organisation-registration-form.service';
 import { EventsService } from '../../../shared/services/events.service';
-import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { Router, RouterLink } from '@angular/router';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { Organisation } from '../../../shared/model/api/organisation';
+import { NgIf, NgFor, DecimalPipe, DatePipe } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 
 
 @Component({
-  selector: 'app-registration-forms',
-  templateUrl: './registration-forms.component.html',
-  styleUrls: ['./registration-forms.component.scss']
+    selector: 'app-registration-forms',
+    templateUrl: './registration-forms.component.html',
+    styleUrls: ['./registration-forms.component.scss'],
+    standalone: true,
+    imports: [NgIf, LoadingRotateDashedComponent, RouterLink, NgFor, PaginationComponent, DecimalPipe, DatePipe, TranslateModule]
 })
 export class RegistrationFormsComponent implements OnInit {
 

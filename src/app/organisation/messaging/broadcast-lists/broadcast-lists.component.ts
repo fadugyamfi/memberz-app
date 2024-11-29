@@ -1,21 +1,26 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModal, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { SmsAccount } from '../../../shared/model/api/sms-account';
 import { SmsBroadcastList } from '../../../shared/model/api/sms-broadcast-list';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 import { SmsBroadcastListService } from '../../../shared/services/api/sms-broadcast-list.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { ListFilterService } from '../../../shared/services/utilities/list-filter.service';
+import { NgIf, NgFor, DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { ListFilterComponent } from './list-filter/list-filter.component';
 
 @Component({
-  selector: 'app-broadcast-lists',
-  templateUrl: './broadcast-lists.component.html',
-  styleUrls: ['./broadcast-lists.component.scss']
+    selector: 'app-broadcast-lists',
+    templateUrl: './broadcast-lists.component.html',
+    styleUrls: ['./broadcast-lists.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, RouterLink, PaginationComponent, FormsModule, ReactiveFormsModule, ListFilterComponent, NgbDropdownModule, DecimalPipe, TranslateModule]
 })
 export class BroadcastListsComponent implements OnInit {
 

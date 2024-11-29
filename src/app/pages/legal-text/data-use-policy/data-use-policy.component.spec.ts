@@ -8,8 +8,8 @@ describe('DataUsePolicyComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DataUsePolicyComponent ]
-    })
+    imports: [DataUsePolicyComponent]
+})
     .compileComponents();
   });
 

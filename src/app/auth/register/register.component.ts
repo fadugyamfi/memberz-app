@@ -1,8 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { UntypedFormBuilder, Validators, UntypedFormGroup, UntypedFormControl } from "@angular/forms";
+import { UntypedFormBuilder, Validators, UntypedFormGroup, UntypedFormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthService } from "../../shared/services/api/auth.service";
 import { EventsService } from "../../shared/services/events.service";
-import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { SearchCountryField, CountryISO, PhoneNumberFormat, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { RouterLink } from "@angular/router";
+import { NgIf } from "@angular/common";
+import { TawkChatComponent } from "../../components/tawk-chat/tawk-chat.component";
+import { TranslateModule } from "@ngx-translate/core";
 
 type UserFields =
   | "email"
@@ -14,9 +18,19 @@ type UserFields =
   | "gender";
 type FormErrors = { [u in UserFields]: string };
 @Component({
-  selector: "app-register",
-  templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"],
+    selector: "app-register",
+    templateUrl: "./register.component.html",
+    styleUrls: ["./register.component.scss"],
+    standalone: true,
+    imports: [
+        RouterLink,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxIntlTelInputModule,
+        NgIf,
+        TawkChatComponent,
+        TranslateModule,
+    ],
 })
 export class RegisterComponent implements OnInit {
   public registerForm: UntypedFormGroup;

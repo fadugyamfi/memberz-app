@@ -5,13 +5,27 @@ import { OrganisationMember } from '../../../shared/model/api/organisation-membe
 import { Subscription, Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { EventsService } from '../../../shared/services/events.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { OrganisationService } from '../../services/api/organisation.service';
+import { NgIf, NgClass } from '@angular/common';
+import { ProfileHeaderComponent } from './profile-header/profile-header.component';
+import { ProfileSidebarComponent } from './profile-sidebar/profile-sidebar.component';
+import { ProfileActionsComponent } from './profile-actions/profile-actions.component';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProfileSummaryComponent } from './profile-summary/profile-summary.component';
+import { ProfileGroupsComponent } from './profile-groups/profile-groups.component';
+import { ProfileFamilyComponent } from './profile-family/profile-family.component';
+import { ProfileAnniversariesComponent } from './profile-anniversaries/profile-anniversaries.component';
+import { ProfileSmsMessagesComponent } from './profile-sms-messages/profile-sms-messages.component';
+import { ProfileContributionsComponent } from './profile-contributions/profile-contributions.component';
+import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
 
 @Component({
-  selector: 'app-profile-view',
-  templateUrl: './profile-view.component.html',
-  styleUrls: ['./profile-view.component.scss']
+    selector: 'app-profile-view',
+    templateUrl: './profile-view.component.html',
+    styleUrls: ['./profile-view.component.scss'],
+    standalone: true,
+    imports: [NgIf, ProfileHeaderComponent, ProfileSidebarComponent, NgClass, ProfileActionsComponent, NgbNavModule, ProfileSummaryComponent, ProfileGroupsComponent, ProfileFamilyComponent, ProfileAnniversariesComponent, ProfileSmsMessagesComponent, ProfileContributionsComponent, ProfileEditorComponent, TranslateModule]
 })
 export class ProfileViewComponent implements OnInit, OnDestroy {
 

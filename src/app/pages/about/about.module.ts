@@ -13,24 +13,22 @@ import { TawkChatModule } from '../../components/tawk-chat/tawk-chat.module';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    PricingComponent,
-    HeaderComponent,
-    FeaturesComponent,
-    FooterComponent,
-    CarouselComponent
-  ],
-  imports: [
-    CommonModule,
-    AboutRoutingModule,
-    NgbModule,
-    TawkChatModule
-  ],
-  exports: [
-    HeaderComponent,
-    FooterComponent
-  ]
+    imports: [
+        CommonModule,
+        AboutRoutingModule,
+        NgbModule,
+        TawkChatModule,
+        HomeComponent,
+        PricingComponent,
+        HeaderComponent,
+        FeaturesComponent,
+        FooterComponent,
+        CarouselComponent
+    ],
+    exports: [
+        HeaderComponent,
+        FooterComponent
+    ]
 })
 export class AboutModule implements OnInit {
 

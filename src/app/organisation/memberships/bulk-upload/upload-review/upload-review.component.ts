@@ -1,16 +1,20 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 import { OrganisationFileImport } from '../../../../shared/model/api/organisation-file-import';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { OrganisationMemberImportService } from '../../../../shared/services/api/organisation-member-import.service';
 import { EventsService } from '../../../../shared/services/events.service';
+import { NgIf, NgFor } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-upload-review',
-  templateUrl: './upload-review.component.html',
-  styleUrls: ['./upload-review.component.scss']
+    selector: 'app-upload-review',
+    templateUrl: './upload-review.component.html',
+    styleUrls: ['./upload-review.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, RouterLink, PaginationComponent, TranslateModule]
 })
 export class UploadReviewComponent implements OnInit, OnDestroy {
 

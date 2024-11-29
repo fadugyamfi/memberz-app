@@ -1,9 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { NgIf, NgFor } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-list-filter',
-  templateUrl: './list-filter.component.html',
-  styleUrls: ['./list-filter.component.scss']
+    selector: 'app-list-filter',
+    templateUrl: './list-filter.component.html',
+    styleUrls: ['./list-filter.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, ReactiveFormsModule, NgFor, TranslateModule]
 })
 export class ListFilterComponent implements OnInit {
 

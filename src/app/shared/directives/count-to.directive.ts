@@ -1,7 +1,8 @@
 import { Directive, OnChanges, ElementRef, Input, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[CountTo]'
+    selector: '[CountTo]',
+    standalone: true
 })
 export class CountToDirective implements OnChanges, OnInit {
   @Input()

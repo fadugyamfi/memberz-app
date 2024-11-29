@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core';
 import { PermissionGroup } from './permission-group.model';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { EventsService } from '../../../shared/services/events.service';
 import { StorageService } from '../../../shared/services/storage.service';
@@ -8,15 +8,19 @@ import { Permission } from '../../../shared/model/api/permission.model';
 import { PermissionService } from '../../../shared/services/api/permission.service';
 import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
 import { OrganisationRole } from '../../../shared/model/api/organisation-role';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { NgIf, NgFor, NgClass, TitleCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-permissions',
-  templateUrl: './permissions.component.html',
-  styleUrls: ['./permissions.component.scss']
+    selector: 'app-permissions',
+    templateUrl: './permissions.component.html',
+    styleUrls: ['./permissions.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgIf, NgFor, NgClass, NgbCollapseModule, TitleCasePipe, TranslateModule]
 })
 export class PermissionsComponent implements OnInit, OnDestroy {
 

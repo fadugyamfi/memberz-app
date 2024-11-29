@@ -2,7 +2,8 @@ import { Directive, Input, ElementRef, OnInit } from '@angular/core';
 import { OrganisationAccountService } from '../services/api/organisation-account.service';
 
 @Directive({
-  selector: '[adminHasPermission]'
+    selector: '[adminHasPermission]',
+    standalone: true
 })
 export class AdminHasPermissionDirective implements OnInit {
 

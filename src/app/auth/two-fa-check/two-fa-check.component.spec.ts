@@ -8,8 +8,8 @@ describe('TwoFaCheckComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TwoFaCheckComponent ]
-    })
+    imports: [TwoFaCheckComponent]
+})
     .compileComponents();
   });
 

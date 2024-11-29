@@ -2,21 +2,28 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { EventsService } from '../../../shared/services/events.service';
 import { SmsAccountMessageService } from '../../../shared/services/api/sms-account-message.service';
 import { SmsAccountMessage } from '../../../shared/model/api/sms-account-message';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { SmsAccount } from '../../../shared/model/api/sms-account';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { NgClass, NgIf, NgFor, DatePipe } from '@angular/common';
+import { AvatarModule } from 'ngx-avatars';
+import { ViewProfileDirective } from '../../../shared/directives/view-profile.directive';
+import { MemberControlComponent } from '../../../shared/components/forms/member-control/member-control.component';
+import { SmsMessengerComponent } from '../../../shared/components/messaging/sms-messenger/sms-messenger.component';
 
 @Component({
-  selector: 'app-history',
-  templateUrl: './history.component.html',
-  styleUrls: ['./history.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-history',
+    templateUrl: './history.component.html',
+    styleUrls: ['./history.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [NgClass, NgIf, NgFor, AvatarModule, ViewProfileDirective, PaginationComponent, FormsModule, ReactiveFormsModule, MemberControlComponent, SmsMessengerComponent, DatePipe, TranslateModule]
 })
 export class HistoryComponent implements OnInit {
 

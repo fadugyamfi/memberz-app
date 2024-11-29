@@ -4,11 +4,20 @@ import { MemberImage } from '../../../../shared/model/api/member-image';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { MemberImageService } from '../../../../shared/services/api/member-image.service';
 import { EventsService } from '../../../../shared/services/events.service';
+import { AvatarModule } from 'ngx-avatars';
+import { NgIf } from '@angular/common';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { ImageCropperComponent } from '../../image-cropper/image-cropper.component';
+import { QrCodeModule } from 'ng-qrcode';
+import { ProfileActionsComponent } from '../profile-actions/profile-actions.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-profile-header',
-  templateUrl: './profile-header.component.html',
-  styleUrls: ['./profile-header.component.scss']
+    selector: 'app-profile-header',
+    templateUrl: './profile-header.component.html',
+    styleUrls: ['./profile-header.component.scss'],
+    standalone: true,
+    imports: [AvatarModule, NgIf, NgbProgressbarModule, ImageCropperComponent, QrCodeModule, ProfileActionsComponent, TranslateModule]
 })
 export class ProfileHeaderComponent implements OnInit {
 

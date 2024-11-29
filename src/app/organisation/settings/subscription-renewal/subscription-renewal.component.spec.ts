@@ -8,8 +8,8 @@ describe('SubscriptionRenewalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubscriptionRenewalComponent ]
-    })
+    imports: [SubscriptionRenewalComponent]
+})
     .compileComponents();
   }));
 

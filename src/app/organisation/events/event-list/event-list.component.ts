@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModal, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Observable, Subscription, tap } from 'rxjs';
 import Swal from 'sweetalert2';
 import { environment } from '../../../../environments/environment';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { OrganisationEvent } from '../../../shared/model/api/organisation-event';
 import { OrganisationEventService } from '../../../shared/services/api/organisation-event.service';
 import { OrganisationCalendarService } from '../../../shared/services/api/organisation-calendar.service';
@@ -13,11 +13,19 @@ import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationCalendar } from '../../../shared/model/api/organisation-calendar';
 import moment from 'moment';
 import { SessionsComponent } from '../sessions/sessions.component';
+import { AdminHasPermissionDirective } from '../../../shared/directives/admin-has-permission.directive';
+import { NgIf, NgFor } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { RouterLink } from '@angular/router';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @Component({
-  selector: 'app-event-list',
-  templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.scss']
+    selector: 'app-event-list',
+    templateUrl: './event-list.component.html',
+    styleUrls: ['./event-list.component.scss'],
+    standalone: true,
+    imports: [AdminHasPermissionDirective, NgIf, LoadingRotateDashedComponent, NgFor, NgbDropdownModule, RouterLink, PaginationComponent, FormsModule, ReactiveFormsModule, UiSwitchModule, EditorModule, SessionsComponent, TranslateModule]
 })
 export class EventListComponent implements OnInit {
 

@@ -4,13 +4,17 @@ import { OrganisationInvoice } from '../../model/api/organisation-invoice';
 import { Organisation } from '../../model/api/organisation';
 import { OrganisationService } from '../../services/api/organisation.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf, NgFor, CurrencyPipe, DatePipe } from '@angular/common';
+import { NgxPrintDirective } from 'ngx-print';
 
 // TODO: Implement HTML to PDF - https://codingdiksha.com/convert-html-table-to-pdf-using-html2pdf-angular/
 
 @Component({
-  selector: 'app-invoice',
-  templateUrl: './invoice.component.html',
-  styleUrls: ['./invoice.component.scss']
+    selector: 'app-invoice',
+    templateUrl: './invoice.component.html',
+    styleUrls: ['./invoice.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, NgxPrintDirective, CurrencyPipe, DatePipe]
 })
 
 export class InvoiceComponent implements OnInit {

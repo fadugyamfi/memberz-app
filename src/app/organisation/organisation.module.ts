@@ -12,18 +12,16 @@ import { ChartistModule } from 'ng-chartist';
 
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    MembershipOverviewComponent,
-    RecentlyUpdatedComponent,
-    GeneralStatisticsComponent,
-  ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    ChartistModule,
-    OrganisationRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        ChartistModule,
+        OrganisationRoutingModule,
+        DashboardComponent,
+        MembershipOverviewComponent,
+        RecentlyUpdatedComponent,
+        GeneralStatisticsComponent
+    ]
 })
 export class OrganisationModule {
 

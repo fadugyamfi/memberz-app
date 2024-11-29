@@ -8,8 +8,8 @@ describe('CustomFieldComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CustomFieldComponent ]
-    })
+    imports: [CustomFieldComponent]
+})
     .compileComponents();
   });
 

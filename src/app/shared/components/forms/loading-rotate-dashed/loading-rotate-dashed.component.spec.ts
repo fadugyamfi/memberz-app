@@ -8,8 +8,8 @@ describe('LoadingRotateDashedComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoadingRotateDashedComponent ]
-    })
+    imports: [LoadingRotateDashedComponent]
+})
     .compileComponents();
   });
 

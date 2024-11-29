@@ -6,7 +6,8 @@ import { Directive, Input, HostBinding } from '@angular/core'
         '(error)': 'onError()',
         '(load)': 'load($event)',
         '[src]': 'src'
-    }
+    },
+    standalone: true
 })
 export class ImagePreloadDirective {
     @Input() src: string;

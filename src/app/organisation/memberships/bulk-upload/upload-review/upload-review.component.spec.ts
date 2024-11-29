@@ -8,8 +8,8 @@ describe('UploadReviewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UploadReviewComponent ]
-    })
+    imports: [UploadReviewComponent]
+})
     .compileComponents();
   });
 

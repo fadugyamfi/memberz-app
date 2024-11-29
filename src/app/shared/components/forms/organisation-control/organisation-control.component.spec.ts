@@ -8,8 +8,8 @@ describe('MemberControlComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MemberControlComponent ]
-    })
+    imports: [MemberControlComponent]
+})
     .compileComponents();
   }));
 

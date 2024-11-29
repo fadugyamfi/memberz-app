@@ -1,16 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SmsAccountTopupService } from '../../../shared/services/api/sms-account-topup.service';
 import { SmsAccountTopup } from '../../../shared/model/api/sms-account-topup';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { OrganisationInvoice } from '../../../shared/model/api/organisation-invoice';
 import { EventsService } from '../../../shared/services/events.service';
+import { NgIf, NgFor, DecimalPipe, CurrencyPipe } from '@angular/common';
+import { InvoiceComponent } from '../../../shared/components/invoice/invoice.component';
 
 @Component({
-  selector: 'app-sms-transaction-history',
-  templateUrl: './sms-transaction-history.component.html',
-  styleUrls: ['./sms-transaction-history.component.scss']
+    selector: 'app-sms-transaction-history',
+    templateUrl: './sms-transaction-history.component.html',
+    styleUrls: ['./sms-transaction-history.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, PaginationComponent, InvoiceComponent, DecimalPipe, CurrencyPipe, TranslateModule]
 })
 export class SmsTransactionHistoryComponent implements OnInit {
 

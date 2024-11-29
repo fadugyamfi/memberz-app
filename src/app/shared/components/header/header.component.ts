@@ -1,22 +1,30 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, ElementRef, HostListener, Renderer2 } from '@angular/core';
 import { NavService, Menu } from '../../services/nav.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../services/api/auth.service';
 import { StorageService } from '../../services/storage.service';
 import { EventsService } from '../../services/events.service';
 import { NotificationService } from '../../services/api/notification.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { OrganisationService } from '../../services/api/organisation.service';
 import { OrganisationAccountService } from '../../services/api/organisation-account.service';
 import { MemberAccountService } from '../../services/api/member-account.service';
 import Swal from 'sweetalert2';
+import { NgClass, NgIf, NgFor, UpperCasePipe, SlicePipe } from '@angular/common';
+import { FeatherIconsComponent } from '../feather-icons/feather-icons.component';
+import { FormsModule } from '@angular/forms';
+import { ToggleFullscreenDirective } from '../../directives/fullscreen.directive';
+import { HeaderNotificationsComponent } from './header-notifications.component';
+import { AvatarModule } from 'ngx-avatars';
 
 const body = document.getElementsByTagName('body')[0];
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    standalone: true,
+    imports: [NgClass, FeatherIconsComponent, FormsModule, NgIf, NgFor, RouterLink, ToggleFullscreenDirective, HeaderNotificationsComponent, AvatarModule, UpperCasePipe, SlicePipe, TranslateModule]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 

@@ -8,8 +8,8 @@ describe('IncomeSummaryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IncomeSummaryComponent ]
-    })
+    imports: [IncomeSummaryComponent]
+})
     .compileComponents();
   });
 

@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Member } from '../../../model/api/member';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { OrganisationMemberCategory } from '../../../model/api/organisation-member-category';
@@ -12,11 +12,14 @@ import { OrganisationMemberCategoryService } from '../../../services/api/organis
 import { OrganisationMemberService } from '../../../services/api/organisation-member.service';
 import { OrganisationService } from '../../../services/api/organisation.service';
 import { EventsService } from '../../../services/events.service';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-profile-editor',
-  templateUrl: './profile-editor.component.html',
-  styleUrls: ['./profile-editor.component.scss']
+    selector: 'app-profile-editor',
+    templateUrl: './profile-editor.component.html',
+    styleUrls: ['./profile-editor.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgFor, NgIf, TranslateModule]
 })
 export class ProfileEditorComponent implements OnInit, OnDestroy {
 

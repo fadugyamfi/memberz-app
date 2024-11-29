@@ -3,11 +3,16 @@ import { Organisation } from '../../../../shared/model/api/organisation';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
 import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
+import { FormsModule } from '@angular/forms';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-review-step',
-  templateUrl: './review.component.html',
-  styleUrls: ['./review.component.scss']
+    selector: 'app-review-step',
+    templateUrl: './review.component.html',
+    styleUrls: ['./review.component.scss'],
+    standalone: true,
+    imports: [FormsModule, NgxIntlTelInputModule, TitleCasePipe]
 })
 export class ReviewComponent implements OnInit {
 

@@ -6,7 +6,8 @@
 import { Directive, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: "[ngPrintContent]"
+    selector: "[ngPrintContent]",
+    standalone: true
 })
 export class PrintContentDirective {
 

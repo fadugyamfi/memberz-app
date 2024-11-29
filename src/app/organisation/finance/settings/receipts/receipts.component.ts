@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { ContributionReceiptSetting } from '../../../../shared/model/api/contribution-receipt-setting';
@@ -9,11 +9,15 @@ import { CurrencyService} from '../../../../shared/services/api/currency.service
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { SmsAccountService } from '../../../../shared/services/api/sms-account.service';
 import { EventsService } from '../../../../shared/services/events.service';
+import { NgIf, NgFor } from '@angular/common';
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 @Component({
-  selector: 'app-receipts',
-  templateUrl: './receipts.component.html',
-  styleUrls: ['./receipts.component.scss']
+    selector: 'app-receipts',
+    templateUrl: './receipts.component.html',
+    styleUrls: ['./receipts.component.scss'],
+    standalone: true,
+    imports: [NgIf, FormsModule, ReactiveFormsModule, NgFor, UiSwitchModule, TranslateModule]
 })
 export class ReceiptsComponent implements OnInit, OnDestroy {
 

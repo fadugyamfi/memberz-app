@@ -8,8 +8,8 @@ describe('SlydepayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SlydepayComponent ]
-    })
+    declarations: [SlydepayComponent]
+})
     .compileComponents();
   }));
 

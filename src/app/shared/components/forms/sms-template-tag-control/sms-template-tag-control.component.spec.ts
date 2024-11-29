@@ -8,8 +8,8 @@ describe('SmsTemplateTagControlComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SmsTemplateTagControlComponent ]
-    })
+    imports: [SmsTemplateTagControlComponent]
+})
     .compileComponents();
   });
 

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-page-with-video',
-  templateUrl: './page-with-video.component.html',
-  styleUrls: ['./page-with-video.component.scss']
+    selector: 'app-page-with-video',
+    templateUrl: './page-with-video.component.html',
+    styleUrls: ['./page-with-video.component.scss'],
+    standalone: true
 })
 export class PageWithVideoComponent implements OnInit {
 

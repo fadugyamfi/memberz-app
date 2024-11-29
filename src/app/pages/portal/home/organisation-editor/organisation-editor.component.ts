@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormControl, ValidationErrors, ValidatorFn, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationTypeService } from '../../../../shared/services/api/organisation-type.service';
 import { OrganisationType } from '../../../../shared/model/api/organisation-type';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
@@ -10,8 +10,9 @@ import { NgbModal, NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstra
 import { EventsService } from '../../../../shared/services/events.service';
 import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
-import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-import { TranslateService } from '@ngx-translate/core';
+import { SearchCountryField, CountryISO, PhoneNumberFormat, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
 
 export class CustomValidators {
   static validUrl: ValidatorFn = (control: FormControl): ValidationErrors | null  => {
@@ -33,9 +34,11 @@ export class CustomValidators {
 
 
 @Component({
-  selector: 'app-organisation-editor-modal',
-  templateUrl: './organisation-editor.component.html',
-  styleUrls: ['./organisation-editor.component.scss']
+    selector: 'app-organisation-editor-modal',
+    templateUrl: './organisation-editor.component.html',
+    styleUrls: ['./organisation-editor.component.scss'],
+    standalone: true,
+    imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, NgFor, NgIf, TitleCasePipe, TranslateModule]
 })
 export class OrganisationEditorComponent implements OnInit, OnDestroy {
 

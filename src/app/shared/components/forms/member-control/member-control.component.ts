@@ -5,6 +5,10 @@ import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
 import { OrganisationMemberService } from '../../../services/api/organisation-member.service';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ImagePreloadDirective } from '../../../directives/image-preload.directive';
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf } from '@angular/common';
+import { AvatarModule } from 'ngx-avatars';
 
 export const MEMBER_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -14,10 +18,12 @@ export const MEMBER_CONTROL_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'app-member-control',
-  templateUrl: './member-control.component.html',
-  styleUrls: ['./member-control.component.scss'],
-  providers: [MEMBER_CONTROL_ACCESSOR]
+    selector: 'app-member-control',
+    templateUrl: './member-control.component.html',
+    styleUrls: ['./member-control.component.scss'],
+    providers: [MEMBER_CONTROL_ACCESSOR],
+    standalone: true,
+    imports: [ImagePreloadDirective, NgbTypeaheadModule, NgIf, AvatarModule]
 })
 export class MemberControlComponent {
 

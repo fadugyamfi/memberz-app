@@ -1,6 +1,9 @@
 import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SmsTemplateTagService } from '../../../services/utilities/sms-template-tag.service';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgFor } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 export const TEMPLATE_TAG_ACCESSOR: any = {
@@ -11,10 +14,12 @@ export const TEMPLATE_TAG_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'input-sms-template-tag-control',
-  templateUrl: './sms-template-tag-control.component.html',
-  styleUrls: ['./sms-template-tag-control.component.scss'],
-  providers: [TEMPLATE_TAG_ACCESSOR]
+    selector: 'input-sms-template-tag-control',
+    templateUrl: './sms-template-tag-control.component.html',
+    styleUrls: ['./sms-template-tag-control.component.scss'],
+    providers: [TEMPLATE_TAG_ACCESSOR],
+    standalone: true,
+    imports: [NgbDropdownModule, NgFor, TranslateModule]
 })
 export class SmsTemplateTagControlComponent implements OnInit {
 

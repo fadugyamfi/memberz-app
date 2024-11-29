@@ -5,9 +5,10 @@ import { SubscriptionTypeService } from '../../../../shared/services/api/subscri
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
 
 @Component({
-  selector: 'app-subscription-step',
-  templateUrl: './subscription.component.html',
-  styleUrls: ['./subscription.component.scss']
+    selector: 'app-subscription-step',
+    templateUrl: './subscription.component.html',
+    styleUrls: ['./subscription.component.scss'],
+    standalone: true
 })
 export class SubscriptionComponent implements OnInit {
 

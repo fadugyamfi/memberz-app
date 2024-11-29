@@ -4,15 +4,19 @@ import { OrganisationRoleService } from '../../../shared/services/api/organisati
 import { OrganisationRole } from '../../../shared/model/api/organisation-role';
 import { Subscription } from 'rxjs';
 import { PermissionsComponent } from '../permissions/permissions.component';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { NgFor, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-roles',
-  templateUrl: './roles.component.html',
-  styleUrls: ['./roles.component.scss']
+    selector: 'app-roles',
+    templateUrl: './roles.component.html',
+    styleUrls: ['./roles.component.scss'],
+    standalone: true,
+    imports: [NgFor, NgIf, PaginationComponent, FormsModule, ReactiveFormsModule, PermissionsComponent, TranslateModule]
 })
 export class RolesComponent implements OnInit, OnDestroy {
 

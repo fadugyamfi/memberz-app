@@ -8,8 +8,8 @@ describe('BroadcastHistoryViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BroadcastHistoryViewComponent ]
-    })
+    imports: [BroadcastHistoryViewComponent]
+})
     .compileComponents();
   });
 

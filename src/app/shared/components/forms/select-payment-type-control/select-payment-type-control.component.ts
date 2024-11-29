@@ -1,7 +1,9 @@
 import { Component, forwardRef, OnDestroy, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ContributionPaymentTypeService } from '../../../services/api/contribution-payment-type.service';
+import { NgFor } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const PAYMENT_TYPE_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -11,10 +13,12 @@ export const PAYMENT_TYPE_CONTROL_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'app-select-payment-type-control',
-  templateUrl: './select-payment-type-control.component.html',
-  styleUrls: ['./select-payment-type-control.component.scss'],
-  providers: [PAYMENT_TYPE_CONTROL_ACCESSOR]
+    selector: 'app-select-payment-type-control',
+    templateUrl: './select-payment-type-control.component.html',
+    styleUrls: ['./select-payment-type-control.component.scss'],
+    providers: [PAYMENT_TYPE_CONTROL_ACCESSOR],
+    standalone: true,
+    imports: [FormsModule, NgFor, TranslateModule]
 })
 export class SelectPaymentTypeControlComponent implements OnInit, OnDestroy {
 

@@ -8,8 +8,8 @@ describe('SelectMonthControlComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SelectMonthControlComponent ]
-    })
+    imports: [SelectMonthControlComponent]
+})
     .compileComponents();
   });
 

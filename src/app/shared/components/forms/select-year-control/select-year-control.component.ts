@@ -1,7 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, OnDestroy, forwardRef, Input } from '@angular/core';
-import { ContributionService } from 'src/app/shared/services/api/contribution.service';
+import { ContributionService } from '../../../services/api/contribution.service';
 import { Subscription } from 'rxjs';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { NgFor } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const YEAR_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -10,10 +12,12 @@ export const YEAR_CONTROL_ACCESSOR: any = {
   multi: true
 };
 @Component({
-  selector: 'app-select-year-control',
-  templateUrl: './select-year-control.component.html',
-  styleUrls: ['./select-year-control.component.scss'],
-  providers: [YEAR_CONTROL_ACCESSOR]
+    selector: 'app-select-year-control',
+    templateUrl: './select-year-control.component.html',
+    styleUrls: ['./select-year-control.component.scss'],
+    providers: [YEAR_CONTROL_ACCESSOR],
+    standalone: true,
+    imports: [FormsModule, NgFor, TranslateModule]
 })
 export class SelectYearControlComponent implements OnInit, OnDestroy {
 

@@ -8,8 +8,8 @@ describe('SelectContributionTypeControlComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SelectContributionTypeControlComponent ]
-    })
+    imports: [SelectContributionTypeControlComponent]
+})
     .compileComponents();
   });
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { OrganisationEventService } from '../../../shared/services/api/organisation-event.service';
 import { OrganisationEventAttendeeService } from '../../../shared/services/api/organisation-event-attendee.service';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
@@ -7,19 +7,27 @@ import { OrganisationService } from '../../../shared/services/api/organisation.s
 import { OrganisationEvent } from '../../../shared/model/api/organisation-event';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { OrganisationEventAttendee } from '../../../shared/model/api/organisation-event-attendee';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { OrganisationGroupTypeService } from '../../../shared/services/api/organisation-group-type.service';
 import { OrganisationGroupType } from '../../../shared/model/api/organisation-group-type';
 import { Subscription } from 'rxjs';
 import { EventsService } from '../../../shared/services/events.service';
+import { NgFor, NgIf } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { AvatarModule } from 'ngx-avatars';
+import { ViewProfileDirective } from '../../../shared/directives/view-profile.directive';
+import { MarkComponent } from './mark/mark.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-record-attendance',
-  templateUrl: './record-attendance.component.html',
-  styleUrls: ['./record-attendance.component.scss']
+    selector: 'app-record-attendance',
+    templateUrl: './record-attendance.component.html',
+    styleUrls: ['./record-attendance.component.scss'],
+    standalone: true,
+    imports: [RouterLink, FormsModule, ReactiveFormsModule, NgFor, NgIf, LoadingRotateDashedComponent, AvatarModule, ViewProfileDirective, MarkComponent, PaginationComponent, TranslateModule]
 })
 export class RecordAttendanceComponent implements OnInit {
 

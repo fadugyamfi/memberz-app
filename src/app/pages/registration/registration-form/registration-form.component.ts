@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { FormArray, UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { SearchCountryField, CountryISO, PhoneNumberFormat, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Member } from '../../../shared/model/api/member';
@@ -16,11 +16,16 @@ import { OrganisationMemberService } from '../../../shared/services/api/organisa
 import { OrganisationRegistrationFormService } from '../../../shared/services/api/organisation-registration-form.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
+import { AvatarModule } from 'ngx-avatars';
+import { NgIf, NgFor } from '@angular/common';
+import { CustomFieldComponent } from '../../../shared/components/forms/custom-field/custom-field.component';
 
 @Component({
-  selector: 'membership-registration-form',
-  templateUrl: './registration-form.component.html',
-  styleUrls: ['./registration-form.component.scss']
+    selector: 'membership-registration-form',
+    templateUrl: './registration-form.component.html',
+    styleUrls: ['./registration-form.component.scss'],
+    standalone: true,
+    imports: [AvatarModule, NgIf, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, NgFor, CustomFieldComponent, RouterLink, TranslateModule]
 })
 export class RegistrationFormComponent implements OnInit, OnDestroy {
 

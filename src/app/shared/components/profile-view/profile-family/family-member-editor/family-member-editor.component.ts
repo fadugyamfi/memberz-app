@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { MemberRelation } from '../../../../../shared/model/api/member-relation';
 import { MemberRelationType } from '../../../../../shared/model/api/member-relation-type';
@@ -9,6 +9,9 @@ import { OrganisationMember } from '../../../../../shared/model/api/organisation
 import { MemberRelationTypeService } from '../../../../../shared/services/api/member-relation-type.service';
 import { MemberRelationService } from '../../../../../shared/services/api/member-relation.service';
 import { EventsService } from '../../../../../shared/services/events.service';
+import { NgIf, NgFor } from '@angular/common';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { MemberControlComponent } from '../../../forms/member-control/member-control.component';
 
 const SELECT_OPTION = 'select-option';
 const ADD_EXISTING = 'add-existing';
@@ -20,9 +23,11 @@ interface RelationEditorOptions {
   relation?: MemberRelation;
 }
 @Component({
-  selector: 'app-family-member-editor',
-  templateUrl: './family-member-editor.component.html',
-  styleUrls: ['./family-member-editor.component.scss']
+    selector: 'app-family-member-editor',
+    templateUrl: './family-member-editor.component.html',
+    styleUrls: ['./family-member-editor.component.scss'],
+    standalone: true,
+    imports: [FormsModule, NgIf, ReactiveFormsModule, NgFor, UiSwitchModule, MemberControlComponent, TranslateModule]
 })
 export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
 

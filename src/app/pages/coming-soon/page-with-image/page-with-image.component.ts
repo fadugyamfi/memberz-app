@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-page-with-image',
-  templateUrl: './page-with-image.component.html',
-  styleUrls: ['./page-with-image.component.scss']
+    selector: 'app-page-with-image',
+    templateUrl: './page-with-image.component.html',
+    styleUrls: ['./page-with-image.component.scss'],
+    standalone: true
 })
 export class PageWithImageComponent implements OnInit {
   seconds: number;

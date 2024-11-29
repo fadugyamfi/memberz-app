@@ -1,11 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { environment } from '../../../../environments/environment';
+import { HeaderComponent } from '../header/header.component';
+import { CarouselComponent } from '../carousel/carousel.component';
+import { FeaturesComponent } from '../features/features.component';
+import { PricingComponent } from '../pricing/pricing.component';
+import { FooterComponent } from '../footer/footer.component';
+import { TawkChatComponent } from '../../../components/tawk-chat/tawk-chat.component';
 
 @Component({
-  selector: 'about-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+    selector: 'about-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    standalone: true,
+    imports: [HeaderComponent, CarouselComponent, FeaturesComponent, PricingComponent, FooterComponent, TawkChatComponent]
 })
 export class HomeComponent implements OnInit {
 

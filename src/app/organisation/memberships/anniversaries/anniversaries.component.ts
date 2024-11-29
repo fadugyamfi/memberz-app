@@ -2,37 +2,42 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { OrganisationAnniversaryService } from '../../../shared/services/api/organisation-anniversary.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { Subscription } from 'rxjs';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import Swal from 'sweetalert2';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { OrganisationAnniversary } from 'src/app/shared/model/api/organisation-anniversary';
 import { OrganisationService } from 'src/app/shared/services/api/organisation.service';
+import { NgIf, NgFor } from '@angular/common';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { SmsTemplateTagControlComponent } from '../../../shared/components/forms/sms-template-tag-control/sms-template-tag-control.component';
 
 @Component({
-  selector: 'app-anniversaries',
-  templateUrl: './anniversaries.component.html',
-  styleUrls: ['./anniversaries.component.scss'],
-  animations: [
-    trigger('showFormGroup', [
-      state('open', style({
-        display: 'flex',
-        opacity: 1,
-      })),
-      state('closed', style({
-        opacity: 0,
-        display: 'none'
-      })),
-      transition('* => closed', [
-        animate('0.5s')
-      ]),
-      transition('* => open', [
-        animate('0.5s')
-      ]),
-    ]),
-  ]
+    selector: 'app-anniversaries',
+    templateUrl: './anniversaries.component.html',
+    styleUrls: ['./anniversaries.component.scss'],
+    animations: [
+        trigger('showFormGroup', [
+            state('open', style({
+                display: 'flex',
+                opacity: 1,
+            })),
+            state('closed', style({
+                opacity: 0,
+                display: 'none'
+            })),
+            transition('* => closed', [
+                animate('0.5s')
+            ]),
+            transition('* => open', [
+                animate('0.5s')
+            ]),
+        ]),
+    ],
+    standalone: true,
+    imports: [NgIf, NgFor, UiSwitchModule, PaginationComponent, FormsModule, ReactiveFormsModule, SmsTemplateTagControlComponent, TranslateModule]
 })
 export class AnniversariesComponent implements OnInit, OnDestroy {
 

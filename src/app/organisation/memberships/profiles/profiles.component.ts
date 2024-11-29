@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { NgbModal, NgbDropdownConfig, NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { EventsService } from '../../../shared/services/events.service';
 import Swal from 'sweetalert2';
 import { StorageService } from '../../../shared/services/storage.service';
@@ -14,16 +14,22 @@ import { Subscription } from 'rxjs';
 import { OrganisationGroupTypeService } from '../../../shared/services/api/organisation-group-type.service';
 import { OrganisationAnniversaryService } from '../../../shared/services/api/organisation-anniversary.service';
 import { ExcelService } from 'src/app/shared/services/excel.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { PrintService } from 'src/app/shared/services/print.service';
 import { OrganisationGroupType } from '../../../shared/model/api/organisation-group-type';
 import moment from 'moment';
+import { NgClass, NgIf, NgFor, CurrencyPipe, DatePipe } from '@angular/common';
+import { PrintContentDirective } from '../../../shared/directives/print-content.directive';
+import { MembershipCardComponent } from '../../../shared/components/profile-view/membership-card/membership-card.component';
+import { ProfileImageComponent } from '../../../shared/components/profile-view/profile-image/profile-image.component';
 
 @Component({
-  selector: 'app-profiles',
-  templateUrl: './profiles.component.html',
-  styleUrls: ['./profiles.component.scss'],
-  providers: [NgbDropdownConfig]
+    selector: 'app-profiles',
+    templateUrl: './profiles.component.html',
+    styleUrls: ['./profiles.component.scss'],
+    providers: [NgbDropdownConfig],
+    standalone: true,
+    imports: [NgbDropdownModule, NgClass, PrintContentDirective, NgIf, NgFor, MembershipCardComponent, ProfileImageComponent, NgbTooltipModule, PaginationComponent, FormsModule, ReactiveFormsModule, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 

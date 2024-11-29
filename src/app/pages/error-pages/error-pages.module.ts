@@ -10,10 +10,10 @@ import { Error500Component } from './error500/error500.component';
 import { Error503Component } from './error503/error503.component';
 
 @NgModule({
-  declarations: [Error400Component, Error401Component, Error403Component, Error404Component, Error500Component, Error503Component],
-  imports: [
-    CommonModule,
-    ErrorPagesRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        ErrorPagesRoutingModule,
+        Error400Component, Error401Component, Error403Component, Error404Component, Error500Component, Error503Component
+    ]
 })
 export class ErrorPagesModule { }

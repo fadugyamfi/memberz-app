@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { OrganisationPaymentPlatform } from '../../../shared/model/api/organisation-payment-platform';
 import { OrganisationPaymentPlatformService } from '../../../shared/services/api/organisation-payment-platform.service';
@@ -11,11 +11,16 @@ import { EventsService } from '../../../shared/services/events.service';
 import { PaymentPlatform } from '../../../shared/model/api/payment-platform';
 import { times } from 'chartist';
 import Swal from 'sweetalert2';
+import { NgFor, NgIf, TitleCasePipe } from '@angular/common';
+import { SelectCurrencyControlComponent } from '../../../shared/components/forms/select-currency-control/select-currency-control.component';
+import { SelectCountryControlComponent } from '../../../shared/components/forms/select-country-control/select-country-control.component';
 
 @Component({
-  selector: 'app-payment-platforms',
-  templateUrl: './payment-platforms.component.html',
-  styleUrls: ['./payment-platforms.component.scss']
+    selector: 'app-payment-platforms',
+    templateUrl: './payment-platforms.component.html',
+    styleUrls: ['./payment-platforms.component.scss'],
+    standalone: true,
+    imports: [NgFor, NgIf, FormsModule, ReactiveFormsModule, SelectCurrencyControlComponent, SelectCountryControlComponent, TitleCasePipe, TranslateModule]
 })
 export class PaymentPlatformsComponent implements OnInit, OnDestroy {
 

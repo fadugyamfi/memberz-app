@@ -8,8 +8,8 @@ describe('PrintFooterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PrintFooterComponent ]
-    })
+    imports: [PrintFooterComponent]
+})
     .compileComponents();
   });
 
