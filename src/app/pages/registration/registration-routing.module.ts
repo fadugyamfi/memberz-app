@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RegisterSuccessComponent } from './register-success/register-success.component';
-import { RegistrationFormComponent } from './registration-form/registration-form.component';
+
+
 
 const routes: Routes = [
   {
     path: ':slug',
-    component: RegistrationFormComponent,
+    loadComponent: () => import('./registration-form/registration-form.component').then(m => m.RegistrationFormComponent),
     data: {
       breadcrumb: 'Registration Form'
     }
   },
   {
     path: ':slug/success/:membership_id',
-    component: RegisterSuccessComponent,
+    loadComponent: () => import('./register-success/register-success.component').then(m => m.RegisterSuccessComponent),
     data: {
       breadcrumb: 'Registration Success'
     }

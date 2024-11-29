@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AdminAccountsComponent } from './admin-accounts/admin-accounts.component';
-import { RolesComponent } from './roles/roles.component';
-import { PaymentPlatformsComponent } from './payment-platforms/payment-platforms.component';
-import { SubscriptionComponent } from './subscription/subscription.component';
-import { SubscriptionRenewalComponent } from './subscription-renewal/subscription-renewal.component';
-import { SubscriptionUpgradeComponent } from './subscription-upgrade/subscription-upgrade.component';
-import { InvoicePaymentComponent } from './invoice-payment/invoice-payment.component';
-import { PaymentProcessorComponent } from './payment-processor/payment-processor.component';
-import { UserActivitiesComponent } from './user-activities/user-activities.component';
-import { ProSubscriptionRequiredComponent } from './pro-subscription-required/pro-subscription-required.component';
+
+
+
+
+
+
+
+
+
+
 
 
 const routes: Routes = [
   {
     path: 'accounts',
-    component: AdminAccountsComponent,
+    loadComponent: () => import('./admin-accounts/admin-accounts.component').then(m => m.AdminAccountsComponent),
     data: {
       title: 'Admin Accounts',
       breadcrumb: 'Admin Accounts'
@@ -23,7 +23,7 @@ const routes: Routes = [
   },
   {
     path: 'roles',
-    component: RolesComponent,
+    loadComponent: () => import('./roles/roles.component').then(m => m.RolesComponent),
     data: {
       title: 'Roles & Permissions',
       breadcrumb: 'Roles & Permissions'
@@ -31,7 +31,7 @@ const routes: Routes = [
   },
   {
     path: 'subscription',
-    component: SubscriptionComponent,
+    loadComponent: () => import('./subscription/subscription.component').then(m => m.SubscriptionComponent),
     data: {
       title: 'Subscription',
       breadcrumb: 'Subscription'
@@ -39,7 +39,7 @@ const routes: Routes = [
   },
   {
     path: 'payment-platforms',
-    component: PaymentPlatformsComponent,
+    loadComponent: () => import('./payment-platforms/payment-platforms.component').then(m => m.PaymentPlatformsComponent),
     data: {
       title: 'Payment Platforms',
       breadcrumb: 'Payment Platforms'
@@ -47,7 +47,7 @@ const routes: Routes = [
   },
   {
     path: 'subscription-renewal',
-    component: SubscriptionRenewalComponent,
+    loadComponent: () => import('./subscription-renewal/subscription-renewal.component').then(m => m.SubscriptionRenewalComponent),
     data: {
       title: 'Subscription Renewal',
       breadcrumb: 'Subscription Renewal'
@@ -55,7 +55,7 @@ const routes: Routes = [
   },
   {
     path: 'subscription-upgrade',
-    component: SubscriptionUpgradeComponent,
+    loadComponent: () => import('./subscription-upgrade/subscription-upgrade.component').then(m => m.SubscriptionUpgradeComponent),
     data: {
       title: 'Subscription Upgrade',
       breadcrumb: 'Subscription Upgrade'
@@ -63,7 +63,7 @@ const routes: Routes = [
   },
   {
     path: 'invoice-payment/:id',
-    component: InvoicePaymentComponent,
+    loadComponent: () => import('./invoice-payment/invoice-payment.component').then(m => m.InvoicePaymentComponent),
     data: {
       title: 'Invoice Payment',
       breadcrumb: 'Invoice Payment'
@@ -71,7 +71,7 @@ const routes: Routes = [
   },
   {
     path: 'process-payment',
-    component: PaymentProcessorComponent,
+    loadComponent: () => import('./payment-processor/payment-processor.component').then(m => m.PaymentProcessorComponent),
     data: {
       title: 'Processing Payment',
       breadcrumb: 'Processing Payment'
@@ -79,7 +79,7 @@ const routes: Routes = [
   },
   {
     path: 'user-activities',
-    component: UserActivitiesComponent,
+    loadComponent: () => import('./user-activities/user-activities.component').then(m => m.UserActivitiesComponent),
     data: {
       title: 'User Activities',
       breadcrumb: 'User Activities'
@@ -87,7 +87,7 @@ const routes: Routes = [
   },
   {
     path: 'pro-subscription-required',
-    component: ProSubscriptionRequiredComponent,
+    loadComponent: () => import('./pro-subscription-required/pro-subscription-required.component').then(m => m.ProSubscriptionRequiredComponent),
     data: {
       title: 'Pro Plan Subscription Required',
       breadcrumb: 'Pro Plan Subscription Required'

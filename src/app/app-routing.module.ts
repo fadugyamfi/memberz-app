@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FullLayoutComponent } from './shared/components/layout/full-layout/full-layout.component';
+
 import { full } from './shared/routes/full.routes';
 import { UserLoggedInGuard } from './shared/guard/user-logged-in.guard';
 import { OrganisationPublicPageGuard } from './shared/guard/organisation-public-page.guard';
-import { PortalLayoutComponent } from './shared/components/layout/portal-layout/portal-layout.component';
-import { OrganisationLayoutComponent } from './shared/components/layout/organisation-layout/organisation-layout.component';
+
+
 import { OrganisationAdminGuard } from './shared/guard/organisation-admin.guard';
-import { PrintLayoutComponent } from './shared/components/layout/print-layout/print-layout.component';
+
 // import { SlydepayMockComponent } from 'slydepay-angular';
 
 const routes: Routes = [
@@ -38,7 +38,7 @@ const routes: Routes = [
   // },
   {
     path: ':org_slug/register',
-    component: FullLayoutComponent,
+    loadComponent: () => import('./shared/components/layout/full-layout/full-layout.component').then(m => m.FullLayoutComponent),
     canActivate: [OrganisationPublicPageGuard],
     children: [{
       path: '',
@@ -50,7 +50,7 @@ const routes: Routes = [
   },
   {
     path: ':org_slug/directory',
-    component: FullLayoutComponent,
+    loadComponent: () => import('./shared/components/layout/full-layout/full-layout.component').then(m => m.FullLayoutComponent),
     canActivate: [OrganisationPublicPageGuard],
     children: [{
       path: '',
@@ -62,7 +62,7 @@ const routes: Routes = [
   },
   {
     path: 'legal',
-    component: FullLayoutComponent,
+    loadComponent: () => import('./shared/components/layout/full-layout/full-layout.component').then(m => m.FullLayoutComponent),
     children: [{
       path: '',
       loadChildren: () => import('./pages/legal-text/legal-text.module').then(m => m.LegalTextModule),
@@ -73,7 +73,7 @@ const routes: Routes = [
   },
   {
     path: 'portal',
-    component: PortalLayoutComponent,
+    loadComponent: () => import('./shared/components/layout/portal-layout/portal-layout.component').then(m => m.PortalLayoutComponent),
     canActivate: [UserLoggedInGuard],
     children: [{
       path: '',
@@ -85,7 +85,7 @@ const routes: Routes = [
   },
   {
     path: 'organisation',
-    component: OrganisationLayoutComponent,
+    loadComponent: () => import('./shared/components/layout/organisation-layout/organisation-layout.component').then(m => m.OrganisationLayoutComponent),
     canActivate: [OrganisationAdminGuard],
     children: [{
       path: '',
@@ -98,7 +98,7 @@ const routes: Routes = [
   {
     path: 'print',
     outlet: 'print',
-    component: PrintLayoutComponent,
+    loadComponent: () => import('./shared/components/layout/print-layout/print-layout.component').then(m => m.PrintLayoutComponent),
     children: [
       {
         path: '',

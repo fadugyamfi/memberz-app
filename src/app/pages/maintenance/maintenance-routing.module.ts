@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { MaintenanceComponent } from './maintenance.component';
+
 
 const routes: Routes = [
   {
@@ -8,7 +8,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: MaintenanceComponent,
+        loadComponent: () => import('./maintenance.component').then(m => m.MaintenanceComponent),
       }
     ]
   }

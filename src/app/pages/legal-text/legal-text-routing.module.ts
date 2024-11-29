@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
-import { DataUsePolicyComponent } from './data-use-policy/data-use-policy.component';
+
+
 
 const routes: Routes = [{
   path: 'terms',
-  component: TermsAndConditionsComponent,
+  loadComponent: () => import('./terms-and-conditions/terms-and-conditions.component').then(m => m.TermsAndConditionsComponent),
   data: {
     breadcrumb: 'Terms & Conditions'
   }
 },{
   path: 'privacy-policy',
-  component: DataUsePolicyComponent,
+  loadComponent: () => import('./data-use-policy/data-use-policy.component').then(m => m.DataUsePolicyComponent),
   data: {
     breadcrumb: 'Privacy Policy'
   }

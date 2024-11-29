@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
+
 import { ProSubscriptionGuard } from '../shared/guard/pro-subscription.guard';
 import { ActiveSubscriptionGuard } from '../shared/guard/active-subscription.guard';
 import { FinanceFeaturesGuard } from '../shared/guard/finance-features.guard';
@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        component: DashboardComponent,
+        loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
         data: {
           breadcrumb: 'Dashboard',
           title: "Organisation Dashboard"

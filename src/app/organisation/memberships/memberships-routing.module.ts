@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProfilesComponent } from './profiles/profiles.component';
-import { CategoriesComponent } from './categories/categories.component';
-import { BulkUploadComponent } from './bulk-upload/bulk-upload.component';
-import { ReportsComponent } from './reports/reports.component';
-import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
-import { PendingApprovalsComponent } from './pending-approvals/pending-approvals.component';
-import { GroupManagerComponent } from './group-manager/group-manager.component';
-import { ProfileViewComponent } from '../../shared/components/profile-view/profile-view.component';
-import { AnniversariesComponent } from './anniversaries/anniversaries.component';
-import { RegistrationFormsComponent } from './registration-forms/registration-forms.component';
-import { RegistrationFormEditorComponent } from './registration-forms/registration-form-editor/registration-form-editor.component';
+
+
+
+
+
+
+
+
+
+
+
 
 
 const routes: Routes = [
@@ -19,7 +19,7 @@ const routes: Routes = [
     children: [
       {
         path: 'profiles',
-        component: ProfilesComponent,
+        loadComponent: () => import('./profiles/profiles.component').then(m => m.ProfilesComponent),
         data: {
           title: 'Membership Profiles',
           breadcrumb: 'Profiles'
@@ -27,7 +27,7 @@ const routes: Routes = [
       },
       {
         path: 'view/:id',
-        component: ProfileViewComponent,
+        loadComponent: () => import('../../shared/components/profile-view/profile-view.component').then(m => m.ProfileViewComponent),
         data: {
           title: 'Profile Details',
           breadcrumb: 'Profile Details'
@@ -35,7 +35,7 @@ const routes: Routes = [
       },
       {
         path: 'view/:id',
-        component: ProfileViewComponent,
+        loadComponent: () => import('../../shared/components/profile-view/profile-view.component').then(m => m.ProfileViewComponent),
         data: {
           title: 'Profile Details',
           breadcrumb: 'Profile Details',
@@ -45,7 +45,7 @@ const routes: Routes = [
       },
       {
         path: 'add',
-        component: ProfileEditorComponent,
+        loadComponent: () => import('./profile-editor/profile-editor.component').then(m => m.ProfileEditorComponent),
         data: {
           title: 'Add New Profile',
           breadcrumb: 'Add Profile',
@@ -54,7 +54,7 @@ const routes: Routes = [
       },
       {
         path: 'edit/:id',
-        component: ProfileEditorComponent,
+        loadComponent: () => import('./profile-editor/profile-editor.component').then(m => m.ProfileEditorComponent),
         data: {
           title: 'Edit Profile',
           breadcrumb: 'Edit Profile',
@@ -63,7 +63,7 @@ const routes: Routes = [
       },
       {
         path: 'categories',
-        component: CategoriesComponent,
+        loadComponent: () => import('./categories/categories.component').then(m => m.CategoriesComponent),
         data: {
           title: 'Membership Categories',
           breadcrumb: 'Categories'
@@ -71,7 +71,7 @@ const routes: Routes = [
       },
       {
         path: 'bulk-upload',
-        component: BulkUploadComponent,
+        loadComponent: () => import('./bulk-upload/bulk-upload.component').then(m => m.BulkUploadComponent),
         data: {
           title: 'Bulk Upload',
           breadcrumb: 'Bulk Upload'
@@ -79,7 +79,7 @@ const routes: Routes = [
       },
       {
         path: 'reports',
-        component: ReportsComponent,
+        loadComponent: () => import('./reports/reports.component').then(m => m.ReportsComponent),
         data: {
           title: 'Membership Reports',
           breadcrumb: 'Reports'
@@ -87,7 +87,7 @@ const routes: Routes = [
       },
       {
         path: 'pending-approvals',
-        component: PendingApprovalsComponent,
+        loadComponent: () => import('./pending-approvals/pending-approvals.component').then(m => m.PendingApprovalsComponent),
         data: {
           title: 'Pending Approvals',
           breadcrumb: 'Pending Approvals'
@@ -95,7 +95,7 @@ const routes: Routes = [
       },
       {
         path: 'groups',
-        component: GroupManagerComponent,
+        loadComponent: () => import('./group-manager/group-manager.component').then(m => m.GroupManagerComponent),
         data: {
           title: 'Organisation Groups',
           breadcrumb: 'Groups'
@@ -103,7 +103,7 @@ const routes: Routes = [
       },
       {
         path: 'anniversaries',
-        component: AnniversariesComponent,
+        loadComponent: () => import('./anniversaries/anniversaries.component').then(m => m.AnniversariesComponent),
         data: {
           title: 'Membership Anniversaries',
           breadcrumb: 'Anniversaries'
@@ -111,7 +111,7 @@ const routes: Routes = [
       },
       {
         path: 'registration-forms',
-        component: RegistrationFormsComponent,
+        loadComponent: () => import('./registration-forms/registration-forms.component').then(m => m.RegistrationFormsComponent),
         data: {
           title: 'Registration Forms',
           breadcrumb: 'Registration Forms'
@@ -119,7 +119,7 @@ const routes: Routes = [
       },
       {
         path: 'registration-forms/add',
-        component: RegistrationFormEditorComponent,
+        loadComponent: () => import('./registration-forms/registration-form-editor/registration-form-editor.component').then(m => m.RegistrationFormEditorComponent),
         data: {
           title: 'Add Registration Form',
           breadcrumb: 'Add Registration Form'
@@ -127,7 +127,7 @@ const routes: Routes = [
       },
       {
         path: 'registration-forms/edit/:id',
-        component: RegistrationFormEditorComponent,
+        loadComponent: () => import('./registration-forms/registration-form-editor/registration-form-editor.component').then(m => m.RegistrationFormEditorComponent),
         data: {
           title: 'Edit Registration Form',
           breadcrumb: 'Edit Registration Form'
@@ -135,7 +135,7 @@ const routes: Routes = [
       },
       {
         path: 'registration-forms/:id/pending-approvals',
-        component: PendingApprovalsComponent,
+        loadComponent: () => import('./pending-approvals/pending-approvals.component').then(m => m.PendingApprovalsComponent),
         data: {
           title: 'Pending Approvals',
           breadcrumb: 'Pending Approvals'

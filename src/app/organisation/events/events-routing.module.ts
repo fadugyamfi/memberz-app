@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BirthdayComponent } from './birthday/birthday.component';
-import { AttendanceListComponent } from './attendance-list/attendance-list.component';
-import { CalendarComponent } from './calendar/calendar.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { EventListComponent } from './event-list/event-list.component';
-import { RecordAttendanceComponent } from './record-attendance/record-attendance.component';
-import { AttendanceReportComponent } from './attendance-report/attendance-report.component';
+
+
+
+
+
+
+
 
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
     data: {
       breadcrumb: "Dashboard",
       title: "Events Dashboard"
@@ -19,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
     data: {
       breadcrumb: "Dashboard",
       title: "Events Dashboard"
@@ -27,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'calendar',
-    component: CalendarComponent,
+    loadComponent: () => import('./calendar/calendar.component').then(m => m.CalendarComponent),
     data: {
       breadcrumb: "Calendar",
       title: "Calendar"
@@ -35,7 +35,7 @@ const routes: Routes = [
   },
   {
     path: 'birthday',
-    component: BirthdayComponent,
+    loadComponent: () => import('./birthday/birthday.component').then(m => m.BirthdayComponent),
     data: {
       breadcrumb: "Birthday",
       title: "Birthday"
@@ -43,7 +43,7 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    component: EventListComponent,
+    loadComponent: () => import('./event-list/event-list.component').then(m => m.EventListComponent),
     data: {
       breadcrumb: "Event List",
       title: "Event List"
@@ -51,7 +51,7 @@ const routes: Routes = [
   },
   {
     path: 'record-attendance/:event_id',
-    component: RecordAttendanceComponent,
+    loadComponent: () => import('./record-attendance/record-attendance.component').then(m => m.RecordAttendanceComponent),
     data: {
       breadcrumb: "Record Attendance",
       title: "Record Event Attendance"
@@ -59,7 +59,7 @@ const routes: Routes = [
   },
   {
     path: 'attendance-list/:event_id',
-    component: AttendanceListComponent,
+    loadComponent: () => import('./attendance-list/attendance-list.component').then(m => m.AttendanceListComponent),
     data: {
       breadcrumb: "Attendance List",
       title: "Event Attendance List"
@@ -67,7 +67,7 @@ const routes: Routes = [
   },
   {
     path: 'attendance-report/:event_id',
-    component: AttendanceReportComponent,
+    loadComponent: () => import('./attendance-report/attendance-report.component').then(m => m.AttendanceReportComponent),
     data: {
       breadcrumb: "Attendance Report",
       title: "Event Attendance Report"

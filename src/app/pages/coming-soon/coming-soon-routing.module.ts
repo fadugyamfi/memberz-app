@@ -1,23 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SimpleComponent } from './simple/simple.component';
-import { PageWithVideoComponent } from './page-with-video/page-with-video.component';
-import { PageWithImageComponent } from './page-with-image/page-with-image.component';
+
+
+
 const routes: Routes = [
   {
     path: '',
     children: [
       {
         path: 'page',
-        component: SimpleComponent
+        loadComponent: () => import('./simple/simple.component').then(m => m.SimpleComponent)
       },
       {
         path: 'page/image',
-        component: PageWithImageComponent
+        loadComponent: () => import('./page-with-image/page-with-image.component').then(m => m.PageWithImageComponent)
       },
       {
         path: 'page/video',
-        component: PageWithVideoComponent
+        loadComponent: () => import('./page-with-video/page-with-video.component').then(m => m.PageWithVideoComponent)
       }
     ]
   }

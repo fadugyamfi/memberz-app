@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { IncomeComponent } from './income/income.component';
+
+
 
 
 const routes: Routes = [
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent),
     data: {
       title: 'Finance Dashboard',
       breadcrumb: 'Dashboard'
@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'income',
-    component: IncomeComponent,
+    loadComponent: () => import('./income/income.component').then(m => m.IncomeComponent),
     data: {
       title: 'Income',
       breadcrumb: 'Income'

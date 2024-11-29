@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BranchListComponent } from './branch-list/branch-list.component';
-import { BranchEditorComponent } from './branch-editor/branch-editor.component';
+
+
 
 const routes: Routes = [
   {
@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: BranchListComponent,
+        loadComponent: () => import('./branch-list/branch-list.component').then(m => m.BranchListComponent),
         data: {
           breadcrumb: 'Branches',
           title: "Branch List"
@@ -17,7 +17,7 @@ const routes: Routes = [
       },
       {
         path: 'add',
-        component: BranchEditorComponent,
+        loadComponent: () => import('./branch-editor/branch-editor.component').then(m => m.BranchEditorComponent),
         data: {
           breadcrumb: 'Add Branch',
           title: "Add New Branch"
@@ -25,7 +25,7 @@ const routes: Routes = [
       },
       {
         path: ':id/edit',
-        component: BranchEditorComponent,
+        loadComponent: () => import('./branch-editor/branch-editor.component').then(m => m.BranchEditorComponent),
         data: {
           breadcrumb: 'Update Branch',
           title: "Update Branch"
