@@ -1,6 +1,7 @@
 
 import { AppModel } from './app.model';
 import { MemberAccount } from './member-account';
+import { OrganisationMember } from './organisation-member';
 import { OrganisationSubscription } from './organisation-subscription';
 import { OrganisationType } from './organisation-type';
 
@@ -14,6 +15,7 @@ export class Organisation extends AppModel {
   private _activeSubscription: OrganisationSubscription | null;
   private _organisationType: OrganisationType | null;
   private _memberAccount: MemberAccount | null;
+  private _membership: OrganisationMember | null;
   public country_id: number;
   public currency_id: number;
   public slug: string;
@@ -49,5 +51,13 @@ export class Organisation extends AppModel {
 
   get member_account(): MemberAccount | null {
     return this._memberAccount;
+  }
+
+  set membership(value) {
+    this._membership = value ? new OrganisationMember(value) : null;
+  }
+
+  get membership(): OrganisationMember | null {
+    return this._membership;
   }
 }
