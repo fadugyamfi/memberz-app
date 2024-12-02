@@ -69,39 +69,39 @@ export class GeneralStatisticsComponent implements OnInit {
 
   planStatusIndicator() {
     const showBorder =
-      this.organisation.active_subscription.isExpired() ||
-      this.organisation.active_subscription.isExpiring() ||
-      !this.organisation.active_subscription.invoicePaid();
+       this.organisation.active_subscription?.isExpired() ||
+       this.organisation.active_subscription?.isExpiring() ||
+      ! this.organisation.active_subscription?.invoicePaid();
 
     return {
       'border-start': showBorder,
       'border-5': showBorder,
-      'border-danger': this.organisation.active_subscription.isExpired(),
-      'border-warning': this.organisation.active_subscription.isExpiring() || !this.organisation.active_subscription.invoicePaid()
+      'border-danger':  this.organisation.active_subscription?.isExpired(),
+      'border-warning':  this.organisation.active_subscription?.isExpiring() || ! this.organisation.active_subscription?.invoicePaid()
     }
   }
 
   planStatusTextIndicator() {
     return {
-      'text-danger': this.organisation.active_subscription.isExpired(),
-      'text-warning': this.organisation.active_subscription.isExpiring() || !this.organisation.active_subscription.invoicePaid()
+      'text-danger':  this.organisation.active_subscription?.isExpired(),
+      'text-warning':  this.organisation.active_subscription?.isExpiring() || ! this.organisation.active_subscription?.invoicePaid()
     }
   }
 
   subscriptionExpired() {
-    return this.organisation?.active_subscription.isExpired();
+    return this.organisation?.active_subscription?.isExpired();
   }
 
   subscriptionExpiring() {
-    return this.organisation?.active_subscription.isExpiring();
+    return this.organisation?.active_subscription?.isExpiring();
   }
 
   subscriptionPaid() {
-    return this.organisation?.active_subscription.invoicePaid();
+    return this.organisation?.active_subscription?.invoicePaid();
   }
 
   hasValidInvoice() {
-    return this.organisation?.active_subscription.organisation_invoice != null;
+    return this.organisation?.active_subscription?.organisation_invoice != null;
   }
 
   canUpgrade() {
@@ -109,7 +109,7 @@ export class GeneralStatisticsComponent implements OnInit {
       return false;
     }
 
-    const subscription_type = this.organisation.active_subscription.subscription_type;
+    const subscription_type =  this.organisation.active_subscription?.subscription_type;
     if ( !subscription_type ) {
       return false;
     }
@@ -126,7 +126,7 @@ export class GeneralStatisticsComponent implements OnInit {
   }
 
   paySubscription() {
-    this.router.navigate(['/organisation/settings/invoice-payment', this.organisation.active_subscription.organisation_invoice.id]);
+    this.router.navigate(['/organisation/settings/invoice-payment',  this.organisation.active_subscription?.organisation_invoice.id]);
   }
 
 }

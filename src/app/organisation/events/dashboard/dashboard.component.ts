@@ -6,7 +6,7 @@ import { OrganisationMember } from '../../../shared/model/api/organisation-membe
 import { MemberService } from '../../../shared/services/api/member.service';
 import { OrganisationEventService } from '../../../shared/services/api/organisation-event.service';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
-import { NgIf, NgFor, AsyncPipe, DecimalPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DecimalPipe, DatePipe } from '@angular/common';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 import { AvatarModule } from 'ngx-avatars';
@@ -19,7 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
     standalone: true,
-    imports: [NgIf, NgbTooltipModule, LoadingRotateDashedComponent, NgFor, AvatarModule, ViewProfileDirective, RouterLink, AsyncPipe, DecimalPipe, DatePipe, TranslateModule]
+    imports: [NgbTooltipModule, LoadingRotateDashedComponent, AvatarModule, ViewProfileDirective, RouterLink, AsyncPipe, DecimalPipe, DatePipe, TranslateModule]
 })
 export class DashboardComponent implements OnInit {
 

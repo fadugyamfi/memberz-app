@@ -1,4 +1,4 @@
-import {Component, Inject, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
+import {Component, inject, Input, OnInit, Renderer2} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import { environment } from '../../../environments/environment';
 
@@ -11,13 +11,13 @@ import { environment } from '../../../environments/environment';
 })
 export class TawkChatComponent implements OnInit {
 
+  private _renderer = inject(Renderer2);
+  private _document = inject(DOCUMENT);
+
   @Input() id: string = environment.tawkto.id;
   public script: any;
 
-  constructor(
-    private _renderer: Renderer2, 
-    @Inject(DOCUMENT) private _document, 
-  ) {
+  constructor() {
     this.script = this._renderer.createElement('script');
   }
 

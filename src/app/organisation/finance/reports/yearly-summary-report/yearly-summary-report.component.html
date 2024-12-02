@@ -33,94 +33,99 @@
 
           <section>
             <button class="btn btn-sm btn-pill btn-outline-dark" ngxPrint printSectionId="report_content"
-                    [useExistingCss]="true">
+              [useExistingCss]="true">
               <i class="fa fa-print"></i> {{ 'Print' | translate }}
             </button>
           </section>
         </div>
 
         <div class="card-body chart-block p-0" id="report_content">
-          <app-loading-rotate-dashed *ngIf="!showData"></app-loading-rotate-dashed>
+          @if (!showData) {
+            <app-loading-rotate-dashed></app-loading-rotate-dashed>
+          }
 
-          <app-no-data-available *ngIf="showData && !hasDataAvailable()"></app-no-data-available>
+          @if (showData && !hasDataAvailable()) {
+            <app-no-data-available></app-no-data-available>
+          }
 
-          <table class="table table-striped table-bordered" *ngIf="showData && hasDataAvailable()">
-            <thead>
-              <tr>
-                <th class="text-lg-left" [noWrap]="true">
-                  {{ "Contribution Type" | translate }}
-                </th>
-                <th *ngFor="let month of months" class="text-end">{{ month.substring(0 ,3) | translate }}</th>
-                <th class="text-end ">{{ "Total" | translate }}</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr *ngFor="let typeName of contributionTypeNames; let row = index">
-                <td [noWrap]="true">{{ typeName }}</td>
-
-                <ng-container *ngFor="let month of months">
-                  <ng-container *ngIf="getContributionByTypeNameAndMonth(typeName, month) as record; else noValue">
-                    <td class="text-end">{{ record.amount | number : '1.2-2' }}</td>
-                  </ng-container>
-
-                  <ng-template #noValue>
-                    <td class="text-end">{{ 0 | number : '1.2-2' }}</td>
-                  </ng-template>
-                </ng-container>
-
-                <td class="text-end fw-bold">
-                  {{ getTotalContributionByTypeName(typeName) | number : '1.2-2' }}
-                </td>
-              </tr>
-              <tr>
-                <td class="fw-bold">{{ 'Total' | translate }}</td>
-                <td class="fw-bold text-end" *ngFor="let month of months">
-                  {{ getTotalContributionByMonth(month) | number : '1.2-2' }}
-                </td>
-                <td class="fw-bold text-end">
-                  {{ getTotalContribution() | number : '1.2-2' }}
-                </td>
-              </tr>
-            </tbody>
-
-            <thead>
-              <tr>
-                <th colspan="14" class="p-t-40">
-                  {{'Payment Types' | translate }}
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let typeName of paymentTypeNames; let row = index">
-                <td [noWrap]="true">{{ typeName }}</td>
-
-                <ng-container *ngFor="let month of months; index as i">
-                  <ng-container *ngIf="getPaymentsTypeNameAndMonth(typeName, i + 1) as record; else noValue">
-                    <td class="text-end">{{ record.amount | number : '1.2-2' }}</td>
-                  </ng-container>
-
-                  <ng-template #noValue>
-                    <td class="text-end">{{ 0 | number : '1.2-2' }}</td>
-                  </ng-template>
-                </ng-container>
-
-                <td class="text-end fw-bold">
-                  {{ getTotalByPaymentType(typeName) | number : '1.2-2' }}
-                </td>
-              </tr>
-
-              <tr>
-                <td class="fw-bold">{{ 'Total' | translate }}</td>
-                <td class="fw-bold text-end" *ngFor="let month of months; index as i">
-                  {{ getTotalPaymentByMonth(i + 1) | number : '1.2-2' }}
-                </td>
-                <td class="fw-bold text-end">
-                  {{ getTotalPayments() | number : '1.2-2' }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          @if (showData && hasDataAvailable()) {
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th class="text-lg-left" [noWrap]="true">
+                    {{ "Contribution Type" | translate }}
+                  </th>
+                  @for (month of months; track month) {
+                    <th class="text-end">{{ month.substring(0 ,3) | translate }}</th>
+                  }
+                  <th class="text-end ">{{ "Total" | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (typeName of contributionTypeNames; track typeName; let row = $index) {
+                  <tr>
+                    <td [noWrap]="true">{{ typeName }}</td>
+                    @for (month of months; track month) {
+                      @if (getContributionByTypeNameAndMonth(typeName, month); as record) {
+                        <td class="text-end">{{ record.amount | number : '1.2-2' }}</td>
+                      } @else {
+                        <td class="text-end">{{ 0 | number : '1.2-2' }}</td>
+                      }
+                    }
+                    <td class="text-end fw-bold">
+                      {{ getTotalContributionByTypeName(typeName) | number : '1.2-2' }}
+                    </td>
+                  </tr>
+                }
+                <tr>
+                  <td class="fw-bold">{{ 'Total' | translate }}</td>
+                  @for (month of months; track month) {
+                    <td class="fw-bold text-end">
+                      {{ getTotalContributionByMonth(month) | number : '1.2-2' }}
+                    </td>
+                  }
+                  <td class="fw-bold text-end">
+                    {{ getTotalContribution() | number : '1.2-2' }}
+                  </td>
+                </tr>
+              </tbody>
+              <thead>
+                <tr>
+                  <th colspan="14" class="p-t-40">
+                    {{'Payment Types' | translate }}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (typeName of paymentTypeNames; track typeName; let row = $index) {
+                  <tr>
+                    <td [noWrap]="true">{{ typeName }}</td>
+                    @for (month of months; track month; let i = $index) {
+                      @if (getPaymentsTypeNameAndMonth(typeName, i + 1); as record) {
+                        <td class="text-end">{{ record.amount | number : '1.2-2' }}</td>
+                      } @else {
+                        <td class="text-end">{{ 0 | number : '1.2-2' }}</td>
+                      }
+                    }
+                    <td class="text-end fw-bold">
+                      {{ getTotalByPaymentType(typeName) | number : '1.2-2' }}
+                    </td>
+                  </tr>
+                }
+                <tr>
+                  <td class="fw-bold">{{ 'Total' | translate }}</td>
+                  @for (month of months; track month; let i = $index) {
+                    <td class="fw-bold text-end">
+                      {{ getTotalPaymentByMonth(i + 1) | number : '1.2-2' }}
+                    </td>
+                  }
+                  <td class="fw-bold text-end">
+                    {{ getTotalPayments() | number : '1.2-2' }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          }
         </div>
       </div>
       <!-- end of card -->

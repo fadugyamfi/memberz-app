@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
-import { FinanceReportingService } from 'src/app/shared/services/api/finance-reporting.services';
-import { ContributionReceiptSettingService } from 'src/app/shared/services/api/contribution-receipt-setting.service';
-import { ContributionReceiptSetting } from 'src/app/shared/model/api/contribution-receipt-setting';
+import { FinanceReportingService } from '../../../../shared/services/api/finance-reporting.services';
+import { ContributionReceiptSettingService } from '../../../../shared/services/api/contribution-receipt-setting.service';
+import { ContributionReceiptSetting } from '../../../../shared/model/api/contribution-receipt-setting';
 import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import moment from 'moment';
@@ -22,8 +22,8 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class IncomeSummaryComponent implements OnInit {
 
-  public reportData = [];
-  public rawData = [];
+  public reportData: any[] = [];
+  public rawData: any[] = [];
   public subscriptions: Subscription[] = [];
   public showData = false;
   public settings: ContributionReceiptSetting;
@@ -50,7 +50,7 @@ export class IncomeSummaryComponent implements OnInit {
 
   fetchReportData() {
     this.showData = false;
-    const sub = this.reportingService.getIncomeSummary(this.searchForm.value).subscribe((data: any[]) => {
+    const sub = this.reportingService.getIncomeSummary(this.searchForm.value).subscribe((data: any[]): void => {
       this.showData = true;
       this.reportData = data;
       this.rawData = data;

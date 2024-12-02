@@ -1,5 +1,4 @@
 <div class="row">
-  <ng-template #zero><h3>0</h3></ng-template>
 
   <div class="col-lg-4">
     <div class="card shadow shadow-sm">
@@ -9,12 +8,16 @@
         </h6>
       </div>
       <div class="card-body">
-        <div class="d-flex text-center justify-content-between" *ngIf="(upcomingEventCount$ | async) as response; else zero">
-          <section>
-            <h4>{{ response.count | number: '1.0-0' }}</h4>
-            <h6 class="f-12 mb-0 text-uppercase">{{ 'Upcoming' | translate}}</h6>
-          </section>
-        </div>
+        @if ((upcomingEventCount$ | async); as response) {
+          <div class="d-flex text-center justify-content-between">
+            <section>
+              <h4>{{ response.count | number: '1.0-0' }}</h4>
+              <h6 class="f-12 mb-0 text-uppercase">{{ 'Upcoming' | translate}}</h6>
+            </section>
+          </div>
+        } @else {
+          <h3>0</h3>
+        }
       </div>
     </div>
   </div>
@@ -28,22 +31,24 @@
         </h6>
       </div>
       <div class="card-body">
-        <div class="d-flex text-center justify-content-between" *ngIf="(eventStatistics$ | async) as statistics; else zero">
-          <section class="text-success">
-            <h4>{{ statistics.highest || 0 | number: '1.0-0' }}</h4>
-            <h6 class="f-12 mb-0 text-uppercase">{{ 'Highest' | translate}}</h6>
-          </section>
-
-          <section class="text-danger">
-            <h4>{{ statistics.lowest || 0 | number: '1.0-0' }}</h4>
-            <h6 class="f-12 mb-0 text-uppercase">{{ 'Lowest' | translate}}</h6>
-          </section>
-
-          <section class="text-info">
-            <h4>{{ statistics.average || 0 | number: '1.0-0' }}</h4>
-            <h6 class="f-12 mb-0 text-uppercase">{{ 'Average' | translate}}</h6>
-          </section>
-        </div>
+        @if ((eventStatistics$ | async); as statistics) {
+          <div class="d-flex text-center justify-content-between">
+            <section class="text-success">
+              <h4>{{ statistics.highest || 0 | number: '1.0-0' }}</h4>
+              <h6 class="f-12 mb-0 text-uppercase">{{ 'Highest' | translate}}</h6>
+            </section>
+            <section class="text-danger">
+              <h4>{{ statistics.lowest || 0 | number: '1.0-0' }}</h4>
+              <h6 class="f-12 mb-0 text-uppercase">{{ 'Lowest' | translate}}</h6>
+            </section>
+            <section class="text-info">
+              <h4>{{ statistics.average || 0 | number: '1.0-0' }}</h4>
+              <h6 class="f-12 mb-0 text-uppercase">{{ 'Average' | translate}}</h6>
+            </section>
+          </div>
+        } @else {
+          <h3>0</h3>
+        }
       </div>
     </div>
   </div>
@@ -54,26 +59,29 @@
         <h6 class="text-uppercase fw-bold mb-0">{{ 'Birthdays' | translate }}</h6>
       </div>
       <div class="card-body">
-        <div class="d-flex text-center justify-content-between" *ngIf="(birthdaySummary$ | async) as response; else zero">
-          <section>
-            <h4>{{ response.today || 0 | number: '1.0-0' }}</h4>
-            <h6 class="f-12 mb-0 text-uppercase">{{ 'Today' | translate}}</h6>
-          </section>
-
-          <section>
-            <h4>{{ response.tomorrow || 0 | number: '1.0-0' }}</h4>
-            <h6 class="f-12 mb-0 text-uppercase">{{ 'Tomorrow' | translate}}</h6>
-          </section>
-
-          <section>
-            <h4>{{ response.this_week || 0 | number: '1.0-0' }}</h4>
-            <h6 class="f-12 mb-0 text-uppercase">{{ 'This Week' | translate}}</h6>
-          </section>
-        </div>
+        @if ((birthdaySummary$ | async); as response) {
+          <div class="d-flex text-center justify-content-between">
+            <section>
+              <h4>{{ response.today || 0 | number: '1.0-0' }}</h4>
+              <h6 class="f-12 mb-0 text-uppercase">{{ 'Today' | translate}}</h6>
+            </section>
+            <section>
+              <h4>{{ response.tomorrow || 0 | number: '1.0-0' }}</h4>
+              <h6 class="f-12 mb-0 text-uppercase">{{ 'Tomorrow' | translate}}</h6>
+            </section>
+            <section>
+              <h4>{{ response.this_week || 0 | number: '1.0-0' }}</h4>
+              <h6 class="f-12 mb-0 text-uppercase">{{ 'This Week' | translate}}</h6>
+            </section>
+          </div>
+        } @else {
+          <h3>0</h3>
+        }
       </div>
     </div>
   </div>
 </div>
+
 
 <div class="row">
 
@@ -84,33 +92,33 @@
       </div>
 
       <div class="card-body">
-        <ng-template #loading>
+
+        @if (($upcomingEvents | async); as upcomingEvents) {
+          <div>
+            @if (upcomingEvents.length) {
+              <ul class="crm-activity">
+                @for (event of upcomingEvents; track event) {
+                  <li class="d-flex">
+                    <div class="flex-shrink-0 me-3">
+                      <ngx-avatars [name]="event.event_name" initialsSize="2" size="48"></ngx-avatars>
+                    </div>
+                    <div class="flex-grow-1">
+                      <h5 class="fw-bold f-18">{{ event.event_name }}</h5>
+                      <ul class="dates">
+                        <li class="digits">{{ event.dates }}</li>
+                        <li class="digits">{{ event.times }}</li>
+                      </ul>
+                    </div>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <h6 class="text-center">{{ 'No upcoming events scheduled' | translate }}</h6>
+            }
+          </div>
+        } @else {
           <app-loading-rotate-dashed></app-loading-rotate-dashed>
-        </ng-template>
-
-        <div *ngIf="($upcomingEvents | async) as upcomingEvents;  else loading;">
-          <ng-container *ngIf="upcomingEvents.length; else noItems">
-            <ul class="crm-activity">
-              <li class="d-flex" *ngFor="let event of upcomingEvents">
-                <div class="flex-shrink-0 me-3">
-                  <ngx-avatars [name]="event.event_name" initialsSize="2" size="48"></ngx-avatars>
-                </div>
-                <div class="flex-grow-1">
-                  <h5 class="fw-bold f-18">{{ event.event_name }}</h5>
-                  <ul class="dates">
-                    <li class="digits">{{ event.dates }}</li>
-                    <li class="digits">{{ event.times }}</li>
-                  </ul>
-                </div>
-              </li>
-            </ul>
-          </ng-container>
-
-          <ng-template #noItems>
-            <h6 class="text-center">{{ 'No upcoming events scheduled' | translate }}</h6>
-          </ng-template>
-
-        </div>
+        }
 
       </div>
     </div>
@@ -123,40 +131,38 @@
       </div>
 
       <div class="card-body">
-        <ng-template #loading>
+        @if ((todaysBirthdays$ | async); as birthdays) {
+          <div>
+            @if (birthdays.length) {
+              <ul class="crm-activity">
+                @for (membership of birthdays; track membership) {
+                  <li class="d-flex">
+                    <div class="flex-shrink-0 me-3">
+                      <ngx-avatars [name]="membership.name()" [src]="membership.member.profile_photo?.thumb_url" initialsSize="2" size="48"></ngx-avatars>
+                    </div>
+                    <div class="flex-grow-1">
+                      <h5 class="fw-bold f-18"><a href="javascript:void(0)" viewProfile [membership]="membership">{{ membership.name() }}</a></h5>
+                      <ul class="dates">
+                        <li class="digits">{{ 'Turns' | translate }} <b>{{ membership.member.age }}</b> {{ 'today' | translate }}</li>
+                        <li class="digits">{{ 'Born' | translate }} {{ membership.member.dob | date: 'mediumDate' }}</li>
+                        <li class="digits">{{ membership.organisation_member_category.name }}</li>
+                      </ul>
+                    </div>
+                  </li>
+                }
+                <li class="d-flex justify-content-center align-items-center pt-3">
+                  <a [routerLink]="['/organisation/events/birthday']" class="f-14 fw-bold">
+                    {{ 'See All Upcoming' | translate }}
+                  </a>
+                </li>
+              </ul>
+            } @else {
+              <h6 class="text-center">{{ 'No birthdays today' | translate }}</h6>
+            }
+          </div>
+        } @else {
           <app-loading-rotate-dashed></app-loading-rotate-dashed>
-        </ng-template>
-
-        <div *ngIf="(todaysBirthdays$ | async) as birthdays;  else loading;">
-          <ng-container *ngIf="birthdays.length; else noItems">
-            <ul class="crm-activity">
-              <li class="d-flex" *ngFor="let membership of birthdays">
-                <div class="flex-shrink-0 me-3">
-                  <ngx-avatars [name]="membership.name()" [src]="membership.member.profile_photo?.thumb_url" initialsSize="2" size="48"></ngx-avatars>
-                </div>
-                <div class="flex-grow-1">
-                  <h5 class="fw-bold f-18"><a href="javascript:void(0)" viewProfile [membership]="membership">{{ membership.name() }}</a></h5>
-                  <ul class="dates">
-                    <li class="digits">{{ 'Turns' | translate }} <b>{{ membership.member.age }}</b> {{ 'today' | translate }}</li>
-                    <li class="digits">{{ 'Born' | translate }} {{ membership.member.dob | date: 'mediumDate' }}</li>
-                    <li class="digits">{{ membership.organisation_member_category.name }}</li>
-                  </ul>
-                </div>
-              </li>
-
-              <li class="d-flex justify-content-center align-items-center pt-3">
-                <a [routerLink]="['/organisation/events/birthday']" class="f-14 fw-bold">
-                  {{ 'See All Upcoming' | translate }}
-                </a>
-              </li>
-            </ul>
-          </ng-container>
-
-          <ng-template #noItems>
-            <h6 class="text-center">{{ 'No birthdays today' | translate }}</h6>
-          </ng-template>
-
-        </div>
+        }
 
       </div>
     </div>
