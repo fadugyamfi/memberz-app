@@ -173,7 +173,7 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
   }
 
   open(options?: RelationEditorOptions) {
-    if (options.reset) {
+    if (options?.reset) {
       this.currentView = SELECT_OPTION;
       this.selectOptionForm.reset();
       this.newProfileForm.reset();
@@ -182,7 +182,7 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
       this.setupForms();
     }
 
-    if ( options.relation ) {
+    if ( options?.relation ) {
       this.setupForms();
       this.newProfileForm.patchValue(options.relation);
       this.currentView = EDIT;
@@ -194,9 +194,9 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
   setExistingMember(membership: OrganisationMember) {
     const values = {
       member_id: this.membership.member_id,
-      name: membership.member.firstThenLastName(),
-      dob: membership.member.dob,
-      gender: membership.member.gender,
+      name: membership.member?.firstThenLastName(),
+      dob: membership.member?.dob,
+      gender: membership.member?.gender,
       relation_member_id: membership.member_id
     }
     this.existingProfileForm.patchValue(values);

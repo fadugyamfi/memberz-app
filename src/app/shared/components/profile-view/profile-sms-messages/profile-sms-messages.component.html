@@ -71,7 +71,7 @@
             <td class="text-end">{{ messageService.pagingMeta.from + row }}.</td>
             <td [noWrap]='true'>{{ message.sent_at | date: shortdate }}</td>
             <td>{{ message.message }}</td>
-            <td [noWrap]='true' [class]="message.textStatusIndicators()">{{ message.sent_status }}</td>
+            <td [class]="message.textStatusIndicators()">{{ message.sent_status }}</td>
           </tr>
         }
       </tbody>

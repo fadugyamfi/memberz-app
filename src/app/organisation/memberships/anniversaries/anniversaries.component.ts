@@ -8,8 +8,8 @@ import { PageEvent, PaginationComponent } from '../../../shared/components/pagin
 import Swal from 'sweetalert2';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { OrganisationAnniversary } from 'src/app/shared/model/api/organisation-anniversary';
-import { OrganisationService } from 'src/app/shared/services/api/organisation.service';
+import { OrganisationAnniversary } from '../../../shared/model/api/organisation-anniversary';
+import { OrganisationService } from '../../../shared/services/api/organisation.service';
 
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { SmsTemplateTagControlComponent } from '../../../shared/components/forms/sms-template-tag-control/sms-template-tag-control.component';
@@ -37,7 +37,10 @@ import { SmsTemplateTagControlComponent } from '../../../shared/components/forms
         ]),
     ],
     standalone: true,
-    imports: [UiSwitchModule, PaginationComponent, FormsModule, ReactiveFormsModule, SmsTemplateTagControlComponent, TranslateModule]
+    imports: [
+      UiSwitchModule, PaginationComponent, FormsModule, ReactiveFormsModule, 
+      SmsTemplateTagControlComponent, TranslateModule
+    ]
 })
 export class AnniversariesComponent implements OnInit, OnDestroy {
 
@@ -46,7 +49,7 @@ export class AnniversariesComponent implements OnInit, OnDestroy {
   @ViewChild('messageModal', { static: true }) messageModal: any;
 
   public subscriptions: Subscription[] = [];
-  public anniversaries: OrganisationAnniversary[] = [];
+  public anniversaries: OrganisationAnniversary[] | null = [];
   public searchForm: UntypedFormGroup;
   public anniversaryMessage: string = "";
   public editorForm: UntypedFormGroup;
@@ -139,7 +142,7 @@ export class AnniversariesComponent implements OnInit, OnDestroy {
   }
 
 
-  showEditorModal(anniversary: OrganisationAnniversary = null) {
+  showEditorModal(anniversary: OrganisationAnniversary | null = null) {
     this.setupEditorForm();
 
     if (anniversary) {
@@ -179,7 +182,9 @@ export class AnniversariesComponent implements OnInit, OnDestroy {
   setupEvents() {
     this.events.on('OrganisationAnniversary:created', () => this.modalService.dismissAll());
     this.events.on('OrganisationAnniversary:updated', () => this.modalService.dismissAll());
-    this.events.on('OrganisationAnniversary:deleted', () => Swal.close());
+    this.events.on('OrganisationAnniversary:deleted', () => {
+      Swal.close()
+    });
   }
 
   /**

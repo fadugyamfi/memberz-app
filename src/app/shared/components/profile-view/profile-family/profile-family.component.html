@@ -21,7 +21,7 @@
   }
 
   <ul class="list-group list-group-flush">
-    @for (relation of $relations | async; track relation) {
+    @for (relation of relationService.getItems(); track relation) {
       <li class="list-group-item p-t-15 p-b-15">
         <div class="row">
           <!-- Left Column -->

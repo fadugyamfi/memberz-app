@@ -25,7 +25,7 @@ export class ProfileFamilyComponent implements OnInit, OnDestroy {
   @ViewChild('familyMemberEditor', { static: true }) familyMemberEditor: FamilyMemberEditorComponent;
 
   public mbsp: OrganisationMember;
-  public selectedRelation: MemberRelation;
+  public selectedRelation: MemberRelation | null;
   public subscriptions: Subscription[] = [];
   public $relations;
 
@@ -65,7 +65,8 @@ export class ProfileFamilyComponent implements OnInit, OnDestroy {
   }
 
   loadRelations() {
-    this.$relations = this.relationService.getAll({ member_id: this.membership.member_id });
+    const sub = this.relationService.getAll({ member_id: this.membership.member_id }).subscribe();
+    this.subscriptions.push(sub);
   }
 
   addFamilyMember() {
