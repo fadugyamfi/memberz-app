@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, output } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationTypeService } from '../../../../shared/services/api/organisation-type.service';
 import { OrganisationType } from '../../../../shared/model/api/organisation-type';
@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
   public countries: Country[];
   private organisation: Organisation;
 
-  @Output() saveProfile = new EventEmitter<Organisation>();
+  readonly saveProfile = output<Organisation>();
 
 
   separateDialCode = true;

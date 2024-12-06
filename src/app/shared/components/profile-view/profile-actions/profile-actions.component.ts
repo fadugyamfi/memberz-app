@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild, input, model } from '@angular/core';
+import { Component, OnInit, ViewChild, input, model, output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/operators';
@@ -21,7 +21,7 @@ export class ProfileActionsComponent implements OnInit {
 
   @ViewChild('membershipCardModal', { static: true }) membershipCard: MembershipCardModalComponent;
   readonly membership = model<OrganisationMember>();
-  @Output() edit = new EventEmitter();
+  readonly edit = output();
 
   private _messages = new Subject<string>();
   public alertMessage: string | null = '';

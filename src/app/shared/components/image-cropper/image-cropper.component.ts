@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, output } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
 
@@ -19,8 +19,7 @@ export class ImageCropperComponent implements OnInit {
 
   public modal: NgbModalRef;
 
-  @Output()
-  public save: EventEmitter<any> = new EventEmitter();
+  public readonly save = output();
 
   constructor(
     public modalService: NgbModal,

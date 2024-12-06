@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, output } from '@angular/core';
 import { Organisation } from '../../../../shared/model/api/organisation';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
@@ -19,7 +19,7 @@ export class ReviewComponent implements OnInit {
   public subscriptionType: SubscriptionType;
   public policyAccepted = false;
 
-  @Output() reviewCompleted = new EventEmitter();
+  readonly reviewCompleted = output();
 
   constructor(
     public organisationService: OrganisationService,
@@ -35,7 +35,7 @@ export class ReviewComponent implements OnInit {
       var s = document.createElement("script"),
         tag = document.getElementsByTagName("script")[0];
       s.src = "//cdn.iubenda.com/iubenda.js";
-      tag.parentNode.insertBefore(s, tag);
+      tag.parentNode?.insertBefore(s, tag);
     };
 
     loader();

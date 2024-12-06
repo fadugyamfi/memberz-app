@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, output } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -25,7 +25,7 @@ import { SmsTemplateTagControlComponent } from '../../../../shared/components/fo
 })
 export class MessageComposerComponent implements OnInit, OnDestroy {
 
-  @Output() public cancel = new EventEmitter();
+  public readonly cancel = output();
   @ViewChild('messageField', { static: true }) messageField;
   @ViewChild('composerModal', { static: true }) composerModal: any;
 

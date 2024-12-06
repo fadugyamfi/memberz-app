@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, output } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -21,7 +21,7 @@ import { NoDataAvailableComponent } from '../../../../shared/components/forms/no
 })
 export class GroupTypesComponent implements OnInit, OnDestroy {
 
-  @Output() selectGroupType = new EventEmitter();
+  readonly selectGroupType = output<OrganisationGroupType>();
   public editorForm: UntypedFormGroup;
   @ViewChild('editorModal', { static: true }) editorModal: any;
 
@@ -69,7 +69,7 @@ export class GroupTypesComponent implements OnInit, OnDestroy {
   /**
    *
    */
-  showEditorModal(groupType: OrganisationGroupType = null) {
+  showEditorModal(groupType: OrganisationGroupType | null = null) {
     this.setupEditorForm();
 
     if (groupType) {

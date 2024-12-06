@@ -1,4 +1,4 @@
-import { Component, OnInit, forwardRef, Output, EventEmitter, input, model } from '@angular/core';
+import { Component, OnInit, forwardRef, input, model, output } from '@angular/core';
 import { Organisation } from '../../../model/api/organisation';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { Observable, of } from 'rxjs';
@@ -28,7 +28,7 @@ export class OrganisationControlComponent {
 
   organisation = model<Organisation | null>();
   readonly readonly = input(false);
-  @Output() selected = new EventEmitter();
+  readonly selected = output<Organisation | null | undefined>();
 
   public searching = false;
   public searchFailed = false;

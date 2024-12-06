@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit, output } from '@angular/core';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import { PageEvent, PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
@@ -18,8 +18,8 @@ import { ViewProfileDirective } from '../../../../shared/directives/view-profile
 export class BroadcastHistoryViewComponent implements OnInit, OnDestroy {
 
   public broadcasts: SmsBroadcast[];
-  @Output() newBroadcast = new EventEmitter();
-  @Output() editBroadcast = new EventEmitter();
+  readonly newBroadcast = output();
+  readonly editBroadcast = output<SmsBroadcast>();
 
   constructor(
     public smsBroadcastService: SmsBroadcastService,

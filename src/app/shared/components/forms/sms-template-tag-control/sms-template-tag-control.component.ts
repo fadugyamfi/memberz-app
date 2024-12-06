@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, OnInit, Output, input, model } from '@angular/core';
+import { Component, forwardRef, OnInit, input, model, output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SmsTemplateTagService } from '../../../services/utilities/sms-template-tag.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -22,7 +22,7 @@ export const TEMPLATE_TAG_ACCESSOR: any = {
 })
 export class SmsTemplateTagControlComponent implements OnInit {
 
-  @Output() change = new EventEmitter();
+  readonly change = output<string | null>();
 
   public readonly textarea = input<HTMLInputElement>();
   public readonly disabled = model(false);

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PageEvent, PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
@@ -20,8 +20,7 @@ export class UploadReviewComponent implements OnInit, OnDestroy {
   public ofi: OrganisationFileImport;
   private subscriptions: Subscription[] = [];
 
-  @Output()
-  public clear = new EventEmitter();
+  public readonly clear = output();
 
   constructor(
     public memberImportService: OrganisationMemberImportService,

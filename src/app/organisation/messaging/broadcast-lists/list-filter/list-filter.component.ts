@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output, input } from '@angular/core';
+import { Component, OnInit, input, output } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { ListFilter } from '../../../../shared/services/utilities/list-filter.service';
 
 @Component({
     selector: 'app-list-filter',
@@ -12,12 +13,12 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ListFilterComponent implements OnInit {
 
   public selectedFilterField;
-  readonly listFilters = input(undefined);
-  readonly filterGroup = input(undefined);
+  readonly listFilters = input<any>();
+  readonly filterGroup = input<any>();
   readonly optionalOnly = input(false);
-  readonly filter = input(undefined);
+  readonly filter = input<ListFilter>();
 
-  @Output() remove = new EventEmitter();
+  readonly remove = output();
 
   constructor() { }
 
@@ -29,7 +30,7 @@ export class ListFilterComponent implements OnInit {
   }
 
   setSelectedFilterField(fieldId) {
-    this.listFilters().forEach(group => {
+    this.listFilters()?.forEach(group => {
       const selected = group.fields.find(filter => filter.id == fieldId);
       if( selected ) {
         this.selectedFilterField = selected;

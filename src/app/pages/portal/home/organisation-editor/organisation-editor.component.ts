@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, output } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, FormControl, ValidationErrors, ValidatorFn, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationTypeService } from '../../../../shared/services/api/organisation-type.service';
 import { OrganisationType } from '../../../../shared/model/api/organisation-type';
@@ -46,7 +46,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   public countries: Country[];
   private organisation: Organisation;
   private modalRef: NgbModalRef;
-  private freePlan: SubscriptionType;
+  private freePlan: SubscriptionType | null;
   public modalTitle;
 
   separateDialCode = true;
@@ -56,7 +56,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   preferredCountries: CountryISO[] = [CountryISO.Ghana, CountryISO.Nigeria, CountryISO.Togo];
 
   @ViewChild('editorModal', { static: true }) editorModal: ElementRef;
-  @Output() saveProfile = new EventEmitter<Organisation>();
+  readonly saveProfile = output<Organisation>();
 
   constructor(
     public orgTypeService: OrganisationTypeService,
@@ -146,7 +146,7 @@ console.log(input);
     return this.organisationService.create(this.organisation, params);
   }
 
-  show(organisation: Organisation = null) {
+  show(organisation: Organisation | null = null) {
     this.setupProfileForm();
     this.modalRef = this.modalService.open(this.editorModal, { size: 'lg' });
 

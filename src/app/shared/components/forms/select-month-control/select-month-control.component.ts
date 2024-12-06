@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, forwardRef, input } from '@angular/core';
+import { Component, OnInit, forwardRef, input, output } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { SlicePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -19,9 +19,9 @@ export const MONTH_CONTROL_ACCESSOR: any = {
 })
 export class SelectMonthControlComponent implements OnInit {
 
-  @Output() selectedMonthEvent = new EventEmitter();
+  readonly selectedMonthEvent = output<any>();
 
-  private _value = '';
+  private _value: string | null = '';
   public disabled = false;
   public onChange = (_: any) => { };
   public onTouched = () => { };

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, output } from '@angular/core';
 import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrganisationRegistrationFormService } from '../../../../shared/services/api/organisation-registration-form.service';
@@ -22,8 +22,8 @@ export class CustomFieldEditorComponent implements OnInit {
   public editing = false;
   public editIndex = 0;
 
-  @Output() public create = new EventEmitter();
-  @Output() public update = new EventEmitter();
+  public readonly create = output<any>();
+  public readonly update = output<any>();
 
   constructor(
     public registrationFormService: OrganisationRegistrationFormService,

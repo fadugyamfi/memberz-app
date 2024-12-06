@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, output } from '@angular/core';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import { PageEvent, PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
@@ -18,7 +18,7 @@ import { RouterLink } from '@angular/router';
 })
 export class GroupMembersComponent implements OnInit, OnDestroy {
 
-  @Output() back = new EventEmitter();
+  readonly back = output();
   private _group: OrganisationGroup;
 
   constructor(

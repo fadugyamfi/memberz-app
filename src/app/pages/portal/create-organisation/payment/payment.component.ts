@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, output } from '@angular/core';
 import { EventsService } from '../../../../shared/services/events.service';
 import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
@@ -21,7 +21,7 @@ export class PaymentComponent implements OnInit, AfterViewInit {
   public paymentForm: UntypedFormGroup;
   private _organisation: Organisation;
 
-  @Output() savePayment = new EventEmitter();
+  readonly savePayment = output();
 
   constructor(
     public events: EventsService,

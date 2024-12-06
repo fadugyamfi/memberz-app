@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Output, EventEmitter, OnDestroy, input } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy, input, output } from '@angular/core';
 import { EventsService } from '../../services/events.service';
 import { APIService, PagingMeta } from '../../services/api/api.service';
 import { AppModel } from '../../model/api/app.model';
@@ -20,12 +20,12 @@ export interface PageEvent {
 })
 export class PaginationComponent implements OnInit, OnDestroy {
 
-  @Output() paginate = new EventEmitter();
-  readonly service = input<APIService<AppModel>>(undefined);
+  readonly paginate = output<PageEvent>();
+  readonly service = input<APIService<AppModel>>();
 
-  public pageLimit = 15;
-  public collectionSize = 1;
-  public currentPage = 1;
+  public pageLimit? = 15;
+  public collectionSize? = 1;
+  public currentPage? = 1;
   public pagination_limits: Array<any>;
 
   readonly startColWidth = input('col-sm-3');
@@ -51,7 +51,7 @@ export class PaginationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.events.off(this.service().model_name + ':paging');
+    this.events.off(this.service()?.model_name + ':paging');
   }
 
   onPageChange(page) {
@@ -74,8 +74,8 @@ export class PaginationComponent implements OnInit, OnDestroy {
 
   formatParams(): PageEvent {
     return {
-      page: this.currentPage,
-      limit: this.pageLimit
+      page: this.currentPage as number,
+      limit: this.pageLimit as number
     };
   }
 

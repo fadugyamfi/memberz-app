@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild, output } from '@angular/core';
 import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -22,7 +22,10 @@ import { MemberControlComponent } from '../../../../shared/components/forms/memb
     selector: 'app-groups',
     templateUrl: './groups.component.html',
     styleUrls: ['./groups.component.scss'],
-    imports: [LoadingRotateDashedComponent, NoDataAvailableComponent, RouterLink, PaginationComponent, FormsModule, ReactiveFormsModule, MemberControlComponent, DecimalPipe, TranslateModule]
+    imports: [
+      LoadingRotateDashedComponent, NoDataAvailableComponent, RouterLink, PaginationComponent, 
+      FormsModule, ReactiveFormsModule, MemberControlComponent, DecimalPipe, TranslateModule
+    ]
 })
 export class GroupsComponent implements OnInit, OnDestroy {
 
@@ -32,7 +35,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
 
   public editorForm: UntypedFormGroup;
   @ViewChild('editorModal', { static: true }) editorModal: any;
-  @Output() viewGroupMembers = new EventEmitter();
+  readonly viewGroupMembers = output<OrganisationGroup>();
 
   constructor(
     public groupService: OrganisationGroupService,
@@ -129,7 +132,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   /**
    *
    */
-  showEditorModal(group: OrganisationGroup = null) {
+  showEditorModal(group: OrganisationGroup | null = null) {
     this.setupEditorForm();
 
     if (group) {

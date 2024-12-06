@@ -26,9 +26,9 @@ export class BroadcastListsComponent implements OnInit {
   @ViewChild('searchModal', { static: true }) searchModal: any;
   @ViewChild('editorModal', { static: true }) editorModal: any;
 
-  public subscriptions: Subscription[] = [];
-  public broadcastLists: SmsBroadcastList[] = [];
-  public selectedBroadcastList: SmsBroadcastList;
+  public subscriptions: Subscription[] | null = [];
+  public broadcastLists: SmsBroadcastList[] | null = [];
+  public selectedBroadcastList: SmsBroadcastList | null;
   public searchForm: UntypedFormGroup;
   public editorForm: UntypedFormGroup;
   public selectedFilterFields = [];
@@ -53,7 +53,7 @@ export class BroadcastListsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions?.forEach(sub => sub.unsubscribe());
     this.removeEvents();
   }
 
@@ -65,7 +65,7 @@ export class BroadcastListsComponent implements OnInit {
       this.broadcastLists = broadcastLists;
     });
 
-    this.subscriptions.push(sub);
+    this.subscriptions?.push(sub);
   }
 
   /**
@@ -176,7 +176,7 @@ export class BroadcastListsComponent implements OnInit {
   /**
    *
    */
-  showEditorModal(broadcastList: SmsBroadcastList = null) {
+  showEditorModal(broadcastList: SmsBroadcastList | null = null) {
     this.selectedBroadcastList = broadcastList;
     this.setupEditorForm();
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, forwardRef, Output, EventEmitter, input } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, input, output } from '@angular/core';
 import { Member } from '../../../model/api/member';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { Observable, of } from 'rxjs';
@@ -26,11 +26,11 @@ export const MEMBER_CONTROL_ACCESSOR: any = {
 })
 export class MemberControlComponent {
 
-  readonly member = input<Member>(undefined);
+  readonly member = input<Member | undefined | null>(undefined);
   readonly withMobileNumber = input(false);
   readonly returnMembershipId = input(false);
   readonly readonly = input(false);
-  @Output() selected = new EventEmitter();
+  readonly selected = output<OrganisationMember | null | undefined>();
 
   private _membership?: OrganisationMember | null;
   public searching = false;

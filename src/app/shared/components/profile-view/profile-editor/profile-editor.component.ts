@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, output } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
@@ -31,8 +31,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   public editorTitle = 'Add New Member Profile';
   public editorIcon = 'fa-user-plus';
 
-  @Output()
-  public saved: EventEmitter<OrganisationMember> = new EventEmitter();
+  public readonly saved = output();
 
   constructor(
     public categoryService: OrganisationMemberCategoryService,

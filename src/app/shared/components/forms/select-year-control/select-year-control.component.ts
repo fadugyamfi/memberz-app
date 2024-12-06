@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy, forwardRef, input } from '@angular/core';
+import { Component, OnInit, OnDestroy, forwardRef, input, output } from '@angular/core';
 import { ContributionService } from '../../../services/api/contribution.service';
 import { Subscription } from 'rxjs';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
@@ -20,12 +20,12 @@ export const YEAR_CONTROL_ACCESSOR: any = {
 })
 export class SelectYearControlComponent implements OnInit, OnDestroy {
 
-  @Output() selectedYearEvent = new EventEmitter();
+  readonly selectedYearEvent = output<any>();
   readonly classes = input<string>("");
   public years: any;
   public subscriptions: Subscription[] = [];
 
-  private _value = '';
+  private _value: string | null = '';
   public disabled = false;
   public onChange = (_: any) => { };
   public onTouched = () => { };
