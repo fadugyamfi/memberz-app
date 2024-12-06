@@ -1,5 +1,5 @@
 <div>
-  <select class="form-select digits {{ classes }}" [(ngModel)]="value">
+  <select class="form-select digits {{ classes() }}" [(ngModel)]="value">
     <option value="">{{ 'Select Year' | translate }}</option>
     @for (year of years; track year) {
       <option [value]="year">{{ year }}</option>

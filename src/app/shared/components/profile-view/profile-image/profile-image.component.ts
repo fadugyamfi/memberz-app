@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, input } from '@angular/core';
 import { MemberImage } from '../../../model/api/member-image';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { MemberImageService } from '../../../services/api/member-image.service';
@@ -18,20 +18,15 @@ export class ProfileImageComponent implements OnInit {
 
   @ViewChild('imageCropper', { static: true }) imageCropper: ImageCropperComponent;
 
-  @Input()
-  public membership: OrganisationMember;
+  public readonly membership = input<OrganisationMember>(undefined);
 
-  @Input()
-  public size: number|string = 60;
+  public readonly size = input<number | string>(60);
 
-  @Input()
-  public thumbnail = false;
+  public readonly thumbnail = input(false);
 
-  @Input()
-  public name?: string;
+  public readonly name = input<string>(undefined);
 
-  @Input()
-  public profileImageUrl: any;
+  public readonly profileImageUrl = input<any>(undefined);
   public imageUploadProgress = 0;
   public uploading = false;
 
@@ -43,14 +38,16 @@ export class ProfileImageComponent implements OnInit {
   ngOnInit(): void {
     this.setupImageUploadEvents();
 
-    if( !this.profileImageUrl && (this.thumbnail || this.membership) ) {
-      this.profileImageUrl = this.thumbnail
-        ? this.membership?.member?.thumbnail()
-        : this.membership?.member?.image();
+    const thumbnail = this.thumbnail();
+    const membership = this.membership();
+    if( !this.profileImageUrl() && (thumbnail || membership) ) {
+      this.profileImageUrl = thumbnail
+        ? membership?.member?.thumbnail()
+        : membership?.member?.image();
     }
 
-    if( this.membership ) {
-      this.name = this.membership.name()
+    if( membership ) {
+      this.name = membership.name()
     }
   }
 
@@ -85,7 +82,7 @@ export class ProfileImageComponent implements OnInit {
     this.profileImageUrl = image;
 
     const memberImage = new MemberImage({
-      member_id: this.membership.member_id,
+      member_id: this.membership().member_id,
       image_base64: image
     });
 

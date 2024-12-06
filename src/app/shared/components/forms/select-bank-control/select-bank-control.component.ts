@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, forwardRef, OnDestroy, OnInit, input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BankService } from '../../../services/api/bank.service';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
@@ -22,8 +22,7 @@ export const BANK_CONTROL_ACCESSOR: any = {
 })
 export class SelectBankControlComponent implements OnInit, OnDestroy {
 
-  @Input()
-  public controlClass: string = '';
+  public readonly controlClass = input<string>('');
 
   private bankSub: Subscription;
 

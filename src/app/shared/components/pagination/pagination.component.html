@@ -1,6 +1,6 @@
 @if (collectionSize) {
   <div class="row">
-    <div class="{{ startColWidth }}">
+    <div class="{{ startColWidth() }}">
       <div class="input-group m-0">
         <select name='limit' class='form-control form-control-sm m-r-20 col-4' size="" (change)="onLimitChangeEvent($event)">
           @for (number of pagination_limits; track number) {
@@ -14,7 +14,7 @@
         </span>
       </div>
     </div>
-    <div class="{{ midColWidth }}">
+    <div class="{{ midColWidth() }}">
       <ngb-pagination class="d-flex justify-content-center" [collectionSize]="collectionSize" [maxSize]="4" [pageSize]="pageLimit" [(page)]="currentPage"
       [rotate]="true" [boundaryLinks]="true" (pageChange)="onPageChange($event)"></ngb-pagination>
     </div>

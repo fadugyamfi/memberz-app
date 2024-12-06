@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, input } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Organisation } from '../../../model/api/organisation';
 import { OrganisationMember } from '../../../model/api/organisation-member';
@@ -16,7 +16,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class MembershipCardModalComponent implements OnInit {
 
   @ViewChild('cardModal', { static: true }) modal: any;
-  @Input() membership: OrganisationMember;
+  readonly membership = input<OrganisationMember>(undefined);
 
   public modalRef: NgbModalRef;
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input, input } from '@angular/core';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
@@ -28,7 +28,7 @@ import { ProfileEditorComponent } from './profile-editor/profile-editor.componen
 })
 export class ProfileViewComponent implements OnInit, OnDestroy {
 
-  @Input() public layout = 'default';
+  public readonly layout = input('default');
   public activeTabId = 1;
   public _membership: OrganisationMember;
 
@@ -135,7 +135,7 @@ export class ProfileViewComponent implements OnInit, OnDestroy {
   }
 
   isDefaultLayout() {
-    return this.layout == 'default';
+    return this.layout() == 'default';
   }
 
   onMembershipUpdated(membership: OrganisationMember) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import * as feather from 'feather-icons';
 
 @Component({
@@ -9,7 +9,7 @@ import * as feather from 'feather-icons';
 })
 export class FeatherIconsComponent implements OnInit {
 
-  @Input('icon') public icon;
+  public readonly icon = input(undefined);
 
   constructor() { }
 

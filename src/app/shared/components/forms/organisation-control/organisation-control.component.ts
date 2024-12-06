@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, forwardRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, forwardRef, Output, EventEmitter, input } from '@angular/core';
 import { Organisation } from '../../../model/api/organisation';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { Observable, of } from 'rxjs';
@@ -26,8 +26,8 @@ export const ORGANISATION_CONTROL_ACCESSOR: any = {
 })
 export class OrganisationControlComponent {
 
-  @Input() organisation: Organisation | null;
-  @Input() readonly = false;
+  readonly organisation = input<Organisation | null>(undefined);
+  readonly readonly = input(false);
   @Output() selected = new EventEmitter();
 
   public searching = false;
@@ -98,8 +98,9 @@ export class OrganisationControlComponent {
   setSelectedOrganisation(data, input) {
     this.inputEl = input;
     this.organisation = data.item;
-    this.setValue( this.organisation?.id );
-    this.selected.emit(this.organisation);
+    const organisation = this.organisation();
+    this.setValue( organisation?.id );
+    this.selected.emit(organisation);
   }
 
   reset() {

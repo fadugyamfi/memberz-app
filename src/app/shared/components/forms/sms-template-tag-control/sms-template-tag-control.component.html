@@ -1,6 +1,6 @@
 <div class="m-b-15 w-50">
   <div class="btn-group" ngbDropdown>
-    <button type="button" class="btn btn-sm btn-outline-primary" ngbDropdownToggle [disabled]="disabled">
+    <button type="button" class="btn btn-sm btn-outline-primary" ngbDropdownToggle [disabled]="disabled()">
       <i class="fa fa-tag"></i>
       {{ 'Insert Tag' | translate }}
     </button>
@@ -8,7 +8,7 @@
     <div ngbDropdownMenu>
       @for (tag of smsTagService.getTags(); track tag) {
         <button type="button" ngbDropdownItem
-          (click)="insertInTextarea(tag.template, textarea)">
+          (click)="insertInTextarea(tag.template, textarea())">
           {{ tag.title | translate }}
         </button>
       }

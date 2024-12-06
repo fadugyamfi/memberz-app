@@ -3,7 +3,7 @@
     <option value="">{{ 'Select Month' | translate }}</option>
     @for (month of months; track month; let i = $index) {
       <option [value]="i + 1">
-        {{ shortNames ? (month | slice:0:3) : month }}
+        {{ shortNames() ? (month | slice:0:3) : month }}
       </option>
     }
   </select>

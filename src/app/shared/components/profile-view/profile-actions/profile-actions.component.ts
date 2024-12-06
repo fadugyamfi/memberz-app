@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/operators';
@@ -20,7 +20,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ProfileActionsComponent implements OnInit {
 
   @ViewChild('membershipCardModal', { static: true }) membershipCard: MembershipCardModalComponent;
-  @Input() membership: OrganisationMember;
+  readonly membership = input<OrganisationMember>(undefined);
   @Output() edit = new EventEmitter();
 
   private _messages = new Subject<string>();
@@ -40,7 +40,7 @@ export class ProfileActionsComponent implements OnInit {
 
   editProfile() {
     console.log(this.membershipService);
-    this.membershipService.setSelectedModel(this.membership);
+    this.membershipService.setSelectedModel(this.membership());
     this.membershipService.setEditing(true);
     // this.router.navigate(['/organisation/memberships/edit', this.membership.id]);
     this.edit.emit();

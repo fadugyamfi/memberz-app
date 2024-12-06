@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, input } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -12,23 +12,24 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ListFilterComponent implements OnInit {
 
   public selectedFilterField;
-  @Input() listFilters;
-  @Input() filterGroup;
-  @Input() optionalOnly = false;
-  @Input() filter;
+  readonly listFilters = input(undefined);
+  readonly filterGroup = input(undefined);
+  readonly optionalOnly = input(false);
+  readonly filter = input(undefined);
 
   @Output() remove = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
-    if( this.filter ) {
-      this.setSelectedFilterField( this.filter.field );
+    const filter = this.filter();
+    if( filter ) {
+      this.setSelectedFilterField( filter.field );
     }
   }
 
   setSelectedFilterField(fieldId) {
-    this.listFilters.forEach(group => {
+    this.listFilters().forEach(group => {
       const selected = group.fields.find(filter => filter.id == fieldId);
       if( selected ) {
         this.selectedFilterField = selected;
@@ -37,6 +38,6 @@ export class ListFilterComponent implements OnInit {
   }
 
   showOptional() {
-    return this.filterGroup.controls.optional?.value == this.optionalOnly ? 1 : 0;
+    return this.filterGroup().controls.optional?.value == this.optionalOnly() ? 1 : 0;
   }
 }

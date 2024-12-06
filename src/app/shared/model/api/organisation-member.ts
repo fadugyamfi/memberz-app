@@ -19,8 +19,8 @@ export class OrganisationMember extends AppModel {
   public member_id: number;
   public _organisation_member_category: OrganisationMemberCategory | null;
   public _organisation_registration_form: OrganisationRegistrationForm | null;
-  public event_attendee?: OrganisationEventAttendee;
-  public last_attendance?: OrganisationEventAttendee;
+  public event_attendee?: OrganisationEventAttendee | null;
+  public last_attendance?: OrganisationEventAttendee | null;
   public last_contribution: Contribution;
 
   constructor(data) {

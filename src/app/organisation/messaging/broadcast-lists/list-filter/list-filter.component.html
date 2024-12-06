@@ -1,9 +1,9 @@
 @if (showOptional()) {
-  <div class="form-group row" [formGroup]="filterGroup">
+  <div class="form-group row" [formGroup]="filterGroup()">
     <div class="col-4">
       <select class="form-select" formControlName="field" (change)="setSelectedFilterField($event.target.value)">
         <option value="">{{ 'Select Field' | translate }}</option>
-        @for (group of listFilters; track group) {
+        @for (group of listFilters(); track group) {
           <optgroup [label]="group.name">
             @for (field of group.fields; track field) {
               <option [value]="field.id">{{ field.name | translate }}</option>
@@ -11,7 +11,7 @@
           </optgroup>
         }
       </select>
-      @if (filterGroup.controls.field?.errors?.required) {
+      @if (filterGroup().controls.field?.errors?.required) {
         <div class="messages text-danger">
           <p class="m-b-0 m-t-5">{{'Field Required' | translate}}</p>
         </div>
@@ -24,7 +24,7 @@
           <option [value]="field.value">{{ field.label | translate }}</option>
         }
       </select>
-      @if (filterGroup.controls.condition?.errors?.required) {
+      @if (filterGroup().controls.condition?.errors?.required) {
         <div class="messages text-danger">
           <p class="m-b-0 m-t-5">{{'Condition Required' | translate}}</p>
         </div>
@@ -51,7 +51,7 @@
       @if (!selectedFilterField) {
         <div class="form-control-plaintext form-control"></div>
       }
-      @if (filterGroup.controls.value?.errors?.required) {
+      @if (filterGroup().controls.value?.errors?.required) {
         <div class="messages text-danger">
           <p class="m-b-0 m-t-5">{{'Value Required' | translate}}</p>
         </div>

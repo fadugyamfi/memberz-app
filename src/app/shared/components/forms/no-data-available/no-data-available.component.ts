@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -9,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class NoDataAvailableComponent implements OnInit {
 
-  @Input() message = 'No Data Available';
+  readonly message = input('No Data Available');
 
   constructor() { }
 

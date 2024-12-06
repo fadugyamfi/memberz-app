@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import { SmsAccountMessageService } from '../../../services/api/sms-account-message.service';
 import * as chartData from '../../../data/chart/chartjs';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -23,7 +23,7 @@ interface MessagingStats {
 })
 export class SmsSummaryComponent implements OnInit {
 
-  @Input() title = 'SMS Messages Sent';
+  readonly title = input('SMS Messages Sent');
 
   private monthObjLabels = chartData.monthObjLabels;
   public labels = [];

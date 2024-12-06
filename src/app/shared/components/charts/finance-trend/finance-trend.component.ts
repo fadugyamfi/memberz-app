@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartData, ChartDataset } from 'chart.js';
 import { FinanceDashboardService } from '../../../services/api/finance-dashboard.service';
@@ -22,7 +22,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class FinanceTrendComponent implements OnInit {
 
 
-  @Input() title = 'Income Trend';
+  readonly title = input('Income Trend');
 
   private monthObjLabels = chartData.monthObjLabels;
   public labels = [];

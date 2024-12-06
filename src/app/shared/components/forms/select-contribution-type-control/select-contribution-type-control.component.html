@@ -1,4 +1,4 @@
-<select class="form-select {{ classes }}" [(ngModel)]="value">
+<select class="form-select {{ classes() }}" [(ngModel)]="value">
   <option value="">{{ 'Select Contribution Type' | translate }}</option>
   @for (type of contributionTypeService.getItems(); track type) {
     <option [value]="type.id">

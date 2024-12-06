@@ -9,22 +9,21 @@ import { FeaturesComponent } from './features/features.component';
 import { FooterComponent } from './footer/footer.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TawkChatModule } from '../../components/tawk-chat/tawk-chat.module';
+
 import { AuthService } from 'src/app/shared/services/api/auth.service';
 
 @NgModule({
     imports: [
-        CommonModule,
-        AboutRoutingModule,
-        NgbModule,
-        TawkChatModule,
-        HomeComponent,
-        PricingComponent,
-        HeaderComponent,
-        FeaturesComponent,
-        FooterComponent,
-        CarouselComponent
-    ],
+    CommonModule,
+    AboutRoutingModule,
+    NgbModule,
+    HomeComponent,
+    PricingComponent,
+    HeaderComponent,
+    FeaturesComponent,
+    FooterComponent,
+    CarouselComponent
+],
     exports: [
         HeaderComponent,
         FooterComponent

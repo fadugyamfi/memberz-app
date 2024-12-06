@@ -3,7 +3,7 @@
  * and modified to support printing canvas content as per solution provided under
  * this issue: https://github.com/selemxmn/ngx-print/issues/105
  */
-import { Directive, HostListener, Input } from '@angular/core';
+import { Directive, HostListener, Input, input } from '@angular/core';
 
 @Directive({
     selector: "[ngPrintContent]",
@@ -18,35 +18,35 @@ export class PrintContentDirective {
    *
    * @memberof PrintContentDirective
    */
-  @Input() previewOnly: boolean = false;
+  readonly previewOnly = input<boolean>(false);
 
   /**
    *
    *
    * @memberof PrintContentDirective
    */
-  @Input() printSectionId: string;
+  readonly printSectionId = input<string>(undefined);
 
   /**
    *
    *
    * @memberof PrintContentDirective
    */
-  @Input() printTitle: string;
+  readonly printTitle = input<string>(undefined);
 
   /**
    *
    *
    * @memberof PrintContentDirective
    */
-  @Input() useExistingCss = false;
+  readonly useExistingCss = input(false);
 
   /**
    * A delay in milliseconds to force the print dialog to wait before opened. Default: 0
    *
    * @memberof PrintContentDirective
    */
-  @Input() printDelay: number = 0;
+  readonly printDelay = input<number>(0);
 
   /**
    *
@@ -161,7 +161,7 @@ public returnStyleValues() {
    *
    */
   private getHtmlContents(): string | null {
-    const printContents = document.getElementById(this.printSectionId);
+    const printContents = document.getElementById(this.printSectionId());
     if (!printContents) return null;
 
     const inputEls = printContents.getElementsByTagName('input');
@@ -198,7 +198,7 @@ public returnStyleValues() {
     let printContents, popupWin, styles = '', links = '';
     const baseTag = this.getElementTag('base');
 
-    if(this.useExistingCss) {
+    if(this.useExistingCss()) {
       styles = this.getElementTag('style');
       links = this.getElementTag('link');
     }
@@ -206,10 +206,11 @@ public returnStyleValues() {
     printContents = this.getHtmlContents();
     popupWin = window.open("", "_blank", "top=0,left=0,height=auto,width=auto");
     popupWin.document.open();
+    const printTitle = this.printTitle();
     popupWin.document.write(`
       <html>
         <head>
-          <title>${this.printTitle ? this.printTitle : ""}</title>
+          <title>${printTitle ? printTitle : ""}</title>
           ${baseTag}
           ${this.returnStyleValues()}
           ${this.returnStyleSheetLinkTags()}
@@ -221,9 +222,9 @@ public returnStyleValues() {
           <script defer>
             function triggerPrint(event) {
               window.removeEventListener('load', triggerPrint, false);
-              ${this.previewOnly ? '' : `setTimeout(function() {
+              ${this.previewOnly() ? '' : `setTimeout(function() {
                 closeWindow(window.print());
-              }, ${this.printDelay});`}
+              }, ${this.printDelay()});`}
             }
             function closeWindow(){
                 window.close();

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, forwardRef, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, forwardRef, input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { SlicePipe } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
@@ -31,8 +31,7 @@ export class SelectMonthControlComponent implements OnInit {
     "August", "September", "October", "November", "December"
   ];
 
-  @Input()
-  public shortNames = false;
+  public readonly shortNames = input(false);
 
   constructor() { }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, forwardRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, Output, EventEmitter, input } from '@angular/core';
 import { Member } from '../../../model/api/member';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { Observable, of } from 'rxjs';
@@ -26,10 +26,10 @@ export const MEMBER_CONTROL_ACCESSOR: any = {
 })
 export class MemberControlComponent {
 
-  @Input() member: Member;
-  @Input() withMobileNumber = false;
-  @Input() returnMembershipId = false;
-  @Input() readonly = false;
+  readonly member = input<Member>(undefined);
+  readonly withMobileNumber = input(false);
+  readonly returnMembershipId = input(false);
+  readonly readonly = input(false);
   @Output() selected = new EventEmitter();
 
   private _membership?: OrganisationMember | null;
@@ -97,7 +97,7 @@ export class MemberControlComponent {
           limit: 50
         };
 
-        if (this.withMobileNumber) {
+        if (this.withMobileNumber()) {
           params['mobile_number_isNotNull'] = true;
         }
 
@@ -115,7 +115,7 @@ export class MemberControlComponent {
   setSelectedMember(data, input) {
     this.inputEl = input;
     this.membership = data.item;
-    this.setValue( this.returnMembershipId ? this.membership?.id : this.membership?.member_id);
+    this.setValue( this.returnMembershipId() ? this.membership?.id : this.membership?.member_id);
     this.selected.emit(this.membership);
   }
 

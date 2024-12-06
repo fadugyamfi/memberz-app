@@ -1,5 +1,5 @@
 
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, OnInit, input } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -32,7 +32,7 @@ export interface CustomFieldConfig {
 })
 export class CustomFieldComponent implements OnInit {
 
-  @Input() config: CustomFieldConfig;
+  readonly config = input<CustomFieldConfig>(undefined);
 
   private _value = '';
   public disabled = false;

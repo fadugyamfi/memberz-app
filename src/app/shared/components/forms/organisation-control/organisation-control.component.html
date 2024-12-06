@@ -1,13 +1,13 @@
 <div class="d-flex align-items-center">
   <div class="flex-shrink-0 m-r-10">
-    <img [src]="organisation?.logo" default='assets/images/user/user.png'
+    <img [src]="organisation()?.logo" default='assets/images/user/user.png'
       class="img-thumbnail rounded-circle img-40" />
     </div>
     <div class="flex-grow-1 position-relative">
       <input type="text" class="form-control" [ngbTypeahead]="searchOrganisation" [resultTemplate]="rt"
-        [value]="organisation?.name" [inputFormatter]="formatter"
+        [value]="organisation()?.name" [inputFormatter]="formatter"
         placeholder="Enter Organisation Name" #input (selectItem)="setSelectedOrganisation($event, input)"
-        [readonly]="readonly" />
+        [readonly]="readonly()" />
 
         @if (searching) {
           <span class="position-absolute end-15 top-7">

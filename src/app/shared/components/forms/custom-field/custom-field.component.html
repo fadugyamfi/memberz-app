@@ -1,20 +1,20 @@
 <div>
-  @if (config?.type == 'select') {
+  @if (config()?.type == 'select') {
     <select class="form-select digits" [(ngModel)]="value">
       <option value="">{{ 'Select Option' | translate }}</option>
-      @for (option of config.options; track option) {
+      @for (option of config().options; track option) {
         <option [value]="option.value">{{ option.label }}</option>
       }
     </select>
   }
 
-  @if (config?.type == 'text') {
-    <input type="text" class="form-control" [(ngModel)]="value" [placeholder]="config?.placeholder" />
+  @if (config()?.type == 'text') {
+    <input type="text" class="form-control" [(ngModel)]="value" [placeholder]="config()?.placeholder" />
   }
-  @if (config?.type == 'time') {
+  @if (config()?.type == 'time') {
     <input type="time" class="form-control" [(ngModel)]="value" />
   }
-  @if (config?.type == 'date') {
+  @if (config()?.type == 'date') {
     <input type="date" class="form-control" [(ngModel)]="value" />
   }
 </div>

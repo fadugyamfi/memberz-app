@@ -7,7 +7,7 @@
       <input type="text" class="form-control" [ngbTypeahead]="searchMember" [resultTemplate]="rt"
         [value]="membership?.member?.firstThenLastName()" [inputFormatter]="formatter"
         placeholder="Enter Member Name, Membership No. or Mobile Number" #input (selectItem)="setSelectedMember($event, input)"
-        [readonly]="readonly" />
+        [readonly]="readonly()" />
 
         @if (searching) {
           <span class="position-absolute end-15 top-7">

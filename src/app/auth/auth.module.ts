@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthRoutingModule } from './auth-routing.module';
-import { TawkChatModule } from '../components/tawk-chat/tawk-chat.module';
+
 import { TranslateModule } from '@ngx-translate/core';
 
 import { LoginComponent } from  './login/login.component';
@@ -15,18 +15,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
-        CommonModule,
-        NgxIntlTelInputModule,
-        AuthRoutingModule,
-        TawkChatModule,
-        TranslateModule,
-        ReactiveFormsModule,
-        LoginComponent,
-        RegisterComponent,
-        ForgotPasswordComponent,
-        ResetPasswordComponent,
-        TwoFaCheckComponent
-    ]
+    CommonModule,
+    NgxIntlTelInputModule,
+    AuthRoutingModule,
+    TranslateModule,
+    ReactiveFormsModule,
+    LoginComponent,
+    RegisterComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    TwoFaCheckComponent
+]
 })
 export class AuthModule {
 

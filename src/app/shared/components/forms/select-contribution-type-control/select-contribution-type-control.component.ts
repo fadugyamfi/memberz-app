@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, forwardRef, OnDestroy, OnInit, input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ContributionTypeService } from '../../../services/api/contribution-type.service';
@@ -23,8 +23,8 @@ export class SelectContributionTypeControlComponent implements OnInit, OnDestroy
 
   private contributionSub: Subscription;
 
-  @Input() classes: string = "";
-  @Input() memberSpecificOnly = false;
+  readonly classes = input<string>("");
+  readonly memberSpecificOnly = input(false);
 
   private _value = '';
   public disabled = false;
@@ -46,7 +46,7 @@ export class SelectContributionTypeControlComponent implements OnInit, OnDestroy
   fetchContributionTypes() {
     const params = { sort: 'name:asc' };
 
-    if( this.memberSpecificOnly ) {
+    if( this.memberSpecificOnly() ) {
       params['member_required'] = 'Required';
     }
 

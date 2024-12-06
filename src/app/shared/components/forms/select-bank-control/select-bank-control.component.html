@@ -1,4 +1,4 @@
-<select class="form-select {{ controlClass }}" [(ngModel)]="value">
+<select class="form-select {{ controlClass() }}" [(ngModel)]="value">
   <option value="">{{ 'Select Bank' | translate }}</option>
   @for (bank of bankService.getItems(); track bank) {
     <option [value]="bank.id">
