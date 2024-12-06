@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, viewChild } from '@angular/core';
 import { OrganisationInvoiceService } from '../../services/api/organisation-invoice.service';
 import { OrganisationInvoice } from '../../model/api/organisation-invoice';
 import { Organisation } from '../../model/api/organisation';
@@ -18,10 +18,10 @@ import { NgxPrintDirective } from 'ngx-print';
 
 export class InvoiceComponent implements OnInit {
 
-  @ViewChild('invoiceModal') invoiceModal: ElementRef;
+  readonly invoiceModal = viewChild<ElementRef>('invoiceModal');
 
   public date: Date = new Date();
-  public invoice: OrganisationInvoice;
+  public invoice: OrganisationInvoice | null;
   public organisation: Organisation;
 
   constructor(
@@ -36,7 +36,7 @@ export class InvoiceComponent implements OnInit {
 
   showInvoice(invoice_id: number) {
     this.invoice = null;
-    this.modalService.open(this.invoiceModal, { size: 'lg' });
+    this.modalService.open(this.invoiceModal(), { size: 'lg' });
 
     this.organisation = this.organisationService.getActiveOrganisation();
     this.invoiceService.getById(invoice_id).subscribe((invoice: OrganisationInvoice) => this.invoice = invoice);

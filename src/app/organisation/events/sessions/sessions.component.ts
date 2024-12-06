@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -22,7 +22,7 @@ import { LoadingRotateDashedComponent } from '../../../shared/components/forms/l
 })
 export class SessionsComponent implements OnInit, OnDestroy {
 
-  @ViewChild('sessionsModal', { static: true }) editorModal: any;
+  readonly editorModal = viewChild<any>('sessionsModal');
 
   public modal: NgbModalRef;
   private subscriptions: Subscription[] = [];
@@ -114,7 +114,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
   show() {
     this.hideEditor();
     this.fetchSessions();
-    this.modal = this.modalService.open(this.editorModal, { size: 'xl' });
+    this.modal = this.modalService.open(this.editorModal(), { size: 'xl' });
   }
 
   hide() {

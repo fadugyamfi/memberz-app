@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, viewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -23,8 +23,8 @@ import { ListFilterComponent } from './list-filter/list-filter.component';
 })
 export class BroadcastListsComponent implements OnInit {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly searchModal = viewChild<any>('searchModal');
+  readonly editorModal = viewChild<any>('editorModal');
 
   public subscriptions: Subscription[] | null = [];
   public broadcastLists: SmsBroadcastList[] | null = [];
@@ -82,7 +82,7 @@ export class BroadcastListsComponent implements OnInit {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, {});
+    this.modalService.open(this.searchModal(), {});
   }
 
   /**
@@ -193,7 +193,7 @@ export class BroadcastListsComponent implements OnInit {
       this.queryExample = this.listFilterService.getQueryExample(this.editorForm.value.filters);
     }
 
-    this.modalService.open(this.editorModal, { size: 'xl' });
+    this.modalService.open(this.editorModal(), { size: 'xl' });
   }
 
   /**

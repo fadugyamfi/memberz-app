@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild, output } from '@angular/core';
+import { Component, OnDestroy, OnInit, output, viewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -23,7 +23,7 @@ export class GroupTypesComponent implements OnInit, OnDestroy {
 
   readonly selectGroupType = output<OrganisationGroupType>();
   public editorForm: UntypedFormGroup;
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly editorModal = viewChild<any>('editorModal');
 
   public selectedGroupType: OrganisationGroupType;
   private subscriptions: Subscription[] = [];
@@ -76,7 +76,7 @@ export class GroupTypesComponent implements OnInit, OnDestroy {
       this.editorForm.patchValue(groupType);
     }
 
-    this.modalService.open(this.editorModal, {});
+    this.modalService.open(this.editorModal(), {});
   }
 
   /**

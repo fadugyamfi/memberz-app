@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -23,7 +23,7 @@ import { SelectCountryControlComponent } from '../../../shared/components/forms/
 })
 export class PaymentPlatformsComponent implements OnInit, OnDestroy {
 
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly editorModal = viewChild<any>('editorModal');
   public editorForm: UntypedFormGroup;
   public orgPaymentPlatforms: OrganisationPaymentPlatform[];
   public subscriptions: Subscription[] = [];
@@ -113,7 +113,7 @@ export class PaymentPlatformsComponent implements OnInit, OnDestroy {
       }
 
       const paymentPlatform = this.paymentPlatforms.find(platform => platform.id == value);
-      paymentPlatform.config_keys.forEach(key => {
+      paymentPlatform?.config_keys.forEach(key => {
         configGroup.addControl(key, new UntypedFormControl('', Validators.required));
       });
     });
@@ -122,14 +122,14 @@ export class PaymentPlatformsComponent implements OnInit, OnDestroy {
   /**
    *
    */
-  showEditorModal(orgPaymentPlatform: OrganisationPaymentPlatform = null) {
+  showEditorModal(orgPaymentPlatform: OrganisationPaymentPlatform | null = null) {
     this.setupEditorForm();
 
     if (orgPaymentPlatform) {
       this.editorForm.patchValue(orgPaymentPlatform);
     }
 
-    this.modal = this.modalService.open(this.editorModal, { size: 'lg' });
+    this.modal = this.modalService.open(this.editorModal(), { size: 'lg' });
   }
 
   onSubmit(event) {

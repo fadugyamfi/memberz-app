@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, viewChild } from '@angular/core';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { Subscription } from 'rxjs';
@@ -39,11 +39,11 @@ import { UiSwitchModule } from 'ngx-ui-switch';
 })
 export class CategoriesComponent implements OnInit, OnDestroy {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly searchModal = viewChild<any>('searchModal');
+  readonly editorModal = viewChild<any>('editorModal');
 
   public subscriptions: Subscription[] = [];
-  public categories: OrganisationMemberCategory[] = [];
+  public categories: OrganisationMemberCategory[] | null = [];
   public searchForm: UntypedFormGroup;
   public editorForm: UntypedFormGroup;
 
@@ -90,7 +90,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, {});
+    this.modalService.open(this.searchModal(), {});
   }
 
   /**
@@ -144,14 +144,14 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   /**
    *
    */
-  showEditorModal(category: OrganisationMemberCategory = null) {
+  showEditorModal(category: OrganisationMemberCategory | null = null) {
     this.setupEditorForm();
 
     if (category) {
       this.editorForm.patchValue(category);
     }
 
-    this.modalService.open(this.editorModal, { size: 'lg' });
+    this.modalService.open(this.editorModal(), { size: 'lg' });
   }
 
   /**
@@ -176,7 +176,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   resetFlags(category: OrganisationMemberCategory) {
-    if (category.default === 1) {
+    if (category.default === 1 && this.categories) {
       this.categories.forEach(cat => {
         if (cat.id !== category.id) {
           cat.default = 0;

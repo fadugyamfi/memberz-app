@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, viewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective, NgChartsModule } from 'ng2-charts';
 import * as chartData from '../../../shared/data/chart/chartjs';
@@ -15,7 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class MembershipOverviewComponent implements OnInit {
 
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+  readonly chart = viewChild(BaseChartDirective);
 
   // Membership Categories chart
   public membershipCategoriesData;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, viewChild } from '@angular/core';
 import { EventsService } from '../../../shared/services/events.service';
 import { SmsAccountMessageService } from '../../../shared/services/api/sms-account-message.service';
 import { SmsAccountMessage } from '../../../shared/model/api/sms-account-message';
@@ -26,7 +26,7 @@ import { SmsMessengerComponent } from '../../../shared/components/messaging/sms-
 })
 export class HistoryComponent implements OnInit {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
+  readonly searchModal = viewChild<any>('searchModal');
 
 
   public messages: SmsAccountMessage[] = [];
@@ -85,7 +85,7 @@ export class HistoryComponent implements OnInit {
   }
 
   loadMessageHistory(page = 1, limit = 30) {
-    this.messages = null;
+    this.messages = [];
 
     const params = Object.assign({}, this.searchForm.value, { page, limit, sort: 'id:desc' });
 
@@ -144,7 +144,7 @@ export class HistoryComponent implements OnInit {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, { size: 'lg' });
+    this.modalService.open(this.searchModal(), { size: 'lg' });
   }
 
   onSearch(e) {

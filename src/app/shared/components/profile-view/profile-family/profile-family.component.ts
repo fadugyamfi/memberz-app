@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -21,7 +21,7 @@ import { ViewProfileDirective } from '../../../directives/view-profile.directive
 })
 export class ProfileFamilyComponent implements OnInit, OnDestroy {
 
-  @ViewChild('familyMemberEditor', { static: true }) familyMemberEditor: FamilyMemberEditorComponent;
+  readonly familyMemberEditor = viewChild<FamilyMemberEditorComponent>('familyMemberEditor');
 
   public mbsp: OrganisationMember;
   public selectedRelation: MemberRelation | null;
@@ -70,12 +70,12 @@ export class ProfileFamilyComponent implements OnInit, OnDestroy {
 
   addFamilyMember() {
     this.selectedRelation = null;
-    this.familyMemberEditor.open({ reset: true });
+    this.familyMemberEditor()?.open({ reset: true });
   }
 
   editFamilyMember(relation) {
     this.selectedRelation = relation;
-    this.familyMemberEditor.open({ relation });
+    this.familyMemberEditor()?.open({ relation });
   }
 
   deleteRelation(relation: MemberRelation) {

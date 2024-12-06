@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { CommonModule, AsyncPipe } from '@angular/common';
 import { OrganisationBranchService } from '../../../shared/services/api/organisation-branch.service';
 import { Observable } from 'rxjs';
@@ -33,8 +33,8 @@ import { MemberControlComponent } from '../../../shared/components/forms/member-
 })
 export class BranchListComponent {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly searchModal = viewChild<any>('searchModal');
+  readonly editorModal = viewChild<any>('editorModal');
   
   public branches$: Observable<OrganisationBranch[]>;
   public editorForm: FormGroup = new FormGroup({});
@@ -62,7 +62,7 @@ export class BranchListComponent {
   }
 
   public showEditorModal() {
-    this.modalService.open(this.editorModal, { size: 'lg' });
+    this.modalService.open(this.editorModal(), { size: 'lg' });
   }
   
   /**
@@ -101,7 +101,7 @@ export class BranchListComponent {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, {});
+    this.modalService.open(this.searchModal(), {});
   }
 
   onPaginate(_event) {

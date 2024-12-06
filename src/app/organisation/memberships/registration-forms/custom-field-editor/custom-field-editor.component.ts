@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, output } from '@angular/core';
+import { Component, OnInit, output, viewChild } from '@angular/core';
 import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrganisationRegistrationFormService } from '../../../../shared/services/api/organisation-registration-form.service';
@@ -15,7 +15,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class CustomFieldEditorComponent implements OnInit {
 
-  @ViewChild('customFieldModal', { static: true }) customFieldModal: any;
+  readonly customFieldModal = viewChild<any>('customFieldModal');
 
   public customFieldForm: UntypedFormGroup;
   public modal: NgbModalRef;
@@ -91,7 +91,7 @@ export class CustomFieldEditorComponent implements OnInit {
     this.optionGroups?.removeAt(index);
   }
 
-  show(group = null, index = 0) {
+  show(group: any = null, index = 0) {
     this.editing = false;
     this.setupForm();
 
@@ -105,7 +105,7 @@ export class CustomFieldEditorComponent implements OnInit {
       this.customFieldForm.patchValue(group);
     }
 
-    this.modal = this.modalService.open(this.customFieldModal, { size: 'lg' });
+    this.modal = this.modalService.open(this.customFieldModal(), { size: 'lg' });
   }
 
   onSubmit(e) {

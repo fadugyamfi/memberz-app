@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, viewChild } from '@angular/core';
 import { UserActivityService } from '../../../shared/services/api/user-activities.service';
 import { Subscription } from 'rxjs';
 import { UserActivity } from '../../../shared/model/api/user-activity';
@@ -28,7 +28,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ]
 })
 export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('searchModal', { static: true }) searchModal: any;
+  readonly searchModal = viewChild<any>('searchModal');
 
   public activities: UserActivity[] | null;
   public subscriptions: Subscription[] = [];
@@ -149,7 +149,7 @@ export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, {});
+    this.modalService.open(this.searchModal(), {});
   }
 
   /**

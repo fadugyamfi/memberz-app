@@ -37,7 +37,7 @@ export class BulkUploadService extends APIService<Member> {
     'ID Suffix',
     'Starting ID',
   ];
-  public excelData: { data: any[][] | null, headers: any | null} = { data: null, headers: null };
+  public excelData: { data: any[][] | null, headers: any | null} | null = { data: null, headers: null };
   public isValid = false;
   private headersValidations = [];
 
@@ -72,8 +72,11 @@ export class BulkUploadService extends APIService<Member> {
     this.excelService.import(target.files[0], this.memberHeaders)
       .subscribe(excelImport => {
         console.log(excelImport);
-        this.excelData.data = excelImport.data;
-        this.excelData.headers = excelImport.headers;
+
+        if( this.excelData ) {
+          this.excelData.data = excelImport.data;
+          this.excelData.headers = excelImport.headers;
+        }
         this.isValid = this.isImportedDataValid(excelImport.headers, 'member'); // TODO: validate headers
       });
   }
@@ -94,6 +97,8 @@ export class BulkUploadService extends APIService<Member> {
   }
 
   uploadImportedMemberships() {
+    if( !this.excelData ) return;
+    
     this.excelData.data?.forEach(attributes => {
       if ( !Array.isArray(attributes) ) {
         const member = new Member(attributes);

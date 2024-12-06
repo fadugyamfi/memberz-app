@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, viewChild } from '@angular/core';
 import { OrganisationAnniversaryService } from '../../../shared/services/api/organisation-anniversary.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { Subscription } from 'rxjs';
@@ -43,9 +43,9 @@ import { SmsTemplateTagControlComponent } from '../../../shared/components/forms
 })
 export class AnniversariesComponent implements OnInit, OnDestroy {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
-  @ViewChild('editorModal', { static: true }) editorModal: any;
-  @ViewChild('messageModal', { static: true }) messageModal: any;
+  readonly searchModal = viewChild<any>('searchModal');
+  readonly editorModal = viewChild<any>('editorModal');
+  readonly messageModal = viewChild<any>('messageModal');
 
   public subscriptions: Subscription[] = [];
   public anniversaries: OrganisationAnniversary[] | null = [];
@@ -97,7 +97,7 @@ export class AnniversariesComponent implements OnInit, OnDestroy {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, {});
+    this.modalService.open(this.searchModal(), {});
   }
 
   /**
@@ -148,12 +148,12 @@ export class AnniversariesComponent implements OnInit, OnDestroy {
       this.editorForm.patchValue(anniversary);
     }
 
-    this.modalService.open(this.editorModal, { size: 'lg' });
+    this.modalService.open(this.editorModal(), { size: 'lg' });
   }
 
   showMessageModal(message) {
     this.anniversaryMessage = message;
-    this.modalService.open(this.messageModal, { size: 'lg' });
+    this.modalService.open(this.messageModal(), { size: 'lg' });
   }
 
   /**

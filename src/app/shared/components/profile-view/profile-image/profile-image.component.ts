@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, input, model } from '@angular/core';
+import { Component, OnInit, input, model, viewChild } from '@angular/core';
 import { MemberImage } from '../../../model/api/member-image';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { MemberImageService } from '../../../services/api/member-image.service';
@@ -16,7 +16,7 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ProfileImageComponent implements OnInit {
 
-  @ViewChild('imageCropper', { static: true }) imageCropper: ImageCropperComponent;
+  readonly imageCropper = viewChild<ImageCropperComponent>('imageCropper');
 
   public readonly membership = model<OrganisationMember>();
 
@@ -77,7 +77,7 @@ export class ProfileImageComponent implements OnInit {
   }
 
   showImageCropper() {
-    this.imageCropper.show();
+    this.imageCropper()?.show();
   }
 
   onCroppedImageSaved(image: string) {

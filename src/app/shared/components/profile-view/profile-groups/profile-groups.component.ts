@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -19,7 +19,7 @@ import { OrganisationGroupType } from '../../../../shared/model/api/organisation
 })
 export class ProfileGroupsComponent implements OnInit, OnDestroy {
 
-  @ViewChild('assignmentModal', { static: true }) assignmentModal: any;
+  readonly assignmentModal = viewChild<any>('assignmentModal');
 
   public mbsp: OrganisationMember;
   public assignmentForm: UntypedFormGroup;
@@ -105,7 +105,7 @@ export class ProfileGroupsComponent implements OnInit, OnDestroy {
       this.setupAssignmentForm();
     }
 
-    this.modalService.open(this.assignmentModal);
+    this.modalService.open(this.assignmentModal());
   }
 
   editAssignment(memberGroup: OrganisationMemberGroup) {

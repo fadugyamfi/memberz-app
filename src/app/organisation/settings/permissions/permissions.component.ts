@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, viewChild } from '@angular/core';
 import { PermissionGroup } from './permission-group.model';
 import { UntypedFormGroup, UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -23,12 +23,12 @@ import { NgClass, TitleCasePipe } from '@angular/common';
 })
 export class PermissionsComponent implements OnInit, OnDestroy {
 
-  @ViewChild('editorModal', { static: true }) modal;
+  readonly modal = viewChild('editorModal');
 
   public editorForm: UntypedFormGroup;
   public modalRef: NgbModalRef;
 
-  public _permissions = [];
+  public _permissions: Permission[] = [];
   public permissionGroups: PermissionGroup[] = [];
   public rolePermissions: Permission[];
 
@@ -161,7 +161,7 @@ export class PermissionsComponent implements OnInit, OnDestroy {
    * Show modal for permissions
    */
   show() {
-    this.modalRef = this.modalService.open(this.modal, { size: 'lg'});
+    this.modalRef = this.modalService.open(this.modal(), { size: 'lg'});
   }
 
   hide() {
@@ -202,7 +202,7 @@ export class PermissionsComponent implements OnInit, OnDestroy {
   }
 
   buildPermissions() {
-    const arr = this.permissions.map(permission => {
+    const arr = this.permissions.map((permission: any) => {
       return permission.selected ? this.fb.control(permission.id) : false;
     });
 
@@ -224,7 +224,7 @@ export class PermissionsComponent implements OnInit, OnDestroy {
       Swal.showLoading();
 
       this.roleService.syncPermissions(params).subscribe(() => {
-        this.orgAccountService.refreshActiveAccount().subscribe({
+        this.orgAccountService.refreshActiveAccount()?.subscribe({
           next: () => this.hide(),
           error: () => {
             Swal.hideLoading();

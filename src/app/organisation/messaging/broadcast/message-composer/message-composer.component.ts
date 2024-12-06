@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, output } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, output, viewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -26,8 +26,8 @@ import { SmsTemplateTagControlComponent } from '../../../../shared/components/fo
 export class MessageComposerComponent implements OnInit, OnDestroy {
 
   public readonly cancel = output();
-  @ViewChild('messageField', { static: true }) messageField;
-  @ViewChild('composerModal', { static: true }) composerModal: any;
+  readonly messageField = viewChild('messageField');
+  readonly composerModal = viewChild<any>('composerModal');
 
   public broadcastForm: UntypedFormGroup;
   public broadcastLists: SmsBroadcastList[];
@@ -38,7 +38,7 @@ export class MessageComposerComponent implements OnInit, OnDestroy {
   public previews: any[] = [];
   public maxSmsChars = 480;
   public charsEntered = 0;
-  public selectedList: SmsBroadcastList;
+  public selectedList?: SmsBroadcastList;
   public modalRef: NgbModalRef;
   public saveBtnText = "Send Broadcast";
 
@@ -145,7 +145,7 @@ export class MessageComposerComponent implements OnInit, OnDestroy {
   show() {
     this.setupBroadcastForm();
     this.saveBtnText = "Send Broadcast";
-    this.modalRef = this.modalService.open(this.composerModal, { size: 'xl'});
+    this.modalRef = this.modalService.open(this.composerModal(), { size: 'xl'});
   }
 
   onSubmit(e: Event) {

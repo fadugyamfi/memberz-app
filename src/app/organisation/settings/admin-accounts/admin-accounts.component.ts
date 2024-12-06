@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, viewChild } from '@angular/core';
 import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
 import { Observable, Subscription, of } from 'rxjs';
 import { OrganisationAccount } from '../../../shared/model/api/organisation-account';
@@ -28,15 +28,15 @@ import { MemberControlComponent } from '../../../shared/components/forms/member-
 })
 export class AdminAccountsComponent implements OnInit, OnDestroy {
 
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly editorModal = viewChild<any>('editorModal');
 
-  public accountData = [];
+  public accountData: OrganisationAccount[] = [];
   public roles: OrganisationRole[];
 
   public editorModalRef: NgbModalRef;
   public modalTitle = 'Add New Account';
   public editorForm: UntypedFormGroup;
-  public editingAccount: OrganisationAccount;
+  public editingAccount: OrganisationAccount | null;
 
   public subscriptions: Subscription[] = [];
 
@@ -73,8 +73,8 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
       page
     }).pipe(map(result => {
       return result.sort((a, b) => {
-        const nameA = a.member_account.member.last_name;
-        const nameB = b.member_account.member.last_name;
+        const nameA = a.member_account?.member?.last_name;
+        const nameB = b.member_account?.member?.last_name;
         return nameA > nameB ? 1 : (nameB > nameA ? -1 : 0);
       });
     })).subscribe((result) => this.accountData = result);
@@ -116,7 +116,7 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
     });
   }
 
-  showEditor(account: OrganisationAccount = null) {
+  showEditor(account: OrganisationAccount | null = null) {
     this.modalTitle = 'Add New Account';
     this.editingAccount = null;
     this.setupEditorForm();
@@ -127,7 +127,7 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
       this.editorForm.patchValue(account);
     }
 
-    this.editorModalRef = this.modalService.open(this.editorModal);
+    this.editorModalRef = this.modalService.open(this.editorModal());
   }
 
   onSubmit(e: Event) {
@@ -146,7 +146,7 @@ export class AdminAccountsComponent implements OnInit, OnDestroy {
   deleteAccount(user: OrganisationAccount) {
     Swal.fire({
       title: this.translate.instant('Confirm Deletion'),
-      text: this.translate.instant(`This action will delete :name from the database. This action currently cannot be reverted`, { name: user.member_account.member.firstThenLastName() }),
+      text: this.translate.instant(`This action will delete :name from the database. This action currently cannot be reverted`, { name: user.member_account?.member?.firstThenLastName() }),
       icon: 'warning',
       showCancelButton: true,
     }).then((action) => {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, input, model, output } from '@angular/core';
+import { Component, OnInit, input, model, output, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/operators';
@@ -19,7 +19,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class ProfileActionsComponent implements OnInit {
 
-  @ViewChild('membershipCardModal', { static: true }) membershipCard: MembershipCardModalComponent;
+  readonly membershipCard = viewChild<MembershipCardModalComponent>('membershipCardModal');
   readonly membership = model<OrganisationMember>();
   readonly edit = output();
 
@@ -47,7 +47,7 @@ export class ProfileActionsComponent implements OnInit {
   }
 
   viewMembershipCard() {
-    this.membershipCard.show();
+    this.membershipCard()?.show();
   }
 
   setupEvents() {

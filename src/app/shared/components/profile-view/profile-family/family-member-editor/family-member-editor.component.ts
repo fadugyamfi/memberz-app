@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -30,7 +30,7 @@ interface RelationEditorOptions {
 })
 export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
 
-  @ViewChild('editor', { static: true }) editor: any;
+  readonly editor = viewChild<any>('editor');
 
   public selectOptionForm: UntypedFormGroup;
   public newProfileForm: UntypedFormGroup;
@@ -187,7 +187,7 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
       this.currentView = EDIT;
     }
 
-    this.modalService.open(this.editor, { animation: true, centered: true });
+    this.modalService.open(this.editor(), { animation: true, centered: true });
   }
 
   setExistingMember(membership: OrganisationMember) {

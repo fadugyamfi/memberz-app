@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, viewChild } from '@angular/core';
 import { catchError, map, Observable, Subscription, tap } from 'rxjs';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { EventsService } from '../../../../shared/services/events.service';
@@ -30,7 +30,7 @@ import { LoadingRotateDashedComponent } from '../../forms/loading-rotate-dashed/
 })
 export class ViewBirthdaysComponent implements OnInit {
 
-  @ViewChild(DaterangepickerDirective, { static: false }) pickerDirective: DaterangepickerDirective
+  readonly pickerDirective = viewChild(DaterangepickerDirective);
 
   public subscriptions: Subscription[] = [];
   public selectForm: UntypedFormGroup;
@@ -119,7 +119,7 @@ export class ViewBirthdaysComponent implements OnInit {
   }
 
   openDatepicker() {
-    this.pickerDirective.open();
+    this.pickerDirective()?.open();
   }
 
   formatMembersDataForExport(members) {
@@ -155,7 +155,7 @@ export class ViewBirthdaysComponent implements OnInit {
     Swal.showLoading();
 
     const sub = this.organisationMemberService.birthdays(this.selectForm.value).subscribe(
-      (members: OrganisationMember[]) => {
+      (members) => {
         this.excelService.generateExcel(this.formatMembersDataForExport(members), 'birthdays');
       }
     );

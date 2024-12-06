@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, viewChild } from '@angular/core';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
@@ -22,7 +22,7 @@ import { ViewProfileDirective } from '../../../shared/directives/view-profile.di
 })
 export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
+  readonly searchModal = viewChild<any>('searchModal');
 
   public members: OrganisationMember[] = [];
   public categories: OrganisationMemberCategory[];
@@ -62,7 +62,7 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   fetchRegistrationFormId() {
-    this.registrationFormId = +this.route.snapshot.paramMap.get('id');
+    this.registrationFormId = +(this.route.snapshot.paramMap.get('id') as string);
   }
 
   /**
@@ -85,7 +85,7 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
    * @param limit Total records to load
    */
   loadMemberships(page = 1, limit = 15) {
-    this.members = null;
+    this.members = [];
 
     const options = { page, limit, registration_form_id: this.registrationFormId };
 

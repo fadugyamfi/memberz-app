@@ -4,7 +4,7 @@ import { BulkUploadService } from './../../../shared/services/api/bulkupload.ser
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewEncapsulation, viewChild } from '@angular/core';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { OrganisationFileImportService } from '../../../shared/services/api/organisation-file-import.service';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
@@ -23,8 +23,8 @@ import { UploadReviewComponent } from './upload-review/upload-review.component';
     imports: [PaginationComponent, UploadReviewComponent, FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('uploadModal', { static: true }) uploadModal: any;
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly uploadModal = viewChild<any>('uploadModal');
+  readonly editorModal = viewChild<any>('editorModal');
 
   public isActive = false;
   public infoMessage = '';
@@ -34,7 +34,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
   private subscriptions: Subscription[] = [];
   public categories: OrganisationMemberCategory[] = [];
 
-  public selectedFileImport: OrganisationFileImport;
+  public selectedFileImport: OrganisationFileImport | null;
 
   constructor(
     public bulkuploadService: BulkUploadService,
@@ -115,7 +115,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
   showUploadModal() {
     this.isActive = false;
     this.bulkuploadService.excelData = null;
-    this.modalService.open(this.uploadModal, { size: 'lg' });
+    this.modalService.open(this.uploadModal(), { size: 'lg' });
   }
 
   resetModal() {

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -23,7 +23,7 @@ export class IncomeSourcesComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
   public editorForm: UntypedFormGroup;
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly editorModal = viewChild<any>('editorModal');
 
   public configuringFixedAmount = false;
 
@@ -100,7 +100,7 @@ export class IncomeSourcesComponent implements OnInit, OnDestroy {
   /**
    *
    */
-  showEditorModal(contributionType: ContributionType = null) {
+  showEditorModal(contributionType: ContributionType | null = null) {
     this.setupEditorForm();
 
     if (contributionType) {
@@ -108,7 +108,7 @@ export class IncomeSourcesComponent implements OnInit, OnDestroy {
       this.editorForm.patchValue(contributionType);
     }
 
-    this.modalService.open(this.editorModal, { size: 'lg' });
+    this.modalService.open(this.editorModal(), { size: 'lg' });
   }
 
   /**

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, viewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -28,9 +28,9 @@ import { EditorModule } from '@tinymce/tinymce-angular';
 })
 export class EventListComponent implements OnInit {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
-  @ViewChild('editorModal', { static: true }) editorModal: any;
-  @ViewChild('sessions', { static: true }) sessions: SessionsComponent;
+  readonly searchModal = viewChild<any>('searchModal');
+  readonly editorModal = viewChild<any>('editorModal');
+  readonly sessions = viewChild<SessionsComponent>('sessions');
 
   public _environment = environment;
 
@@ -118,7 +118,7 @@ export class EventListComponent implements OnInit {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, {});
+    this.modalService.open(this.searchModal(), {});
   }
 
   /**
@@ -178,7 +178,7 @@ export class EventListComponent implements OnInit {
       this.editorForm.patchValue(params);
     }
 
-    this.modalService.open(this.editorModal, { size: 'lg' });
+    this.modalService.open(this.editorModal(), { size: 'lg' });
   }
 
   /**
@@ -242,7 +242,11 @@ export class EventListComponent implements OnInit {
   }
 
   viewSessions(event: OrganisationEvent) {
-    this.sessions.event = event;
-    this.sessions.show();
+    const sessions = this.sessions();
+
+    if( sessions ) {
+      sessions.event = event;
+      sessions.show();
+    }
   }
 }

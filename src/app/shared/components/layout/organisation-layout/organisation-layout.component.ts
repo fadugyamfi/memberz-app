@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, HostListener, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener, OnDestroy, viewChild } from '@angular/core';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { fadeIn } from 'ng-animate';
 import { NavService } from '../../../services/nav.service';
@@ -34,7 +34,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class OrganisationLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  @ViewChild("profileView") profileView: ProfileViewComponent;
+  readonly profileView = viewChild<ProfileViewComponent>("profileView");
 
   public right_side_bar: boolean;
   public flyoutOpen = false;
@@ -106,12 +106,12 @@ export class OrganisationLayoutComponent implements OnInit, OnDestroy, AfterView
 
     this.events.on("open:membership:flyout:by:id", (membershipId: number) => {
       this.flyoutOpen = true;
-      this.profileView.loadProfileById(membershipId);
+      this.profileView()?.loadProfileById(membershipId);
     });
 
     this.events.on("open:membership:flyout:by:member_id", (member_id: number) => {
       this.flyoutOpen = true;
-      this.profileView.loadProfileByMemberId(member_id);
+      this.profileView()?.loadProfileByMemberId(member_id);
     });
 
     this.events.on('close:membership:flyout', () => this.flyoutOpen = false);

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, ElementRef, OnDestroy, output } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, OnDestroy, output, viewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, FormControl, ValidationErrors, ValidatorFn, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationTypeService } from '../../../../shared/services/api/organisation-type.service';
 import { OrganisationType } from '../../../../shared/model/api/organisation-type';
@@ -46,8 +46,8 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   public countries: Country[];
   private organisation: Organisation;
   private modalRef: NgbModalRef;
-  private freePlan: SubscriptionType | null;
-  public modalTitle;
+  private freePlan?: SubscriptionType | null;
+  public modalTitle: string;
 
   separateDialCode = true;
   SearchCountryField = SearchCountryField;
@@ -55,7 +55,7 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   PhoneNumberFormat = PhoneNumberFormat;
   preferredCountries: CountryISO[] = [CountryISO.Ghana, CountryISO.Nigeria, CountryISO.Togo];
 
-  @ViewChild('editorModal', { static: true }) editorModal: ElementRef;
+  readonly editorModal = viewChild<ElementRef>('editorModal');
   readonly saveProfile = output<Organisation>();
 
   constructor(
@@ -148,7 +148,7 @@ console.log(input);
 
   show(organisation: Organisation | null = null) {
     this.setupProfileForm();
-    this.modalRef = this.modalService.open(this.editorModal, { size: 'lg' });
+    this.modalRef = this.modalService.open(this.editorModal(), { size: 'lg' });
 
     if (organisation) {
       Object.assign(organisation, {

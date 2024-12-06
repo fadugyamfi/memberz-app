@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -20,7 +20,7 @@ import { DatePipe } from '@angular/common';
 })
 export class ProfileAnniversariesComponent implements OnInit, OnDestroy {
 
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly editorModal = viewChild<any>('editorModal');
 
   public subscriptions: Subscription[] = [];
   public mbsp: OrganisationMember;
@@ -115,8 +115,8 @@ export class ProfileAnniversariesComponent implements OnInit, OnDestroy {
       this.setupEditorForm();
     }
 
-    this.editorForm.patchValue(memberAnniversary);
-    this.modalService.open(this.editorModal);
+    this.editorForm.patchValue(memberAnniversary as object);
+    this.modalService.open(this.editorModal());
   }
 
   onSubmit(event) {

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, viewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SmsAccount } from '../../../model/api/sms-account';
 import { EventsService } from '../../../services/events.service';
@@ -24,12 +24,12 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class SmsMessengerComponent implements OnInit {
 
-  @ViewChild('messageModal', { static: true }) messageModal: any;
+  readonly messageModal = viewChild<any>('messageModal');
 
   public messageForm: UntypedFormGroup;
   public orgSmsAccount: SmsAccount;
-  private _member: Member;
-  private _membership: OrganisationMember;
+  private _member: Member | null;
+  private _membership: OrganisationMember | null;
 
   public modal: NgbModalRef;
   public chars = 0;
@@ -65,22 +65,22 @@ export class SmsMessengerComponent implements OnInit {
   }
 
   @Input()
-  set member(value: Member) {
+  set member(value: Member | null) {
     this._member = value;
   }
 
-  get member(): Member {
+  get member(): Member | null {
     return this._member;
   }
 
   @Input()
   set membership(value: OrganisationMember) {
     this._membership = value;
-    this.member = this.membership.member;
-    this.selectedContacts.push(this.membership);
+    this.member = this.membership?.member as Member;
+    this.selectedContacts.push(this.membership as OrganisationMember);
   }
 
-  get membership(): OrganisationMember {
+  get membership(): OrganisationMember | null {
     return this._membership;
   }
 
@@ -102,7 +102,7 @@ export class SmsMessengerComponent implements OnInit {
    */
   show() {
     this.setupMessageForm();
-    this.modal = this.modalService.open(this.messageModal, { size: 'lg', backdrop: 'static' });
+    this.modal = this.modalService.open(this.messageModal(), { size: 'lg', backdrop: 'static' });
   }
 
   hide() {
@@ -123,7 +123,7 @@ export class SmsMessengerComponent implements OnInit {
     }
 
     this.messageForm.patchValue({
-      to: orgMember.member.mobile_number
+      to: orgMember.member?.mobile_number
     });
   }
 
@@ -140,7 +140,7 @@ export class SmsMessengerComponent implements OnInit {
       return new SmsAccountMessage(
         Object.assign({}, this.messageForm.value, {
           member_id: contact.member_id,
-          to: contact.member.mobile_number
+          to: contact.member?.mobile_number
         })
       );
     });

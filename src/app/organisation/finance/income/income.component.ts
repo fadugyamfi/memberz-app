@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -29,8 +29,8 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class IncomeComponent implements OnInit, OnDestroy {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
-  @ViewChild('incomeEditorModal', { static: true }) editorModal: any;
+  readonly searchModal = viewChild<any>('searchModal');
+  readonly editorModal = viewChild<any>('incomeEditorModal');
 
   private subscriptions: Subscription[] = [];
   public searchForm: UntypedFormGroup;
@@ -105,7 +105,7 @@ export class IncomeComponent implements OnInit, OnDestroy {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, { size: 'lg' });
+    this.modalService.open(this.searchModal(), { size: 'lg' });
   }
 
   /**

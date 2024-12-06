@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, viewChild } from '@angular/core';
 import Swal from 'sweetalert2';
 import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { OrganisationRegistrationForm } from '../../../shared/model/api/organisation-registration-form';
@@ -20,7 +20,7 @@ import { LoadingRotateDashedComponent } from '../../../shared/components/forms/l
 })
 export class RegistrationFormsComponent implements OnInit {
 
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly editorModal = viewChild<any>('editorModal');
 
   public forms: OrganisationRegistrationForm[] = [];
   public organisation: Organisation;

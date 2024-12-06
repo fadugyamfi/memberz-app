@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild, output } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, output, viewChild } from '@angular/core';
 import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
@@ -34,7 +34,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
   public groups: OrganisationGroup[] = [];
 
   public editorForm: UntypedFormGroup;
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly editorModal = viewChild<any>('editorModal');
   readonly viewGroupMembers = output<OrganisationGroup>();
 
   constructor(
@@ -147,7 +147,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
       this.editorForm.patchValue(groupData);
     }
 
-    this.modalService.open(this.editorModal, { size: 'lg' });
+    this.modalService.open(this.editorModal(), { size: 'lg' });
   }
 
   /**
