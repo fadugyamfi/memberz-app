@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, OnInit, Output, input } from '@angular/core';
+import { Component, EventEmitter, forwardRef, OnInit, Output, input, model } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SmsTemplateTagService } from '../../../services/utilities/sms-template-tag.service';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
@@ -24,10 +24,10 @@ export class SmsTemplateTagControlComponent implements OnInit {
 
   @Output() change = new EventEmitter();
 
-  public readonly textarea = input<HTMLInputElement>(undefined);
-  public readonly disabled = input(false);
+  public readonly textarea = input<HTMLInputElement>();
+  public readonly disabled = model(false);
 
-  private _value = '';
+  private _value: string | null = '';
   public onChange = (_: any) => { };
   public onTouched = () => { };
 
@@ -56,7 +56,7 @@ export class SmsTemplateTagControlComponent implements OnInit {
   registerOnTouched(fn: () => {}): void { this.onTouched = fn; }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    this.disabled.set(isDisabled);
   }
 
   reset() {
@@ -67,7 +67,7 @@ export class SmsTemplateTagControlComponent implements OnInit {
     if( !el ) return;
 
     const [start, end] = [el.selectionStart, el.selectionEnd];
-    el.setRangeText(newText, start, end, 'select');
+    el.setRangeText(newText, start as number, end as number, 'select');
     el.focus();
   }
 }

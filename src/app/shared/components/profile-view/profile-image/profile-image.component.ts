@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, input } from '@angular/core';
+import { Component, OnInit, ViewChild, input, model } from '@angular/core';
 import { MemberImage } from '../../../model/api/member-image';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { MemberImageService } from '../../../services/api/member-image.service';
@@ -18,15 +18,16 @@ export class ProfileImageComponent implements OnInit {
 
   @ViewChild('imageCropper', { static: true }) imageCropper: ImageCropperComponent;
 
-  public readonly membership = input<OrganisationMember>(undefined);
+  public readonly membership = model<OrganisationMember>();
 
   public readonly size = input<number | string>(60);
 
-  public readonly thumbnail = input(false);
+  public readonly thumbnail = model(false);
 
-  public readonly name = input<string>(undefined);
+  public readonly name = model<string>();
 
-  public readonly profileImageUrl = input<any>(undefined);
+  public readonly profileImageUrl = model<any>(undefined);
+
   public imageUploadProgress = 0;
   public uploading = false;
 
@@ -41,13 +42,15 @@ export class ProfileImageComponent implements OnInit {
     const thumbnail = this.thumbnail();
     const membership = this.membership();
     if( !this.profileImageUrl() && (thumbnail || membership) ) {
-      this.profileImageUrl = thumbnail
-        ? membership?.member?.thumbnail()
-        : membership?.member?.image();
+      this.profileImageUrl.set(
+        thumbnail
+          ? membership?.member?.thumbnail()
+          : membership?.member?.image()
+      );
     }
 
     if( membership ) {
-      this.name = membership.name()
+      this.name.set(membership.name())
     }
   }
 
@@ -79,10 +82,10 @@ export class ProfileImageComponent implements OnInit {
 
   onCroppedImageSaved(image: string) {
     this.uploading = true;
-    this.profileImageUrl = image;
+    this.profileImageUrl.set(image);
 
     const memberImage = new MemberImage({
-      member_id: this.membership().member_id,
+      member_id: this.membership()?.member_id,
       image_base64: image
     });
 

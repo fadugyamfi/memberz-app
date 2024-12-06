@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild, input } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild, input, model } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/operators';
@@ -20,11 +20,11 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ProfileActionsComponent implements OnInit {
 
   @ViewChild('membershipCardModal', { static: true }) membershipCard: MembershipCardModalComponent;
-  readonly membership = input<OrganisationMember>(undefined);
+  readonly membership = model<OrganisationMember>();
   @Output() edit = new EventEmitter();
 
   private _messages = new Subject<string>();
-  public alertMessage = '';
+  public alertMessage: string | null = '';
   public alertType = 'success';
 
   constructor(
@@ -57,7 +57,7 @@ export class ProfileActionsComponent implements OnInit {
     ).subscribe(() => this.alertMessage = null);
 
     this.events.on('OrganisationMember:updated', (profile) => {
-      this.membership = profile;
+      this.membership.set(profile);
 
       if (profile.approved && profile.active) {
         this.alertType = 'success';

@@ -1,15 +1,15 @@
-import { Directive, OnChanges, ElementRef, OnInit, input } from '@angular/core';
+import { Directive, OnChanges, ElementRef, OnInit, input, model } from '@angular/core';
 
 @Directive({
     selector: '[CountTo]',
     standalone: true
 })
 export class CountToDirective implements OnChanges, OnInit {
-  readonly CountTo = input<number>(undefined);
+  readonly CountTo = input<number>(0);
   readonly from = input(0);
-  readonly duration = input(4);
+  readonly duration = model(4);
 
-  e = this.el.nativeElement;
+  e: any;
   num: number;
   refreshInterval = 30;
   steps: number;
@@ -17,7 +17,8 @@ export class CountToDirective implements OnChanges, OnInit {
   increment: number;
 
   constructor(private el: ElementRef) {
-
+    this.e = this.el.nativeElement;
+    
   }
 
   ngOnInit() {
@@ -31,7 +32,7 @@ export class CountToDirective implements OnChanges, OnInit {
   }
 
   calculate() {
-    this.duration = this.duration() * 1000;
+    this.duration.update(value => value * 1000);
 
     this.steps = Math.ceil(this.duration() / this.refreshInterval);
     this.increment = ((this.CountTo() - this.from()) / this.steps);

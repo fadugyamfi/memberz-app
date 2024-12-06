@@ -1,4 +1,4 @@
-import { Directive, HostBinding, input } from '@angular/core'
+import { Directive, HostBinding, input, model } from '@angular/core'
 
 @Directive({
     selector: 'img[default]',
@@ -10,11 +10,11 @@ import { Directive, HostBinding, input } from '@angular/core'
     standalone: true
 })
 export class ImagePreloadDirective {
-    readonly src = input<string>(undefined);
-    readonly default = input<string>(undefined);
+    readonly src = model<string>();
+    readonly default = input<string>();
 
     onError() {
-        this.src = this.default();
+        this.src.set(this.default());
     }
 
     load(event) {
