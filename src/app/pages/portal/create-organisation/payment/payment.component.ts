@@ -13,7 +13,6 @@ import { UpperCasePipe } from '@angular/common';
     selector: 'app-payment-step',
     templateUrl: './payment.component.html',
     styleUrls: ['./payment.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, UpperCasePipe]
 })
 export class PaymentComponent implements OnInit, AfterViewInit {

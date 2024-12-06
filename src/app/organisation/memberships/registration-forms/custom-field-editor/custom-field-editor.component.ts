@@ -11,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-custom-field-editor',
     templateUrl: './custom-field-editor.component.html',
     styleUrls: ['./custom-field-editor.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, NgbTooltipModule, UiSwitchModule, TranslateModule]
 })
 export class CustomFieldEditorComponent implements OnInit {

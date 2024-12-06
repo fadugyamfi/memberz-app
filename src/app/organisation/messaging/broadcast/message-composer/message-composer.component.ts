@@ -21,7 +21,6 @@ import { SmsTemplateTagControlComponent } from '../../../../shared/components/fo
     selector: 'app-message-composer',
     templateUrl: './message-composer.component.html',
     styleUrls: ['./message-composer.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, SmsTemplateTagControlComponent, TranslateModule]
 })
 export class MessageComposerComponent implements OnInit, OnDestroy {

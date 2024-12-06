@@ -12,7 +12,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-non-contributing-members',
     templateUrl: './non-contributing-members.component.html',
     styleUrls: ['./non-contributing-members.component.scss'],
-    standalone: true,
     imports: [SelectYearControlComponent, FormsModule, LoadingRotateDashedComponent, NoDataAvailableComponent, TranslateModule]
 })
 export class NonContributingMembersComponent implements OnInit {

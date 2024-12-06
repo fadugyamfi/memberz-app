@@ -6,7 +6,6 @@ import { SmsMessengerComponent } from '../../../shared/components/messaging/sms-
     selector: 'app-birthday',
     templateUrl: './birthday.component.html',
     styleUrls: ['./birthday.component.scss'],
-    standalone: true,
     imports: [ViewBirthdaysComponent, SmsMessengerComponent]
 })
 export class BirthdayComponent implements OnInit {

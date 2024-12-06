@@ -14,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-profile-sms-messages',
     templateUrl: './profile-sms-messages.component.html',
     styleUrls: ['./profile-sms-messages.component.scss'],
-    standalone: true,
     imports: [PaginationComponent, SmsMessengerComponent, DatePipe, TranslateModule]
 })
 export class ProfileSmsMessagesComponent implements OnInit {

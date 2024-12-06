@@ -7,7 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-list-filter',
     templateUrl: './list-filter.component.html',
     styleUrls: ['./list-filter.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class ListFilterComponent implements OnInit {

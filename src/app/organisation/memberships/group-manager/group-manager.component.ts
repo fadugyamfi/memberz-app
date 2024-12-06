@@ -10,7 +10,6 @@ import { GroupMembersComponent } from './group-members/group-members.component';
     selector: 'app-group-manager',
     templateUrl: './group-manager.component.html',
     styleUrls: ['./group-manager.component.scss'],
-    standalone: true,
     imports: [GroupTypesComponent, GroupsComponent, GroupMembersComponent]
 })
 export class GroupManagerComponent implements OnInit {

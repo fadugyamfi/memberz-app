@@ -9,7 +9,6 @@ import { TawkChatComponent } from '../../../../components/tawk-chat/tawk-chat.co
     selector: 'app-full-layout',
     templateUrl: './full-layout.component.html',
     styleUrls: ['./full-layout.component.scss'],
-    standalone: true,
     imports: [RouterOutlet, TawkChatComponent]
 })
 export class FullLayoutComponent implements OnInit {

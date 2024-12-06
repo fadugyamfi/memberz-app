@@ -19,7 +19,6 @@ interface MessagingStats {
     selector: 'app-sms-summary',
     templateUrl: './sms-summary.component.html',
     styleUrls: ['./sms-summary.component.scss'],
-    standalone: true,
     imports: [SelectYearControlComponent, FormsModule, LoadingRotateDashedComponent, NoDataAvailableComponent, NgChartsModule, TranslateModule]
 })
 export class SmsSummaryComponent implements OnInit {

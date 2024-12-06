@@ -30,7 +30,6 @@ import { TranslateModule } from '@ngx-translate/core';
             // params: { timing: 3}
             }))])
     ],
-    standalone: true,
     imports: [NgClass, HeaderComponent, OrganisationSidebarComponent, RightSidebarComponent, BreadcrumbComponent, RouterOutlet, FooterComponent, ProfileViewComponent, TawkChatComponent, TranslateModule]
 })
 export class OrganisationLayoutComponent implements OnInit, OnDestroy, AfterViewInit {

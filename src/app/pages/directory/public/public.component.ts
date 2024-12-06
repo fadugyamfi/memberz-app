@@ -18,7 +18,6 @@ import { AvatarModule } from 'ngx-avatars';
     selector: 'app-public',
     templateUrl: './public.component.html',
     styleUrls: ['./public.component.scss'],
-    standalone: true,
     imports: [AvatarModule, PaginationComponent, AsyncPipe]
 })
 export class PublicComponent implements OnInit {

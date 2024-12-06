@@ -24,7 +24,6 @@ import { MemberControlComponent } from '../../../shared/components/forms/member-
     selector: 'app-admin-accounts',
     templateUrl: './admin-accounts.component.html',
     styleUrls: ['./admin-accounts.component.scss'],
-    standalone: true,
     imports: [AvatarModule, ViewProfileDirective, PaginationComponent, FormsModule, ReactiveFormsModule, ImagePreloadDirective, MemberControlComponent, TranslateModule]
 })
 export class AdminAccountsComponent implements OnInit, OnDestroy {

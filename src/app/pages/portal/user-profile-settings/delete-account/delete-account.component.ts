@@ -10,7 +10,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-delete-account',
     templateUrl: './delete-account.component.html',
     styleUrls: ['./delete-account.component.scss'],
-    standalone: true,
     imports: [TranslateModule]
 })
 export class DeleteAccountComponent implements OnInit {

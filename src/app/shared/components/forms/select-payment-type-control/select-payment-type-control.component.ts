@@ -17,7 +17,6 @@ export const PAYMENT_TYPE_CONTROL_ACCESSOR: any = {
     templateUrl: './select-payment-type-control.component.html',
     styleUrls: ['./select-payment-type-control.component.scss'],
     providers: [PAYMENT_TYPE_CONTROL_ACCESSOR],
-    standalone: true,
     imports: [FormsModule, TranslateModule]
 })
 export class SelectPaymentTypeControlComponent implements OnInit, OnDestroy {

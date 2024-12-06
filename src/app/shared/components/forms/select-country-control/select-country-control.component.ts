@@ -17,7 +17,6 @@ export const COUNTRY_CONTROL_ACCESSOR: any = {
     templateUrl: './select-country-control.component.html',
     styleUrls: ['./select-country-control.component.scss'],
     providers: [COUNTRY_CONTROL_ACCESSOR],
-    standalone: true,
     imports: [FormsModule, TranslateModule]
 })
 export class SelectCountryControlComponent implements OnInit, OnDestroy {

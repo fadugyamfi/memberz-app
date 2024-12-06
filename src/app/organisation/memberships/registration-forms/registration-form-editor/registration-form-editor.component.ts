@@ -17,7 +17,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-registration-form-editor',
     templateUrl: './registration-form-editor.component.html',
     styleUrls: ['./registration-form-editor.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, NgbTooltipModule, NgClass, CustomFieldEditorComponent, TranslateModule]
 })
 export class RegistrationFormEditorComponent implements OnInit, OnDestroy {

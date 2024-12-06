@@ -18,7 +18,6 @@ import { OrganisationInvoiceService } from '../../../shared/services/api/organis
     selector: 'app-purchase-credits',
     templateUrl: './purchase-credits.component.html',
     styleUrls: ['./purchase-credits.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, DecimalPipe, CurrencyPipe, TranslateModule]
 })
 export class PurchaseCreditsComponent implements OnInit, OnDestroy {

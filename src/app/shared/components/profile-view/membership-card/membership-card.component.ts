@@ -12,7 +12,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-membership-card',
     templateUrl: './membership-card.component.html',
     styleUrls: ['./membership-card.component.scss'],
-    standalone: true,
     imports: [AvatarModule, QrCodeModule, UpperCasePipe, DatePipe, TranslateModule]
 })
 export class MembershipCardComponent implements OnInit {

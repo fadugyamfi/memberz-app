@@ -18,7 +18,6 @@ import { LoadingRotateDashedComponent } from '../../../shared/components/forms/l
     selector: 'app-sessions',
     templateUrl: './sessions.component.html',
     styleUrls: ['./sessions.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, LoadingRotateDashedComponent, DatePipe, TranslateModule]
 })
 export class SessionsComponent implements OnInit, OnDestroy {

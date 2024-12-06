@@ -15,7 +15,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-user-details-edit',
     templateUrl: './user-details-edit.component.html',
     styleUrls: ['./user-details-edit.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TranslateModule]
 })
 export class UserDetailsEditComponent implements OnInit, OnDestroy {

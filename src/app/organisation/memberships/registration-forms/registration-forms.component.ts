@@ -16,7 +16,6 @@ import { LoadingRotateDashedComponent } from '../../../shared/components/forms/l
     selector: 'app-registration-forms',
     templateUrl: './registration-forms.component.html',
     styleUrls: ['./registration-forms.component.scss'],
-    standalone: true,
     imports: [LoadingRotateDashedComponent, RouterLink, PaginationComponent, DecimalPipe, DatePipe, TranslateModule]
 })
 export class RegistrationFormsComponent implements OnInit {

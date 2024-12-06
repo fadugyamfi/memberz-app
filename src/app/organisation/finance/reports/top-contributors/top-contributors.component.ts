@@ -17,7 +17,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-top-contributors',
     templateUrl: './top-contributors.component.html',
     styleUrls: ['./top-contributors.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, SelectYearControlComponent, SelectCurrencyControlComponent, NgxPrintDirective, LoadingRotateDashedComponent, NoDataAvailableComponent, ViewProfileDirective, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class TopContributorsComponent implements OnInit {

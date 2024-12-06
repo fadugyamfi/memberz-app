@@ -18,7 +18,6 @@ import { ViewProfileDirective } from '../../../shared/directives/view-profile.di
     selector: 'app-pending-approvals',
     templateUrl: './pending-approvals.component.html',
     styleUrls: ['./pending-approvals.component.scss'],
-    standalone: true,
     imports: [NgbDropdownModule, ViewProfileDirective, PaginationComponent, TranslateModule]
 })
 export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestroy {

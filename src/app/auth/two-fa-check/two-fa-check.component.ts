@@ -17,7 +17,6 @@ type FormErrors = { [u in Field]: string };
     selector: 'app-two-fa-check',
     templateUrl: './two-fa-check.component.html',
     styleUrls: ['./two-fa-check.component.scss'],
-    standalone: true,
     imports: [RouterLink, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TawkChatComponent, TranslateModule]
 })
 export class TwoFaCheckComponent implements OnInit {

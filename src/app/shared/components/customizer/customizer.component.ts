@@ -9,7 +9,6 @@ import { NgClass } from '@angular/common';
     selector: 'app-customizer',
     templateUrl: './customizer.component.html',
     styleUrls: ['./customizer.component.scss'],
-    standalone: true,
     imports: [NgClass]
 })
 export class CustomizerComponent implements OnInit {

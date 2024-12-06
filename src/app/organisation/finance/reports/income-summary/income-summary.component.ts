@@ -17,7 +17,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-income-summary',
     templateUrl: './income-summary.component.html',
     styleUrls: ['./income-summary.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, SelectCurrencyControlComponent, NgxPrintDirective, LoadingRotateDashedComponent, NoDataAvailableComponent, CurrencyPipe, TranslateModule]
 })
 export class IncomeSummaryComponent implements OnInit {

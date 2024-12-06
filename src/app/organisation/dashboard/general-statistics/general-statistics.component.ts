@@ -19,7 +19,6 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './general-statistics.component.html',
     styleUrls: ['./general-statistics.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
     imports: [NgClass, FeatherIconsComponent, CountToDirective, ChartistModule, AsyncPipe, TranslateModule]
 })
 export class GeneralStatisticsComponent implements OnInit {

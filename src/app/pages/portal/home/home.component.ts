@@ -23,7 +23,6 @@ import { OrganisationEditorComponent } from './organisation-editor/organisation-
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
-    standalone: true,
     imports: [AvatarModule, NgClass, PaginationComponent, OrganisationEditorComponent, DecimalPipe, TranslateModule]
 })
 export class HomeComponent implements OnInit, OnDestroy {

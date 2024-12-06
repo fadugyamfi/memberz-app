@@ -22,7 +22,6 @@ export const ORGANISATION_CONTROL_ACCESSOR: any = {
     templateUrl: './organisation-control.component.html',
     styleUrls: ['./organisation-control.component.scss'],
     providers: [ORGANISATION_CONTROL_ACCESSOR],
-    standalone: true,
     imports: [ImagePreloadDirective, NgbTypeaheadModule, AvatarModule]
 })
 export class OrganisationControlComponent {

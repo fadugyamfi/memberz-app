@@ -12,7 +12,6 @@ import { ViewProfileDirective } from '../../../shared/directives/view-profile.di
     selector: 'app-broadcast-list-preview',
     templateUrl: './broadcast-list-preview.component.html',
     styleUrls: ['./broadcast-list-preview.component.scss'],
-    standalone: true,
     imports: [RouterLink, ViewProfileDirective, TitleCasePipe, DatePipe, TranslateModule]
 })
 export class BroadcastListPreviewComponent implements OnInit, OnDestroy {

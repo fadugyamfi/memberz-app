@@ -7,7 +7,6 @@ import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
     selector: 'about-carousel',
     templateUrl: './carousel.component.html',
     styleUrls: ['./carousel.component.scss'],
-    standalone: true,
     imports: [RouterLink, NgbCarouselModule]
 })
 export class CarouselComponent implements OnInit {

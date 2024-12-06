@@ -8,7 +8,6 @@ import { DeleteAccountComponent } from './delete-account/delete-account.componen
     selector: 'app-user-profile',
     templateUrl: './user-profile.component.html',
     styleUrls: ['./user-profile.component.scss'],
-    standalone: true,
     imports: [UserDetailsEditComponent, TimezoneEditComponent, TwofaEnableComponent, DeleteAccountComponent]
 })
 export class UserProfileComponent implements OnInit {

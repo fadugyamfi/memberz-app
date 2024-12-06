@@ -14,7 +14,6 @@ import { RouterLink } from '@angular/router';
     selector: 'app-group-members',
     templateUrl: './group-members.component.html',
     styleUrls: ['./group-members.component.scss'],
-    standalone: true,
     imports: [LoadingRotateDashedComponent, RouterLink, PaginationComponent, TranslateModule]
 })
 export class GroupMembersComponent implements OnInit, OnDestroy {

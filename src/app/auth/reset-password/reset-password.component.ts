@@ -16,15 +16,14 @@ type FormErrors = { [u in UserFields]: string };
     selector: "app-reset-password",
     templateUrl: "./reset-password.component.html",
     styleUrls: ["./reset-password.component.scss"],
-    standalone: true,
     imports: [
-    RouterLink,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxIntlTelInputModule,
-    TawkChatComponent,
-    TranslateModule
-],
+        RouterLink,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxIntlTelInputModule,
+        TawkChatComponent,
+        TranslateModule
+    ]
 })
 export class ResetPasswordComponent implements OnInit, OnDestroy {
 

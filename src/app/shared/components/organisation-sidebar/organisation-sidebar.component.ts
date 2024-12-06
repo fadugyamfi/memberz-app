@@ -20,7 +20,6 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './organisation-sidebar.component.html',
     styleUrls: ['./organisation-sidebar.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [AvatarModule, ImageCropperComponent, NgClass, AdminHasPermissionDirective, FeatherIconsComponent, RouterLinkActive, RouterLink, TranslateModule]
 })
 export class OrganisationSidebarComponent implements OnInit {

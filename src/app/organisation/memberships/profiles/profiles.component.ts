@@ -28,7 +28,6 @@ import { ProfileImageComponent } from '../../../shared/components/profile-view/p
     templateUrl: './profiles.component.html',
     styleUrls: ['./profiles.component.scss'],
     providers: [NgbDropdownConfig],
-    standalone: true,
     imports: [NgbDropdownModule, NgClass, PrintContentDirective, MembershipCardComponent, ProfileImageComponent, NgbTooltipModule, PaginationComponent, FormsModule, ReactiveFormsModule, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {

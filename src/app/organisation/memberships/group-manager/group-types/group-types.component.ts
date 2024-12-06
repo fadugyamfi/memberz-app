@@ -17,7 +17,6 @@ import { NoDataAvailableComponent } from '../../../../shared/components/forms/no
     selector: 'app-group-types',
     templateUrl: './group-types.component.html',
     styleUrls: ['./group-types.component.scss'],
-    standalone: true,
     imports: [LoadingRotateDashedComponent, NoDataAvailableComponent, NgClass, FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class GroupTypesComponent implements OnInit, OnDestroy {

@@ -19,18 +19,17 @@ import { MemberControlComponent } from '../../../shared/components/forms/member-
     selector: 'app-branch-list',
     templateUrl: './branch-list.component.html',
     styleUrl: './branch-list.component.scss',
-    standalone: true,
     imports: [
-    ProfileImageComponent,
-    LoadingRotateDashedComponent,
-    PaginationComponent,
-    FormsModule,
-    ReactiveFormsModule,
-    OrganisationControlComponent,
-    MemberControlComponent,
-    AsyncPipe,
-    TranslateModule
-]
+        ProfileImageComponent,
+        LoadingRotateDashedComponent,
+        PaginationComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        OrganisationControlComponent,
+        MemberControlComponent,
+        AsyncPipe,
+        TranslateModule
+    ]
 })
 export class BranchListComponent {
 

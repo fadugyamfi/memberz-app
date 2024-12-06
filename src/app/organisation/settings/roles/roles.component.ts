@@ -15,7 +15,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-roles',
     templateUrl: './roles.component.html',
     styleUrls: ['./roles.component.scss'],
-    standalone: true,
     imports: [PaginationComponent, FormsModule, ReactiveFormsModule, PermissionsComponent, TranslateModule]
 })
 export class RolesComponent implements OnInit, OnDestroy {

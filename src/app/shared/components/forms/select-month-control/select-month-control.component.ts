@@ -15,7 +15,6 @@ export const MONTH_CONTROL_ACCESSOR: any = {
     templateUrl: './select-month-control.component.html',
     styleUrls: ['./select-month-control.component.scss'],
     providers: [MONTH_CONTROL_ACCESSOR],
-    standalone: true,
     imports: [FormsModule, SlicePipe, TranslateModule]
 })
 export class SelectMonthControlComponent implements OnInit {

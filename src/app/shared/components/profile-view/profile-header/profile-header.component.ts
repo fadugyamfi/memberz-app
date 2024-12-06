@@ -16,7 +16,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-profile-header',
     templateUrl: './profile-header.component.html',
     styleUrls: ['./profile-header.component.scss'],
-    standalone: true,
     imports: [AvatarModule, NgbProgressbarModule, ImageCropperComponent, QrCodeModule, ProfileActionsComponent, TranslateModule]
 })
 export class ProfileHeaderComponent implements OnInit {

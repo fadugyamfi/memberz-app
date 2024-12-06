@@ -35,7 +35,6 @@ import { UiSwitchModule } from 'ngx-ui-switch';
             ]),
         ]),
     ],
-    standalone: true,
     imports: [AdminHasPermissionDirective, PaginationComponent, FormsModule, ReactiveFormsModule, UiSwitchModule, TranslateModule]
 })
 export class CategoriesComponent implements OnInit, OnDestroy {

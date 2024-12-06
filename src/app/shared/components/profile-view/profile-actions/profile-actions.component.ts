@@ -15,7 +15,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-profile-actions',
     templateUrl: './profile-actions.component.html',
     styleUrls: ['./profile-actions.component.scss'],
-    standalone: true,
     imports: [NgbAlertModule, MakeAdminComponent, MembershipCardModalComponent, TranslateModule]
 })
 export class ProfileActionsComponent implements OnInit {

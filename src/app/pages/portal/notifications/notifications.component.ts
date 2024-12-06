@@ -16,7 +16,6 @@ import { NgClass } from '@angular/common';
     selector: 'app-notifications',
     templateUrl: './notifications.component.html',
     styleUrls: ['./notifications.component.scss'],
-    standalone: true,
     imports: [NgClass, PaginationComponent, TranslateModule]
 })
 export class NotificationsComponent implements OnInit, OnDestroy {

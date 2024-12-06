@@ -13,7 +13,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-subscription-status',
     templateUrl: './subscription-status.component.html',
     styleUrls: ['./subscription-status.component.scss'],
-    standalone: true,
     imports: [TranslateModule]
 })
 export class SubscriptionStatusComponent implements OnInit, OnDestroy {

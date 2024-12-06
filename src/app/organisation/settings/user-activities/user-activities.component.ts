@@ -19,14 +19,13 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-user-activities',
     templateUrl: './user-activities.component.html',
     styleUrls: ['./user-activities.component.scss'],
-    standalone: true,
     imports: [
-    PaginationComponent,
-    FormsModule,
-    ReactiveFormsModule,
-    TitleCasePipe,
-    TranslateModule
-],
+        PaginationComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        TitleCasePipe,
+        TranslateModule
+    ]
 })
 export class UserActivitiesComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchModal', { static: true }) searchModal: any;

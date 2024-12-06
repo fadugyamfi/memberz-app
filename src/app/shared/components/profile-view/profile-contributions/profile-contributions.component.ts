@@ -12,7 +12,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-profile-contributions',
     templateUrl: './profile-contributions.component.html',
     styleUrls: ['./profile-contributions.component.scss'],
-    standalone: true,
     imports: [PaginationComponent, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class ProfileContributionsComponent implements OnInit, OnDestroy {

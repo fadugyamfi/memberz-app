@@ -15,7 +15,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-profile-step',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, RouterLink, TranslateModule]
 })
 export class ProfileComponent implements OnInit {

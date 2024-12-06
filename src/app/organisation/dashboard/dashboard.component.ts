@@ -17,7 +17,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
-    standalone: true,
     imports: [GeneralStatisticsComponent, MembershipOverviewComponent, LoadingRotateDashedComponent, AvatarModule, ViewProfileDirective, RouterLink, SmsSummaryComponent, FinanceTrendComponent, AsyncPipe, DatePipe, TranslateModule]
 })
 export class DashboardComponent implements OnInit, OnDestroy {

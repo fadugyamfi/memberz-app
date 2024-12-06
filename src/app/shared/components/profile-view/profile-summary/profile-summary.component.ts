@@ -7,7 +7,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-profile-summary',
     templateUrl: './profile-summary.component.html',
     styleUrls: ['./profile-summary.component.scss'],
-    standalone: true,
     imports: [TitleCasePipe, DatePipe, TranslateModule]
 })
 export class ProfileSummaryComponent implements OnInit {

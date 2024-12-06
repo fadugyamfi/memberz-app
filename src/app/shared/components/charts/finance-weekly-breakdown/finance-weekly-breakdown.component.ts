@@ -14,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-finance-weekly-breakdown',
     templateUrl: './finance-weekly-breakdown.component.html',
     styleUrls: ['./finance-weekly-breakdown.component.scss'],
-    standalone: true,
     imports: [SelectYearControlComponent, FormsModule, SelectMonthControlComponent, LoadingRotateDashedComponent, NoDataAvailableComponent, NgChartsModule, TranslateModule]
 })
 export class FinanceWeeklyBreakdownComponent implements OnInit {

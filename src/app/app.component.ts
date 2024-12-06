@@ -6,9 +6,10 @@ import { OrganisationService } from './shared/services/api/organisation.service'
 import { SystemThemeService } from './shared/services/system-theme.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit {
   title = 'Memberz.Org';

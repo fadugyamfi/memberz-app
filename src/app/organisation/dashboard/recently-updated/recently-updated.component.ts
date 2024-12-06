@@ -11,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-recently-updated',
     templateUrl: './recently-updated.component.html',
     styleUrls: ['./recently-updated.component.scss'],
-    standalone: true,
     imports: [ViewProfileDirective, AvatarModule, AsyncPipe, TranslateModule]
 })
 export class RecentlyUpdatedComponent implements OnInit {

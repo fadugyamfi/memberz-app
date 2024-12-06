@@ -6,7 +6,6 @@ import { FooterComponent } from '../../about/footer/footer.component';
     selector: 'app-data-use-policy',
     templateUrl: './data-use-policy.component.html',
     styleUrls: ['./data-use-policy.component.scss'],
-    standalone: true,
     imports: [HeaderComponent, FooterComponent]
 })
 export class DataUsePolicyComponent implements OnInit {

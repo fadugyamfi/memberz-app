@@ -18,7 +18,6 @@ export const BANK_CONTROL_ACCESSOR: any = {
     templateUrl: './select-bank-control.component.html',
     styleUrls: ['./select-bank-control.component.scss'],
     providers: [BANK_CONTROL_ACCESSOR],
-    standalone: true,
     imports: [FormsModule, TranslateModule]
 })
 export class SelectBankControlComponent implements OnInit, OnDestroy {

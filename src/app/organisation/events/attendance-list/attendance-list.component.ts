@@ -20,7 +20,6 @@ import { ProfileImageComponent } from '../../../shared/components/profile-view/p
     selector: 'app-attendance-list',
     templateUrl: './attendance-list.component.html',
     styleUrls: ['./attendance-list.component.scss'],
-    standalone: true,
     imports: [RouterLink, NgxPrintDirective, LoadingRotateDashedComponent, ViewProfileDirective, ProfileImageComponent, UpperCasePipe, TranslateModule]
 })
 export class AttendanceListComponent implements OnInit, OnDestroy {

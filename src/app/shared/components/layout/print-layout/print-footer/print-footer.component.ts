@@ -8,7 +8,6 @@ import { TitleCasePipe } from '@angular/common';
     selector: 'app-print-footer',
     templateUrl: './print-footer.component.html',
     styleUrls: ['./print-footer.component.scss'],
-    standalone: true,
     imports: [TitleCasePipe]
 })
 export class PrintFooterComponent implements OnInit {

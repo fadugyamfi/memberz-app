@@ -6,7 +6,6 @@ import { FooterComponent } from '../../about/footer/footer.component';
     selector: 'app-terms-and-conditions',
     templateUrl: './terms-and-conditions.component.html',
     styleUrls: ['./terms-and-conditions.component.scss'],
-    standalone: true,
     imports: [HeaderComponent, FooterComponent]
 })
 export class TermsAndConditionsComponent implements OnInit {

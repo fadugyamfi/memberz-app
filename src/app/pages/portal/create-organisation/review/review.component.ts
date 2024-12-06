@@ -11,7 +11,6 @@ import { TitleCasePipe } from '@angular/common';
     selector: 'app-review-step',
     templateUrl: './review.component.html',
     styleUrls: ['./review.component.scss'],
-    standalone: true,
     imports: [FormsModule, NgxIntlTelInputModule, TitleCasePipe]
 })
 export class ReviewComponent implements OnInit {

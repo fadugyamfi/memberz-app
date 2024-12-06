@@ -9,7 +9,6 @@ import { RouterLink } from '@angular/router';
     selector: 'app-right-sidebar',
     templateUrl: './right-sidebar.component.html',
     styleUrls: ['./right-sidebar.component.scss'],
-    standalone: true,
     imports: [FormsModule, RouterLink, NgClass]
 })
 export class RightSidebarComponent implements OnInit {

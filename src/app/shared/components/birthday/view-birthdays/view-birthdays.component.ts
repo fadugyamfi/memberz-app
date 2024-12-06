@@ -26,7 +26,6 @@ import { LoadingRotateDashedComponent } from '../../forms/loading-rotate-dashed/
     selector: 'app-view-birthdays',
     templateUrl: './view-birthdays.component.html',
     styleUrls: ['./view-birthdays.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, SelectMonthControlComponent, SelectMembershipCategoryControlComponent, NgbDropdownModule, NgxPrintDirective, NoDataAvailableComponent, ViewProfileDirective, ProfileImageComponent, PaginationComponent, LoadingRotateDashedComponent, AsyncPipe, DatePipe, TranslateModule]
 })
 export class ViewBirthdaysComponent implements OnInit {

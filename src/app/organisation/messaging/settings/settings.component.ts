@@ -14,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-settings',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, SmsSummaryComponent, SmsTransactionHistoryComponent, DecimalPipe, TranslateModule]
 })
 export class SettingsComponent implements OnInit {

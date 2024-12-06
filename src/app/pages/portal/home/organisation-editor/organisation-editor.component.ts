@@ -37,7 +37,6 @@ export class CustomValidators {
     selector: 'app-organisation-editor-modal',
     templateUrl: './organisation-editor.component.html',
     styleUrls: ['./organisation-editor.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TitleCasePipe, TranslateModule]
 })
 export class OrganisationEditorComponent implements OnInit, OnDestroy {

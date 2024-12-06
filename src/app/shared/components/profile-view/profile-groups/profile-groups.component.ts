@@ -15,7 +15,6 @@ import { OrganisationGroupType } from '../../../../shared/model/api/organisation
     selector: 'app-profile-groups',
     templateUrl: './profile-groups.component.html',
     styleUrls: ['./profile-groups.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class ProfileGroupsComponent implements OnInit, OnDestroy {

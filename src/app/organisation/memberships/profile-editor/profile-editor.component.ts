@@ -18,7 +18,6 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
     selector: 'app-profile-editor',
     templateUrl: './profile-editor.component.html',
     styleUrls: ['./profile-editor.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class ProfileEditorComponent implements OnInit, OnDestroy {

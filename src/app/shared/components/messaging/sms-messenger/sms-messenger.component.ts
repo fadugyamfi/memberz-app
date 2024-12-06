@@ -20,7 +20,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-sms-messenger',
     templateUrl: './sms-messenger.component.html',
     styleUrls: ['./sms-messenger.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, MemberControlComponent, AvatarModule, TranslateModule]
 })
 export class SmsMessengerComponent implements OnInit {

@@ -21,15 +21,14 @@ type FormErrors = { [u in UserFields]: string };
     selector: "app-register",
     templateUrl: "./register.component.html",
     styleUrls: ["./register.component.scss"],
-    standalone: true,
     imports: [
-    RouterLink,
-    FormsModule,
-    ReactiveFormsModule,
-    NgxIntlTelInputModule,
-    TawkChatComponent,
-    TranslateModule
-],
+        RouterLink,
+        FormsModule,
+        ReactiveFormsModule,
+        NgxIntlTelInputModule,
+        TawkChatComponent,
+        TranslateModule
+    ]
 })
 export class RegisterComponent implements OnInit {
   public registerForm: UntypedFormGroup;

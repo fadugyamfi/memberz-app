@@ -26,7 +26,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-record-attendance',
     templateUrl: './record-attendance.component.html',
     styleUrls: ['./record-attendance.component.scss'],
-    standalone: true,
     imports: [RouterLink, FormsModule, ReactiveFormsModule, LoadingRotateDashedComponent, AvatarModule, ViewProfileDirective, MarkComponent, PaginationComponent, TranslateModule]
 })
 export class RecordAttendanceComponent implements OnInit {

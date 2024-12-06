@@ -14,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-timezone-edit',
     templateUrl: './timezone-edit.component.html',
     styleUrls: ['./timezone-edit.component.scss'],
-    standalone: true,
     imports: [MomentTimezonePickerModule, FormsModule, NgxIntlTelInputModule, TranslateModule]
 })
 export class TimezoneEditComponent implements OnInit {

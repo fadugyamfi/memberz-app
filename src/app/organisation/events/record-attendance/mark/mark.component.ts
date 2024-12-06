@@ -11,7 +11,6 @@ import { EventsService } from '../../../../shared/services/events.service';
     selector: 'app-attendance-mark',
     templateUrl: './mark.component.html',
     styleUrls: ['./mark.component.scss'],
-    standalone: true,
     imports: []
 })
 export class MarkComponent implements OnInit, OnDestroy {

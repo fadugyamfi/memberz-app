@@ -18,7 +18,6 @@ import { EventsService } from '../../../services/events.service';
     selector: 'app-profile-editor',
     templateUrl: './profile-editor.component.html',
     styleUrls: ['./profile-editor.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class ProfileEditorComponent implements OnInit, OnDestroy {

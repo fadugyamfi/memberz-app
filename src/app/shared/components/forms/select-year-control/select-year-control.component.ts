@@ -16,7 +16,6 @@ export const YEAR_CONTROL_ACCESSOR: any = {
     templateUrl: './select-year-control.component.html',
     styleUrls: ['./select-year-control.component.scss'],
     providers: [YEAR_CONTROL_ACCESSOR],
-    standalone: true,
     imports: [FormsModule, TranslateModule]
 })
 export class SelectYearControlComponent implements OnInit, OnDestroy {

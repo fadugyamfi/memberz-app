@@ -11,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-membership-card-modal',
     templateUrl: './membership-card-modal.component.html',
     styleUrls: ['./membership-card-modal.component.scss'],
-    standalone: true,
     imports: [MembershipCardComponent, NgxPrintDirective, TranslateModule]
 })
 export class MembershipCardModalComponent implements OnInit {

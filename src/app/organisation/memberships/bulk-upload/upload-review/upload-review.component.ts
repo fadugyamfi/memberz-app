@@ -13,7 +13,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-upload-review',
     templateUrl: './upload-review.component.html',
     styleUrls: ['./upload-review.component.scss'],
-    standalone: true,
     imports: [RouterLink, PaginationComponent, TranslateModule]
 })
 export class UploadReviewComponent implements OnInit, OnDestroy {

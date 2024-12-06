@@ -11,7 +11,6 @@ import { PrintFooterComponent } from './print-footer/print-footer.component';
     selector: 'app-print-layout',
     templateUrl: './print-layout.component.html',
     styleUrls: ['./print-layout.component.scss'],
-    standalone: true,
     imports: [PrintHeaderComponent, RouterOutlet, LoadingRotateDashedComponent, TitleComponent, PrintFooterComponent, TitleCasePipe]
 })
 export class PrintLayoutComponent implements OnInit {

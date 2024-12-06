@@ -19,7 +19,6 @@ import { SelectCountryControlComponent } from '../../../shared/components/forms/
     selector: 'app-payment-platforms',
     templateUrl: './payment-platforms.component.html',
     styleUrls: ['./payment-platforms.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, SelectCurrencyControlComponent, SelectCountryControlComponent, TitleCasePipe, TranslateModule]
 })
 export class PaymentPlatformsComponent implements OnInit, OnDestroy {

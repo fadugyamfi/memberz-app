@@ -16,7 +16,6 @@ import { UiSwitchModule } from 'ngx-ui-switch';
     selector: 'app-receipts',
     templateUrl: './receipts.component.html',
     styleUrls: ['./receipts.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, TranslateModule]
 })
 export class ReceiptsComponent implements OnInit, OnDestroy {

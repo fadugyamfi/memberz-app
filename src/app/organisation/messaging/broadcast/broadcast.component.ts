@@ -7,7 +7,6 @@ import { BroadcastHistoryViewComponent } from './broadcast-history-view/broadcas
     selector: 'app-broadcast',
     templateUrl: './broadcast.component.html',
     styleUrls: ['./broadcast.component.scss'],
-    standalone: true,
     imports: [MessageComposerComponent, BroadcastHistoryViewComponent]
 })
 export class BroadcastComponent implements OnInit {

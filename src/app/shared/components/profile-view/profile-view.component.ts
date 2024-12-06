@@ -24,7 +24,6 @@ import { ProfileEditorComponent } from './profile-editor/profile-editor.componen
     selector: 'app-profile-view',
     templateUrl: './profile-view.component.html',
     styleUrls: ['./profile-view.component.scss'],
-    standalone: true,
     imports: [ProfileHeaderComponent, ProfileSidebarComponent, NgClass, ProfileActionsComponent, NgbNavModule, ProfileSummaryComponent, ProfileGroupsComponent, ProfileFamilyComponent, ProfileAnniversariesComponent, ProfileSmsMessagesComponent, ProfileContributionsComponent, ProfileEditorComponent, TranslateModule]
 })
 export class ProfileViewComponent implements OnInit, OnDestroy {

@@ -19,7 +19,6 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
     selector: 'app-invoice-payment',
     templateUrl: './invoice-payment.component.html',
     styleUrls: ['./invoice-payment.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, Angular4PaystackModule, TranslateModule]
 })
 export class InvoicePaymentComponent implements OnInit {

@@ -16,7 +16,6 @@ import { DatePipe } from '@angular/common';
     selector: 'app-profile-anniversaries',
     templateUrl: './profile-anniversaries.component.html',
     styleUrls: ['./profile-anniversaries.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, DatePipe, TranslateModule]
 })
 export class ProfileAnniversariesComponent implements OnInit, OnDestroy {

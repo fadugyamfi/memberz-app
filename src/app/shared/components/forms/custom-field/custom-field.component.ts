@@ -24,12 +24,11 @@ export interface CustomFieldConfig {
 }
 
 @Component({
-  standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, TranslateModule],
-  selector: 'app-custom-field',
-  templateUrl: './custom-field.component.html',
-  styleUrls: ['./custom-field.component.scss'],
-  providers: [CUSTOMFIELD_CONTROL_ACCESSOR]
+    imports: [FormsModule, ReactiveFormsModule, TranslateModule],
+    selector: 'app-custom-field',
+    templateUrl: './custom-field.component.html',
+    styleUrls: ['./custom-field.component.scss'],
+    providers: [CUSTOMFIELD_CONTROL_ACCESSOR]
 })
 export class CustomFieldComponent implements OnInit {
 

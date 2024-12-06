@@ -14,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-subscription',
     templateUrl: './subscription.component.html',
     styleUrls: ['./subscription.component.scss'],
-    standalone: true,
     imports: [SubscriptionStatusComponent, RouterLink, PaginationComponent, InvoiceComponent, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class SubscriptionComponent implements OnInit, OnDestroy {

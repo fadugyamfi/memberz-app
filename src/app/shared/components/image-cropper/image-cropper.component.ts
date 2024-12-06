@@ -8,7 +8,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-image-cropper',
     templateUrl: './image-cropper.component.html',
     styleUrls: ['./image-cropper.component.scss'],
-    standalone: true,
     imports: [ImageCropperModule, TranslateModule]
 })
 export class ImageCropperComponent implements OnInit {

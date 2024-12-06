@@ -17,7 +17,6 @@ import { TranslateModule } from '@ngx-translate/core';
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [AvatarModule, ImageCropperComponent, NgbProgressbarModule, NgClass, FeatherIconsComponent, RouterLinkActive, RouterLink, TranslateModule]
 })
 export class SidebarComponent implements OnInit, OnDestroy {

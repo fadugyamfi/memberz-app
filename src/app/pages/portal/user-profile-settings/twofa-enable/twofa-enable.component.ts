@@ -16,7 +16,6 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
     selector: 'app-twofa-enable',
     templateUrl: './twofa-enable.component.html',
     styleUrls: ['./twofa-enable.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TranslateModule]
 })
 export class TwofaEnableComponent implements OnInit {

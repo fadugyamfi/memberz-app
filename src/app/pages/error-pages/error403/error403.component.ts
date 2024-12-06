@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
     selector: 'app-error403',
     templateUrl: './error403.component.html',
     styleUrls: ['./error403.component.scss'],
-    standalone: true,
     imports: [RouterLink]
 })
 export class Error403Component implements OnInit {

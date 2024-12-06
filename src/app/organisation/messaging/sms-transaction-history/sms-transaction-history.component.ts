@@ -13,7 +13,6 @@ import { InvoiceComponent } from '../../../shared/components/invoice/invoice.com
     selector: 'app-sms-transaction-history',
     templateUrl: './sms-transaction-history.component.html',
     styleUrls: ['./sms-transaction-history.component.scss'],
-    standalone: true,
     imports: [PaginationComponent, InvoiceComponent, DecimalPipe, CurrencyPipe, TranslateModule]
 })
 export class SmsTransactionHistoryComponent implements OnInit {

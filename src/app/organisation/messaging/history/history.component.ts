@@ -22,7 +22,6 @@ import { SmsMessengerComponent } from '../../../shared/components/messaging/sms-
     templateUrl: './history.component.html',
     styleUrls: ['./history.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: true,
     imports: [NgClass, AvatarModule, ViewProfileDirective, PaginationComponent, FormsModule, ReactiveFormsModule, MemberControlComponent, SmsMessengerComponent, DatePipe, TranslateModule]
 })
 export class HistoryComponent implements OnInit {

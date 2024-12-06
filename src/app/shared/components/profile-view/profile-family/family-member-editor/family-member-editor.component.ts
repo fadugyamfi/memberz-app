@@ -26,7 +26,6 @@ interface RelationEditorOptions {
     selector: 'app-family-member-editor',
     templateUrl: './family-member-editor.component.html',
     styleUrls: ['./family-member-editor.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, MemberControlComponent, TranslateModule]
 })
 export class FamilyMemberEditorComponent implements OnInit, OnDestroy {

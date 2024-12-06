@@ -17,7 +17,6 @@ export const CURRENCY_CONTROL_ACCESSOR: any = {
     templateUrl: './select-currency-control.component.html',
     styleUrls: ['./select-currency-control.component.scss'],
     providers: [CURRENCY_CONTROL_ACCESSOR],
-    standalone: true,
     imports: [FormsModule, TranslateModule]
 })
 export class SelectCurrencyControlComponent implements OnInit, OnDestroy {

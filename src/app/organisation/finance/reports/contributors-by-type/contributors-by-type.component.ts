@@ -21,7 +21,6 @@ import { ViewProfileDirective } from '../../../../shared/directives/view-profile
     selector: 'app-contributors-by-type',
     templateUrl: './contributors-by-type.component.html',
     styleUrls: ['./contributors-by-type.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, SelectContributionTypeControlComponent, SelectCurrencyControlComponent, NgxPrintDirective, LoadingRotateDashedComponent, NoDataAvailableComponent, ViewProfileDirective, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class ContributorsByTypeComponent implements OnInit {

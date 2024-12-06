@@ -31,7 +31,6 @@ import { SelectCurrencyControlComponent } from '../../../../shared/components/fo
     selector: 'app-income-editor',
     templateUrl: './income-editor.component.html',
     styleUrls: ['./income-editor.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, RouterLink, MemberControlComponent, SelectPaymentTypeControlComponent, SelectBankControlComponent, SelectMonthControlComponent, SelectYearControlComponent, SelectCurrencyControlComponent, CurrencyPipe, KeyValuePipe, TranslateModule]
 })
 export class IncomeEditorComponent implements OnInit, OnDestroy {

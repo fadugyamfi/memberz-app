@@ -29,7 +29,6 @@ import { TawkChatComponent } from "../../../../components/tawk-chat/tawk-chat.co
             })),
         ]),
     ],
-    standalone: true,
     imports: [
         NgClass,
         HeaderComponent,
@@ -40,7 +39,7 @@ import { TawkChatComponent } from "../../../../components/tawk-chat/tawk-chat.co
         FooterComponent,
         CustomizerComponent,
         TawkChatComponent,
-    ],
+    ]
 })
 export class ContentLayoutComponent implements OnInit, AfterViewInit {
   public right_side_bar: boolean;

@@ -24,7 +24,6 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     selector: 'app-event-list',
     templateUrl: './event-list.component.html',
     styleUrls: ['./event-list.component.scss'],
-    standalone: true,
     imports: [AdminHasPermissionDirective, LoadingRotateDashedComponent, NgbDropdownModule, RouterLink, PaginationComponent, FormsModule, ReactiveFormsModule, UiSwitchModule, EditorModule, SessionsComponent, TranslateModule]
 })
 export class EventListComponent implements OnInit {

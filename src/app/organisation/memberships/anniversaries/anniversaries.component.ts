@@ -36,10 +36,9 @@ import { SmsTemplateTagControlComponent } from '../../../shared/components/forms
             ]),
         ]),
     ],
-    standalone: true,
     imports: [
-      UiSwitchModule, PaginationComponent, FormsModule, ReactiveFormsModule, 
-      SmsTemplateTagControlComponent, TranslateModule
+        UiSwitchModule, PaginationComponent, FormsModule, ReactiveFormsModule,
+        SmsTemplateTagControlComponent, TranslateModule
     ]
 })
 export class AnniversariesComponent implements OnInit, OnDestroy {

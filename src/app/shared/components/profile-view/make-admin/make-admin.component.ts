@@ -19,7 +19,6 @@ import { AsyncPipe } from '@angular/common';
     selector: 'app-make-admin',
     templateUrl: './make-admin.component.html',
     styleUrls: ['./make-admin.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule]
 })
 export class MakeAdminComponent implements OnInit, OnDestroy {

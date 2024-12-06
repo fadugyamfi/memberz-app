@@ -17,7 +17,6 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
     selector: 'app-subscription-upgrade',
     templateUrl: './subscription-upgrade.component.html',
     styleUrls: ['./subscription-upgrade.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {

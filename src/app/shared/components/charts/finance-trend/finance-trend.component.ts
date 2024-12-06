@@ -17,7 +17,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-finance-trend',
     templateUrl: './finance-trend.component.html',
     styleUrls: ['./finance-trend.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, SelectContributionTypeControlComponent, SelectYearControlComponent, LoadingRotateDashedComponent, NoDataAvailableComponent, RouterLink, NgChartsModule, TranslateModule]
 })
 export class FinanceTrendComponent implements OnInit {

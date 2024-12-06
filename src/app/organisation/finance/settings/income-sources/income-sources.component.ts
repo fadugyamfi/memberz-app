@@ -17,7 +17,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-income-sources',
     templateUrl: './income-sources.component.html',
     styleUrls: ['./income-sources.component.scss'],
-    standalone: true,
     imports: [PaginationComponent, FormsModule, ReactiveFormsModule, UiSwitchModule, DecimalPipe, CurrencyPipe, TranslateModule]
 })
 export class IncomeSourcesComponent implements OnInit, OnDestroy {

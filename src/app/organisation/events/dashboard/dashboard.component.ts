@@ -18,7 +18,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
-    standalone: true,
     imports: [NgbTooltipModule, LoadingRotateDashedComponent, AvatarModule, ViewProfileDirective, RouterLink, AsyncPipe, DecimalPipe, DatePipe, TranslateModule]
 })
 export class DashboardComponent implements OnInit {

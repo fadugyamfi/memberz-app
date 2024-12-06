@@ -8,7 +8,6 @@ import { FinanceCategoryBreakdownComponent } from '../../../shared/components/ch
     selector: 'app-dashboard',
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss'],
-    standalone: true,
     imports: [FinanceTrendComponent, FinanceTotalsByCategoryComponent, FinanceWeeklyBreakdownComponent, FinanceCategoryBreakdownComponent]
 })
 export class DashboardComponent implements OnInit, OnDestroy {

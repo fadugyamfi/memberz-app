@@ -5,7 +5,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-no-data-available',
     templateUrl: './no-data-available.component.html',
     styleUrls: ['./no-data-available.component.scss'],
-    standalone: true,
     imports: [TranslateModule]
 })
 export class NoDataAvailableComponent implements OnInit {

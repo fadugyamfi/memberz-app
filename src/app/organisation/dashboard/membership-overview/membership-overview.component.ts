@@ -11,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-membership-overview',
     templateUrl: './membership-overview.component.html',
     styleUrls: ['./membership-overview.component.scss'],
-    standalone: true,
     imports: [NgChartsModule, TranslateModule]
 })
 export class MembershipOverviewComponent implements OnInit {

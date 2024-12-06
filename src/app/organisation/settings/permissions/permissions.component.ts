@@ -19,7 +19,6 @@ import { NgClass, TitleCasePipe } from '@angular/common';
     selector: 'app-permissions',
     templateUrl: './permissions.component.html',
     styleUrls: ['./permissions.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgClass, NgbCollapseModule, TitleCasePipe, TranslateModule]
 })
 export class PermissionsComponent implements OnInit, OnDestroy {

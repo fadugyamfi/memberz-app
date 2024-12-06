@@ -17,7 +17,6 @@ export const PAYMENT_TYPE_CONTROL_ACCESSOR: any = {
     templateUrl: './select-membership-category-control.component.html',
     styleUrls: ['./select-membership-category-control.component.scss'],
     providers: [PAYMENT_TYPE_CONTROL_ACCESSOR],
-    standalone: true,
     imports: [FormsModule, TranslateModule]
 })
 export class SelectMembershipCategoryControlComponent implements OnInit, OnDestroy {

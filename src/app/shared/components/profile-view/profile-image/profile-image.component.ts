@@ -12,7 +12,6 @@ import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
     selector: 'app-profile-image',
     templateUrl: './profile-image.component.html',
     styleUrls: ['./profile-image.component.scss'],
-    standalone: true,
     imports: [AvatarModule, NgbProgressbarModule, ImageCropperComponent]
 })
 export class ProfileImageComponent implements OnInit {

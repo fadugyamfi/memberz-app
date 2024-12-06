@@ -12,7 +12,6 @@ import { NgxPrintDirective } from 'ngx-print';
     selector: 'app-attendance-report',
     templateUrl: './attendance-report.component.html',
     styleUrls: ['./attendance-report.component.scss'],
-    standalone: true,
     imports: [LoadingRotateDashedComponent, RouterLink, NgxPrintDirective, AsyncPipe, DatePipe, KeyValuePipe, TranslateModule]
 })
 export class AttendanceReportComponent implements OnInit {

@@ -12,7 +12,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-breadcrumb',
     templateUrl: './breadcrumb.component.html',
     styleUrls: ['./breadcrumb.component.scss'],
-    standalone: true,
     imports: [RouterLink, FeatherIconsComponent, BookmarkComponent, UpperCasePipe, TranslateModule]
 })
 export class BreadcrumbComponent implements OnInit {

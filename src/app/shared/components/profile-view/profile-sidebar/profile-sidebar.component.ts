@@ -13,7 +13,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-profile-sidebar',
     templateUrl: './profile-sidebar.component.html',
     styleUrls: ['./profile-sidebar.component.scss'],
-    standalone: true,
     imports: [RouterLink, ProfileImageComponent, QrCodeModule, TranslateModule]
 })
 export class ProfileSidebarComponent implements OnInit {

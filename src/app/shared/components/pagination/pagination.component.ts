@@ -12,12 +12,11 @@ export interface PageEvent {
 }
 
 @Component({
-  selector: 'app-pagination',
-  templateUrl: './pagination.component.html',
-  styleUrls: ['./pagination.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  standalone: true,
-  imports: [TranslateModule, NgbModule]
+    selector: 'app-pagination',
+    templateUrl: './pagination.component.html',
+    styleUrls: ['./pagination.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    imports: [TranslateModule, NgbModule]
 })
 export class PaginationComponent implements OnInit, OnDestroy {
 

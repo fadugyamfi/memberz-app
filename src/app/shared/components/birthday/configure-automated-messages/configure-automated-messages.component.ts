@@ -10,12 +10,11 @@ import { TranslateModule } from "@ngx-translate/core";
     selector: "app-configure-automated-messages",
     templateUrl: "./configure-automated-messages.component.html",
     styleUrls: ["./configure-automated-messages.component.scss"],
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,
         TranslateModule,
-    ],
+    ]
 })
 export class ConfigureAutomatedMessagesComponent implements OnInit {
   public messageForm: UntypedFormGroup;

@@ -13,7 +13,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-bookmark',
     templateUrl: './bookmark.component.html',
     styleUrls: ['./bookmark.component.scss'],
-    standalone: true,
     imports: [RouterLink, NgbTooltipModule, FeatherIconsComponent, FormsModule, SlicePipe, TranslateModule]
 })
 export class BookmarkComponent implements OnInit {

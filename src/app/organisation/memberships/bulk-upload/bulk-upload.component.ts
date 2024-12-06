@@ -20,7 +20,6 @@ import { UploadReviewComponent } from './upload-review/upload-review.component';
     selector: 'app-bulk-upload',
     templateUrl: './bulk-upload.component.html',
     styleUrls: ['./bulk-upload.component.scss'],
-    standalone: true,
     imports: [PaginationComponent, UploadReviewComponent, FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {

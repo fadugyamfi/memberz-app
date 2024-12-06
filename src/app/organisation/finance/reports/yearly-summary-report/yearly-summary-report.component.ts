@@ -18,7 +18,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-yearly-summary-report',
     templateUrl: './yearly-summary-report.component.html',
     styleUrls: ['./yearly-summary-report.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, SelectYearControlComponent, SelectCurrencyControlComponent, NgxPrintDirective, LoadingRotateDashedComponent, NoDataAvailableComponent, DecimalPipe, TranslateModule]
 })
 export class YearlySummaryReportComponent implements OnInit {

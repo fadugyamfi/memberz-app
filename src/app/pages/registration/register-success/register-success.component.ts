@@ -14,7 +14,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'membership-registration-success',
     templateUrl: './register-success.component.html',
     styleUrls: ['./register-success.component.scss'],
-    standalone: true,
     imports: [TranslateModule]
 })
 export class RegisterSuccessComponent implements OnInit, OnDestroy {

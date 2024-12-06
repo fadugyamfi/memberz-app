@@ -17,7 +17,6 @@ type FormErrors = { [u in UserFields]: string };
     selector: 'app-forgot-password',
     templateUrl: './forgot-password.component.html',
     styleUrls: ['./forgot-password.component.scss'],
-    standalone: true,
     imports: [RouterLink, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TawkChatComponent, TranslateModule]
 })
 export class ForgotPasswordComponent implements OnInit, OnDestroy {

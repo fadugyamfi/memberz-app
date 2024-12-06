@@ -24,7 +24,6 @@ import { CustomFieldComponent } from '../../../shared/components/forms/custom-fi
     selector: 'membership-registration-form',
     templateUrl: './registration-form.component.html',
     styleUrls: ['./registration-form.component.scss'],
-    standalone: true,
     imports: [AvatarModule, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, CustomFieldComponent, RouterLink, TranslateModule]
 })
 export class RegistrationFormComponent implements OnInit, OnDestroy {

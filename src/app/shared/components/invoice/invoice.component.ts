@@ -13,7 +13,6 @@ import { NgxPrintDirective } from 'ngx-print';
     selector: 'app-invoice',
     templateUrl: './invoice.component.html',
     styleUrls: ['./invoice.component.scss'],
-    standalone: true,
     imports: [NgxPrintDirective, CurrencyPipe, DatePipe]
 })
 

@@ -7,7 +7,6 @@ import { TitleCasePipe } from '@angular/common';
     selector: 'app-print-header',
     templateUrl: './print-header.component.html',
     styleUrls: ['./print-header.component.scss'],
-    standalone: true,
     imports: [TitleCasePipe]
 })
 export class PrintHeaderComponent implements OnInit {

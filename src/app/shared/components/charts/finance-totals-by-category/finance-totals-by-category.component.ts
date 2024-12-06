@@ -13,7 +13,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-finance-totals-by-category',
     templateUrl: './finance-totals-by-category.component.html',
     styleUrls: ['./finance-totals-by-category.component.scss'],
-    standalone: true,
     imports: [SelectYearControlComponent, FormsModule, LoadingRotateDashedComponent, NoDataAvailableComponent, NgChartsModule, TranslateModule]
 })
 export class FinanceTotalsByCategoryComponent implements OnInit {

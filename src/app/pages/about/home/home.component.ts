@@ -12,7 +12,6 @@ import { TawkChatComponent } from '../../../components/tawk-chat/tawk-chat.compo
     selector: 'about-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],
-    standalone: true,
     imports: [HeaderComponent, CarouselComponent, FeaturesComponent, PricingComponent, FooterComponent, TawkChatComponent]
 })
 export class HomeComponent implements OnInit {

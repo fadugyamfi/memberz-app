@@ -11,7 +11,6 @@ import { TranslateModule } from '@ngx-translate/core';
     selector: 'app-payment-processor',
     templateUrl: './payment-processor.component.html',
     styleUrls: ['./payment-processor.component.scss'],
-    standalone: true,
     imports: [TranslateModule]
 })
 export class PaymentProcessorComponent implements OnInit {

@@ -22,7 +22,6 @@ import { MemberControlComponent } from '../../../../shared/components/forms/memb
     selector: 'app-groups',
     templateUrl: './groups.component.html',
     styleUrls: ['./groups.component.scss'],
-    standalone: true,
     imports: [LoadingRotateDashedComponent, NoDataAvailableComponent, RouterLink, PaginationComponent, FormsModule, ReactiveFormsModule, MemberControlComponent, DecimalPipe, TranslateModule]
 })
 export class GroupsComponent implements OnInit, OnDestroy {

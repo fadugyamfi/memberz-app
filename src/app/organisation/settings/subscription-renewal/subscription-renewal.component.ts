@@ -14,7 +14,6 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
     selector: 'app-subscription-renewal',
     templateUrl: './subscription-renewal.component.html',
     styleUrls: ['./subscription-renewal.component.scss'],
-    standalone: true,
     imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class SubscriptionRenewalComponent implements OnInit, OnDestroy {

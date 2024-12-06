@@ -23,7 +23,6 @@ const body = document.getElementsByTagName('body')[0];
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
-    standalone: true,
     imports: [NgClass, FeatherIconsComponent, FormsModule, RouterLink, ToggleFullscreenDirective, HeaderNotificationsComponent, AvatarModule, UpperCasePipe, SlicePipe, TranslateModule]
 })
 export class HeaderComponent implements OnInit, OnDestroy {

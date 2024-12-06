@@ -22,7 +22,6 @@ export const MEMBER_CONTROL_ACCESSOR: any = {
     templateUrl: './member-control.component.html',
     styleUrls: ['./member-control.component.scss'],
     providers: [MEMBER_CONTROL_ACCESSOR],
-    standalone: true,
     imports: [ImagePreloadDirective, NgbTypeaheadModule, AvatarModule]
 })
 export class MemberControlComponent {

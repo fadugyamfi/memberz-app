@@ -16,7 +16,6 @@ import { FeatherIconsComponent } from '../feather-icons/feather-icons.component'
     selector: 'app-header-notifications',
     templateUrl: './header-notifications.component.html',
     styleUrls: ['./header-notifications.component.scss'],
-    standalone: true,
     imports: [FeatherIconsComponent, RouterLink, TranslateModule]
 })
 export class HeaderNotificationsComponent implements OnInit {

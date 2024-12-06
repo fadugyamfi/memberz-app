@@ -19,7 +19,6 @@ import { ListFilterComponent } from './list-filter/list-filter.component';
     selector: 'app-broadcast-lists',
     templateUrl: './broadcast-lists.component.html',
     styleUrls: ['./broadcast-lists.component.scss'],
-    standalone: true,
     imports: [RouterLink, PaginationComponent, FormsModule, ReactiveFormsModule, ListFilterComponent, NgbDropdownModule, DecimalPipe, TranslateModule]
 })
 export class BroadcastListsComponent implements OnInit {

@@ -17,7 +17,6 @@ import { ViewProfileDirective } from '../../../directives/view-profile.directive
     selector: 'app-profile-family',
     templateUrl: './profile-family.component.html',
     styleUrls: ['./profile-family.component.scss'],
-    standalone: true,
     imports: [AvatarModule, ViewProfileDirective, FamilyMemberEditorComponent, AsyncPipe, DatePipe, TranslateModule]
 })
 export class ProfileFamilyComponent implements OnInit, OnDestroy {

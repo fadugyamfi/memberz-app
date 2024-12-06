@@ -18,7 +18,6 @@ export const TEMPLATE_TAG_ACCESSOR: any = {
     templateUrl: './sms-template-tag-control.component.html',
     styleUrls: ['./sms-template-tag-control.component.scss'],
     providers: [TEMPLATE_TAG_ACCESSOR],
-    standalone: true,
     imports: [NgbDropdownModule, TranslateModule]
 })
 export class SmsTemplateTagControlComponent implements OnInit {

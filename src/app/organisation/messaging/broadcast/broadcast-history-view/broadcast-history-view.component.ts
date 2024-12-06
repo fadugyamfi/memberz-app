@@ -13,7 +13,6 @@ import { ViewProfileDirective } from '../../../../shared/directives/view-profile
     selector: 'app-broadcast-history-view',
     templateUrl: './broadcast-history-view.component.html',
     styleUrls: ['./broadcast-history-view.component.scss'],
-    standalone: true,
     imports: [LoadingRotateDashedComponent, ViewProfileDirective, PaginationComponent, DatePipe, TranslateModule]
 })
 export class BroadcastHistoryViewComponent implements OnInit, OnDestroy {
