@@ -4,8 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Requirements
 
-    Node 20+
-    Angular 16+ (For Standalone Components)
+    Node 22+
+    Angular 19+ 
 
 ## Payment Provider
 * Paystack - https://dashboard.paystack.com/#/get-started
