@@ -48,5 +48,11 @@
   },
   "nxCloudAccessToken": "MGU3M2I2YzYtNjhkNC00NzIxLTk4ZDItODkxMjZkNGNkNDQ2fHJlYWQtd3JpdGU=",
   "useInferencePlugins": false,
-  "neverConnectToCloud": true
+  "neverConnectToCloud": true,
+  "generators": {
+    "@nx/angular:component": {
+      "style": "scss"
+    }
+  },
+  "useLegacyCache": true
 }

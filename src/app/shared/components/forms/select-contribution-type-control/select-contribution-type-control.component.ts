@@ -1,7 +1,9 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, OnDestroy, OnInit, input } from '@angular/core';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ContributionTypeService } from '../../../services/api/contribution-type.service';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 export const PAYMENT_TYPE_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -11,17 +13,18 @@ export const PAYMENT_TYPE_CONTROL_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'app-select-contribution-type-control',
-  templateUrl: './select-contribution-type-control.component.html',
-  styleUrls: ['./select-contribution-type-control.component.scss'],
-  providers: [PAYMENT_TYPE_CONTROL_ACCESSOR]
+    selector: 'app-select-contribution-type-control',
+    templateUrl: './select-contribution-type-control.component.html',
+    styleUrls: ['./select-contribution-type-control.component.scss'],
+    providers: [PAYMENT_TYPE_CONTROL_ACCESSOR],
+    imports: [FormsModule, TranslateModule]
 })
 export class SelectContributionTypeControlComponent implements OnInit, OnDestroy {
 
   private contributionSub: Subscription;
 
-  @Input() classes: string = "";
-  @Input() memberSpecificOnly = false;
+  readonly classes = input<string>("");
+  readonly memberSpecificOnly = input(false);
 
   private _value = '';
   public disabled = false;
@@ -43,7 +46,7 @@ export class SelectContributionTypeControlComponent implements OnInit, OnDestroy
   fetchContributionTypes() {
     const params = { sort: 'name:asc' };
 
-    if( this.memberSpecificOnly ) {
+    if( this.memberSpecificOnly() ) {
       params['member_required'] = 'Required';
     }
 

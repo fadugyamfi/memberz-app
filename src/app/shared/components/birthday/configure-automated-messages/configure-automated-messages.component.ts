@@ -1,18 +1,20 @@
 import Swal from "sweetalert2";
 import { Component, OnInit } from "@angular/core";
 import { EventsService } from "../../../services/events.service";
-import {
-  UntypedFormGroup,
-  UntypedFormControl,
-  Validators,
-} from "@angular/forms";
-import { OrganisationSetting } from "src/app/shared/model/api/organisation-setting";
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { OrganisationSetting } from "../../../model/api/organisation-setting";
 import { OrganisationSettingService } from "../../../services/api/organisation-setting.services";
+import { TranslateModule } from "@ngx-translate/core";
 
 @Component({
-  selector: "app-configure-automated-messages",
-  templateUrl: "./configure-automated-messages.component.html",
-  styleUrls: ["./configure-automated-messages.component.scss"],
+    selector: "app-configure-automated-messages",
+    templateUrl: "./configure-automated-messages.component.html",
+    styleUrls: ["./configure-automated-messages.component.scss"],
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        TranslateModule,
+    ]
 })
 export class ConfigureAutomatedMessagesComponent implements OnInit {
   public messageForm: UntypedFormGroup;

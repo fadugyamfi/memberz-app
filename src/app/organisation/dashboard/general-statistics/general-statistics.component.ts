@@ -8,13 +8,18 @@ import { OrganisationSubscriptionService } from '../../../shared/services/api/or
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 import * as chartData from './../../../shared/data/dashboard/university';
-import { Configuration } from 'ng-chartist';
+import { Configuration, ChartistModule } from 'ng-chartist';
+import { NgClass, AsyncPipe } from '@angular/common';
+import { FeatherIconsComponent } from '../../../shared/components/feather-icons/feather-icons.component';
+import { CountToDirective } from '../../../shared/directives/count-to.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-general-statistics',
-  templateUrl: './general-statistics.component.html',
-  styleUrls: ['./general-statistics.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-general-statistics',
+    templateUrl: './general-statistics.component.html',
+    styleUrls: ['./general-statistics.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [NgClass, FeatherIconsComponent, CountToDirective, ChartistModule, AsyncPipe, TranslateModule]
 })
 export class GeneralStatisticsComponent implements OnInit {
 
@@ -63,39 +68,39 @@ export class GeneralStatisticsComponent implements OnInit {
 
   planStatusIndicator() {
     const showBorder =
-      this.organisation.active_subscription.isExpired() ||
-      this.organisation.active_subscription.isExpiring() ||
-      !this.organisation.active_subscription.invoicePaid();
+       this.organisation.active_subscription?.isExpired() ||
+       this.organisation.active_subscription?.isExpiring() ||
+      ! this.organisation.active_subscription?.invoicePaid();
 
     return {
       'border-start': showBorder,
       'border-5': showBorder,
-      'border-danger': this.organisation.active_subscription.isExpired(),
-      'border-warning': this.organisation.active_subscription.isExpiring() || !this.organisation.active_subscription.invoicePaid()
+      'border-danger':  this.organisation.active_subscription?.isExpired(),
+      'border-warning':  this.organisation.active_subscription?.isExpiring() || ! this.organisation.active_subscription?.invoicePaid()
     }
   }
 
   planStatusTextIndicator() {
     return {
-      'text-danger': this.organisation.active_subscription.isExpired(),
-      'text-warning': this.organisation.active_subscription.isExpiring() || !this.organisation.active_subscription.invoicePaid()
+      'text-danger':  this.organisation.active_subscription?.isExpired(),
+      'text-warning':  this.organisation.active_subscription?.isExpiring() || ! this.organisation.active_subscription?.invoicePaid()
     }
   }
 
   subscriptionExpired() {
-    return this.organisation?.active_subscription.isExpired();
+    return this.organisation?.active_subscription?.isExpired();
   }
 
   subscriptionExpiring() {
-    return this.organisation?.active_subscription.isExpiring();
+    return this.organisation?.active_subscription?.isExpiring();
   }
 
   subscriptionPaid() {
-    return this.organisation?.active_subscription.invoicePaid();
+    return this.organisation?.active_subscription?.invoicePaid();
   }
 
   hasValidInvoice() {
-    return this.organisation?.active_subscription.organisation_invoice != null;
+    return this.organisation?.active_subscription?.organisation_invoice != null;
   }
 
   canUpgrade() {
@@ -103,7 +108,7 @@ export class GeneralStatisticsComponent implements OnInit {
       return false;
     }
 
-    const subscription_type = this.organisation.active_subscription.subscription_type;
+    const subscription_type =  this.organisation.active_subscription?.subscription_type;
     if ( !subscription_type ) {
       return false;
     }
@@ -120,7 +125,7 @@ export class GeneralStatisticsComponent implements OnInit {
   }
 
   paySubscription() {
-    this.router.navigate(['/organisation/settings/invoice-payment', this.organisation.active_subscription.organisation_invoice.id]);
+    this.router.navigate(['/organisation/settings/invoice-payment',  this.organisation.active_subscription?.organisation_invoice.id]);
   }
 
 }

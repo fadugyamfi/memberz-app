@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { PricingComponent } from './pricing/pricing.component';
+
+
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    loadComponent: () => import('./home/home.component').then(m => m.HomeComponent),
     data: {
       breadcrumb: 'Home',
       title: 'Welcome To Memberz.Org'
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'pricing',
-    component: PricingComponent,
+    loadComponent: () => import('./pricing/pricing.component').then(m => m.PricingComponent),
     data: {
       breadcrumb: 'Pricing',
       title: 'Pricing'

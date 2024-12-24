@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, viewChild } from '@angular/core';
 import { PermissionGroup } from './permission-group.model';
-import { UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { EventsService } from '../../../shared/services/events.service';
 import { StorageService } from '../../../shared/services/storage.service';
@@ -8,24 +8,27 @@ import { Permission } from '../../../shared/model/api/permission.model';
 import { PermissionService } from '../../../shared/services/api/permission.service';
 import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
 import { OrganisationRole } from '../../../shared/model/api/organisation-role';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { NgClass, TitleCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-permissions',
-  templateUrl: './permissions.component.html',
-  styleUrls: ['./permissions.component.scss']
+    selector: 'app-permissions',
+    templateUrl: './permissions.component.html',
+    styleUrls: ['./permissions.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, NgClass, NgbCollapseModule, TitleCasePipe, TranslateModule]
 })
 export class PermissionsComponent implements OnInit, OnDestroy {
 
-  @ViewChild('editorModal', { static: true }) modal;
+  readonly modal = viewChild('editorModal');
 
   public editorForm: UntypedFormGroup;
   public modalRef: NgbModalRef;
 
-  public _permissions = [];
+  public _permissions: Permission[] = [];
   public permissionGroups: PermissionGroup[] = [];
   public rolePermissions: Permission[];
 
@@ -158,7 +161,7 @@ export class PermissionsComponent implements OnInit, OnDestroy {
    * Show modal for permissions
    */
   show() {
-    this.modalRef = this.modalService.open(this.modal, { size: 'lg'});
+    this.modalRef = this.modalService.open(this.modal(), { size: 'lg'});
   }
 
   hide() {
@@ -199,7 +202,7 @@ export class PermissionsComponent implements OnInit, OnDestroy {
   }
 
   buildPermissions() {
-    const arr = this.permissions.map(permission => {
+    const arr = this.permissions.map((permission: any) => {
       return permission.selected ? this.fb.control(permission.id) : false;
     });
 
@@ -221,7 +224,7 @@ export class PermissionsComponent implements OnInit, OnDestroy {
       Swal.showLoading();
 
       this.roleService.syncPermissions(params).subscribe(() => {
-        this.orgAccountService.refreshActiveAccount().subscribe({
+        this.orgAccountService.refreshActiveAccount()?.subscribe({
           next: () => this.hide(),
           error: () => {
             Swal.hideLoading();

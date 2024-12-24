@@ -1,17 +1,15 @@
-import { Directive, OnChanges, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, OnChanges, ElementRef, OnInit, input, model } from '@angular/core';
 
 @Directive({
-  selector: '[CountTo]'
+    selector: '[CountTo]',
+    standalone: true
 })
 export class CountToDirective implements OnChanges, OnInit {
-  @Input()
-  CountTo: number;
-  @Input()
-  from = 0;
-  @Input()
-  duration = 4;
+  readonly CountTo = input<number>(0);
+  readonly from = input(0);
+  readonly duration = model(4);
 
-  e = this.el.nativeElement;
+  e: any;
   num: number;
   refreshInterval = 30;
   steps: number;
@@ -19,7 +17,8 @@ export class CountToDirective implements OnChanges, OnInit {
   increment: number;
 
   constructor(private el: ElementRef) {
-
+    this.e = this.el.nativeElement;
+    
   }
 
   ngOnInit() {
@@ -27,17 +26,17 @@ export class CountToDirective implements OnChanges, OnInit {
   }
 
   ngOnChanges() {
-    if (!isNaN(this.CountTo)) {
+    if (!isNaN(this.CountTo())) {
       this.start();
     }
   }
 
   calculate() {
-    this.duration = this.duration * 1000;
+    this.duration.update(value => value * 1000);
 
-    this.steps = Math.ceil(this.duration / this.refreshInterval);
-    this.increment = ((this.CountTo - this.from) / this.steps);
-    this.num = this.from;
+    this.steps = Math.ceil(this.duration() / this.refreshInterval);
+    this.increment = ((this.CountTo() - this.from()) / this.steps);
+    this.num = this.from();
   }
 
   tick() {
@@ -45,8 +44,8 @@ export class CountToDirective implements OnChanges, OnInit {
       this.num += this.increment;
       this.step++;
       if (this.step >= this.steps) {
-        this.num = this.CountTo;
-        this.e.textContent = Math.round(this.CountTo)?.toLocaleString();
+        this.num = this.CountTo();
+        this.e.textContent = Math.round(this.CountTo())?.toLocaleString();
       } else {
         this.e.textContent = Math.round(this.num)?.toLocaleString();
         this.tick();

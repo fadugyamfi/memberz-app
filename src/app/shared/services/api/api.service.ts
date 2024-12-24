@@ -1,6 +1,6 @@
 import { catchError, map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams, HttpEventType } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse, HttpParams, HttpEventType, HttpEvent } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
 import { EventsService } from '../events.service';
 import { AppModel } from '../../model/api/app.model';
@@ -37,7 +37,7 @@ export class APIService<T extends AppModel> {
     total: 1
   };
 
-  public selectedModel: T;
+  public selectedModel: T|null;
   public results: T[];
   public fetching = false;
   public creating = false;
@@ -120,7 +120,7 @@ export class APIService<T extends AppModel> {
   }
 
   setHttpHeaders(paramHeaders) {
-    let hd = Object.assign({ 'Content-Type': 'application/json' }, this.getUserAuthorization());
+    let hd: any = Object.assign({ 'Content-Type': 'application/json' }, this.getUserAuthorization());
 
     if (this.storage.has('auth')) {
       const auth = this.storage.get('auth');
@@ -144,7 +144,7 @@ export class APIService<T extends AppModel> {
    * @param url Endpoint url segment
    * @param params Query Parameters
    */
-  public get(url: string, params: object = null, paramHeaders: object = null): Observable<object> {
+  public get(url: string, params: object|null = {}, paramHeaders: object|null = {}): Observable<object> {
     const fullUrl = this.BASE_URL + url;
     this.setHttpHeaders(paramHeaders);
     this.httpOptions.params = this.removeEmpty(params);
@@ -177,7 +177,7 @@ export class APIService<T extends AppModel> {
    * @param params Body Form Data
    * @param qparams Query Parameters
    */
-  public post(url: string, params: object | string, qparams: object = null, paramHeaders: object = null): Observable<object> {
+  public post(url: string, params: object | string, qparams: object|null = null, paramHeaders: object|null = null): Observable<object> {
     const fullUrl = this.BASE_URL + url;
     this.setHttpHeaders(paramHeaders);
     this.httpOptions.params = qparams;
@@ -199,7 +199,7 @@ export class APIService<T extends AppModel> {
    * @param params Body Form Data
    * @param qparams Query Parameters
    */
-  public put(url: string, params: object, qparams: object = null, paramHeaders: object = null): Observable<object> {
+  public put(url: string, params: object, qparams: object|null = null, paramHeaders: object|null = null): Observable<object> {
     const fullUrl = this.BASE_URL + url;
     this.setHttpHeaders(paramHeaders);
     this.httpOptions.params = qparams;
@@ -220,7 +220,7 @@ export class APIService<T extends AppModel> {
    * @param url URL to query
    * @param params Query Parameters
    */
-  public delete(url, params: object = null, paramHeaders: object = null): Observable<object> {
+  public delete(url, params: object|null = null, paramHeaders: object|null = null): Observable<object> {
     const fullUrl = this.BASE_URL + url;
     this.setHttpHeaders(paramHeaders);
     this.httpOptions.params = params;
@@ -266,7 +266,7 @@ export class APIService<T extends AppModel> {
     return this.results;
   }
 
-  public getItem(item_id: any): T {
+  public getItem(item_id: any): T|undefined {
     return this.results.find(result => result.id == item_id);
   }
 
@@ -339,7 +339,7 @@ export class APIService<T extends AppModel> {
    * @param id ID of record
    * @param params Query parameters to pass in for additional filtering
    */
-  getById(id, params: object = null): Observable<T> {
+  getById(id, params: object|null = null): Observable<T> {
     return this.get(`${this.url}/${id}`, params).pipe(map(res => new this.model(res['data'])));
   }
 
@@ -348,7 +348,7 @@ export class APIService<T extends AppModel> {
    *
    * @param model Model data to pass
    */
-  create(model: T, qparams: object = null) {
+  create(model: T, qparams: object|null = null) {
     this.creating = this.saving = true;
 
     return this.post(`${this.url}`, model, qparams).pipe(
@@ -382,7 +382,7 @@ export class APIService<T extends AppModel> {
    *
    * @param model Model data to pass
    */
-  update(model: T, qparams: object = null) {
+  update(model: T, qparams: object|null = null) {
     this.updating = this.saving = true;
 
     return this.put(`${this.url}/${model.id}`, model, qparams).pipe(
@@ -410,7 +410,7 @@ export class APIService<T extends AppModel> {
    *
    * @param model Model data to work with
    */
-  remove(model: T, qparams: object = null) {
+  remove(model: T, qparams: object|null = null) {
 
     if (!model.id) {
       return;
@@ -435,7 +435,7 @@ export class APIService<T extends AppModel> {
     });
   }
 
-  removeWithoutSubscription(model: T, qparams: object = null) {
+  removeWithoutSubscription(model: T, qparams: object|null = null) {
 
     if (!model.id) {
       return;
@@ -477,8 +477,8 @@ export class APIService<T extends AppModel> {
    * @param model AppModel
    * @param qparams Query parameters
    */
-  createWithUpload(model: AppModel, qparams: any = null, url: string = null) {
-    const hd = Object.assign({}, this.getUserAuthorization());
+  createWithUpload(model: AppModel, qparams: any = null, url: string|null = null) {
+    const hd: any = Object.assign({}, this.getUserAuthorization());
 
     const headers = new HttpHeaders(hd);
     const params = new HttpParams({ fromObject: qparams });
@@ -521,8 +521,8 @@ export class APIService<T extends AppModel> {
    * @param model Model to work on
    * @param qparams Query params
    */
-  updateWithUpload(model: AppModel, qparams: any = null, url: string = null) {
-    const hd = Object.assign({}, this.getUserAuthorization());
+  updateWithUpload(model: AppModel, qparams: any = null, url: string|null = null) {
+    const hd: any = Object.assign({}, this.getUserAuthorization());
 
     const headers = new HttpHeaders(hd);
     const params = new HttpParams({ fromObject: qparams });
@@ -558,7 +558,7 @@ export class APIService<T extends AppModel> {
       });
   }
 
-  handleUploadProgress(event, callback = null) {
+  handleUploadProgress(event: HttpEvent<Object>, callback: Function|null = null) {
     switch (event.type) {
       case HttpEventType.Sent:
         this.requesting = true;
@@ -572,8 +572,8 @@ export class APIService<T extends AppModel> {
         }
         break;
       case 1: {
-        if (Math.round(this.uploadedPercentage) !== Math.round(event.loaded / event.total * 100)) {
-          this.uploadedPercentage = event.loaded / event.total * 100;
+        if (Math.round(this.uploadedPercentage) !== Math.round((event.loaded / (event.total || 1)) * 100)) {
+          this.uploadedPercentage = (event.loaded / (event.total || 1)) * 100;
           this.events.trigger(`${this.model_name}:upload:progress`, Math.round(this.uploadedPercentage));
         }
         break;
@@ -638,11 +638,11 @@ export class APIService<T extends AppModel> {
    * @param requests Array of requests
    * @param qparams Query parameters
    */
-  batch(requests: Array<object>, qparams: object = null) {
+  batch(requests: Array<object>, qparams: object|null = null) {
     return this.post('/batch', requests, qparams).pipe(map(res => {
-      const responses = [];
+      const responses: Array<any> = [];
 
-      Object.values(res['responses']).forEach(resp => {
+      Object.values(res['responses']).forEach((resp: any) => {
         if (resp['data']) {
           if (Array.isArray(resp['data'])) {
             responses.push(...resp['data'].map(d => new this.model(d)));
@@ -762,7 +762,7 @@ export class APIService<T extends AppModel> {
   }
 
   findInCache(params) {
-    const results = [];
+    const results: Array<any> = [];
 
     if (!this.cache) {
       this.cache = this.fetchCachedData();
@@ -800,13 +800,14 @@ export class APIService<T extends AppModel> {
 
   fetchCachedData(asArray = false) {
     try {
-      const data = JSON.parse(this.getCachedData());
+      const data = JSON.parse(this.getCachedData() as string);
 
       if ( !asArray ) {
         return data;
       }
 
-      const results = [];
+      const results: Array<any> = [];
+
       for (const id in data) {
         if ( data.hasOwnProperty(id) ) {
             results.push(new this.model(data[id]));

@@ -1,22 +1,25 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Validators, UntypedFormGroup, UntypedFormControl } from "@angular/forms";
+import { Component, OnInit, viewChild } from '@angular/core';
+import { Validators, UntypedFormGroup, UntypedFormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MemberAccount } from 'src/app/shared/model/api/member-account';
-import { AuthService } from 'src/app/shared/services/api/auth.service';
-import { TwoFactorAuthService } from 'src/app/shared/services/api/two-factor-auth.service';
-import { MemberAccountService } from 'src/app/shared/services/api/member-account.service';
-import { EventsService } from 'src/app/shared/services/events.service';
+import { MemberAccount } from '../../../../shared/model/api/member-account';
+import { AuthService } from '../../../../shared/services/api/auth.service';
+import { TwoFactorAuthService } from '../../../../shared/services/api/two-factor-auth.service';
+import { MemberAccountService } from '../../../../shared/services/api/member-account.service';
+import { EventsService } from '../../../../shared/services/events.service';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 
 @Component({
-  selector: 'app-twofa-enable',
-  templateUrl: './twofa-enable.component.html',
-  styleUrls: ['./twofa-enable.component.scss']
+    selector: 'app-twofa-enable',
+    templateUrl: './twofa-enable.component.html',
+    styleUrls: ['./twofa-enable.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TranslateModule]
 })
 export class TwofaEnableComponent implements OnInit {
-  @ViewChild('enableTwoFactorAuthModal', { static: true }) enableTwoFactorAuthModal: any;
+  readonly enableTwoFactorAuthModal = viewChild<any>('enableTwoFactorAuthModal');
 
   public twoFactorAuthForm: UntypedFormGroup;
 
@@ -88,7 +91,7 @@ export class TwofaEnableComponent implements OnInit {
   }
 
   showEnableTwoFactorAuthModal() {
-    this.modalService.open(this.enableTwoFactorAuthModal, { size: 'lg' });
+    this.modalService.open(this.enableTwoFactorAuthModal(), { size: 'lg' });
   }
 
   disableTwoFactorAuth() {

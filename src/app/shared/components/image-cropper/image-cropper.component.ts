@@ -1,23 +1,25 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, output, viewChild } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-image-cropper',
-  templateUrl: './image-cropper.component.html',
-  styleUrls: ['./image-cropper.component.scss']
+    selector: 'app-image-cropper',
+    templateUrl: './image-cropper.component.html',
+    styleUrls: ['./image-cropper.component.scss'],
+    imports: [ImageCropperModule, TranslateModule]
 })
 export class ImageCropperComponent implements OnInit {
 
-  @ViewChild('cropperModal', { static: true }) messageModal: any;
+  readonly messageModal = viewChild<any>('cropperModal');
 
   imageChangedEvent: any = '';
   croppedImage: any = '';
 
   public modal: NgbModalRef;
 
-  @Output()
-  public save: EventEmitter<any> = new EventEmitter();
+  public readonly save = output();
 
   constructor(
     public modalService: NgbModal,
@@ -32,7 +34,7 @@ export class ImageCropperComponent implements OnInit {
   show() {
     this.imageChangedEvent = null;
     this.croppedImage = null;
-    this.modal = this.modalService.open(this.messageModal, { size: 'lg', backdrop: 'static' });
+    this.modal = this.modalService.open(this.messageModal(), { size: 'lg', backdrop: 'static' });
   }
 
   hide() {

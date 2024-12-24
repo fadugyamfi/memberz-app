@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'lib-slydepay-angular',
-  template: `
+    selector: 'lib-slydepay-angular',
+    template: `
     <p>
       slydepay-angular works!
     </p>
   `,
-  styles: [
-  ]
+    styles: [],
+    standalone: false
 })
 export class SlydepayAngularComponent implements OnInit {
 

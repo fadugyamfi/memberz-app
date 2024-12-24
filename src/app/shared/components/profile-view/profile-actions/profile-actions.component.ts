@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, input, model, output, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/operators';
@@ -7,19 +7,24 @@ import { OrganisationMemberService } from '../../../../shared/services/api/organ
 import { EventsService } from '../../../../shared/services/events.service';
 import { MembershipCardModalComponent } from '../membership-card-modal/membership-card-modal.component';
 
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { MakeAdminComponent } from '../make-admin/make-admin.component';
+import { TranslateModule } from '@ngx-translate/core';
+
 @Component({
-  selector: 'app-profile-actions',
-  templateUrl: './profile-actions.component.html',
-  styleUrls: ['./profile-actions.component.scss']
+    selector: 'app-profile-actions',
+    templateUrl: './profile-actions.component.html',
+    styleUrls: ['./profile-actions.component.scss'],
+    imports: [NgbAlertModule, MakeAdminComponent, MembershipCardModalComponent, TranslateModule]
 })
 export class ProfileActionsComponent implements OnInit {
 
-  @ViewChild('membershipCardModal', { static: true }) membershipCard: MembershipCardModalComponent;
-  @Input() membership: OrganisationMember;
-  @Output() edit = new EventEmitter();
+  readonly membershipCard = viewChild<MembershipCardModalComponent>('membershipCardModal');
+  readonly membership = model<OrganisationMember>();
+  readonly edit = output();
 
   private _messages = new Subject<string>();
-  public alertMessage = '';
+  public alertMessage: string | null = '';
   public alertType = 'success';
 
   constructor(
@@ -35,14 +40,14 @@ export class ProfileActionsComponent implements OnInit {
 
   editProfile() {
     console.log(this.membershipService);
-    this.membershipService.setSelectedModel(this.membership);
+    this.membershipService.setSelectedModel(this.membership());
     this.membershipService.setEditing(true);
     // this.router.navigate(['/organisation/memberships/edit', this.membership.id]);
     this.edit.emit();
   }
 
   viewMembershipCard() {
-    this.membershipCard.show();
+    this.membershipCard()?.show();
   }
 
   setupEvents() {
@@ -52,7 +57,7 @@ export class ProfileActionsComponent implements OnInit {
     ).subscribe(() => this.alertMessage = null);
 
     this.events.on('OrganisationMember:updated', (profile) => {
-      this.membership = profile;
+      this.membership.set(profile);
 
       if (profile.approved && profile.active) {
         this.alertType = 'success';

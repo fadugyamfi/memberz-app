@@ -2,11 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from "ngx-toastr";
 import { environment } from '../../../../../environments/environment';
 import { EventsService } from "../../../services/events.service";
+import { RouterOutlet } from '@angular/router';
+import { TawkChatComponent } from '../../../../components/tawk-chat/tawk-chat.component';
 
 @Component({
-  selector: 'app-full-layout',
-  templateUrl: './full-layout.component.html',
-  styleUrls: ['./full-layout.component.scss']
+    selector: 'app-full-layout',
+    templateUrl: './full-layout.component.html',
+    styleUrls: ['./full-layout.component.scss'],
+    imports: [RouterOutlet, TawkChatComponent]
 })
 export class FullLayoutComponent implements OnInit {
 

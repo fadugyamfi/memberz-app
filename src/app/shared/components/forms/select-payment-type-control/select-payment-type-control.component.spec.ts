@@ -8,8 +8,8 @@ describe('SelectPaymentTypeControlComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SelectPaymentTypeControlComponent ]
-    })
+    imports: [SelectPaymentTypeControlComponent]
+})
     .compileComponents();
   });
 

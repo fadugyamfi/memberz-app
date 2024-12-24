@@ -1,13 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, output } from '@angular/core';
 import { Organisation } from '../../../../shared/model/api/organisation';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
 import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
+import { FormsModule } from '@angular/forms';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-review-step',
-  templateUrl: './review.component.html',
-  styleUrls: ['./review.component.scss']
+    selector: 'app-review-step',
+    templateUrl: './review.component.html',
+    styleUrls: ['./review.component.scss'],
+    imports: [FormsModule, NgxIntlTelInputModule, TitleCasePipe]
 })
 export class ReviewComponent implements OnInit {
 
@@ -15,7 +19,7 @@ export class ReviewComponent implements OnInit {
   public subscriptionType: SubscriptionType;
   public policyAccepted = false;
 
-  @Output() reviewCompleted = new EventEmitter();
+  readonly reviewCompleted = output();
 
   constructor(
     public organisationService: OrganisationService,
@@ -31,7 +35,7 @@ export class ReviewComponent implements OnInit {
       var s = document.createElement("script"),
         tag = document.getElementsByTagName("script")[0];
       s.src = "//cdn.iubenda.com/iubenda.js";
-      tag.parentNode.insertBefore(s, tag);
+      tag.parentNode?.insertBefore(s, tag);
     };
 
     loader();

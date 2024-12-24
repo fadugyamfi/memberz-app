@@ -15,11 +15,17 @@
     <!-- end of row -->
   </div>
   <div class="card-body chart-block">
-    <app-loading-rotate-dashed *ngIf="!showChart"></app-loading-rotate-dashed>
-    <app-no-data-available *ngIf="showChart && !hasDataAvailable()"></app-no-data-available>
+    @if (!showChart) {
+      <app-loading-rotate-dashed></app-loading-rotate-dashed>
+    }
+    @if (showChart && !hasDataAvailable()) {
+      <app-no-data-available></app-no-data-available>
+    }
 
-    <canvas *ngIf="showChart && hasDataAvailable()" baseChart class="chart" [datasets]="chartData" [labels]="labels"
-            [options]="barChartOptions" [legend]="true" [type]="barChartType" [colors]="barChartColors"></canvas>
+    @if (showChart && hasDataAvailable()) {
+      <canvas baseChart class="chart" [datasets]="chartData" [labels]="labels"
+      [options]="barChartOptions" [legend]="true" [type]="barChartType" [colors]="barChartColors"></canvas>
+    }
   </div>
 </div>
 <!-- end of card -->

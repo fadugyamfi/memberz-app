@@ -12,20 +12,18 @@ import { CustomFieldComponent } from '../../shared/components/forms/custom-field
 
 const avatarSourcesOrder = [AvatarSource.CUSTOM, AvatarSource.INITIALS];
 @NgModule({
-  declarations: [
-    RegisterSuccessComponent,
-    RegistrationFormComponent
-  ],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    ReactiveFormsModule,
-    RegistrationRoutingModule,
-    NgxIntlTelInputModule,
-    AvatarModule.forRoot({
-      sourcePriorityOrder: avatarSourcesOrder
-    }),
-    CustomFieldComponent
-  ]
+    imports: [
+        CommonModule,
+        TranslateModule,
+        ReactiveFormsModule,
+        RegistrationRoutingModule,
+        NgxIntlTelInputModule,
+        AvatarModule.forRoot({
+            sourcePriorityOrder: avatarSourcesOrder
+        }),
+        CustomFieldComponent,
+        RegisterSuccessComponent,
+        RegistrationFormComponent
+    ]
 })
 export class RegistrationModule { }

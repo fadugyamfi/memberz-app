@@ -1,10 +1,14 @@
-import { Component, OnInit, Input, forwardRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, input, output } from '@angular/core';
 import { Member } from '../../../model/api/member';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap, switchMap, catchError } from 'rxjs/operators';
 import { OrganisationMemberService } from '../../../services/api/organisation-member.service';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ImagePreloadDirective } from '../../../directives/image-preload.directive';
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { AvatarModule } from 'ngx-avatars';
 
 export const MEMBER_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -14,27 +18,28 @@ export const MEMBER_CONTROL_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'app-member-control',
-  templateUrl: './member-control.component.html',
-  styleUrls: ['./member-control.component.scss'],
-  providers: [MEMBER_CONTROL_ACCESSOR]
+    selector: 'app-member-control',
+    templateUrl: './member-control.component.html',
+    styleUrls: ['./member-control.component.scss'],
+    providers: [MEMBER_CONTROL_ACCESSOR],
+    imports: [ImagePreloadDirective, NgbTypeaheadModule, AvatarModule]
 })
 export class MemberControlComponent {
 
-  @Input() member: Member;
-  @Input() withMobileNumber = false;
-  @Input() returnMembershipId = false;
-  @Input() readonly = false;
-  @Output() selected = new EventEmitter();
+  readonly member = input<Member | undefined | null>(undefined);
+  readonly withMobileNumber = input(false);
+  readonly returnMembershipId = input(false);
+  readonly readonly = input(false);
+  readonly selected = output<OrganisationMember | null | undefined>();
 
-  private _membership: OrganisationMember;
+  private _membership?: OrganisationMember | null;
   public searching = false;
   public searchFailed = false;
 
   private value = '';
-  private inputEl = null;
+  private inputEl?: any = null;
 
-  public model = null;
+  public model?: string | null;
   public disabled = false;
   public onChange = (_: any) => { };
   public onTouched = () => { };
@@ -44,15 +49,15 @@ export class MemberControlComponent {
   ) { }
 
   @Input()
-  set membership(value: OrganisationMember) {
+  set membership(value: OrganisationMember | null) {
     this._membership = value;
 
     if ( this.membership ) {
-      this.model = this.membership.member.firstThenLastName();
+      this.model = this.membership.member?.firstThenLastName();
     }
   }
 
-  get membership(): OrganisationMember {
+  get membership(): OrganisationMember | null | undefined {
     return this._membership;
   }
 
@@ -92,7 +97,7 @@ export class MemberControlComponent {
           limit: 50
         };
 
-        if (this.withMobileNumber) {
+        if (this.withMobileNumber()) {
           params['mobile_number_isNotNull'] = true;
         }
 
@@ -110,7 +115,7 @@ export class MemberControlComponent {
   setSelectedMember(data, input) {
     this.inputEl = input;
     this.membership = data.item;
-    this.setValue( this.returnMembershipId ? this.membership.id : this.membership.member_id);
+    this.setValue( this.returnMembershipId() ? this.membership?.id : this.membership?.member_id);
     this.selected.emit(this.membership);
   }
 

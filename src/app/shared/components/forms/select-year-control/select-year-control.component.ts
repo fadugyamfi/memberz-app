@@ -1,7 +1,9 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy, forwardRef, Input } from '@angular/core';
-import { ContributionService } from 'src/app/shared/services/api/contribution.service';
+import { Component, OnInit, OnDestroy, forwardRef, input, output } from '@angular/core';
+import { ContributionService } from '../../../services/api/contribution.service';
 import { Subscription } from 'rxjs';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 export const YEAR_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -10,19 +12,20 @@ export const YEAR_CONTROL_ACCESSOR: any = {
   multi: true
 };
 @Component({
-  selector: 'app-select-year-control',
-  templateUrl: './select-year-control.component.html',
-  styleUrls: ['./select-year-control.component.scss'],
-  providers: [YEAR_CONTROL_ACCESSOR]
+    selector: 'app-select-year-control',
+    templateUrl: './select-year-control.component.html',
+    styleUrls: ['./select-year-control.component.scss'],
+    providers: [YEAR_CONTROL_ACCESSOR],
+    imports: [FormsModule, TranslateModule]
 })
 export class SelectYearControlComponent implements OnInit, OnDestroy {
 
-  @Output() selectedYearEvent = new EventEmitter();
-  @Input() classes: string = "";
+  readonly selectedYearEvent = output<any>();
+  readonly classes = input<string>("");
   public years: any;
   public subscriptions: Subscription[] = [];
 
-  private _value = '';
+  private _value: string | null = '';
   public disabled = false;
   public onChange = (_: any) => { };
   public onTouched = () => { };

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationSubscription } from '../../../shared/model/api/organisation-subscription';
 import { Subscription, Observable } from 'rxjs';
 import { EventsService } from '../../../shared/services/events.service';
@@ -10,12 +10,14 @@ import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { SubscriptionTypeService } from '../../../shared/services/api/subscription-type.service';
 import { SubscriptionType } from '../../../shared/model/api/subscription-type';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
-  selector: 'app-subscription-upgrade',
-  templateUrl: './subscription-upgrade.component.html',
-  styleUrls: ['./subscription-upgrade.component.scss']
+    selector: 'app-subscription-upgrade',
+    templateUrl: './subscription-upgrade.component.html',
+    styleUrls: ['./subscription-upgrade.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class SubscriptionUpgradeComponent implements OnInit, OnDestroy {
 

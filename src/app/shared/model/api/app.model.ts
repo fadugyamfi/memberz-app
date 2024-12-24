@@ -2,13 +2,13 @@ import moment from 'moment';
 
 export class AppModel {
 
-  public id: any;
-  public created: string;
-  public modified: string;
+  public declare id: any;
+  public declare created: string;
+  public declare modified: string;
 
-  public deleted_at: string;
-  public created_at: string;
-  public updated_at: string;
+  public declare deleted_at: string;
+  public declare created_at: string;
+  public declare updated_at: string;
 
   constructor(data: object) {
     this.update(data);

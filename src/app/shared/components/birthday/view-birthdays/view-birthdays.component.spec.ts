@@ -8,8 +8,8 @@ describe('ViewBirthdaysComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewBirthdaysComponent ]
-    })
+    imports: [ViewBirthdaysComponent]
+})
     .compileComponents();
   });
 

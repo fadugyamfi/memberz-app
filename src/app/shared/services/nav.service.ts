@@ -168,6 +168,20 @@ export class NavService {
         ]
       },
       {
+        title: 'Branches',
+        icon: 'calendar',
+        type: 'sub',
+        active: false,
+        bookmark: true,
+        path: '/organisation/branches',
+        children: [
+          { path: '/organisation/branches', title: 'Branch List', type: 'link' },
+          // { path: '/organisation/branches/add', title: 'Add Branch', type: 'link', permission: 'events:manage:add' },
+          // { path: '/organisation/events/calendar', title: 'Calendar', type: 'link', permission: 'events:calendar:view' },
+          // { path: '/organisation/events/birthday', title: 'Birthdays', type: 'link', permission: 'events:birthdays:view' },
+        ]
+      },
+      {
         title: 'Finance',
         icon: 'credit-card',
         type: 'sub',

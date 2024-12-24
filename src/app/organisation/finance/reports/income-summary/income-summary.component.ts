@@ -1,21 +1,28 @@
 import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
-import { FinanceReportingService } from 'src/app/shared/services/api/finance-reporting.services';
-import { ContributionReceiptSettingService } from 'src/app/shared/services/api/contribution-receipt-setting.service';
-import { ContributionReceiptSetting } from 'src/app/shared/model/api/contribution-receipt-setting';
-import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { FinanceReportingService } from '../../../../shared/services/api/finance-reporting.services';
+import { ContributionReceiptSettingService } from '../../../../shared/services/api/contribution-receipt-setting.service';
+import { ContributionReceiptSetting } from '../../../../shared/model/api/contribution-receipt-setting';
+import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import moment from 'moment';
+import { SelectCurrencyControlComponent } from '../../../../shared/components/forms/select-currency-control/select-currency-control.component';
+import { NgxPrintDirective } from 'ngx-print';
+import { CurrencyPipe } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { NoDataAvailableComponent } from '../../../../shared/components/forms/no-data-available/no-data-available.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
-  selector: 'app-income-summary',
-  templateUrl: './income-summary.component.html',
-  styleUrls: ['./income-summary.component.scss']
+    selector: 'app-income-summary',
+    templateUrl: './income-summary.component.html',
+    styleUrls: ['./income-summary.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, SelectCurrencyControlComponent, NgxPrintDirective, LoadingRotateDashedComponent, NoDataAvailableComponent, CurrencyPipe, TranslateModule]
 })
 export class IncomeSummaryComponent implements OnInit {
 
-  public reportData = [];
-  public rawData = [];
+  public reportData: any[] = [];
+  public rawData: any[] = [];
   public subscriptions: Subscription[] = [];
   public showData = false;
   public settings: ContributionReceiptSetting;
@@ -42,7 +49,7 @@ export class IncomeSummaryComponent implements OnInit {
 
   fetchReportData() {
     this.showData = false;
-    const sub = this.reportingService.getIncomeSummary(this.searchForm.value).subscribe((data: any[]) => {
+    const sub = this.reportingService.getIncomeSummary(this.searchForm.value).subscribe((data: any[]): void => {
       this.showData = true;
       this.reportData = data;
       this.rawData = data;

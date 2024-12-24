@@ -1,6 +1,8 @@
 <select class="form-select" [(ngModel)]="value">
   <option value="">{{ 'Select Payment Method' | translate }}</option>
-  <option *ngFor="let type of paymentTypeService.getItems()" [value]="type.id">
-    {{ type.name | translate }}
-  </option>
+  @for (type of paymentTypeService.getItems(); track type) {
+    <option [value]="type.id">
+      {{ type.name | translate }}
+    </option>
+  }
 </select>

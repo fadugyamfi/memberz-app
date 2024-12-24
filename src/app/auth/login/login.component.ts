@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { UntypedFormBuilder, Validators, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/services/api/auth.service';
-import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { SearchCountryField, CountryISO, PhoneNumberFormat, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { environment } from '../../../environments/environment';
+
+import { TawkChatComponent } from '../../components/tawk-chat/tawk-chat.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 type UserFields = 'username' | 'password';
 type FormErrors = { [u in UserFields]: string };
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    imports: [RouterLink, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TawkChatComponent, TranslateModule]
 })
 export class LoginComponent implements OnInit {
 

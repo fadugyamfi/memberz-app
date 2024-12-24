@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, viewChild } from '@angular/core';
 // import { WizardComponent } from 'angular-archwizard';
 import { Organisation } from '../../../shared/model/api/organisation';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
@@ -8,16 +8,14 @@ import { EventsService } from '../../../shared/services/events.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-create-organisation',
-  templateUrl: './create-organisation.component.html',
-  styleUrls: ['./create-organisation.component.scss']
+    selector: 'app-create-organisation',
+    templateUrl: './create-organisation.component.html',
+    styleUrls: ['./create-organisation.component.scss'],
+    standalone: true
 })
 export class CreateOrganisationComponent implements OnInit {
 
-  @ViewChild('wizard', { static: true })
-  // public wizard: WizardComponent;
-
-  public organisation: Organisation;
+  readonly organisation = viewChild<Organisation>('wizard');
   public subscriptionType: SubscriptionType;
 
   constructor(
@@ -41,26 +39,26 @@ export class CreateOrganisationComponent implements OnInit {
     });
   }
 
-  onSaveProfile(organisation: Organisation) {
-    this.organisation = organisation;
-  }
+  // onSaveProfile(organisation: Organisation) {
+  //   this.organisation = organisation;
+  // }
 
-  onSelectSubscriptionType(subscriptionType: SubscriptionType) {
-    this.subscriptionType = subscriptionType;
-    this.organisation = Object.assign(this.organisation, {
-      subscription_length: 1,
-      subscription_type_id: this.subscriptionType.id
-    });
-  }
+  // onSelectSubscriptionType(subscriptionType: SubscriptionType) {
+  //   this.subscriptionType = subscriptionType;
+  //   this.organisation = Object.assign(this.organisation(), {
+  //     subscription_length: 1,
+  //     subscription_type_id: this.subscriptionType.id
+  //   });
+  // }
 
-  onSavePayment(data) {
-    this.organisation = Object.assign(this.organisation, data);
-  }
+  // onSavePayment(data) {
+  //   this.organisation = Object.assign(this.organisation(), data);
+  // }
 
-  createOrganisation() {
-    Swal.fire('Creating Organisation', 'Please wait as your new organisation is setup', 'info');
-    Swal.showLoading();
+  // createOrganisation() {
+  //   Swal.fire('Creating Organisation', 'Please wait as your new organisation is setup', 'info');
+  //   Swal.showLoading();
 
-    this.organisationService.create(this.organisation);
-  }
+  //   this.organisationService.create(this.organisation());
+  // }
 }

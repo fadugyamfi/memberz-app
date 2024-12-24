@@ -1,11 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FinanceReportingService } from 'src/app/shared/services/api/finance-reporting.services';
 import { Subscription } from 'rxjs';
+import { SelectYearControlComponent } from '../../../../shared/components/forms/select-year-control/select-year-control.component';
+import { FormsModule } from '@angular/forms';
+
+import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { NoDataAvailableComponent } from '../../../../shared/components/forms/no-data-available/no-data-available.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-non-contributing-members',
-  templateUrl: './non-contributing-members.component.html',
-  styleUrls: ['./non-contributing-members.component.scss']
+    selector: 'app-non-contributing-members',
+    templateUrl: './non-contributing-members.component.html',
+    styleUrls: ['./non-contributing-members.component.scss'],
+    imports: [SelectYearControlComponent, FormsModule, LoadingRotateDashedComponent, NoDataAvailableComponent, TranslateModule]
 })
 export class NonContributingMembersComponent implements OnInit {
 

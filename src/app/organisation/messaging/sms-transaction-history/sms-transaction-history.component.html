@@ -3,52 +3,61 @@
     <h6>{{ 'SMS Account History' | translate }}</h6>
   </div>
 
-  <div class="m-t-50 text-center" *ngIf="topups && topups.length == 0">
-    <h3>{{ 'No Search Results Found' | translate }}</h3>
-    <p>{{ 'Please search for members to display results here' | translate }}</p>
-  </div>
+  @if (topups && topups.length == 0) {
+    <div class="m-t-50 text-center">
+      <h3>{{ 'No Search Results Found' | translate }}</h3>
+      <p>{{ 'Please search for members to display results here' | translate }}</p>
+    </div>
+  }
 
-  <div class="loader-box m-auto" *ngIf="smsAccountTopupService.requesting">
-    <span class="rotate dashed colored"></span>
-  </div>
+  @if (smsAccountTopupService.requesting) {
+    <div class="loader-box m-auto">
+      <span class="rotate dashed colored"></span>
+    </div>
+  }
 
-  <table class="table table-bordered table-hover table-striped" *ngIf="topups && topups.length > 0">
-    <thead>
-      <tr>
-        <th>{{ 'Date' | translate }}</th>
-        <th>{{ 'Description' | translate }}</th>
-        <th class="text-end">{{ 'Credits' | translate }}</th>
-        <th class="text-end">{{ 'Cost' | translate }}</th>
-        <th class="text-center">{{ 'Status' | translate }}</th>
-        <th class="text-center">{{ 'Actions' | translate }}</th>
-      </tr>
-    </thead>
-
-
-    <tbody>
-      <tr *ngFor="let topup of topups">
-        <td class="text-center">
-          {{ topup.lastModified() }}
-        </td>
-        <td>{{ topup.invoice_description }}</td>
-        <td class="text-end">{{ topup.credit_amount | number }}</td>
-        <td class="text-end">{{ topup.cost | currency : topup.currency?.currency_code }}</td>
-        <td class="text-center">
-          <span class="badge badge-success" *ngIf="topup.credited">{{ 'Credited' | translate }}</span>
-          <span class="badge badge-warning" *ngIf="!topup.credited">{{ 'Pending' | translate }}</span>
-        </td>
-        <td class="text-center">
-          <button class="btn btn-xs btn-primary me-2" (click)="invoiceModal.showInvoice(topup.organisation_invoice_id)">
-            <i class="fa fa-file-text"></i> {{ 'View' | translate }}
-          </button>
-
-          <button class="btn btn-xs btn-danger" (click)="deleteTopup(topup)">
-            <i class="fa fa-trash-o"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  @if (topups && topups.length > 0) {
+    <table class="table table-bordered table-hover table-striped">
+      <thead>
+        <tr>
+          <th>{{ 'Date' | translate }}</th>
+          <th>{{ 'Description' | translate }}</th>
+          <th class="text-end">{{ 'Credits' | translate }}</th>
+          <th class="text-end">{{ 'Cost' | translate }}</th>
+          <th class="text-center">{{ 'Status' | translate }}</th>
+          <th class="text-center">{{ 'Actions' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (topup of topups; track topup) {
+          <tr>
+            <td class="text-center">
+              {{ topup.lastModified() }}
+            </td>
+            <td>{{ topup.invoice_description }}</td>
+            <td class="text-end">{{ topup.credit_amount | number }}</td>
+            <td class="text-end">{{ topup.cost | currency : topup.currency?.currency_code }}</td>
+            <td class="text-center">
+              @if (topup.credited) {
+                <span class="badge badge-success">{{ 'Credited' | translate }}</span>
+              }
+              @if (!topup.credited) {
+                <span class="badge badge-warning">{{ 'Pending' | translate }}</span>
+              }
+            </td>
+            <td class="text-center">
+              <button class="btn btn-xs btn-primary me-2" (click)="invoiceModal.showInvoice(topup.organisation_invoice_id)">
+                <i class="fa fa-file-text"></i> {{ 'View' | translate }}
+              </button>
+              <button class="btn btn-xs btn-danger" (click)="deleteTopup(topup)">
+                <i class="fa fa-trash-o"></i>
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 
   <div class="card-footer">
     <app-pagination [startColWidth]="'col-sm-4'" [service]="smsAccountTopupService" (paginate)="onPaginate($event)"></app-pagination>

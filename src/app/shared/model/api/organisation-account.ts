@@ -14,9 +14,9 @@ export class OrganisationAccount extends AppModel {
   public deleted: number;
   public notifications: number;
   public weekly_updates: number;
-  public _organisation_role: OrganisationRole;
-  public _member_account: MemberAccount;
-  public _membership: OrganisationMember;
+  public _organisation_role: OrganisationRole | null;
+  public _member_account: MemberAccount | null;
+  public _membership: OrganisationMember | null;
 
   constructor(data) {
     super(data);
@@ -26,11 +26,11 @@ export class OrganisationAccount extends AppModel {
     this._organisation_role = value ? new OrganisationRole(value) : null;
   }
 
-  get organisation_role(): OrganisationRole {
+  get organisation_role(): OrganisationRole | null {
     return this._organisation_role;
   }
 
-  get member_account(): MemberAccount {
+  get member_account(): MemberAccount | null {
     return this._member_account;
   }
 
@@ -54,6 +54,6 @@ export class OrganisationAccount extends AppModel {
   }
 
   hasPermission(name: string) {
-    return this.organisation_role.hasPermission(name);
+    return this.organisation_role?.hasPermission(name);
   }
 }

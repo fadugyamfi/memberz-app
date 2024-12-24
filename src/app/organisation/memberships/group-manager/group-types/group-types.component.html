@@ -8,32 +8,35 @@
     </div>
   </div>
 
-  <app-loading-rotate-dashed *ngIf="groupTypeService.fetching"></app-loading-rotate-dashed>
+  @if (groupTypeService.fetching) {
+    <app-loading-rotate-dashed></app-loading-rotate-dashed>
+  }
 
-  <app-no-data-available *ngIf="!groupTypeService.fetching && groupTypeService.hasZeroItems()"></app-no-data-available>
+  @if (!groupTypeService.fetching && groupTypeService.hasZeroItems()) {
+    <app-no-data-available></app-no-data-available>
+  }
 
   <ul class="list-group list-group-flush">
-    <a
-      *ngFor="let groupType of groupTypeService.getItems(); let row = index"
-      class="list-group-item d-flex justify-content-between"
-      [ngClass]="{active: selectedGroupType == groupType}"
-      (click)="setSelectedGroupType(groupType)"
-      href="javascript:void(0)"
-    >
-      <span>
-        <span class="m-r-15">{{ row + 1 }}.</span> {{ groupType.name }}
-      </span>
-
-      <span class="actions">
-        <button class="btn btn-primary btn-xs m-r-10" (click)="showEditorModal(groupType); $event.stopPropagation()">
-          <i class="fa fa-pencil me-0"></i>
-        </button>
-
-        <button class="btn btn-danger btn-xs" (click)="deleteGroupType(groupType); $event.stopPropagation()">
-          <i class="fa fa-trash-o me-0"></i>
-        </button>
-      </span>
-    </a>
+    @for (groupType of groupTypeService.getItems(); track groupType; let row = $index) {
+      <a
+        class="list-group-item d-flex justify-content-between"
+        [ngClass]="{active: selectedGroupType == groupType}"
+        (click)="setSelectedGroupType(groupType)"
+        href="javascript:void(0)"
+        >
+        <span>
+          <span class="m-r-15">{{ row + 1 }}.</span> {{ groupType.name }}
+        </span>
+        <span class="actions">
+          <button class="btn btn-primary btn-xs m-r-10" (click)="showEditorModal(groupType); $event.stopPropagation()">
+            <i class="fa fa-pencil me-0"></i>
+          </button>
+          <button class="btn btn-danger btn-xs" (click)="deleteGroupType(groupType); $event.stopPropagation()">
+            <i class="fa fa-trash-o me-0"></i>
+          </button>
+        </span>
+      </a>
+    }
   </ul>
 </div>
 
@@ -55,9 +58,11 @@
         <label class="col-sm-3 col-form-label">{{ 'Name' | translate}}</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" placeholder="e.g. Default" formControlName="name" />
-          <div class="messages text-danger" *ngIf="editorForm.controls.name?.errors?.required">
-            <p class="m-b-0 m-t-5">{{'Name Required' | translate}}</p>
-          </div>
+          @if (editorForm.controls.name?.errors?.required) {
+            <div class="messages text-danger">
+              <p class="m-b-0 m-t-5">{{'Name Required' | translate}}</p>
+            </div>
+          }
         </div>
       </div>
 
@@ -65,21 +70,25 @@
         <label class="col-sm-3 col-form-label">{{ 'Description' | translate}}</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" placeholder="e.g. something simple" formControlName="description" />
-          <div class="messages text-danger" *ngIf="editorForm.controls.description?.errors?.required">
-            <p class="m-b-0 m-t-5">{{'Description Required' | translate}}</p>
-          </div>
+          @if (editorForm.controls.description?.errors?.required) {
+            <div class="messages text-danger">
+              <p class="m-b-0 m-t-5">{{'Description Required' | translate}}</p>
+            </div>
+          }
         </div>
       </div>
 
     </div>
 
     <div class="modal-footer">
-      <span *ngIf="groupTypeService?.saving" class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i>
+      @if (groupTypeService?.saving) {
+        <span class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i>
         {{'Saving' | translate}}...
       </span>
+    }
 
-      <button type="submit" class="btn btn-primary">{{'Save Changes' | translate}}</button>
-      <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
-    </div>
-  </form>
+    <button type="submit" class="btn btn-primary">{{'Save Changes' | translate}}</button>
+    <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
+  </div>
+</form>
 </ng-template>

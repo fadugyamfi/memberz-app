@@ -5,11 +5,13 @@ import { OrganisationInvoice } from '../../../shared/model/api/organisation-invo
 // import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-payment-processor',
-  templateUrl: './payment-processor.component.html',
-  styleUrls: ['./payment-processor.component.scss']
+    selector: 'app-payment-processor',
+    templateUrl: './payment-processor.component.html',
+    styleUrls: ['./payment-processor.component.scss'],
+    imports: [TranslateModule]
 })
 export class PaymentProcessorComponent implements OnInit {
 

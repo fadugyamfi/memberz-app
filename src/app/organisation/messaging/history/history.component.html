@@ -4,13 +4,13 @@
       <div class="col-md-6">
         <div class="btn-group btn-sm">
           <button class="btn btn-sm btn-outline-secondary" [ngClass]="isActiveIf('all')"
-                  (click)="setSentStatusFilter('all')">{{'All' | translate}}</button>
+          (click)="setSentStatusFilter('all')">{{'All' | translate}}</button>
           <button class="btn btn-sm btn-outline-success" [ngClass]="isActiveIf('success')"
-                  (click)="setSentStatusFilter('success')">{{'Success' | translate}}</button>
+          (click)="setSentStatusFilter('success')">{{'Success' | translate}}</button>
           <button class="btn btn-sm btn-outline-warning" [ngClass]="isActiveIf('pending')"
-                  (click)="setSentStatusFilter('pending')">{{'Pending' | translate}}</button>
+          (click)="setSentStatusFilter('pending')">{{'Pending' | translate}}</button>
           <button class="btn btn-sm btn-outline-danger" [ngClass]="isActiveIf('failed')"
-                  (click)="setSentStatusFilter('failed')">{{'Failed' | translate}}</button>
+          (click)="setSentStatusFilter('failed')">{{'Failed' | translate}}</button>
         </div>
       </div>
 
@@ -28,50 +28,56 @@
 
   </div>
 
-  <div class="m-t-50 text-center" *ngIf="emptyDataset()">
-    <h3>{{'No Search Results Found' | translate}}</h3>
-    <p>{{'Please search for members to display results here' | translate}}</p>
-  </div>
+  @if (emptyDataset()) {
+    <div class="m-t-50 text-center">
+      <h3>{{'No Search Results Found' | translate}}</h3>
+      <p>{{'Please search for members to display results here' | translate}}</p>
+    </div>
+  }
 
-  <div class="loader-box m-auto" *ngIf="messageService.requesting">
-    <span class="rotate dashed colored"></span>
-  </div>
+  @if (messageService.requesting) {
+    <div class="loader-box m-auto">
+      <span class="rotate dashed colored"></span>
+    </div>
+  }
 
-  <div *ngIf="dataAvailable()">
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item" *ngFor="let message of messages">
-        <div class="row">
-          <div class="col-sm-9">
-            <div class="d-flex">
-              <div class="flex-shrink-0">
-                <ngx-avatars class="pull-left m-r-15" [src]="message.member?.profile_photo?.thumb_url"
-                            name="{{ message.member?.last_name }} {{ message.member?.first_name }}"
-                            initialsSize="2"
-                ></ngx-avatars>
-              </div>
-
-              <div class="flex-grow-1">
-                <div>
-                  <a href="javascript:void(0)" class="m-r-10 fw-semibold" viewProfile [memberId]="message.member_id">
-                    {{ message.member?.last_name }} {{ message.member?.first_name }}
-                  </a>
-                  <span>({{ message.to }})</span>
+  @if (dataAvailable()) {
+    <div>
+      <ul class="list-group list-group-flush">
+        @for (message of messages; track message) {
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-sm-9">
+                <div class="d-flex">
+                  <div class="flex-shrink-0">
+                    <ngx-avatars class="pull-left m-r-15" [src]="message.member?.profile_photo?.thumb_url"
+                      name="{{ message.member?.last_name }} {{ message.member?.first_name }}"
+                      initialsSize="2"
+                    ></ngx-avatars>
+                  </div>
+                  <div class="flex-grow-1">
+                    <div>
+                      <a href="javascript:void(0)" class="m-r-10 fw-semibold" viewProfile [memberId]="message.member_id">
+                        {{ message.member?.last_name }} {{ message.member?.first_name }}
+                      </a>
+                      <span>({{ message.to }})</span>
+                    </div>
+                    <div class="message" [innerHTML]="message.message"></div>
+                  </div>
                 </div>
-                <div class="message" [innerHTML]="message.message"></div>
+              </div>
+              <div class="col-sm-3">
+                <label>{{ message.sent_at | date : 'medium' }}</label>
+                <p class="f-12 fw-bold" [ngClass]="sentStatusClasses(message)">
+                  {{ message.sent_status | translate }}
+                </p>
               </div>
             </div>
-          </div>
-
-          <div class="col-sm-3">
-            <label>{{ message.sent_at | date : 'medium' }}</label>
-            <p class="f-12 fw-bold" [ngClass]="sentStatusClasses(message)">
-              {{ message.sent_status | translate }}
-            </p>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
+          </li>
+        }
+      </ul>
+    </div>
+  }
 
 
   <div class="card-footer">
@@ -123,7 +129,7 @@
       <button type="submit" class="btn btn-primary">{{'Search' | translate }}</button>
       <button type="reset" class="btn btn-outline-info">{{'Clear' | translate}}</button>
       <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' |
-        translate}}</button>
+      translate}}</button>
     </div>
   </form>
 </ng-template>

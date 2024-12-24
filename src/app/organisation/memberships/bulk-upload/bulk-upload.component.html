@@ -1,82 +1,83 @@
-<div class="card" *ngIf="!reviewingImport()">
-  <div class="card-header">
-    <div class="row">
-      <div class="col-md-6">&nbsp;</div>
-      <div class="col-md-6 text-end">
-        <a href="assets/templates/membership_import_template.xlsx" download="" class="btn btn-outline-success me-3">
-          <i class="fa fa-download"></i> {{ 'Download Template' | translate }}
-        </a>
-
-        <button class="btn btn-primary" (click)="showUploadModal()">
-          <i class="fa fa-cloud-upload" aria-hidden="true"></i> {{ 'Import Members' | translate }}
-        </button>
+@if (!reviewingImport()) {
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-6">&nbsp;</div>
+        <div class="col-md-6 text-end">
+          <a href="assets/templates/membership_import_template.xlsx" download="" class="btn btn-outline-success me-3">
+            <i class="fa fa-download"></i> {{ 'Download Template' | translate }}
+          </a>
+          <button class="btn btn-primary" (click)="showUploadModal()">
+            <i class="fa fa-cloud-upload" aria-hidden="true"></i> {{ 'Import Members' | translate }}
+          </button>
+        </div>
       </div>
     </div>
+    @if (fileImportService.hasZeroItems() && !fileImportService.fetching) {
+      <div class="m-t-30 m-b-30 text-center">
+        <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
+        <h4 class="fw-bold">{{ 'No bulk uploads file available' | translate }}</h4>
+        <h6>{{'Please click on Import Data button to upload content' | translate}}</h6>
+      </div>
+    }
+    @if (fileImportService.fetching) {
+      <div class="loader-box m-auto">
+        <span class="rotate dashed colored"></span>
+      </div>
+    }
+    @if (fileImportService.hasItems() && !fileImportService.fetching) {
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th colspan="4"></th>
+            <th colspan="3" class="text-center">{{ 'Import Stats' | translate }}</th>
+            <th></th>
+          </tr>
+          <tr>
+            <th>{{ 'Date' | translate }}</th>
+            <th>{{ 'Uploaded By' | translate }}</th>
+            <th>{{ 'File Name' | translate }}</th>
+            <th class="text-center">{{ 'Status' | translate }}</th>
+            <th class="text-center">{{ 'Imported' | translate }}</th>
+            <th class="text-center">{{ 'Linked' | translate }}</th>
+            <th class="text-center">{{ 'Existing' | translate }}</th>
+            <th class="text-center">{{ 'Actions' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (fileImport of fileImportService.getItems(); track fileImport; let row = $index) {
+            <tr>
+              <td>{{ fileImport.whenCreated() }}</td>
+              <td>{{ fileImport.member_account?.member?.name() }}</td>
+              <td>{{ fileImport.file_name }}</td>
+              <td class="text-center">
+                <span class="badge" [class]="fileImport.badgeClasses()">{{ fileImport.import_status | translate }}</span>
+              </td>
+              <td class="text-center">{{ fileImport.records_imported || 0 }}</td>
+              <td class="text-center">{{ fileImport.records_linked || 0 }}</td>
+              <td class="text-center">{{ fileImport.records_existing || 0 }}</td>
+              <td class="text-center">
+                <button class="btn btn-xs btn-primary m-r-10" (click)="reviewImport(fileImport)">
+                  <i class="fa fa-file"></i> {{ 'Review' | translate }}
+                </button>
+                <button class="btn btn-xs btn-danger m-r-10" (click)="deleteFileImport(fileImport)">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
+    <div class="card-footer">
+      <app-pagination [service]="fileImportService" (paginate)="onPaginate($event)"></app-pagination>
+    </div>
   </div>
+}
 
-  <div class="m-t-30 m-b-30 text-center" *ngIf="fileImportService.hasZeroItems() && !fileImportService.fetching">
-    <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-    <h4 class="fw-bold">{{ 'No bulk uploads file available' | translate }}</h4>
-    <h6>{{'Please click on Import Data button to upload content' | translate}}</h6>
-  </div>
-
-  <div class="loader-box m-auto" *ngIf="fileImportService.fetching">
-    <span class="rotate dashed colored"></span>
-  </div>
-
-  <table class="table table-bordered table-hover" *ngIf="fileImportService.hasItems() && !fileImportService.fetching">
-    <thead>
-      <tr>
-        <th colspan="4"></th>
-        <th colspan="3" class="text-center">{{ 'Import Stats' | translate }}</th>
-        <th></th>
-      </tr>
-      <tr>
-        <th>{{ 'Date' | translate }}</th>
-        <th>{{ 'Uploaded By' | translate }}</th>
-        <th>{{ 'File Name' | translate }}</th>
-        <th class="text-center">{{ 'Status' | translate }}</th>
-        <th class="text-center">{{ 'Imported' | translate }}</th>
-        <th class="text-center">{{ 'Linked' | translate }}</th>
-        <th class="text-center">{{ 'Existing' | translate }}</th>
-        <th class="text-center">{{ 'Actions' | translate }}</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let fileImport of fileImportService.getItems(); let row = index">
-
-        <td>{{ fileImport.whenCreated() }}</td>
-        <td>{{ fileImport.member_account?.member?.name() }}</td>
-        <td>{{ fileImport.file_name }}</td>
-
-        <td class="text-center">
-          <span class="badge" [class]="fileImport.badgeClasses()">{{ fileImport.import_status | translate }}</span>
-        </td>
-
-        <td class="text-center">{{ fileImport.records_imported || 0 }}</td>
-        <td class="text-center">{{ fileImport.records_linked || 0 }}</td>
-        <td class="text-center">{{ fileImport.records_existing || 0 }}</td>
-
-        <td class="text-center">
-          <button class="btn btn-xs btn-primary m-r-10" (click)="reviewImport(fileImport)">
-            <i class="fa fa-file"></i> {{ 'Review' | translate }}
-          </button>
-
-          <button class="btn btn-xs btn-danger m-r-10" (click)="deleteFileImport(fileImport)">
-            <i class="fa fa-trash-o"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="card-footer">
-    <app-pagination [service]="fileImportService" (paginate)="onPaginate($event)"></app-pagination>
-  </div>
-</div>
-
-<app-upload-review *ngIf="reviewingImport()" [organisationFileImport]="selectedFileImport" (clear)="clearImportReview()"></app-upload-review>
+@if (reviewingImport()) {
+  <app-upload-review [organisationFileImport]="selectedFileImport" (clear)="clearImportReview()"></app-upload-review>
+}
 
 <ng-template #uploadModal let-modal>
   <form (submit)="onSubmit($event)" class="form form-horizontal theme-form" [formGroup]="uploadForm">
@@ -95,81 +96,98 @@
 
         <div class="col-sm-9">
           <input type="file" accept=".xlsx" placeholder="Upload excel file" class="form-control"
-                 formControlName="file" (change)="onFileChange($event)" />
+            formControlName="file" (change)="onFileChange($event)" />
 
-          <div class="text-danger" *ngIf="uploadForm.controls.file?.errors?.required">
-            <p class="mb-0">{{ 'Template File Required' | translate }}</p>
+            @if (uploadForm.controls.file?.errors?.required) {
+              <div class="text-danger">
+                <p class="mb-0">{{ 'Template File Required' | translate }}</p>
+              </div>
+            }
           </div>
         </div>
-      </div>
 
-      <div class="row form-group">
-        <label class="col-sm-3 col-form-label fw-bold">
-          {{ 'Member Category' | translate }}
-        </label>
+        <div class="row form-group">
+          <label class="col-sm-3 col-form-label fw-bold">
+            {{ 'Member Category' | translate }}
+          </label>
 
-        <div class="col-sm-9">
-          <select class="form-select" formControlName="import_to_id">
-            <option value=''>{{ 'Select Category' | translate }}</option>
-            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
-          </select>
+          <div class="col-sm-9">
+            <select class="form-select" formControlName="import_to_id">
+              <option value=''>{{ 'Select Category' | translate }}</option>
+              @for (category of categories; track category) {
+                <option [value]="category.id">{{ category.name }}</option>
+              }
+            </select>
 
-          <div class="text-danger" *ngIf="uploadForm.controls.import_to_id?.errors?.required">
-            <p class="mb-0">{{ 'Membership Category Required' | translate }}</p>
+            @if (uploadForm.controls.import_to_id?.errors?.required) {
+              <div class="text-danger">
+                <p class="mb-0">{{ 'Membership Category Required' | translate }}</p>
+              </div>
+            }
           </div>
         </div>
-      </div>
-
-    </div>
-
-    <div *ngIf="bulkuploadService?.isValid" class="card" style="height: 500px; overflow: auto">
-      <div class="card-body p-0">
-
-        <div class="loader-box m-auto" *ngIf="!bulkuploadService.excelData">
-          <span class="rotate dashed colored"></span>
-        </div>
-
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover table-striped preview-table"
-                 *ngIf="bulkuploadService.excelData">
-            <thead>
-              <tr>
-                <th *ngFor="let header of bulkuploadService?.excelData?.headers">{{ header }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let row of bulkuploadService?.excelData; last as isLast">
-                <ng-container *ngIf="!isArray(row)">
-                  <td *ngFor="let header of bulkuploadService?.excelData?.headers">
-                    {{ row[header] }}
-                  </td>
-                </ng-container>
-              </tr>
-            </tbody>
-          </table>
-        </div>
 
       </div>
-    </div>
 
-    <div class="modal-footer">
-      <span class="pull-left m-r-10">
-        {{infoMessage}}
-      </span>
+      @if (bulkuploadService?.isValid) {
+        <div class="card" style="height: 500px; overflow: auto">
+          <div class="card-body p-0">
+            @if (!bulkuploadService.excelData) {
+              <div class="loader-box m-auto">
+                <span class="rotate dashed colored"></span>
+              </div>
+            }
+            <div class="table-responsive">
+              @if (bulkuploadService.excelData) {
+                <table class="table table-bordered table-hover table-striped preview-table"
+                  >
+                  <thead>
+                    <tr>
+                      @for (header of bulkuploadService?.excelData?.headers; track header) {
+                        <th>{{ header }}</th>
+                      }
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (row of bulkuploadService?.excelData; track row; let isLast = $last) {
+                      <tr>
+                        @if (!isArray(row)) {
+                          @for (header of bulkuploadService?.excelData?.headers; track header) {
+                            <td>
+                              {{ row[header] }}
+                            </td>
+                          }
+                        }
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              }
+            </div>
+          </div>
+        </div>
+      }
 
-      <span *ngIf="bulkuploadService.excelData && !bulkuploadService?.isValid"
+      <div class="modal-footer">
+        <span class="pull-left m-r-10">
+          {{infoMessage}}
+        </span>
+
+        @if (bulkuploadService.excelData && !bulkuploadService?.isValid) {
+          <span
             class="pull-left text-danger m-r-10"
-      >
-        {{ 'Import File Validation Failed: Please ensure selected file matches template' | translate }}
-      </span>
+            >
+            {{ 'Import File Validation Failed: Please ensure selected file matches template' | translate }}
+          </span>
+        }
 
-      <button type="submit" class="btn btn-primary">
-        {{ 'Import' | translate }}
-      </button>
+        <button type="submit" class="btn btn-primary">
+          {{ 'Import' | translate }}
+        </button>
 
-      <button type="button" class="btn btn-outline-danger" (click)="resetModal(); modal.close('Save click')">
-        {{ 'Cancel' | translate }}
-      </button>
-    </div>
-  </form>
-</ng-template>
+        <button type="button" class="btn btn-outline-danger" (click)="resetModal(); modal.close('Save click')">
+          {{ 'Cancel' | translate }}
+        </button>
+      </div>
+    </form>
+  </ng-template>

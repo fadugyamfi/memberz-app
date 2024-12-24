@@ -8,14 +8,14 @@ export class OrganisationPaymentPlatform extends AppModel {
   
   public payment_platform_id: number;
   public _currency;
-  public _payment_platform: PaymentPlatform;
+  public _payment_platform: PaymentPlatform | null;
   public config: any;
 
   constructor(data) {
     super(data);
   }
 
-  get payment_platform(): PaymentPlatform {
+  get payment_platform(): PaymentPlatform | null {
     return this._payment_platform;
   }
 

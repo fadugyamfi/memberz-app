@@ -1,25 +1,28 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, viewChild } from '@angular/core';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbDropdownConfig, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { EventsService } from '../../../shared/services/events.service';
 import { StorageService } from '../../../shared/services/storage.service';
 import Swal from 'sweetalert2';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
-import { TranslateService } from '@ngx-translate/core';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+
+import { ViewProfileDirective } from '../../../shared/directives/view-profile.directive';
 
 @Component({
-  selector: 'app-pending-approvals',
-  templateUrl: './pending-approvals.component.html',
-  styleUrls: ['./pending-approvals.component.scss']
+    selector: 'app-pending-approvals',
+    templateUrl: './pending-approvals.component.html',
+    styleUrls: ['./pending-approvals.component.scss'],
+    imports: [NgbDropdownModule, ViewProfileDirective, PaginationComponent, TranslateModule]
 })
 export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
+  readonly searchModal = viewChild<any>('searchModal');
 
   public members: OrganisationMember[] = [];
   public categories: OrganisationMemberCategory[];
@@ -59,7 +62,7 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   fetchRegistrationFormId() {
-    this.registrationFormId = +this.route.snapshot.paramMap.get('id');
+    this.registrationFormId = +(this.route.snapshot.paramMap.get('id') as string);
   }
 
   /**
@@ -82,7 +85,7 @@ export class PendingApprovalsComponent implements OnInit, AfterViewInit, OnDestr
    * @param limit Total records to load
    */
   loadMemberships(page = 1, limit = 15) {
-    this.members = null;
+    this.members = [];
 
     const options = { page, limit, registration_form_id: this.registrationFormId };
 

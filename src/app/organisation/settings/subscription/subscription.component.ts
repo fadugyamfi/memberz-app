@@ -3,12 +3,18 @@ import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationSubscriptionService } from '../../../shared/services/api/organisation-subscription.service';
 import { OrganisationSubscription } from '../../../shared/model/api/organisation-subscription';
 import { Subscription } from 'rxjs';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+import { SubscriptionStatusComponent } from '../../../shared/components/subscription-status/subscription-status.component';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { InvoiceComponent } from '../../../shared/components/invoice/invoice.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-subscription',
-  templateUrl: './subscription.component.html',
-  styleUrls: ['./subscription.component.scss']
+    selector: 'app-subscription',
+    templateUrl: './subscription.component.html',
+    styleUrls: ['./subscription.component.scss'],
+    imports: [SubscriptionStatusComponent, RouterLink, PaginationComponent, InvoiceComponent, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class SubscriptionComponent implements OnInit, OnDestroy {
 

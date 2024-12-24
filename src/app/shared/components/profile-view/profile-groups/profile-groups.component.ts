@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnDestroy, OnInit, viewChild } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
 import { OrganisationMemberGroup } from '../../../../shared/model/api/organisation-member-group';
@@ -10,14 +10,16 @@ import { OrganisationGroupTypeService } from '../../../../shared/services/api/or
 import { EventsService } from '../../../../shared/services/events.service';
 import { OrganisationGroupType } from '../../../../shared/model/api/organisation-group-type';
 
+
 @Component({
-  selector: 'app-profile-groups',
-  templateUrl: './profile-groups.component.html',
-  styleUrls: ['./profile-groups.component.scss']
+    selector: 'app-profile-groups',
+    templateUrl: './profile-groups.component.html',
+    styleUrls: ['./profile-groups.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class ProfileGroupsComponent implements OnInit, OnDestroy {
 
-  @ViewChild('assignmentModal', { static: true }) assignmentModal: any;
+  readonly assignmentModal = viewChild<any>('assignmentModal');
 
   public mbsp: OrganisationMember;
   public assignmentForm: UntypedFormGroup;
@@ -103,7 +105,7 @@ export class ProfileGroupsComponent implements OnInit, OnDestroy {
       this.setupAssignmentForm();
     }
 
-    this.modalService.open(this.assignmentModal);
+    this.modalService.open(this.assignmentModal());
   }
 
   editAssignment(memberGroup: OrganisationMemberGroup) {

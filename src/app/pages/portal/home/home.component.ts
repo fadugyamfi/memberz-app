@@ -8,18 +8,22 @@ import { OrganisationService } from '../../../shared/services/api/organisation.s
 import Swal from 'sweetalert2';
 import { StorageService } from '../../../shared/services/storage.service';
 import { EventsService } from '../../../shared/services/events.service';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
 import { OrganisationAccountService } from '../../../shared/services/api/organisation-account.service';
 import { SystemSettingService } from '../../../shared/services/api/system-setting.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { environment } from '../../../../environments/environment';
+import { NgClass, DecimalPipe } from '@angular/common';
+import { AvatarModule } from 'ngx-avatars';
+import { OrganisationEditorComponent } from './organisation-editor/organisation-editor.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    imports: [AvatarModule, NgClass, PaginationComponent, OrganisationEditorComponent, DecimalPipe, TranslateModule]
 })
 export class HomeComponent implements OnInit, OnDestroy {
 

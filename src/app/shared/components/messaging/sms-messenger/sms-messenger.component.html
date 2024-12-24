@@ -6,7 +6,7 @@
           <i class="fa fa-envelope"></i> {{ 'Send SMS Message' | translate }}
         </h4>
         <p class="m-b-0">
-          {{ 'Find contacts to send your message to and enter your message to send (up to 480 characters / 3 pages)' | translate }}</p>
+        {{ 'Find contacts to send your message to and enter your message to send (up to 480 characters / 3 pages)' | translate }}</p>
       </section>
 
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -30,20 +30,22 @@
         <label class="col-sm-3 col-form-label">{{ 'Selected Contacts' | translate }}</label>
         <div class="col-sm-9">
           <div class="border-1 border-gray rounded border p-2">
-            <span class="text-muted f-12" *ngIf="selectedContacts.length == 0">
-              {{ 'Selected Contacts Will Be Listed Here' | translate }}
-            </span>
+            @if (selectedContacts.length == 0) {
+              <span class="text-muted f-12">
+                {{ 'Selected Contacts Will Be Listed Here' | translate }}
+              </span>
+            }
 
             <ul class="list-inline">
-              <li class="list-inline-item bg-info p-1 f-12 rounded m-b-5" [title]="contact?.member?.mobile_number" *ngFor="let contact of selectedContacts">
-                <ngx-avatars [src]="contact?.member?.thumbnail()" [name]="contact?.member?.name()" class="m-r-5" size="20"></ngx-avatars>
-
-                <span class="m-r-10">{{ contact.member.name() }}</span>
-
-                <button class="btn btn-xs btn-light p-0" (click)="removeContact(contact)">
-                  <i class="fa fa-times fa-fw f-10"></i>
-                </button>
-              </li>
+              @for (contact of selectedContacts; track contact) {
+                <li class="list-inline-item bg-info p-1 f-12 rounded m-b-5" [title]="contact?.member?.mobile_number">
+                  <ngx-avatars [src]="contact?.member?.thumbnail()" [name]="contact?.member?.name()" class="m-r-5" size="20"></ngx-avatars>
+                  <span class="m-r-10">{{ contact.member.name() }}</span>
+                  <button class="btn btn-xs btn-light p-0" (click)="removeContact(contact)">
+                    <i class="fa fa-times fa-fw f-10"></i>
+                  </button>
+                </li>
+              }
             </ul>
           </div>
 
@@ -54,7 +56,7 @@
         <label class="col-sm-3 col-form-label">{{ 'Message' | translate }}</label>
         <div class="col-sm-9">
           <textarea rows="7" class="form-control" maxlength="480" placeholder="Enter message here"
-                    formControlName="message" (keyup)="trackChars($event)" spellcheck="true"></textarea>
+          formControlName="message" (keyup)="trackChars($event)" spellcheck="true"></textarea>
 
           <p class="m-t-10 small m-b-0">
             <span>{{ messages }} / 3 ({{ 480 - chars }} {{ 'Left' | translate }})</span>

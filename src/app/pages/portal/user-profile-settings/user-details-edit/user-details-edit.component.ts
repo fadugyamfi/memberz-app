@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Validators, UntypedFormGroup, UntypedFormControl } from "@angular/forms";
+import { Validators, UntypedFormGroup, UntypedFormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
-import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
+import { SearchCountryField, CountryISO, PhoneNumberFormat, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { AuthService } from 'src/app/shared/services/api/auth.service';
 import { EventsService } from 'src/app/shared/services/events.service';
 import { MemberService } from 'src/app/shared/services/api/member.service';
@@ -9,10 +9,13 @@ import { Member } from 'src/app/shared/model/api/member';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 @Component({
-  selector: 'app-user-details-edit',
-  templateUrl: './user-details-edit.component.html',
-  styleUrls: ['./user-details-edit.component.scss']
+    selector: 'app-user-details-edit',
+    templateUrl: './user-details-edit.component.html',
+    styleUrls: ['./user-details-edit.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TranslateModule]
 })
 export class UserDetailsEditComponent implements OnInit, OnDestroy {
 

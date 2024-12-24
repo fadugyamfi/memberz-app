@@ -1,34 +1,39 @@
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, viewChild } from '@angular/core';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal, NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { NgbModal, NgbDropdownConfig, NgbDropdownModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { EventsService } from '../../../shared/services/events.service';
 import Swal from 'sweetalert2';
 import { StorageService } from '../../../shared/services/storage.service';
 import { Subscription } from 'rxjs';
 import { OrganisationGroupTypeService } from '../../../shared/services/api/organisation-group-type.service';
 import { OrganisationAnniversaryService } from '../../../shared/services/api/organisation-anniversary.service';
-import { ExcelService } from 'src/app/shared/services/excel.service';
-import { TranslateService } from '@ngx-translate/core';
-import { PrintService } from 'src/app/shared/services/print.service';
+import { ExcelService } from '../../../shared/services/excel.service';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { PrintService } from '../../../shared/services/print.service';
 import { OrganisationGroupType } from '../../../shared/model/api/organisation-group-type';
 import moment from 'moment';
+import { NgClass, CurrencyPipe, DatePipe } from '@angular/common';
+import { PrintContentDirective } from '../../../shared/directives/print-content.directive';
+import { MembershipCardComponent } from '../../../shared/components/profile-view/membership-card/membership-card.component';
+import { ProfileImageComponent } from '../../../shared/components/profile-view/profile-image/profile-image.component';
 
 @Component({
-  selector: 'app-profiles',
-  templateUrl: './profiles.component.html',
-  styleUrls: ['./profiles.component.scss'],
-  providers: [NgbDropdownConfig]
+    selector: 'app-profiles',
+    templateUrl: './profiles.component.html',
+    styleUrls: ['./profiles.component.scss'],
+    providers: [NgbDropdownConfig],
+    imports: [NgbDropdownModule, NgClass, PrintContentDirective, MembershipCardComponent, ProfileImageComponent, NgbTooltipModule, PaginationComponent, FormsModule, ReactiveFormsModule, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
-  @ViewChild('changeCategoryModal', { static: true }) changeCategoryModal: any;
+  readonly searchModal = viewChild<any>('searchModal');
+  readonly changeCategoryModal = viewChild<any>('changeCategoryModal');
 
   public members: OrganisationMember[] = [];
   public categories: OrganisationMemberCategory[];
@@ -45,7 +50,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
   public subscriptions: Subscription[] = [];
 
   public showAdvanced = false;
-  public selectedGroupType: OrganisationGroupType;
+  public selectedGroupType?: OrganisationGroupType;
 
   constructor(
     public organisationMemberService: OrganisationMemberService,
@@ -157,7 +162,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param limit Total records to load
    */
   loadMemberships(options: object, page = 1, limit = 15) {
-    this.members = null;
+    this.members = [];
     this.clearCacheData();
 
     const sub = this.organisationMemberService.findMembers(options, page, limit).subscribe((members: OrganisationMember[]) => {
@@ -259,7 +264,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, { size: 'lg' });
+    this.modalService.open(this.searchModal(), { size: 'lg' });
   }
 
   /**
@@ -392,7 +397,7 @@ export class ProfilesComponent implements OnInit, AfterViewInit, OnDestroy {
    * Shows the change category modal
    */
   showChangeCategoryModal() {
-    this.modalService.open(this.changeCategoryModal, {});
+    this.modalService.open(this.changeCategoryModal(), {});
   }
 
   toggleAdvanced() {

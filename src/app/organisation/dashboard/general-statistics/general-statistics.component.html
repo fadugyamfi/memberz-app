@@ -14,17 +14,23 @@
               <span [ngClass]="planStatusTextIndicator()" class="me-4">{{ organisation.active_subscription.expiresIn() }}</span>
 
               <div class="btn-group">
-                <button class="btn btn-air-success btn-success btn-xs" *ngIf="hasValidInvoice() && !subscriptionPaid()" (click)="paySubscription()">
-                  <i class="fa fa-credit-card"></i> {{'Pay Now' | translate}}
-                </button>
+                @if (hasValidInvoice() && !subscriptionPaid()) {
+                  <button class="btn btn-air-success btn-success btn-xs" (click)="paySubscription()">
+                    <i class="fa fa-credit-card"></i> {{'Pay Now' | translate}}
+                  </button>
+                }
 
-                <button class="btn btn-air-success btn-success btn-xs" *ngIf="subscriptionPaid() && (subscriptionExpired() || subscriptionExpiring())" (click)="renewSubscription()">
-                  <i class="fa fa-recycle"></i> {{'Renew' | translate}}
-                </button>
+                @if (subscriptionPaid() && (subscriptionExpired() || subscriptionExpiring())) {
+                  <button class="btn btn-air-success btn-success btn-xs" (click)="renewSubscription()">
+                    <i class="fa fa-recycle"></i> {{'Renew' | translate}}
+                  </button>
+                }
 
-                <button class="btn btn-secondary btn-air-secondary btn-xs" *ngIf="canUpgrade()" (click)="upgradeSubscription()">
-                  <i class="fa fa-upload"></i> {{'Upgrade' | translate}}
-                </button>
+                @if (canUpgrade()) {
+                  <button class="btn btn-secondary btn-air-secondary btn-xs" (click)="upgradeSubscription()">
+                    <i class="fa fa-upload"></i> {{'Upgrade' | translate}}
+                  </button>
+                }
               </div>
             </div>
           </div>
@@ -58,18 +64,19 @@
       <div class="card-body">
         <div class="d-flex chart-university">
           <div class="flex-grow-1">
-            <h3 class="mb-0" *ngIf="(contributionSummary$ | async) as response; else noContData">
-              <app-feather-icons [icon]="'activity'" class="me-2"></app-feather-icons>
-              <span>{{ response.currency.currency_code }}</span>
-              <span class="counter ms-2" [CountTo]="response?.year" [from]="0" [duration]="2"></span>
-            </h3>
-            <ng-template #noContData>
+            @if ((contributionSummary$ | async); as response) {
+              <h3 class="mb-0">
+                <app-feather-icons [icon]="'activity'" class="me-2"></app-feather-icons>
+                <span>{{ response.currency.currency_code }}</span>
+                <span class="counter ms-2" [CountTo]="response?.year" [from]="0" [duration]="2"></span>
+              </h3>
+            } @else {
               <h3 class="mb-0">
                 <app-feather-icons [icon]="'activity'" class="me-2"></app-feather-icons>
                 <span>GHS</span>
                 <span class="counter ms-2" [CountTo]="0" [from]="0" [duration]="2"></span>
               </h3>
-            </ng-template>
+            }
             <p>{{ 'Total Income' | translate }} {{ currentYear }}</p>
           </div>
           <div class="flex-shrink-0 small-bar">
@@ -86,16 +93,17 @@
       <div class="card-body">
         <div class="d-flex chart-university">
           <div class="flex-grow-1">
-            <h3 class="mb-0" *ngIf="(unapprovedMemberships$ | async) as response; else noAppData">
-              <app-feather-icons [icon]="'edit-3'" class="me-2"></app-feather-icons>
-              <span class="counter" [CountTo]="response?.count" [from]="0" [duration]="2"></span>
-            </h3>
-            <ng-template #noAppData>
+            @if ((unapprovedMemberships$ | async); as response) {
+              <h3 class="mb-0">
+                <app-feather-icons [icon]="'edit-3'" class="me-2"></app-feather-icons>
+                <span class="counter" [CountTo]="response?.count" [from]="0" [duration]="2"></span>
+              </h3>
+            } @else {
               <h3 class="mb-0">
                 <app-feather-icons [icon]="'edit-3'" class="me-2"></app-feather-icons>
                 <span class="counter ms-2" [CountTo]="0" [from]="0" [duration]="2"></span>
               </h3>
-            </ng-template>
+            }
             <p>{{ 'Pending Approvals' | translate }}</p>
           </div>
           <div class="flex-shrink-0 small-bar">

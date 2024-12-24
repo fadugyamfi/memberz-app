@@ -5,14 +5,20 @@
         <div class="page-header-left">
           <h6 class="f-w-600 m-b-0">{{ title | translate | uppercase }}</h6>
           <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a [routerLink]="'/dashboard/default'">
-                  <app-feather-icons [icon]="'home'"></app-feather-icons>
-                </a></li>
-              <li class="breadcrumb-item" *ngIf="breadcrumbs?.grandParentBreadcrumb">{{breadcrumbs?.grandParentBreadcrumb | translate}}</li>
-              <li class="breadcrumb-item" *ngIf="breadcrumbs?.parentBreadcrumb">{{breadcrumbs?.parentBreadcrumb | translate}}</li>
-              <li class="breadcrumb-item active" *ngIf="breadcrumbs?.childBreadcrumb">{{breadcrumbs?.childBreadcrumb | translate}}
+            <li class="breadcrumb-item"><a [routerLink]="'/dashboard/default'">
+              <app-feather-icons [icon]="'home'"></app-feather-icons>
+            </a></li>
+            @if (breadcrumbs?.grandParentBreadcrumb) {
+              <li class="breadcrumb-item">{{breadcrumbs?.grandParentBreadcrumb | translate}}</li>
+            }
+            @if (breadcrumbs?.parentBreadcrumb) {
+              <li class="breadcrumb-item">{{breadcrumbs?.parentBreadcrumb | translate}}</li>
+            }
+            @if (breadcrumbs?.childBreadcrumb) {
+              <li class="breadcrumb-item active">{{breadcrumbs?.childBreadcrumb | translate}}
               </li>
-            </ol>
+            }
+          </ol>
         </div>
       </div>
       <div class="col-lg-4 text-end">

@@ -5,11 +5,16 @@ import { SmsAccountService } from '../../../../shared/services/api/sms-account.s
 import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
 import { SmsAccount } from '../../../../shared/model/api/sms-account';
 import { EventsService } from '../../../../shared/services/events.service';
+import { DatePipe } from '@angular/common';
+import { PaginationComponent } from '../../pagination/pagination.component';
+import { SmsMessengerComponent } from '../../messaging/sms-messenger/sms-messenger.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-profile-sms-messages',
-  templateUrl: './profile-sms-messages.component.html',
-  styleUrls: ['./profile-sms-messages.component.scss']
+    selector: 'app-profile-sms-messages',
+    templateUrl: './profile-sms-messages.component.html',
+    styleUrls: ['./profile-sms-messages.component.scss'],
+    imports: [PaginationComponent, SmsMessengerComponent, DatePipe, TranslateModule]
 })
 export class ProfileSmsMessagesComponent implements OnInit {
 

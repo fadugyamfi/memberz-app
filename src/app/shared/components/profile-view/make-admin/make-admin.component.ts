@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, viewChild } from '@angular/core';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { MemberAccount } from '../../../model/api/member-account';
 import { MemberAccountService } from '../../../services/api/member-account.service';
@@ -7,24 +7,26 @@ import { Subscription, Observable } from 'rxjs';
 import { OrganisationRoleService } from '../../../services/api/organisation-role.service';
 import { OrganisationRole } from '../../../model/api/organisation-role';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationAccount } from '../../../model/api/organisation-account';
 import { OrganisationAccountService } from '../../../services/api/organisation-account.service';
 import { EventsService } from '../../../services/events.service';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-make-admin',
-  templateUrl: './make-admin.component.html',
-  styleUrls: ['./make-admin.component.scss']
+    selector: 'app-make-admin',
+    templateUrl: './make-admin.component.html',
+    styleUrls: ['./make-admin.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, AsyncPipe, TranslateModule]
 })
 export class MakeAdminComponent implements OnInit, OnDestroy {
 
-  @ViewChild('makeAdminModal', { static: true }) makeAdminModal: any;
+  readonly makeAdminModal = viewChild<any>('makeAdminModal');
 
   public mbshp: OrganisationMember;
-  public userAccount: MemberAccount;
+  public userAccount: MemberAccount | null;
   public subscriptions: Subscription[] = [];
   public roles$: Observable<OrganisationRole[]>;
   public makeAdminForm: UntypedFormGroup;
@@ -78,7 +80,7 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
 
     this.makeAdminForm = new UntypedFormGroup({
       member_id: new UntypedFormControl(this.membership ? this.membership.member_id : null, Validators.required),
-      email: new UntypedFormControl(this.membership ? this.membership.member.email : null, Validators.required),
+      email: new UntypedFormControl(this.membership ? this.membership.member?.email : null, Validators.required),
       organisation_id: new UntypedFormControl(organisation.id, Validators.required),
       member_account_id: new UntypedFormControl(this.userAccount ? this.userAccount.id : null),
       organisation_role_id: new UntypedFormControl('', Validators.required),
@@ -99,7 +101,7 @@ export class MakeAdminComponent implements OnInit, OnDestroy {
 
   showAssignmentModal() {
     this.setupForm();
-    this.modalService.open(this.makeAdminModal);
+    this.modalService.open(this.makeAdminModal());
   }
 
   setupEvents() {

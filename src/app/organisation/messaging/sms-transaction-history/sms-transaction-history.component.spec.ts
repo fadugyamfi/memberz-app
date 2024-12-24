@@ -8,8 +8,8 @@ describe('SmsTransactionHistoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SmsTransactionHistoryComponent ]
-    })
+    imports: [SmsTransactionHistoryComponent]
+})
     .compileComponents();
   }));
 

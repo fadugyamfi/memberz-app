@@ -4,17 +4,19 @@
   </div>
 
   <div class="col-sm-8">
-    <app-groups
-      *ngIf="!selectedGroup"
-      [groupType]="selectedGroupType"
-      (viewGroupMembers)="setSelectedGroup($event)"
-    ></app-groups>
+    @if (!selectedGroup) {
+      <app-groups
+        [groupType]="selectedGroupType"
+        (viewGroupMembers)="setSelectedGroup($event)"
+      ></app-groups>
+    }
 
-    <app-group-members
-      *ngIf="selectedGroup"
-      [group]="selectedGroup"
-      (back)="setSelectedGroup(null)"
-    ></app-group-members>
+    @if (selectedGroup) {
+      <app-group-members
+        [group]="selectedGroup"
+        (back)="setSelectedGroup(null)"
+      ></app-group-members>
+    }
 
   </div>
 </div>

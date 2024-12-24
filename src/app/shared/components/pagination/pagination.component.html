@@ -1,18 +1,22 @@
-<div class="row" *ngIf="collectionSize">
-  <div class="{{ startColWidth }}">
-    <div class="input-group m-0">
-      <select name='limit' class='form-control form-control-sm m-r-20 col-4' size="" (change)="onLimitChangeEvent($event)">
-        <option *ngFor="let number of pagination_limits;" [selected]="pageLimit == number" value="{{ number }}">
-          {{ number }}
-        </option>
-      </select>
-      <span class="input-group-append m-0">
-        <button type="button" class="btn btn-primary btn-sm" (click)="onReload()"><i class="fa fa-refresh"></i> {{'Reload' | translate}}</button>
-      </span>
+@if (collectionSize) {
+  <div class="row">
+    <div class="{{ startColWidth() }}">
+      <div class="input-group m-0">
+        <select name='limit' class='form-control form-control-sm m-r-20 col-4' size="" (change)="onLimitChangeEvent($event)">
+          @for (number of pagination_limits; track number) {
+            <option [selected]="pageLimit == number" value="{{ number }}">
+              {{ number }}
+            </option>
+          }
+        </select>
+        <span class="input-group-append m-0">
+          <button type="button" class="btn btn-primary btn-sm" (click)="onReload()"><i class="fa fa-refresh"></i> {{'Reload' | translate}}</button>
+        </span>
+      </div>
+    </div>
+    <div class="{{ midColWidth() }}">
+      <ngb-pagination class="d-flex justify-content-center" [collectionSize]="collectionSize" [maxSize]="4" [pageSize]="pageLimit" [(page)]="currentPage"
+      [rotate]="true" [boundaryLinks]="true" (pageChange)="onPageChange($event)"></ngb-pagination>
     </div>
   </div>
-  <div class="{{ midColWidth }}">
-    <ngb-pagination class="d-flex justify-content-center" [collectionSize]="collectionSize" [maxSize]="4" [pageSize]="pageLimit" [(page)]="currentPage"
-                    [rotate]="true" [boundaryLinks]="true" (pageChange)="onPageChange($event)"></ngb-pagination>
-  </div>
-</div>
+}

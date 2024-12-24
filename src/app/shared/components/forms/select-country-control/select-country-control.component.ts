@@ -1,7 +1,9 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, OnDestroy, OnInit, input } from '@angular/core';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CountryService } from '../../../services/api/country.service';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 export const COUNTRY_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -11,19 +13,19 @@ export const COUNTRY_CONTROL_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'app-select-country-control',
-  templateUrl: './select-country-control.component.html',
-  styleUrls: ['./select-country-control.component.scss'],
-  providers: [COUNTRY_CONTROL_ACCESSOR]
+    selector: 'app-select-country-control',
+    templateUrl: './select-country-control.component.html',
+    styleUrls: ['./select-country-control.component.scss'],
+    providers: [COUNTRY_CONTROL_ACCESSOR],
+    imports: [FormsModule, TranslateModule]
 })
 export class SelectCountryControlComponent implements OnInit, OnDestroy {
 
-  @Input()
-  public controlClass = '';
+  public readonly controlClass = input('');
 
   private countrySub: Subscription;
 
-  private _value = '';
+  private _value: string | null = '';
   public disabled = false;
   public onChange = (_: any) => { };
   public onTouched = () => { };

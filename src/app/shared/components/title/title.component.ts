@@ -5,8 +5,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-title',
-  template: '<span></span>'
+    selector: 'app-title',
+    template: '<span></span>',
+    standalone: true
 })
 export class TitleComponent {
   constructor(private router: Router, private route: ActivatedRoute, private titleService: Title, private translate: TranslateService) {

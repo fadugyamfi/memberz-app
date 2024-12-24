@@ -1,8 +1,10 @@
 <div>
   <select class="form-select digits" [(ngModel)]="value">
     <option value="">{{ 'Select Month' | translate }}</option>
-    <option *ngFor="let month of months; let i = index" [value]="i + 1">
-      {{ shortNames ? (month | slice:0:3) : month }}
-    </option>
+    @for (month of months; track month; let i = $index) {
+      <option [value]="i + 1">
+        {{ shortNames() ? (month | slice:0:3) : month }}
+      </option>
+    }
   </select>
 </div>

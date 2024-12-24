@@ -1,33 +1,37 @@
-import { Directive, HostListener, Input } from '@angular/core';
+import { Directive, HostListener, input } from '@angular/core';
 import { OrganisationMember } from '../model/api/organisation-member';
 import { EventsService } from '../services/events.service';
 
 @Directive({
-	selector: '[viewProfile]'
+    selector: '[viewProfile]',
+    standalone: true
 })
 export class ViewProfileDirective {
 
-  @Input() membership: OrganisationMember;
-  @Input() membershipId: number;
-  @Input() memberId: number;
+  readonly membership = input<OrganisationMember>(undefined);
+  readonly membershipId = input<number>(undefined);
+  readonly memberId = input<number>(undefined);
 
   constructor(
     public events: EventsService
   ) {}
 
 	@HostListener('click') onClick() {
-    if( this.membership ) {
-      this.events.trigger('open:membership:flyout', this.membership);
+    const membership = this.membership();
+    if( membership ) {
+      this.events.trigger('open:membership:flyout', membership);
       return;
     }
 
-    if( this.membershipId ) {
-      this.events.trigger('open:membership:flyout:by:id', this.membershipId);
+    const membershipId = this.membershipId();
+    if( membershipId ) {
+      this.events.trigger('open:membership:flyout:by:id', membershipId);
       return;
     }
 
-    if( this.memberId ) {
-      this.events.trigger('open:membership:flyout:by:member_id', this.memberId);
+    const memberId = this.memberId();
+    if( memberId ) {
+      this.events.trigger('open:membership:flyout:by:member_id', memberId);
       return;
     }
 	}

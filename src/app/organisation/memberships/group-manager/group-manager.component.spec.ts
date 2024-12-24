@@ -8,8 +8,8 @@ describe('GroupManagerComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GroupManagerComponent ]
-    })
+    imports: [GroupManagerComponent]
+})
     .compileComponents();
   }));
 

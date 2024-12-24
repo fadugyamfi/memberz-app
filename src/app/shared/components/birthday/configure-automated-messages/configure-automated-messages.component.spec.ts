@@ -8,8 +8,8 @@ describe('ConfigureAutomatedMessagesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConfigureAutomatedMessagesComponent ]
-    })
+    imports: [ConfigureAutomatedMessagesComponent]
+})
     .compileComponents();
   });
 

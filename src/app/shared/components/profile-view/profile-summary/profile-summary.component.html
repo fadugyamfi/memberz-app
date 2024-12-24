@@ -1,62 +1,61 @@
 <div class="p-30 profile-overview">
-  <div class="row m-b-30 p-b-30 b-b-light" *ngIf="hasWorkInformation()">
-    <div class="col-sm-3 text-end">
-      <h6 class="text-muted">{{'Work Information' | translate}}</h6>
-    </div>
-
-    <div class="col-sm-8 offset-sm-1">
-      <div class="row">
-        <div class="col-sm-12">
-          <h5>{{ membership?.member?.occupation || 'N/A' }}</h5>
-          <small class='text-muted text-uppercase'>
-            {{ membership?.member?.business_name || 'N/A' }}
-          </small>
+  @if (hasWorkInformation()) {
+    <div class="row m-b-30 p-b-30 b-b-light">
+      <div class="col-sm-3 text-end">
+        <h6 class="text-muted">{{'Work Information' | translate}}</h6>
+      </div>
+      <div class="col-sm-8 offset-sm-1">
+        <div class="row">
+          <div class="col-sm-12">
+            <h5>{{ membership?.member?.occupation || 'N/A' }}</h5>
+            <small class='text-muted text-uppercase'>
+              {{ membership?.member?.business_name || 'N/A' }}
+            </small>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  }
 
-  <div class="row m-b-30 b-b-light p-b-30" *ngIf="hasContactInformation()">
-    <div class="col-sm-3 text-end">
-      <h6 class="text-muted">{{'Contact Information' | translate}}</h6>
-    </div>
-
-    <div class="col-sm-8 offset-sm-1">
-      <div class="row m-b-25">
-        <div class="col-sm-6">
-          <small class='text-muted text-uppercase'>{{'Email' | translate}}</small>
-          <p>
-            <a href="mailto:{{ membership?.member?.email }}">
-              {{ membership?.member?.email || 'N/A'}}
-            </a>
-          </p>
-        </div>
-
-        <div class="col-sm-6">
-          <small class='text-muted text-uppercase'>{{'Phone Number' | translate}}</small>
-          <p>
-            <a href="tel:{{ membership?.member?.mobile_number }}">
-              {{ membership?.member?.mobile_number || 'N/A' }}
-            </a>
-          </p>
-        </div>
+  @if (hasContactInformation()) {
+    <div class="row m-b-30 b-b-light p-b-30">
+      <div class="col-sm-3 text-end">
+        <h6 class="text-muted">{{'Contact Information' | translate}}</h6>
       </div>
-
-      <div class="row m-b-25">
-        <div class="col-sm-12">
-          <small class='text-muted text-uppercase'>{{ 'Post Address' | translate}}</small>
-          <p>{{ membership?.member?.address || 'N/A'}}</p>
+      <div class="col-sm-8 offset-sm-1">
+        <div class="row m-b-25">
+          <div class="col-sm-6">
+            <small class='text-muted text-uppercase'>{{'Email' | translate}}</small>
+            <p>
+              <a href="mailto:{{ membership?.member?.email }}">
+                {{ membership?.member?.email || 'N/A'}}
+              </a>
+            </p>
+          </div>
+          <div class="col-sm-6">
+            <small class='text-muted text-uppercase'>{{'Phone Number' | translate}}</small>
+            <p>
+              <a href="tel:{{ membership?.member?.mobile_number }}">
+                {{ membership?.member?.mobile_number || 'N/A' }}
+              </a>
+            </p>
+          </div>
         </div>
-      </div>
-
-      <div class="row m-b-25">
-        <div class="col-sm-12">
-          <small class='text-muted text-uppercase'>{{ 'Residential Address' | translate}}</small>
-          <p>{{ membership?.member?.residentialAddress() || 'N/A'}}</p>
+        <div class="row m-b-25">
+          <div class="col-sm-12">
+            <small class='text-muted text-uppercase'>{{ 'Post Address' | translate}}</small>
+            <p>{{ membership?.member?.address || 'N/A'}}</p>
+          </div>
+        </div>
+        <div class="row m-b-25">
+          <div class="col-sm-12">
+            <small class='text-muted text-uppercase'>{{ 'Residential Address' | translate}}</small>
+            <p>{{ membership?.member?.residentialAddress() || 'N/A'}}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  }
 
   <div class="row m-b-30 b-b-light p-b-30">
     <div class="col-sm-3 text-end">

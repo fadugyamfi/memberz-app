@@ -8,8 +8,8 @@ describe('PermissionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PermissionsComponent ]
-    })
+    imports: [PermissionsComponent]
+})
     .compileComponents();
   }));
 

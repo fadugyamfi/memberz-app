@@ -1,30 +1,34 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, OnInit, viewChild } from '@angular/core';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModal, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { SmsAccount } from '../../../shared/model/api/sms-account';
 import { SmsBroadcastList } from '../../../shared/model/api/sms-broadcast-list';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 import { SmsBroadcastListService } from '../../../shared/services/api/sms-broadcast-list.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { ListFilterService } from '../../../shared/services/utilities/list-filter.service';
+import { DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { ListFilterComponent } from './list-filter/list-filter.component';
 
 @Component({
-  selector: 'app-broadcast-lists',
-  templateUrl: './broadcast-lists.component.html',
-  styleUrls: ['./broadcast-lists.component.scss']
+    selector: 'app-broadcast-lists',
+    templateUrl: './broadcast-lists.component.html',
+    styleUrls: ['./broadcast-lists.component.scss'],
+    imports: [RouterLink, PaginationComponent, FormsModule, ReactiveFormsModule, ListFilterComponent, NgbDropdownModule, DecimalPipe, TranslateModule]
 })
 export class BroadcastListsComponent implements OnInit {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly searchModal = viewChild<any>('searchModal');
+  readonly editorModal = viewChild<any>('editorModal');
 
-  public subscriptions: Subscription[] = [];
-  public broadcastLists: SmsBroadcastList[] = [];
-  public selectedBroadcastList: SmsBroadcastList;
+  public subscriptions: Subscription[] | null = [];
+  public broadcastLists: SmsBroadcastList[] | null = [];
+  public selectedBroadcastList: SmsBroadcastList | null;
   public searchForm: UntypedFormGroup;
   public editorForm: UntypedFormGroup;
   public selectedFilterFields = [];
@@ -49,7 +53,7 @@ export class BroadcastListsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions?.forEach(sub => sub.unsubscribe());
     this.removeEvents();
   }
 
@@ -61,7 +65,7 @@ export class BroadcastListsComponent implements OnInit {
       this.broadcastLists = broadcastLists;
     });
 
-    this.subscriptions.push(sub);
+    this.subscriptions?.push(sub);
   }
 
   /**
@@ -78,7 +82,7 @@ export class BroadcastListsComponent implements OnInit {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, {});
+    this.modalService.open(this.searchModal(), {});
   }
 
   /**
@@ -172,7 +176,7 @@ export class BroadcastListsComponent implements OnInit {
   /**
    *
    */
-  showEditorModal(broadcastList: SmsBroadcastList = null) {
+  showEditorModal(broadcastList: SmsBroadcastList | null = null) {
     this.selectedBroadcastList = broadcastList;
     this.setupEditorForm();
 
@@ -189,7 +193,7 @@ export class BroadcastListsComponent implements OnInit {
       this.queryExample = this.listFilterService.getQueryExample(this.editorForm.value.filters);
     }
 
-    this.modalService.open(this.editorModal, { size: 'xl' });
+    this.modalService.open(this.editorModal(), { size: 'xl' });
   }
 
   /**

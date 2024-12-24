@@ -1,7 +1,9 @@
 import { Component, forwardRef, OnDestroy, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { OrganisationMemberCategoryService } from '../../../services/api/organisation-member-category.service';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 export const PAYMENT_TYPE_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -11,10 +13,11 @@ export const PAYMENT_TYPE_CONTROL_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'app-select-membership-category-control',
-  templateUrl: './select-membership-category-control.component.html',
-  styleUrls: ['./select-membership-category-control.component.scss'],
-  providers: [PAYMENT_TYPE_CONTROL_ACCESSOR]
+    selector: 'app-select-membership-category-control',
+    templateUrl: './select-membership-category-control.component.html',
+    styleUrls: ['./select-membership-category-control.component.scss'],
+    providers: [PAYMENT_TYPE_CONTROL_ACCESSOR],
+    imports: [FormsModule, TranslateModule]
 })
 export class SelectMembershipCategoryControlComponent implements OnInit, OnDestroy {
 

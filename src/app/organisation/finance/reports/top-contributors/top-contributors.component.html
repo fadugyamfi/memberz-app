@@ -37,40 +37,46 @@
         </div>
 
         <div class="card-body chart-block" id="report_content">
-          <app-loading-rotate-dashed *ngIf="!showData"></app-loading-rotate-dashed>
-          <app-no-data-available *ngIf="showData && !hasDataAvailable()"></app-no-data-available>
+          @if (!showData) {
+            <app-loading-rotate-dashed></app-loading-rotate-dashed>
+          }
+          @if (showData && !hasDataAvailable()) {
+            <app-no-data-available></app-no-data-available>
+          }
 
-          <table class="table table-striped table-bordered" *ngIf="showData && hasDataAvailable()">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>{{ "Member Name" | translate }}</th>
-                <th>{{ "Mobile Number" | translate }}</th>
-                <th class="text-center">{{ "Age" | translate }}</th>
-                <th class="text-end">{{ "Last Contribution Date" | translate }}</th>
-                <th class="text-end">{{ "Avg. Amount" | translate }}</th>
-                <th class="text-end">{{ "Total Amount" | translate }}</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr *ngFor="let data of reportData; let row = index">
-                <td>{{ row + 1 }}.</td>
-                <td>
-                  <a class="d-print-none" href="javascript:void(0)" viewProfile [membershipId]="data.organisation_member_id">
-                    {{ data.member_name }}
-                  </a>
-
-                  <span class="d-none d-print-block">{{ data.member_name }}</span>
-                </td>
-                <td>{{ data.mobile_number }}</td>
-                <td class="text-center">{{ data.age }}</td>
-                <td class="text-end">{{ data.last_contribution_date | date }}</td>
-                <td class="text-end">{{ data.avg_amount | currency: data.currency_code }}</td>
-                <td class="text-end fw-bold">{{ data.total_amount | currency: data.currency_code }}</td>
-              </tr>
-            </tbody>
-          </table>
+          @if (showData && hasDataAvailable()) {
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>{{ "Member Name" | translate }}</th>
+                  <th>{{ "Mobile Number" | translate }}</th>
+                  <th class="text-center">{{ "Age" | translate }}</th>
+                  <th class="text-end">{{ "Last Contribution Date" | translate }}</th>
+                  <th class="text-end">{{ "Avg. Amount" | translate }}</th>
+                  <th class="text-end">{{ "Total Amount" | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (data of reportData; track data; let row = $index) {
+                  <tr>
+                    <td>{{ row + 1 }}.</td>
+                    <td>
+                      <a class="d-print-none" href="javascript:void(0)" viewProfile [membershipId]="data.organisation_member_id">
+                        {{ data.member_name }}
+                      </a>
+                      <span class="d-none d-print-block">{{ data.member_name }}</span>
+                    </td>
+                    <td>{{ data.mobile_number }}</td>
+                    <td class="text-center">{{ data.age }}</td>
+                    <td class="text-end">{{ data.last_contribution_date | date }}</td>
+                    <td class="text-end">{{ data.avg_amount | currency: data.currency_code }}</td>
+                    <td class="text-end fw-bold">{{ data.total_amount | currency: data.currency_code }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          }
         </div>
       </div>
       <!-- end of card -->

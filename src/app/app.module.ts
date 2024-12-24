@@ -29,10 +29,7 @@ export function HttpLoaderFactory(http: HttpClient) {
    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-@NgModule({ declarations: [
-        AppComponent,
-        LoaderComponent,
-    ],
+@NgModule({ declarations: [AppComponent],
     bootstrap: [AppComponent], imports: [
         BrowserModule,
         FormsModule,
@@ -53,7 +50,9 @@ export function HttpLoaderFactory(http: HttpClient) {
                 useFactory: HttpLoaderFactory,
                 deps: [HttpClient]
             },
-        })], providers: [
+        }),
+        LoaderComponent
+    ], providers: [
         UserLoggedInGuard,
         SecureInnerPagesGuard,
         // error handling

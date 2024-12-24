@@ -8,12 +8,16 @@
             <div class="col-sm-9">
               <select class="form-select" formControlName="organisation_type_id">
                 <option value="">Select Type</option>
-                <option *ngFor="let type of orgTypes" [value]="type.id">{{ type.name }}</option>
+                @for (type of orgTypes; track type) {
+                  <option [value]="type.id">{{ type.name }}</option>
+                }
               </select>
 
-              <div class="text-danger" *ngIf="profileForm.controls.organisation_type_id?.errors?.required">
-                 {{ "Organisation Type Required" | translate }}
-              </div>
+              @if (profileForm.controls.organisation_type_id?.errors?.required) {
+                <div class="text-danger">
+                  {{ "Organisation Type Required" | translate }}
+                </div>
+              }
             </div>
           </div>
 
@@ -22,9 +26,11 @@
             <div class="col-sm-9">
               <input type="text" class="form-control" placeholder="e.g. Global Org Limited" formControlName="name" />
 
-              <div class="text-danger" *ngIf="profileForm.controls.name?.errors?.required">
-                 {{ "Name Of Organisation Required" | translate }}
-              </div>
+              @if (profileForm.controls.name?.errors?.required) {
+                <div class="text-danger">
+                  {{ "Name Of Organisation Required" | translate }}
+                </div>
+              }
             </div>
           </div>
 
@@ -33,13 +39,17 @@
             <div class="col-sm-9">
               <input type="email" class="form-control" placeholder="e.g. info@email.com" formControlName="email" />
 
-              <div class="text-danger" *ngIf="profileForm.controls.email?.errors?.required">
-                 {{ "Email Required" | translate }}
-              </div>
+              @if (profileForm.controls.email?.errors?.required) {
+                <div class="text-danger">
+                  {{ "Email Required" | translate }}
+                </div>
+              }
 
-              <div class="text-danger" *ngIf="profileForm.controls.email?.errors?.email">
-                 {{ "Email Invalid" | translate }}
-              </div>
+              @if (profileForm.controls.email?.errors?.email) {
+                <div class="text-danger">
+                  {{ "Email Invalid" | translate }}
+                </div>
+              }
             </div>
           </div>
 
@@ -47,20 +57,24 @@
             <div class="col-form-label col-sm-3">* {{ "Phone" | translate }}</div>
             <div class="col-sm-9">
               <ngx-intl-tel-input [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
-                                  [enablePlaceholder]="true" [searchCountryFlag]="true"
-                                  [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-                                  [selectFirstCountry]="true" [selectedCountryISO]="CountryISO.Ghana" [maxLength]="15"
-                                  [phoneValidation]="true" [separateDialCode]="separateDialCode"
-                                  [numberFormat]="PhoneNumberFormat.National" name="usename" formControlName="username">
+                [enablePlaceholder]="true" [searchCountryFlag]="true"
+                [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                [selectFirstCountry]="true" [selectedCountryISO]="CountryISO.Ghana" [maxLength]="15"
+                [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                [numberFormat]="PhoneNumberFormat.National" name="usename" formControlName="username">
               </ngx-intl-tel-input>
 
-              <div class="text-danger" *ngIf="profileForm.controls.phone?.errors?.required">
-                 {{ "Phone Number Required" | translate }}
-              </div>
+              @if (profileForm.controls.phone?.errors?.required) {
+                <div class="text-danger">
+                  {{ "Phone Number Required" | translate }}
+                </div>
+              }
 
-              <div class="messages text-danger" *ngIf="profileForm.controls.phone?.errors?.phoneEmptyError">
-                <p>{{ "Phone number invalid" | translate }} </p>
-              </div>
+              @if (profileForm.controls.phone?.errors?.phoneEmptyError) {
+                <div class="messages text-danger">
+                  <p>{{ "Phone number invalid" | translate }} </p>
+                </div>
+              }
             </div>
           </div>
 
@@ -69,12 +83,16 @@
             <div class="col-sm-9">
               <select class="form-select" formControlName="country_id">
                 <option value="">{{ "Select Country" | translate }}</option>
-                <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+                @for (country of countries; track country) {
+                  <option [value]="country.id">{{ country.name }}</option>
+                }
               </select>
 
-              <div class="text-danger" *ngIf="profileForm.controls.country_id?.errors?.required">
-                 {{ "Country Required" | translate }}
-              </div>
+              @if (profileForm.controls.country_id?.errors?.required) {
+                <div class="text-danger">
+                  {{ "Country Required" | translate }}
+                </div>
+              }
             </div>
           </div>
 

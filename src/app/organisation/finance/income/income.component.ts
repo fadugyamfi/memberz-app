@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import { Component, OnDestroy, OnInit, viewChild } from '@angular/core';
+import { UntypedFormGroup, UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { Contribution } from '../../../shared/model/api/contribution';
 import { ContributionTypeService } from '../../../shared/services/api/contribution-type.service';
 import { ContributionPaymentTypeService } from '../../../shared/services/api/contribution-payment-type.service';
@@ -10,16 +10,27 @@ import { ContributionService } from '../../../shared/services/api/contribution.s
 import { EventsService } from '../../../shared/services/events.service';
 import { CurrencyService } from '../../../shared/services/api/currency.service';
 import Swal from 'sweetalert2';
+import { CurrencyPipe, DatePipe } from '@angular/common';
+import { ViewProfileDirective } from '../../../shared/directives/view-profile.directive';
+import { MemberControlComponent } from '../../../shared/components/forms/member-control/member-control.component';
+import { SelectPaymentTypeControlComponent } from '../../../shared/components/forms/select-payment-type-control/select-payment-type-control.component';
+import { SelectMonthControlComponent } from '../../../shared/components/forms/select-month-control/select-month-control.component';
+import { SelectYearControlComponent } from '../../../shared/components/forms/select-year-control/select-year-control.component';
+import { SelectCurrencyControlComponent } from '../../../shared/components/forms/select-currency-control/select-currency-control.component';
+import { SelectBankControlComponent } from '../../../shared/components/forms/select-bank-control/select-bank-control.component';
+import { IncomeEditorComponent } from './income-editor/income-editor.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-income',
-  templateUrl: './income.component.html',
-  styleUrls: ['./income.component.scss']
+    selector: 'app-income',
+    templateUrl: './income.component.html',
+    styleUrls: ['./income.component.scss'],
+    imports: [ViewProfileDirective, PaginationComponent, FormsModule, ReactiveFormsModule, MemberControlComponent, SelectPaymentTypeControlComponent, SelectMonthControlComponent, SelectYearControlComponent, SelectCurrencyControlComponent, SelectBankControlComponent, IncomeEditorComponent, CurrencyPipe, DatePipe, TranslateModule]
 })
 export class IncomeComponent implements OnInit, OnDestroy {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
-  @ViewChild('incomeEditorModal', { static: true }) editorModal: any;
+  readonly searchModal = viewChild<any>('searchModal');
+  readonly editorModal = viewChild<any>('incomeEditorModal');
 
   private subscriptions: Subscription[] = [];
   public searchForm: UntypedFormGroup;
@@ -94,7 +105,7 @@ export class IncomeComponent implements OnInit, OnDestroy {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, { size: 'lg' });
+    this.modalService.open(this.searchModal(), { size: 'lg' });
   }
 
   /**

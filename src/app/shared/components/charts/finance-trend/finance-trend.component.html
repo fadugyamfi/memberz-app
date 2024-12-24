@@ -2,7 +2,7 @@
   <div class="card-header b-l-primary">
     <div class="row align-items-center" [formGroup]="chartForm">
       <div class="col">
-        <h5 class="fw-bold">{{ title | translate}}</h5>
+        <h5 class="fw-bold">{{ title() | translate}}</h5>
       </div>
       <!-- end of col -->
 
@@ -18,27 +18,34 @@
     <!-- end of row -->
   </div>
   <div class="card-body chart-block">
-    <app-loading-rotate-dashed *ngIf="!showChart && canAccessFinance()"></app-loading-rotate-dashed>
-    <app-no-data-available *ngIf="showChart && !hasDataAvailable() && canAccessFinance()"></app-no-data-available>
+    @if (!showChart && canAccessFinance()) {
+      <app-loading-rotate-dashed></app-loading-rotate-dashed>
+    }
+    @if (showChart && !hasDataAvailable() && canAccessFinance()) {
+      <app-no-data-available></app-no-data-available>
+    }
 
-    <div class="pb-3 text-center" *ngIf="!canAccessFinance()">
-      <p class="f-16 pb-3 px-5 d-flex flex-column">
-        <img src="/assets/images/illustrations/finance-features.svg" height="150" />
-        <span>{{ 'Upgrade to the Pro Plan to track your income, make online payments and more' | translate }}</span>
-      </p>
-      <a class="btn btn-outline-success-2x" [routerLink]="['/organisation/settings/subscription-upgrade']">{{ 'Upgrade To Pro' | translate }}</a>
-    </div>
+    @if (!canAccessFinance()) {
+      <div class="pb-3 text-center">
+        <p class="f-16 pb-3 px-5 d-flex flex-column">
+          <img src="/assets/images/illustrations/finance-features.svg" height="150" />
+          <span>{{ 'Upgrade to the Pro Plan to track your income, make online payments and more' | translate }}</span>
+        </p>
+        <a class="btn btn-outline-success-2x" [routerLink]="['/organisation/settings/subscription-upgrade']">{{ 'Upgrade To Pro' | translate }}</a>
+      </div>
+    }
 
-    <canvas
-      *ngIf="canShowWidgetData()"
-      baseChart class="chart"
-      [datasets]="chartData"
-      [labels]="labels"
-      [options]="lineGraphOptions"
-      [legend]="true"
-      [type]="lineGraphType"
-      [colors]="lineGraphColors"
-    ></canvas>
+    @if (canShowWidgetData()) {
+      <canvas
+        baseChart class="chart"
+        [datasets]="chartData"
+        [labels]="labels"
+        [options]="lineGraphOptions"
+        [legend]="true"
+        [type]="lineGraphType"
+        [colors]="lineGraphColors"
+      ></canvas>
+    }
   </div>
 </div>
 <!-- end of card -->

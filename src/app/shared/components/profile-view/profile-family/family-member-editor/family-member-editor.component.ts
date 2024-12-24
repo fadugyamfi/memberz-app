@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnDestroy, OnInit, viewChild } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { MemberRelation } from '../../../../../shared/model/api/member-relation';
 import { MemberRelationType } from '../../../../../shared/model/api/member-relation-type';
@@ -9,6 +9,9 @@ import { OrganisationMember } from '../../../../../shared/model/api/organisation
 import { MemberRelationTypeService } from '../../../../../shared/services/api/member-relation-type.service';
 import { MemberRelationService } from '../../../../../shared/services/api/member-relation.service';
 import { EventsService } from '../../../../../shared/services/events.service';
+
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { MemberControlComponent } from '../../../forms/member-control/member-control.component';
 
 const SELECT_OPTION = 'select-option';
 const ADD_EXISTING = 'add-existing';
@@ -20,13 +23,14 @@ interface RelationEditorOptions {
   relation?: MemberRelation;
 }
 @Component({
-  selector: 'app-family-member-editor',
-  templateUrl: './family-member-editor.component.html',
-  styleUrls: ['./family-member-editor.component.scss']
+    selector: 'app-family-member-editor',
+    templateUrl: './family-member-editor.component.html',
+    styleUrls: ['./family-member-editor.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, UiSwitchModule, MemberControlComponent, TranslateModule]
 })
 export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
 
-  @ViewChild('editor', { static: true }) editor: any;
+  readonly editor = viewChild<any>('editor');
 
   public selectOptionForm: UntypedFormGroup;
   public newProfileForm: UntypedFormGroup;
@@ -168,7 +172,7 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
   }
 
   open(options?: RelationEditorOptions) {
-    if (options.reset) {
+    if (options?.reset) {
       this.currentView = SELECT_OPTION;
       this.selectOptionForm.reset();
       this.newProfileForm.reset();
@@ -177,21 +181,21 @@ export class FamilyMemberEditorComponent implements OnInit, OnDestroy {
       this.setupForms();
     }
 
-    if ( options.relation ) {
+    if ( options?.relation ) {
       this.setupForms();
       this.newProfileForm.patchValue(options.relation);
       this.currentView = EDIT;
     }
 
-    this.modalService.open(this.editor, { animation: true, centered: true });
+    this.modalService.open(this.editor(), { animation: true, centered: true });
   }
 
   setExistingMember(membership: OrganisationMember) {
     const values = {
       member_id: this.membership.member_id,
-      name: membership.member.firstThenLastName(),
-      dob: membership.member.dob,
-      gender: membership.member.gender,
+      name: membership.member?.firstThenLastName(),
+      dob: membership.member?.dob,
+      gender: membership.member?.gender,
       relation_member_id: membership.member_id
     }
     this.existingProfileForm.patchValue(values);

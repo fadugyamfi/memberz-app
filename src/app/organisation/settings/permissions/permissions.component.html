@@ -19,15 +19,19 @@
           </div>
 
           <div class="col-sm-4 text-center">
-            <span class="f-16 text-primary fw-bold" *ngIf="permissionService?.requesting">
-              <i class="fa fa-spin fa-circle-o-notch"></i> {{'Loading Role Permissions' | translate}} ...
-            </span>
-
-            <span class="badge badge-info" *ngIf="!permissionService?.requesting">
-              <span class="f-12">
-                Total Selected Permissions: {{ totalSelectedPermissions() }} / {{ permissions.length }}
+            @if (permissionService?.requesting) {
+              <span class="f-16 text-primary fw-bold">
+                <i class="fa fa-spin fa-circle-o-notch"></i> {{'Loading Role Permissions' | translate}} ...
               </span>
-            </span>
+            }
+
+            @if (!permissionService?.requesting) {
+              <span class="badge badge-info">
+                <span class="f-12">
+                  Total Selected Permissions: {{ totalSelectedPermissions() }} / {{ permissions.length }}
+                </span>
+              </span>
+            }
           </div>
 
           <div class="col-sm-4 text-end p-r-30">
@@ -48,67 +52,71 @@
             </div>
           </div>
 
-          <div class="card m-b-15" *ngFor="let permGroup of permissionGroups; let row = index">
-            <div class="card-header p-t-10 p-b-10">
-              <div class="row">
-                <div class="col-2">
-                  <ui-switch class="js-small" color="#3498DB" switchColor="#fff"
-                             (change)="selectAllInGroup($event, permGroup)" [checked]="permGroup.selected"></ui-switch>
-                </div>
-
-                <div class="col-3 p-t-5 fw-bold">
-                  <a href="javascript:;" (click)="toggleGroupCollapsed(permGroup)">
-                    {{ permGroup.name.replace("_", " ") | titlecase }}
-                  </a>
-                </div>
-
-                <div class="col-6 p-t-5">
-                  <i class="label"
-                     [ngClass]="{'label-inverse': permGroup.totalSelected() > 0, 'label-default': permGroup.totalSelected() == 0}">
-                    {{'Selected' | translate}}: {{ permGroup.totalSelected() }} / {{ permGroup.totalPermissions() }}
-                  </i>
-                </div>
-
-                <div class="col-1 fw-bold text-end">
-                  <a class="btn btn-xs btn-outline-secondary" (click)="toggleGroupCollapsed(permGroup)">
-                    <i class="fa fa-caret-down" *ngIf="!permGroup.collapsed"></i>
-                    <i class="fa fa-caret-right" *ngIf="permGroup.collapsed"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div id="collapse{{row}}" data-parent="#accordion" [ngbCollapse]="permGroup.collapsed">
-              <div class="card-body">
-                <div class="row m-b-10" *ngFor="let subGroup of permGroup.groups; let row = index">
-                  <div class="col-1">&nbsp;</div>
-                  <div class="col-3 p-t-5 middle">
-                    {{ row + 1 }}. {{ subGroup.name.replace("_", " ") | titlecase }}
+          @for (permGroup of permissionGroups; track permGroup; let row = $index) {
+            <div class="card m-b-15">
+              <div class="card-header p-t-10 p-b-10">
+                <div class="row">
+                  <div class="col-2">
+                    <ui-switch class="js-small" color="#3498DB" switchColor="#fff"
+                    (change)="selectAllInGroup($event, permGroup)" [checked]="permGroup.selected"></ui-switch>
                   </div>
-                  <div class="col-8">
-                    <div class="d-inline-block m-r-15">
-                      <div class="d-block text-left fw-bold">ALL</div>
-                      <div class="d-block text-left m-t-5">
-                        <ui-switch color="#3498DB" switchColor="#fff" size="small"
-                                   (change)="selectAllInGroup($event, subGroup)" [checked]="subGroup.selected">
-                        </ui-switch>
-                      </div>
-                    </div>
-
-                    <div class="d-inline-block m-r-15" *ngFor="let permission of subGroup.permissions">
-                      <div class="d-block text-left">{{ permission.actionName() | titlecase }}</div>
-                      <div class="d-block text-left m-t-5">
-                        <ui-switch color="#3498DB" switchColor="#fff" size="small"
-                                   [checked]="permission.selected" (change)="markSelected($event, permission)">
-                        </ui-switch>
-                      </div>
-                    </div>
+                  <div class="col-3 p-t-5 fw-bold">
+                    <a href="javascript:;" (click)="toggleGroupCollapsed(permGroup)">
+                      {{ permGroup.name.replace("_", " ") | titlecase }}
+                    </a>
+                  </div>
+                  <div class="col-6 p-t-5">
+                    <i class="label"
+                      [ngClass]="{'label-inverse': permGroup.totalSelected() > 0, 'label-default': permGroup.totalSelected() == 0}">
+                      {{'Selected' | translate}}: {{ permGroup.totalSelected() }} / {{ permGroup.totalPermissions() }}
+                    </i>
+                  </div>
+                  <div class="col-1 fw-bold text-end">
+                    <a class="btn btn-xs btn-outline-secondary" (click)="toggleGroupCollapsed(permGroup)">
+                      @if (!permGroup.collapsed) {
+                        <i class="fa fa-caret-down"></i>
+                      }
+                      @if (permGroup.collapsed) {
+                        <i class="fa fa-caret-right"></i>
+                      }
+                    </a>
                   </div>
                 </div>
               </div>
-
+              <div id="collapse{{row}}" data-parent="#accordion" [ngbCollapse]="permGroup.collapsed">
+                <div class="card-body">
+                  @for (subGroup of permGroup.groups; track subGroup; let row = $index) {
+                    <div class="row m-b-10">
+                      <div class="col-1">&nbsp;</div>
+                      <div class="col-3 p-t-5 middle">
+                        {{ row + 1 }}. {{ subGroup.name.replace("_", " ") | titlecase }}
+                      </div>
+                      <div class="col-8">
+                        <div class="d-inline-block m-r-15">
+                          <div class="d-block text-left fw-bold">ALL</div>
+                          <div class="d-block text-left m-t-5">
+                            <ui-switch color="#3498DB" switchColor="#fff" size="small"
+                              (change)="selectAllInGroup($event, subGroup)" [checked]="subGroup.selected">
+                            </ui-switch>
+                          </div>
+                        </div>
+                        @for (permission of subGroup.permissions; track permission) {
+                          <div class="d-inline-block m-r-15">
+                            <div class="d-block text-left">{{ permission.actionName() | titlecase }}</div>
+                            <div class="d-block text-left m-t-5">
+                              <ui-switch color="#3498DB" switchColor="#fff" size="small"
+                                [checked]="permission.selected" (change)="markSelected($event, permission)">
+                              </ui-switch>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
             </div>
-          </div>
+          }
 
         </div>
       </div>
@@ -116,9 +124,11 @@
 
     <div class="modal-footer flex-grow-1">
       <div class="text-end">
-        <span class="m-r-15" *ngIf="roleService?.requesting">
-          <i class="fa fa-spin fa-circle-o-notch"></i> {{'Saving' | translate}}
-        </span>
+        @if (roleService?.requesting) {
+          <span class="m-r-15">
+            <i class="fa fa-spin fa-circle-o-notch"></i> {{'Saving' | translate}}
+          </span>
+        }
 
         <button type="submit" class="btn btn-primary m-r-10 btn-sm">{{'Save Permissions' | translate}}</button>
 

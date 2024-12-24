@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy, EventEmitter, Output } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit, OnDestroy, output } from '@angular/core';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Member } from '../../../model/api/member';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { OrganisationMemberCategory } from '../../../model/api/organisation-member-category';
@@ -13,10 +13,12 @@ import { OrganisationMemberService } from '../../../services/api/organisation-me
 import { OrganisationService } from '../../../services/api/organisation.service';
 import { EventsService } from '../../../services/events.service';
 
+
 @Component({
-  selector: 'app-profile-editor',
-  templateUrl: './profile-editor.component.html',
-  styleUrls: ['./profile-editor.component.scss']
+    selector: 'app-profile-editor',
+    templateUrl: './profile-editor.component.html',
+    styleUrls: ['./profile-editor.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class ProfileEditorComponent implements OnInit, OnDestroy {
 
@@ -29,8 +31,7 @@ export class ProfileEditorComponent implements OnInit, OnDestroy {
   public editorTitle = 'Add New Member Profile';
   public editorIcon = 'fa-user-plus';
 
-  @Output()
-  public saved: EventEmitter<OrganisationMember> = new EventEmitter();
+  public readonly saved = output();
 
   constructor(
     public categoryService: OrganisationMemberCategoryService,

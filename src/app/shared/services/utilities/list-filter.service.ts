@@ -1,12 +1,18 @@
 import { Injectable } from "@angular/core";
 import { SmsBroadcastListService } from '../api/sms-broadcast-list.service';
 
+export type ListFilter = {
+  field: string,
+  condition: string,
+  value: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ListFilterService {
 
-  public listFilters;
+  public listFilters: any[] = [];
 
   constructor(
     public broadcastListService: SmsBroadcastListService,
@@ -15,12 +21,13 @@ export class ListFilterService {
   }
 
   fetchFilters() {
-    this.broadcastListService.getFilters().subscribe(filters => this.listFilters = filters);
+    this.broadcastListService.getFilters().subscribe((filters: any) => this.listFilters = filters);
   }
 
   getQueryParts(filters: any[] = []) {
-    let required = [];
-    let optional = [];
+
+    let required: ListFilter[] = [];
+    let optional: ListFilter[] = [];
 
     filters.forEach(filter => {
 

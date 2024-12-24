@@ -1,20 +1,24 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, Input, OnDestroy, OnInit, output } from '@angular/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
-import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 import { OrganisationGroup } from '../../../../shared/model/api/organisation-group';
 import { OrganisationMemberGroup } from '../../../../shared/model/api/organisation-member-group';
 import { OrganisationMemberGroupService } from '../../../../shared/services/api/organisation-member-group.service';
 import { EventsService } from '../../../../shared/services/events.service';
 
+import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { RouterLink } from '@angular/router';
+
 @Component({
-  selector: 'app-group-members',
-  templateUrl: './group-members.component.html',
-  styleUrls: ['./group-members.component.scss']
+    selector: 'app-group-members',
+    templateUrl: './group-members.component.html',
+    styleUrls: ['./group-members.component.scss'],
+    imports: [LoadingRotateDashedComponent, RouterLink, PaginationComponent, TranslateModule]
 })
 export class GroupMembersComponent implements OnInit, OnDestroy {
 
-  @Output() back = new EventEmitter();
+  readonly back = output();
   private _group: OrganisationGroup;
 
   constructor(

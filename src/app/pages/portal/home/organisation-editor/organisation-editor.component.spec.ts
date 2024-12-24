@@ -8,8 +8,8 @@ describe('OrganisationEditorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrganisationEditorComponent ]
-    })
+    imports: [OrganisationEditorComponent]
+})
     .compileComponents();
   }));
 

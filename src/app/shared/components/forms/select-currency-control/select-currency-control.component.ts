@@ -1,7 +1,9 @@
-import { Component, forwardRef, Input, OnDestroy, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, forwardRef, OnDestroy, OnInit, input } from '@angular/core';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CurrencyService } from '../../../services/api/currency.service';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 export const CURRENCY_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -11,15 +13,16 @@ export const CURRENCY_CONTROL_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'app-select-currency-control',
-  templateUrl: './select-currency-control.component.html',
-  styleUrls: ['./select-currency-control.component.scss'],
-  providers: [CURRENCY_CONTROL_ACCESSOR]
+    selector: 'app-select-currency-control',
+    templateUrl: './select-currency-control.component.html',
+    styleUrls: ['./select-currency-control.component.scss'],
+    providers: [CURRENCY_CONTROL_ACCESSOR],
+    imports: [FormsModule, TranslateModule]
 })
 export class SelectCurrencyControlComponent implements OnInit, OnDestroy {
 
-  @Input() showCurrencyName = true;
-  @Input() classes: string = "";
+  readonly showCurrencyName = input(true);
+  readonly classes = input<string>("");
 
   private currencySub: Subscription;
 

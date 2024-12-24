@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
 import { SmsAccount } from '../../../shared/model/api/sms-account';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { Router } from '@angular/router';
+import { DecimalPipe } from '@angular/common';
+import { SmsSummaryComponent } from '../../../shared/components/charts/sms-summary/sms-summary.component';
+import { SmsTransactionHistoryComponent } from '../sms-transaction-history/sms-transaction-history.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+    selector: 'app-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, SmsSummaryComponent, SmsTransactionHistoryComponent, DecimalPipe, TranslateModule]
 })
 export class SettingsComponent implements OnInit {
 

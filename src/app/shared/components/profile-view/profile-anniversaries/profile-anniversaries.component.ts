@@ -1,24 +1,26 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { EventsService } from '../../../../shared/services/events.service';
 import { OrganisationMemberAnniversaryService } from '../../../../shared/services/api/organisation-member-anniversary.service';
 import { OrganisationAnniversaryService } from '../../../../shared/services/api/organisation-anniversary.service';
 import { OrganisationMember } from '../../../../shared/model/api/organisation-member';
-import { OrganisationMemberAnniversary } from 'src/app/shared/model/api/organisation-member-anniversary';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { OrganisationMemberAnniversary } from '../../../model/api/organisation-member-anniversary';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-profile-anniversaries',
-  templateUrl: './profile-anniversaries.component.html',
-  styleUrls: ['./profile-anniversaries.component.scss']
+    selector: 'app-profile-anniversaries',
+    templateUrl: './profile-anniversaries.component.html',
+    styleUrls: ['./profile-anniversaries.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, DatePipe, TranslateModule]
 })
 export class ProfileAnniversariesComponent implements OnInit, OnDestroy {
 
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly editorModal = viewChild<any>('editorModal');
 
   public subscriptions: Subscription[] = [];
   public mbsp: OrganisationMember;
@@ -113,8 +115,8 @@ export class ProfileAnniversariesComponent implements OnInit, OnDestroy {
       this.setupEditorForm();
     }
 
-    this.editorForm.patchValue(memberAnniversary);
-    this.modalService.open(this.editorModal);
+    this.editorForm.patchValue(memberAnniversary as object);
+    this.modalService.open(this.editorModal());
   }
 
   onSubmit(event) {

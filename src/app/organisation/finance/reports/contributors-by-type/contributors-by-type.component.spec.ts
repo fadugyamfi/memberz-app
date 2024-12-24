@@ -8,8 +8,8 @@ describe('ContributorsByTypeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContributorsByTypeComponent ]
-    })
+    imports: [ContributorsByTypeComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(ContributorsByTypeComponent);

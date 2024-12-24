@@ -2,21 +2,26 @@
 
   <div class="m-b-15">
     <!-- <button class="btn btn-sm btn-outline-primary">
-      <i class="fa fa-plus-circle fa-2x m-r-10 middle"></i>
-      <span>{{ 'Add Family Member' | translate }}</span>
-    </button> -->
-  </div>
+    <i class="fa fa-plus-circle fa-2x m-r-10 middle"></i>
+    <span>{{ 'Add Family Member' | translate }}</span>
+  </button> -->
+</div>
 
-  <div class="m-t-50 text-center" *ngIf="!contributionService.fetching && contributionService.hasZeroItems()">
+@if (!contributionService.fetching && contributionService.hasZeroItems()) {
+  <div class="m-t-50 text-center">
     <h3>{{'No Contributions Found' | translate}}</h3>
     <p>{{'Add contributions to see them here' | translate}}</p>
   </div>
+}
 
-  <div class="loader-box m-auto" *ngIf="contributionService.fetching">
+@if (contributionService.fetching) {
+  <div class="loader-box m-auto">
     <span class="rotate dashed colored"></span>
   </div>
+}
 
-  <table class="table table-bordered table-striped" *ngIf="!contributionService.fetching && contributionService.hasItems()">
+@if (!contributionService.fetching && contributionService.hasItems()) {
+  <table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th colspan="2">{{ 'Receipt Date' | translate }}</th>
@@ -26,18 +31,20 @@
         <th class="text-end">{{ 'Amount' | translate }}</th>
       </tr>
     </thead>
-
     <tbody>
-      <tr *ngFor="let contribution of contributions; let row = index">
-        <td class="text-end">{{ contributionService.pagingMeta.from + row }}.</td>
-        <td>{{ contribution.contribution_receipt.receipt_dt | date : mediumDate }}</td>
-        <td>{{ contribution.contribution_receipt.receipt_no }}</td>
-        <td>{{ contribution.contribution_type.name }}</td>
-        <td>{{ contribution.period() }}</td>
-        <td class="text-end fw-bold">{{ contribution.amount | currency : contribution.currency.currency_code }}</td>
-      </tr>
+      @for (contribution of contributions; track contribution; let row = $index) {
+        <tr>
+          <td class="text-end">{{ contributionService.pagingMeta.from + row }}.</td>
+          <td>{{ contribution.contribution_receipt.receipt_dt | date : mediumDate }}</td>
+          <td>{{ contribution.contribution_receipt.receipt_no }}</td>
+          <td>{{ contribution.contribution_type.name }}</td>
+          <td>{{ contribution.period() }}</td>
+          <td class="text-end fw-bold">{{ contribution.amount | currency : contribution.currency.currency_code }}</td>
+        </tr>
+      }
     </tbody>
   </table>
+}
 </section>
 
 <section class="border-top-secondary p-t-15 m-t-15">

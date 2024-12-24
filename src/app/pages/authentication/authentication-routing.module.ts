@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { UnlockUserComponent } from './unlock-user/unlock-user.component';
+
 import { SecureInnerPagesGuard } from '../../shared/guard/SecureInnerPagesGuard.guard';
 
 const routes: Routes = [
@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       {
         path: 'unlockuser',
-        component: UnlockUserComponent
+        loadComponent: () => import('./unlock-user/unlock-user.component').then(m => m.UnlockUserComponent)
       },
     ]
   }

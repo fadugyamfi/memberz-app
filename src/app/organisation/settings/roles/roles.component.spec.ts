@@ -8,8 +8,8 @@ describe('RolesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RolesComponent ]
-    })
+    imports: [RolesComponent]
+})
     .compileComponents();
   }));
 

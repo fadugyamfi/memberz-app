@@ -1,5 +1,7 @@
-import { Component, OnInit, Output, EventEmitter, forwardRef, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, OnInit, forwardRef, input, output } from '@angular/core';
+import { NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { SlicePipe } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 export const MONTH_CONTROL_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -9,16 +11,17 @@ export const MONTH_CONTROL_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'app-select-month-control',
-  templateUrl: './select-month-control.component.html',
-  styleUrls: ['./select-month-control.component.scss'],
-  providers: [MONTH_CONTROL_ACCESSOR]
+    selector: 'app-select-month-control',
+    templateUrl: './select-month-control.component.html',
+    styleUrls: ['./select-month-control.component.scss'],
+    providers: [MONTH_CONTROL_ACCESSOR],
+    imports: [FormsModule, SlicePipe, TranslateModule]
 })
 export class SelectMonthControlComponent implements OnInit {
 
-  @Output() selectedMonthEvent = new EventEmitter();
+  readonly selectedMonthEvent = output<any>();
 
-  private _value = '';
+  private _value: string | null = '';
   public disabled = false;
   public onChange = (_: any) => { };
   public onTouched = () => { };
@@ -28,8 +31,7 @@ export class SelectMonthControlComponent implements OnInit {
     "August", "September", "October", "November", "December"
   ];
 
-  @Input()
-  public shortNames = false;
+  public readonly shortNames = input(false);
 
   constructor() { }
 

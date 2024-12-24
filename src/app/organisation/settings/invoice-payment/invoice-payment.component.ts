@@ -3,22 +3,23 @@ import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { OrganisationSubscriptionService } from '../../../shared/services/api/organisation-subscription.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationSubscription } from '../../../shared/model/api/organisation-subscription';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { OrganisationInvoiceService } from '../../../shared/services/api/organisation-invoice.service';
 import { OrganisationInvoice } from '../../../shared/model/api/organisation-invoice';
 // import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
-import { PaystackOptions } from 'angular4-paystack';
+import { PaystackOptions, Angular4PaystackModule } from 'angular4-paystack';
 import { AuthService } from '../../../shared/services/api/auth.service';
 import { SmsAccountService } from '../../../shared/services/api/sms-account.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-invoice-payment',
-  templateUrl: './invoice-payment.component.html',
-  styleUrls: ['./invoice-payment.component.scss']
+    selector: 'app-invoice-payment',
+    templateUrl: './invoice-payment.component.html',
+    styleUrls: ['./invoice-payment.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, Angular4PaystackModule, TranslateModule]
 })
 export class InvoicePaymentComponent implements OnInit {
 

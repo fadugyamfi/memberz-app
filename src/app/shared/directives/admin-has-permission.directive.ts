@@ -1,12 +1,13 @@
-import { Directive, Input, ElementRef, OnInit } from '@angular/core';
+import { Directive, ElementRef, OnInit, input } from '@angular/core';
 import { OrganisationAccountService } from '../services/api/organisation-account.service';
 
 @Directive({
-  selector: '[adminHasPermission]'
+    selector: '[adminHasPermission]',
+    standalone: true
 })
 export class AdminHasPermissionDirective implements OnInit {
 
-  @Input('adminHasPermission') permission: string;
+  readonly permission = input<string>(undefined, { alias: "adminHasPermission" });
 
   constructor(
     public el: ElementRef,
@@ -16,7 +17,8 @@ export class AdminHasPermissionDirective implements OnInit {
   ngOnInit() {
     const admin = this.adminService.getActiveAccount();
 
-    if ( admin && this.permission && !admin.hasPermission(this.permission)) {
+    const permission = this.permission();
+    if ( admin && permission && !admin.hasPermission(permission)) {
       this.el.nativeElement.style.display = 'none';
     }
   }

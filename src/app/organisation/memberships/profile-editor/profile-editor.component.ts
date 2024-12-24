@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationMemberService } from '../../../shared/services/api/organisation-member.service';
 import { Member } from '../../../shared/model/api/member';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
@@ -11,12 +11,14 @@ import Swal from 'sweetalert2';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { Subscription } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
-  selector: 'app-profile-editor',
-  templateUrl: './profile-editor.component.html',
-  styleUrls: ['./profile-editor.component.scss']
+    selector: 'app-profile-editor',
+    templateUrl: './profile-editor.component.html',
+    styleUrls: ['./profile-editor.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class ProfileEditorComponent implements OnInit, OnDestroy {
 

@@ -1,21 +1,25 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, OnDestroy, OnInit, output } from '@angular/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
-import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../../shared/components/pagination/pagination.component';
 import { SmsBroadcast } from '../../../../shared/model/api/sms-broadcast';
 import { SmsBroadcastService } from '../../../../shared/services/api/sms-broadcast.service';
 import { EventsService } from '../../../../shared/services/events.service';
+import { DatePipe } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { ViewProfileDirective } from '../../../../shared/directives/view-profile.directive';
 
 @Component({
-  selector: 'app-broadcast-history-view',
-  templateUrl: './broadcast-history-view.component.html',
-  styleUrls: ['./broadcast-history-view.component.scss']
+    selector: 'app-broadcast-history-view',
+    templateUrl: './broadcast-history-view.component.html',
+    styleUrls: ['./broadcast-history-view.component.scss'],
+    imports: [LoadingRotateDashedComponent, ViewProfileDirective, PaginationComponent, DatePipe, TranslateModule]
 })
 export class BroadcastHistoryViewComponent implements OnInit, OnDestroy {
 
   public broadcasts: SmsBroadcast[];
-  @Output() newBroadcast = new EventEmitter();
-  @Output() editBroadcast = new EventEmitter();
+  readonly newBroadcast = output();
+  readonly editBroadcast = output<SmsBroadcast>();
 
   constructor(
     public smsBroadcastService: SmsBroadcastService,

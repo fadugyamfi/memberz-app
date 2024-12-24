@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
-  selector: 'about-carousel',
-  templateUrl: './carousel.component.html',
-  styleUrls: ['./carousel.component.scss']
+    selector: 'about-carousel',
+    templateUrl: './carousel.component.html',
+    styleUrls: ['./carousel.component.scss'],
+    imports: [RouterLink, NgbCarouselModule]
 })
 export class CarouselComponent implements OnInit {
 
-  public images = [];
+  public images: object[] = [];
 
   constructor() { }
 

@@ -16,59 +16,64 @@
 
   </div>
 
-  <div class="m-t-30 m-b-30 text-center" *ngIf="categories && categories.length == 0">
-    <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-    <h4 class="fw-bold">{{'No Categories Found' | translate}}</h4>
-    <h6>{{'Please search for categories or add a new one to display results here' | translate}}</h6>
-  </div>
+  @if (categories && categories.length == 0) {
+    <div class="m-t-30 m-b-30 text-center">
+      <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
+      <h4 class="fw-bold">{{'No Categories Found' | translate}}</h4>
+      <h6>{{'Please search for categories or add a new one to display results here' | translate}}</h6>
+    </div>
+  }
 
-  <div class="loader-box m-auto" *ngIf="!categories">
-    <span class="rotate dashed colored"></span>
-  </div>
+  @if (!categories) {
+    <div class="loader-box m-auto">
+      <span class="rotate dashed colored"></span>
+    </div>
+  }
 
-  <table class="table table-bordered table-hover" *ngIf="categories && categories.length > 0">
-    <thead>
-      <tr>
-        <th colspan="2">{{'Name' | translate}}</th>
-        <th class="text-center">{{'Status' | translate}}</th>
-        <th class="text-center">{{'Total Members' | translate}}</th>
-        <th class="text-center">{{'Actions' | translate}}</th>
-      </tr>
-    </thead>
-
-
-    <tbody>
-      <tr *ngFor="let category of categories; let row = index">
-        <td class="text-end">{{ row + categoryService?.pagingMeta?.from }}.</td>
-        <td>
-          <div class="fw-bold">{{ category.name }}</div>
-          <small class="text-muted">{{ category.description }}</small>
-        </td>
-        <td class="text-center">
-          <span class="badge badge-success" *ngIf="category.default">{{'Default' | translate}}</span>
-        </td>
-        <td class="text-center">{{ category.organisation_member_count }}</td>
-
-        <td class="text-center">
-          <!-- <button class="btn btn-xs btn-primary m-r-10" (click)="viewCategory(category)">
-            <i class="fa fa-file"></i> View
-          </button> -->
-
-          <button class="btn btn-xs btn-primary m-r-10" adminHasPermission="settings:categories:manage" (click)="showEditorModal(category)">
-            <i class="fa fa-pencil"></i> {{'Edit' | translate}}
-          </button>
-
-          <button class="btn btn-xs btn-danger" (click)="deleteCategory(category)" adminHasPermission="settings:categories:delete">
-            <i class="fa fa-trash-o"></i> {{'Delete' | translate}}
-          </button>
-        </td>
-      </tr>
+  @if (categories && categories.length > 0) {
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th colspan="2">{{'Name' | translate}}</th>
+          <th class="text-center">{{'Status' | translate}}</th>
+          <th class="text-center">{{'Total Members' | translate}}</th>
+          <th class="text-center">{{'Actions' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (category of categories; track category; let row = $index) {
+          <tr>
+            <td class="text-end">{{ row + categoryService?.pagingMeta?.from }}.</td>
+            <td>
+              <div class="fw-bold">{{ category.name }}</div>
+              <small class="text-muted">{{ category.description }}</small>
+            </td>
+            <td class="text-center">
+              @if (category.default) {
+                <span class="badge badge-success">{{'Default' | translate}}</span>
+              }
+            </td>
+            <td class="text-center">{{ category.organisation_member_count }}</td>
+            <td class="text-center">
+              <!-- <button class="btn btn-xs btn-primary m-r-10" (click)="viewCategory(category)">
+              <i class="fa fa-file"></i> View
+            </button> -->
+            <button class="btn btn-xs btn-primary m-r-10" adminHasPermission="settings:categories:manage" (click)="showEditorModal(category)">
+              <i class="fa fa-pencil"></i> {{'Edit' | translate}}
+            </button>
+            <button class="btn btn-xs btn-danger" (click)="deleteCategory(category)" adminHasPermission="settings:categories:delete">
+              <i class="fa fa-trash-o"></i> {{'Delete' | translate}}
+            </button>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
+}
 
-  <div class="card-footer">
-    <app-pagination [service]="categoryService" (paginate)="onPaginate($event)"></app-pagination>
-  </div>
+<div class="card-footer">
+  <app-pagination [service]="categoryService" (paginate)="onPaginate($event)"></app-pagination>
+</div>
 </div>
 
 
@@ -115,9 +120,11 @@
         <label class="col-sm-3 col-form-label">{{'Name' | translate}}</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" placeholder="e.g. Default" formControlName="name" />
-          <div class="messages text-danger" *ngIf="editorForm.controls.name?.errors?.required">
-            <p class="m-b-0 m-t-5">{{'Name Required' | translate}}</p>
-          </div>
+          @if (editorForm.controls.name?.errors?.required) {
+            <div class="messages text-danger">
+              <p class="m-b-0 m-t-5">{{'Name Required' | translate}}</p>
+            </div>
+          }
         </div>
       </div>
 
@@ -125,58 +132,62 @@
         <label class="col-sm-3 col-form-label">{{'Description' | translate}}</label>
         <div class="col-sm-9">
           <input type="text" class="form-control" placeholder="e.g. {{'Main Category Members Get Added To' | translate}}"
-                 formControlName="description" />
-          <div class="messages text-danger" *ngIf="editorForm.controls.description?.errors?.required">
-            <p class="m-b-0 m-t-5">{{'Description Required' | translate}}</p>
+            formControlName="description" />
+            @if (editorForm.controls.description?.errors?.required) {
+              <div class="messages text-danger">
+                <p class="m-b-0 m-t-5">{{'Description Required' | translate}}</p>
+              </div>
+            }
           </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">{{'Auto Generate IDs' | translate}}</label>
-        <div class="col-sm-9">
-          <ui-switch formControlName="auto_gen_ids" class="align-middle m-r-10"></ui-switch>
-          <span class='text-muted small align-middle'>
-            {{'New Membership Records Will Have Auto Generated Membership Numbers' | translate}}
-          </span>
-        </div>
-      </div>
-
-      <div class="form-group row" [@showFormGroup]="autoGeneratingIDs">
-        <label class="col-sm-3 col-form-label">{{'Membership ID Format' | translate}}</label>
-        <div class="col-sm-2">
-          <input type="text" class="form-control" placeholder="Prefix" formControlName="id_prefix" />
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">{{'Auto Generate IDs' | translate}}</label>
+          <div class="col-sm-9">
+            <ui-switch formControlName="auto_gen_ids" class="align-middle m-r-10"></ui-switch>
+            <span class='text-muted small align-middle'>
+              {{'New Membership Records Will Have Auto Generated Membership Numbers' | translate}}
+            </span>
+          </div>
         </div>
 
-        <div class="col-sm-2">
-          <input type="number" class="form-control" placeholder="Increment" formControlName="id_next_increment" />
-        </div>
+        <div class="form-group row" [@showFormGroup]="autoGeneratingIDs">
+          <label class="col-sm-3 col-form-label">{{'Membership ID Format' | translate}}</label>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" placeholder="Prefix" formControlName="id_prefix" />
+          </div>
 
-        <div class="col-sm-2">
-          <input type="text" class="form-control" placeholder="Suffix" formControlName="id_suffix" />
-        </div>
+          <div class="col-sm-2">
+            <input type="number" class="form-control" placeholder="Increment" formControlName="id_next_increment" />
+          </div>
 
-        <label class="col-form-label col-sm-3 f-12">
+          <div class="col-sm-2">
+            <input type="text" class="form-control" placeholder="Suffix" formControlName="id_suffix" />
+          </div>
+
+          <label class="col-form-label col-sm-3 f-12">
             <i>{{'Example' | translate}}: <span>{{ exampleID }}</span></i>
-        </label>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-3 col-form-label">{{'Default Category' | translate}}</label>
-        <div class="col-sm-9">
-          <ui-switch formControlName="default" class="align-middle m-r-10"></ui-switch>
-          <span class='text-muted small align-middle'>
-            {{'This will be the default category for adding and searching for members' | translate}}
-          </span>
+          </label>
         </div>
+
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label">{{'Default Category' | translate}}</label>
+          <div class="col-sm-9">
+            <ui-switch formControlName="default" class="align-middle m-r-10"></ui-switch>
+            <span class='text-muted small align-middle'>
+              {{'This will be the default category for adding and searching for members' | translate}}
+            </span>
+          </div>
+        </div>
+
       </div>
 
-    </div>
-
-    <div class="modal-footer">
-      <span *ngIf="categoryService?.requesting" class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i>
-        {{'Saving' | translate}}...
-      </span>
+      <div class="modal-footer">
+        @if (categoryService?.requesting) {
+          <span class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i>
+          {{'Saving' | translate}}...
+        </span>
+      }
 
       <button type="submit" class="btn btn-primary">{{'Save Changes' | translate}}</button>
       <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>

@@ -1,45 +1,49 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, viewChild } from '@angular/core';
 import { OrganisationMemberCategoryService } from '../../../shared/services/api/organisation-member-category.service';
 import { EventsService } from '../../../shared/services/events.service';
 import { Subscription } from 'rxjs';
 import { OrganisationMemberCategory } from '../../../shared/model/api/organisation-member-category';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import Swal from 'sweetalert2';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { AdminHasPermissionDirective } from '../../../shared/directives/admin-has-permission.directive';
+
+import { UiSwitchModule } from 'ngx-ui-switch';
 
 @Component({
-  selector: 'app-categories',
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss'],
-  animations: [
-    trigger('showFormGroup', [
-      state('open', style({
-        display: 'flex',
-        opacity: 1,
-      })),
-      state('closed', style({
-        opacity: 0,
-        display: 'none'
-      })),
-      transition('* => closed', [
-        animate('0.5s')
-      ]),
-      transition('* => open', [
-        animate('0.5s')
-      ]),
-    ]),
-  ]
+    selector: 'app-categories',
+    templateUrl: './categories.component.html',
+    styleUrls: ['./categories.component.scss'],
+    animations: [
+        trigger('showFormGroup', [
+            state('open', style({
+                display: 'flex',
+                opacity: 1,
+            })),
+            state('closed', style({
+                opacity: 0,
+                display: 'none'
+            })),
+            transition('* => closed', [
+                animate('0.5s')
+            ]),
+            transition('* => open', [
+                animate('0.5s')
+            ]),
+        ]),
+    ],
+    imports: [AdminHasPermissionDirective, PaginationComponent, FormsModule, ReactiveFormsModule, UiSwitchModule, TranslateModule]
 })
 export class CategoriesComponent implements OnInit, OnDestroy {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly searchModal = viewChild<any>('searchModal');
+  readonly editorModal = viewChild<any>('editorModal');
 
   public subscriptions: Subscription[] = [];
-  public categories: OrganisationMemberCategory[] = [];
+  public categories: OrganisationMemberCategory[] | null = [];
   public searchForm: UntypedFormGroup;
   public editorForm: UntypedFormGroup;
 
@@ -86,7 +90,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, {});
+    this.modalService.open(this.searchModal(), {});
   }
 
   /**
@@ -140,14 +144,14 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   /**
    *
    */
-  showEditorModal(category: OrganisationMemberCategory = null) {
+  showEditorModal(category: OrganisationMemberCategory | null = null) {
     this.setupEditorForm();
 
     if (category) {
       this.editorForm.patchValue(category);
     }
 
-    this.modalService.open(this.editorModal, { size: 'lg' });
+    this.modalService.open(this.editorModal(), { size: 'lg' });
   }
 
   /**
@@ -172,7 +176,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   resetFlags(category: OrganisationMemberCategory) {
-    if (category.default === 1) {
+    if (category.default === 1 && this.categories) {
       this.categories.forEach(cat => {
         if (cat.id !== category.id) {
           cat.default = 0;

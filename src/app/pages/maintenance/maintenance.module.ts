@@ -5,10 +5,10 @@ import { MaintenanceRoutingModule } from './maintenance-routing.module';
 import { MaintenanceComponent } from './maintenance.component';
 
 @NgModule({
-  declarations: [MaintenanceComponent],
-  imports: [
-    CommonModule,
-    MaintenanceRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        MaintenanceRoutingModule,
+        MaintenanceComponent
+    ]
 })
 export class MaintenanceModule { }

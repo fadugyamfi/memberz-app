@@ -8,8 +8,8 @@ describe('FamilyMemberEditorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FamilyMemberEditorComponent ]
-    })
+    imports: [FamilyMemberEditorComponent]
+})
     .compileComponents();
   });
 

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { Component, OnInit, Input, ElementRef, OnDestroy, output, viewChild } from '@angular/core';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormControl, ValidationErrors, ValidatorFn, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganisationTypeService } from '../../../../shared/services/api/organisation-type.service';
 import { OrganisationType } from '../../../../shared/model/api/organisation-type';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
@@ -10,8 +10,9 @@ import { NgbModal, NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstra
 import { EventsService } from '../../../../shared/services/events.service';
 import { SubscriptionTypeService } from '../../../../shared/services/api/subscription-type.service';
 import { SubscriptionType } from '../../../../shared/model/api/subscription-type';
-import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
-import { TranslateService } from '@ngx-translate/core';
+import { SearchCountryField, CountryISO, PhoneNumberFormat, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { TitleCasePipe } from '@angular/common';
 
 export class CustomValidators {
   static validUrl: ValidatorFn = (control: FormControl): ValidationErrors | null  => {
@@ -33,9 +34,10 @@ export class CustomValidators {
 
 
 @Component({
-  selector: 'app-organisation-editor-modal',
-  templateUrl: './organisation-editor.component.html',
-  styleUrls: ['./organisation-editor.component.scss']
+    selector: 'app-organisation-editor-modal',
+    templateUrl: './organisation-editor.component.html',
+    styleUrls: ['./organisation-editor.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TitleCasePipe, TranslateModule]
 })
 export class OrganisationEditorComponent implements OnInit, OnDestroy {
 
@@ -44,8 +46,8 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   public countries: Country[];
   private organisation: Organisation;
   private modalRef: NgbModalRef;
-  private freePlan: SubscriptionType;
-  public modalTitle;
+  private freePlan?: SubscriptionType | null;
+  public modalTitle: string;
 
   separateDialCode = true;
   SearchCountryField = SearchCountryField;
@@ -53,8 +55,8 @@ export class OrganisationEditorComponent implements OnInit, OnDestroy {
   PhoneNumberFormat = PhoneNumberFormat;
   preferredCountries: CountryISO[] = [CountryISO.Ghana, CountryISO.Nigeria, CountryISO.Togo];
 
-  @ViewChild('editorModal', { static: true }) editorModal: ElementRef;
-  @Output() saveProfile = new EventEmitter<Organisation>();
+  readonly editorModal = viewChild<ElementRef>('editorModal');
+  readonly saveProfile = output<Organisation>();
 
   constructor(
     public orgTypeService: OrganisationTypeService,
@@ -144,9 +146,9 @@ console.log(input);
     return this.organisationService.create(this.organisation, params);
   }
 
-  show(organisation: Organisation = null) {
+  show(organisation: Organisation | null = null) {
     this.setupProfileForm();
-    this.modalRef = this.modalService.open(this.editorModal, { size: 'lg' });
+    this.modalRef = this.modalService.open(this.editorModal(), { size: 'lg' });
 
     if (organisation) {
       Object.assign(organisation, {

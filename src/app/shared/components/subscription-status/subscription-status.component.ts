@@ -7,10 +7,13 @@ import { OrganisationSubscriptionService } from '../../services/api/organisation
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 @Component({
-  selector: 'app-subscription-status',
-  templateUrl: './subscription-status.component.html',
-  styleUrls: ['./subscription-status.component.scss']
+    selector: 'app-subscription-status',
+    templateUrl: './subscription-status.component.html',
+    styleUrls: ['./subscription-status.component.scss'],
+    imports: [TranslateModule]
 })
 export class SubscriptionStatusComponent implements OnInit, OnDestroy {
 
@@ -34,19 +37,19 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
   }
 
   subscriptionExpired() {
-    return this.organisation?.active_subscription.isExpired();
+    return this.organisation?.active_subscription?.isExpired();
   }
 
   subscriptionExpiring() {
-    return this.organisation?.active_subscription.isExpiring();
+    return this.organisation?.active_subscription?.isExpiring();
   }
 
   subscriptionPaid() {
-    return this.organisation?.active_subscription.invoicePaid();
+    return this.organisation?.active_subscription?.invoicePaid();
   }
 
   hasValidInvoice() {
-    return this.organisation?.active_subscription.organisation_invoice != null;
+    return this.organisation?.active_subscription?.organisation_invoice != null;
   }
 
   renewSubscription() {
@@ -58,7 +61,12 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
   }
 
   paySubscription() {
-    this.router.navigate(['/organisation/settings/invoice-payment', this.organisation.active_subscription.organisation_invoice.id]);
+    this.router.navigate(['/organisation/settings/invoice-payment', this.organisation.active_subscription?.organisation_invoice.id]);
+  }
+
+  
+  shouldRenew() {
+    return this.subscriptionPaid() && (this.subscriptionExpired() || this.subscriptionExpiring())
   }
 
   canUpgrade() {
@@ -66,7 +74,7 @@ export class SubscriptionStatusComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    const subscription_type = this.organisation.active_subscription.subscription_type;
+    const subscription_type = this.organisation.active_subscription?.subscription_type;
     if ( !subscription_type ) {
       return false;
     }

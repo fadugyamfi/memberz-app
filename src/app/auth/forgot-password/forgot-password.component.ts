@@ -1,19 +1,23 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../shared/services/api/auth.service';
 import { ToastrService } from "ngx-toastr";
 import { EventsService } from "../../shared/services/events.service";
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+
+import { TawkChatComponent } from '../../components/tawk-chat/tawk-chat.component';
 
 type UserFields = 'email';
 type FormErrors = { [u in UserFields]: string };
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss']
+    selector: 'app-forgot-password',
+    templateUrl: './forgot-password.component.html',
+    styleUrls: ['./forgot-password.component.scss'],
+    imports: [RouterLink, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TawkChatComponent, TranslateModule]
 })
 export class ForgotPasswordComponent implements OnInit, OnDestroy {
 

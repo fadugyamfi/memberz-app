@@ -1,15 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, viewChild } from '@angular/core';
 import { SmsBroadcast } from '../../../shared/model/api/sms-broadcast';
 import { MessageComposerComponent } from './message-composer/message-composer.component';
+import { BroadcastHistoryViewComponent } from './broadcast-history-view/broadcast-history-view.component';
 
 @Component({
-  selector: 'app-broadcast',
-  templateUrl: './broadcast.component.html',
-  styleUrls: ['./broadcast.component.scss']
+    selector: 'app-broadcast',
+    templateUrl: './broadcast.component.html',
+    styleUrls: ['./broadcast.component.scss'],
+    imports: [MessageComposerComponent, BroadcastHistoryViewComponent]
 })
 export class BroadcastComponent implements OnInit {
 
-  @ViewChild("composer", { static: true }) composer: MessageComposerComponent;
+  readonly composer = viewChild<MessageComposerComponent>("composer");
 
   view = 'history';
 
@@ -20,10 +22,10 @@ export class BroadcastComponent implements OnInit {
 
   showComposer(broadcast?: SmsBroadcast) {
     if( broadcast ) {
-      this.composer.setBroadcast(broadcast);
+      this.composer()?.setBroadcast(broadcast);
     }
 
-    this.composer.show();
+    this.composer()?.show();
   }
 
   showHistory() {

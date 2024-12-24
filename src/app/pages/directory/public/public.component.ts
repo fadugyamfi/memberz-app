@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { Organisation } from '../../../shared/model/api/organisation';
 import { OrganisationMember } from '../../../shared/model/api/organisation-member';
 import { MemberAccountService } from '../../../shared/services/api/member-account.service';
@@ -11,11 +11,14 @@ import { OrganisationMemberService } from '../../../shared/services/api/organisa
 import { OrganisationRegistrationFormService } from '../../../shared/services/api/organisation-registration-form.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { EventsService } from '../../../shared/services/events.service';
+import { AsyncPipe } from '@angular/common';
+import { AvatarModule } from 'ngx-avatars';
 
 @Component({
-  selector: 'app-public',
-  templateUrl: './public.component.html',
-  styleUrls: ['./public.component.scss']
+    selector: 'app-public',
+    templateUrl: './public.component.html',
+    styleUrls: ['./public.component.scss'],
+    imports: [AvatarModule, PaginationComponent, AsyncPipe]
 })
 export class PublicComponent implements OnInit {
 

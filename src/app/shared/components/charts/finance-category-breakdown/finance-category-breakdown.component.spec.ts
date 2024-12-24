@@ -8,8 +8,8 @@ describe('FinanceCategoryBreakdownComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FinanceCategoryBreakdownComponent ]
-    })
+    imports: [FinanceCategoryBreakdownComponent]
+})
     .compileComponents();
   });
 

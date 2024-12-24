@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { TwoFaCheckComponent } from './two-fa-check/two-fa-check.component';
+
+
+
+
+
 
 import { UserNotLoggedInGuard } from '../shared/guard/user-not-logged-in.guard';
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent,
+    loadComponent: () => import('./login/login.component').then(m => m.LoginComponent),
     canActivate: [UserNotLoggedInGuard],
     data: {
       title: "Login"
@@ -19,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: '2fa',
-    component: TwoFaCheckComponent,
+    loadComponent: () => import('./two-fa-check/two-fa-check.component').then(m => m.TwoFaCheckComponent),
     canActivate: [UserNotLoggedInGuard],
     data: {
       title: "Two Factor Auth"
@@ -27,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    component: RegisterComponent,
+    loadComponent: () => import('./register/register.component').then(m => m.RegisterComponent),
     canActivate: [UserNotLoggedInGuard],
     data: {
       title: "Register Account"
@@ -35,7 +35,7 @@ const routes: Routes = [
   },
   {
     path: 'forgot-password',
-    component: ForgotPasswordComponent,
+    loadComponent: () => import('./forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent),
     canActivate: [UserNotLoggedInGuard],
     data: {
       title: "Reset Your Password"
@@ -43,7 +43,7 @@ const routes: Routes = [
   },
   {
     path: 'password-reset',
-    component: ResetPasswordComponent,
+    loadComponent: () => import('./reset-password/reset-password.component').then(m => m.ResetPasswordComponent),
     canActivate: [UserNotLoggedInGuard],
     data: {
       title: "Complete Password Reset"

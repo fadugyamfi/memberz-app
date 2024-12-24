@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, OnInit, viewChild } from '@angular/core';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModal, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Observable, Subscription, tap } from 'rxjs';
 import Swal from 'sweetalert2';
 import { environment } from '../../../../environments/environment';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
 import { OrganisationEvent } from '../../../shared/model/api/organisation-event';
 import { OrganisationEventService } from '../../../shared/services/api/organisation-event.service';
 import { OrganisationCalendarService } from '../../../shared/services/api/organisation-calendar.service';
@@ -13,17 +13,24 @@ import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationCalendar } from '../../../shared/model/api/organisation-calendar';
 import moment from 'moment';
 import { SessionsComponent } from '../sessions/sessions.component';
+import { AdminHasPermissionDirective } from '../../../shared/directives/admin-has-permission.directive';
+
+import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { RouterLink } from '@angular/router';
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @Component({
-  selector: 'app-event-list',
-  templateUrl: './event-list.component.html',
-  styleUrls: ['./event-list.component.scss']
+    selector: 'app-event-list',
+    templateUrl: './event-list.component.html',
+    styleUrls: ['./event-list.component.scss'],
+    imports: [AdminHasPermissionDirective, LoadingRotateDashedComponent, NgbDropdownModule, RouterLink, PaginationComponent, FormsModule, ReactiveFormsModule, UiSwitchModule, EditorModule, SessionsComponent, TranslateModule]
 })
 export class EventListComponent implements OnInit {
 
-  @ViewChild('searchModal', { static: true }) searchModal: any;
-  @ViewChild('editorModal', { static: true }) editorModal: any;
-  @ViewChild('sessions', { static: true }) sessions: SessionsComponent;
+  readonly searchModal = viewChild<any>('searchModal');
+  readonly editorModal = viewChild<any>('editorModal');
+  readonly sessions = viewChild<SessionsComponent>('sessions');
 
   public _environment = environment;
 
@@ -34,7 +41,7 @@ export class EventListComponent implements OnInit {
   public searchForm: UntypedFormGroup;
   public editorForm: UntypedFormGroup;
 
-  public defaultCalendar: OrganisationCalendar;
+  public defaultCalendar?: OrganisationCalendar;
 
   constructor(
     public eventService: OrganisationEventService,
@@ -111,7 +118,7 @@ export class EventListComponent implements OnInit {
    * Shows the search modal
    */
   showSearchModal() {
-    this.modalService.open(this.searchModal, {});
+    this.modalService.open(this.searchModal(), {});
   }
 
   /**
@@ -159,7 +166,7 @@ export class EventListComponent implements OnInit {
   /**
    *
    */
-  showEditorModal(event: OrganisationEvent = null) {
+  showEditorModal(event ?: OrganisationEvent) {
     this.setupEditorForm();
 
     if (event) {
@@ -171,7 +178,7 @@ export class EventListComponent implements OnInit {
       this.editorForm.patchValue(params);
     }
 
-    this.modalService.open(this.editorModal, { size: 'lg' });
+    this.modalService.open(this.editorModal(), { size: 'lg' });
   }
 
   /**
@@ -235,7 +242,11 @@ export class EventListComponent implements OnInit {
   }
 
   viewSessions(event: OrganisationEvent) {
-    this.sessions.event = event;
-    this.sessions.show();
+    const sessions = this.sessions();
+
+    if( sessions ) {
+      sessions.event = event;
+      sessions.show();
+    }
   }
 }

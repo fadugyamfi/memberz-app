@@ -1,23 +1,26 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, viewChild } from '@angular/core';
 import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationRoleService } from '../../../shared/services/api/organisation-role.service';
 import { OrganisationRole } from '../../../shared/model/api/organisation-role';
 import { Subscription } from 'rxjs';
 import { PermissionsComponent } from '../permissions/permissions.component';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import { PageEvent } from '../../../shared/components/pagination/pagination.component';
+import { PageEvent, PaginationComponent } from '../../../shared/components/pagination/pagination.component';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-roles',
-  templateUrl: './roles.component.html',
-  styleUrls: ['./roles.component.scss']
+    selector: 'app-roles',
+    templateUrl: './roles.component.html',
+    styleUrls: ['./roles.component.scss'],
+    imports: [PaginationComponent, FormsModule, ReactiveFormsModule, PermissionsComponent, TranslateModule]
 })
 export class RolesComponent implements OnInit, OnDestroy {
 
-  @ViewChild('permissions', { static: true }) permissions: PermissionsComponent;
-  @ViewChild('editorModal', { static: true }) editorModal: ElementRef;
+  readonly permissions = viewChild<PermissionsComponent>('permissions');
+  readonly editorModal = viewChild<ElementRef>('editorModal');
 
   public roles: OrganisationRole[] = [];
   public selectedRole: OrganisationRole;
@@ -68,7 +71,7 @@ export class RolesComponent implements OnInit, OnDestroy {
    */
   viewPermissions(role: OrganisationRole) {
     this.selectedRole = role;
-    this.permissions.show();
+    this.permissions()?.show();
   }
 
   /**
@@ -146,7 +149,7 @@ export class RolesComponent implements OnInit, OnDestroy {
   }
 
   showModal() {
-    this.editorModalRef = this.modalService.open(this.editorModal);
+    this.editorModalRef = this.modalService.open(this.editorModal());
   }
 
   hideModal() {
@@ -159,7 +162,7 @@ export class RolesComponent implements OnInit, OnDestroy {
    * @param e Event
    * @param role Role
    */
-  showEditor(e: Event, role: OrganisationRole = null) {
+  showEditor(e: Event, role: OrganisationRole | null = null) {
     e.preventDefault();
     if (role) {
       this.modalTitle = 'Edit Organisation Role';

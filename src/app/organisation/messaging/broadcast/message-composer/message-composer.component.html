@@ -15,7 +15,9 @@
         <div class="col-xl-4">
           <select class="form-select" formControlName="module_sms_broadcast_list_id">
             <option value="">{{'Select Broadcast List' | translate}}</option>
-            <option *ngFor="let list of broadcastLists" [value]="list.id">{{ list.name }}</option>
+            @for (list of broadcastLists; track list) {
+              <option [value]="list.id">{{ list.name }}</option>
+            }
           </select>
 
           <div class="m-t-10 f-12">
@@ -28,80 +30,92 @@
         <div class="col-xl-4">
           <select class="form-select" formControlName="organisation_member_category_id">
             <option value="">{{'Select Membership Category' | translate}}</option>
-            <option *ngFor="let category of categoryService.getItems()" [value]="category.id">{{ category.name }}</option>
+            @for (category of categoryService.getItems(); track category) {
+              <option [value]="category.id">{{ category.name }}</option>
+            }
           </select>
         </div>
         <!-- <div class="col-xl-3">
-          <a href="#" class="m-r-15 btn btn-xs btn-primary"><i class="fa fa-list"></i> {{ 'Preview List' | translate }}</a>
-          <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> {{ 'Create New' | translate }}</a>
-        </div> -->
-      </div>
+        <a href="#" class="m-r-15 btn btn-xs btn-primary"><i class="fa fa-list"></i> {{ 'Preview List' | translate }}</a>
+        <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> {{ 'Create New' | translate }}</a>
+      </div> -->
+    </div>
 
-      <div class="form-group row">
-        <div class="col-xl-3 fw-bold">{{'Message' | translate}}</div>
-        <div class="col-xl-9">
-          <input-sms-template-tag-control [textarea]="messageField"></input-sms-template-tag-control>
+    <div class="form-group row">
+      <div class="col-xl-3 fw-bold">{{'Message' | translate}}</div>
+      <div class="col-xl-9">
+        <input-sms-template-tag-control [textarea]="messageField"></input-sms-template-tag-control>
 
-          <textarea #messageField rows="6" class="form-control form-control-sm" maxlength="480"
-                    placeholder="{{ 'Type Message Here' | translate }}" formControlName="message">
-          </textarea>
+        <textarea #messageField rows="6" class="form-control form-control-sm" maxlength="480"
+          placeholder="{{ 'Type Message Here' | translate }}" formControlName="message">
+        </textarea>
 
-          <div class="d-flex justify-content-between">
-            <div class="messages text-danger" *ngIf="broadcastForm.controls.message?.errors?.required">
+        <div class="d-flex justify-content-between">
+          @if (broadcastForm.controls.message?.errors?.required) {
+            <div class="messages text-danger">
               <p class="m-b-0 m-t-5">{{'Message Required' | translate}}</p>
             </div>
-            <div class="text-end m-t-10 m-b-10 f-12 fw-bold">
-              {{ charsEntered }} / {{ maxSmsChars }} {{ 'Chars Remaining' | translate }}
-            </div>
+          }
+          <div class="text-end m-t-10 m-b-10 f-12 fw-bold">
+            {{ charsEntered }} / {{ maxSmsChars }} {{ 'Chars Remaining' | translate }}
           </div>
-
-
-
         </div>
-      </div>
 
-      <div class="form-group row">
-        <div class="col-xl-3 fw-bold">{{ 'Message Preview(s)' | translate }}</div>
-        <div class="col-xl-9">
-          <div class="card b-l-primary" *ngIf="previews.length == 0">
+
+
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-xl-3 fw-bold">{{ 'Message Preview(s)' | translate }}</div>
+      <div class="col-xl-9">
+        @if (previews.length == 0) {
+          <div class="card b-l-primary">
             <div class="card-body f-12 p-3">
               {{ 'Message Previews Will Show Up Here' | translate }}
             </div>
           </div>
+        }
 
-          <div class="card border-3 b-l-primary m-b-15" *ngFor="let preview of previews">
+        @for (preview of previews; track preview) {
+          <div class="card border-3 b-l-primary m-b-15">
             <div class="card-body f-12 preview-pre p-3">
               {{ preview }}
             </div>
           </div>
+        }
 
-        </div>
       </div>
+    </div>
 
-      <div class="form-group row">
-        <div class="col-xl-3 fw-bold">{{'Send Message At' | translate}}</div>
-        <div class="col-xl-3">
-          <input type="date" class="form-control" placeholder="Scheduled Time" formControlName="send_at_date" [min]="getMinDateToSchedule()" />
-          <div class="messages text-danger" *ngIf="broadcastForm.controls.send_at_date?.errors?.required">
+    <div class="form-group row">
+      <div class="col-xl-3 fw-bold">{{'Send Message At' | translate}}</div>
+      <div class="col-xl-3">
+        <input type="date" class="form-control" placeholder="Scheduled Time" formControlName="send_at_date" [min]="getMinDateToSchedule()" />
+        @if (broadcastForm.controls.send_at_date?.errors?.required) {
+          <div class="messages text-danger">
             <p class="m-b-0 m-t-5">{{'Schedule Date Required' | translate}}</p>
           </div>
-        </div>
+        }
+      </div>
 
-        <div class="col-xl-3">
-          <input type="time" class="form-control" formControlName="send_at_time" />
-          <div class="messages text-danger" *ngIf="broadcastForm.controls.send_at_time?.errors?.required">
+      <div class="col-xl-3">
+        <input type="time" class="form-control" formControlName="send_at_time" />
+        @if (broadcastForm.controls.send_at_time?.errors?.required) {
+          <div class="messages text-danger">
             <p class="m-b-0 m-t-5">{{'Schedule Time Required' | translate}}</p>
           </div>
-        </div>
+        }
       </div>
+    </div>
 
-      <div class="form-group row">
-        <div class="col-xl-3">&nbsp;</div>
-        <div class="col-xl-9">
-          <button type="submit" class="btn btn-primary m-r-5">{{ saveBtnText | translate}}</button>
-          <button type="button" class="btn btn-danger" (click)="cancelCompose()">{{'Cancel' | translate}}</button>
-        </div>
+    <div class="form-group row">
+      <div class="col-xl-3">&nbsp;</div>
+      <div class="col-xl-9">
+        <button type="submit" class="btn btn-primary m-r-5">{{ saveBtnText | translate}}</button>
+        <button type="button" class="btn btn-danger" (click)="cancelCompose()">{{'Cancel' | translate}}</button>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
+</div>
 </ng-template>

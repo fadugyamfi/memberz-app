@@ -1,19 +1,28 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { Component, OnInit, input } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartData, ChartDataset } from 'chart.js';
-import { FinanceDashboardService } from 'src/app/shared/services/api/finance-dashboard.service';
+import { FinanceDashboardService } from '../../../services/api/finance-dashboard.service';
 import * as chartData from '../../../data/chart/chartjs';
 import { OrganisationService } from '../../../services/api/organisation.service';
+import { SelectContributionTypeControlComponent } from '../../forms/select-contribution-type-control/select-contribution-type-control.component';
+import { SelectYearControlComponent } from '../../forms/select-year-control/select-year-control.component';
+
+import { LoadingRotateDashedComponent } from '../../forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { NoDataAvailableComponent } from '../../forms/no-data-available/no-data-available.component';
+import { RouterLink } from '@angular/router';
+import { NgChartsModule } from 'ng2-charts';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-finance-trend',
-  templateUrl: './finance-trend.component.html',
-  styleUrls: ['./finance-trend.component.scss']
+    selector: 'app-finance-trend',
+    templateUrl: './finance-trend.component.html',
+    styleUrls: ['./finance-trend.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, SelectContributionTypeControlComponent, SelectYearControlComponent, LoadingRotateDashedComponent, NoDataAvailableComponent, RouterLink, NgChartsModule, TranslateModule]
 })
 export class FinanceTrendComponent implements OnInit {
 
 
-  @Input() title = 'Income Trend';
+  readonly title = input('Income Trend');
 
   private monthObjLabels = chartData.monthObjLabels;
   public labels = [];

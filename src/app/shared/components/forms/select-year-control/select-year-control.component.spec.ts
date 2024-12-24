@@ -8,8 +8,8 @@ describe('SelectYearControlComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SelectYearControlComponent ]
-    })
+    imports: [SelectYearControlComponent]
+})
     .compileComponents();
   });
 

@@ -1,7 +1,13 @@
-<select class="form-select {{ classes }}" [(ngModel)]="value">
+<select class="form-select {{ classes() }}" [(ngModel)]="value">
   <option value="">{{ 'Select Currency' | translate }}</option>
-  <option *ngFor="let currency of currencyService.getItems()" [value]="currency.id">
-    <span *ngIf="showCurrencyName">{{ currency.currency_name }} ({{ currency.currency_code }})</span>
-    <span *ngIf="!showCurrencyName">{{ currency.currency_code }}</span>
-  </option>
+  @for (currency of currencyService.getItems(); track currency) {
+    <option [value]="currency.id">
+      @if (showCurrencyName()) {
+        <span>{{ currency.currency_name }} ({{ currency.currency_code }})</span>
+      }
+      @if (!showCurrencyName()) {
+        <span>{{ currency.currency_code }}</span>
+      }
+    </option>
+  }
 </select>

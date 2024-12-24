@@ -6,90 +6,89 @@
   </div>
 
   <!-- <div class="col-sm-6">
-    <app-subscription-status></app-subscription-status>
-  </div> -->
+  <app-subscription-status></app-subscription-status>
+</div> -->
 
 
 
-  <div class="col-lg-6">
-    <app-membership-overview></app-membership-overview>
-  </div>
+<div class="col-lg-6">
+  <app-membership-overview></app-membership-overview>
+</div>
 
-  <div class="col-lg-6">
-    <!-- <app-recently-updated></app-recently-updated> -->
-    <div class="card">
-      <div class="card-header">
-        <h5>{{ 'Birthdays' | translate }}</h5>
-      </div>
+<div class="col-lg-6">
+  <!-- <app-recently-updated></app-recently-updated> -->
+  <div class="card">
+    <div class="card-header">
+      <h5>{{ 'Birthdays' | translate }}</h5>
+    </div>
 
-      <div class="card-body">
-        <ng-template #loading>
-          <app-loading-rotate-dashed></app-loading-rotate-dashed>
-        </ng-template>
+    <div class="card-body">
 
-        <div *ngIf="(todaysBirthdays$ | async) as birthdays;  else loading;">
-          <ng-container *ngIf="birthdays.length; else noItems">
+      @if ((todaysBirthdays$ | async); as birthdays) {
+        <div>
+          @if (birthdays.length) {
             <ul class="crm-activity">
-              <li class="d-flex" *ngFor="let membership of birthdays">
-                <div class="flex-shrink-0 me-3">
-                  <ngx-avatars [name]="membership.name()" [src]="membership.member.profile_photo?.thumb_url" initialsSize="2" size="48"></ngx-avatars>
-                </div>
-                <div class="flex-grow-1">
-                  <h5 class="fw-bold f-18">
-                    <a href="javascript:void(0)" viewProfile [membership]="membership">{{ membership.name() }}</a>
-                  </h5>
-                  <ul class="dates">
-                    <li class="digits">{{ 'Turns' | translate }} <b>{{ membership.member.age }}</b> {{ 'today' | translate }}</li>
-                    <li class="digits">{{ 'Born' | translate }} {{ membership.member.dob | date: 'mediumDate' }}</li>
-                    <li class="digits">{{ membership.organisation_member_category.name }}</li>
-                  </ul>
-                </div>
-              </li>
-
+              @for (membership of birthdays; track membership) {
+                <li class="d-flex">
+                  <div class="flex-shrink-0 me-3">
+                    <ngx-avatars [name]="membership.name()" [src]="membership.member.profile_photo?.thumb_url" initialsSize="2" size="48"></ngx-avatars>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h5 class="fw-bold f-18">
+                      <a href="javascript:void(0)" viewProfile [membership]="membership">{{ membership.name() }}</a>
+                    </h5>
+                    <ul class="dates">
+                      <li class="digits">{{ 'Turns' | translate }} <b>{{ membership.member.age }}</b> {{ 'today' | translate }}</li>
+                      <li class="digits">{{ 'Born' | translate }} {{ membership.member.dob | date: 'mediumDate' }}</li>
+                      <li class="digits">{{ membership.organisation_member_category.name }}</li>
+                    </ul>
+                  </div>
+                </li>
+              }
               <li class="d-flex justify-content-center align-items-center pt-3">
                 <a [routerLink]="['/organisation/events/birthday']" class="f-14 fw-bold">
                   {{ 'See All Upcoming' | translate }}
                 </a>
               </li>
             </ul>
-          </ng-container>
-
-          <ng-template #noItems>
+          } @else {
             <h6 class="text-center">{{ 'No birthdays today' | translate }}</h6>
-          </ng-template>
-
+          }
         </div>
+      } @else {
+        <app-loading-rotate-dashed></app-loading-rotate-dashed>
+      }
 
-      </div>
     </div>
   </div>
+</div>
 
-  <div class="col-lg-6">
-    <app-sms-summary title="{{ 'Messaging' | translate }}"></app-sms-summary>
-  </div>
+<div class="col-lg-6">
+  <app-sms-summary title="{{ 'Messaging' | translate }}"></app-sms-summary>
+</div>
 
-  <div class="col-lg-6">
-    <app-finance-trend title="{{ 'Track Your Income' | translate }}"></app-finance-trend>
-  </div>
+<div class="col-lg-6">
+  <app-finance-trend title="{{ 'Track Your Income' | translate }}"></app-finance-trend>
+</div>
 
 </div>
 
 <!-- <div class="row">
-  <div class="col-md-3">
+<div class="col-md-3">
 
-  </div>
+</div>
 
-  <div class="col-md-6">
-    <div class="card ">
-      <div class="card-header bg-primary text-center">
-        <h5 class="mb-0">Recent Notifications</h5>
-      </div>
-      <ul class="list-group list-group-flush">
-        <a href="javascript:void;" class="list-group-item list-group-item-action">All members list imported
-          successfully</a>
-        <a href="javascript:void;" class="list-group-item list-group-item-action">You need to create a new membership
-          now</a>
-      </ul>
+<div class="col-md-6">
+  <div class="card ">
+    <div class="card-header bg-primary text-center">
+      <h5 class="mb-0">Recent Notifications</h5>
     </div>
+    <ul class="list-group list-group-flush">
+      <a href="javascript:void;" class="list-group-item list-group-item-action">All members list imported
+      successfully</a>
+      <a href="javascript:void;" class="list-group-item list-group-item-action">You need to create a new membership
+      now</a>
+    </ul>
   </div>
+</div>
 </div> -->

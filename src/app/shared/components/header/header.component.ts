@@ -1,22 +1,29 @@
-import { Component, OnInit, Output, EventEmitter, OnDestroy, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, HostListener, Renderer2, output } from '@angular/core';
 import { NavService, Menu } from '../../services/nav.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../services/api/auth.service';
 import { StorageService } from '../../services/storage.service';
 import { EventsService } from '../../services/events.service';
 import { NotificationService } from '../../services/api/notification.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { OrganisationService } from '../../services/api/organisation.service';
 import { OrganisationAccountService } from '../../services/api/organisation-account.service';
 import { MemberAccountService } from '../../services/api/member-account.service';
 import Swal from 'sweetalert2';
+import { NgClass, UpperCasePipe, SlicePipe } from '@angular/common';
+import { FeatherIconsComponent } from '../feather-icons/feather-icons.component';
+import { FormsModule } from '@angular/forms';
+import { ToggleFullscreenDirective } from '../../directives/fullscreen.directive';
+import { HeaderNotificationsComponent } from './header-notifications.component';
+import { AvatarModule } from 'ngx-avatars';
 
 const body = document.getElementsByTagName('body')[0];
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    imports: [NgClass, FeatherIconsComponent, FormsModule, RouterLink, ToggleFullscreenDirective, HeaderNotificationsComponent, AvatarModule, UpperCasePipe, SlicePipe, TranslateModule]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
@@ -30,7 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public isOpenMobile = false;
   public currentLang = 'EN';
 
-  @Output() rightSidebarEvent = new EventEmitter<boolean>();
+  readonly rightSidebarEvent = output<boolean>();
 
   constructor(
     public navServices: NavService,
@@ -88,22 +95,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
   searchTerm(term: any) {
     term ? this.addFix() : this.removeFix();
     if (!term) { return this.menuItems = []; }
-    const items = [];
+    const items: any[] = [];
     term = term.toLowerCase();
     this.items.filter(menuItems => {
-      if (menuItems.title.toLowerCase().includes(term) && menuItems.type === 'link') {
+      if (menuItems.title?.toLowerCase().includes(term) && menuItems.type === 'link') {
         items.push(menuItems);
       }
       if (!menuItems.children) { return false; }
       menuItems.children.filter(subItems => {
-        if (subItems.title.toLowerCase().includes(term) && subItems.type === 'link') {
+        if (subItems.title?.toLowerCase().includes(term) && subItems.type === 'link') {
           subItems.icon = menuItems.icon;
           items.push(subItems);
         }
         // tslint:disable-next-line: curly
         if (!subItems.children) return false;
         subItems.children.filter(suSubItems => {
-          if (suSubItems.title.toLowerCase().includes(term)) {
+          if (suSubItems.title?.toLowerCase().includes(term)) {
             suSubItems.icon = menuItems.icon;
             items.push(suSubItems);
           }

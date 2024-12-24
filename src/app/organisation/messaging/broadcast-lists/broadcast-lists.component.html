@@ -16,54 +16,56 @@
 
   </div>
 
-  <div class="m-t-30 m-b-30 text-center" *ngIf="broadcastLists && broadcastLists.length == 0">
-    <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-    <h4 class="fw-bold">{{'No Broadcast Lists Found' | translate}}</h4>
-    <h6>{{'Please search for broadcast lists or add a new one to display results here' | translate}}</h6>
-  </div>
+  @if (broadcastLists && broadcastLists.length == 0) {
+    <div class="m-t-30 m-b-30 text-center">
+      <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
+      <h4 class="fw-bold">{{'No Broadcast Lists Found' | translate}}</h4>
+      <h6>{{'Please search for broadcast lists or add a new one to display results here' | translate}}</h6>
+    </div>
+  }
 
-  <div class="loader-box m-auto" *ngIf="!broadcastLists">
-    <span class="rotate dashed colored"></span>
-  </div>
+  @if (!broadcastLists) {
+    <div class="loader-box m-auto">
+      <span class="rotate dashed colored"></span>
+    </div>
+  }
 
-  <table class="table table-bordered table-hover" *ngIf="broadcastLists && broadcastLists.length > 0">
-    <thead>
-      <tr>
-        <th colspan="2">{{'Name' | translate}}</th>
-        <th class="text-left">{{'Sender ID' | translate}}</th>
-        <th class="text-center">{{'Contacts In List' | translate}}</th>
-        <th class="text-end">{{ 'Created' | translate }}</th>
-        <th class="text-center">{{'Actions' | translate}}</th>
-      </tr>
-    </thead>
-
-
-    <tbody>
-      <tr *ngFor="let broadcastList of broadcastLists; let row = index">
-        <td class="text-end">{{ row + broadcastListService?.pagingMeta?.from }}.</td>
-        <td>{{ broadcastList.name }}</td>
-        <td class="text-left">{{ broadcastList.sender_id }}</td>
-        <td class="text-center">{{ broadcastList.size | number }}</td>
-
-        <td class="text-end">{{ broadcastList.whenCreated() }}</td>
-
-        <td class="text-center">
-          <a [routerLink]="['/organisation/messaging/broadcast-lists', broadcastList.id, 'contacts']" type="button"
-             class="btn btn-xs btn-primary m-r-10">
-            <i class="fa fa-file"></i> {{ 'Preview' | translate }}
-          </a>
-
-          <button type="button" class="btn btn-xs btn-primary m-r-10" (click)="showEditorModal(broadcastList)">
-            <i class="fa fa-pencil"></i> {{'Edit' | translate}}
-          </button>
-
-          <button type="button" class="btn btn-xs btn-danger" (click)="deleteBroadcastList(broadcastList)">
-            <i class="fa fa-trash-o"></i> {{'Delete' | translate}}
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  @if (broadcastLists && broadcastLists.length > 0) {
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th colspan="2">{{'Name' | translate}}</th>
+          <th class="text-left">{{'Sender ID' | translate}}</th>
+          <th class="text-center">{{'Contacts In List' | translate}}</th>
+          <th class="text-end">{{ 'Created' | translate }}</th>
+          <th class="text-center">{{'Actions' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (broadcastList of broadcastLists; track broadcastList; let row = $index) {
+          <tr>
+            <td class="text-end">{{ row + broadcastListService?.pagingMeta?.from }}.</td>
+            <td>{{ broadcastList.name }}</td>
+            <td class="text-left">{{ broadcastList.sender_id }}</td>
+            <td class="text-center">{{ broadcastList.size | number }}</td>
+            <td class="text-end">{{ broadcastList.whenCreated() }}</td>
+            <td class="text-center">
+              <a [routerLink]="['/organisation/messaging/broadcast-lists', broadcastList.id, 'contacts']" type="button"
+                class="btn btn-xs btn-primary m-r-10">
+                <i class="fa fa-file"></i> {{ 'Preview' | translate }}
+              </a>
+              <button type="button" class="btn btn-xs btn-primary m-r-10" (click)="showEditorModal(broadcastList)">
+                <i class="fa fa-pencil"></i> {{'Edit' | translate}}
+              </button>
+              <button type="button" class="btn btn-xs btn-danger" (click)="deleteBroadcastList(broadcastList)">
+                <i class="fa fa-trash-o"></i> {{'Delete' | translate}}
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 
   <div class="card-footer">
     <app-pagination [service]="broadcastListService" (paginate)="onPaginate($event)"></app-pagination>
@@ -102,7 +104,7 @@
       <button type="submit" class="btn btn-primary">{{'Search' | translate}}</button>
       <button type="reset" class="btn btn-outline-info">{{'Clear' | translate}}</button>
       <button type="button" class="btn btn-outline-danger"
-              (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
+      (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
     </div>
   </form>
 </ng-template>
@@ -122,9 +124,11 @@
         <label class="col-sm-2 col-form-label">{{'Name' | translate}}</label>
         <div class="col-sm-10">
           <input type="text" class="form-control" placeholder="e.g. Default" formControlName="name" />
-          <div class="messages text-danger" *ngIf="editorForm.controls.name?.errors?.required">
-            <p class="m-b-0 m-t-5">{{'Name Required' | translate}}</p>
-          </div>
+          @if (editorForm.controls.name?.errors?.required) {
+            <div class="messages text-danger">
+              <p class="m-b-0 m-t-5">{{'Name Required' | translate}}</p>
+            </div>
+          }
         </div>
       </div>
 
@@ -132,85 +136,89 @@
         <label class="col-sm-2 col-form-label">{{'Sender ID' | translate}}</label>
         <div class="col-sm-10">
           <input type="text" class="form-control w-25" formControlName="sender_id" maxlength="11"
-                 placeholder="e.g. {{'ID that appears on their phone' | translate}}" />
+            placeholder="e.g. {{'ID that appears on their phone' | translate}}" />
 
-          <p class="small py-2 pl-2 mb-0">
-            <i class="fa fa-info-circle text-info"></i>
-            <span>{{ 'Sender ID is the name displayed on the members phone when messages are received from this list' | translate}}.</span>
-            {{ 'It must be a maximum of' | translate }} <b>{{ '11 alphanumeric characters' | translate }}</b>
-            {{ 'and cannot have spaces' | translate }}
-          </p>
+            <p class="small py-2 pl-2 mb-0">
+              <i class="fa fa-info-circle text-info"></i>
+              <span>{{ 'Sender ID is the name displayed on the members phone when messages are received from this list' | translate}}.</span>
+              {{ 'It must be a maximum of' | translate }} <b>{{ '11 alphanumeric characters' | translate }}</b>
+              {{ 'and cannot have spaces' | translate }}
+            </p>
 
-          <div class="messages text-danger" *ngIf="editorForm.controls.sender_id?.errors?.required">
-            <p class="m-b-0 m-t-5">{{'Sender ID Required' | translate}}</p>
+            @if (editorForm.controls.sender_id?.errors?.required) {
+              <div class="messages text-danger">
+                <p class="m-b-0 m-t-5">{{'Sender ID Required' | translate}}</p>
+              </div>
+            }
           </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label class="col-sm-2 col-form-label">{{ 'Filters' | translate }}</label>
-        <div class="col-sm-8" formArrayName="filters">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label">{{ 'Filters' | translate }}</label>
+          <div class="col-sm-8" formArrayName="filters">
 
-          <div class="required">
-            <p class="text-uppercase fw-bold">{{ 'Required' | translate }}</p>
-            <div>
-              <ng-container *ngFor="let filterGroup of filterControls.controls; let i = index">
-                <app-list-filter [filterGroup]="filterGroup" [listFilters]="listFilterService.listFilters"
-                                 [filter]="selectedBroadcastList?.filters[i]" (remove)="removeFilterGroup(i)">
-                </app-list-filter>
-              </ng-container>
+            <div class="required">
+              <p class="text-uppercase fw-bold">{{ 'Required' | translate }}</p>
+              <div>
+                @for (filterGroup of filterControls.controls; track filterGroup; let i = $index) {
+                  <app-list-filter [filterGroup]="filterGroup" [listFilters]="listFilterService.listFilters"
+                    [filter]="selectedBroadcastList?.filters[i]" (remove)="removeFilterGroup(i)">
+                  </app-list-filter>
+                }
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="optional">
+              <p class="text-uppercase fw-bold">{{ 'Optional' | translate }}</p>
+
+              <div>
+                @for (filterGroup of filterControls.controls; track filterGroup; let i = $index) {
+                  <app-list-filter [filterGroup]="filterGroup" [listFilters]="listFilterService.listFilters" [optionalOnly]="true"
+                    [filter]="selectedBroadcastList?.filters[i]" (remove)="removeFilterGroup(i)">
+                  </app-list-filter>
+                }
+              </div>
+
             </div>
           </div>
 
-          <hr />
+          <div class="col-sm-2 text-center">
+            <div ngbDropdown placement="bottom-right">
+              <button type="button" class="btn btn-primary btn-sm add-filter-btn" title="{{ 'Add Filter' | translate }}"
+                ngbDropdownToggle>
+                <i class="fa fa-plus"></i> {{ 'Add' | translate }}
+              </button>
 
-          <div class="optional">
-            <p class="text-uppercase fw-bold">{{ 'Optional' | translate }}</p>
-
-            <div>
-              <ng-container *ngFor="let filterGroup of filterControls.controls; let i = index">
-                <app-list-filter [filterGroup]="filterGroup" [listFilters]="listFilterService.listFilters" [optionalOnly]="true"
-                                 [filter]="selectedBroadcastList?.filters[i]" (remove)="removeFilterGroup(i)">
-                </app-list-filter>
-              </ng-container>
+              <ul ngbDropdownMenu>
+                <a ngbDropdownItem (click)="addFilterGroup()" ><span class="filter-icon">{{ 'AND' }}</span> {{ 'Required' | translate}}</a>
+                <a ngbDropdownItem (click)="addOptionalFilterGroup()" ><span class="filter-icon">{{ 'OR' }}</span> {{ 'Optional' | translate }}</a>
+              </ul>
             </div>
 
           </div>
         </div>
 
-        <div class="col-sm-2 text-center">
-          <div ngbDropdown placement="bottom-right">
-            <button type="button" class="btn btn-primary btn-sm add-filter-btn" title="{{ 'Add Filter' | translate }}"
-                    ngbDropdownToggle>
-              <i class="fa fa-plus"></i> {{ 'Add' | translate }}
-            </button>
-
-            <ul ngbDropdownMenu>
-              <a ngbDropdownItem (click)="addFilterGroup()" ><span class="filter-icon">{{ 'AND' }}</span> {{ 'Required' | translate}}</a>
-              <a ngbDropdownItem (click)="addOptionalFilterGroup()" ><span class="filter-icon">{{ 'OR' }}</span> {{ 'Optional' | translate }}</a>
-            </ul>
+        <div class="form-group row">
+          <div class="col-2 col-form-label">{{ 'Query Example' | translate }}</div>
+          <div class="col-10">
+            <div class="form-control form-control-sm bg-light text-dark">{{ queryExample }}</div>
           </div>
-
         </div>
+
       </div>
 
-      <div class="form-group row">
-        <div class="col-2 col-form-label">{{ 'Query Example' | translate }}</div>
-        <div class="col-10">
-          <div class="form-control form-control-sm bg-light text-dark">{{ queryExample }}</div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="modal-footer">
-      <span *ngIf="broadcastListService?.requesting" class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i>
-        {{'Saving' | translate}}...
-      </span>
+      <div class="modal-footer">
+        @if (broadcastListService?.requesting) {
+          <span class="m-r-20"><i class="fa fa-spin fa-circle-o-notch"></i>
+          {{'Saving' | translate}}...
+        </span>
+      }
 
       <button type="submit" class="btn btn-primary">{{'Save Changes' | translate}}</button>
       <button type="button" class="btn btn-outline-danger"
-              (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
+      (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
     </div>
   </form>
 </ng-template>

@@ -16,22 +16,20 @@ import { AttendanceReportComponent } from './attendance-report/attendance-report
 
 
 @NgModule({
-  declarations: [
-    DashboardComponent,
-    CalendarComponent,
-    EventListComponent,
-    SessionsComponent,
-    RecordAttendanceComponent,
-    BirthdayComponent,
-    AttendanceListComponent,
-    MarkComponent,
-    AttendanceReportComponent
-  ],
-  imports: [
-    CommonModule,
-    EventsRoutingModule,
-    SharedModule,
-    EditorModule
-  ]
+    imports: [
+        CommonModule,
+        EventsRoutingModule,
+        SharedModule,
+        EditorModule,
+        DashboardComponent,
+        CalendarComponent,
+        EventListComponent,
+        SessionsComponent,
+        RecordAttendanceComponent,
+        BirthdayComponent,
+        AttendanceListComponent,
+        MarkComponent,
+        AttendanceReportComponent
+    ]
 })
 export class EventsModule { }

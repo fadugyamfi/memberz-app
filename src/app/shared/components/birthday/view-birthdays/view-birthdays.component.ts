@@ -1,25 +1,36 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, viewChild } from '@angular/core';
 import { catchError, map, Observable, Subscription, tap } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { EventsService } from '../../../../shared/services/events.service';
 import { PageEvent } from '../../../../shared/components/pagination/pagination.component';
-import { OrganisationMemberService } from 'src/app/shared/services/api/organisation-member.service';
-import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
+import { OrganisationMemberService } from '../../../services/api/organisation-member.service';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import dayjs from 'dayjs';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import Swal from 'sweetalert2';
 import { ExcelService } from '../../../services/excel.service';
 import { PrintService } from '../../../services/print.service';
+import { SelectMonthControlComponent } from '../../forms/select-month-control/select-month-control.component';
+import { SelectMembershipCategoryControlComponent } from '../../forms/select-membership-category-control/select-membership-category-control.component';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPrintDirective } from 'ngx-print';
+import { AsyncPipe, DatePipe } from '@angular/common';
+import { NoDataAvailableComponent } from '../../forms/no-data-available/no-data-available.component';
+import { ViewProfileDirective } from '../../../directives/view-profile.directive';
+import { ProfileImageComponent } from '../../profile-view/profile-image/profile-image.component';
+import { PaginationComponent } from '../../pagination/pagination.component';
+import { LoadingRotateDashedComponent } from '../../forms/loading-rotate-dashed/loading-rotate-dashed.component';
 
 @Component({
-  selector: 'app-view-birthdays',
-  templateUrl: './view-birthdays.component.html',
-  styleUrls: ['./view-birthdays.component.scss']
+    selector: 'app-view-birthdays',
+    templateUrl: './view-birthdays.component.html',
+    styleUrls: ['./view-birthdays.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, SelectMonthControlComponent, SelectMembershipCategoryControlComponent, NgbDropdownModule, NgxPrintDirective, NoDataAvailableComponent, ViewProfileDirective, ProfileImageComponent, PaginationComponent, LoadingRotateDashedComponent, AsyncPipe, DatePipe, TranslateModule]
 })
 export class ViewBirthdaysComponent implements OnInit {
 
-  @ViewChild(DaterangepickerDirective, { static: false }) pickerDirective: DaterangepickerDirective
+  readonly pickerDirective = viewChild(DaterangepickerDirective);
 
   public subscriptions: Subscription[] = [];
   public selectForm: UntypedFormGroup;
@@ -108,7 +119,7 @@ export class ViewBirthdaysComponent implements OnInit {
   }
 
   openDatepicker() {
-    this.pickerDirective.open();
+    this.pickerDirective()?.open();
   }
 
   formatMembersDataForExport(members) {
@@ -143,9 +154,11 @@ export class ViewBirthdaysComponent implements OnInit {
     );
     Swal.showLoading();
 
-    const sub = this.organisationMemberService.birthdays(this.selectForm.value).subscribe((members: OrganisationMember[]) => {
-      this.excelService.generateExcel(this.formatMembersDataForExport(members), 'birthdays');
-    });
+    const sub = this.organisationMemberService.birthdays(this.selectForm.value).subscribe(
+      (members) => {
+        this.excelService.generateExcel(this.formatMembersDataForExport(members), 'birthdays');
+      }
+    );
 
     this.subscriptions.push(sub);
 

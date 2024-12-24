@@ -17,70 +17,75 @@
     </div>
   </div>
 
-  <div class="m-t-30 m-b-30 text-center" *ngIf="anniversaries && anniversaries.length == 0">
-    <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
-    <h4 class="fw-bold">
-      {{ "No Anniversary Type Found" | translate }}
-    </h4>
-    <h6>
-      {{ "Please search for anniversaries type or add a new one to display results here" | translate }}
-    </h6>
-  </div>
+  @if ( !anniversaryService.hasItems() ) {
+    <div class="m-t-30 m-b-30 text-center">
+      <img src="/assets/images/icons/circle-document.svg" height="180" class="m-b-30" />
+      <h4 class="fw-bold">
+        {{ "No Anniversary Type Found" | translate }}
+      </h4>
+      <h6>
+        {{ "Please search for anniversaries type or add a new one to display results here" | translate }}
+      </h6>
+    </div>
+  }
 
-  <div class="loader-box m-auto" *ngIf="!anniversaries">
-    <span class="rotate dashed colored"></span>
-  </div>
+  @if (anniversaryService.requesting) {
+    <div class="loader-box m-auto">
+      <span class="rotate dashed colored"></span>
+    </div>
+  }
 
-  <table class="table table-bordered table-hover" *ngIf="anniversaries && anniversaries.length > 0">
-    <thead>
-      <tr>
-        <th colspan="2">{{ "Name" | translate }}</th>
-        <th class="text-center">{{ "Show on Reg. Form" | translate }}</th>
-        <th class="text-center">{{ "Send Message" | translate }}</th>
-        <th class="text-center">{{ "Notify on Anniversary" | translate }}</th>
-        <th class="text-center">{{ "Total Members" | translate }}</th>
-        <th class="text-center">{{ "Actions" | translate }}</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let anniverary of anniversaries; let row = index">
-        <td class="text-end">
-          {{ row + anniversaryService?.pagingMeta?.from }}.
-        </td>
-        <td>
-          <div class="fw-bold">{{ anniverary.name }}</div>
-          <small class="text-muted">{{ anniverary.description }}</small>
-        </td>
-        <td class="text-center">
-          <ui-switch [size]="'small'" [checked]="anniverary.show_on_reg_forms == 1" [disabled]="true"></ui-switch>
-        </td>
-        <td class="text-center">
-          <ui-switch [size]="'small'" [checked]="anniverary.send_anniversary_message == 1" [disabled]="true"></ui-switch>
-        </td>
-        <td class="text-center">
-          <ui-switch [size]="'small'" [checked]="anniverary.notify_on_anniversary == 1" [disabled]="true"></ui-switch>
-        </td>
-        <td class="text-center">
-          {{ anniverary.organisation_member_anniversary_count || 0 }}
-        </td>
-
-        <td class="text-center">
-          <!-- <button class="btn btn-xs btn-success m-r-10" (click)="showMessageModal(anniverary.message)">
-            <i class="fa fa-envelope"></i> {{'Message' | translate}}
-          </button> -->
-
-          <button class="btn btn-xs btn-primary m-r-10" (click)="showEditorModal(anniverary)">
-            <i class="fa fa-pencil"></i> {{ "Edit" | translate }}
-          </button>
-
-          <button class="btn btn-xs btn-danger" (click)="deleteAnniversary(anniverary)">
-            <i class="fa fa-trash-o"></i> {{ "Delete" | translate }}
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  @if (anniversaryService.hasItems()) {
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th colspan="2">{{ "Name" | translate }}</th>
+          <th class="text-center">{{ "Show on Reg. Form" | translate }}</th>
+          <th class="text-center">{{ "Send Message" | translate }}</th>
+          <th class="text-center">{{ "Notify on Anniversary" | translate }}</th>
+          <th class="text-center">{{ "Total Members" | translate }}</th>
+          <th class="text-center">{{ "Actions" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (anniverary of anniversaryService.getItems(); track anniverary; let row = $index) {
+        <tr>
+          <td class="text-end">
+            {{ row + anniversaryService?.pagingMeta?.from }}.
+          </td>
+          <td>
+            <div class="fw-bold">{{ anniverary.name }}</div>
+            <small class="text-muted">{{ anniverary.description }}</small>
+          </td>
+          <td class="text-center">
+            <ui-switch [size]="'small'" [checked]="anniverary.show_on_reg_forms == 1" [disabled]="true"></ui-switch>
+          </td>
+          <td class="text-center">
+            <ui-switch [size]="'small'" [checked]="anniverary.send_anniversary_message == 1"
+              [disabled]="true"></ui-switch>
+          </td>
+          <td class="text-center">
+            <ui-switch [size]="'small'" [checked]="anniverary.notify_on_anniversary == 1" [disabled]="true"></ui-switch>
+          </td>
+          <td class="text-center">
+            {{ anniverary.organisation_member_anniversary_count || 0 }}
+          </td>
+          <td class="text-center">
+            <!-- <button class="btn btn-xs btn-success m-r-10" (click)="showMessageModal(anniverary.message)">
+                <i class="fa fa-envelope"></i> {{'Message' | translate}}
+              </button> -->
+            <button class="btn btn-xs btn-primary m-r-10" (click)="showEditorModal(anniverary)">
+              <i class="fa fa-pencil"></i> {{ "Edit" | translate }}
+            </button>
+            <button class="btn btn-xs btn-danger" (click)="deleteAnniversary(anniverary)">
+              <i class="fa fa-trash-o"></i> {{ "Delete" | translate }}
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  }
 
   <div class="card-footer">
     <app-pagination [service]="anniversaryService" (paginate)="onPaginate($event)"></app-pagination>
@@ -149,9 +154,11 @@
         <label class="col-sm-4 col-form-label">{{ "Name" | translate }}</label>
         <div class="col-sm-8">
           <input type="text" class="form-control" placeholder="e.g. Default" formControlName="name" />
-          <div class="messages text-danger" *ngIf="editorForm.controls.name?.errors?.required">
-            <p class="m-b-0 m-t-5">{{ "Name Required" | translate }}</p>
-          </div>
+          @if (editorForm.controls.name?.errors?.required) {
+            <div class="messages text-danger">
+              <p class="m-b-0 m-t-5">{{ "Name Required" | translate }}</p>
+            </div>
+          }
         </div>
       </div>
 
@@ -159,10 +166,12 @@
         <label class="col-sm-4 col-form-label">{{ "Description" | translate }}</label>
         <div class="col-sm-8">
           <input type="text" class="form-control" placeholder="e.g. {{ 'Main anniverary description' | translate }}"
-                 formControlName="description" />
-          <div class="messages text-danger" *ngIf="editorForm.controls.description?.errors?.required">
-            <p class="m-b-0 m-t-5">{{ "Description Required" | translate }}</p>
-          </div>
+            formControlName="description" />
+          @if (editorForm.controls.description?.errors?.required) {
+            <div class="messages text-danger">
+              <p class="m-b-0 m-t-5">{{ "Description Required" | translate }}</p>
+            </div>
+          }
         </div>
       </div>
 
@@ -194,22 +203,28 @@
       <div class="form-group row">
         <label class="col-sm-4 col-form-label">{{ "SMS Message" | translate }}</label>
         <div class="col-sm-8">
-          <input-sms-template-tag-control [textarea]="messageField" [disabled]="editorForm.controls.send_anniversary_message.value == false"></input-sms-template-tag-control>
+          <input-sms-template-tag-control [textarea]="messageField"
+            [disabled]="editorForm.controls.send_anniversary_message.value == false"></input-sms-template-tag-control>
 
-          <textarea #messageField class="form-control form-control-sm" rows="3" placeholder="e.g. {{ 'Main anniverary Message' | translate }}"
-                 formControlName="message" [readonly]="editorForm.controls.send_anniversary_message.value == false"></textarea>
+          <textarea #messageField class="form-control form-control-sm" rows="3"
+            placeholder="e.g. {{ 'Main anniverary Message' | translate }}" formControlName="message"
+            [readonly]="editorForm.controls.send_anniversary_message.value == false"></textarea>
 
-          <div class="messages text-danger" *ngIf="editorForm.controls.message?.errors?.required">
-            <p class="m-b-0 m-t-5">{{ "Message Required" | translate }}</p>
-          </div>
+          @if (editorForm.controls.message?.errors?.required) {
+            <div class="messages text-danger">
+              <p class="m-b-0 m-t-5">{{ "Message Required" | translate }}</p>
+            </div>
+          }
         </div>
       </div>
     </div>
 
     <div class="modal-footer">
-      <span *ngIf="anniversaryService?.requesting" class="m-r-20">
-        <i class="fa fa-spin fa-circle-o-notch"></i> {{ "Saving" | translate }}...
-      </span>
+      @if (anniversaryService?.requesting) {
+        <span class="m-r-20">
+          <i class="fa fa-spin fa-circle-o-notch"></i> {{ "Saving" | translate }}...
+        </span>
+      }
 
       <button type="submit" class="btn btn-primary">
         {{ "Save Changes" | translate }}

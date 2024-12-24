@@ -8,8 +8,8 @@ describe('ProfileSmsMessagesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfileSmsMessagesComponent ]
-    })
+    imports: [ProfileSmsMessagesComponent]
+})
     .compileComponents();
   });
 

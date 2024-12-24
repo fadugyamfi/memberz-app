@@ -23,7 +23,7 @@ export class OrganisationAccountService extends APIService<OrganisationAccount> 
     this.loadActiveAccount();
   }
 
-  fetchAdminAccount(organisation_id, member_account_id, params = null, headers = null) {
+  fetchAdminAccount(organisation_id: number, member_account_id: number, params = null, headers = null) {
     return this.get(`/organisation_accounts/${organisation_id}/${member_account_id}`, params, headers).pipe(
       map(response => new OrganisationAccount(response['data'])),
       tap((account: OrganisationAccount) => this.setActiveAccount(account))

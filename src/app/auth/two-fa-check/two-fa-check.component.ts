@@ -1,19 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, Validators, UntypedFormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { StorageService } from 'src/app/shared/services/storage.service';
+import { UntypedFormBuilder, Validators, UntypedFormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { StorageService } from '../../shared/services/storage.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../../shared/services/api/auth.service';
+import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+
+import { TawkChatComponent } from '../../components/tawk-chat/tawk-chat.component';
 
 
 type Field = 'code'
 type FormErrors = { [u in Field]: string };
 
 @Component({
-  selector: 'app-two-fa-check',
-  templateUrl: './two-fa-check.component.html',
-  styleUrls: ['./two-fa-check.component.scss']
+    selector: 'app-two-fa-check',
+    templateUrl: './two-fa-check.component.html',
+    styleUrls: ['./two-fa-check.component.scss'],
+    imports: [RouterLink, FormsModule, ReactiveFormsModule, NgxIntlTelInputModule, TawkChatComponent, TranslateModule]
 })
 export class TwoFaCheckComponent implements OnInit {
 
@@ -44,7 +48,7 @@ export class TwoFaCheckComponent implements OnInit {
 
   doNewExperienceSetup() {
     const netCheck = this.route.snapshot.queryParamMap.get('net');
-    const auth = this.route.snapshot.queryParamMap.get('auth');
+    const auth = this.route.snapshot.queryParamMap.get('auth') as string;
 
     if( !netCheck ) {
       return;

@@ -1,11 +1,13 @@
 <a href="javascript:void(0)">
-  <ngx-avatars [src]="profileImageUrl" [name]="membership?.name()" [size]="size" initialsSize="2"
-               (click)="onImageClicked()"></ngx-avatars>
+  <ngx-avatars [src]="profileImageUrl()" [name]="name()" [size]="size()" initialsSize="2"
+  (click)="onImageClicked()"></ngx-avatars>
 </a>
 
-<div class="mb-3 mt-2" *ngIf="imageUploadProgress">
-  <ngb-progressbar type="success" [value]="imageUploadProgress" height="3px" [striped]="true">
-  </ngb-progressbar>
-</div>
+@if (imageUploadProgress) {
+  <div class="mb-3 mt-2">
+    <ngb-progressbar type="success" [value]="imageUploadProgress" height="3px" [striped]="true">
+    </ngb-progressbar>
+  </div>
+}
 
 <app-image-cropper #imageCropper (save)="onCroppedImageSaved($event)"></app-image-cropper>

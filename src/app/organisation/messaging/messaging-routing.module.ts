@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SettingsComponent } from './settings/settings.component';
-import { HistoryComponent } from './history/history.component';
-import { BroadcastComponent } from './broadcast/broadcast.component';
-import { BroadcastListsComponent } from './broadcast-lists/broadcast-lists.component';
-import { BroadcastListPreviewComponent } from './broadcast-list-preview/broadcast-list-preview.component';
-import { PurchaseCreditsComponent } from './purchase-credits/purchase-credits.component';
+
+
+
+
+
+
 
 
 const routes: Routes = [
   {
     path: 'settings',
-    component: SettingsComponent,
+    loadComponent: () => import('./settings/settings.component').then(m => m.SettingsComponent),
     data: {
       title: 'Messaging Settings',
       breadcrumb: 'Settings'
@@ -19,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: 'history',
-    component: HistoryComponent,
+    loadComponent: () => import('./history/history.component').then(m => m.HistoryComponent),
     data: {
       title: 'Messaging History',
       breadcrumb: 'History'
@@ -27,7 +27,7 @@ const routes: Routes = [
   },
   {
     path: 'broadcast',
-    component: BroadcastComponent,
+    loadComponent: () => import('./broadcast/broadcast.component').then(m => m.BroadcastComponent),
     data: {
       title: 'Message Broadcasts',
       breadcrumb: 'Broadcast'
@@ -35,7 +35,7 @@ const routes: Routes = [
   },
   {
     path: 'broadcast-lists',
-    component: BroadcastListsComponent,
+    loadComponent: () => import('./broadcast-lists/broadcast-lists.component').then(m => m.BroadcastListsComponent),
     data: {
       title: 'Broadcast Lists',
       breadcrumb: 'Broadcast Lists'
@@ -43,7 +43,7 @@ const routes: Routes = [
   },
   {
     path: 'broadcast-lists/:id/contacts',
-    component: BroadcastListPreviewComponent,
+    loadComponent: () => import('./broadcast-list-preview/broadcast-list-preview.component').then(m => m.BroadcastListPreviewComponent),
     data: {
       title: 'Broadcast List Contacts',
       breadcrumb: 'Broadcast List Contacts'
@@ -51,7 +51,7 @@ const routes: Routes = [
   },
   {
     path: 'purchase-credits',
-    component: PurchaseCreditsComponent,
+    loadComponent: () => import('./purchase-credits/purchase-credits.component').then(m => m.PurchaseCreditsComponent),
     data: {
       title: 'Purchase SMS Credits',
       breadcrumb: 'Purchase Credits'

@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { IncomeSummaryComponent } from './income-summary/income-summary.component';
-import { TopContributorsComponent } from './top-contributors/top-contributors.component';
-import { NonContributingMembersComponent } from './non-contributing-members/non-contributing-members.component';
-import { YearlySummaryReportComponent } from './yearly-summary-report/yearly-summary-report.component';
-import { ContributorsByTypeComponent } from './contributors-by-type/contributors-by-type.component';
+
+
+
+
+
 
 const routes: Routes = [
   {
     path: 'income-summary',
-    component: IncomeSummaryComponent,
+    loadComponent: () => import('./income-summary/income-summary.component').then(m => m.IncomeSummaryComponent),
     data: {
       title: 'Income Summary',
       breadcrumb: 'Income Summary'
@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'yearly-summary',
-    component: YearlySummaryReportComponent,
+    loadComponent: () => import('./yearly-summary-report/yearly-summary-report.component').then(m => m.YearlySummaryReportComponent),
     data: {
       title: 'Yearly Summary',
       breadcrumb: 'Yearly Summary'
@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'top-contributors',
-    component: TopContributorsComponent,
+    loadComponent: () => import('./top-contributors/top-contributors.component').then(m => m.TopContributorsComponent),
     data: {
       title: 'Top Contributors',
       breadcrumb: 'Top Contributors'
@@ -33,7 +33,7 @@ const routes: Routes = [
   },
   {
     path: 'non-contributing-members',
-    component: NonContributingMembersComponent,
+    loadComponent: () => import('./non-contributing-members/non-contributing-members.component').then(m => m.NonContributingMembersComponent),
     data: {
       title: 'Non Contributing Members',
       breadcrumb: 'Non Contributing Members'
@@ -41,7 +41,7 @@ const routes: Routes = [
   },
   {
     path: 'contributors-by-type',
-    component: ContributorsByTypeComponent,
+    loadComponent: () => import('./contributors-by-type/contributors-by-type.component').then(m => m.ContributorsByTypeComponent),
     data: {
       title: 'Contributors By Type',
       breadcrumb: 'Contributors By Type'

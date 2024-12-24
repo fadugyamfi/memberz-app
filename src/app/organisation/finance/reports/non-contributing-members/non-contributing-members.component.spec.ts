@@ -8,8 +8,8 @@ describe('NonContributingMembersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NonContributingMembersComponent ]
-    })
+    imports: [NonContributingMembersComponent]
+})
     .compileComponents();
   });
 

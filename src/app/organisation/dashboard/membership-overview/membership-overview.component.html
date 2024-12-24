@@ -6,35 +6,38 @@
     <div class="card-body">
       <div class="row">
         <div class="col-sm-12">
-          <div class="loader-box m-auto" *ngIf="!membershipCategoriesData">
-            <span class="rotate dashed colored"></span>
-          </div>
+          @if (!membershipCategoriesData) {
+            <div class="loader-box m-auto">
+              <span class="rotate dashed colored"></span>
+            </div>
+          }
 
           <div class="col-sm-12">
             <div class="chart-container" style="height: 30vh; position: relative;">
-              <canvas baseChart
-                *ngIf="renderChart"
-                class="chart"
-                [data]="doughnutChartData"
-                [options]="doughnutChartOptions"
-                [type]="doughnutChartType">
-              </canvas>
+              @if (renderChart) {
+                <canvas baseChart
+                  class="chart"
+                  [data]="doughnutChartData"
+                  [options]="doughnutChartOptions"
+                  [type]="doughnutChartType">
+                </canvas>
+              }
             </div>
 
             <!-- <canvas baseChart *ngIf="renderChart" class="chart" [data]="chartData" [labels]="chartLabels"
-                    [chartType]="chartType" [options]="chartOptions"></canvas> -->
-          </div>
+          [chartType]="chartType" [options]="chartOptions"></canvas> -->
         </div>
-
-        <!-- <div class="col-sm-5">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item p-2" *ngFor="let item of membershipCategoriesData">
-              <span class="badge badge-info pull-right">{{ item.value }}</span>
-              <span>{{ item.name }}</span>
-            </li>
-          </ul>
-        </div> -->
       </div>
-    </div>
+
+      <!-- <div class="col-sm-5">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item p-2" *ngFor="let item of membershipCategoriesData">
+          <span class="badge badge-info pull-right">{{ item.value }}</span>
+          <span>{{ item.name }}</span>
+        </li>
+      </ul>
+    </div> -->
   </div>
+</div>
+</div>
 </div>

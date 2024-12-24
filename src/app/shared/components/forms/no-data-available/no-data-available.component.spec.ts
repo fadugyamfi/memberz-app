@@ -8,8 +8,8 @@ describe('NoDataAvailableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NoDataAvailableComponent ]
-    })
+    imports: [NoDataAvailableComponent]
+})
     .compileComponents();
   });
 

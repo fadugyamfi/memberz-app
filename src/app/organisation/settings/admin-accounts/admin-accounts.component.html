@@ -15,66 +15,69 @@
 
   </div>
 
-  <div class="m-t-50 text-center" *ngIf="!accountService.requesting && !recordsPresent()">
-    <h3>{{'No Search Results Found' | translate}}</h3>
-    <p>{{'Please search for members to display results here' | translate}}</p>
-  </div>
+  @if (!accountService.requesting && !recordsPresent()) {
+    <div class="m-t-50 text-center">
+      <h3>{{'No Search Results Found' | translate}}</h3>
+      <p>{{'Please search for members to display results here' | translate}}</p>
+    </div>
+  }
 
-  <div class="loader-box m-auto" *ngIf="accountService.requesting">
-    <span class="rotate dashed colored"></span>
-  </div>
+  @if (accountService.requesting) {
+    <div class="loader-box m-auto">
+      <span class="rotate dashed colored"></span>
+    </div>
+  }
 
-  <table class="table table-bordered table-hover table-striped" *ngIf="recordsPresent()">
-    <thead>
-      <tr>
-        <th>{{'No' | translate}}.</th>
-        <th>{{'Name' | translate}}</th>
-        <th>{{'Role' | translate}}</th>
-        <th class="text-center">{{'Activation' | translate}}</th>
-        <th class="text-center">{{'Actions' | translate}}</th>
-      </tr>
-    </thead>
-
-
-    <tbody>
-      <tr *ngFor="let account of accountData; let row = index">
-        <td>{{ accountService.pagingMeta?.from + row }}</td>
-
-        <td class="d-flex align-items-center">
-          <ngx-avatars [src]="account.member_account?.member?.thumbnail()" [name]="account.member_account?.member?.lastThenFirstName()" initialsSize="2" size="40" class="m-r-15 pull-left"></ngx-avatars>
-
-          <a href="javascript:void(0)" viewProfile [membership]="account.membership">
-            {{ account.member_account?.member?.lastThenFirstName() }}
-          </a>
-        </td>
-
-        <td>{{ account.organisation_role?.name }}</td>
-
-        <td class="text-center">
-          <div class="badge badge-danger" *ngIf="!account.active">{{'Pending' | translate}}</div>
-          <div class="badge badge-success" *ngIf="account.active">{{'Active' | translate}}</div>
-        </td>
-
-        <td class="text-center">
-          <!-- <button class="btn btn-xs btn-primary m-r-5" (click)="viewAccount(account)">
-            <i class="fa fa-file"></i> View
-          </button> -->
-
-          <button class="btn btn-sm btn-outline-info m-r-5" (click)="showEditor(account)">
-            <i class="fa fa-pencil"></i> {{'Edit' | translate}}
-          </button>
-
-          <button class="btn btn-sm btn-outline-danger" (click)="deleteAccount(account)">
-            <i class="fa fa-trash-o"></i> {{'Remove' | translate}}
-          </button>
-        </td>
-      </tr>
+  @if (recordsPresent()) {
+    <table class="table table-bordered table-hover table-striped">
+      <thead>
+        <tr>
+          <th>{{'No' | translate}}.</th>
+          <th>{{'Name' | translate}}</th>
+          <th>{{'Role' | translate}}</th>
+          <th class="text-center">{{'Activation' | translate}}</th>
+          <th class="text-center">{{'Actions' | translate}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (account of accountData; track account; let row = $index) {
+          <tr>
+            <td>{{ accountService.pagingMeta?.from + row }}</td>
+            <td class="d-flex align-items-center">
+              <ngx-avatars [src]="account.member_account?.member?.thumbnail()" [name]="account.member_account?.member?.lastThenFirstName()" initialsSize="2" size="40" class="m-r-15 pull-left"></ngx-avatars>
+              <a href="javascript:void(0)" viewProfile [membership]="account.membership">
+                {{ account.member_account?.member?.lastThenFirstName() }}
+              </a>
+            </td>
+            <td>{{ account.organisation_role?.name }}</td>
+            <td class="text-center">
+              @if (!account.active) {
+                <div class="badge badge-danger">{{'Pending' | translate}}</div>
+              }
+              @if (account.active) {
+                <div class="badge badge-success">{{'Active' | translate}}</div>
+              }
+            </td>
+            <td class="text-center">
+              <!-- <button class="btn btn-xs btn-primary m-r-5" (click)="viewAccount(account)">
+              <i class="fa fa-file"></i> View
+            </button> -->
+            <button class="btn btn-sm btn-outline-info m-r-5" (click)="showEditor(account)">
+              <i class="fa fa-pencil"></i> {{'Edit' | translate}}
+            </button>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteAccount(account)">
+              <i class="fa fa-trash-o"></i> {{'Remove' | translate}}
+            </button>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
+}
 
-  <div class="card-footer">
-    <app-pagination [service]="accountService" (paginate)="onPaginate($event)"></app-pagination>
-  </div>
+<div class="card-footer">
+  <app-pagination [service]="accountService" (paginate)="onPaginate($event)"></app-pagination>
+</div>
 </div>
 
 
@@ -90,59 +93,69 @@
 
     <div class="modal-body">
 
-      <div class="form-group row" *ngIf="editingAccount">
-        <label class="col-4 col-form-label">{{'Member Name' | translate}}</label>
-        <div class="col-8">
-          <div class="media">
-            <div class="flex-shrink-0 m-r-10">
-              <img [src]="editingAccount?.member_account?.member?.thumbnail()" default='assets/images/user/user.png'
-                   class="img-thumbnail rounded-circle img-40 middle" />
-            </div>
-            <div class="flex-grow-1">
-              <div class="form-control form-control-sm bg-light text-dark">
-                {{ editingAccount?.member_account?.member?.lastThenFirstName() }}
+      @if (editingAccount) {
+        <div class="form-group row">
+          <label class="col-4 col-form-label">{{'Member Name' | translate}}</label>
+          <div class="col-8">
+            <div class="media">
+              <div class="flex-shrink-0 m-r-10">
+                <img [src]="editingAccount?.member_account?.member?.thumbnail()" default='assets/images/user/user.png'
+                  class="img-thumbnail rounded-circle img-40 middle" />
+                </div>
+                <div class="flex-grow-1">
+                  <div class="form-control form-control-sm bg-light text-dark">
+                    {{ editingAccount?.member_account?.member?.lastThenFirstName() }}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        }
 
-        </div>
-      </div>
+        @if (editingAccount) {
+          <div class="form-group row">
+            <label class="col-4 col-form-label">{{'Member Email' | translate}}</label>
+            <div class="col-8">
+              <div class="form-control form-control-sm bg-light text-dark">
+                {{ editingAccount?.member_account?.username || editingAccount?.member_account?.member?.email }}
+              </div>
+            </div>
+          </div>
+        }
 
-      <div class="form-group row" *ngIf="editingAccount">
-        <label class="col-4 col-form-label">{{'Member Email' | translate}}</label>
-        <div class="col-8">
-          <div class="form-control form-control-sm bg-light text-dark">
-            {{ editingAccount?.member_account?.username || editingAccount?.member_account?.member?.email }}
+        @if (!editingAccount) {
+          <div class="form-group row">
+            <label class="col-4 col-form-label">{{'Member Name' | translate}}</label>
+            <div class="col-8">
+              <app-member-control formControlName="member_id"></app-member-control>
+              @if (editorForm.controls.member_id?.errors?.required) {
+                <div class="messages text-danger">
+                  <p>{{'Existing Member Required' | translate}}</p>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <div class="form-group row">
+          <label class="col-4 col-form-label">{{'Role' | translate}}</label>
+          <div class="col-8">
+            <select class="form-select" formControlName="organisation_role_id">
+              <option value="">{{'Select Role' | translate}}</option>
+              @for (role of roles; track role) {
+                <option [value]="role.id">{{ role.name }}</option>
+              }
+            </select>
+
+            @if (editorForm.controls.organisation_role_id?.errors?.required) {
+              <div class="messages text-danger">
+                <p>{{'Role required' | translate}}</p>
+              </div>
+            }
           </div>
         </div>
-      </div>
 
-      <div class="form-group row" *ngIf="!editingAccount">
-        <label class="col-4 col-form-label">{{'Member Name' | translate}}</label>
-        <div class="col-8">
-          <app-member-control formControlName="member_id"></app-member-control>
-
-          <div class="messages text-danger" *ngIf="editorForm.controls.member_id?.errors?.required">
-            <p>{{'Existing Member Required' | translate}}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-4 col-form-label">{{'Role' | translate}}</label>
-        <div class="col-8">
-          <select class="form-select" formControlName="organisation_role_id">
-            <option value="">{{'Select Role' | translate}}</option>
-            <option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</option>
-          </select>
-
-          <div class="messages text-danger" *ngIf="editorForm.controls.organisation_role_id?.errors?.required">
-            <p>{{'Role required' | translate}}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- <div class="form-group row">
+        <!-- <div class="form-group row">
         <label class="col-4 col-form-label">Activated</label>
         <div class="col-8">
           <ui-switch formControlName="active" [disabled]="true"></ui-switch>
@@ -152,9 +165,11 @@
     </div>
 
     <div class="modal-footer">
-      <span *ngIf="accountService.requesting" class="m-r-15">
-        <i class="fa fa-spin fa-fw fa-circle-o-notch"></i> {{'Saving' | translate}}...
-      </span>
+      @if (accountService.requesting) {
+        <span class="m-r-15">
+          <i class="fa fa-spin fa-fw fa-circle-o-notch"></i> {{'Saving' | translate}}...
+        </span>
+      }
       <button type="submit" class="btn btn-primary">{{'Save Changes' | translate}}</button>
       <button type="button" class="btn btn-outline-danger" (click)="modal.close('Save click')">{{'Cancel' | translate}}</button>
     </div>

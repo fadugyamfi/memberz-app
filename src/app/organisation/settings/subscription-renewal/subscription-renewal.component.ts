@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventsService } from '../../../shared/services/events.service';
 import { OrganisationService } from '../../../shared/services/api/organisation.service';
 import { OrganisationSubscriptionService } from '../../../shared/services/api/organisation-subscription.service';
@@ -8,12 +8,13 @@ import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 // import { SlydepayWrapperService } from '../../../shared/services/slydepay-wrapper.service';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-subscription-renewal',
-  templateUrl: './subscription-renewal.component.html',
-  styleUrls: ['./subscription-renewal.component.scss']
+    selector: 'app-subscription-renewal',
+    templateUrl: './subscription-renewal.component.html',
+    styleUrls: ['./subscription-renewal.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, TranslateModule]
 })
 export class SubscriptionRenewalComponent implements OnInit, OnDestroy {
   public subscriptionForm: UntypedFormGroup;

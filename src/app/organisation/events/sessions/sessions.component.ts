@@ -1,7 +1,7 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnDestroy, OnInit, viewChild } from '@angular/core';
+import { UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import moment from 'moment';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -11,15 +11,18 @@ import { OrganisationCalendarService } from '../../../shared/services/api/organi
 import { OrganisationEventSessionService } from '../../../shared/services/api/organisation-event-session.service';
 import { OrganisationEventService } from '../../../shared/services/api/organisation-event.service';
 import { EventsService } from '../../../shared/services/events.service';
+import { DatePipe } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
 
 @Component({
-  selector: 'app-sessions',
-  templateUrl: './sessions.component.html',
-  styleUrls: ['./sessions.component.scss']
+    selector: 'app-sessions',
+    templateUrl: './sessions.component.html',
+    styleUrls: ['./sessions.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, LoadingRotateDashedComponent, DatePipe, TranslateModule]
 })
 export class SessionsComponent implements OnInit, OnDestroy {
 
-  @ViewChild('sessionsModal', { static: true }) editorModal: any;
+  readonly editorModal = viewChild<any>('sessionsModal');
 
   public modal: NgbModalRef;
   private subscriptions: Subscription[] = [];
@@ -111,7 +114,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
   show() {
     this.hideEditor();
     this.fetchSessions();
-    this.modal = this.modalService.open(this.editorModal, { size: 'xl' });
+    this.modal = this.modalService.open(this.editorModal(), { size: 'xl' });
   }
 
   hide() {

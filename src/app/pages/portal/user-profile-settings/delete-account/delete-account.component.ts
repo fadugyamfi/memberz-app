@@ -4,11 +4,13 @@ import { AuthService } from 'src/app/shared/services/api/auth.service';
 import { MemberAccountService } from 'src/app/shared/services/api/member-account.service';
 import { EventsService } from 'src/app/shared/services/events.service';
 import Swal from 'sweetalert2';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-delete-account',
-  templateUrl: './delete-account.component.html',
-  styleUrls: ['./delete-account.component.scss']
+    selector: 'app-delete-account',
+    templateUrl: './delete-account.component.html',
+    styleUrls: ['./delete-account.component.scss'],
+    imports: [TranslateModule]
 })
 export class DeleteAccountComponent implements OnInit {
 

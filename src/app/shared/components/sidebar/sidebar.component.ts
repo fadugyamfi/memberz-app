@@ -1,16 +1,23 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterLinkActive, RouterLink } from '@angular/router';
 import { NavService, Menu } from '../../services/nav.service';
 import { AuthService } from '../../services/api/auth.service';
 import { EventsService } from '../../services/events.service';
 import { MemberImage } from '../../model/api/member-image';
 import { MemberImageService } from '../../services/api/member-image.service';
+import { NgClass } from '@angular/common';
+import { AvatarModule } from 'ngx-avatars';
+import { ImageCropperComponent } from '../image-cropper/image-cropper.component';
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
+import { FeatherIconsComponent } from '../feather-icons/feather-icons.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-sidebar',
+    templateUrl: './sidebar.component.html',
+    styleUrls: ['./sidebar.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    imports: [AvatarModule, ImageCropperComponent, NgbProgressbarModule, NgClass, FeatherIconsComponent, RouterLinkActive, RouterLink, TranslateModule]
 })
 export class SidebarComponent implements OnInit, OnDestroy {
 

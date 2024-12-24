@@ -8,8 +8,8 @@ describe('ProSubscriptionRequiredComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProSubscriptionRequiredComponent ]
-    })
+    imports: [ProSubscriptionRequiredComponent]
+})
     .compileComponents();
   });
 

@@ -1,14 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, input } from '@angular/core';
 import * as feather from 'feather-icons';
 
 @Component({
-  selector: 'app-feather-icons',
-  templateUrl: './feather-icons.component.html',
-  styleUrls: ['./feather-icons.component.scss']
+    selector: 'app-feather-icons',
+    templateUrl: './feather-icons.component.html',
+    styleUrls: ['./feather-icons.component.scss'],
+    standalone: true
 })
 export class FeatherIconsComponent implements OnInit {
 
-  @Input('icon') public icon;
+  public readonly icon = input(undefined);
 
   constructor() { }
 

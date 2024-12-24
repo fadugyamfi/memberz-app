@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnDestroy, OnInit, viewChild } from '@angular/core';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrganisationRegistrationFormService } from '../../../../shared/services/api/organisation-registration-form.service';
 import { EventsService } from '../../../../shared/services/events.service';
 import { OrganisationService } from '../../../../shared/services/api/organisation.service';
@@ -9,15 +9,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { OrganisationMemberCategoryService } from '../../../../shared/services/api/organisation-member-category.service';
 import { OrganisationMemberCategory } from '../../../../shared/model/api/organisation-member-category';
+import { NgClass } from '@angular/common';
+import { CustomFieldEditorComponent } from '../custom-field-editor/custom-field-editor.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-registration-form-editor',
-  templateUrl: './registration-form-editor.component.html',
-  styleUrls: ['./registration-form-editor.component.scss']
+    selector: 'app-registration-form-editor',
+    templateUrl: './registration-form-editor.component.html',
+    styleUrls: ['./registration-form-editor.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, NgbTooltipModule, NgClass, CustomFieldEditorComponent, TranslateModule]
 })
 export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
 
-  @ViewChild('customFieldEditor', { static: true }) customFieldEditor: any;
+  readonly customFieldEditor = viewChild<any>('customFieldEditor');
   public editorForm: UntypedFormGroup;
 
   public selectedCustomFieldGroup: UntypedFormGroup
@@ -123,7 +127,7 @@ export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  createCustomFieldGroup(values = null) {
+  createCustomFieldGroup(values: any = null) {
     const group = new UntypedFormGroup({
       id: new UntypedFormControl(),
       name: new UntypedFormControl(''),
@@ -149,11 +153,11 @@ export class RegistrationFormEditorComponent implements OnInit, OnDestroy {
   }
 
   addCustomField() {
-    this.customFieldEditor.show();
+    this.customFieldEditor().show();
   }
 
   editCustomField(group, index) {
-    this.customFieldEditor.show(group, index);
+    this.customFieldEditor().show(group, index);
   }
 
   addCustomFieldGroup(values) {

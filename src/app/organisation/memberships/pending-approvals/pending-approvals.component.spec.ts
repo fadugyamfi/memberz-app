@@ -8,8 +8,8 @@ describe('PendingApprovalsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PendingApprovalsComponent ]
-    })
+    imports: [PendingApprovalsComponent]
+})
     .compileComponents();
   }));
 

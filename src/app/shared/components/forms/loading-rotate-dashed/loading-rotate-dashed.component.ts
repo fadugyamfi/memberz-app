@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-loading-rotate-dashed',
-  templateUrl: './loading-rotate-dashed.component.html',
-  styleUrls: ['./loading-rotate-dashed.component.scss']
+    selector: 'app-loading-rotate-dashed',
+    templateUrl: './loading-rotate-dashed.component.html',
+    styleUrls: ['./loading-rotate-dashed.component.scss'],
+    standalone: true
 })
 export class LoadingRotateDashedComponent implements OnInit {
 

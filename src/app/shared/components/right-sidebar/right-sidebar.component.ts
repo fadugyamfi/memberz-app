@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatUsers } from '../../../shared/model/chat.model';
 import { ChatService } from '../../../shared/services/chat.service';
+import { FormsModule } from '@angular/forms';
+import { NgClass } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-right-sidebar',
-  templateUrl: './right-sidebar.component.html',
-  styleUrls: ['./right-sidebar.component.scss']
+    selector: 'app-right-sidebar',
+    templateUrl: './right-sidebar.component.html',
+    styleUrls: ['./right-sidebar.component.scss'],
+    imports: [FormsModule, RouterLink, NgClass]
 })
 export class RightSidebarComponent implements OnInit {
 

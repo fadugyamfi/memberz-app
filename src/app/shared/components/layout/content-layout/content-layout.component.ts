@@ -7,22 +7,39 @@ import * as feather from "feather-icons";
 import { ToastrService } from "ngx-toastr";
 import { EventsService } from "../../../services/events.service";
 import { environment } from "../../../../../environments/environment";
+import { NgClass } from "@angular/common";
+import { HeaderComponent } from "../../header/header.component";
+import { SidebarComponent } from "../../sidebar/sidebar.component";
+import { RightSidebarComponent } from "../../right-sidebar/right-sidebar.component";
+import { BreadcrumbComponent } from "../../breadcrumb/breadcrumb.component";
+import { RouterOutlet } from "@angular/router";
+import { FooterComponent } from "../../footer/footer.component";
+import { CustomizerComponent } from "../../customizer/customizer.component";
+import { TawkChatComponent } from "../../../../components/tawk-chat/tawk-chat.component";
 
 @Component({
-  selector: "app-content-layout",
-  templateUrl: "./content-layout.component.html",
-  styleUrls: ["./content-layout.component.scss"],
-  animations: [
-    trigger("animateRoute", [
-      transition(
-        "* => *",
-        useAnimation(fadeIn, {
-          // Set the duration to 5seconds and delay to 2 seconds
-          // params: { timing: 3}
-        })
-      ),
-    ]),
-  ],
+    selector: "app-content-layout",
+    templateUrl: "./content-layout.component.html",
+    styleUrls: ["./content-layout.component.scss"],
+    animations: [
+        trigger("animateRoute", [
+            transition("* => *", useAnimation(fadeIn, {
+            // Set the duration to 5seconds and delay to 2 seconds
+            // params: { timing: 3}
+            })),
+        ]),
+    ],
+    imports: [
+        NgClass,
+        HeaderComponent,
+        SidebarComponent,
+        RightSidebarComponent,
+        BreadcrumbComponent,
+        RouterOutlet,
+        FooterComponent,
+        CustomizerComponent,
+        TawkChatComponent,
+    ]
 })
 export class ContentLayoutComponent implements OnInit, AfterViewInit {
   public right_side_bar: boolean;

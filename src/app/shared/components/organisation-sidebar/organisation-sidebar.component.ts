@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterLinkActive, RouterLink } from '@angular/router';
 import { NavService, Menu } from '../../services/nav.service';
 import { AuthService } from '../../services/api/auth.service';
 import { OrganisationService } from '../../services/api/organisation.service';
@@ -8,12 +8,19 @@ import { StorageService } from '../../services/storage.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { MemberImageService } from '../../services/api/member-image.service';
 import { Organisation } from '../../model/api/organisation';
+import { NgClass } from '@angular/common';
+import { AvatarModule } from 'ngx-avatars';
+import { ImageCropperComponent } from '../image-cropper/image-cropper.component';
+import { AdminHasPermissionDirective } from '../../directives/admin-has-permission.directive';
+import { FeatherIconsComponent } from '../feather-icons/feather-icons.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-organisation-sidebar',
-  templateUrl: './organisation-sidebar.component.html',
-  styleUrls: ['./organisation-sidebar.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-organisation-sidebar',
+    templateUrl: './organisation-sidebar.component.html',
+    styleUrls: ['./organisation-sidebar.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    imports: [AvatarModule, ImageCropperComponent, NgClass, AdminHasPermissionDirective, FeatherIconsComponent, RouterLinkActive, RouterLink, TranslateModule]
 })
 export class OrganisationSidebarComponent implements OnInit {
 

@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormControl } from '@angular/forms';
+import { Component, OnDestroy, OnInit, viewChild } from '@angular/core';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { Contribution } from '../../../../shared/model/api/contribution';
@@ -15,27 +15,35 @@ import { OrganisationService } from '../../../../shared/services/api/organisatio
 import { EventsService } from '../../../../shared/services/events.service';
 import { ContributionPaymentType } from '../../../../shared/model/api/contribution-payment-type';
 import Swal from 'sweetalert2';
-import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { Router, RouterLink } from '@angular/router';
 import { SmsAccountService } from '../../../../shared/services/api/sms-account.service';
+import { CurrencyPipe, KeyValuePipe } from '@angular/common';
+import { MemberControlComponent } from '../../../../shared/components/forms/member-control/member-control.component';
+import { SelectPaymentTypeControlComponent } from '../../../../shared/components/forms/select-payment-type-control/select-payment-type-control.component';
+import { SelectBankControlComponent } from '../../../../shared/components/forms/select-bank-control/select-bank-control.component';
+import { SelectMonthControlComponent } from '../../../../shared/components/forms/select-month-control/select-month-control.component';
+import { SelectYearControlComponent } from '../../../../shared/components/forms/select-year-control/select-year-control.component';
+import { SelectCurrencyControlComponent } from '../../../../shared/components/forms/select-currency-control/select-currency-control.component';
 
 
 @Component({
-  selector: 'app-income-editor',
-  templateUrl: './income-editor.component.html',
-  styleUrls: ['./income-editor.component.scss']
+    selector: 'app-income-editor',
+    templateUrl: './income-editor.component.html',
+    styleUrls: ['./income-editor.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, RouterLink, MemberControlComponent, SelectPaymentTypeControlComponent, SelectBankControlComponent, SelectMonthControlComponent, SelectYearControlComponent, SelectCurrencyControlComponent, CurrencyPipe, KeyValuePipe, TranslateModule]
 })
 export class IncomeEditorComponent implements OnInit, OnDestroy {
 
-  @ViewChild('editorModal', { static: true }) editorModal: any;
+  readonly editorModal = viewChild<any>('editorModal');
 
   public editorForm: UntypedFormGroup;
   public periods: UntypedFormArray;
   private subscriptions: Subscription[] = [];
-  public selectedContributionType: ContributionType;
-  public selectedContribution: Contribution;
-  public selectedPaymentType: ContributionPaymentType;
-  public years;
+  public selectedContributionType?: ContributionType | null;
+  public selectedContribution?: Contribution | null;
+  public selectedPaymentType?: ContributionPaymentType;
+  public years: any;
   public receiptSettings: ContributionReceiptSetting;
   private modal: NgbModalRef;
   public periodTotals = {};
@@ -68,7 +76,7 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
   /**
    *
    */
-  setupEditorForm(contribution: Contribution = null) {
+  setupEditorForm(contribution: Contribution | null = null) {
     this.editorForm = new UntypedFormGroup({
       id: new UntypedFormControl(),
       receipt_dt: new UntypedFormControl(moment().format('YYYY-MM-DD'), [Validators.required]),
@@ -97,7 +105,7 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
           return type.id == value.module_contribution_type_id;
         });
 
-        if ( this.selectedContributionType.isMemberSpecific() ) {
+        if ( this.selectedContributionType?.isMemberSpecific() ) {
           this.editorForm.controls.organisation_member_id.addValidators(Validators.required);
         } else {
           this.editorForm.controls.organisation_member_id.removeValidators(Validators.required);
@@ -115,7 +123,7 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
     });
   }
 
-  createPeriodItem(contribution: Contribution = null): UntypedFormGroup {
+  createPeriodItem(contribution: Contribution | null = null): UntypedFormGroup {
     const weekOfMonth = (input = moment()) => {
       const firstDayOfMonth = input.clone().startOf('month');
       const firstDayOfWeek = firstDayOfMonth.clone().startOf('week');
@@ -154,6 +162,10 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
     formValues.periods.forEach(element => {
       const currency = this.currencyService.getItems().find(currency => currency.id == element.currency_id);
 
+      if( !currency ) {
+        return;
+      }
+
       if( this.periodTotals[currency.currency_code] == null ) {
         this.periodTotals[currency.currency_code] = 0;
       }
@@ -165,7 +177,7 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
   /**
    *
    */
-  show(contribution: Contribution = null) {
+  show(contribution: Contribution | null = null) {
     this.setupEditorForm(contribution);
 
     if (contribution) {
@@ -174,7 +186,7 @@ export class IncomeEditorComponent implements OnInit, OnDestroy {
 
     this.selectedContribution = contribution;
 
-    this.modal = this.modalService.open(this.editorModal, { size: 'xl' });
+    this.modal = this.modalService.open(this.editorModal(), { size: 'xl' });
   }
 
   hide() {

@@ -1,6 +1,9 @@
-import { Component, EventEmitter, forwardRef, Input, OnInit, Output } from '@angular/core';
+import { Component, forwardRef, OnInit, input, model, output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SmsTemplateTagService } from '../../../services/utilities/sms-template-tag.service';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { TranslateModule } from '@ngx-translate/core';
 
 
 export const TEMPLATE_TAG_ACCESSOR: any = {
@@ -11,19 +14,20 @@ export const TEMPLATE_TAG_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'input-sms-template-tag-control',
-  templateUrl: './sms-template-tag-control.component.html',
-  styleUrls: ['./sms-template-tag-control.component.scss'],
-  providers: [TEMPLATE_TAG_ACCESSOR]
+    selector: 'input-sms-template-tag-control',
+    templateUrl: './sms-template-tag-control.component.html',
+    styleUrls: ['./sms-template-tag-control.component.scss'],
+    providers: [TEMPLATE_TAG_ACCESSOR],
+    imports: [NgbDropdownModule, TranslateModule]
 })
 export class SmsTemplateTagControlComponent implements OnInit {
 
-  @Output() change = new EventEmitter();
+  readonly change = output<string | null>();
 
-  @Input() public textarea: HTMLInputElement;
-  @Input() public disabled = false;
+  public readonly textarea = input<HTMLInputElement>();
+  public readonly disabled = model(false);
 
-  private _value = '';
+  private _value: string | null = '';
   public onChange = (_: any) => { };
   public onTouched = () => { };
 
@@ -52,7 +56,7 @@ export class SmsTemplateTagControlComponent implements OnInit {
   registerOnTouched(fn: () => {}): void { this.onTouched = fn; }
 
   setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    this.disabled.set(isDisabled);
   }
 
   reset() {
@@ -63,7 +67,7 @@ export class SmsTemplateTagControlComponent implements OnInit {
     if( !el ) return;
 
     const [start, end] = [el.selectionStart, el.selectionEnd];
-    el.setRangeText(newText, start, end, 'select');
+    el.setRangeText(newText, start as number, end as number, 'select');
     el.focus();
   }
 }

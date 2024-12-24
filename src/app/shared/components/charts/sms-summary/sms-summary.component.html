@@ -2,7 +2,7 @@
   <div class="card-header b-l-primary">
     <div class="row">
       <div class="col">
-        <h5 class="fw-bold">{{ title | translate}}</h5>
+        <h5 class="fw-bold">{{ title() | translate}}</h5>
       </div>
       <!-- end of col -->
 
@@ -15,11 +15,17 @@
     <!-- end of row -->
   </div>
   <div class="card-body chart-block">
-    <app-loading-rotate-dashed *ngIf="fetching"></app-loading-rotate-dashed>
-    <app-no-data-available *ngIf="!fetching && !hasDataAvailable()"></app-no-data-available>
+    @if (fetching) {
+      <app-loading-rotate-dashed></app-loading-rotate-dashed>
+    }
+    @if (!fetching && !hasDataAvailable()) {
+      <app-no-data-available></app-no-data-available>
+    }
 
-    <canvas *ngIf="!fetching && hasDataAvailable()" baseChart class="chart" [datasets]="chartData" [labels]="labels"
-            [options]="lineGraphOptions" [legend]="true" [type]="lineGraphType" [colors]="lineGraphColors" ></canvas>
+    @if (!fetching && hasDataAvailable()) {
+      <canvas baseChart class="chart" [datasets]="chartData" [labels]="labels"
+      [options]="lineGraphOptions" [legend]="true" [type]="lineGraphType" [colors]="lineGraphColors" ></canvas>
+    }
   </div>
 </div>
 <!-- end of card -->

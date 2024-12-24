@@ -7,10 +7,9 @@ export class UserActivity extends AppModel {
 
   public log_name: string;
   public description: string;
-  declare public created_at: string;
   public _causer: MemberAccount
 
-  constructor(data) {
+  constructor(data: object) {
     super(data);
   }
 

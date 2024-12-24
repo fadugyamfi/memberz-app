@@ -8,8 +8,8 @@ describe('FinanceWeeklyBreakdownComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FinanceWeeklyBreakdownComponent ]
-    })
+    imports: [FinanceWeeklyBreakdownComponent]
+})
     .compileComponents();
   });
 

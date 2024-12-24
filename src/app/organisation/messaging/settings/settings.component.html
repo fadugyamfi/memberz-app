@@ -6,24 +6,26 @@
         <div class="card">
           <div class="card-body">
             <h4>{{ smsAccount?.sender_id || 'N/A' }}</h4>
-            <div *ngIf="smsAccount">
-              <button class="btn btn-xs btn-primary pull-right" title="Refresh Account Info" (click)="refreshAccount()">
-                <i class="fa fa-refresh"></i>
-              </button>
+            @if (smsAccount) {
+              <div>
+                <button class="btn btn-xs btn-primary pull-right" title="Refresh Account Info" (click)="refreshAccount()">
+                  <i class="fa fa-refresh"></i>
+                </button>
+                <button class="btn btn-xs btn-primary m-r-10 pull-right" title="Edit Account Info"
+                  (click)="editSmsAccount()">
+                  <i class="fa fa-pencil"></i> {{ 'Edit' | translate }}
+                </button>
+                <h6 class="text-muted text-uppercase">{{ 'SMS Sender ID' | translate }}</h6>
+              </div>
+            }
 
-              <button class="btn btn-xs btn-primary m-r-10 pull-right" title="Edit Account Info"
-                      (click)="editSmsAccount()">
-                <i class="fa fa-pencil"></i> {{ 'Edit' | translate }}
-              </button>
-
-              <h6 class="text-muted text-uppercase">{{ 'SMS Sender ID' | translate }}</h6>
-            </div>
-
-            <div class="text-center" *ngIf="!smsAccount">
-              <button class="btn btn-sm btn-primary" (click)="editSmsAccount()">
-                <i class="fa fa-cogs"></i> {{ 'Setup SMS Account' | translate }}
-              </button>
-            </div>
+            @if (!smsAccount) {
+              <div class="text-center">
+                <button class="btn btn-sm btn-primary" (click)="editSmsAccount()">
+                  <i class="fa fa-cogs"></i> {{ 'Setup SMS Account' | translate }}
+                </button>
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -33,17 +35,22 @@
           <div class="card-body">
             <h4>{{ smsAccount?.account_balance || 0 | number }}</h4>
 
-            <div *ngIf="!smsAccountService.requesting">
-              <button class="btn btn-xs btn-success pull-right" (click)="purchaseSmsCredit()" *ngIf="smsAccount">
-                <i class="fa fa-shopping-cart"></i> {{ 'Purchase' | translate }}
-              </button>
+            @if (!smsAccountService.requesting) {
+              <div>
+                @if (smsAccount) {
+                  <button class="btn btn-xs btn-success pull-right" (click)="purchaseSmsCredit()">
+                    <i class="fa fa-shopping-cart"></i> {{ 'Purchase' | translate }}
+                  </button>
+                }
+                <h6 class="text-muted text-uppercase">{{ 'SMS Credits' | translate }}</h6>
+              </div>
+            }
 
-              <h6 class="text-muted text-uppercase">{{ 'SMS Credits' | translate }}</h6>
-            </div>
-
-            <div *ngIf="smsAccountService.requesting">
-              <i class="fa fa-spin fa-circle-o-notch"></i> {{ 'Refreshing' | translate }} ...
-            </div>
+            @if (smsAccountService.requesting) {
+              <div>
+                <i class="fa fa-spin fa-circle-o-notch"></i> {{ 'Refreshing' | translate }} ...
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -61,57 +68,59 @@
   </div>
 </div>
 
-<div class="row" *ngIf="editingAccount">
-  <div class="col-md-10 offset-md-1">
-
-    <form class="theme-form" [formGroup]="accountForm" (submit)="onSubmit()">
-      <div class="card">
-        <div class="card-header">
-          <h5>{{ 'SMS Account Settings' | translate }}</h5>
-          <p class="m-b-0">{{ 'Enter your SMS Sender ID to configure your SMS account for messaging' | translate}}</p>
-        </div>
-
-        <div class="card-body">
-
-          <div class="form-group row">
-            <div class="col-sm-3 col-form-label">{{'Sender ID' | translate}}</div>
-
-            <div class="col-sm-9">
-              <input type="text" class="form-control" maxlength="11" placeholder="11 Characters Maximum"
-                     formControlName="sender_id" />
-
-              <div class="text-danger" *ngIf="accountForm.controls?.sender_id.errors?.required">
-                <p>{{'Sender ID is Required' | translate}}</p>
-              </div>
-
-              <div class="text-danger" *ngIf="accountForm.controls?.sender_id.errors?.maxLength">
-                <p>{{'11 Characters Maximum' | translate}}</p>
+@if (editingAccount) {
+  <div class="row">
+    <div class="col-md-10 offset-md-1">
+      <form class="theme-form" [formGroup]="accountForm" (submit)="onSubmit()">
+        <div class="card">
+          <div class="card-header">
+            <h5>{{ 'SMS Account Settings' | translate }}</h5>
+            <p class="m-b-0">{{ 'Enter your SMS Sender ID to configure your SMS account for messaging' | translate}}</p>
+          </div>
+          <div class="card-body">
+            <div class="form-group row">
+              <div class="col-sm-3 col-form-label">{{'Sender ID' | translate}}</div>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" maxlength="11" placeholder="11 Characters Maximum"
+                  formControlName="sender_id" />
+                  @if (accountForm.controls?.sender_id.errors?.required) {
+                    <div class="text-danger">
+                      <p>{{'Sender ID is Required' | translate}}</p>
+                    </div>
+                  }
+                  @if (accountForm.controls?.sender_id.errors?.maxLength) {
+                    <div class="text-danger">
+                      <p>{{'11 Characters Maximum' | translate}}</p>
+                    </div>
+                  }
+                </div>
               </div>
             </div>
+            <div class="card-footer text-end">
+              @if (smsAccountService.requesting) {
+                <span class="m-r-15">
+                  <i class="fa fa-spin fa-circle-o-notch"></i> {{'Saving Changes' | translate}}
+                </span>
+              }
+              <button class="btn btn-sm btn-primary m-r-15">{{'Save Changes' | translate}}</button>
+              <button class="btn btn-sm btn-danger" (click)="this.editingAccount = false">{{'Cancel' | translate}}</button>
+            </div>
           </div>
-
-        </div>
-
-        <div class="card-footer text-end">
-          <span class="m-r-15" *ngIf="smsAccountService.requesting">
-            <i class="fa fa-spin fa-circle-o-notch"></i> {{'Saving Changes' | translate}}
-          </span>
-
-          <button class="btn btn-sm btn-primary m-r-15">{{'Save Changes' | translate}}</button>
-          <button class="btn btn-sm btn-danger" (click)="this.editingAccount = false">{{'Cancel' | translate}}</button>
-        </div>
+        </form>
       </div>
-    </form>
-
-  </div>
-</div>
+    </div>
+  }
 
 
-<div class="row" *ngIf="!editingAccount">
-  <div class="col-md-6">
-    <app-sms-summary></app-sms-summary>
-  </div>
-  <div class="col-md-6">
-    <app-sms-transaction-history *ngIf="smsAccount"></app-sms-transaction-history>
-  </div>
-</div>
+  @if (!editingAccount) {
+    <div class="row">
+      <div class="col-md-6">
+        <app-sms-summary></app-sms-summary>
+      </div>
+      <div class="col-md-6">
+        @if (smsAccount) {
+          <app-sms-transaction-history></app-sms-transaction-history>
+        }
+      </div>
+    </div>
+  }

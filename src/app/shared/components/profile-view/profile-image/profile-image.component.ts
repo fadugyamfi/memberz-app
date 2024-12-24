@@ -1,29 +1,33 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, input, model, viewChild } from '@angular/core';
 import { MemberImage } from '../../../model/api/member-image';
 import { OrganisationMember } from '../../../model/api/organisation-member';
 import { MemberImageService } from '../../../services/api/member-image.service';
 import { EventsService } from '../../../services/events.service';
 import { ImageCropperComponent } from '../../image-cropper/image-cropper.component';
+import { AvatarModule } from 'ngx-avatars';
+
+import { NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-profile-image',
-  templateUrl: './profile-image.component.html',
-  styleUrls: ['./profile-image.component.scss']
+    selector: 'app-profile-image',
+    templateUrl: './profile-image.component.html',
+    styleUrls: ['./profile-image.component.scss'],
+    imports: [AvatarModule, NgbProgressbarModule, ImageCropperComponent]
 })
 export class ProfileImageComponent implements OnInit {
 
-  @ViewChild('imageCropper', { static: true }) imageCropper: ImageCropperComponent;
+  readonly imageCropper = viewChild<ImageCropperComponent>('imageCropper');
 
-  @Input()
-  public membership: OrganisationMember;
+  public readonly membership = model<OrganisationMember>();
 
-  @Input()
-  public size: number|string = 60;
+  public readonly size = input<number | string>(60);
 
-  @Input()
-  public thumbnail = false;
+  public readonly thumbnail = model(false);
 
-  public profileImageUrl: any;
+  public readonly name = model<string>();
+
+  public readonly profileImageUrl = model<any>(undefined);
+
   public imageUploadProgress = 0;
   public uploading = false;
 
@@ -34,9 +38,20 @@ export class ProfileImageComponent implements OnInit {
 
   ngOnInit(): void {
     this.setupImageUploadEvents();
-    this.profileImageUrl = this.thumbnail
-      ? this.membership.member?.thumbnail()
-      : this.membership.member?.image();
+
+    const thumbnail = this.thumbnail();
+    const membership = this.membership();
+    if( !this.profileImageUrl() && (thumbnail || membership) ) {
+      this.profileImageUrl.set(
+        thumbnail
+          ? membership?.member?.thumbnail()
+          : membership?.member?.image()
+      );
+    }
+
+    if( membership ) {
+      this.name.set(membership.name())
+    }
   }
 
   setupImageUploadEvents() {
@@ -62,15 +77,15 @@ export class ProfileImageComponent implements OnInit {
   }
 
   showImageCropper() {
-    this.imageCropper.show();
+    this.imageCropper()?.show();
   }
 
   onCroppedImageSaved(image: string) {
     this.uploading = true;
-    this.profileImageUrl = image;
+    this.profileImageUrl.set(image);
 
     const memberImage = new MemberImage({
-      member_id: this.membership.member_id,
+      member_id: this.membership()?.member_id,
       image_base64: image
     });
 

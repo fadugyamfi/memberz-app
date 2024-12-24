@@ -1,16 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { FinanceReportingService } from 'src/app/shared/services/api/finance-reporting.services';
 import { ContributionReceiptSettingService } from 'src/app/shared/services/api/contribution-receipt-setting.service';
-import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContributionReceiptSetting } from 'src/app/shared/model/api/contribution-receipt-setting';
 import { Subscription } from 'rxjs';
 import { CurrencyService } from '../../../../shared/services/api/currency.service';
+import { SelectYearControlComponent } from '../../../../shared/components/forms/select-year-control/select-year-control.component';
+import { SelectCurrencyControlComponent } from '../../../../shared/components/forms/select-currency-control/select-currency-control.component';
+import { NgxPrintDirective } from 'ngx-print';
+import { DecimalPipe } from '@angular/common';
+import { LoadingRotateDashedComponent } from '../../../../shared/components/forms/loading-rotate-dashed/loading-rotate-dashed.component';
+import { NoDataAvailableComponent } from '../../../../shared/components/forms/no-data-available/no-data-available.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @Component({
-  selector: 'app-yearly-summary-report',
-  templateUrl: './yearly-summary-report.component.html',
-  styleUrls: ['./yearly-summary-report.component.scss']
+    selector: 'app-yearly-summary-report',
+    templateUrl: './yearly-summary-report.component.html',
+    styleUrls: ['./yearly-summary-report.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, SelectYearControlComponent, SelectCurrencyControlComponent, NgxPrintDirective, LoadingRotateDashedComponent, NoDataAvailableComponent, DecimalPipe, TranslateModule]
 })
 export class YearlySummaryReportComponent implements OnInit {
 

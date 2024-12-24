@@ -8,8 +8,8 @@ describe('GroupLeadersComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GroupLeadersComponent ]
-    })
+    imports: [GroupLeadersComponent]
+})
     .compileComponents();
   }));
 

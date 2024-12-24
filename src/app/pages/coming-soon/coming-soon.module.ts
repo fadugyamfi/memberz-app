@@ -7,10 +7,10 @@ import { PageWithImageComponent } from './page-with-image/page-with-image.compon
 import { PageWithVideoComponent } from './page-with-video/page-with-video.component';
 
 @NgModule({
-  declarations: [SimpleComponent, PageWithImageComponent, PageWithVideoComponent],
-  imports: [
-    CommonModule,
-    ComingSoonRoutingModule
-  ]
+    imports: [
+        CommonModule,
+        ComingSoonRoutingModule,
+        SimpleComponent, PageWithImageComponent, PageWithVideoComponent
+    ]
 })
 export class ComingSoonModule { }

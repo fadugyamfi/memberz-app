@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { UserProfileComponent } from './user-profile-settings/user-profile.component';
+
+
+
 
 const routes: Routes = [
   {
@@ -10,7 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        component: HomeComponent,
+        loadComponent: () => import('./home/home.component').then(m => m.HomeComponent),
         data: {
           title: "Your Organisations",
           breadcrumb: "Home"
@@ -18,7 +18,7 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        component: UserProfileComponent,
+        loadComponent: () => import('./user-profile-settings/user-profile.component').then(m => m.UserProfileComponent),
         data: {
           title: "Your Profile",
           breadcrumb: "User Settings"
@@ -26,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'notifications',
-        component: NotificationsComponent,
+        loadComponent: () => import('./notifications/notifications.component').then(m => m.NotificationsComponent),
         data: {
           title: "Notifications",
           breadcrumb: "Notifications"

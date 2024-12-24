@@ -12,60 +12,71 @@
     </div>
   </div>
 
-  <app-loading-rotate-dashed *ngIf="smsBroadcastService.fetching"></app-loading-rotate-dashed>
+  @if (smsBroadcastService.fetching) {
+    <app-loading-rotate-dashed></app-loading-rotate-dashed>
+  }
 
-  <table class="table table-bordered table-striped" *ngIf="!smsBroadcastService.fetching">
-    <thead>
-      <tr>
-        <th colspan=2>{{ 'Date' | translate }}</th>
-        <th>{{ 'Sent To' | translate }}</th>
-        <th>{{ 'Message' | translate }}</th>
-        <th [noWrap]="true">{{ 'Scheduled For' | translate }}</th>
-        <th>{{ 'Scheduled By' | translate }}</th>
-        <th class="text-center">{{ 'Status' }}</th>
-        <th class="text-center">{{ 'Actions' | translate }}</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr *ngFor="let broadcast of broadcasts; let row = index">
-        <td class="text-end">{{ row + smsBroadcastService?.pagingMeta?.from }}.</td>
-        <td [noWrap]="true">{{ broadcast.whenCreated() }}</td>
-        <td [noWrap]="true">{{ broadcast.sentTo }}</td>
-        <td class="pre-message">{{ broadcast.message }}</td>
-        <td [noWrap]="true">
-          {{ broadcast.send_at | date : 'short' }}
-        </td>
-        <td [noWrap]="true">
-          <a *ngIf="broadcast.scheduler" viewProfile [membership]="broadcast.scheduler.membership" href="javascript:void(0)">
-            {{ broadcast.scheduler?.name }}
-          </a>
-          <span *ngIf="!broadcast.scheduler">{{ 'N/A' | translate }}</span>
-        </td>
-        <td [noWrap]="true" class="text-center">
-          <div class="badge badge-warning" *ngIf="!broadcast.sent">{{ 'Pending' | translate }}</div>
-          <div class="badge badge-success" *ngIf="broadcast.sent">{{ 'Sent' | translate }}</div>
-          <!-- <span *ngIf="broadcast.sent">
-            {{ 'to' | translate }} {{ broadcast.sent_count }} of {{ broadcast.total_contacts }} {{ 'Contacts' | translate }}
-          </span> -->
-        </td>
-
-        <td [noWrap]="true" class="text-center">
-          <button
-            class="btn btn-primary btn-xs m-r-15"
-            (click)="editSmsBroadcast(broadcast)"
-            [disabled]="broadcast.sent"
-          >{{ 'Edit' | translate }}</button>
-
-          <button class="btn btn-danger btn-xs" (click)="deleteBroadcast(broadcast)">
-            <i class="fa fa-trash-o"></i>
-          </button>
-        </td>
-      </tr>
+  @if (!smsBroadcastService.fetching) {
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th colspan=2>{{ 'Date' | translate }}</th>
+          <th>{{ 'Sent To' | translate }}</th>
+          <th>{{ 'Message' | translate }}</th>
+          <th [noWrap]="true">{{ 'Scheduled For' | translate }}</th>
+          <th>{{ 'Scheduled By' | translate }}</th>
+          <th class="text-center">{{ 'Status' }}</th>
+          <th class="text-center">{{ 'Actions' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (broadcast of broadcasts; track broadcast; let row = $index) {
+          <tr>
+            <td class="text-end">{{ row + smsBroadcastService?.pagingMeta?.from }}.</td>
+            <td [noWrap]="true">{{ broadcast.whenCreated() }}</td>
+            <td [noWrap]="true">{{ broadcast.sentTo }}</td>
+            <td class="pre-message">{{ broadcast.message }}</td>
+            <td [noWrap]="true">
+              {{ broadcast.send_at | date : 'short' }}
+            </td>
+            <td [noWrap]="true">
+              @if (broadcast.scheduler) {
+                <a viewProfile [membership]="broadcast.scheduler.membership" href="javascript:void(0)">
+                  {{ broadcast.scheduler?.name }}
+                </a>
+              }
+              @if (!broadcast.scheduler) {
+                <span>{{ 'N/A' | translate }}</span>
+              }
+            </td>
+            <td [noWrap]="true" class="text-center">
+              @if (!broadcast.sent) {
+                <div class="badge badge-warning">{{ 'Pending' | translate }}</div>
+              }
+              @if (broadcast.sent) {
+                <div class="badge badge-success">{{ 'Sent' | translate }}</div>
+              }
+              <!-- <span *ngIf="broadcast.sent">
+              {{ 'to' | translate }} {{ broadcast.sent_count }} of {{ broadcast.total_contacts }} {{ 'Contacts' | translate }}
+            </span> -->
+          </td>
+          <td [noWrap]="true" class="text-center">
+            <button
+              class="btn btn-primary btn-xs m-r-15"
+              (click)="editSmsBroadcast(broadcast)"
+              [disabled]="broadcast.sent"
+            >{{ 'Edit' | translate }}</button>
+            <button class="btn btn-danger btn-xs" (click)="deleteBroadcast(broadcast)">
+              <i class="fa fa-trash-o"></i>
+            </button>
+          </td>
+        </tr>
+      }
     </tbody>
   </table>
+}
 
-  <div class="card-footer">
-    <app-pagination [service]="smsBroadcastService" (paginate)="onPaginate($event)"></app-pagination>
-  </div>
+<div class="card-footer">
+  <app-pagination [service]="smsBroadcastService" (paginate)="onPaginate($event)"></app-pagination>
+</div>
 </div>

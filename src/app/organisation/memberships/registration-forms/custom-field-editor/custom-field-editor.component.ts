@@ -1,25 +1,29 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, output, viewChild } from '@angular/core';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModal, NgbModalRef, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrganisationRegistrationFormService } from '../../../../shared/services/api/organisation-registration-form.service';
 import { EventsService } from '../../../../shared/services/events.service';
 
+import { UiSwitchModule } from 'ngx-ui-switch';
+import { TranslateModule } from '@ngx-translate/core';
+
 @Component({
-  selector: 'app-custom-field-editor',
-  templateUrl: './custom-field-editor.component.html',
-  styleUrls: ['./custom-field-editor.component.scss']
+    selector: 'app-custom-field-editor',
+    templateUrl: './custom-field-editor.component.html',
+    styleUrls: ['./custom-field-editor.component.scss'],
+    imports: [FormsModule, ReactiveFormsModule, NgbTooltipModule, UiSwitchModule, TranslateModule]
 })
 export class CustomFieldEditorComponent implements OnInit {
 
-  @ViewChild('customFieldModal', { static: true }) customFieldModal: any;
+  readonly customFieldModal = viewChild<any>('customFieldModal');
 
   public customFieldForm: UntypedFormGroup;
   public modal: NgbModalRef;
   public editing = false;
   public editIndex = 0;
 
-  @Output() public create = new EventEmitter();
-  @Output() public update = new EventEmitter();
+  public readonly create = output<any>();
+  public readonly update = output<any>();
 
   constructor(
     public registrationFormService: OrganisationRegistrationFormService,
@@ -87,7 +91,7 @@ export class CustomFieldEditorComponent implements OnInit {
     this.optionGroups?.removeAt(index);
   }
 
-  show(group = null, index = 0) {
+  show(group: any = null, index = 0) {
     this.editing = false;
     this.setupForm();
 
@@ -101,7 +105,7 @@ export class CustomFieldEditorComponent implements OnInit {
       this.customFieldForm.patchValue(group);
     }
 
-    this.modal = this.modalService.open(this.customFieldModal, { size: 'lg' });
+    this.modal = this.modalService.open(this.customFieldModal(), { size: 'lg' });
   }
 
   onSubmit(e) {
